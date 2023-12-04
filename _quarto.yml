@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - index.qmd
+    - slides.qmd
+    - assignments.qmd
+              
+website:
+  title: ""
+  search: false  
+  navbar:
+    search: false
+    title: MGMT 675
+    file: index.qmd
+    right:
+      - text: Slides
+        file: slides.qmd
+      - text: Assignments
+        file: assignments.qmd   
+      - text: Notebooks
+        href: https://github.com/kerryback/mgmt675/tree/main/notebooks
+        
+format: 
+  html:
+    theme: cosmo
+    scss: styles.css
+    link-external-newwindow: true
+    
+   
+
+
+
