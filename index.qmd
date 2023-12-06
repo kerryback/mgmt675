@@ -42,7 +42,22 @@ The format of the course is that we will successively consider different types o
 9.  Forecasting from machine learning models
 10. Valuation by multiples
 11. Valuation from machine learning models
-12. TBD
+12. Interactive and animated plots
+
+#### Grading
+
+Grades will be based on weekly individual homework assignments (60%) and a seated exam during exam week (40%).
+
+#### Honor Code
+
+The Rice University honor code applies to all work in this course.  Each student must do his or her own assignments, but it is allowed and in fact encouraged for students to seek advice from each other. 
+
+#### Disability Accommodations
+
+Any student with a documented disability requiring accommodations in this course is encouraged to
+contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations
+regarding assignments or the final exam must be made in advance. Students with disabilities
+should also contact Disability Support Services in the Allen Center.
 
 
 
