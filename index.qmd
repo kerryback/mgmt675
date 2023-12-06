@@ -29,7 +29,7 @@ However, there is a substantial learning curve to doing financial analysis with 
 
 The format of the course is that we will successively consider different types of financial analyses.  For each analysis, we will first look at python code that I have written to get a general understanding of what we can ask ChatGPT to do.  We will then ask ChatGPT to write code to perform the same analysis.  We will do this live in class, and then your assignments will be to have similar conversations with ChatGPT and to produce a figure or table or report, depending on the particular assignment.
 
-#### Schedule of Topics
+#### Schedule of Topics by Day
 
 1.  Calculating and visualizing stock returns
 2.  Financial ratios
@@ -39,7 +39,6 @@ The format of the course is that we will successively consider different types o
 6.  Linear regression
 7.  Overfitting and LASSO
 8.  LASSO for logistic regression
-9.  Machine learning
 9.  Machine learning for default prediction
 10. Machine learning for return prediction
 11. Machine learning for valuation
