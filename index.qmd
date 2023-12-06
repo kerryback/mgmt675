@@ -34,14 +34,15 @@ The format of the course is that we will successively consider different types o
 1.  Calculating and visualizing stock returns
 2.  Financial ratios
 3.  Simulation
-4.  Cost of equity
+4.  Cost of capital
 5.  Mean-variance optimization
-6.  Mean-variance optimization with different borrowing and saving rates
-7.  Time series analysis and forecasting
-8.  Forecasting from regression models
-9.  Forecasting from machine learning models
-10. Valuation by multiples
-11. Valuation from machine learning models
+6.  Linear regression
+7.  Overfitting and LASSO
+8.  LASSO for logistic regression
+9.  Machine learning
+9.  Machine learning for default prediction
+10. Machine learning for return prediction
+11. Machine learning for valuation
 12. Interactive and animated plots
 
 #### Grading
