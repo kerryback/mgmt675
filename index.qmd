@@ -9,11 +9,15 @@ J. Howard Creekmore Professor of Finance and Professor of Economics
 
 #### Meeting Schedule
 
-TTh 12:30 -- 2:00, 3/12/2024 -- 4/18/2024
+Room 318 McNair Hall<br>
+TTh 12:30 -- 2:00<br>
+3/12/2024 -- 4/18/2024
 
 #### Course Description
 
-ChatGPT and other large language models (LLMs) have the potential to revolutionize financial analysis.  There are three categories of activities where we may find ChatGPT to be useful:
+This course will teach how to use large language models (LLMs) to perform financial analysis.  As of December, 2023, the best performing LLM is ChatGPT4.  It requires a Plus subscription to ChatGPT.  We will also use certain plugins.  Google has just released its Gemini LLM, which may be superior to ChatGPT4, but how it will be accessed is not yet clear.
+
+ChatGPT and other LLMs have the potential to revolutionize financial analysis.  There are three categories of activities where we may find ChatGPT or another LLM to be useful:
 
 1.  Something I could easily do myself but ChatGPT may be faster.
 2.  Something I could do myself but I will have to look up how to do it and hope I get it right.  ChatGPT will almost certainly be faster.
