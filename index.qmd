@@ -36,15 +36,15 @@ The format of the course is that we will successively consider different types o
 #### Schedule of Topics by Day
 
 1.  Calculating and visualizing stock returns
-2.  Financial ratios
-3.  Simulation
-4.  Cost of capital
-5.  Mean-variance optimization
-6.  Linear regression
-7.  Overfitting and LASSO
-8.  LASSO for logistic regression
-9.  Machine learning for default prediction
-10. Machine learning for return prediction
+2.  Return statistics
+3.  Capital budgeting
+4.  Capital budgeting with simulation
+5.  Cost of capital
+6.  Mean-variance optimization
+7.  Option portfolios and valuation
+8.  Linear regression and LASSO
+9.  Logistic regression and LASSO
+10.  Machine learning for default prediction
 11. Machine learning for valuation
 12. Interactive and animated plots
 
