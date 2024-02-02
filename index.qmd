@@ -15,7 +15,7 @@ TTh 12:30 -- 2:00<br>
 
 #### Course Description
 
-This course will teach how to use large language models (LLMs) to perform financial analyses.  As of December, 2023, the best performing LLM is ChatGPT4.  We will access ChatGPT4 through [Julius.ai](https://julius.ai/).  They provide a 50% academic discount.  Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account.  The Basic account allows 250 messages per month and may be ok, but I recommend the Essential account (unlimited messages).  Julius makes it possible to upload data files for ChatGPT to read and to get ChatGPT to download data from the web.
+This course will teach how to use large language models (LLMs) to perform financial analyses.  As of December, 2023, the best performing LLM is ChatGPT4.  We will access ChatGPT4 through [Julius.ai](https://julius.ai/).  They provide a 50% academic discount.  Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account.  The Basic account allows 250 messages per month and may be ok, but I recommend the Essential account (unlimited messages).  By using Julius, we can upload data files for ChatGPT to read and get ChatGPT to download and work with data from the web.
 
 There are three categories of activities where we may find ChatGPT or another LLM to be useful:
 
