@@ -4,7 +4,7 @@
 
 #### Instructor
 
-[Kerry Back](https://kerryback.com) (<a href="mailto:kerryback@gmail.com">kerryback@gmail.com)</a><br>
+[Kerry Back](https://kerryback.com)<br> (<a href="mailto:kerryback@gmail.com">kerryback@gmail.com)</a><br>
 J. Howard Creekmore Professor of Finance and Professor of Economics
 
 #### Meeting Schedule
@@ -15,7 +15,7 @@ TTh 12:30 -- 2:00<br>
 
 #### Course Description
 
-This course will teach how to use large language models (LLMs) to perform financial analyses.  As of December, 2023, the best performing LLM is ChatGPT4.  It requires a Plus subscription to ChatGPT.  We will also use certain plugins.  Google has just released its Gemini LLM and promises to release the most advanced version (Ultra) in early 2024.  It is possible that Gemini Ultra may be superior to ChatGPT4, but some are reporting that it may not even exist yet, so we will have to wait and see.
+This course will teach how to use large language models (LLMs) to perform financial analyses.  As of December, 2023, the best performing LLM is ChatGPT4.  We will access ChatGPT4 through [Julius.ai](https://julius.ai/).  They provide a 50% academic discount.  Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account.  The Basic account allows 250 messages per month and may be ok, but I recommend the Essential account (unlimited messages).  Julius makes it possible to upload data files for ChatGPT to read and to get ChatGPT to download data from the web.
 
 There are three categories of activities where we may find ChatGPT or another LLM to be useful:
 
@@ -44,7 +44,7 @@ The format of the course is that we will successively consider different types o
 7.  Option portfolios and valuation
 8.  Linear regression and LASSO
 9.  Logistic regression and LASSO
-10.  Machine learning for default prediction
+10. Machine learning for default prediction
 11. Machine learning for valuation
 12. Interactive and animated plots
 
