@@ -15,26 +15,28 @@ TTh 12:30 -- 2:00<br>
 
 #### Course Description
 
-From now on, we will all be using large language models (LLMs) as assistants.  The models and interfaces will evolve, but we should learn to use what is available now and adapt as they evolve.  Undoubtedly, everyone has already used ChatGPT for some purposes.  What we will explore in this course is using ChatGPT with python to perform financial analyses.  We will use [Julius.AI](https://julius.ai/), which is an interface to ChatGPT with python (I'll call it ChatGPT + Python). 
+Each of you will, in the future if not already, use large language models (LLMs) as assistants.  The models and interfaces will evolve, but we should learn to use what is available now and adapt as they evolve.  Undoubtedly, everyone has already used ChatGPT for some purposes.  What we will explore in this course is using ChatGPT with python to perform data analysis, specifically financial data analysis.  We will use [Julius.AI](https://julius.ai/), which is an interface to ChatGPT with python (I'll call it ChatGPT + Python). 
 
-At the end of the course, I anticipate that everyone will still prefer to use Excel for most things.  However, there are some things for which ChatGPT + Python is better suited, and there are other things for which ChatGPT + Python may be faster.  In any case, it is worthwhile to learn what can be done with ChatGPT + Python.  It is quite possible that everyone will end up using Python in Excel and Microsoft Copilot, rather than Julius.AI, but Python in Excel is not generally available yet, and, in any case, Microsoft Copilot + Python in Excel will just be another version of ChatGPT + Python.
+At the end of the course, I anticipate that everyone will still prefer to use Excel for most things.  However, there are some things for which ChatGPT + Python is better suited, and there are other things for which ChatGPT + Python may be faster.  In any case, it is worthwhile to learn what can be done with this new tool, so we will be better prepared for the future.  It is quite possible that everyone will end up using Python in Excel and Microsoft Copilot, rather than Julius.AI, but Python in Excel is not generally available yet, and, in any case, Microsoft Copilot + Python in Excel will also be a version of ChatGPT + Python.
 
-The format of the course is that we will successively consider different types of financial analyses.  We will ask ChatGPT live in class to perform the analysis.  Then, your assignments will be to have similar conversations with ChatGPT and to produce a figure or table or report, depending on the particular assignment.
+The format of the course is that we will successively consider different types of analyses.  We will ask ChatGPT live in class to perform the analysis.  Then, your assignments will be to have similar conversations with ChatGPT and to produce a figure or table or report, depending on the particular assignment.
 
-#### Schedule of Topics by Day
+#### Topics
 
-1.  Accessing online data
-2.  Data visualization I
-3.  Data visualization II
-4.  Optimal portfolios I 
-5.  Optimal portfolios II  
-6.  Simulation
-7.  Cost of capital
-8.  Linear regression and LASSO
-9.  Logistic regression and LASSO
-10. Machine learning for default prediction
-11. Machine learning for valuation
-12. Interactive plots and html presentations
+1.  Data analysis and visualization
+    a) Working with your own data
+    b) Online data
+2.  Portfolio optimization
+3.  Simulation
+4.  Regression
+    a) Cost of capital
+    b) Logistic regression
+    c) Autoregression
+    d) Penalized regression (LASSO)
+5.  Machine learning  
+    a) Classification (credit risk)
+    b) Regression (valuation and return prediction)
+
 
 #### Grading
 
@@ -42,7 +44,7 @@ Grades will be based on weekly individual homework assignments (60%) and a seate
 
 #### Software
 
-Julius.AI provides a 50% academic discount.  Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account.  The Basic account allows 250 messages per month and will probably be ok.  If the message limit becomes binding, you can always switch at that time to the Essential account, which allows unlimited messages.  By using Julius, we can upload data files for ChatGPT to read and get ChatGPT to download and work with data from the web.  You don't need a separate account for ChatGPT through OpenAI.  In addition to a Julius account, you should have a Google account for Google Colab and Google Drive.  You won't need any other software for the course.  In particular, it is not necessary to have python installed on your computer.
+Julius.AI provides a 50% academic discount.  Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account.  The Basic account allows 250 messages per month and will probably be ok.  If the message limit becomes binding, you can always switch at that time to the Essential account, which allows unlimited messages.  By using Julius, we can upload data files for ChatGPT to read and get ChatGPT to download and work with data from the web.  You don't need a separate account for ChatGPT through OpenAI.  The Julius account will give you access to ChatGPT.  In addition to a Julius account, you should have a Google account for Google Colab and Google Drive.  You won't need any other software for the course.  In particular, it is not necessary to have python installed on your computer.
 
 #### Honor Code
 

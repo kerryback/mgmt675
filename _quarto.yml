@@ -16,6 +16,8 @@ website:
     right:
       - text: Slides and Notebooks
         file: slides.qmd
+      - text: Datasets
+        file: data/
       - text: Assignments
         file: assignments.qmd   
         
