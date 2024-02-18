@@ -14,12 +14,10 @@ website:
     title: MGMT 675
     file: index.qmd
     right:
-      - text: Slides
+      - text: Slides and Notebooks
         file: slides.qmd
       - text: Assignments
         file: assignments.qmd   
-      - text: Notebooks
-        href: https://github.com/kerryback/mgmt675/tree/main/notebooks
         
 format: 
   html:
