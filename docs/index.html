@@ -104,39 +104,35 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="course-description" class="level4">
 <h4 class="anchored" data-anchor-id="course-description">Course Description</h4>
-<p>This course will teach how to use large language models (LLMs) to perform financial analyses. As of December, 2023, the best performing LLM is ChatGPT4. We will access ChatGPT4 through <a href="https://julius.ai/">Julius.ai</a>. They provide a 50% academic discount. Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account. The Basic account allows 250 messages per month and will probably be ok. If the message limit becomes binding, you can always switch at that time to the Essential account, which allows unlimited messages. By using Julius, we can upload data files for ChatGPT to read and get ChatGPT to download and work with data from the web. You don’t need a separate account for ChatGPT through OpenAI.</p>
-<p>There are three categories of activities where we may find ChatGPT or another LLM to be useful:</p>
-<ol type="1">
-<li>Something I could easily do myself but ChatGPT may be faster.</li>
-<li>Something I could do myself but I will have to look up how to do it and hope I get it right. ChatGPT will almost certainly be faster.</li>
-<li>Something I do not know how to do and would not likely be able to figure out even with Googling. ChatGPT may be indispensable.</li>
-</ol>
-<p>ChatGPT is most important for the third category above and least important for the first. But, there is always a possibility that ChatGPT may make an error, and the possibility of an error that we do not catch is also greatest for the third category and least for the first. In other words, when we rely on ChatGPT more, the chances of an error naturally increase. The goal is to be able to successfully use ChatGPT for all three categories with only minimal chance of letting an error get through.</p>
-<p>It is not advisable to use ChatGPT or any LLM to perform mathematical calculations directly. Instead, we want the LLM to operate an application that is sure to do math correctly. There is currently no direct path from ChatGPT or any other LLM to Excel, though Microsoft is working on it. The best application to use with ChatGPT at this time is python. It is possible that the eventual path from ChatGPT to Excel will also go through python – Microsoft is currently beta testing <a href="https://support.microsoft.com/en-us/office/introduction-to-python-in-excel-55643c2e-ff56-4168-b1ce-9428c8308545#:~:text=To%20use%20Python%20in%20Excel,availability%20for%20Python%20in%20Excel">Python in Excel</a>. In any case, given current technology, we should use python for AI-assisted financial analyses. The answer today to the question “What financial analysis can be done with ChatGPT?” is “anything that can be done with python.”</p>
-<p>So, what can be done with python? Literally anything and everything. We can grab online data or read our own data, do any sort of financial analysis, and prepare Word or html reports. We can also output figures as jpegs or pngs and output data tables as Excel files (though only with data – not with embedded formulas). We can even write entire <a href="https://learn-investments.rice-business.org">interactive websites</a> with python.<br>
-However, there is a steep learning curve to doing financial analysis with python. This is where ChatGPT comes in. We want ChatGPT to write the python code.</p>
-<p>The format of the course is that we will successively consider different types of financial analyses. For each analysis, we will first look at python code that I have written to get a general understanding of what we can ask ChatGPT to do. We will then ask ChatGPT to write code to perform the same analysis. We will do this live in class, and then your assignments will be to have similar conversations with ChatGPT and to produce a figure or table or report, depending on the particular assignment.</p>
+<p>From now on, we will all be using large language models (LLMs) as assistants. The models and interfaces will evolve, but we should learn to use what is available now and adapt as they evolve. Undoubtedly, everyone has already used ChatGPT for some purposes. What we will explore in this course is using ChatGPT with python to perform financial analyses. We will use <a href="https://julius.ai/">Julius.AI</a>, which is an interface to ChatGPT with python (I’ll call it ChatGPT + Python).</p>
+<p>At the end of the course, I anticipate that everyone will still prefer to use Excel for most things. However, there are some things for which ChatGPT + Python is better suited, and there are other things for which ChatGPT + Python may be faster. In any case, it is worthwhile to learn what can be done with ChatGPT + Python. It is quite possible that everyone will end up using Python in Excel and Microsoft Copilot, rather than Julius.AI, but Python in Excel is not generally available yet, and, in any case, Microsoft Copilot + Python in Excel will just be another version of ChatGPT + Python.</p>
+<p>The format of the course is that we will successively consider different types of financial analyses. We will ask ChatGPT live in class to perform the analysis. Then, your assignments will be to have similar conversations with ChatGPT and to produce a figure or table or report, depending on the particular assignment.</p>
 </section>
 <section id="schedule-of-topics-by-day" class="level4">
 <h4 class="anchored" data-anchor-id="schedule-of-topics-by-day">Schedule of Topics by Day</h4>
 <ol type="1">
-<li>Calculating and visualizing stock returns</li>
-<li>Return statistics</li>
-<li>Capital budgeting</li>
-<li>Capital budgeting with simulation</li>
+<li>Accessing online data</li>
+<li>Data visualization I</li>
+<li>Data visualization II</li>
+<li>Optimal portfolios I</li>
+<li>Optimal portfolios II<br>
+</li>
+<li>Simulation</li>
 <li>Cost of capital</li>
-<li>Mean-variance optimization</li>
-<li>Option portfolios and valuation</li>
 <li>Linear regression and LASSO</li>
 <li>Logistic regression and LASSO</li>
 <li>Machine learning for default prediction</li>
 <li>Machine learning for valuation</li>
-<li>Interactive and animated plots</li>
+<li>Interactive plots and html presentations</li>
 </ol>
 </section>
 <section id="grading" class="level4">
 <h4 class="anchored" data-anchor-id="grading">Grading</h4>
 <p>Grades will be based on weekly individual homework assignments (60%) and a seated exam during exam week (40%).</p>
+</section>
+<section id="software" class="level4">
+<h4 class="anchored" data-anchor-id="software">Software</h4>
+<p>Julius.AI provides a 50% academic discount. Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account. The Basic account allows 250 messages per month and will probably be ok. If the message limit becomes binding, you can always switch at that time to the Essential account, which allows unlimited messages. By using Julius, we can upload data files for ChatGPT to read and get ChatGPT to download and work with data from the web. You don’t need a separate account for ChatGPT through OpenAI. In addition to a Julius account, you should have a Google account for Google Colab and Google Drive and a github account. Google and github are free. You won’t need any other software for the course. In particular, it is not necessary to have python installed on your computer.</p>
 </section>
 <section id="honor-code" class="level4">
 <h4 class="anchored" data-anchor-id="honor-code">Honor Code</h4>
