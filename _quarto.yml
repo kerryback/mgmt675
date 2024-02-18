@@ -5,6 +5,7 @@ project:
     - index.qmd
     - slides.qmd
     - assignments.qmd
+    - data.qmd
               
 website:
   title: ""
@@ -17,7 +18,7 @@ website:
       - text: Slides and Notebooks
         file: slides.qmd
       - text: Datasets
-        file: data/
+        file: data.qmd
       - text: Assignments
         file: assignments.qmd   
         
