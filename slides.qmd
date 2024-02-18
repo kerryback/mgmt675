@@ -1,1 +1,14 @@
 ## Slide Decks<br>AI-Assisted Financial Analysis<br>Rice University<br>
+
+[Day 1](day1.slides.html){target="_blank"} [(pdf)](pdfs/day1.slides.pdf){target="_blank"}<br>
+[Day 2](day2.slides.html){target="_blank"} [(pdf)](pdfs/day2.slides.pdf){target="_blank"}<br>
+[Day 3](day2.slides.html){target="_blank"} [(pdf)](pdfs/day3.slides.pdf){target="_blank"}<br>
+[Day 4](day4.slides.html){target="_blank"} [(pdf)](pdfs/day4.slides.pdf){target="_blank"}<br>
+[Day 5](day5.slides.html){target="_blank"} [(pdf)](pdfs/day5.slides.pdf){target="_blank"}<br>
+[Day 6](day6.slides.html){target="_blank"} [(pdf)](pdfs/day6.slides.pdf){target="_blank"}<br>
+[Day 7](day7.slides.html){target="_blank"} [(pdf)](pdfs/day7.slides.pdf){target="_blank"}<br>
+[Day 8](day8.slides.html){target="_blank"} [(pdf)](pdfs/day8.slides.pdf){target="_blank"}<br>
+[Day 9](day9.slides.html){target="_blank"} [(pdf)](pdfs/day9.slides.pdf){target="_blank"}<br>
+[Day 10](day10.slides.html){target="_blank"} [(pdf)](pdfs/day10.slides.pdf){target="_blank"}<br>
+[Day 11](day11.slides.html){target="_blank"} [(pdf)](pdfs/day11.slides.pdf){target="_blank"}<br>
+[Day 12](day12.slides.html){target="_blank"} [(pdf)](pdfs/day12.slides.pdf){target="_blank"}<br>
