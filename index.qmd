@@ -15,7 +15,7 @@ TTh 12:30 -- 2:00<br>
 
 #### Course Description
 
-Each of you will, in the future if not already, use large language models (LLMs) as assistants.  The models and interfaces will evolve, but we should learn to use what is available now and adapt as they evolve.  Undoubtedly, everyone has already used ChatGPT for some purposes.  What we will explore in this course is using ChatGPT with python to perform data analysis, specifically financial data analysis.  We will use [Julius.AI](https://julius.ai/), which is an interface to ChatGPT with python (I'll call it ChatGPT + Python). 
+Each of us will, in the future if not already, use large language models (LLMs) as assistants.  The models and interfaces will evolve, but we should learn to use what is available now and adapt as they evolve.  Undoubtedly, everyone has already used ChatGPT for some purposes.  What we will explore in this course is using ChatGPT with python to perform data analysis, specifically financial data analysis.  We will use [Julius.AI](https://julius.ai/), which is an interface to ChatGPT with python (I'll call it ChatGPT + Python). 
 
 At the end of the course, I anticipate that everyone will still prefer to use Excel for most things.  However, there are some things for which ChatGPT + Python is better suited, and there are other things for which ChatGPT + Python may be faster.  In any case, it is worthwhile to learn what can be done with this new tool, so we will be better prepared for the future.  It is quite possible that everyone will end up using Python in Excel and Microsoft Copilot, rather than Julius.AI, but Python in Excel is not generally available yet, and, in any case, Microsoft Copilot + Python in Excel will also be a version of ChatGPT + Python.
 
@@ -23,17 +23,18 @@ The format of the course is that we will successively consider different types o
 
 #### Topics
 
-1.  Portfolio optimization
-2.  Simulation
-3.  Linear regression
+1.  Working with data
+2.  Portfolio optimization
+3.  Simulation
+4.  Linear regression
     a) Cost of capital
     b) Logistic regression
     c) Autoregression
     d) Penalized regression (LASSO)
-4.  Machine learning  
+5.  Machine learning  
     a) Classification (credit risk)
     b) Regression (valuation and return prediction)
-5.  Data visualization
+6.  Data visualization
 
 
 #### Grading
