@@ -23,19 +23,17 @@ The format of the course is that we will successively consider different types o
 
 #### Topics
 
-1.  Data analysis and visualization
-    a) Working with your own data
-    b) Online data
-2.  Portfolio optimization
-3.  Simulation
-4.  Regression
+1.  Portfolio optimization
+2.  Simulation
+3.  Linear regression
     a) Cost of capital
     b) Logistic regression
     c) Autoregression
     d) Penalized regression (LASSO)
-5.  Machine learning  
+4.  Machine learning  
     a) Classification (credit risk)
     b) Regression (valuation and return prediction)
+5.  Data visualization
 
 
 #### Grading
