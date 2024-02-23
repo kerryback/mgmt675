@@ -26,15 +26,18 @@ We will spend roughly the first third of the course on topics that were covered 
 #### Topics
 
 1.  Intro to data handling and visualization
+
 2.  Portfolio optimization
+
 3.  Simulation
+
 4.  Linear regression
     a) Cost of capital
     b) Performance evaluation
     c) Penalized regression (LASSO and ridge)
 5.  Machine learning  
-    a) Classification (credit risk)
-    b) Regression (valuation and return prediction)
+    a) Classification tasks (e.g., credit risk)
+    b) Regression tasks (e.g., valuation and return prediction)
 6.  Forecasting
 
 
