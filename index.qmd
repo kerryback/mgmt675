@@ -23,7 +23,7 @@ The format of the course is that we will successively consider different types o
 
 #### Topics
 
-1.  Working with data
+1.  Intro to data handling and visualization
 2.  Portfolio optimization
 3.  Simulation
 4.  Linear regression
@@ -34,7 +34,6 @@ The format of the course is that we will successively consider different types o
 5.  Machine learning  
     a) Classification (credit risk)
     b) Regression (valuation and return prediction)
-6.  Data visualization
 
 
 #### Grading
