@@ -15,7 +15,7 @@ website:
     title: MGMT 675
     file: index.qmd
     right:
-      - text: Slides and Notebooks
+      - text: Slides 
         file: slides.qmd
       - text: Datasets
         file: data.qmd
