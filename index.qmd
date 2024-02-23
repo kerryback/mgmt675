@@ -44,7 +44,9 @@ Grades will be based on weekly individual homework assignments (60%) and a seate
 
 #### Software
 
-Julius.AI provides a 50% academic discount.  Sign up for a free account, then apply for the academic discount and use the promo code when creating a paid account.  The Basic account allows 250 messages per month and will probably be ok.  If the message limit becomes binding, you can always switch at that time to the Essential account, which allows unlimited messages.  By using Julius, we can upload data files for ChatGPT to read and get ChatGPT to download and work with data from the web.  You don't need a separate account for ChatGPT through OpenAI.  The Julius account will give you access to ChatGPT.  In addition to a Julius account, you should have a Google account for Google Colab and Google Drive.  You won't need any other software for the course.  In particular, it is not necessary to have python installed on your computer.
+Julius.AI provides a 50% academic discount.  Sign up for a free account, then send an email using your Rice email account to [team@julius.ai](mailto:team@julius.ai) and ask for the academic discount.  They will respond with a promo code to use.  The Basic account allows 250 messages per month and will probably be ok.  If the message limit becomes binding, you can always switch at that time to the Essential account, which allows unlimited messages.  By using Julius, we can upload data files for ChatGPT to read and get ChatGPT to download and work with data from the web.  You don't need a separate account for ChatGPT through OpenAI.  The Julius account will give you access to ChatGPT.  Everything is run in the cloud from a web browser, so there is no software to download. 
+
+In addition to a Julius account, you should have a Google account for Google Colab and Google Drive.  You won't need any other software for the course.  In particular, it is not necessary to have python installed on your computer.
 
 #### Honor Code
 
