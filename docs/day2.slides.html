@@ -14670,54 +14670,15 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Outline">Outline<a class="anchor-link" href="#Outline">&#182;</a></h3><ul>
-<li>Two risky assets</li>
-<li>Two risky assets and risk-free asset</li>
-<li>More risky assets</li>
-<li>Without short sales</li>
-<li>Google Colab</li>
-<li>Estimating parameters from historical data</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Two-Risky-Assets">Two Risky Assets<a class="anchor-link" href="#Two-Risky-Assets">&#182;</a></h3><ul>
-<li>With $w_1$ as the weight on the first asset and $w_2= 1-w_1$ as the weight on the second,<ul>
-<li>Portfolio expected return is</li>
-</ul>
-$$w_1\mu_1 + w_w\mu_2$$<ul>
-<li>Portfolio standard deviation is</li>
-</ul>
-$$\sqrt{w_1^2\sigma_1^2 + w_2^2\sigma_2^2 + 2w_1w_2\sigma_1\sigma_2\rho}$$</li>
-<li>Tell Julius expected returns, risks, and correlation.</li>
-<li>Ask Julius to plot the expected returns and standard deviations of portfolios.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="With-a-Risk-Free-Asset">With a Risk-Free Asset<a class="anchor-link" href="#With-a-Risk-Free-Asset">&#182;</a></h3><ul>
-<li>With a risk-free asset, the efficient portfolios are those that plot on the line through the risk-free rate and the tangency portfolio (called the capital market line or capital allocation line).</li>
-<li>Ask Julius:<ul>
-<li>Suppose there is a risk-free asset earning whatever percent.  Calculate the tangency portfolio.</li>
-<li>Add the capital allocation line to the plot.</li>
+<h3 id="Outline-for-Today">Outline for Today<a class="anchor-link" href="#Outline-for-Today">&#182;</a></h3><ul>
+<li>Download international.xlsx, international_corrs.xlsx, and us_developed_emerging rets.xlsx from the Datasets link.</li>
+<li>Examples for frontier and tangency portfolios<ul>
+<li>US, Japan, Germany, France, UK (from Applied Finance)</li>
+<li>US, Developed, &amp; Emerging (from Applied Finance)</li>
+<li>ETFs from Yahoo Finance</li>
 </ul>
 </li>
+<li>We will also see how to save code to Google Colab and Google Drive</li>
 </ul>
 
 </div>
@@ -14730,12 +14691,24 @@ $$\sqrt{w_1^2\sigma_1^2 + w_2^2\sigma_2^2 + 2w_1w_2\sigma_1\sigma_2\rho}$$</li>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="More-Risky-Assets">More Risky Assets<a class="anchor-link" href="#More-Risky-Assets">&#182;</a></h3><ul>
-<li>Can use python cvxopt library as a solver.</li>
-<li>Input expected returns, standard deviations, and correlation matrix.</li>
-<li>Tell Julius directly or upload files (we'll upload correlation matrix).</li>
-<li>Ask Julius to create the expected returns, standard deviations, and correlation matrix as numpy arrays.</li>
-<li>Ask Julius to compute the covariance matrix.</li>
+<h3 id="Procedure">Procedure<a class="anchor-link" href="#Procedure">&#182;</a></h3><ul>
+<li>Data<ul>
+<li>Upload means, standard deviations, and correlations</li>
+<li>Or upload returns and calculate historical statistics</li>
+<li>Or get data online, compute returns, and calculate historical statistics</li>
+</ul>
+</li>
+<li>Frontier of risky assets<ul>
+<li>Use cvxopt to minimize variance subject to achieving target expected return</li>
+</ul>
+</li>
+<li>Tangency portfolio<ul>
+<li>Use cvxopt to minimize variance minus risk premium</li>
+<li>Divide by sum of weights to get tangency portfolio</li>
+</ul>
+</li>
+<li>Can exclude short sales when using cvxopt for frontier and tangency portfolio</li>
+<li>Can plot assets, frontier, and capital allocation line</li>
 </ul>
 
 </div>
@@ -14748,82 +14721,123 @@ $$\sqrt{w_1^2\sigma_1^2 + w_2^2\sigma_2^2 + 2w_1w_2\sigma_1\sigma_2\rho}$$</li>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Example">Example<a class="anchor-link" href="#Example">&#182;</a></h3><ul>
-<li>Tell Julius that GLD, IEF, LQD, SPY, and UUP have expected returns of 7.7%,  3.5%, 4.4%,  10.5%, and 1.7% and standard deviations of 17.1%, 6.8%, 8.5%, 15.9%, and 7.9%.</li>
-<li>Ask Julius to read the correlation matrix from correlations.csv.</li>
-<li>Ask Julius to convert the expected returns and standard deviations and the correlation matrix into numpy arrays.</li>
+<h3 id="Example-1:-Frontier-of-Risky-Assets">Example 1: Frontier of Risky Assets<a class="anchor-link" href="#Example-1:-Frontier-of-Risky-Assets">&#182;</a></h3><ul>
+<li>Upload international.xlsx and international_corrs.xlsx to Julius.  Ask Julius to read them.</li>
+<li>Ask Julius to convert the means, standard deviations, and correlation matrix into numpy arrays.</li>
 <li>Ask Julius to compute the covariance matrix as a numpy array.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="More-Prompts">More Prompts<a class="anchor-link" href="#More-Prompts">&#182;</a></h3><ul>
-<li>Use the cvxopt library to find the minimum variance portfolio that satisfies two linear equations: the expected return is equal to 8% and the weights sum to 1.  There are no inequality constraints.</li>
-<li>Repeat this for expected returns varying between 3% and 15%.  Plot the expected returns and standard deviations of the minimum risk portfolios.</li>
-<li>Add the expected returns and risks of the five assets to the plot.  Label the assets as GLD, IEF, LQD, SPY, and UUP.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Tangency-Portfolio">Tangency Portfolio<a class="anchor-link" href="#Tangency-Portfolio">&#182;</a></h3><ul>
-<li>The Sharpe ratio is a somewhat (not too much but a little) complicated function of the portfolio weights.</li>
-<li>A simpler function is the risk premium minus the variance.</li>
-<li>One way to find a tangency portfolio is to minimize the variance minus the risk premium.</li>
-<li>Then divide by the sum of the weights, so the revised weights sum to 1.  This is the tangency portfolio.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>Give Julius a number for the risk-free rate.</li>
-<li>Ask Julius to find the portfolio that minimizes the variance minus the risk premium.  Tell Julius that there are no equality constraints and no inequality constraints.</li>
-<li>Ask Julius to add the tangency portfolio to the plot, and include the capital allocation line in the plot.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Excluding-Short-Sales">Excluding Short Sales<a class="anchor-link" href="#Excluding-Short-Sales">&#182;</a></h3><ul>
-<li>Portfolio optimization is often done for strategic asset allocation: choosing weights on asset classes to be held for a long time.</li>
-<li>People generally don't want to short sell in this circumstance.</li>
-<li>To exclude short sales, we can repeat everything telling Julius to add constraints that the weights be nonnegative.</li>
-<li>Let's just do the tangency portfolio again.<ul>
-<li>Ask Julius to find the portfolio that minimizes the variance minus the risk premium when the weights have to be nonnegative.</li>
-<li>Tell Julius that there are no equality constraints.</li>
-<li>Ask Julius to scale the portfolio by dividing by the sum of the weights.</li>
+<li>Ask Julius to use cvxopt to minimize variance subject to achieving a target expected return.<ul>
+<li>If allowing short sales, tell Julius there are no inequality constraints.</li>
+<li>If excluding short sales, tell Julius to not allow short sales.</li>
 </ul>
 </li>
+<li>Ask Julius to repeat for a range of target expected returns and to plot the expected returns and standard deviations.</li>
+<li>Ask Julius to include the expected returns and standard deviations of the country returns in the plot and to label them.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="cvxopt-for-Frontier-Portfolios-Allowing-Short-Sales">cvxopt for Frontier Portfolios Allowing Short Sales<a class="anchor-link" href="#cvxopt-for-Frontier-Portfolios-Allowing-Short-Sales">&#182;</a></h3><ul>
+<li>minimize $(1/2) x'Px$ subject to $Ax=b$</li>
+<li>$P=$ covariance matrix<ul>
+<li>$x'Px$ is portfolio variance</li>
+</ul>
+</li>
+<li>$A = $ array with two rows<ul>
+<li>first row $=$ np.ones(n)</li>
+<li>second row $=$ asset expected returns</li>
+</ul>
+</li>
+<li>$b=$ np.array([1, targ])<ul>
+<li>$Ax=b$ means weights sum to 1 and expected return $=$ targ.</li>
+</ul>
+</li>
+<li>Julius should figure all of this out.  But, Julius might assume you want to exclude short sales.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="cvxopt-for-Frontier-Portfolios-Excluding-Short-Sales">cvxopt for Frontier Portfolios Excluding Short Sales<a class="anchor-link" href="#cvxopt-for-Frontier-Portfolios-Excluding-Short-Sales">&#182;</a></h3><ul>
+<li>minimize $(1/2) x'Px$ subject to $Ax=b$ and $Gx \le h$</li>
+<li>$P$, $A$, and $b$ as before</li>
+<li>$G =-$ np.eye(n) and $h = $ np.zeros(n)<ul>
+<li>$Gx \le h$ means weights are nonnegative (no shorts)</li>
+</ul>
+</li>
+<li>Again, Julius should figure this out.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Example-1:-Tangency-Portfolio">Example 1: Tangency Portfolio<a class="anchor-link" href="#Example-1:-Tangency-Portfolio">&#182;</a></h3><ul>
+<li>Give Julius a number for the risk-free rate.</li>
+<li>Ask Julius to minimize the variance minus the risk premium.<ul>
+<li>If allowing short sales, tell Julius there are no inequality constraints.</li>
+<li>If excluding short sales, tell Julius to not allow short sales.</li>
+</ul>
+</li>
+<li>Ask Julius to divide by the sum of the weights to compute the tangency portfolio.</li>
+<li>Ask Julius to include the tangency portfolio and the capital market line on the previous plot.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="cvxopt-for-Tangency-Portfolio">cvxopt for Tangency Portfolio<a class="anchor-link" href="#cvxopt-for-Tangency-Portfolio">&#182;</a></h3><ul>
+<li>Minimize $x'Px - q'x$<ul>
+<li>$P=$ 2 times covariance matrix (but the 2 is not important)</li>
+<li>$q=$ risk premia</li>
+</ul>
+</li>
+<li>No equality constraints</li>
+<li>If no short sales, then $G=-$ np.eye(n) and $h=$ np.zeros(n)</li>
+<li>Then divide by the sum of weights</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Example-2:-US,-Developed,-and-Emerging">Example 2: US, Developed, and Emerging<a class="anchor-link" href="#Example-2:-US,-Developed,-and-Emerging">&#182;</a></h3><ul>
+<li>Upload us_developed_emerging_rets.xlsx and ask Julius to read it.</li>
+<li>Ask Julius to compute the sample means, sample standard deviations and sample correlation matrix as numpy arrays.</li>
+<li>Repeat the frontier and tangency portfolio calculations.</li>
 </ul>
 
 </div>
@@ -14854,64 +14868,17 @@ $$\sqrt{w_1^2\sigma_1^2 + w_2^2\sigma_2^2 + 2w_1w_2\sigma_1\sigma_2\rho}$$</li>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Estimate-Parameters-from-Historical-Data">Estimate Parameters from Historical Data<a class="anchor-link" href="#Estimate-Parameters-from-Historical-Data">&#182;</a></h3><ul>
-<li>Can upload our own data or get online data.</li>
-<li>Example: get Yahoo adjusted closing prices and compute returns for<ul>
+<h3 id="Example-3:-ETFs-from-Yahoo">Example 3: ETFs from Yahoo<a class="anchor-link" href="#Example-3:-ETFs-from-Yahoo">&#182;</a></h3><ul>
+<li>Example: ask Julius to use yfinance to get Yahoo adjusted closing prices for<ul>
 <li>SPY = S&amp;P 500</li>
 <li>VBR = Vanguard small-cap value</li>
-<li>IEFA = iShares EAFE</li>
-<li>IEMG = iShares emerging markets</li>
+<li>IEF = Treasury bonds</li>
+<li>UUP = U.S. dollar bullish</li>
 </ul>
 </li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>Ask Julius to use yfinance to get adjusted closing prices for SPY, VBR, IEFA, and IEMG from Yahoo.</li>
-<li>Ask Julius to drop rows with missing data and downsample the data to end-of-month.</li>
-<li>Ask Julius to compute monthly returns as percent changes in the downsampled prices.</li>
-<li>Ask Julius to compute the means and covariance matrix as numpy arrays.</li>
-<li>Ask Julius to compute the tangency portfolio using cvxopt.<ul>
-<li>Give Julius a number for the monthly risk-free rate.</li>
-<li>Ask Julius to find the portfolio that minimizes the variance minus the risk premium.</li>
-<li>Tell Julius that there are no equality constraints and no inequality constraints.</li>
-<li>Ask Julius to scale the portfolio by dividing by the sum of the weights.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Colab-again">Colab again<a class="anchor-link" href="#Colab-again">&#182;</a></h3><ul>
-<li>Copy and paste the code into a new Colab notebook and save it to Drive.</li>
+<li>Ask Julius to downsample prices to end-of-month and compute monthly returns as percent changes in the downsampled prices.</li>
+<li>Ask Julius to compute means, standard deviations, and correlation matrix as numpy arrays.</li>
+<li>Ask Julius to find frontier of risky assets and tangency portfolio as before.</li>
 </ul>
 
 </div>

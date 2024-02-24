@@ -1,5 +1,9 @@
 ## Datasets<br>AI-Assisted Financial Analysis<br>Rice University
 
-[metrics.csv](https://www.dropbox.com/scl/fi/glrab8g4yo94er3ib5d69/675_metrics.csv?rlkey=w591bxsoqg21g19vudla12sw7&dl=1)<br>
-[tickers.csv](https://www.dropbox.com/scl/fi/ibhqi0ri6w0qxqoxk97lk/675_tickers.csv?rlkey=hksnwx9ec1bma2rqrahrkaxlz&dl=1)<br>
-[correlations.csv](https://www.dropbox.com/scl/fi/gfxyepv948uf0awvxnkuw/correlations.csv?rlkey=ukz18kbem271hg6xoxzb0ebqb&dl=1)<br>
+- Day 1
+  - [metrics.xlsx](https://www.dropbox.com/scl/fi/2x48zp2xxqt3nznt1yr3s/metrics.xlsx?rlkey=o1fyg9h7n4wh628age7fwqjga&dl=1)
+  - [tickers.xlsx](https://www.dropbox.com/scl/fi/d8jfx5zml22p6wd6zsghk/tickers.xlsx?rlkey=k5t0xwmp087wq7rcrcsybx88x&dl=1)
+- Day 2
+  - [international.xlsx](https://www.dropbox.com/scl/fi/n9xetoaasf7fpm7jh9qqb/international.xlsx?rlkey=15tuk93vvb3an0f2ddjxfltwa&dl=1)
+  - [international_corrs.xlsx](https://www.dropbox.com/scl/fi/c096l6631jmoyvv5anepm/international_corrs.xlsx?rlkey=m5jykolrs466tj07aezn8ksji&dl=1)
+  - [us_developed_emerging_rets.xlsx](https://www.dropbox.com/scl/fi/lu01rgk9n3wwxe1mmc6ke/us_developed_emerging_rets.xlsx?rlkey=myt5rgwtpt7uaie6vshdoj8d0&dl=1)
