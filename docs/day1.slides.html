@@ -14659,7 +14659,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Intro-to-Working-with-Data-and-Visualization">Intro to Working with Data and Visualization<a class="anchor-link" href="#Intro-to-Working-with-Data-and-Visualization">&#182;</a></h1><h3 id="MGMT-675,-AI-Assisted-Financial-Analysis">MGMT 675, AI-Assisted Financial Analysis<a class="anchor-link" href="#MGMT-675,-AI-Assisted-Financial-Analysis">&#182;</a></h3><h3 id="Kerry-Back,-JGSB,-Rice-University">Kerry Back, JGSB, Rice University<a class="anchor-link" href="#Kerry-Back,-JGSB,-Rice-University">&#182;</a></h3>
+<h1 id="Intro-and-Simulation">Intro and Simulation<a class="anchor-link" href="#Intro-and-Simulation">&#182;</a></h1><h3 id="MGMT-675,-AI-Assisted-Financial-Analysis">MGMT 675, AI-Assisted Financial Analysis<a class="anchor-link" href="#MGMT-675,-AI-Assisted-Financial-Analysis">&#182;</a></h3><h3 id="Kerry-Back,-JGSB,-Rice-University">Kerry Back, JGSB, Rice University<a class="anchor-link" href="#Kerry-Back,-JGSB,-Rice-University">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14702,14 +14702,16 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Outline-from-Today">Outline from Today<a class="anchor-link" href="#Outline-from-Today">&#182;</a></h3><ul>
-<li>Work with metrics.xlsx and tickers.xlsx.<ul>
-<li>Download from the <a href="https://mgmt675.kerryback.com">course website</a>.</li>
-<li>Upload in Julius.</li>
+<h3 id="Outline-for-Today">Outline for Today<a class="anchor-link" href="#Outline-for-Today">&#182;</a></h3><ul>
+<li>Compound market returns</li>
+<li>Retirement planning</li>
+<li>Option valuation<ul>
+<li>European calls and puts</li>
+<li>Average price options</li>
 </ul>
 </li>
-<li>Get online data from various sources.</li>
-<li>Work only in Julius (use colab later)</li>
+<li>Capital budgeting example</li>
+<li>Google Colab</li>
 </ul>
 
 </div>
@@ -14722,7 +14724,12 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="metrics-and-tickers">metrics and tickers<a class="anchor-link" href="#metrics-and-tickers">&#182;</a></h2>
+<h3 id="Compound-Market-Returns">Compound Market Returns<a class="anchor-link" href="#Compound-Market-Returns">&#182;</a></h3><ul>
+<li>Ask Julius to simulate how much a $1 investment would grow to in 10 years if the investment return is normally distributed with a mean of 6% and a standard deviation of 20%.</li>
+<li>Ask Julius to calculate the fraction of times the investment outperforms a risk-free return of 1% over 10 years.</li>
+<li>Ask Julius to generate boxplots and histograms of the ending investment account balance.</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -14733,13 +14740,48 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We will illustrate the following basic data steps.</p>
+<h3 id="Retirement-Planning">Retirement Planning<a class="anchor-link" href="#Retirement-Planning">&#182;</a></h3><ul>
+<li>Tell Julius you want to check if a retirement savings plan is feasible.  Ask Julius what information you need to provide and provide it.</li>
+<li>Ask Julius to simulate the retirement plan assuming the annual returns are normally distributed with some mean and variance.</li>
+<li>Ask Julius to describe the distribution of ending account balances and to produce a boxplot and histogram.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Calls-and-Puts">Calls and Puts<a class="anchor-link" href="#Calls-and-Puts">&#182;</a></h3><ul>
+<li>Tell Julius you want to simulate to value a European call option.  Ask Julius what information you need to provide and provide it.</li>
+<li>Ask Julius to value the same call option using Black-Scholes.</li>
+<li>Ask Julius to value a put option both ways.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Asian-Options">Asian Options<a class="anchor-link" href="#Asian-Options">&#182;</a></h3><ul>
+<li>An Asian (or &quot;average price&quot;) option is a cash-settled contract.  If you are long an Asian call, you receive</li>
+</ul>
+<p>the average price of the underlying asset during the option maturity minus the strike price if that is positive and zero otherwise.</p>
 <ul>
-<li>Merge</li>
-<li>Filter</li>
-<li>Sort</li>
-<li>Aggregate by group</li>
-<li>Transform</li>
+<li>In other words, the underlying price at maturity is replaced by the average price.</li>
+<li>The contract specifies when the price is sampled for computing the average (e.g., weekly).</li>
+<li>There is no simple formula like the Black-Scholes formula for Asian options, so simulation is very useful.</li>
+<li>An Asian option is an example of a path-dependent option.  The path of the underlying asset price must be simulated (not just the value at the option maturity).</li>
+<li>Ask Julius what information it needs to value an Asian option by simulation and provide it.</li>
 </ul>
 
 </div>
@@ -14752,203 +14794,12 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Merge">Merge<a class="anchor-link" href="#Merge">&#182;</a></h3><ul>
-<li>Ask Julius to merge the datasets on the ticker column</li>
-<li>Ask Julius to describe the merged data.<ul>
-<li>How many rows are there?</li>
-<li>What are the column names?</li>
-<li>What are the unique values in the category column?</li>
-<li>What are the unique values in the sector column?</li>
-<li>What are the unique values in the scalemarketcap column?</li>
-<li>Show the head of the data frame.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Filter">Filter<a class="anchor-link" href="#Filter">&#182;</a></h3><ul>
-<li>Ask Julius to filter on the category column to &quot;Domestic Common Stock&quot; and &quot;Domestic Common Stock Primary Class.&quot;  Ask Julius to call this data frame common_stock.</li>
-<li>Ask Julius to create a copy of the common_stock data frame that contains only rows for which pe&gt;0.</li>
-<li>Ask Julius to create a copy of the common_stock data frame that contains only rows for which marketcap is above the median marketcap.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Sort">Sort<a class="anchor-link" href="#Sort">&#182;</a></h3><ul>
-<li>Ask Julius to sort on marketcap in descending order and to show the head of the data frame.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Aggregate-by-group">Aggregate by group<a class="anchor-link" href="#Aggregate-by-group">&#182;</a></h3><ul>
-<li>Ask Julius to describe marketcap.</li>
-<li>Ask Julius to compute the mean marketcap by sector.</li>
-<li>Ask Julius to compute the number of firms by sector.</li>
-<li>Ask Julius to compute the total marketcap by sector.</li>
-<li>Ask Julius to compute the mean pe grouped by (sector, scalemarketcap) and to display the results as a two-dimensional table.</li>
-<li>Ask Julius to recreate the table using only rows for which pe &gt; 0.</li>
-<li>Ask Julius to compute the percent of firms for which pe &lt; 0 by sector.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Transform">Transform<a class="anchor-link" href="#Transform">&#182;</a></h3><ul>
-<li>Ask Julius to create a new variable equal to the rank of marketcap in descending order.</li>
-<li>Ask Julius to create a new variable that is 1 if pe&gt;0 and 0 otherwise (a dummy variable).</li>
-<li>Ask Julius to create a new variable equal to the excess of pb over the median sector pb.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Online-data">Online data<a class="anchor-link" href="#Online-data">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>Julius will normally get some online data without complaining.<ul>
-<li>For example, it will get data from Yahoo Finance and Federal Reserve Economic Data (FRED).</li>
-</ul>
-</li>
-<li>At other times, Julius will say it has no access to external websites and can only advise.<ul>
-<li>In those cases, it will still produce code that you can run elsewhere.</li>
-<li>But, it will not be available to debug the code for you.</li>
-<li>This happens, for example, with the SEC's Edgar site.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Yahoo's-Adjusted-Closing-Prices">Yahoo's Adjusted Closing Prices<a class="anchor-link" href="#Yahoo's-Adjusted-Closing-Prices">&#182;</a></h3><ul>
-<li>Yahoo's adjusted closing prices are adjusted for splits and dividends.</li>
-<li>The percent change in the adjusted closing price is the daily close-to-close return including dividends (on ex-dividend dates).</li>
-<li>If we want returns at a different frequency, for example annual returns, then we can either<ul>
-<li>compound the daily returns, or</li>
-<li>downsample the adjusted closing prices to annual data and compute the percent change of the downsampled data.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Other-Yahoo-Finance-Data">Other Yahoo Finance Data<a class="anchor-link" href="#Other-Yahoo-Finance-Data">&#182;</a></h3><ul>
-<li>Daily open, high, low, close, adjusted close, volume</li>
-<li>Income statement, balance sheet, and statement of cash flows for past 5 years</li>
-<li>Current market option data (bid, ask, last price, open interest, implied volatility, ...)</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Returns">Returns<a class="anchor-link" href="#Returns">&#182;</a></h3><ul>
-<li>Ask Julius to download adjusted closing prices for SPY starting in 1990 (it won't actually start that early).</li>
-<li>Ask Julius to compute daily returns as the percent change in the adjusted closing price and to produce a boxplot of the daily returns and a link to download the boxplot.</li>
-<li>Ask Julius to downsample the adjusted closing prices to the last day of the year.</li>
-<li>Ask Julius to compute annual returns as the percent change in the downsampled adjusted closing price and to produce a boxplot of the annual returns and a link to the boxplot.</li>
-<li>Ask Julius to recreate the boxplot of daily returns using plotly and to include the date in the hover data.  Ask Julius to save the boxplot as an html file and to provide a link.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Federal-Reserve-Economic-Data">Federal Reserve Economic Data<a class="anchor-link" href="#Federal-Reserve-Economic-Data">&#182;</a></h3><ul>
-<li>Ask Julius to use the pandas-datareader to get crude oil prices from FRED.</li>
-<li>Ask Julius to plot the prices.</li>
-<li>Ask Julius to get 10-year Treasury yields from FRED.</li>
-<li>Ask Julius to get the inflation rate from FRED.</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Other-Data">Other Data<a class="anchor-link" href="#Other-Data">&#182;</a></h3><ul>
-<li>Ask Julius to find the constituents of the S&amp;P 100.</li>
-<li>When Julius provides a link, ask Julius to read the table at the link.</li>
+<h3 id="Google-Colab">Google Colab<a class="anchor-link" href="#Google-Colab">&#182;</a></h3><ul>
+<li>Go to <a href="https://colab.research.google.com/">https://colab.research.google.com/</a> and sign in.</li>
+<li>Open a new notebook.</li>
+<li>Copy and paste code from Julius into the notebook cells.</li>
+<li>Run the notebook.</li>
+<li>Save the notebook to your Google Drive.</li>
 </ul>
 
 </div>

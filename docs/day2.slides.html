@@ -14678,7 +14678,6 @@ div.jp-OutputPrompt {
 <li>ETFs from Yahoo Finance</li>
 </ul>
 </li>
-<li>We will also see how to save code to Google Colab and Google Drive</li>
 </ul>
 
 </div>
@@ -14835,6 +14834,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Example-2:-US,-Developed,-and-Emerging">Example 2: US, Developed, and Emerging<a class="anchor-link" href="#Example-2:-US,-Developed,-and-Emerging">&#182;</a></h3><ul>
+<li>Start a new chat.</li>
 <li>Upload us_developed_emerging_rets.xlsx and ask Julius to read it.</li>
 <li>Ask Julius to compute the sample means, sample standard deviations and sample correlation matrix as numpy arrays.</li>
 <li>Repeat the frontier and tangency portfolio calculations.</li>
@@ -14850,12 +14850,37 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Google-Colab">Google Colab<a class="anchor-link" href="#Google-Colab">&#182;</a></h3><ul>
-<li>Go to <a href="https://colab.research.google.com/">https://colab.research.google.com/</a> and sign in.</li>
-<li>Open a new notebook.</li>
-<li>Copy and paste code from Julius into the notebook cells.</li>
-<li>Run the notebook.</li>
-<li>Save the notebook to your Google Drive.</li>
+<h3 id="Online-Data">Online Data<a class="anchor-link" href="#Online-Data">&#182;</a></h3><ul>
+<li>Julius will normally get some online data without complaining.<ul>
+<li>For example, it will get data from Yahoo Finance and Federal Reserve Economic Data (FRED).</li>
+</ul>
+</li>
+<li>At other times, Julius will say it has no access to external websites and can only advise.<ul>
+<li>In those cases, it will still produce code that you can run elsewhere.</li>
+<li>But, it will not be available to debug the code for you.</li>
+<li>This happens, for example, with the SEC's Edgar site.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Yahoo's-Adjusted-Closing-Prices">Yahoo's Adjusted Closing Prices<a class="anchor-link" href="#Yahoo's-Adjusted-Closing-Prices">&#182;</a></h3><ul>
+<li>Yahoo's adjusted closing prices are adjusted for splits and dividends.</li>
+<li>The percent change in the adjusted closing price is the daily close-to-close return including dividends (on ex-dividend dates).</li>
+<li>If we want returns at a different frequency, for example annual returns, then we can either<ul>
+<li>compound the daily returns, or</li>
+<li>downsample the adjusted closing prices to annual data and compute the percent change of the downsampled data.</li>
+</ul>
+</li>
 </ul>
 
 </div>

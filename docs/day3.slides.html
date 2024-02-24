@@ -14659,7 +14659,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="MGMT-675:-Day-3">MGMT 675: Day 3<a class="anchor-link" href="#MGMT-675:-Day-3">&#182;</a></h1><h3 id="AI-Assisted-Financial-Analysis">AI-Assisted Financial Analysis<a class="anchor-link" href="#AI-Assisted-Financial-Analysis">&#182;</a></h3><h3 id="Kerry-Back,-Rice-University">Kerry Back, Rice University<a class="anchor-link" href="#Kerry-Back,-Rice-University">&#182;</a></h3>
+<h1 id="Data-Handling-and-Visualization">Data Handling and Visualization<a class="anchor-link" href="#Data-Handling-and-Visualization">&#182;</a></h1><h3 id="MGMT-675,-AI-Assisted-Financial-Analysis">MGMT 675, AI-Assisted Financial Analysis<a class="anchor-link" href="#MGMT-675,-AI-Assisted-Financial-Analysis">&#182;</a></h3><h3 id="Kerry-Back,-JGSB,-Rice-University">Kerry Back, JGSB, Rice University<a class="anchor-link" href="#Kerry-Back,-JGSB,-Rice-University">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14670,7 +14670,275 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Coming-Soon">Coming Soon<a class="anchor-link" href="#Coming-Soon">&#182;</a></h2>
+<h3 id="Outline-from-Today">Outline from Today<a class="anchor-link" href="#Outline-from-Today">&#182;</a></h3><ul>
+<li>Work with metrics.xlsx and tickers.xlsx.<ul>
+<li>Download from the <a href="https://mgmt675.kerryback.com">course website</a>.</li>
+<li>Upload in Julius.</li>
+</ul>
+</li>
+<li>Get online data from various sources.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="metrics-and-tickers">metrics and tickers<a class="anchor-link" href="#metrics-and-tickers">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We will illustrate the following basic data steps.</p>
+<ul>
+<li>Merge</li>
+<li>Filter</li>
+<li>Sort</li>
+<li>Aggregate by group</li>
+<li>Transform</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Merge">Merge<a class="anchor-link" href="#Merge">&#182;</a></h3><ul>
+<li>Ask Julius to merge the datasets on the ticker column</li>
+<li>Ask Julius to describe the merged data.<ul>
+<li>How many rows are there?</li>
+<li>What are the column names?</li>
+<li>What are the unique values in the category column?</li>
+<li>What are the unique values in the sector column?</li>
+<li>What are the unique values in the scalemarketcap column?</li>
+<li>Show the head of the data frame.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Filter">Filter<a class="anchor-link" href="#Filter">&#182;</a></h3><ul>
+<li>Ask Julius to filter on the category column to &quot;Domestic Common Stock&quot; and &quot;Domestic Common Stock Primary Class.&quot;  Ask Julius to call this data frame common_stock.</li>
+<li>Ask Julius to create a copy of the common_stock data frame that contains only rows for which pe&gt;0.</li>
+<li>Ask Julius to create a copy of the common_stock data frame that contains only rows for which marketcap is above the median marketcap.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Sort">Sort<a class="anchor-link" href="#Sort">&#182;</a></h3><ul>
+<li>Ask Julius to sort on marketcap in descending order and to show the head of the data frame.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Aggregate-by-group">Aggregate by group<a class="anchor-link" href="#Aggregate-by-group">&#182;</a></h3><ul>
+<li>Ask Julius to describe marketcap.</li>
+<li>Ask Julius to compute the mean marketcap by sector.</li>
+<li>Ask Julius to compute the number of firms by sector.</li>
+<li>Ask Julius to compute the total marketcap by sector.</li>
+<li>Ask Julius to compute the mean pe grouped by (sector, scalemarketcap) and to display the results as a two-dimensional table.</li>
+<li>Ask Julius to recreate the table using only rows for which pe &gt; 0.</li>
+<li>Ask Julius to compute the percent of firms for which pe &lt; 0 by sector.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Transform">Transform<a class="anchor-link" href="#Transform">&#182;</a></h3><ul>
+<li>Ask Julius to create a new variable equal to the rank of marketcap in descending order.</li>
+<li>Ask Julius to create a new variable that is 1 if pe&gt;0 and 0 otherwise (a dummy variable).</li>
+<li>Ask Julius to create a new variable equal to the excess of pb over the median sector pb.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Online-data">Online data<a class="anchor-link" href="#Online-data">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Yahoo-Finance">Yahoo Finance<a class="anchor-link" href="#Yahoo-Finance">&#182;</a></h3><ul>
+<li>Daily open, high, low, close, adjusted close, volume</li>
+<li>Income statement, balance sheet, and statement of cash flows for past 5 years</li>
+<li>Current market option data (bid, ask, last price, open interest, implied volatility, ...)</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Federal-Reserve-Economic-Data">Federal Reserve Economic Data<a class="anchor-link" href="#Federal-Reserve-Economic-Data">&#182;</a></h3><ul>
+<li>Ask Julius to use the pandas-datareader to get crude oil prices from FRED.</li>
+<li>Ask Julius to get 10-year Treasury yields from FRED.</li>
+<li>Ask Julius to get the inflation rate from FRED.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Other-Data">Other Data<a class="anchor-link" href="#Other-Data">&#182;</a></h3><ul>
+<li>Ask Julius to find the constituents of the S&amp;P 100.</li>
+<li>When Julius provides a link, ask Julius to read the table at the link.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Visualization">Visualization<a class="anchor-link" href="#Visualization">&#182;</a></h3><ul>
+<li>Distributions<ul>
+<li>Histograms, density plots, box plots, pie charts</li>
+</ul>
+</li>
+<li>Bivariate<ul>
+<li>Line plots, scatter plots, scatter plots with regression lines</li>
+</ul>
+</li>
+<li>3D<ul>
+<li>3D plots, contour plots</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Formats">Formats<a class="anchor-link" href="#Formats">&#182;</a></h3><ul>
+<li>jpegs, pngs, and pdf images<ul>
+<li>Tip: ask Julius to use the seaborn whitegrid style or <a href="https://seaborn.pydata.org/tutorial/aesthetics.html">other seaborn style</a>.</li>
+</ul>
+</li>
+<li>html<ul>
+<li>add hover data</li>
+<li>animations</li>
+<li>use plotly and ask Julius to save as html</li>
+<li>Tip: ask Julius to use the plotly_white template or <a href="https://plotly.com/python/templates/">other plotly template</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Features">Features<a class="anchor-link" href="#Features">&#182;</a></h3><ul>
+<li>Set linewidth, linestyle, point size, colors</li>
+<li>Set axis labels and title and font sizes</li>
+<li>Control legend location</li>
+<li>Annotate points</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section ><section >
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Examples">Examples<a class="anchor-link" href="#Examples">&#182;</a></h3><ul>
+<li>Ask Julius to create a bar chart of total marketcap by sector. Ask Julius to save as a jpeg.</li>
+<li>Ask Julius to use seaborn to create a box plot of marketcap by sector.  Ask Julius to save as a png.</li>
+<li>Ask Julius to use plotly to create a box plot of marketcap by sector and to include the ticker in the hover data.  Ask Julius to save as html.</li>
+<li>Ask Julius to calculate the daily percent changes in the crude oil price and to create a filled density plot using seaborn.</li>
+</ul>
+
 </div>
 </div>
 </div>
