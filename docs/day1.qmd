@@ -1,0 +1,215 @@
+---
+title:  "Intro and Simulation"
+author: MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=80>
+execute:
+  echo: false
+  jupyter: python3
+  cache: true
+format: 
+  revealjs:
+    highlight-style: monokai
+    code-fold: true
+    code-copy: hover
+    scrollable: true
+    slide-number: true
+    preview-links: true
+    self-contained: true
+    controls: true
+    transition: fade
+    theme: [solarized, 2023.scss]
+    incremental: false
+---
+
+   
+
+
+
+## Why are we Here?
+
+## Let's do some time traveling
+
+:::: {.columns}
+
+::: {.column width="20%"}
+::: 
+::: {.column width="60%"}
+<img src="images/timetravel.jpg" alt="image" width="500" height="auto">
+:::
+::: {.column width="20%"}
+:::
+::::
+
+## 
+
+![](images/calculator.jpg)
+
+. . .
+
+First hand-held calculator, introduced by Texas Instruments in 1972
+
+##
+
+![](images/hp80.jpg) 
+
+. . .
+
+First financial calculator, introduced by HP in 1973
+
+## 
+
+![](images/visicalc.png)
+
+. . .
+
+VisiCalc, released for Apple II in 1979
+
+## 
+
+![](images/lotus-123.jpg)
+
+. . .
+
+Lotus 1-2-3, released for IBM PC in 1983
+
+## 
+
+![](images/excel20.png)
+
+. . .
+
+Microsoft Excel, released for Windows in 1987
+
+## Modern Tools
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/ChatGPT.jpg)
+:::
+::: {.column width="50%"}
+![](images/python.png)
+:::
+::::
+
+## 
+
+::: {.incremental}
+
+- Will Excel survive?
+- Will Excel retain its dominance?
+
+:::
+
+## Maybe ...
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/copilot.jpg)
+:::
+::: {.column width="50%"}
+![](images/python-in-excel.png)
+:::
+::::
+
+
+## The best we have today (I think)
+
+![](images/julius.jpg)
+
+## Get a Julius account
+
+- Free account has very strict message limit
+- Basic allows 250 messages per month.  Maybe enough?
+- Essential allows unlimited messages.
+- 50% academic discount.  Sign up using your Rice email and enter the promo code STUDY2024.
+
+## What Julius does
+
+- Writes, executes, and debugs python
+- Provides links to images, tables, datasets it creates
+- Provides download of code (and conversation) as Jupyter notebook
+- Allows us to upload our own data
+- Can get some online data
+- Can install any python libraries not pre-installed
+
+## Warm-Up
+
+- Ask Julius to plot the function $y=x^2$ 
+- Ask Julius to plot the payoff diagram of a call option with a strike of 100.
+- Ask Julius to get the history of 10-year Treasury yields from FRED and plot them.
+- Ask Julius to simulate 30 returns from a normal distribution with mean of 10% and standard deviation of 15% and plot the cumulative compound return.
+
+## Google Colab
+
+- Download the chat as a notebook.  
+- Go to [https://colab.research.google.com/](https://colab.research.google.com/) and sign in.
+- Use File/Open Notebook to open the saved notebook.
+- Run the notebook cell by cell or use Runtime/Run All.
+
+## 
+- If you want to save figures or tables created by a notebook in Colab, you can  
+- mount your Google drive (folder icon on left and then Google drive icon in the top toolbar on left)
+- then execute code to save to "drive/MyDrive/filename.ext"
+- To install additional libraries, execute, e.g., **!pip install yfinance** in a code cell.
+
+## Today's Chats
+
+- Long-run risk
+- Retirement planning
+- Retirement planning with simulation
+- Monte-Carlo option valuation
+- Monte-Carlo enterprise valuation
+
+## Long-Run Risk
+
+- Ask Julius to simulate how much a $1 investment would grow to in 10 years if the investment return is normally distributed with a mean of 6% and a standard deviation of 20%.
+- Ask Julius to calculate the fraction of times the investment outperforms a risk-free return of 1% over 10 years.
+- Ask Julius to generate boxplots and histograms of the ending investment account balance.
+
+## Retirement Planning
+
+- Tell Julius you want to check if a retirement savings plan is feasible.  
+- Ask Julius what information you need to provide and provide it.
+- Ask Julius to calculate the ending balance as a function of the rate of return over some range and plot it.
+
+## Retirement Planning with Simulation
+
+- Ask Julius to simulate the retirement plan assuming the annual returns are normally distributed with some mean and variance.
+- Ask Julius to describe the distribution of ending account balances and to produce a boxplot and histogram.
+
+## Monte-Carlo Option Valuation
+
+- Tell Julius you want to value a European call option by Monte Carlo.  Ask Julius what information you need to provide and provide it.
+- Ask Julius to value the same call option using Black-Scholes.
+- Ask Julius to value a put option both ways.
+
+## Enterprise Valuation
+
+- Give Julius the following data (from Applied):
+  - A firm with no debt will have free cash flow of 100M next year.
+  - The cash flow will grow by 12% per year for years 2 through 5.
+  - Afterwards the cash flow will grow by 3% per year forever.
+  - The firm has a 10% cost of capital and there are 44.75M shares outstanding.
+- Ask Julius what the share price should be.
+
+##  Check for Errors
+
+- It is quite possible that Julius will make timing errors.
+- You can edit the code to fix any errors.
+- Check the following:
+  - There should be five cash flows in the first stage.
+  - The first cash flow should be 100M (no growth).
+  - The terminal value should be 100M with 4 years of growth at 12% and 1 year of growth at 3% divided by (10% - 3%).
+  - The terminal value should be discounted back 5 years.
+
+## Sensitivity Analysis
+
+- Ask Julius to vary the first stage growth rate between 6% and 18% and to plot the share price as a function of the growth rate.
+
+## Monte-Carlo Enterprise Valuation I
+
+- Now ask Julius to simulate the first-stage growth rate from a normal distribution with a mean of 12% and a standard deviation of 3%.  
+- Ask Julius to compute the share price in each simulation and to describe the share price distribution.
+- Ask Julius to produce a histogram of the share price distribution.
+
+## Monte-Carlo Enterprise Valuation II
+- TBD
