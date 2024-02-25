@@ -1,6 +1,6 @@
 ---
 title:  "Intro and Simulation"
-author: MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=80>
+author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
 execute:
   echo: false
   jupyter: python3
@@ -79,7 +79,7 @@ Lotus 1-2-3, released for IBM PC in 1983
 
 Microsoft Excel, released for Windows in 1987
 
-## Modern Tools
+## Today's Tools
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -147,9 +147,13 @@ Microsoft Excel, released for Windows in 1987
 
 ## 
 - If you want to save figures or tables created by a notebook in Colab, you can  
-- mount your Google drive (folder icon on left and then Google drive icon in the top toolbar on left)
-- then execute code to save to "drive/MyDrive/filename.ext"
-- To install additional libraries, execute, e.g., **!pip install yfinance** in a code cell.
+  - mount your Google drive (folder icon on left and then Google drive icon in the top toolbar on left)
+  - then execute code to save to "drive/MyDrive/filename.ext"
+- To install additional libraries, execute the following, for example, in a code cell: 
+
+```{.python}
+!pip install yfinance
+``` 
 
 ## Today's Chats
 
