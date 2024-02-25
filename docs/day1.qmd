@@ -41,7 +41,7 @@ format:
 
 ## 
 
-![](images/calculator.jpg)
+![](images/ti.jpg)
 
 . . .
 
