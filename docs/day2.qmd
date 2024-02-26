@@ -56,3 +56,78 @@ format:
   - If allowing short sales, tell Julius there are no inequality constraints.
   - If excluding short sales, tell Julius to not allow short sales.
 - Ask Julius to repeat for a range of target expected returns and to plot the expected returns and standard deviations.
+
+## cvxopt for Frontier Portfolios Allowing Short Sales
+
+- minimize $(1/2) x'Px$ subject to $Ax=b$
+- $P=$ covariance matrix. $x'Px$ is portfolio variance
+- $A =$ array with two rows.first row $=$ np.ones(n).second row $=$ asset expected returns.
+- $b=$ np.array([1, targ])
+- $Ax=b$ means weights sum to 1 and expected return $=$ targ.
+- Julius should figure all of this out.
+
+## cvxopt for Frontier Portfolios Excluding Short Sales
+
+- minimize $(1/2) x'Px$ subject to $Ax=b$ and $Gx \le h$
+- $P$, $A$, and $b$ as before
+- $G =-$ np.eye(n) and $h =$ np.zeros(n)
+- $Gx \le h$ means weights are nonnegative (no shorts)
+- Again, Julius should figure this out.
+
+## Tangency Portfolio
+
+- Give Julius a number for the risk-free rate.
+- Ask Julius to minimize the variance minus the risk premium.
+  - If allowing short sales, tell Julius there are no inequality constraints.
+  - If excluding short sales, tell Julius to not allow short sales.
+- Ask Julius to divide by the sum of the weights to compute the tangency portfolio.
+- Ask Julius to include the tangency portfolio and the capital market line on the previous plot.
+
+## cvxopt for Tangency Portfolio
+
+- Minimize $x'Px - q'x$
+  - $P=$ 2 times covariance matrix (but the 2 is not important)
+  - $q=$ risk premia
+- No equality constraints
+- If no short sales, then $G=-$ np.eye(n) and $h=$ np.zeros(n)
+- Then divide by the sum of weights.
+
+## US, Developed, and Emerging
+
+- Start a new chat.
+- Upload us_developed_emerging_rets.xlsx and ask Julius to read it.
+- Ask Julius to compute the sample means, sample standard deviations and sample correlation matrix as numpy arrays.
+- Repeat the frontier and tangency portfolio calculations.
+
+## Online Data 
+
+- Julius will normally get some online data without complaining.  
+  - For example, it will get data from Yahoo Finance and Federal Reserve Economic Data (FRED).
+- At other times, Julius will say it has no access to external websites and can only advise.
+  - In those cases, it will still produce code that you can run elsewhere.
+  - This happens, for example, with the SEC's Edgar site.
+
+## Yahoo's Adjusted Closing Prices
+
+- Yahoo's adjusted closing prices are adjusted for splits and dividends.
+- The percent change in the adjusted closing price is the daily close-to-close return including dividends (on ex-dividend dates).
+
+##
+
+- If we want returns at a different frequency, for example annual returns, then we can either
+  - compound the daily returns, or
+  - downsample the adjusted closing prices to annual data and compute the percent change of the downsampled data.
+
+## ETFs from Yahoo
+
+- Example: ask Julius to use yfinance to get Yahoo adjusted closing prices for
+  - SPY = S&P 500
+  - VBR = Vanguard small-cap value
+  - IEF = Treasury bonds
+  - UUP = U.S. dollar bullish
+- Ask Julius to downsample prices to end-of-month and compute monthly returns as percent changes in the downsampled prices.
+
+##
+
+- Ask Julius to compute means, standard deviations, and correlation matrix as numpy arrays.
+- Ask Julius to find frontier of risky assets and tangency portfolio as before.
