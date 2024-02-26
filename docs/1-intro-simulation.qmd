@@ -136,7 +136,7 @@ Microsoft Excel, released for Windows in 1987
 - Python interpreter and interface to ChatGPT4
 - Julius executes code (and debugs via ChatGPT4).
 - Provides links to images, tables, datasets it creates
-- Provides download of code (and conversation) as Jupyter notebook
+- Provides download of conversation (and code) as Jupyter notebook or Word doc
 - Allows us to upload our own data
 - Can get some online data
 - Can install any python libraries not pre-installed
@@ -165,7 +165,7 @@ Microsoft Excel, released for Windows in 1987
 !pip install yfinance
 ``` 
 
-## Today's Chats
+## Today's Topics
 
 - Long-run risk
 - Retirement planning
