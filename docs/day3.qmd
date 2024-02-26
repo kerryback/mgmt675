@@ -112,6 +112,9 @@ format:
 
 - Ask Julius to create a density plot of marketcap in the metrics dataset.
 - Ask Julius to save as a jpeg and provide a link.
+
+##
+
 - Ask Julius to create a bar chart of total marketcap by sector using the merged dataset. 
 - Ask Julius to make the font size larger. 
 - Ask Julius to create a pie chart of the number of firms by sector using the merged dataset.
@@ -120,11 +123,15 @@ format:
 
 - Ask Julius to use seaborn to create a boxplot of marketcap by sector.  Ask Julius to save as a png.
 - Ask Julius to use plotly to create a boxplot of marketcap by sector in the merged dataset and to include the ticker in the hover data.  Ask Julius to save as html.
-- Ask Julius to use plotly to create a figure containing line plots of the 3-month, 1-year, 5-year, and 10-year Treasury yields.  Ask Julius to save as html.
-- Ask Julius to recreate the figure using the plotly_white template.
 
 ## 
 
 - Ask Julius to calculate the daily percent changes in the crude oil price and to create a filled density plot using seaborn.
 - Ask Julius to create a filled contour plot of the function $z=(4x + y)^2$ for $x$ and $y$ between $-2$ and $2$.
 - Ask Julius to create a 3D plot of the same function on the same range.
+
+## 
+
+- Ask Julius to use plotly to create a figure containing line plots of the 3-month, 1-year, 5-year, and 10-year Treasury yields.  Ask Julius to save as html.
+- Ask Julius to recreate the figure using the plotly_white template.
+- Ask Julius to use plotly to create an animation showing a plot of the 3-month, 1-year, 5-year, and 10-year Treasury yields as a function of maturity.  Tell Julius to use the date as the animation frame.
