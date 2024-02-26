@@ -1,0 +1,58 @@
+---
+title:  "Portfolio Optimization"
+author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
+execute:
+  echo: false
+  jupyter: python3
+  cache: true
+format: 
+  revealjs:
+    highlight-style: monokai
+    code-fold: true
+    code-copy: hover
+    scrollable: true
+    slide-number: true
+    preview-links: true
+    self-contained: true
+    controls: true
+    transition: fade
+    theme: [solarized, 2023.scss]
+    incremental: false
+---
+
+   
+## Objectives 
+
+- Frontier portfolios of risky assets (minimize risk subject to achieving a target expected return)
+- Tangency portfolio (maximize Sharpe ratio)
+- Estimate means, standard deviations, and correlations from historical returns
+- Download adjusted closing prices from Yahoo Finance and compute returns
+
+
+## Goal Seek in Python
+
+- There are several choices in python for optimizing functions.
+- The qp function from cvxopt is a very good choice for portfolio optimization.
+  - cvxopt = convex optimization
+  - qp = quadratic programming 
+
+## Examples
+
+- From Applied:
+  - U.S., U.K., France, Germany, Japan 
+  - U.S., Developed, Emerging
+- ETFs from Yahoo Finance
+
+## U.S., U.K., France, Germany, and Japan
+
+- Download international.xlsx and international_corrs.xlsx from the [course website](https://mgmt675.kerryback.com).
+- Upload the files to Julius.  Ask Julius to read them.
+- Ask Julius to convert the means, standard deviations, and correlation matrix into numpy arrays.
+- Ask Julius to compute the covariance matrix as a numpy array.
+
+## 
+
+- Ask Julius to use cvxopt to minimize variance subject to achieving a target expected return.
+  - If allowing short sales, tell Julius there are no inequality constraints.
+  - If excluding short sales, tell Julius to not allow short sales.
+- Ask Julius to repeat for a range of target expected returns and to plot the expected returns and standard deviations.

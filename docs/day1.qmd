@@ -18,10 +18,17 @@ format:
     transition: fade
     theme: [solarized, 2023.scss]
     incremental: false
+    code-line-numbers: false
 ---
 
    
+## Meet your Prof
 
+- At Rice since 2009, in Jones and also Econ Dept.
+  - teaching intro to finance, data-driven investments, investments theory, and python for business research 
+  - to PhDs, MBAs, and Masters in Data Science students
+- Previously at Northwestern, Indiana, Washington Univ. in St. Louis, and Texas A&M
+- Wrote two textbooks (derivatives and PhD asset pricing theory).  Teaching materials, bio, and info about books and research at [kerryback.com](https://kerryback.com)
 
 
 ## Why are we Here?
@@ -124,7 +131,8 @@ Microsoft Excel, released for Windows in 1987
 
 ## What Julius does
 
-- Writes, executes, and debugs python
+- Python interpreter and interface to ChatGPT4
+- Julius executes code (and debugs via ChatGPT4).
 - Provides links to images, tables, datasets it creates
 - Provides download of code (and conversation) as Jupyter notebook
 - Allows us to upload our own data
@@ -188,26 +196,28 @@ Microsoft Excel, released for Windows in 1987
 
 ## Enterprise Valuation
 
-- Give Julius the following data (from Applied):
+- Give Julius the following data (from Applied).  Then ask what the share price should be.
   - A firm with no debt will have free cash flow of 100M next year.
-  - The cash flow will grow by 12% per year for years 2 through 5.
-  - Afterwards the cash flow will grow by 3% per year forever.
-  - The firm has a 10% cost of capital and there are 44.75M shares outstanding.
-- Ask Julius what the share price should be.
+  - The cash flow will grow by 12% per year for years 2 through 5.  Then, it will grow by 3% per year forever.
+  - The firm's cost of capital is 10%, and there are 44.75M shares outstanding.
 
 ##  Check for Errors
 
-- It is quite possible that Julius will make timing errors.
-- You can edit the code to fix any errors.
-- Check the following:
-  - There should be five cash flows in the first stage.
-  - The first cash flow should be 100M (no growth).
-  - The terminal value should be 100M with 4 years of growth at 12% and 1 year of growth at 3% divided by (10% - 3%).
-  - The terminal value should be discounted back 5 years.
+- It is quite possible that Julius - like any assistant - might misunderstand the timing you want.
+- Quickest way to fix mistakes: edit the code.
+
+## 
+
+Check the following:
+
+- There should be five cash flows in the first stage.
+- The first cash flow should be 100M (no growth).
+- The terminal value should be 100M with 4 years of growth at 12% and 1 year of growth at 3% divided by (10% - 3%).
+- The terminal value should be discounted back 5 years.
 
 ## Sensitivity Analysis
 
-- Ask Julius to vary the first stage growth rate between 6% and 18% and to plot the share price as a function of the growth rate.
+Ask Julius to vary the first stage growth rate between 6% and 18% and to plot the share price as a function of the growth rate.
 
 ## Monte-Carlo Enterprise Valuation I
 
