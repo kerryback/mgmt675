@@ -1,5 +1,5 @@
 ## Slide Decks<br>AI-Assisted Financial Analysis<br>Rice University<br>
 
-[Day 1](day1.html){target="_blank"} [(pdf)](pdfs/day1.pdf){target="_blank"} <br>
-[Day 2](day2.html){target="_blank"} [(pdf)](pdfs/day2.pdf){target="_blank"} <br>
-[Day 3](day3.html){target="_blank"} [(pdf)](pdfs/day3.pdf){target="_blank"} <br>
+[Intro and Simulation](1-intro-simulation.html){target="_blank"} [(pdf)](pdfs/1-intro-simulation.pdf){target="_blank"} <br>
+[Portfolio Optimization](2-portfolios.html){target="_blank"} [(pdf)](pdfs/2-portfolios.pdf){target="_blank"} <br>
+[Day 3](3-data-visualization.html){target="_blank"} [(pdf)](pdfs/3-data-visualization.pdf){target="_blank"} <br>
