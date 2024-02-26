@@ -36,13 +36,15 @@ format:
 ## Let's do some time traveling
 
 :::: {.columns}
-
-::: {.column width="20%"}
-::: 
-::: {.column width="60%"}
-<img src="images/timetravel.jpg" alt="image" width="500" height="auto">
+::: {.column width="15%"}
 :::
-::: {.column width="20%"}
+::: {.column width="35%"}
+![](images/bill-ted.jpg)
+:::
+::: {.column width="5%"}
+:::
+::: {.column width="45%"}
+![](images/hot-tub.jpg)
 :::
 ::::
 
