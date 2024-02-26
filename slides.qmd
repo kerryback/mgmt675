@@ -1,3 +1,4 @@
 ## Slide Decks<br>AI-Assisted Financial Analysis<br>Rice University<br>
 
 [Day 1](day1.html){target="_blank"} [(pdf)](pdfs/day1.pdf){target="_blank"} <br>
+[Day 2](day2.html){target="_blank"} [(pdf)](pdfs/day2.pdf){target="_blank"} <br>
