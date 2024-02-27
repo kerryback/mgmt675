@@ -1,5 +1,7 @@
 ## Slide Decks<br>AI-Assisted Financial Analysis<br>Rice University<br>
 
 [Intro and Simulation](1-intro-simulation.html){target="_blank"} [(pdf)](pdfs/1-intro-simulation.pdf){target="_blank"} <br>
-[Portfolio Optimization](2-portfolios.html){target="_blank"} [(pdf)](pdfs/2-portfolios.pdf){target="_blank"} <br>
-[Data Handling and Visualization](3-data-visualization.html){target="_blank"} [(pdf)](pdfs/3-data-visualization.pdf){target="_blank"} <br>
+[Data Handling](2-data.html){target="_blank"} [(pdf)](pdfs/2-data.pdf){target="_blank"} <br>
+[Cost of Capital and Performance Evaluation](3-performance.html){target="_blank"} [(pdf)](pdfs/3-performance.pdf){target="_blank"} <br>
+[Visualization](4-visualization.html){target="_blank"} [(pdf)](pdfs/4-visualization.pdf){target="_blank"} <br>
+[Portfolio Optimization](5-portfolios.html){target="_blank"} [(pdf)](pdfs/5-portfolios.pdf){target="_blank"} <br>

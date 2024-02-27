@@ -1,0 +1,90 @@
+---
+title:  "Cost of Capital and Performance Evaluation"
+author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
+execute:
+  echo: false
+  jupyter: python3
+  cache: true
+format: 
+  revealjs:
+    highlight-style: monokai
+    code-fold: true
+    code-copy: hover
+    scrollable: true
+    slide-number: true
+    preview-links: true
+    self-contained: true
+    controls: true
+    transition: fade
+    theme: [solarized, 2023.scss]
+    incremental: false
+    code-line-numbers: false
+---
+
+## Data for Estimating Beta
+
+- Ask Julius to get the monthly Fama-French factors from Ken French's data library and convert to decimal.
+- Ask Julius to use yfinance to get adjusted closing prices for some ticker from Yahoo Finance.
+- Ask Julius to downsample the adjusted closing prices to end-of-month and and compute returns as percent changes.
+
+## 
+
+- Ask Julius to change the date type for the Yahoo returns to the monthly period format.
+- Ask Julius to merge the Yahoo returns with the Fama-French factors.
+- Ask Julius to compute the excess Yahoo returns by subtracting the risk-free rate.
+- Ask Julius to drop rows with missing data and to filter to the last 60 months.
+
+## Regression
+
+- Ask Julius to regress the excess Yahoo returns on the excess market return.
+- Ask Julius to report the regression summary.
+- Ask Julius to use seaborn to create a regplot of the excess Yahoo returns on the excess market return.
+- Ask Julius to use plotly to create a regplot of the excess Yahoo returns on the excess market return and to include the date in the hover data.
+
+## Data for Performance Evaluation
+
+- Ask Julius to get the five Fama-French factors since 1970 from French's data library and convert to decimal.
+- Ask Julius to get the MOM factor since 1970 from French's data library, convert to decimal, and merge with the Fama-French factors.
+
+##
+
+- Ask Julius to use yfinance to get adjusted closing prices since 1970 for FMAGX (Fidelity Magellan) from Yahoo Finance, downsample to end-of-month, and compute returns as percent changes.
+- Ask Julius to change the date type for FMAGX to the monthly period format and to merge with the MOM/Fama-French factor data.
+- Ask Julius to compute excess FMAGX returns by subtracting the risk-free rate.
+
+## Performance Evaluation
+
+- Ask Julius to regress the excess FMAGX returns on the excess market returns and to report the regression summary.
+- Ask Julius to cumulatively multiply (1 + intercept + residual) and to plot the result.
+
+## Interpretation
+
+- The regression equation is 
+$$r_t - r_{ft} = \alpha + \beta_1 (r_m - r_f) + \cdots + \beta_6 \text{MOM} + \varepsilon_t$$
+- The ellipses represent the other terms
+$$\beta_2 \text{SMB} + \beta_3\text{HML} + \beta_4\text{RMW} + \beta_5\text{CMA}$$
+- These terms (plus $\beta_6\text{MOM}$) represent long positions with offsetting short positions.
+
+##
+
+- Rearrange as
+$$r_t = \beta_1 r_m + (1-\beta_1)r_{ft} + \cdots + \beta_6 \text{MOM} + \alpha + \varepsilon_t$$
+
+- The part 
+
+$$\beta_1 r_m + (1-\beta_1)r_{ft} + \cdots + \beta_6 \text{MOM}$$
+
+is a portfolio of the market, risk-free rate, and other factors that has the same betas as FMAGX.  
+- It is a benchmark for the performance of FMAGX.
+
+##
+
+- The part
+
+$$\alpha + \varepsilon_t$$
+
+is the return of FMAGX above the benchmark. 
+ 
+ - The average return of FMAGX above the benchmark is  $\alpha$.  
+
+ - The plot shows how the return of FMAGX in excess of the benchmark has varied over time.
