@@ -5,3 +5,5 @@
 [Cost of Capital and Performance Evaluation](3-performance.html){target="_blank"} [(pdf)](pdfs/3-performance.pdf){target="_blank"} <br>
 [Visualization](4-visualization.html){target="_blank"} [(pdf)](pdfs/4-visualization.pdf){target="_blank"} <br>
 [Portfolio Optimization](5-portfolios.html){target="_blank"} [(pdf)](pdfs/5-portfolios.pdf){target="_blank"} <br>
+[Autocorrelation and Autoregression](6-autoregression.html){target="_blank"} [(pdf)](pdfs/5-autoregression.pdf){target="_blank"} <br>
+[Machine Learning I](7-ml.html){target="_blank"} [(pdf)](pdfs/7-ml.pdf){target="_blank"} <br>
