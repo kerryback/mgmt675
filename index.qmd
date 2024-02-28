@@ -30,7 +30,7 @@ We will spend roughly the first quarter of the course on topics that were covere
 3.  Cost of capital and performance evaluation 
 4.  Visualization
 5.  Portfolio optimization
-6.  Autoregression
+6.  Autocorrelation and autoregression
 7.  Machine learning
 
 
