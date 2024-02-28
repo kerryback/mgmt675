@@ -221,11 +221,14 @@ Check the following:
 
 Ask Julius to vary the first stage growth rate between 6% and 18% and to plot the share price as a function of the growth rate.
 
-## Monte-Carlo Enterprise Valuation I
+## Monte-Carlo Valuation 
 
 - Now ask Julius to simulate the first-stage growth rate from a normal distribution with a mean of 12% and a standard deviation of 3%.  
 - Ask Julius to compute the share price in each simulation and to describe the share price distribution.
 - Ask Julius to produce a histogram of the share price distribution.
 
-## Monte-Carlo Enterprise Valuation II
-- TBD
+## A Second Source of Uncertainty
+
+- Tell Julius to model the first-stage growth rate as x + y where x is drawn from a normal distribution with a mean of 12% and a standard deviation and y is a Bernoulli random variable which is 12% with 10% probability and is 0 with 90% probability.
+- Ask Julius to compute the share price in each simulation and to describe the share price distribution.
+- Ask Julius to produce a histogram of the share price distribution.
