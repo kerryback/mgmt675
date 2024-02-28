@@ -21,7 +21,7 @@ At the end of the course, I anticipate that everyone may still prefer to use Exc
 
 The format of the course is that we will successively consider different types of analyses.  We will perform each analysis live in class using Julius.AI.  Then, your assignments will be to have similar conversations and to produce a figure or table or report, depending on the particular assignment.  
 
-We will spend roughly the first quarter of the course on topics that were covered in Applied Finance.  This course will differ from Applied in that we will ask ChatGPT + Python to do the work for us, instead of using Excel and @Risk.  In the remaining 3/4 of the course, we will cover new topics, including machine learning and forecasting.
+We will spend roughly the first quarter of the course on topics that were covered in Applied Finance.  This course will differ from Applied Finance in that we will ask ChatGPT + Python to do the work for us, instead of using Excel and @Risk.  In the remaining 3/4 of the course, we will cover new topics, including machine learning and forecasting.
 
 #### Topics
 
