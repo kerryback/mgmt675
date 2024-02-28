@@ -26,5 +26,12 @@
     "title": "",
     "section": "",
     "text": "Data Handling\n\nmetrics.xlsx\ntickers.xlsx\n\nPortfolio Optimization\n\ninternational.xlsx\ninternational_corrs.xlsx\nus_developed_emerging_rets.xlsx\n\nMachine Learning\n\nml1.xlsx"
+  },
+  {
+    "objectID": "assignments.html",
+    "href": "assignments.html",
+    "title": "",
+    "section": "",
+    "text": "Assigment 1\n\n\n\n\nYou plan to put $8,000 in your retirement account next year. You expect this amount to grow by 3% per year for 30 years. You then hope to withdraw $100,000 per year for 30 years. Ask Julius to calculate the account balance each year if you earn 8% on your investments. Ask Julius to show the balance by year in a table and in a figure. Check Julius’ work and ask for corrections if needed.\nNow tell Julius to simulate the account balance by drawing each return from a normal distribution with a mean of 8% and a standard deviation of 15%. What is the mean ending balance and what is the median ending balance?\n\nDue by midnight, Sunday, March 17. Submit both a Word doc and a Jupyter notebook of your conversation to Canvas."
   }
 ]
