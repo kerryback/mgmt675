@@ -1,5 +1,5 @@
 ---
-title:  "Autocorrelation and Autoregression"
+title:  "Machine Learning"
 author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
 execute:
   echo: false
@@ -21,38 +21,60 @@ format:
     code-line-numbers: false
 ---
 
-## Overview
+## Machine learning in finance
 
-- We start the forecasting part of the course.
-- Forecast returns, interest rates, oil price, cash flows, ...
-- Possible models:
-  - ARIMA (autoregressive integrated moving average)
-  - exponential smoothing
-  - neural networks
+- Fraud detection
+- Credit risk analysis
+- Return prediction
+- Valuation
+- Text analysis
+- Time series forecasting
 
-## Autocorrelations
+## Models
 
-- The correlation of a variable with its lagged value
-- First-order autocorrelation $=\text{corr}(x_t, x_{t+1})$
-- $p$--th order autocorrelation $=\text{corr}(x_t, x_{t+p})$
-  - E.g., seasonality in monthly data captured with $p=12$ or in quarterly data with $p=4$.
+- Linear
+- Trees
+- Neural networks
+- Others
 
-## Autocorrelation of HML
+## Regression vs Classification
 
-- Ask Julius to use pandas-datareader to download the monthly Fama-French factors from Ken French's data library.
-- Ask Julius to produce a plot of the autocorrelation function (acf) for HML.
+- Regression means to predict a continuous variable (not necessarily linear regression).
+- Classification is to predict a categorical variable.  Binary or multiclass.
 
-## Autoregressions 
+## Train and Test
 
-- An autoregression is a regression of a variable on its own lags:
-$$x_t = \alpha + \beta_1x_{t-1} + \cdots + \beta_px_{t-p} + \varepsilon_t$$
-- Ask Julius to fit an AR(1) for HML.
-- Ask Julius to use the AR(1) model to forecast HML for the next 12 months and to plot the last 2 years and the forecasts.
+- Training means fitting a model (like linear regression).
+- Objective is to make accurate predictions on new data.
+- To assess performance, we have to check the model on "new data" (data not used in training).
+- Split data into random train and test subsets.  Train on training data.  Test on test data.
 
-## More examples
+## Test criteria
 
-Ask Julius to plot the ACF, fit an AR model, and forecast the following:
+- How do we decide if performance is good or bad?
+- For continuous variables, 
+  - usually want to achieve a low sum of squared errors 
+  - equivalently, achieve a high $R^2$.
 
-- Percent change in crude price: Ask Julius to use pandas-datareader to download crude oil prices starting in 1980 from FRED, to downsample to end-of-month, and to compute percent changes.
 
-- Change in Treasury yields: Ask Julius to use pandas-datareader to download 10-year Treasury yields starting in 1980 from FRED, to downsample to monthly, and to compute changes.
+$$R^2 = 1 - \frac{\sum (y_i - \hat y_i)^2}{\sum (y_i - \bar{y})^2}$$
+
+- Categorical also based on prediction errors
+
+## Example data
+
+- Download ml1.xlsx from the [course website](https://mgmt675.kerryback.com)
+- Upload it to Julius and ask Julius to read it and describe it.
+- The data was created by generating 51 sets of 100 standard normals.  
+  - The first 50 sets are labeled x1, ..., x50.  
+  - The last set was used as the noise to generate y1 as x1 + noise.
+  - So, x2, ..., x50 are irrelevant for y1.
+
+## Linear regression example
+
+- Ask Julius to do a train-test split of the data with 20% of the data in the test set.
+- Ask Julius to train a linear regression on the training data with x1, ..., x50 as the features and y1 as the target.
+- Ask Julius to compute the R-squared on the test data.
+- Ask Julius to report the parameter estimates.
+
+## TBD
