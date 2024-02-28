@@ -1,0 +1,58 @@
+---
+title:  "Autocorrelation and Autoregression"
+author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
+execute:
+  echo: false
+  jupyter: python3
+  cache: true
+format: 
+  revealjs:
+    highlight-style: monokai
+    code-fold: true
+    code-copy: hover
+    scrollable: true
+    slide-number: true
+    preview-links: true
+    self-contained: true
+    controls: true
+    transition: fade
+    theme: [solarized, 2023.scss]
+    incremental: false
+    code-line-numbers: false
+---
+
+## Overview
+
+- We start the forecasting part of the course.
+- Forecast returns, interest rates, oil price, cash flows, ...
+- Possible models:
+  - ARIMA (autoregressive integrated moving average)
+  - exponential smoothing
+  - neural networks
+
+## Autocorrelations
+
+- The correlation of a variable with its lagged value
+- First-order autocorrelation $=\text{corr}(x_t, x_{t+1})$
+- $p$--th order autocorrelation $=\text{corr}(x_t, x_{t+p})$
+  - E.g., seasonality in monthly data captured with $p=12$ or in quarterly data with $p=4$.
+
+## Autocorrelation of HML
+
+- Ask Julius to use pandas-datareader to download the monthly Fama-French factors from Ken French's data library.
+- Ask Julius to produce a plot of the autocorrelation function (acf) for HML.
+
+## Autoregressions 
+
+- An autoregression is a regression of a variable on its own lags:
+$$x_t = \alpha + \beta_1x_{t-1} + \cdots + \beta_px_{t-p} + \varepsilon_t$$
+- Ask Julius to fit an AR(1) for HML.
+- Ask Julius to use the AR(1) model to forecast HML for the next 12 months and to plot the last 2 years and the forecasts.
+
+## More examples
+
+Ask Julius to plot the ACF, fit an AR model, and forecast the following:
+
+- Percent change in crude price: Ask Julius to use pandas-datareader to download crude oil prices starting in 1980 from FRED, to downsample to end-of-month, and to compute percent changes.
+
+- Change in Treasury yields: Ask Julius to use pandas-datareader to download 10-year Treasury yields starting in 1980 from FRED, to downsample to monthly, and to compute changes.

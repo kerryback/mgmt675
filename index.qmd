@@ -31,10 +31,7 @@ We will spend roughly the first quarter of the course on topics that were covere
 4.  Visualization
 5.  Portfolio optimization
 6.  Autoregression
-7.  Exponential smoothing
-8.  Making predictions with random forests
-9.  Making predictions with penalized regression
-10. Making predictions with neural networks
+7.  Machine learning
 
 
 
