@@ -133,8 +133,8 @@ Microsoft Excel, released for Windows in 1987
 
 ## What Julius does
 
-- Python interpreter and interface to ChatGPT4
-- Julius executes code (and debugs via ChatGPT4).
+- Python interpreter and proprietary LLM
+- Julius executes and debugs code
 - Provides links to images, tables, datasets it creates
 - Provides download of conversation (and code) as Jupyter notebook or Word doc
 - Allows us to upload our own data
