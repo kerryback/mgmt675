@@ -31,7 +31,7 @@ format:
 - Wrote two textbooks (derivatives and PhD asset pricing theory).  Teaching materials, bio, and info about books and research at [kerryback.com](https://kerryback.com)
 
 
-## Why are we Here?
+# Why are we Here?
 
 ## Let's do some time traveling
 
@@ -165,7 +165,9 @@ Microsoft Excel, released for Windows in 1987
 !pip install yfinance
 ``` 
 
-## Today's Topics
+# Retirement Planning and Simulation
+
+## Topics
 
 - Long-run risk
 - Retirement planning
@@ -196,7 +198,7 @@ Microsoft Excel, released for Windows in 1987
 - Ask Julius to value the same call option using Black-Scholes.
 - Ask Julius to value a put option both ways.
 
-## Enterprise Valuation
+## Two-Stage Growth Model
 
 - Give Julius the following data (from Applied).  Then ask what the share price should be.
   - A firm with no debt will have free cash flow of 100M next year.

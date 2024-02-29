@@ -49,7 +49,7 @@ format:
 ## Filter
 
 - Ask Julius to filter on the category column to "Domestic Common Stock" and "Domestic Common Stock Primary Class."  Ask Julius to call this data frame common_stock.
-- Ask Julius to create a copy of the common_stock data frame that contains only rows for which pe>0.
+- Ask Julius to create a copy of the common_stock data frame that contains only rows for which pe $>0$.
 - Ask Julius to create a copy of the common_stock data frame that contains only rows for which marketcap is above the median marketcap.
 
 ## Sort 
@@ -66,13 +66,13 @@ format:
 ## 
 
 - Ask Julius to compute the mean pe grouped by (sector, scalemarketcap) and to display the results as a two-dimensional table.
-- Ask Julius to recreate the table using only rows for which pe > 0.
-- Ask Julius to compute the percent of firms for which pe < 0 by sector.
+- Ask Julius to recreate the table using only rows for which pe $>0$.
+- Ask Julius to compute the percent of firms for which pe $<0$ by sector.
 
 ## Transform 
 
 - Ask Julius to create a new variable equal to the rank of marketcap in descending order.
-- Ask Julius to create a new variable that is 1 if pe>0 and 0 otherwise (a dummy variable).
+- Ask Julius to create a new variable that is 1 if pe $>0$ and 0 otherwise (a dummy variable).
 - Ask Julius to create a new variable equal to the excess of pb over the median sector pb.
 
 # Online data

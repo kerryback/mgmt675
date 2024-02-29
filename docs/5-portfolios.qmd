@@ -43,7 +43,9 @@ format:
   - U.S., Developed, Emerging
 - ETFs from Yahoo Finance
 
-## U.S., U.K., France, Germany, and Japan
+# U.S., U.K., France, Germany, and Japan
+
+##
 
 - Download international.xlsx and international_corrs.xlsx from the [course website](https://mgmt675.kerryback.com).
 - Upload the files to Julius.  Ask Julius to read them.
@@ -57,7 +59,9 @@ format:
   - If excluding short sales, tell Julius to not allow short sales.
 - Ask Julius to repeat for a range of target expected returns and to plot the expected returns and standard deviations.
 
-## cvxopt for Frontier Portfolios Allowing Short Sales
+# Digression on cvxopt
+
+## Frontier Portfolios Allowing Short Sales
 
 - minimize $(1/2) x'Px$ subject to $Ax=b$
 - $P=$ covariance matrix. $x'Px$ is portfolio variance
@@ -66,13 +70,15 @@ format:
 - $Ax=b$ means weights sum to 1 and expected return $=$ targ.
 - Julius should figure all of this out.
 
-## cvxopt for Frontier Portfolios Excluding Short Sales
+## Frontier Portfolios Excluding Short Sales
 
 - minimize $(1/2) x'Px$ subject to $Ax=b$ and $Gx \le h$
 - $P$, $A$, and $b$ as before
 - $G =-$ np.eye(n) and $h =$ np.zeros(n)
 - $Gx \le h$ means weights are nonnegative (no shorts)
 - Again, Julius should figure this out.
+
+# Back to Example
 
 ## Tangency Portfolio
 
@@ -83,6 +89,8 @@ format:
 - Ask Julius to divide by the sum of the weights to compute the tangency portfolio.
 - Ask Julius to include the tangency portfolio and the capital market line on the previous plot.
 
+# Another Digression on cvxopt
+
 ## cvxopt for Tangency Portfolio
 
 - Minimize $x'Px - q'x$
@@ -92,20 +100,14 @@ format:
 - If no short sales, then $G=-$ np.eye(n) and $h=$ np.zeros(n)
 - Then divide by the sum of weights.
 
-## US, Developed, and Emerging
+# US, Developed, and Emerging
 
 - Start a new chat.
 - Upload us_developed_emerging_rets.xlsx and ask Julius to read it.
 - Ask Julius to compute the sample means, sample standard deviations and sample correlation matrix as numpy arrays.
 - Repeat the frontier and tangency portfolio calculations.
 
-## Online Data 
-
-- Julius will normally get some online data without complaining.  
-  - For example, it will get data from Yahoo Finance and Federal Reserve Economic Data (FRED).
-- At other times, Julius will say it has no access to external websites and can only advise.
-  - In those cases, it will still produce code that you can run elsewhere.
-  - This happens, for example, with the SEC's Edgar site.
+# Data from Yahoo
 
 
 ## ETFs from Yahoo
