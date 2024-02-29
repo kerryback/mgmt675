@@ -30,11 +30,21 @@ format:
 - Text analysis
 - Time series forecasting
 
-
 ## Regression vs Classification
 
 - Regression means to predict a continuous variable (not necessarily linear regression).
 - Classification is to predict a categorical variable.  Binary or multiclass.
+
+## Overview of ML in this Course
+
+1. Intro to ML and train-validate-test. Linear models.
+
+2. Random forests, boosted trees, neural networks.
+
+3. Classification.
+
+4. Financial applications.
+
 
 # Train-Validate-Test
 
@@ -49,7 +59,7 @@ format:
 
 - We can create more complex models by increasing the number of parameters (like adding variables in a linear regression).
 - We can reduce complexity by reducing the number of parameters.  Or by choosing less influential parameter values (like regression coefficients closer to zero).
-- Increasing complexity makes underfitting less likely but makes overfitting more likely.  
+- A more complex model is less likely to underfit but more likely to overfit.
 
 ## Train and Test
 
@@ -75,7 +85,13 @@ $$R^2 = 1 - \frac{\sum (y_i - \hat y_i)^2}{\sum (y_i - \bar{y})^2}$$
 ## Validation 
 
 - We could consider different models - for example, models of different complexity - and train them all, test them all on the test data, and then choose the model that performs best on the test data.
+
+. . .
+
 - But then we run a risk of overfitting our test data.  The performance may not generalize to new data.
+
+. . .
+
 - So, we can hold out some data within the training data (called validation data) for doing model comparison.
 
 # Lasso and Ridge Examples
@@ -107,13 +123,13 @@ $$R^2 = 1 - \frac{\sum (y_i - \hat y_i)^2}{\sum (y_i - \bar{y})^2}$$
 
 - Ask Julius to train a ridge regressor on the training data, report the parameter estimates, and compute the R-squared on the test data.
 - Ask Julius to traing a lasso regressor on the training data, report the parameter estimates, and compute the R-squared on the test data.
-- The penalty in lasso and ridge is called alpha in scikit-learn.  You can specify it, but there is a default value that Julius will probably use.
+- The penalty in lasso and ridge is called alpha in scikit-learn.  You can specify it.
 
 
 ## Optimizing the penalty
 
 - The penalty is called a hyperparameter, because it is not fit by training but instead is specified in advance.
-- The penalty controls the degree of complexity - higher penalty = less complex.
+- The penalty controls the degree of complexity. Larger penalty = less complex.
 - To optimize the penalty, we can cross validate.
 
 ## Cross Validation
@@ -132,8 +148,8 @@ $$R^2 = 1 - \frac{\sum (y_i - \hat y_i)^2}{\sum (y_i - \bar{y})^2}$$
 
 ## Cross Validate Lasso and Ridge
 
-- Ask Julius to cross-validate lasso regression.
-- You can (and may need to) specify a set of alpha values to try.
+- Ask Julius to run GridSearchCV on lasso regression.
+- You can specify a set of alpha values to try.
 - Ask Julius what the optimal alpha (penalty) is.
 - Ask Julius what the coefficient estimates are.
 - Ask Julius what the score is on the test data.
