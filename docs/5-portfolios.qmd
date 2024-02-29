@@ -65,7 +65,7 @@ format:
 
 - minimize $(1/2) x'Px$ subject to $Ax=b$
 - $P=$ covariance matrix. $x'Px$ is portfolio variance
-- $A =$ array with two rows.first row $=$ np.ones(n).second row $=$ asset expected returns.
+- $A =$ array with two rows.  First row $=$ np.ones(n).  Second row $=$ asset expected returns.
 - $b=$ np.array([1, targ])
 - $Ax=b$ means weights sum to 1 and expected return $=$ targ.
 - Julius should figure all of this out.
@@ -86,6 +86,9 @@ format:
 - Ask Julius to minimize the variance minus the risk premium.
   - If allowing short sales, tell Julius there are no inequality constraints.
   - If excluding short sales, tell Julius to not allow short sales.
+
+##
+
 - Ask Julius to divide by the sum of the weights to compute the tangency portfolio.
 - Ask Julius to include the tangency portfolio and the capital market line on the previous plot.
 
