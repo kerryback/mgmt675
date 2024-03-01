@@ -21,7 +21,7 @@ format:
 ---
 
    
-## Objectives 
+## Topics 
 
 - Frontier portfolios of risky assets (minimize risk subject to achieving a target expected return)
 - Tangency portfolio (maximize Sharpe ratio)
@@ -45,14 +45,14 @@ format:
 
 # U.S., U.K., France, Germany, and Japan
 
-##
+## Data
 
 - Download international.xlsx and international_corrs.xlsx from the [course website](https://mgmt675.kerryback.com).
 - Upload the files to Julius.  Ask Julius to read them.
 - Ask Julius to convert the means, standard deviations, and correlation matrix into numpy arrays.
 - Ask Julius to compute the covariance matrix as a numpy array.
 
-## 
+## Frontier portfolios (w/o risk-free asset)
 
 - Ask Julius to use cvxopt to minimize variance subject to achieving a target expected return.
   - If allowing short sales, tell Julius there are no inequality constraints.
