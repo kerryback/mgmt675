@@ -27,8 +27,8 @@ format:
 - At Rice since 2009, in Jones and also Econ Dept.
   - teaching intro to finance, data-driven investments, investments theory, and python for business research 
   - to PhDs, MBAs, and Masters in Data Science students
-- Previously at Northwestern, Indiana, Washington Univ. in St. Louis, and Texas A&M
-- Wrote two textbooks (derivatives and PhD asset pricing theory).  Teaching materials, bio, and info about books and research at [kerryback.com](https://kerryback.com)
+- Previously at Northwestern, Indiana, Washington Univ. in St. Louis, and Texas A&M.  Associate dean at Wash U.
+- Former and current editor and associate editor of several journals. Two textbooks (derivatives and PhD asset pricing theory).  Materials and info at [kerryback.com](https://kerryback.com).
 
 
 # Why are we Here?
@@ -124,12 +124,6 @@ Microsoft Excel, released for Windows in 1987
 
 ![](images/julius.jpg)
 
-## Get a Julius account
-
-- Free account has very strict message limit
-- Basic allows 250 messages per month.  Maybe enough?
-- Essential allows unlimited messages.
-- 50% academic discount.  Sign up using your Rice email and enter the promo code STUDY2024.
 
 ## What Julius does
 
@@ -141,29 +135,19 @@ Microsoft Excel, released for Windows in 1987
 - Can get some online data
 - Can install any python libraries not pre-installed
 
+## Get a Julius account
+
+- Free account has very strict message limit
+- Basic allows 250 messages per month.  Maybe enough?
+- Essential allows unlimited messages.
+- 50% academic discount.  Sign up using your Rice email and enter the promo code STUDY2024.
+
 ## Warm-Up
 
 - Ask Julius to plot the function $y=x^2$ 
 - Ask Julius to plot the payoff diagram of a call option with a strike of 100.
 - Ask Julius to get the history of 10-year Treasury yields from FRED and plot them.
 - Ask Julius to simulate 30 returns from a normal distribution with mean of 10% and standard deviation of 15% and plot the cumulative compound return.
-
-## Google Colab
-
-- Download the chat as a notebook.  
-- Go to [https://colab.research.google.com/](https://colab.research.google.com/) and sign in.
-- Use File/Open Notebook to open the saved notebook.
-- Run the notebook cell by cell or use Runtime/Run All.
-
-## 
-- If you want to save figures or tables created by a notebook in Colab, you can  
-  - mount your Google drive (folder icon on left and then Google drive icon in the top toolbar on left)
-  - then execute code to save to "drive/MyDrive/filename.ext"
-- To install additional libraries, execute the following, for example, in a code cell: 
-
-```{.python}
-!pip install yfinance
-``` 
 
 # Retirement Planning and Simulation
 
@@ -173,7 +157,7 @@ Microsoft Excel, released for Windows in 1987
 - Retirement planning
 - Retirement planning with simulation
 - Monte-Carlo option valuation
-- Monte-Carlo enterprise valuation
+- Monte-Carlo stock valuation
 
 ## Long-Run Risk
 
