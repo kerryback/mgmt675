@@ -88,7 +88,7 @@ $$R^2 = 1 - \frac{\sum (y_i - \hat y_i)^2}{\sum (y_i - \bar{y})^2}$$
 
 ## Data
 
-- Download ml1.xlsx from the [course website](https://mgmt675.kerryback.com)
+- Download irrelevant_features.xlsx from the [course website](https://mgmt675.kerryback.com)
 - Upload it to Julius and ask Julius to read it and describe it.
 - The data was created by generating 51 sets of 100 standard normals.  
   - The first 50 sets are labeled x1, ..., x50.  

@@ -44,7 +44,7 @@ format:
 
 ## Example  
 
-- Ask Julius to read ml1.xlsx.
+- Ask Julius to read irrelevant_features.xlsx.
 - Ask Julius to fit a decision tree regressor with y1 as the target using all of the data as training data.  Ask Julius to plot the tree.
 
 # Random forest and gradient boosting
@@ -73,9 +73,9 @@ format:
 
 ## Examples
 
-- Ask Julius to train and test a random forest regressor to predict y1 in ml1.xlsx.
+- Ask Julius to train and test a random forest regressor to predict y1 in irrelevant_features.xlsx.
 - Ask Julius to use GridSearchCV to find the best max_depth in (5, 10, 15, 20).
-- Ask Julius to train and test a gradient boosting regressor to predict y1 in ml1.xlsx.
+- Ask Julius to train and test a gradient boosting regressor to predict y1 in irrelevant_features.xlsx.
 - Ask Julius to use GridSearchCV to find the best learning rate in  (0.001, 0.005, 0.01, 0.05, 0.1).
 
 # Interpreting Models: Shapley Values
