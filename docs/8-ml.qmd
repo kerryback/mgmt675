@@ -1,5 +1,5 @@
 ---
-title:  "Machine Learning II"
+title:  "ML: Random Forests and Gradient Boosting"
 author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
 execute:
   echo: false
@@ -20,3 +20,73 @@ format:
     incremental: false
     code-line-numbers: false
 ---
+
+## More Models
+
+- Decision tree
+- Random forest
+- Boosted trees
+- Neural networks
+
+## Decision tree
+
+- Split dataset successively into subsets.  Within each subset, $\hat y=$ mean of subset.  Calculate MSE.
+- Split on a single variables being above or below a threshold.
+- Choose variable and threshold so that MSE will be as small as possible after the split.
+
+##
+
+- After each split, make further splits of all of the new subsets into even smaller subsets, for a specified number of times (# splits = depth).
+- The prediction for any observation is the mean target value in its final group (leaf).
+
+## Example  
+
+- Ask Julius to read ml1.xlsx.
+- Ask Julius to fit a decision tree regressor with y1 as the target using all of the data as training data.  Ask Julius to plot the tree.
+
+## Random Forest
+
+- Generate random datasets of the same size as the original.
+- Create the random datasets by randomly drawing rows from the original with replacement.
+- Fit a decision tree to each random dataset.
+- The prediction for any observation is the average of the predictions of the various trees.
+
+## 
+
+- Randomization helps to avoid overfitting.
+- Also control overfitting through:
+  - max_depth = maximum number of times to split in each tree
+  - max_features = number of features to look at when deciding how to split (a subset of features of that size is randomly chosen for each split)
+
+## Gradient Boosting
+
+- Fit a decision tree.
+- Look at its errors.  Fit a new decision tree to predict the errors.
+- New prediction is original plus a fraction of the prediction of original's error (fraction = learning rate).
+- Look at the errors of the new predictions.  Fit a new decision to predict these errors.
+- Continue ...
+
+## Examples
+
+- Ask Julius to train and test a random forest regressor to predict y1 in ml1.xlsx.
+- Ask Julius to use GridSearchCV to find the best max_depth in (5, 10, 15, 20).
+- Ask Julius to train and test a gradient boosting regressor to predict y1 in ml1.xlsx.
+- Ask Julius to use GridSearchCV to find the best learning rate in  (0.001, 0.005, 0.01, 0.05, 0.1).
+
+## Interpreting Models: Shapley Values
+
+- The Shapley value for a feature at an observation is a measure of how much that feature contributed to the prediction at that observation.
+- A summary of Shapley values is a bar chart showing the mean absolute contribution of each feature (mean across observations).
+- A Shapley scatter plot for a feature plots all of the observations with the feature's value on the x axis and the feature's contribution to the prediction on the y axis.
+
+##
+
+- Ask Julius to create a summary plot of the Shapley values for the random forest regressor with the best max_depth.
+- Ask Julius to create a scatter plot of the Shapley values for the x1 feature.
+- Ask Julius to create a scatter plot of the Shapley values for another feature.
+
+## Neural Networks
+
+- The most common type of neural network is a multi-layer perceptron.
+
+- 

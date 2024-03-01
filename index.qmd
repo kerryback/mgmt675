@@ -32,6 +32,11 @@ We will spend roughly a third of the course on topics that were covered in Appli
 5.  Portfolio optimization
 6.  Autocorrelation and autoregression
 7.  Machine learning
+    a. Overfitting, shrinkage, and linear models
+    b. Random forests and gradient boosting (application = valuing houses)
+    c. Classification (application = predicting loan default)
+    d. Neural networks
+
 
 
 

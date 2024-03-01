@@ -1,5 +1,5 @@
 ---
-title:  "Machine Learning I"
+title:  "ML: Overfitting, Shrinkage, and Linear Models"
 author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
 execute:
   echo: false
@@ -35,25 +35,15 @@ format:
 - Regression means to predict a continuous variable (not necessarily linear regression).
 - Classification is to predict a categorical variable.  Binary or multiclass.
 
-## Overview of ML in this Course
 
-1. Intro to ML and train-validate-test. Linear models.
-
-2. Random forests, boosted trees, neural networks.
-
-3. Classification.
-
-4. Financial applications.
-
-
-# Train-Validate-Test
+# Overfitting and Shrinkage
 
 ## Underfitting and Overfitting
 
 - Fitting or training a model means estimating its parameters (like linear regression).
 - A model underfits the data on which it was trained if it makes poor predictions on that data.
 - A model overfits the data on which it was trained if it makes good predictions on that data but performs poorly on new data.
-- Overfitting means that the parameters are chosen based on chance relationships in the training data.
+- Overfitting means that the chosen parameters reflect chance relationships in the training data.
 
 ## Model complexity and shrinkage 
 
