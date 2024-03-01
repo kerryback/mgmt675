@@ -27,20 +27,23 @@ format:
 - Random forest and gradient boosting
 - Shapley values
 - House price application
+  - Missing values
+  - Dummy variables
+  - Scaling
+
 
 
 # Decision tree
 
 ## 
 
-- Split dataset successively into subsets.  Within each subset, $\hat y=$ mean of subset.  Calculate MSE.
-- Split on a single variable being above or below a threshold.
-- Choose variable and threshold so that MSE will be as small as possible after the split.
+- Split dataset into subsets.  Within each subset, $\hat y=$ mean of subset.  Calculate MSE.
+- Split each subset into further subsets and continue.
+- Use means of subsets to estimate.  Choose splits to minimize MSE.
 
 ##
 
-- After each split, make further splits of all of the new subsets into even smaller subsets, for a specified number of times (# splits = depth).
-- The prediction for any observation is the mean target value in its final group (leaf).
+![](Trees_Transparent.png)
 
 ## Example  
 
