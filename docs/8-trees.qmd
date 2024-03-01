@@ -73,10 +73,20 @@ format:
 
 ## Examples
 
-- Ask Julius to train and test a random forest regressor to predict y1 in irrelevant_features.xlsx.
-- Ask Julius to use GridSearchCV to find the best max_depth in (5, 10, 15, 20).
-- Ask Julius to train and test a gradient boosting regressor to predict y1 in irrelevant_features.xlsx.
-- Ask Julius to use GridSearchCV to find the best learning rate in  (0.001, 0.005, 0.01, 0.05, 0.1).
+Ask Julius to train and test 
+
+- a random forest regressor 
+- a gradient boosting regressor
+
+to predict y1 in irrelevant_features.xlsx.
+
+##
+
+Ask Julius to use GridSearchCV to
+
+- find the best max_depth for the random forest regressor in (5, 10, 15, 20, 25)
+
+- find the best learning rate for the gradient boosting regressor in  (0.001, 0.005, 0.01, 0.05, 0.1, 0.2)
 
 # Interpreting Models: Shapley Values
 
@@ -90,5 +100,77 @@ format:
 - Ask Julius to create a scatter plot of the Shapley values for the x1 feature.
 - Ask Julius to create a scatter plot of the Shapley values for another feature.
 
-# House Price Application (TBD)
-- 
+# Valuing Houses
+
+## Data 
+
+- Download house_price.xlsx from the [course website](https://mgmt675.kerryback.com)
+- Upload the file to Julius.
+- Ask Julius to read the data and describe it.
+- Tell Julius that SalePrice is the target and the other columns are features.
+
+## New topics
+
+- Missing values.  Possible solutions:
+  - Fill in missing values
+  - Drop columns with missing values
+  - Drop rows with missing values
+- Categorical variables.  Convert to dummies.
+- Scaling features.  It is important for some models that features be on the same scale. 
+
+## Missing Values
+
+Tell Julius to fill in missing values 
+
+- for categorical features with "None" 
+
+- for numeric features with 0.
+
+## Dummy variables
+
+:::: {.columns}
+::: {.column width="30%"}
+**Categorical**
+
+|      | Feature |
+| ---  | --- | 
+| Row1 | Hi  |
+| Row2 | Lo  |
+| Row3 | Med | 
+| Row4 | Med | 
+| Row5 | Lo  | 
+:::
+::: {.column width="20%"}
+:::
+::: {.column width="50%"}
+**Dummies**
+
+|      | Lo | Med | Hi |
+| ---  | --- | --- | --- |
+| Row1 | 0  | 0 | 1 |
+| Row2 | 1  | 0 | 0 |
+| Row3 | 0 | 1 | 0 | 
+| Row4 | 0 | 1 | 0 | 
+| Row5 | 1 | 0 | 0  | 
+:::
+::::
+
+## Pipeline
+
+Ask Julius to create a pipeline that 
+
+- transforms the qualitative features to dummy variables
+- applies Standard Scaler to the numeric features
+- applies a random forest regressor
+
+## Train and test
+
+Ask Julius to train and test the pipeline.
+
+## Further work
+
+- Apply GridSearchCV to the pipeline to find best hyperparameters
+- Replace random forest regressor with other models:
+  - lasso regressor
+  - ridge regressor
+  - gradient boosting regressor
