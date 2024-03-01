@@ -33,5 +33,12 @@
     "title": "",
     "section": "",
     "text": "Assigment 1\n\n\n\nYou plan to put $8,000 in your retirement account next year. You expect this amount to grow by 3% per year for 30 years. You then hope to withdraw $100,000 per year for 30 years.\n\nAsk Julius to create an array containing the 60 deposits and withdrawals, treating the withdrawals as negative.\nTell Julius you hope to earn 8% on your investments and will make the deposits and withdrawals in (a) at the end of each year. Ask Julius to calculate the account balance each year and to show the balances in a table and in a figure. Check Julius’ work and ask for corrections if needed.\nNow tell Julius to simulate the account balance by drawing each return from a normal distribution with a mean of 8% and a standard deviation of 15%. What is the mean ending balance and what is the median ending balance?\nAsk Julius to create a histogram of the simulated ending account balances.\n\nDue by midnight, Sunday, March 17. Submit both a Word doc and a Jupyter notebook of your conversation to Canvas.\n\n\n\n\n\n\n\n\nAssigment 2\n\n\n\nTBD\nDue by midnight, Sunday, March 24. Submit both a Word doc and a Jupyter notebook of your conversation to Canvas.\n\n\n\n\n\n\n\n\nAssigment 3\n\n\n\nTBD\nDue by midnight, Sunday, March 31. Submit both a Word doc and a Jupyter notebook of your conversation to Canvas.\n\n\n\n\n\n\n\n\nAssigment 4\n\n\n\nTBD\nDue by midnight, Sunday, April 7. Submit both a Word doc and a Jupyter notebook of your conversation to Canvas.\n\n\n\n\n\n\n\n\nAssigment 5\n\n\n\nTBD\nDue by midnight, Sunday, April 14. Submit both a Word doc and a Jupyter notebook of your conversation to Canvas."
+  },
+  {
+    "objectID": "conversations.html",
+    "href": "conversations.html",
+    "title": "",
+    "section": "",
+    "text": "March 12\nMarch 14\nMarch 19\nMarch 21\nMarch 26\nMarch 28\nApril 2\nApril 4\nApril 9\nApril 11\nApril 16\nApril 18"
   }
 ]

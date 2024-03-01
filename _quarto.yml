@@ -6,6 +6,7 @@ project:
     - slides.qmd
     - assignments.qmd
     - data.qmd
+    - conversations.qmd
               
 website:
   title: ""
@@ -19,6 +20,8 @@ website:
         file: slides.qmd
       - text: Datasets
         file: data.qmd
+      - text: Conversations
+        file: conversations.qmd
       - text: Assignments
         file: assignments.qmd   
         
