@@ -13,7 +13,7 @@ You plan to put $8,000 in your retirement account next year.  You expect this am
 
 (d) Ask Julius to create a histogram of the simulated ending account balances.
 
-(e) Create a report (e.g., in Word) describing the exercise (don't just copy and paste the above text) and including the figures and information learned.
+(e) Create a report (e.g., in Word) describing the exercise (don't just copy and paste the above text) and including the figures and information learned.  You can ask Julius to write the report, but you are responsible for checking it.  Save the report to PDF.
 
 Due by midnight, Sunday, March 17.  Submit a PDF of the report to canvas.  
 :::
