@@ -1,6 +1,9 @@
 ---
-title:  "Intro and Simulation"
-author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
+title: MGMT 675<br>AI-Assisted Financial Analysis<br><img src="RiceBusiness-transparent-logo-sm.png"  height=100><br>Simulation
+title-slide-attributes:
+  data-background-image: https://www.dropbox.com/scl/fi/pr7qqxrnapwfsejk09e7m/ml3.jpg?rlkey=4n75omh9zh2i736dcru9gxp6l&dl=1
+  data-background-position: right
+  data-background-opacity: "0.55"
 execute:
   echo: false
   jupyter: python3
@@ -24,8 +27,8 @@ format:
    
 ## Meet your Prof
 
-- At Rice since 2009, in Jones and also Econ Dept.
-  - teaching intro to finance, data-driven investments, investments theory, and python for business research 
+- At Rice since 2009, in Jones and in Econ Dept.
+  - teach core finance, quantitative investments, investments theory, and python for business research 
   - to PhDs, MBAs, and Masters in Data Science students
 - Previously at Northwestern, Indiana, Washington Univ. in St. Louis, and Texas A&M.  Associate dean at Wash U.
 - Former and current editor and associate editor of several journals. Two textbooks (derivatives and PhD asset pricing theory).  Materials and info at [kerryback.com](https://kerryback.com).

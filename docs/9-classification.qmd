@@ -1,6 +1,9 @@
 ---
-title:  "ML -  Classification"
-author: <br>MGMT 675<br>AI-Assisted Financial Analysis<br>Kerry Back<br><br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
+title: MGMT 675<br>AI-Assisted Financial Analysis<br><img src="RiceBusiness-transparent-logo-sm.png"  height=100><br>Classification
+title-slide-attributes:
+  data-background-image: https://www.dropbox.com/scl/fi/pr7qqxrnapwfsejk09e7m/ml3.jpg?rlkey=4n75omh9zh2i736dcru9gxp6l&dl=1
+  data-background-position: right
+  data-background-opacity: "0.55"
 execute:
   echo: false
   jupyter: python3
@@ -19,6 +22,41 @@ format:
     theme: [solarized, 2023.scss]
     incremental: false
     code-line-numbers: false
+    
 ---
 
-# TBD
+## Categorical target variables
+
+- Binary (off/on, yes/no, ...)
+- Multiclass
+- Same sets of models: linear, trees, neural nets, ...
+
+## Binary Examples
+
+- Random forest
+- Gradient boosting
+- Linear (logistic regression)
+
+## Binary Data
+
+- Upload irrelevant_features.xlsx to Julius
+- Ask Julius to read it
+- Tell Julius that y2 is the target variable and x1 through x50 are the features
+- y2 is a "high-low" version of y1 = x1 + noise.
+
+## Random forest
+
+- Ask Julius to do a train-test split and train a random forest on the training data.
+- Ask Julius to produce a confusion matrix for the training data and a confusion matrix for the test data.
+- Ask Julius to produce a ROC curve for the test data and to explain it.
+
+## Linear model (logistic regression)
+
+- For binary variables but can be extended
+- Transform binary variable to 0 and 1 dummy variable
+- Choose parameters $\alpha$, $\beta_i$ to maximize fit of 
+$$ \frac{1}{1+e^{-\alpha - \beta_1 x_1 - \cdots \beta_n x_n}}$$
+to the dummy variable.
+- Can do shrinkage 
+
+## To be continued

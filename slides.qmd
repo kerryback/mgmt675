@@ -1,12 +1,12 @@
 ## Slide Decks<br>AI-Assisted Financial Analysis<br>Rice University<br>
 
-[Intro and Simulation](1-intro-simulation.html){target="_blank"} [(pdf)](pdfs/1-intro-simulation.pdf){target="_blank"} <br>
+[Course Intro and Simulation](1-intro-simulation.html){target="_blank"} [(pdf)](pdfs/1-intro-simulation.pdf){target="_blank"} <br>
 [Data Handling](2-data.html){target="_blank"} [(pdf)](pdfs/2-data.pdf){target="_blank"} <br>
-[Cost of Capital and Performance Evaluation](3-performance.html){target="_blank"} [(pdf)](pdfs/3-performance.pdf){target="_blank"} <br>
+[Alphas and Betas](3-alphas_betas.html){target="_blank"} [(pdf)](pdfs/3-alphas_betas.pdf){target="_blank"} <br>
 [Visualization](4-visualization.html){target="_blank"} [(pdf)](pdfs/4-visualization.pdf){target="_blank"} <br>
 [Portfolio Optimization](5-portfolios.html){target="_blank"} [(pdf)](pdfs/5-portfolios.pdf){target="_blank"} <br>
 [Autocorrelation and Autoregression](6-autoregression.html){target="_blank"} [(pdf)](pdfs/5-autoregression.pdf){target="_blank"} <br>
-[ML: Overfitting, Shrinkage, and Linear Models](7-linear.html){target="_blank"} [(pdf)](pdfs/7-linear.pdf){target="_blank"} <br>
-[ML: Random Forests and Gradient Boosting](8-trees.html){target="_blank"} [(pdf)](pdfs/8-trees.pdf){target="_blank"} <br>
-[ML: Classification](9-classification.html){target="_blank"} [(pdf)](pdfs/9-classification.pdf){target="_blank"} <br>
-[ML: Neural Networks](10-nets.html){target="_blank"} [(pdf)](pdfs/10-nets.pdf){target="_blank"} <br>
+[Linear Models and Shrinkage](7-linear.html){target="_blank"} [(pdf)](pdfs/7-linear.pdf){target="_blank"} <br>
+[Trees and Forests](8-trees.html){target="_blank"} [(pdf)](pdfs/8-trees.pdf){target="_blank"} <br>
+[Classification](9-classification.html){target="_blank"} [(pdf)](pdfs/9-classification.pdf){target="_blank"} <br>
+[Neural Networks](10-nets.html){target="_blank"} [(pdf)](pdfs/10-nets.pdf){target="_blank"} <br>
