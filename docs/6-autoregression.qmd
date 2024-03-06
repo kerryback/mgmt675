@@ -33,19 +33,20 @@ format:
 
 ## Overview
 
-- We start the forecasting part of the course.
-- Forecast returns, interest rates, oil price, cash flows, ...
+- We want to forecast a time series.
+  - returns, interest rates, oil price, cash flows, ...
 - Possible models:
   - ARIMA (autoregressive integrated moving average)
   - exponential smoothing
   - neural networks
+- We'll do AR models.
 
 ## Autocorrelations
 
-- The correlation of a variable with its lagged value
+- Autocorrelation = correlation of a variable with its lagged value
 - First-order autocorrelation $=\text{corr}(x_t, x_{t+1})$
 - $p$--th order autocorrelation $=\text{corr}(x_t, x_{t+p})$
-  - E.g., seasonality in monthly data captured with $p=12$ or in quarterly data with $p=4$.
+  - E.g., $p=12$ in monthly data or $p=4$ in quarterly data because of seasonality
 
 ## Autocorrelation of HML
 
@@ -66,3 +67,9 @@ Ask Julius to plot the ACF, fit an AR model, and forecast the following:
 - Percent change in crude price: Ask Julius to use pandas-datareader to download crude oil prices starting in 1980 from FRED, to downsample to end-of-month, and to compute percent changes.
 
 - Change in Treasury yields: Ask Julius to use pandas-datareader to download 10-year Treasury yields starting in 1980 from FRED, to downsample to monthly, and to compute changes.
+
+## Vector Autoregression
+
+- Forecast related variables based on their mutual lags
+- Example: does this month's SMB return forecast next month's HML return?
+- Ask Julius to run a VAR(1) on the Fama-French factors and provide a summary of the results.

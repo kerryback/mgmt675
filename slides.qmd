@@ -1,6 +1,7 @@
 ## Slide Decks<br>AI-Assisted Financial Analysis<br>Rice University<br>
 
-1. [Course Intro and Simulation](1-intro-simulation.html){target="_blank"} [(pdf)](pdfs/1-intro-simulation.pdf){target="_blank"} <br>
+0. [Course Intro](0-intro.html){target="_blank"} [(pdf)](pdfs/0-intro.pdf){target="_blank"} <br>
+1. [Simulation](1-simulation.html){target="_blank"} [(pdf)](pdfs/1-simulation.pdf){target="_blank"} <br>
 2. [Data Handling](2-data.html){target="_blank"} [(pdf)](pdfs/2-data.pdf){target="_blank"} <br>
 3. [Alphas and Betas](3-alphas_betas.html){target="_blank"} [(pdf)](pdfs/3-alphas_betas.pdf){target="_blank"} <br>
 4. [Visualization](4-visualization.html){target="_blank"} [(pdf)](pdfs/4-visualization.pdf){target="_blank"} <br>

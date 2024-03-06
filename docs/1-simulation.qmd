@@ -1,0 +1,102 @@
+---
+title: MGMT 675<br>AI-Assisted Financial Analysis<br><img src="RiceBusiness-transparent-logo-sm.png"  height=100><br>Simulation<br>
+title-slide-attributes:
+  data-background-image: https://www.dropbox.com/scl/fi/pr7qqxrnapwfsejk09e7m/ml3.jpg?rlkey=4n75omh9zh2i736dcru9gxp6l&dl=1
+  data-background-position: right
+  data-background-opacity: "0.65"
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        color: #00205B;
+      }
+      </style>
+execute:
+  echo: false
+  jupyter: python3
+  cache: true
+format: 
+  revealjs:
+    highlight-style: monokai
+    code-fold: true
+    code-copy: hover
+    scrollable: true
+    slide-number: true
+    preview-links: true
+    self-contained: true
+    controls: true
+    transition: fade
+    theme: [solarized, 2023.scss]
+    incremental: false
+    code-line-numbers: false
+---
+## Topics
+
+Examples from Applied Finance:
+
+- Long-run risk
+- Retirement planning
+- Retirement planning with simulation
+- Monte-Carlo option valuation
+- Monte-Carlo stock valuation
+
+## Long-Run Risk
+
+- Ask Julius to simulate how much a $1 investment would grow to in 10 years if the investment return is normally distributed with a mean of 6% and a standard deviation of 20%.
+- Ask Julius to calculate the fraction of times the investment outperforms a risk-free return of 1% over 10 years.
+- Ask Julius to generate boxplots and histograms of the ending investment account balance.
+
+## Retirement Planning
+
+- Tell Julius you want to check if a retirement savings plan is feasible.  
+- Ask Julius what information you need to provide and provide it.
+- Ask Julius to calculate the ending balance as a function of the rate of return over some range and plot it.
+
+## Retirement Planning with Simulation
+
+- Ask Julius to simulate the retirement plan assuming the annual returns are normally distributed with some mean and variance.
+- Ask Julius to describe the distribution of ending account balances and to produce a boxplot and histogram.
+
+## Monte-Carlo Option Valuation
+
+- Tell Julius you want to value a European call option by Monte Carlo.  Ask Julius what information you need to provide and provide it.
+- Ask Julius to value the same call option using Black-Scholes.
+- Ask Julius to value a put option both ways.
+
+## Two-Stage Growth Model
+
+- Give Julius the following data (from Applied).  Then ask what the share price should be.
+  - A firm with no debt will have free cash flow of 100M next year.
+  - The cash flow will grow by 12% per year for years 2 through 5.  Then, it will grow by 3% per year forever.
+  - The firm's cost of capital is 10%, and there are 44.75M shares outstanding.
+
+##  Check for Errors
+
+- It is quite possible that Julius - like any assistant - might misunderstand the timing you want.
+- Quickest way to fix mistakes: edit the code.
+
+## 
+
+Check the following:
+
+- There should be five cash flows in the first stage.
+- The first cash flow should be 100M (no growth).
+- The terminal value should be 100M with 4 years of growth at 12% and 1 year of growth at 3% divided by (10% - 3%).
+- The terminal value should be discounted back 5 years.
+
+## Sensitivity Analysis
+
+Ask Julius to vary the first stage growth rate between 6% and 18% and to plot the share price as a function of the growth rate.
+
+## Monte-Carlo Valuation 
+
+- Now ask Julius to simulate the first-stage growth rate from a normal distribution with a mean of 12% and a standard deviation of 3%.  
+- Ask Julius to compute the share price in each simulation and to describe the share price distribution.
+- Ask Julius to produce a histogram of the share price distribution.
+
+## A Second Source of Uncertainty
+
+- Tell Julius to model the first-stage growth rate as x + y where 
+  - x is drawn from a normal distribution with a mean of 12% and a standard deviation of 3%, 
+  - y is a Bernoulli random variable which is 12% with 10% probability and is 0 with 90% probability.
+- Ask Julius to compute the share price in each simulation, to describe the share price distribution, and to produce a histogram.

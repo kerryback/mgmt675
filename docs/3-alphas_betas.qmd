@@ -56,7 +56,7 @@ format:
 - Ask Julius to regress the excess Yahoo returns on the excess market return.
 - Ask Julius to report the regression summary.
 - Ask Julius to use seaborn to create a regplot of the excess Yahoo returns on the excess market return.
-- Ask Julius to use plotly to create a regplot of the excess Yahoo returns on the excess market return and to include the date in the hover data.
+- Ask Julius to use plotly to create a regplot of the excess Yahoo returns on the excess market return and to include the date in the hover data.  Ask Julius to save as html.
 
 ## Data for Performance Evaluation
 

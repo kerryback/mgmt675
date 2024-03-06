@@ -36,7 +36,6 @@ format:
 - Frontier portfolios of risky assets (minimize risk subject to achieving a target expected return)
 - Tangency portfolio (maximize Sharpe ratio)
 - Estimate means, standard deviations, and correlations from historical returns
-- Download adjusted closing prices from Yahoo Finance and compute returns
 
 
 ## Goal Seek in Python
