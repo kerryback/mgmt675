@@ -225,6 +225,7 @@ Ask Julius to vary the first stage growth rate between 6% and 18% and to plot th
 
 ## A Second Source of Uncertainty
 
-- Tell Julius to model the first-stage growth rate as x + y where x is drawn from a normal distribution with a mean of 12% and a standard deviation and y is a Bernoulli random variable which is 12% with 10% probability and is 0 with 90% probability.
-- Ask Julius to compute the share price in each simulation and to describe the share price distribution.
-- Ask Julius to produce a histogram of the share price distribution.
+- Tell Julius to model the first-stage growth rate as x + y where 
+  - x is drawn from a normal distribution with a mean of 12% and a standard deviation of 3%, 
+  - y is a Bernoulli random variable which is 12% with 10% probability and is 0 with 90% probability.
+- Ask Julius to compute the share price in each simulation, to describe the share price distribution, and to produce a histogram.
