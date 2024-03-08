@@ -1,5 +1,5 @@
 ---
-title: MGMT 675<br>AI-Assisted Financial Analysis<br><img src="RiceBusiness-transparent-logo-sm.png"  height=100><br>Neural Networks
+title: MGMT 675<br><br><br><br>AI-Assisted Financial Analysis<br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
 title-slide-attributes:
   data-background-image: https://www.dropbox.com/scl/fi/jerhfe2cad1jtdvapik71/gpt_image.jpg?rlkey=2dnc3qyozkm24tcl2pzjccxka&dl=1
   data-background-position: top
@@ -30,5 +30,7 @@ format:
     incremental: false
     code-line-numbers: false
 ---
+
+# Neural Networks {background-image="https://www.dropbox.com/scl/fi/jerhfe2cad1jtdvapik71/gpt_image.jpg?rlkey=2dnc3qyozkm24tcl2pzjccxka&dl=1" background-position="top" background-opacity="0.2"}
 
 # TBD
