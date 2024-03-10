@@ -1,7 +1,7 @@
 ---
 title: MGMT 675<br><br><br><br>AI-Assisted Financial Analysis<br><img src="RiceBusiness-transparent-logo-sm.png"  height=100>
 title-slide-attributes:
-  data-background-image: https://www.dropbox.com/scl/fi/jerhfe2cad1jtdvapik71/gpt_image.jpg?rlkey=2dnc3qyozkm24tcl2pzjccxka&dl=1
+  data-background-image: https://www.dropbox.com/scl/fi/50wwbp33nm32ocn1xfivu/image6.webp?rlkey=fnvlm2z01moskj1ui37ndwvo3&dl=1
   data-background-position: top
   data-background-opacity: "0.4"
 include-in-header:
