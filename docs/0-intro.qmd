@@ -58,7 +58,7 @@ format:
 7. Machine learning
 
 
-# How did we get here?  And where are we going?
+# Why this course?<br><br>How did we get here?  <br><br>And where are we going?
 
 ## Let's do some time traveling
 
