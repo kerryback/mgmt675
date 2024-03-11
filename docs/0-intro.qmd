@@ -43,7 +43,7 @@ format:
 ## Course Outline
 
 - Weekly assignments: use AI to do something, submit a report of the results
-- Seated final exam: use AI to do something, submit a report of the results
+- Timed at-home final exam during exam week: use AI to do something, submit a report of the results
 - Syllabus, slides, data sets, assignments, links to conversations at [mgmt675.kerryback.com](https://mgmt675.kerryback.com) 
 - Submit assignments through Canvas
 
