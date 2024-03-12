@@ -81,6 +81,7 @@ format:
 - Ask Julius to get the histories since 1990 of the 3-month, 1-year, 5-year, and 10-year Treasury yields from FRED.
 - Ask Julius to downsample to first day of the month.
 - Ask Julius to use plotly to create an animation with the yield on the y axis and the time to maturity on the x axis and using the date as the animation frame.
+- Ask Julius to save it as html.
 
 
 ## 3D

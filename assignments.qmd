@@ -9,7 +9,7 @@ You plan to put $8,000 in your retirement account next year.  You expect this am
 
 (b) Tell Julius you hope to earn 8% on your investments and will make the deposits and withdrawals in (a) at the end of each year.  Ask Julius to calculate the account balance each year and to plot it and save the figure.  Check Julius' work and ask for corrections if needed.
 
-(c) Now tell Julius to simulate the account balance by drawing each return from a normal distribution with a mean of 8% and a standard deviation of 15%.  What is the mean ending balance and what is the median ending balance?
+(c) Now tell Julius to simulate 1,000 possible lifetimes by drawing the return each year and in each simulation from a normal distribution with a mean of 8% and a standard deviation of 15%.  What is the mean ending balance and what is the median ending balance?
 
 (d) Ask Julius to create a histogram of the simulated ending account balances.
 
