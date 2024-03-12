@@ -31,6 +31,6 @@ format:
     code-line-numbers: false
 ---
 
-# Neural Networks {background-image="https://www.dropbox.com/scl/fi/jerhfe2cad1jtdvapik71/gpt_image.jpg?rlkey=2dnc3qyozkm24tcl2pzjccxka&dl=1" background-position="top" background-opacity="0.2"}
+# Neural Networks 
 
 # TBD
