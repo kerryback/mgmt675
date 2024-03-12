@@ -70,17 +70,17 @@ format:
 
 - Ask Julius to download crude oil prices from FRED, compute percent changes, and create a filled density plot of the percent changes.
 
-## Scatter and Hexbin Plots
+## Scatter Plots
 
-- Ask Julius to download the daily Fama-French factors from Ken French's data library.
-- Ask Julius to use seaborn to create a regplot with Mkt-RF on the x axis and SMB on the y axis.
-- Ask Julius to set the transparency parameter alpha to 0.1.
-- Ask Julius to create a hexbin plot of SMB and Mkt-RF.
+- Ask Julius to download the Fama-French factors since 1980 from Ken French's data library.
+- Ask Julius to use seaborn to create a scatter plot with Mkt-RF on the x axis and SMB on the y axis.
+- Ask Julius to set the transparency parameter alpha to 0.3 and to include a regression line.
 
 ## Animations
 
-- Ask Julius to get the histories of the 3-month, 1-year, 5-year, and 10-year Treasury yields from FRED.
-- Ask Julius to use plotly to create an animation showing all of the yields as functions of maturity using the date as the animation frame.
+- Ask Julius to get the histories since 1990 of the 3-month, 1-year, 5-year, and 10-year Treasury yields from FRED.
+- Ask Julius to downsample to first day of the month.
+- Ask Julius to use plotly to create an animation with the yield on the y axis and the time to maturity on the x axis and using the date as the animation frame.
 
 
 ## 3D
