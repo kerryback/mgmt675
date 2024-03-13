@@ -3,17 +3,17 @@
 ::: {.callout-note appearance="default" icon="false"}
 # Assigment 1
 
-You plan to put $8,000 in your retirement account next year.  You expect this amount to grow by 3% per year for 30 years.  You then hope to withdraw $100,000 per year for 30 years.  
+You plan to put $8,000 in your retirement account next year.  You expect this amount to grow by 3% per year for 30 years.  You then hope to withdraw $100,000 per year for 30 years.  You currently have no savings.  You hope to make 8% on your investments and will make depsoits and withdrawals at the end of each year.
 
-(a) Ask Julius to create an array containing the 60 deposits and withdrawals, treating the withdrawals as negative.
+(a) Ask Julius to create a table containing the balance at the beginning of each year, the gain on the investment account each year, the deposit or withdrawal each year, and the ending balance each year.  Ask Julius to save the table as an excel file.
 
-(b) Tell Julius you hope to earn 8% on your investments and will make the deposits and withdrawals in (a) at the end of each year.  Ask Julius to calculate the account balance each year and to plot it and save the figure.  Check Julius' work and ask for corrections if needed.
+(b) Ask Julius to plot the account balance by year.
 
 (c) Now tell Julius to simulate 1,000 possible lifetimes by drawing the return each year and in each simulation from a normal distribution with a mean of 8% and a standard deviation of 15%.  What is the mean ending balance and what is the median ending balance?
 
-(d) Ask Julius to create a histogram of the simulated ending account balances.
+(d) Ask Julius to create a histogram of the simulated ending account balances and to save it as a jpeg.
 
-(e) Create a report describing the exercise (don't just copy and paste the above text) and including the figures and information learned.  You can ask Julius to write the report, but you are responsible for checking it.  Save the report to PDF.
+(e) Create a report describing the exercise and including the table and figure and information learned.  You can ask Julius to write the report, but you are responsible for checking it.  
 
 Due by midnight, Sunday, March 17.  Submit a docx or pdf file to canvas.  
 :::
