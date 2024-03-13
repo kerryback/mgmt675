@@ -60,7 +60,7 @@ format:
 ## Filter
 
 - Ask Julius to filter on the category column to "Domestic Common Stock" and "Domestic Common Stock Primary Class."  Ask Julius to call this data frame common_stock.
-- Ask Julius to create a copy of the common_stock data frame that contains only rows for which pe $>0$.
+- Ask Julius to create a copy of the common_stock data frame that contains only rows for which pe $>0$ and to save it as an Excel file.
 - Ask Julius to create a copy of the common_stock data frame that contains only rows for which marketcap is above the median marketcap.
 
 ## Sort 
@@ -117,19 +117,20 @@ If we want returns at a different frequency, for example annual returns, then we
 
 ## Example
 
-- Ask Julius to use yfinance to get adjusted closing prices for SPY for the longest history available.
+- Ask Julius to run pip install yfinance==0.1.70 and to import yfinance as yf
+- Ask Julius to use yf.download to get adjusted closing prices for SPY for the longest history available.
 - Ask Julius to downsample the prices to end-of-month.
 - Ask Julius to compute monthly returns as the percent change in the downsampled prices.
 
 ## Federal Reserve Economic Data
 
-- Ask Julius to use the pandas-datareader to get the history of crude oil prices from FRED.
+- Ask Julius to use the pandas datareader to get the history of crude oil prices from FRED.
 - Ask Julius to get the history of inflation rates from FRED.
 
 ## Ken French's Data Library
 
-- Ask Julius to get the Fama-French factors from Ken French's data library.
-- Ask Julius to list the datasets on Ken French's data library.
+- Ask Julius to use pandas datareader to get the Fama-French factors from Ken French's data library.
+- Ask Julius to list the datasets on Ken French's data library and to show the entire list in the chat (you may have to tell Julius to use get_available_datasets).
 - Ask Julius to get the 48 industry returns from Ken French's data library.
 
 ## Scraping
