@@ -36,7 +36,6 @@ format:
 
 - Merge
 - Filter
-- Sort
 - Aggregate by group
 - Transform
 
@@ -47,44 +46,54 @@ format:
   - Upload in Julius.
 - Online data from various sources.
 
-## Merge metrics and tickers
+## Tickers data
 
-- Ask Julius to merge the datasets on the ticker column
-- Ask Julius the following.
-  - How many rows are there?
-  - What are the column names?
-  - What are the unique values in the category column?
-  - What are the unique values in the sector column?
-  - Show the head of the data frame.
+- Ask Julius to read tickers.xlsx.
+- Ask Julius how many rows are in the data set and what the column names are.
+- Ask Julius what the unique values are in the category and sector columns.
 
 ## Filter
 
-- Ask Julius to filter on the category column to "Domestic Common Stock" and "Domestic Common Stock Primary Class."  Ask Julius to call this data frame common_stock.
-- Ask Julius to create a copy of the common_stock data frame that contains only rows for which pe $>0$ and to save it as an Excel file.
-- Ask Julius to create a copy of the common_stock data frame that contains only rows for which marketcap is above the median marketcap.
+- Ask Julius to filter the tickers data set on the category column to "Domestic Common Stock" and "Domestic Common Stock Primary Class."  Ask Julius to call this data frame common_stock_tickers.
+- Ask Julius how many rows are in the common_stock_tickers.
+- Ask Julius to show the first few rows.
 
-## Sort 
+## Metrics data
 
-- Ask Julius to sort on marketcap in descending order and to show the head of the data frame.
+- Ask Julius to read metrics.xlsx.
+- Ask Julius how many rows are in the data set and what the column names are.
+- Ask Julius what the unique values are in the date column.
+
+## Merge
+
+- Tell Julius to do an inner merge of common_stock_tickers with the metrics data on the ticker column.
+- Ask Julius to show the first few rows.
+
+## Sort
+
+- Ask Julius to sort the merged data set on date and to show the first few rows.
+- Ask Julius to sort on ticker and date and to show the first few rows.
+- Ask Julius to save the data set as an Excel file.
 
 ## Aggregate by group
 
-- Ask Julius to describe marketcap.
-- Ask Julius to compute the mean marketcap by sector.
-- Ask Julius to compute the number of firms by sector.  
-- Ask Julius to compute the total marketcap by sector.
+- Ask Julius to compute the mean marketcap by date.
+- Ask Julius to compute the mean marketcap by sector on the date 2024-03-08.
+- Ask Julius to compute the mean marketcap grouped by (date, sector) and to present the results as a two-dimensional table.
+- Ask Julius to count the number of tickers grouped by (date, sector) and to present the results as a two-dimensional table.
 
-## 
+## More aggregation
 
-- Ask Julius to compute the mean pe grouped by (sector, scalemarketcap) and to display the results as a two-dimensional table.
-- Ask Julius to recreate the table using only rows for which pe $>0$.
-- Ask Julius to compute the percent of firms for which pe $<0$ by sector.
+- Ask Julius to compute the percent change in marketcap by ticker.
+- Ask Julius to compute the mean marketcap by sector on each date and then to compute the percent change by sector.
+- Ask Julius to compute the percent of firms for which pe $<0$ grouped by (sector, scalemarketcap) and to present the results as a two-dimensional table.
+
 
 ## Transform 
 
-- Ask Julius to create a new variable equal to the rank of marketcap in descending order.
 - Ask Julius to create a new variable that is 1 if pe $>0$ and 0 otherwise (a dummy variable).
-- Ask Julius to create a new variable equal to the excess of pb over the median sector pb.
+- Ask Julius to group by date and rank by marketcap in descending order at each date and add the ranks as a new column in the data set.
+- Ask Julius to group by (date, sector) and calculate the excess of pb over the median pb and add this variable to the data set.
 
 # Online data
 
