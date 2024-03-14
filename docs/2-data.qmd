@@ -85,7 +85,7 @@ format:
 ## More aggregation
 
 - Ask Julius to compute the percent change in marketcap by ticker.
-- Ask Julius to compute the mean marketcap by sector on each date and then to compute the percent change by sector.
+- Ask Julius to compute the total marketcap by sector on each date and then to compute the percent change by sector.
 - Ask Julius to compute the percent of firms for which pe $<0$ grouped by (sector, scalemarketcap) and to present the results as a two-dimensional table.
 
 
