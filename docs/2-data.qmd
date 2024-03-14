@@ -97,6 +97,9 @@ format:
 - Ask Julius to group by (date, sector) and calculate the excess of pb over the median pb and to show the results as date, sector, ticker, pb, excess over median.
 - Ask Julius to rank by marketcap in descending order at each date and to show the results as date, ticker, marketcap, rank.  
 
+## Filter
+
+- Ask Julius to filter to stocks for which pe $>0$ and to compute mean pe by (sector, date).
 
 # Online data
 
