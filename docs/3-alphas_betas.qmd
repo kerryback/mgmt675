@@ -42,10 +42,11 @@ format:
 
 ## Capital Asset Pricing Model
 
-- Expected stock return is $r_f + \beta \times \overline{r_m - r_f}$
-- Get today's $r_f$ from FRED
-- Get historical $\overline{r_m - r_f}$ from French's data library
-- Estimate beta by running regression
+Expected stock return is $r_f + \beta \times \overline{r_m - r_f}$
+
+1. Get today's $r_f$ from FRED
+2. Get historical $\overline{r_m - r_f}$ from French's data library
+3. Estimate beta by running regression
 $$r - r_f = \alpha + \beta (r_m-r_f) + \varepsilon$$
 
 ## Data for regression
@@ -53,15 +54,16 @@ $$r - r_f = \alpha + \beta (r_m-r_f) + \varepsilon$$
 The regression is:
 $$r - r_f = \alpha + \beta (r_m-r_f) + \varepsilon$$
 
-- CVX return $r$ from Yahoo adjusted closing prices
-- $r_m-r_f = $ MKT-RF from French's data library 
-- $r_f$ from French's data library (to subtract from $r$)
+a. CVX return $r$ from Yahoo adjusted closing prices
+b. Risk-free rate $r_f$ from French's data library 
+c. Market excess return $r_m-r_f$ from French's data library 
+
 
 ## Compute CVX returns
 
 - Ask Julius to pip install yfinance==0.1.70 and import yfinance as yf
 - Then (all instructions at once to avoid repeated downloads) ask Julius to: 
-  - use yf.Ticker to get CVX closing prices (= adjusted closing prices)
+  - use yf.Ticker to get CVX closing prices (= adjusted closing prices) since 2018
   - downsample to end-of-month and compute returns as 100 times percent change
   - convert dates to pandas monthly period format
  
@@ -171,7 +173,7 @@ $$+ \beta_3 \times \text{HML} + \beta_4 \times \text{CMA} + \beta_5 \times \text
 
 ## Interpretation
 
-- A risk-adjusted benchmark for $r$ is
+- A risk-adjusted benchmark for FMAGX is
 $$(1-\beta_1)\times \text{RF} + \beta_1 \times \text{MKT} + \beta_2 \times \text{SMB}$$
 $$+ \beta_3 \times \text{HML} + \beta_4 \times \text{CMA} + \beta_5 \times \text{RMW} + \varepsilon$$
 - Call this BMARK.  The regression can be restated as
