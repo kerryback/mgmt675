@@ -49,6 +49,8 @@ Expected stock return is $r_f + \beta \times \overline{r_m - r_f}$
 3. Estimate beta by running regression
 $$r - r_f = \alpha + \beta (r_m-r_f) + \varepsilon$$
 
+Let's estimate the beta first.
+
 ## Data for regression
 
 The regression is:
@@ -63,15 +65,20 @@ c. Market excess return $r_m-r_f$ from French's data library
 
 - Ask Julius to pip install yfinance==0.1.70 and import yfinance as yf
 - Then (all instructions at once to avoid repeated downloads) ask Julius to: 
-  - use yf.Ticker to get CVX closing prices (= adjusted closing prices) since 2018
+  - use yf.Ticker to get CVX closing prices (= adjusted closing prices) since 2010
   - downsample to end-of-month and compute returns as 100 times percent change
   - convert dates to pandas monthly period format
- 
+
+## Get Fama-French factors
+
+ Ask Julius to use the pandas datareader 
+ get the monthly Fama-French factors since 2010 from French's data library,
+
 ## Prepare data for the regression
 
-- Ask Julius to do an inner merge on Date of the CVX returns and Fama-French factors.
-- Ask Julius to keep only the last 60 rows.
-- Ask Julius to add the excess CVX return to the dataframe by subtract RF from the CVX return.
+- Ask Julius to do an inner merge on the dates of the CVX returns and Fama-French factors.
+- Ask Julius to keep only the last 120 rows.
+- Ask Julius to add the excess CVX return to the dataframe by subtracting RF from the CVX return.
 - Ask Julius to show the head and tail of the dataframe.
 
 ## Run the regression
@@ -112,7 +119,7 @@ Ask Julius to compute rf + beta * market_premium.
 - Suppose we're giving a presentation in which we show the regression plot.
   - We anticipate there might be questions about some of the points - e.g., extreme values.
   - We could tag them with annotations, but it creates clutter.
-  - It might be cool to be able to hover over points and have pop-ups with details.
+  - It might be useful to be able to hover over points and have pop-ups with details.
 - This requires html.
 
 ## Use plotly
@@ -159,7 +166,7 @@ Ask Julius to compute rf + beta * market_premium.
 - Repeat the steps in the Yahoo/Fama-French merge, except
   - Get FMAGX (Fidelity Magellan) from Yahoo for the maximum history possible
   - Get the monthly 5-factor Fama-French factors from French's data library for the maximum history possible
-  - Keep all months after doing an inner merge (not just last 60 rows)
+  - Keep all months after doing an inner merge (not just last 120)
 
 
 ## Run regression
@@ -184,3 +191,14 @@ $$ r - \text{BMARK} = \alpha + \varepsilon$$
 
 - Ask Julius to add a variable called over_under to the dataset defined as (regression intercept + regression residuals) / 100.
 - Ask Julius to compute the cumulative product of (1 + over_under) and to plot it.
+
+## Attribution analysis
+
+- Attribution analysis is breaking down the benchmark.
+- How much return comes from market exposure?  size exposure? value exposure? ...
+- We can calculate the average return to the value exposure as $\beta_3 \overline{\text{HML}}$, etc.
+- We can visualize these by plotting the cumulative product of 
+$1 + \beta_3 \times \text{HML}/100$, etc.  
+- Ask Julius.
+
+
