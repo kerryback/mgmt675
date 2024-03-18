@@ -31,79 +31,154 @@ format:
     code-line-numbers: false
 ---
 
-# Cost of Capital and Performance Evaluation
+# Alphas and Betas
 
-## Topics
+## Objectives for this Week
 
-- CAPM regression 
-  - estimate beta for cost of equity capital
-- Fama-French regression
-  - estimate factor exposures (betas) and alpha for mutual fund performance evaluation
+1. Estimate the cost of equity capital for CVX
+2. Evaluate the performance of Fidelity Magellan relative to a Fama-French benchmark
 
-## Data for CAPM regression
+# Cost of equity capital
 
-- Ask Julius to get the monthly Fama-French factors from Ken French's data library and convert to decimal.
-- Ask Julius to use yfinance to get adjusted closing prices for some ticker from Yahoo Finance.
-- Ask Julius to downsample the adjusted closing prices to end-of-month and and compute returns as percent changes.
+## Capital Asset Pricing Model
 
-## 
+- Expected stock return is $r_f + \beta \times \overline{r_m - r_f}$
+- Get today's $r_f$ from FRED
+- Get historical $\overline{r_m - r_f}$ from French's data library
+- Estimate beta by running regression
+$$r - r_f = \alpha + \beta (r_m-r_f) + \varepsilon$$
 
-- Ask Julius to change the date type for the Yahoo returns to the monthly period format.
-- Ask Julius to merge the Yahoo returns with the Fama-French factors.
-- Ask Julius to compute the excess Yahoo returns by subtracting the risk-free rate.
-- Ask Julius to drop rows with missing data and to filter to the last 60 months.
+## Data for regression
 
-## Regression
+The regression is:
+$$r - r_f = \alpha + \beta (r_m-r_f) + \varepsilon$$
 
-- Ask Julius to regress the excess Yahoo returns on the excess market return.
-- Ask Julius to report the regression summary.
-- Ask Julius to use seaborn to create a regplot of the excess Yahoo returns on the excess market return.
-- Ask Julius to use plotly to create a regplot of the excess Yahoo returns on the excess market return and to include the date in the hover data.  Ask Julius to save as html.
+- CVX return $r$ from Yahoo adjusted closing prices
+- $r_m-r_f = $ MKT-RF from French's data library 
+- $r_f$ from French's data library (to subtract from $r$)
 
-## Data for Performance Evaluation
+## Compute CVX returns
 
-- Ask Julius to get the five Fama-French factors since 1970 from French's data library and convert to decimal.
-- Ask Julius to get the MOM factor since 1970 from French's data library, convert to decimal, and merge with the Fama-French factors.
+- Ask Julius to pip install yfinance==0.1.70 and import yfinance as yf
+- Then (all instructions at once to avoid repeated downloads) ask Julius to: 
+  - use yf.Ticker to get CVX closing prices (= adjusted closing prices)
+  - downsample to end-of-month and compute returns as 100 times percent change
+  - convert dates to pandas monthly period format
+ 
+## Prepare data for the regression
 
-##
+- Ask Julius to do an inner merge on Date of the CVX returns and Fama-French factors.
+- Ask Julius to keep only the last 60 rows.
+- Ask Julius to add the excess CVX return to the dataframe by subtract RF from the CVX return.
+- Ask Julius to show the head and tail of the dataframe.
 
-- Ask Julius to use yfinance to get adjusted closing prices since 1970 for FMAGX (Fidelity Magellan) from Yahoo Finance, downsample to end-of-month, and compute returns as percent changes.
-- Ask Julius to change the date type for FMAGX to the monthly period format and to merge with the MOM/Fama-French factor data.
-- Ask Julius to compute excess FMAGX returns by subtracting the risk-free rate.
+## Run the regression
 
-## Performance Evaluation
+- Ask Julius to regress the excess CVX return on MKT-RF, including an intercept, and show a summary of the results.
+- Ask Julius to assign the MKT-RF regression coefficient to a new variable called beta.
 
-- Ask Julius to regress the excess FMAGX returns on the excess market returns and to report the regression summary.
-- Ask Julius to cumulatively multiply (1 + intercept + residual) and to plot the result.
+## Estimate the market risk premium
+
+- Ask Julius to use pandas datareader to get the annual Fama-French factors from French's data library starting in 1926.
+- Ask Julius to compute the mean of MKT-RF and assign it to a new variablecalled  market_premium.
+
+## Get the current risk-free rate
+
+- Ask Julius to use pandas datareader to get 1-month Treasury bill yields from FRED.
+- Ask Julius to get the most recent 1-month Treasury bill yield and assign it to a new variable called rf.
+
+## CVX cost of equity capital
+
+Ask Julius to compute rf + beta * market_premium.
+
+## Visualize the regression
+
+- Ask Julius to produce a scatter plot with the excess CVX return on the y axis and MKT-RF on the x axis.
+  - Tip: we might need to give Julius the name of the dataframe containing the excess CVX return and MKT-RF.
+  - Look back at the code where Julius showed the head and tail of the dataframe to find the name.
+- Ask Julius to include the regression line on the scatter plot.
+
+## Visualization tips
+
+- We can ask Julius to set the style of the plot.  I like the seaborn whitegrid style. 
+- There are other choices: [seaborn plot styles](https://seaborn.pydata.org/tutorial/aesthetics.html)
+- If Julius is balky at including the regression line, ask it to create a seaborn regplot with ci=None.
+- You can also specify the colors of the points and the line (the line could be a different color than the points).
+
+## Interactive plots
+
+- Suppose we're giving a presentation in which we show the regression plot.
+  - We anticipate there might be questions about some of the points - e.g., extreme values.
+  - We could tag them with annotations, but it creates clutter.
+  - It might be cool to be able to hover over points and have pop-ups with details.
+- This requires html.
+
+## Use plotly
+
+- Ask Julius to use the dataframe containing the CVX excess return and MKT-RF and to convert the dates to strings.
+- Ask Julius to use plotly to create a scatter plot with a regression line, the CVX excess return on the y-axis, and MKT-RF on the x-axis.
+- Ask Julius to include the date in the hover data.
+- Ask Julius to save the figure as html.
+
+## See the results
+
+- Download the html file.
+- Open it from Windows Explorer or the Mac Finder (it probably won't work opening it from your web browser).
+- More visualization coming next week.
+
+# Mutual Fund Performance
+
+## Performance measures
+
+- Rankings
+- Performance relative to benchmark (large cap, ...)
+- Performance after adjusting for risk exposures
+  - relative to benchmark adjusting for benchmark beta
+  - or including other risk exposures
+  - alpha = average return after adjustments
+
+## Fama-French factors: motivation
+
+- Certain types of stocks have beaten others historically
+- Efficient markets view: must be due to risk exposures that investors care about
+- Not sure what risks are, but use difference in returns of different types of stocks as proxies
+
+## Fama-French 5 factors
+
+- MKT-RF = market return minus T-bill return
+- SMB = [S]{style="color: Tomato; font-weight: bold"}mall stock return [M]{style="color: Tomato; font-weight: bold"}inus [B]{style="color: Tomato; font-weight: bold"}ig stock return
+- HML = [H]{style="color: Tomato; font-weight: bold"}igh book-to-market (value) return [M]{style="color: Tomato; font-weight: bold"}inus [L]{style="color: Tomato; font-weight: bold"}ow book-to-market return
+- CMA = [C]{style="color: Tomato; font-weight: bold"}onservative (low asset growth) return [M]{style="color: Tomato; font-weight: bold"}inus [A]{style="color: Tomato; font-weight: bold"}ggressive return
+- RMW = [R]{style="color: Tomato; font-weight: bold"}obust (high profitability) return [M]{style="color: Tomato; font-weight: bold"}inus [W]{style="color: Tomato; font-weight: bold"}eak return
+
+## Data
+
+- Start a new chat.
+- Repeat the steps in the Yahoo/Fama-French merge, except
+  - Get FMAGX (Fidelity Magellan) from Yahoo for the maximum history possible
+  - Get the monthly 5-factor Fama-French factors from French's data library for the maximum history possible
+  - Keep all months after doing an inner merge (not just last 60 rows)
+
+
+## Run regression
+
+- The regression is
+$$r-\text{RF} = \alpha + \beta_1 \times \text{MKT-RF} + \beta_2 \times \text{SMB}$$
+$$+ \beta_3 \times \text{HML} + \beta_4 \times \text{CMA} + \beta_5 \times \text{RMW} + \varepsilon$$
+
+- Ask Julius to add the excess FMAGX return to the dataframe (FMAGX return minus RF).
+- Ask Julius to regress the excess FMAGX return on the Fama-French factors and report the summary.
 
 ## Interpretation
 
-- The regression equation is 
-$$r_t - r_{ft} = \alpha + \beta_1 (r_m - r_f) + \cdots + \beta_6 \text{MOM} + \varepsilon_t$$
-- The ellipses represent the other terms
-$$\beta_2 \text{SMB} + \beta_3\text{HML} + \beta_4\text{RMW} + \beta_5\text{CMA}$$
-- These terms (plus $\beta_6\text{MOM}$) represent long positions with offsetting short positions.
+- A risk-adjusted benchmark for $r$ is
+$$(1-\beta_1)\times \text{RF} + \beta_1 \times \text{MKT} + \beta_2 \times \text{SMB}$$
+$$+ \beta_3 \times \text{HML} + \beta_4 \times \text{CMA} + \beta_5 \times \text{RMW} + \varepsilon$$
+- Call this BMARK.  The regression can be restated as
+$$ r - \text{BMARK} = \alpha + \varepsilon$$
+- $\alpha + \varepsilon$ is over-performance when positive and under-performance when negative.
 
-##
+## History of Over or Under-Performance
 
-- Rearrange as
-$$r_t = \beta_1 r_m + (1-\beta_1)r_{ft} + \cdots + \beta_6 \text{MOM} + \alpha + \varepsilon_t$$
-
-- The part 
-
-$$\beta_1 r_m + (1-\beta_1)r_{ft} + \cdots + \beta_6 \text{MOM}$$
-
-is a portfolio of the market, risk-free rate, and other factors that has the same betas as FMAGX.  
-- It is a benchmark for the performance of FMAGX.
-
-##
-
-- The part
-
-$$\alpha + \varepsilon_t$$
-
-is the return of FMAGX above the benchmark. 
- 
- - The average return of FMAGX above the benchmark is  $\alpha$.  
-
- - The plot shows how the return of FMAGX in excess of the benchmark has varied over time.
+- Ask Julius to add a variable called over_under to the dataset defined as (regression intercept + regression residuals) / 100.
+- Ask Julius to compute the cumulative product of (1 + over_under) and to plot it.

@@ -9,15 +9,7 @@
 
 2. March 14
 - [Tickers and Metrics Datasets](https://julius.ai/chat?id=05669e30-95ee-4769-9cc3-e78654971ecb&name=Unique+Values+in+Sector+Column)
-- [Online Data](https://julius.ai/chat?id=3dd69962-2da9-4074-abad-9b9faf609ab5&name=Historical+Closing+Prices+for+SPY)
-
-3. March 19
-
-4. March 21
-
-5. March 26
-
-6. March 28
+- [Online Data](https://julius.ai/chat?id=3dd69962-2da9-4074-abad-9b9faf609ab5&name=Historical+Closing+Prices+for+SPY 28
 
 7. April 2
 
