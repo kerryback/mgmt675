@@ -7,6 +7,7 @@ project:
     - assignments.qmd
     - data.qmd
     - conversations.qmd
+    - solutions.qmd
               
 website:
   title: ""
@@ -23,7 +24,9 @@ website:
       - text: Conversations
         file: conversations.qmd
       - text: Assignments
-        file: assignments.qmd   
+        file: assignments.qmd
+      - text: Solutions 
+        file: solutions.qmd   
         
 format: 
   html:
