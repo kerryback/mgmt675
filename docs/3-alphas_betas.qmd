@@ -133,6 +133,7 @@ Ask Julius to compute rf + beta * market_premium.
 
 - Download the html file.
 - Open it from Windows Explorer or the Mac Finder (it probably won't work opening it from your web browser).
+- Try out different [plotly templates](https://plotly.com/python/templates/) - e.g., plotly_dark.
 - More visualization coming next week.
 
 # Mutual Fund Performance
