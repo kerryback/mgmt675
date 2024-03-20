@@ -11,11 +11,21 @@
 - [Tickers and Metrics Datasets](https://julius.ai/chat?id=05669e30-95ee-4769-9cc3-e78654971ecb&name=Unique+Values+in+Sector+Column)
 - [Online Data](https://julius.ai/chat?id=3dd69962-2da9-4074-abad-9b9faf609ab5&name=Historical+Closing+Prices+for+SPY)
 
-7. April 2
+3. March 19
 
 - [Download Data and Merge](https://julius.ai/chat?id=4f4840b7-9328-400e-b606-1be71776f0c9&name=Retrieving+Closing+Prices+for+Chevron)
 - [Regression and Visualization](https://julius.ai/chat?id=ee20c7e8-3cb4-47d3-8fc2-842e436955bd&name=Adding+Excess+Return+Variable)
 - [CVX Cost of Equity](https://julius.ai/chat?id=ef7c21db-6122-4c31-9b0b-dbd7c9ac73f3&name=Regression+Analysis%3A+Market+Excess+Returns)
+
+4. March 21
+
+- [Download Data and Merge](https://julius.ai/chat?id=f3da83ff-834b-461d-ae15-ff105f7645c3&name=Saving+FMAGX+Returns+to+Excel)
+
+5. March 26
+
+6. March 28
+
+7. April 2
 
 8. April 4
 

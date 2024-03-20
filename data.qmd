@@ -5,6 +5,9 @@
   - [metrics.xlsx](https://www.dropbox.com/scl/fi/2x48zp2xxqt3nznt1yr3s/metrics.xlsx?rlkey=o1fyg9h7n4wh628age7fwqjga&dl=1)
   - [tickers.xlsx](https://www.dropbox.com/scl/fi/d8jfx5zml22p6wd6zsghk/tickers.xlsx?rlkey=k5t0xwmp087wq7rcrcsybx88x&dl=1)
 
+- Performance Evaluation
+  - [fmagx_ff5.xlsx](https://www.dropbox.com/scl/fi/7uquqkfu2vl5fp3ycz087/fmagx_ff5.xlsx?rlkey=29ekxxzrq54pcer0l21rahi72&dl=1)
+
 - Portfolio Optimization
   - [international.xlsx](https://www.dropbox.com/scl/fi/n9xetoaasf7fpm7jh9qqb/international.xlsx?rlkey=15tuk93vvb3an0f2ddjxfltwa&dl=1)
   - [international_corrs.xlsx](https://www.dropbox.com/scl/fi/c096l6631jmoyvv5anepm/international_corrs.xlsx?rlkey=m5jykolrs466tj07aezn8ksji&dl=1)
