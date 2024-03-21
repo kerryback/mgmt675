@@ -56,7 +56,8 @@ format:
 
 We want to see how the metrics have changed over time and how they vary across sectors. Suggestions:
 
-- Filter to the date 2023-12-29, group by sector and generate barplots of aggregates (total or median) - e.g., total marketcap or median pb.
+- Filter to the date 2023-12-29, group by sector and generate barplots of aggregates (total or median) - e.g., total marketcap or median pb - or a pie chart for totals.
+
 - Group by (sector, date) and generate 3d barplots of aggregates.
 - Group by (sector, date) and generate heatmaps of aggregates.
 
