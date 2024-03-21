@@ -38,6 +38,7 @@ format:
 - metrics_5year.xlsx
 - tickers.xlsx
 - Download from [course website](https://mgmt675.kerryback.com/data.html) and upload to Julius.
+- Maybe better to upload in two messages rather than one.
 
 ## Explore data
 
@@ -53,11 +54,11 @@ format:
 
 ## Explore visually
 
-- We want to see how the market has changed and how the metrics vary across sectors.
-- Suggestions:
-  - Filter to the date 2023-12-29, group by sector and generate barplots of aggregates (total or median) - e.g., total marketcap or median pb.
-  - Group by (sector, date) and generate 3d barplots of aggregates.
-  - Group by (sector, date) and generate heatmaps of aggregates.
+We want to see how the metrics have changed over time and how they vary across sectors. Suggestions:
+
+- Filter to the date 2023-12-29, group by sector and generate barplots of aggregates (total or median) - e.g., total marketcap or median pb.
+- Group by (sector, date) and generate 3d barplots of aggregates.
+- Group by (sector, date) and generate heatmaps of aggregates.
 
 ## Exercise 2
 
