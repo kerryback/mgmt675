@@ -33,50 +33,39 @@ format:
 
 # Visualization 
 
-## Types of Plots
+## Exercise 1
 
-- Distributions
-  - Histograms, density plots, box plots, pie charts 
-- Bivariate
-  - Bar plots, line plots, scatter plots (with regression lines and with transparency), hexbin plots
-- 3D
-  - 3D plots, contour plots
+- metrics_5year.xlsx
+- tickers.xlsx
+- Download from [course website](https://mgmt675.kerryback.com/data.html) and upload to Julius.
 
-## Extras 
+## Explore data
 
-- Control linestyle, linewidth, point style, point size, titles, axis labels, axis ticks, font sizes
-- Annotations
-- Subplots
-- Interactive plots and animations saved as html
+- How many rows in the tickers dataset?  What are the columns?
+- What are the columns in metrics_5year?
+- Group metrics_5year by date and count the number of tickers at each date.
 
-## Distribution of market caps
+## Merge
 
-- Upload the metrics and tickers datasets and ask Julius to merge them on ticker.
-- Ask Julius to create a histogram, a density plot, a filled density plot, and a boxplot of marketcap.
-- Ask Julius to use seaborn to create boxplots of marketcap by sector.
-- Ask Julius to save the plots as jpegs and provide links.
+- Do an inner merge of tickers and metrics_5year on ticker.  
+- Group by date and count the number of tickers at each date.
+- Save the merged dataset as merged.xlsx.
 
-## Pie charts and bar charts
+## Explore visually
 
-- Ask Julius to create a pie chart of the number of firms by sector.
-- Ask Julius to create a bar chart of total marketcap by sector. 
+- We want to see how the market has changed and how the metrics vary across sectors.
+- Suggestions:
+  - Filter to the date 2023-12-29, group by sector and generate barplots of aggregates (total or median) - e.g., total marketcap or median pb.
+  - Group by (sector, date) and generate 3d barplots of aggregates.
+  - Group by (sector, date) and generate heatmaps of aggregates.
 
-## Hover data
+## Exercise 2
 
-- Ask Julius to use plotly to create a boxplot of marketcap by sector in the merged dataset and to include the ticker in the hover data.  
-- Ask Julius to save as html.
+- Ask Julius to use yfinance to get closing prices for CVX during April 2020 (if error, ask to pip install yfinance==0.1.70).
+- Ask Julius to use pandas datareader to get crude oil prices from FRED during April 2020.
+- Ask Julius to plot the CVX prices and crude oil prices in the same figure with the crude price labels on a second y axis.
 
-## Filled density plot
-
-- Ask Julius to download crude oil prices from FRED, compute percent changes, and create a filled density plot of the percent changes.
-
-## Scatter Plots
-
-- Ask Julius to download the Fama-French factors since 1980 from Ken French's data library.
-- Ask Julius to use seaborn to create a scatter plot with Mkt-RF on the x axis and SMB on the y axis.
-- Ask Julius to set the transparency parameter alpha to 0.3 and to include a regression line.
-
-## Animations
+## Exercise 3
 
 - Ask Julius to get the histories since 1990 of the 3-month, 1-year, 5-year, and 10-year Treasury yields from FRED.
 - Ask Julius to downsample to first day of the month.
@@ -84,10 +73,6 @@ format:
 - Ask Julius to save it as html.
 
 
-## 3D
-
-- Ask Julius to create a filled contour plot of the function $z=(4x + y)^2$ for $x$ and $y$ between $-2$ and $2$.
-- Ask Julius to create a 3D plot of the same function on the same range.
 
 
 
