@@ -15,6 +15,7 @@
   - [international.xlsx](https://www.dropbox.com/scl/fi/n9xetoaasf7fpm7jh9qqb/international.xlsx?rlkey=15tuk93vvb3an0f2ddjxfltwa&dl=1)
   - [international_corrs.xlsx](https://www.dropbox.com/scl/fi/c096l6631jmoyvv5anepm/international_corrs.xlsx?rlkey=m5jykolrs466tj07aezn8ksji&dl=1)
   - [us_developed_emerging_rets.xlsx](https://www.dropbox.com/scl/fi/lu01rgk9n3wwxe1mmc6ke/us_developed_emerging_rets.xlsx?rlkey=myt5rgwtpt7uaie6vshdoj8d0&dl=1)
+  - [damodoran.xlsx](https://www.dropbox.com/scl/fi/xvj5xdzwk7dvegduxw4aj/damodoran.xlsx?rlkey=i4kddrnyb6fqfmxwiyzd6o7js&dl=1)
 
 - Machine Learning 
   - [irrelevant_features.xlsx](https://www.dropbox.com/scl/fi/rqq35dn7vx9i07pr4n0us/irrelevant_features.xlsx?rlkey=ixr6wv1dufygr1cckrxvmrs55&dl=1)
