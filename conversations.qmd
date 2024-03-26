@@ -21,6 +21,8 @@
 
 - [Download Data and Merge](https://julius.ai/chat?id=f3da83ff-834b-461d-ae15-ff105f7645c3&name=Saving+FMAGX+Returns+to+Excel)
 
+- [Performance Evaluation](https://julius.ai/chat?id=4f51b404-0ab5-4b53-a2b8-642ae906576d&name=Adding+FMAGX-RF+Column)
+
 5. March 26
 
 6. March 28
