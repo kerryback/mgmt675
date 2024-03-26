@@ -32,12 +32,12 @@ format:
 
 # Optimal Portfolios 
    
-## Topics 
+## Examples
 
-- Frontier portfolios of risky assets (minimize risk subject to achieving a target expected return)
-- Tangency portfolio (maximize Sharpe ratio)
-- Estimate means, standard deviations, and correlations from historical returns
-
+- From Applied:
+  - U.S., U.K., France, Germany, Japan 
+  - U.S., Developed, Emerging
+- ETFs from Yahoo Finance
 
 ## Goal Seek in Python
 
@@ -46,81 +46,219 @@ format:
   - cvxopt = convex optimization
   - qp = quadratic programming 
 
-## Examples
+# Matrix Multiplication
 
-- From Applied:
-  - U.S., U.K., France, Germany, Japan 
-  - U.S., Developed, Emerging
-- ETFs from Yahoo Finance
+## Primer/review of matrix multiplication
 
-# U.S., U.K., France, Germany, and Japan
+- Excel's MMULT function
+- Example:
+
+$$\begin{pmatrix} \color{red}{1} & \color{red}{2} \\ 
+2 & 2 \end{pmatrix} 
+\begin{pmatrix} \color{red}{3} \\ \color{red}{5}
+\end{pmatrix} = 
+\begin{pmatrix} \color{red}{13} \\ 16 \end{pmatrix}
+$$
+
+## Primer/review of matrix multiplication
+
+- Excel's MMULT function
+- Example:
+
+$$\begin{pmatrix} 1 & 2 \\ 
+\color{red}{2} & \color{red}{2} \end{pmatrix} 
+\begin{pmatrix} \color{red}{3} \\ \color{red}{5}
+\end{pmatrix} = 
+\begin{pmatrix} 13 \\ \color{red}{16} \end{pmatrix}
+$$
+
+## Primer/review of matrix multiplication
+
+- Excel's MMULT function
+- Example:
+
+$$\begin{pmatrix} 1 & 2 \\ 
+\color{red}{2} & \color{red}{2} \end{pmatrix} 
+\begin{pmatrix} \color{red}{3} \\ \color{red}{5}
+\end{pmatrix} = 
+\begin{pmatrix} 13 \\ \color{red}{16} \end{pmatrix}
+$$
+
+- $(2 \times 2)$ * $(2 \times 1)$ = $(2 \times 1)$
+- height = height of 1st matrix, width = width of 2nd matrix
+
+## Another example
+
+- $(3 \times 2)$ * $(2 \times 2)$ = $(3 \times 2)$
+
+$$\begin{pmatrix} \color{red}{1} & \color{red}{2} \\ 
+2 & 2 \\ 3 & 2\end{pmatrix} 
+\begin{pmatrix} \color{red}{3} & 2 \\ \color{red}{5} & 4
+\end{pmatrix} = 
+\begin{pmatrix} \color{red}{13} & 10 \\ 16 & 12 \\ 19 & 14 \end{pmatrix}
+$$
+
+## Another example
+
+- $(3 \times 2)$ * $(2 \times 2)$ = $(3 \times 2)$
+
+$$\begin{pmatrix} 1 & 2 \\ 
+\color{red}{2} & \color{red}{2} \\ 3 & 2\end{pmatrix} 
+\begin{pmatrix} \color{red}{3} & 2 \\ \color{red}{5} & 4
+\end{pmatrix} = 
+\begin{pmatrix} 13 & 10 \\ \color{red}{16} & 12 \\ 19 & 14 \end{pmatrix}
+$$
+
+## Another example
+
+- $(3 \times 2)$ * $(2 \times 2)$ = $(3 \times 2)$
+
+$$\begin{pmatrix} 1 & 2 \\ 
+2 & 2 \\ \color{red}{3} & \color{red}{2}\end{pmatrix} 
+\begin{pmatrix} \color{red}{3} & 2 \\ \color{red}{5} & 4
+\end{pmatrix} = 
+\begin{pmatrix} 13 & 10 \\ 16 & 12 \\ \color{red}{19} & 14 \end{pmatrix}
+$$
+
+## Another example
+
+- $(3 \times 2)$ * $(2 \times 2)$ = $(3 \times 2)$
+
+$$\begin{pmatrix} \color{red}{1} & \color{red}{2} \\ 
+2 & 2 \\ 3 & 2\end{pmatrix} 
+\begin{pmatrix} 3 & \color{red}{2} \\ 5 & \color{red}{4}
+\end{pmatrix} = 
+\begin{pmatrix} 13 & \color{red}{10} \\ 16 & 12 \\ 19 & 14 \end{pmatrix}
+$$
+
+## Another example
+
+- $(3 \times 2)$ * $(2 \times 2)$ = $(3 \times 2)$
+
+$$\begin{pmatrix} 1 & 2 \\ 
+\color{red}{2} & \color{red}{2} \\ 3 & 2\end{pmatrix} 
+\begin{pmatrix} 3 & \color{red}{2} \\ 5 & \color{red}{4}
+\end{pmatrix} = 
+\begin{pmatrix} 13 & 10 \\ 16 & \color{red}{12} \\ 19 & 14 \end{pmatrix}
+$$
+
+## Another example
+
+- $(3 \times 2)$ * $(2 \times 2)$ = $(3 \times 2)$
+
+$$\begin{pmatrix} 1 & 2 \\ 
+2 & 2 \\ \color{red}{3} & \color{red}{2}\end{pmatrix} 
+\begin{pmatrix} 3 & \color{red}{2} \\ 5 & \color{red}{4}
+\end{pmatrix} = 
+\begin{pmatrix} 13 & 10 \\ 16 & 12 \\ 19 & \color{red}{14} \end{pmatrix}
+$$
+
+# cvxopt
+
+## Matrices in cvxopt: portfolio variance
+
+- $w^\top \text{Cov} \,w =$ portfolio variance =
+
+$$ \begin{pmatrix} w_1 & \cdots & w_n \end{pmatrix}
+\begin{pmatrix} \text{var}_1 & \cdots & \text{cov}_{1n} \\
+\vdots & \vdots & \vdots \\
+\text{cov}_{1n} & \cdots & \text{var}_n 
+\end{pmatrix} \begin{pmatrix} w_1 \\ \vdots \\ w_n \end{pmatrix}$$
+
+
+- $(1 \times n)$ * $(n \times n)$ * $(n \times 1)$ = $(1 \times 1)$
+
+. . .
+
+- $P=$ covariance matrix in cvxopt notation
+
+
+## Matrices in cvxopt: equality constraints
+
+- Weights sum to 1 and expected return = target is expressed as: 
+
+$$ \begin{pmatrix} 1 & \cdots & 1 \\
+\mu_1 & \cdots & \mu_n \end{pmatrix} \begin{pmatrix} w_1 \\ \vdots \\ w_n \end{pmatrix} = \begin{pmatrix} 1 \\ \mu_{\text{target}}\end{pmatrix}$$
+
+. . .
+
+- $Aw=b$ in cvxopt notation (Julius should supply $A$ and $b$)
+
+## Matrices in cvxopt: inequality constraints
+
+- No short sales is equivalent to:
+
+$$ \begin{pmatrix} -1 & 0 & \cdots & 0 & 0\\
+\vdots & \vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \cdots & 0 & -1 \end{pmatrix} \begin{pmatrix} w_1 \\ \vdots \\ w_n \end{pmatrix} \le \begin{pmatrix} 0 \\ \vdots \\ 0 \end{pmatrix}$$
+
+. . .
+
+- $Gw \le h$ in cvxopt notation (Julius should supply $G$ and $h$)
+
+## Matrices in cvxopt: risk premium
+
+- Risk premium of a portfolio is
+
+$$\begin{pmatrix} \mu_1 - r_f & \cdots & \mu_n - r_f \end{pmatrix} \begin{pmatrix}
+w_1 \\ \vdots \\ w_n \end{pmatrix}$$
+
+. . .
+
+- $q^\top w$ in cvxopt notation (Julius should supply $q$)
+
+# Frontier and tangency portfolios
+
+## Frontier portfolios w/o risk-free asset
+
+- Frontier $\sim$ hyperbola in mean/std dev space
+- Minimize variance subject to expected return = target and weights sum to 1
+- Vary target expected return and trace out frontier
+
+## Tangency portfolio
+
+- Include risk-free asset
+- Minimize variance minus risk premium
+- Produces portfolio on capital allocation line
+- Divide by sum of weights to get tangency portfolio
+
+# Example 1: U.S., U.K., France, Germany, and Japan
 
 ## Data
 
 - Download international.xlsx and international_corrs.xlsx from the [course website](https://mgmt675.kerryback.com).
 - Upload the files to Julius.  Ask Julius to read them.
-- Ask Julius to convert the means, standard deviations, and correlation matrix into numpy arrays.
-- Ask Julius to compute the covariance matrix as a numpy array.
+- Ask Julius to convert the expected returns, standard deviations, and correlation matrix into separate numpy arrays.
+- Ask Julius to compute the covariance matrix from the standard deviations and correlation matrix.
 
 ## Frontier portfolios (w/o risk-free asset)
 
 - Ask Julius to use cvxopt to minimize variance subject to achieving a target expected return.
-  - If allowing short sales, tell Julius there are no inequality constraints.
-  - If excluding short sales, tell Julius to not allow short sales.
+- Tell Julius whether you want to allow short sales.  To allow short sales, tell Julius there are no inequality constraints. 
 - Ask Julius to repeat for a range of target expected returns and to plot the expected returns and standard deviations.
-
-# Digression on cvxopt
-
-## Frontier Portfolios Allowing Short Sales
-
-- minimize $(1/2) x'Px$ subject to $Ax=b$
-- $P=$ covariance matrix. $x'Px$ is portfolio variance
-- $A =$ array with two rows.  First row $=$ np.ones(n).  Second row $=$ asset expected returns.
-- $b=$ np.array([1, targ])
-- $Ax=b$ means weights sum to 1 and expected return $=$ targ.
-- Julius should figure all of this out.
-
-## Frontier Portfolios Excluding Short Sales
-
-- minimize $(1/2) x'Px$ subject to $Ax=b$ and $Gx \le h$
-- $P$, $A$, and $b$ as before
-- $G =-$ np.eye(n) and $h =$ np.zeros(n)
-- $Gx \le h$ means weights are nonnegative (no shorts)
-- Again, Julius should figure this out.
-
-# Back to Example
 
 ## Tangency Portfolio
 
 - Give Julius a number for the risk-free rate.
 - Ask Julius to minimize the variance minus the risk premium.
-  - If allowing short sales, tell Julius there are no inequality constraints.
-  - If excluding short sales, tell Julius to not allow short sales.
+- Tell Julius whether you want to allow short sales.
+ 
 
 ##
 
 - Ask Julius to divide by the sum of the weights to compute the tangency portfolio.
-- Ask Julius to include the tangency portfolio and the capital market line on the previous plot.
+- Ask Julius to include the tangency portfolio and the capital allocation line on the previous plot.
 
-# Another Digression on cvxopt
+# Example 2: U.S., Developed, and Emerging
 
-## cvxopt for Tangency Portfolio
-
-- Minimize $x'Px - q'x$
-  - $P=$ 2 times covariance matrix (but the 2 is not important)
-  - $q=$ risk premia
-- No equality constraints
-- If no short sales, then $G=-$ np.eye(n) and $h=$ np.zeros(n)
-- Then divide by the sum of weights.
-
-# US, Developed, and Emerging
+## U.S., Developed, and Emerging
 
 - Start a new chat.
 - Upload us_developed_emerging_rets.xlsx and ask Julius to read it.
 - Ask Julius to compute the sample means, sample standard deviations and sample correlation matrix as numpy arrays.
 - Repeat the frontier and tangency portfolio calculations.
 
-# Data from Yahoo
+# Example 3: ETFs
 
 
 ## ETFs from Yahoo
