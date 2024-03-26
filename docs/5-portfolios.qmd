@@ -39,7 +39,7 @@ format:
   - U.S., Developed, Emerging
 - ETFs from Yahoo Finance
 
-## Goal Seek in Python
+## Solver in Python
 
 - There are several choices in python for optimizing functions.
 - The qp function from cvxopt is a very good choice for portfolio optimization.
