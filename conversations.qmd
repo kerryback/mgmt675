@@ -19,11 +19,14 @@
 
 4. March 21
 
-- [Download Data and Merge](https://julius.ai/chat?id=f3da83ff-834b-461d-ae15-ff105f7645c3&name=Saving+FMAGX+Returns+to+Excel)
-
+- [Create fmagx_ff5 Dataset](https://julius.ai/chat?id=f3da83ff-834b-461d-ae15-ff105f7645c3&name=Saving+FMAGX+Returns+to+Excel)
 - [Performance Evaluation](https://julius.ai/chat?id=4f51b404-0ab5-4b53-a2b8-642ae906576d&name=Adding+FMAGX-RF+Column)
+- [Visualization for tickers and metrics_5year](https://julius.ai/chat?id=b5e7b87b-bd63-48ed-afb1-0a9d8960d8cc&name=Dataset+Coverage+Over+Time)
+- [Visualization of CVX and Crude During April 2020](https://julius.ai/chat?id=db4965c0-6df6-42f7-a8fe-d64bd13b8707&name=CVX+Adjusted+Close+Prices+April+2020)
 
 5. March 26
+
+- [Optimal International Portfolios](https://julius.ai/chat?id=25d9c017-7731-4dab-8ee5-dc35f2075f27&name=Extracting+Correlation+Matrix+as+Numpy+Array)
 
 6. March 28
 

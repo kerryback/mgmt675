@@ -6,6 +6,7 @@
 3. [Alphas and Betas](3-alphas_betas.html){target="_blank"} [(pdf)](pdfs/3-alphas_betas.pdf){target="_blank"} <br>
 4. [Visualization](4-visualization.html){target="_blank"} [(pdf)](pdfs/4-visualization.pdf){target="_blank"} <br>
 5. [Optimal Portfolios](5-portfolios.html){target="_blank"} [(pdf)](pdfs/5-portfolios.pdf){target="_blank"} <br>
+5b. [Optimal Portfolios the Easy Way](5b-portfolios-again.html){target="_blank"} [(pdf)](pdfs/5b-portfolios-again.pdf){target="_blank"} <br>
 6. [Autocorrelation and Autoregression](6-autoregression.html){target="_blank"} [(pdf)](pdfs/5-autoregression.pdf){target="_blank"} <br>
 7. [Intro to Machine Learning](7-linear.html){target="_blank"} [(pdf)](pdfs/7-linear.pdf){target="_blank"} <br>
 8. [Trees and Forests](8-trees.html){target="_blank"} [(pdf)](pdfs/8-trees.pdf){target="_blank"} <br>

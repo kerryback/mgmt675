@@ -31,17 +31,126 @@ format:
     code-line-numbers: false
 ---
 
-# Autoregression 
+# Autocorrelation 
 
-## Overview
+- Correlation of a variable with its own lagged value
+- First order autocorrelation = first lag
+- Second order autocorrelation = second lag
 
-- We want to forecast a time series.
-  - returns, interest rates, oil price, cash flows, ...
-- Possible models:
-  - ARIMA (autoregressive integrated moving average)
-  - exponential smoothing
-  - neural networks
-- We'll do AR models.
+## Example
+
+| Time   |  Variable |
+| :---:  | :---: |
+| 1      |  2.1  |
+| 2      | 4.5   |
+| 3      | 5.3   |
+| 4      | 3.2   |
+| 5      | 1.6   |
+
+## Example
+
+| Time   |  Variable | Lag   |
+| :---:  | :---: | :---: |
+| 1      |  2.1  |       |
+| 2      | 4.5   | 2.1   |
+| 3      | 5.3   | 4.5   |
+| 4      | 3.2   | 5.3   | 
+| 5      | 1.6   | 3.2   | 
+
+## Example
+
+| Time   |  Variable | Lag   |
+| :---:  | :---: | :---: |
+| 1      |  2.1  |       |
+| 2      | [4.5]{style="color: Tomato; font-weight: bold"}   | [2.1]{style="color: Tomato; font-weight: bold"}   |
+| 3      | [5.3]{style="color: Tomato; font-weight: bold"}   | [4.5]{style="color: Tomato; font-weight: bold"}   |
+| 4      | [3.2]{style="color: Tomato; font-weight: bold"}   | [5.3]{style="color: Tomato; font-weight: bold"}   | 
+| 5      | [1.6]{style="color: Tomato; font-weight: bold"}   | [3.2]{style="color: Tomato; font-weight: bold"}   | 
+
+[Correlation of a variable with its lag is first-order autocorrelation.]{style="color: Tomato; font-weight: bold"}
+
+## Second-order autocorrelation
+
+| Time   |  Variable | 2nd Lag   |
+| :---:  | :---: | :---: |
+| 1      |  2.1  |       |
+| 2      | 4.5  |    |
+| 3      | [5.3]{style="color: Tomato; font-weight: bold"}   |  [2.1]{style="color: Tomato; font-weight: bold"}  |
+| 4      | [3.2]{style="color: Tomato; font-weight: bold"}   |  [4.5]{style="color: Tomato; font-weight: bold"}  | 
+| 5      | [1.6]{style="color: Tomato; font-weight: bold"}   |  [5.3]{style="color: Tomato; font-weight: bold"}  | 
+
+[Correlation of a variable with its 2nd lag is second-order autocorrelation.]{style="color: Tomato; font-weight: bold"}
+
+## Autocorrelation function
+
+- The autocorrelation function (acf) shows autocorrelation at multiple lags.
+- Lag 0 is usually presented too, even though the correlation at lag 0 is always 100%.
+- The band is a confidence interval under the null hypothesis that the autocorrelation is zero.
+- Estimates outside the band are statistically significant.  
+
+## Fama-French factors
+
+- Ask Julius to use pandas datareader to get the monthly Fama-French factors for the maximum history available.
+- Ask Julius to plot the acf's of Mkt-RF, HML, and SMB.
+
+# Autoregressions
+
+## First-order autoregression
+
+- A first-order autoregression is the equation
+$$x_t = \alpha + \beta x_{t-1} + \varepsilon_t$$
+- Positive $\beta \Leftrightarrow$ positive first-order autocorrelation.
+- Positive beta $\Rightarrow$ momentum.  
+- Negative beta $\Rightarrow$ reversals.
+
+## Higher order autoregressions
+
+- A $p$th order autoregression is the equation $$x_t = \alpha + \beta_1x_{t-1} + \cdots + \beta_px_{t-p} + \varepsilon_t$$
+- There are standard methods for choosing the optimal $p$, trading off goodness of fit and parsimony.
+- Ask Julius to fit an AR(p) to HML and find the optimal $p$.
+
+# Levels or changes?
+
+## What should we try to forecast?
+
+- Price of AAPL?
+- Change in price of AAPL?
+- Percent change in price of AAPL (return)?
+- A forecast of changes or percent changes implies a forecast of the price and vice versa, so only need to forecast one of them directly.
+- What variable should we use in an autoregression?
+
+## Stationarity
+
+- One issue is that autocorrelation or autoregression estimates are reliable only for stationary variables.
+- Prices grow over time (unstationary).
+- Changes in prices become larger over time (in absolute value)
+- Returns are the right thing to use in an autoregression.
+
+## Other examples
+
+- Autoregression for crude oil price or change in crude price or percent change in crude price?
+- Autoregression for interest rate or change in interest rate or percent change in interest rate?
+
+## Autoregression and $\Delta x$
+
+Rearrange
+$$x_t = \alpha + \beta x_{t-1} + \varepsilon_t$$
+as
+$$\Delta x_t = \alpha + (\beta-1) x_{t-1} + \varepsilon_t$$
+$$\Delta x_t = (\beta-1)\left(x_{t-1} - \frac{\alpha}{1-\beta}\right) + \varepsilon_t$$
+
+## Mean reversion
+
+- An AR(1) is
+$$\Delta x_t = (\beta-1)\left(x_{t-1} - \frac{\alpha}{1-\beta}\right) + \varepsilon_t$$
+
+- $\beta<1$ implies reregression towards the mean.
+- The mean is $\alpha/(1-\beta)$.
+- $\beta>1$ implies nonstationary.
+
+## Example
+
+Ask Julius to simulate the process x_t = 1 + 0.5*x_{t-1} + e_t by drawing 1,000 standard normals for e_t.  Ask Julius to plot the process.
 
 ## Autocorrelations
 
