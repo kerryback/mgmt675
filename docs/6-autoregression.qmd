@@ -100,8 +100,7 @@ format:
 - A first-order autoregression is the equation
 $$x_t = \alpha + \beta x_{t-1} + \varepsilon_t$$
 - Positive $\beta \Leftrightarrow$ positive first-order autocorrelation.
-- Positive beta $\Rightarrow$ momentum.  
-- Negative beta $\Rightarrow$ reversals.
+- Positive beta $\Rightarrow$ persistence.  
 
 ## Higher order autoregressions
 
