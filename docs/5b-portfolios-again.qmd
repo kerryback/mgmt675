@@ -96,6 +96,6 @@ $$\begin{pmatrix} \text{var}_1 & \cdots & \text{cov}_{1n} \\
 ##
 
 - Ask Julius to compute means and covariance matrix as numpy arrays.
-- Tell Julius the risk-free rate is 5% and ask Julius to compute the risk premia.
+- Tell Julius the risk-free rate is 0.05/12 and ask Julius to compute the risk premia.
 - Ask Julius to multiply the risk premia by the inverse of the covariance matrix.
 - Ask Julius to divide the result by the sum of its elements.
