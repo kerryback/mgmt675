@@ -144,43 +144,41 @@ $$\Delta x_t = (\beta-1)\left(x_{t-1} - \frac{\alpha}{1-\beta}\right) + \varepsi
 - An AR(1) is
 $$\Delta x_t = (\beta-1)\left(x_{t-1} - \frac{\alpha}{1-\beta}\right) + \varepsilon_t$$
 
-- $\beta<1$ implies reregression towards the mean.
+- $\beta<1$ implies regression towards the mean.
 - The mean is $\alpha/(1-\beta)$.
+- $|\beta-1|$ is called the rate of mean reversion.
 - $\beta>1$ implies nonstationary.
 
 ## Example
 
-Ask Julius to simulate the process x_t = 1 + 0.5*x_{t-1} + e_t by drawing 1,000 standard normals for e_t.  Ask Julius to plot the process.
+Ask Julius to simulate the process x_t = 1 + 0.5*x_{t-1} + e_t by drawing 1,000 standard normals for e_t starting at x_0=1.  Ask Julius to plot the process.
 
-## Autocorrelations
+## Forecasts
 
-- Autocorrelation = correlation of a variable with its lagged value
-- First-order autocorrelation $=\text{corr}(x_t, x_{t+1})$
-- $p$--th order autocorrelation $=\text{corr}(x_t, x_{t+p})$
-  - E.g., $p=12$ in monthly data or $p=4$ in quarterly data because of seasonality
+- Given today's value $x_t$, the AR(1) forecast for the next period's value is
+$$\hat{x}_{t+1} = \alpha + \beta x_t$$
+- The forecast for the period after that is
+$$\hat{x}_{t+2} = \alpha + \beta \hat{x}_{t+1}$$
+- Etc.
 
-## Autocorrelation of HML
+## Forecast Convergence
 
-- Ask Julius to use pandas-datareader to download the monthly Fama-French factors from Ken French's data library.
-- Ask Julius to produce a plot of the autocorrelation function (acf) for HML.
+- The forecasts will converge to $\alpha / (1-\beta)$ as we look further out into the future.  
+- They will converge quickly is $\beta$ is small.
+$$ \beta \;\; \text{small} \quad \Rightarrow \quad 1-\beta \;\; \text{large}$$
 
-## Autoregressions 
+## Interest rates
 
-- An autoregression is a regression of a variable on its own lags:
-$$x_t = \alpha + \beta_1x_{t-1} + \cdots + \beta_px_{t-p} + \varepsilon_t$$
-- Ask Julius to fit an AR(1) for HML.
-- Ask Julius to use the AR(1) model to forecast HML for the next 12 months and to plot the last 2 years and the forecasts.
-
-## More examples
-
-Ask Julius to plot the ACF, fit an AR model, and forecast the following:
-
-- Percent change in crude price: Ask Julius to use pandas-datareader to download crude oil prices starting in 1980 from FRED, to downsample to end-of-month, and to compute percent changes.
-
-- Change in Treasury yields: Ask Julius to use pandas-datareader to download 10-year Treasury yields starting in 1980 from FRED, to downsample to monthly, and to compute changes.
+- Ask Julius to use pandas-datareader to download 10-year Treasury yields starting in 1980 from FRED.
+- Ask Julius to fit an AR(1) and to use it to forecast the yield for the next 20 days.  
 
 ## Vector Autoregression
 
-- Forecast related variables based on their mutual lags
-- Example: does this month's SMB return forecast next month's HML return?
-- Ask Julius to run a VAR(1) on the Fama-French factors and provide a summary of the results.
+- Multiple variables (vector)
+- One equation for each variable.  Lags of all variables are used as predictors, including the variable's own lag.
+- Can answer questions like: does this month's SMB return forecast next month's HML return?
+
+## Example
+
+- Ask Julius to use pandas datareader to download the monthly 5 Fama-French factors since 1970 from French's data library.
+- Ask Julius to fit a VAR(1) to MKT-RF, SMB, HML, RMW, and CMA and to print the summary to a text file.
