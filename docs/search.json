@@ -25,7 +25,7 @@
     "href": "data.html",
     "title": "",
     "section": "",
-    "text": "Data Handling\n\nmetrics.xlsx\ntickers.xlsx\n\nPerformance Evaluation\n\nfmagx_ff5.xlsx\n\nVisualization\n\nmetrics_5year.xlsx\n\nPortfolio Optimization\n\ninternational.xlsx\ninternational_corrs.xlsx\nportfolios.xlsx\n\nMachine Learning\n\nirrelevant_features.xlsx\nhouse_prices.xlsx\nhouse_prices_description.txt\nloan_defaults.xlsx"
+    "text": "Data Handling\n\nmetrics.xlsx\ntickers.xlsx\n\nPerformance Evaluation\n\nfmagx_ff5.xlsx\n\nVisualization\n\nmetrics_5year.xlsx\n\nPortfolio Optimization\n\ninternational.xlsx\ninternational_corrs.xlsx\nportfolios.xlsx\n\nMachine Learning\n\nmldata.xlsx\nhouse_prices.xlsx\nhouse_prices_description.txt\nloan_defaults.xlsx"
   },
   {
     "objectID": "assignments.html",

@@ -31,7 +31,26 @@ format:
     code-line-numbers: false
 ---
 
-# Intro to Machine Learning
+# Introduction to Machine Learning
+
+## Objective of Machine Learning
+
+- Goal is prediction (or making optimal decisions in reinforcement learning)
+- Linear regression is a machine learning model (usually not the best) but we don't do t-stats or p-values in machine learning.
+- Only question is how good are the predictions on data the machine was not trained on - can we trust the predictions on new data?
+
+## Learn = Train = Fit = Estimate
+
+- Estimating a model like linear regression
+is called "fitting the model"or "training the model."
+
+- To say a machine "learns" from data means its parameters are estimated from the data.
+- The predictors (x variables) are called features.
+
+## Regression vs Classification
+
+- Regression means to predict a continuous variable (not necessarily linear regression).
+- Classification is to predict a categorical variable.  Binary or multiclass.
 
 ## Machine learning in finance
 
@@ -39,29 +58,66 @@ format:
 - Credit risk analysis
 - Return prediction
 - Valuation
-- Text analysis
+- Sentiment analysis
 - Time series forecasting
 
-## Regression vs Classification
 
-- Regression means to predict a continuous variable (not necessarily linear regression).
-- Classification is to predict a categorical variable.  Binary or multiclass.
 
+## Train and Test
+
+- To assess how well a model will perform on new data, we hold out some data when training it.
+- Split our data (usually randomly) into train and test subsets.
+- For return prediction etc., we may split on some date and train on older data and test on newer data.
+- Train on the training data and test on the test data.
+
+## Assessing Performance
+
+- How do we decide if performance is good or bad?
+- For continuous variables, 
+  - usually want to achieve a low sum of squared errors 
+  - equivalently, achieve a high $R^2$.
+
+
+$$R^2 = 1 - \frac{\sum (y_i - \hat y_i)^2}{\sum (y_i - \bar{y})^2}$$
+
+- For categorical, can use % accurately classified.
+
+# Example 
+
+## 
+
+- Download mldata.xlsx from the course website and upload to Julius.
+- Tell Julius you want to predict the "continuous" variable using x1 through x100 as the features.
+- Ask Julius to recommend a model.
+- Ask Julius to fit the model and report the scores on the training data and the test data.
+
+## How was the data generated?
+
+- This is the true model.
+- x1 is the only useful feature.
+
+![](images/data00.jpg)
+
+## Data we're feeding the model
+
+- Added noise
+- And added 99 other completely irrelevant features
+
+![](images/data10.jpg)
 
 # Overfitting and Shrinkage
 
 ## Underfitting and Overfitting
 
-- Fitting or training a model means estimating its parameters (like linear regression).
+- A model is underfit if it makes poor predictions on its training data.
 
 . . .
 
-- A model underfits the data on which it was trained if it makes poor predictions on that data.
+- A model is overfit if it makes good  predictions on its training data but performs poorly on new data.
 
 . . .
 
-- A model overfits the data on which it was trained if it makes good predictions on that data but performs poorly on new data.
-  - Overfitting means that the chosen parameters reflect chance relationships in the training data.
+- Overfitting means that the chosen parameters reflect chance relationships in the training data.
 
 ## Model complexity and shrinkage 
 
@@ -75,102 +131,88 @@ format:
 
 - A more complex model is less likely to underfit but more likely to overfit.
 
-## Train and Test
 
-- To check that we have not overfit our model, we train and test.
-- Split data randomly into train and test samples.  Train (fit) on the training data.  Test on test data.
-  - Test data is also called holdout data.
-  - Also called out-of-sample testing.
-- Performance on the test data is the performance that we can expect on new data.  
-
-
-## Test criteria
-
-- How do we decide if performance is good or bad?
-- For continuous variables, 
-  - usually want to achieve a low sum of squared errors 
-  - equivalently, achieve a high $R^2$.
-
-
-$$R^2 = 1 - \frac{\sum (y_i - \hat y_i)^2}{\sum (y_i - \bar{y})^2}$$
-
-- For categorical, can use % accurately classified.
-
-## Validation 
-
-- We could consider different models - for example, models of different complexity - and train them all, test them all on the test data, and then choose the model that performs best on the test data.
-
-. . .
-
-- But then we run a risk of overfitting our test data.  The performance may not generalize to new data.
-
-. . .
-
-- So, we can hold out some data within the training data (called validation data) for doing model comparison.
-
-# Lasso and Ridge Examples
-
-## Data
-
-- Download irrelevant_features.xlsx from the [course website](https://mgmt675.kerryback.com)
-- Upload it to Julius and ask Julius to read it and describe it.
-
-## 
-
-The data was created by generating 51 sets of 100 standard normals. 
-
-- The first 50 sets are labeled x1, ..., x50.  
-- The last set was used as the noise to generate y1 as x1 + noise.
-- So, x2, ..., x50 are irrelevant for y1, but they may be correlated with y1 by chance.
-
-## Linear regression 
-
-- Ask Julius to do a train-test split of the data with 20% of the data in the test set.
-- Ask Julius to train a linear regressor on the training data with x1, ..., x50 as the features and y1 as the target.
-- Ask Julius to report the coefficient estimates.
-- Ask Julius to compute the R-squared on the test data.
-
-## Shrinkage
+## Shrinkage/Regularization/Penalization
 
 - To induce selection of parameter values that are less influential, we can penalize large values.
-- Usually in linear regression, we minimize SSE (sum of squared errors).
-- LASSO: minimize SSE + penalty $\times$ sum of $|\beta_i|$.
-- Ridge: minimize SSE + penalty $\times$ sum of $\beta_i^2$.
+- Example: lasso and ridge regression
+  - Usually in linear regression, we minimize SSE (sum of squared errors).
+  - LASSO: minimize SSE + penalty $\times$ sum of $|\beta_i|$.
+  - Ridge: minimize SSE + penalty $\times$ sum of $\beta_i^2$.
 
-## Train and Test
+## Example
 
-- Ask Julius to train a ridge regressor on the training data, report the parameter estimates, and compute the R-squared on the test data.
-- Ask Julius to traing a lasso regressor on the training data, report the parameter estimates, and compute the R-squared on the test data.
-- The penalty in lasso and ridge is called alpha in scikit-learn.  You can specify it.
+Ask Julius to vary the penalty parameter (called alpha) in ridge regression and to report the scores on the training and test data.
 
+# Validating Hyperparameters
 
-## Optimizing the penalty
+## Hyperparameters
 
-- The penalty is called a hyperparameter, because it is not fit by training but instead is specified in advance.
-- The penalty controls the degree of complexity. Larger penalty = less complex.
-- To optimize the penalty, we can cross validate.
+- The penalty parameter in lasso or ridge is called a hyperparameter.
+- Hyperparameters are model parameters that are not fit from the data during training.
+- Instead they are specified before training.
+- How to choose the best hyperparameter values?
+
+## Don't optimize on your test data
+
+- Choosing the best hyperparameter using the test data may overfit the test data.
+- The test data may no longer provide a reliable test of how the model will perform on new data.
+- Instead, we could hold out some data within the training data (called validation data) for doing model comparison.
 
 ## Cross Validation
 
-- Split the training data into random subsets, say, $A, B, C, D$, and $E$.
-- Use $A \cup B \cup C \cup D$ as training data and test on $E$.  
-- Then use $B \cup C \cup D \cup E$ as training data and test on $A$.  
-- Then, ..., until we have trained and tested 5 times.
+- Instead of splitting the training data once into train/validate, we can do it multiple times.
+- This is called cross validation
 
 ##
 
-- Average the 5 test scores.
-- Repeat for each model configuration (each hyperparameter value).
-- Choose the hyperparameter value with the highest average score.
+- Split the training data into random subsets, say, $A, B, C, D$, and $E$.
+- Use $A \cup B \cup C \cup D$ as training data and validate on $E$.  
+- Then use $B \cup C \cup D \cup E$ as training data and validate on $A$.  
+- Then, ..., until we have trained and validated 5 times (or as many times as we want).
+
+##
+
+- For each train/validate split,
+  - Train for multiple values of the hyperparameter.
+  - Compute the score for each on the validation data.
+- This produces 5 scores for each value of the hyperparameter.  Average them.
+- Choose the value that produces the highest average score.
 - Then proceed to testing on the test data.
 
-## Cross Validate Lasso and Ridge
 
-- Ask Julius to run GridSearchCV on lasso regression.
-- You can specify a set of alpha values to try.
-- Ask Julius what the optimal alpha (penalty) is.
-- Ask Julius what the coefficient estimates are.
-- Ask Julius what the score is on the test data.
-- Repeat for ridge regression.
+## Grid search or randomized search
 
+- We can specify the values of the hyperparameters to consider - called grid search.
+  - For example, alpha in [0.01, 0.1, 1, 10]
+- Or we can use randomized search over a range of hyperparamer values.
+  - For example, alpha in [0.01, 10]
 
+# Scaling/Transforming Features
+
+## Why Scale or Transform?
+
+- A coefficient of 2 on a variable that ranges from 1,000 to 10,000 is very different from a coefficient of 2 on a variable that ranges from 0.1 to 1.0.
+- We should penalize the former more aggressively.
+- Or, better, rescale the variables so they are on the same scale before training a model.
+
+## Standard Scaler/Quantile Transformer
+
+- Scikit-learn's standard scaler will subtract the mean and divide by standard deviation, so each feature has a zero mean and standard deviation = 1.
+- Quantile transformer can be better for outliers.
+  - Can transform to normal(0, 1) or uniform on (0, 1)
+
+## Remembering Transformations
+
+- Suppose you scale or transform features and train a model.
+- Now you get a new observation and need to make a prediction.  How do you scale or transform the new observation?
+
+. . .
+
+- You need to apply the same transformation you applied to the training data.  So, your model needs to remember it.
+
+## Pipelines
+
+- Easiest way is to put scale/transform and model fit in a pipeline.
+- Then fit the pipeline.  Use the pipeline to predict.
+- Can also run cross validation on the pipeline.
