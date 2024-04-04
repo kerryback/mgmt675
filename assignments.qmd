@@ -26,15 +26,9 @@ Estimate the WMT cost of equity capital using the following data sources: adjust
 Due by midnight, Sunday, March 24.  Submit a docx or pdf file to Canvas.
 :::
 
+
 ::: {.callout-note appearance="default" icon="false"}
 # Assigment 3
-
-**NO ASSIGNMENT THIS WEEK**
-
-:::
-
-::: {.callout-note appearance="default" icon="false"}
-# Assigment 4
 
 - Ask Julius to explain XGBoost, GridSearchCV, and R-squareds.
 
@@ -49,7 +43,7 @@ Due by midnight, Monday, April 8.
 
 
 ::: {.callout-note appearance="default" icon="false"}
-# Assigment 5
+# Assigment 4
 
 TBD
 
