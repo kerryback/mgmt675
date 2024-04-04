@@ -53,7 +53,7 @@ format:
 
 ## 
 
-- Start with an estimate $\hat y = \bar y$ for all observations.
+- Start with the estimate $\hat y = \bar y$ for all observations.
 - Split into two subsets based on one variable and one threshold.  All observations below the threshold go into one group.  All above go into another.
 - Prediction for each group is the group mean of the target variable.  Calculate MSE over both groups.
 - Choice of variable and threshold on which to split was based on minimizing MSE.
