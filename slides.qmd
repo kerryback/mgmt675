@@ -9,6 +9,6 @@
 5b. [Optimal Portfolios the Easy Way](5b-portfolios-again.html){target="_blank"} [(pdf)](pdfs/5b-portfolios-again.pdf){target="_blank"} <br>
 6. [Autocorrelation and Autoregression](6-autoregression.html){target="_blank"} [(pdf)](pdfs/5-autoregression.pdf){target="_blank"} <br>
 7. [Intro to Machine Learning](7-linear.html){target="_blank"} [(pdf)](pdfs/7-linear.pdf){target="_blank"} <br>
-8. [Trees and Forests](8-trees.html){target="_blank"} [(pdf)](pdfs/8-trees.pdf){target="_blank"} <br>
+8. [Trees, Forests, and Nets](8-trees.html){target="_blank"} [(pdf)](pdfs/8-trees.pdf){target="_blank"} <br>
 9. [Classification](9-classification.html){target="_blank"} [(pdf)](pdfs/9-classification.pdf){target="_blank"} <br>
-10. [Neural Networks](10-nets.html){target="_blank"} [(pdf)](pdfs/10-nets.pdf){target="_blank"} <br>
+

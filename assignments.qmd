@@ -36,9 +36,15 @@ Due by midnight, Sunday, March 24.  Submit a docx or pdf file to Canvas.
 ::: {.callout-note appearance="default" icon="false"}
 # Assigment 4
 
-TBD
+- Ask Julius to explain XGBoost, GridSearchCV, and R-squareds.
 
-Due by midnight, Sunday, April 7.  
+- Ask Julius to use xgboost to predict MEDV using the other features in the Boston house price data (ask Julius to get the data from sklearn).  Use GridSearchCV to choose the max depth and the learning rate.  Get the R-squareds on the training data and on the test data.
+
+- Save the conversation as a notebook.  Edit the text cells (in Google Colab or however you prefer) to include the explanations and a summary of the results, but remove the chat identifiers.
+
+- Save the notebook as a pdf and submit to Canvas.
+
+Due by midnight, Monday, April 8.  
 :::
 
 
