@@ -45,7 +45,7 @@ Due by midnight, Monday, April 8.
 ::: {.callout-note appearance="default" icon="false"}
 # Assigment 4
 
-TBD
+Train at least two different models (random forest, xgboost, neural network, ridge regression, ...) to predict the sale price in house_prices.xlsx.  Use at least 3 variables as predictors (features), including at least one categorical variable.  For each model, create a pipeline including the model that applies one hot encoder to the categorical variables and standard scaler to the numeric variables.  Apply GridSearchCV to the pipeline to find at least one hyperparameter for each model and get the average validation score for the best hyperparameters.  Select a model and hyperparameter based on the best average validation score.  Find the R-squared on the test data.  Retrain the model on the entire dataset and save the fitted model.  Save your chat as a notebook.  Convert the notebook to pdf and submit to Canvas.
 
 Due by midnight, Sunday, April 14.  
 :::
