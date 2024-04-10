@@ -30,11 +30,26 @@
 
 6. March 28
 
+- [ACF and AR(p) for HML](https://julius.ai/s/029b4d4a-b811-42a8-99cc-3c6eba1ba122)
+- [Simulated AR(1)](https://julius.ai/s/c8078aa4-9a30-4f2e-ab8d-7ebdda263cfa)
+- [ACF and AR(p) for Treasury Yields and Exchange Rates](https://julius.ai/s/67036189-2ea7-404c-bd98-5c57b9d23a22)
+- [Vector Autoregression for Fama-French Factors](https://julius.ai/s/bd8c0772-a127-44ae-a0ea-0dec68ff823e)
+
 7. April 2
+
+- [Ridge and Lasso Regression](https://julius.ai/s/93ac9ed6-0858-4504-9e6b-b14e9265d8eb)
+- [Ridge Regression, Pipeline with Standard Scaler, and GridSearchCV](https://julius.ai/s/25e8bdd0-11d1-4162-8c4c-9a119c439ba9)
+
 
 8. April 4
 
+- [Decision Tree, Random Forest, and XGBoost](https://julius.ai/s/25e8bdd0-11d1-4162-8c4c-9a119c439ba9)
+
 9. April 9
+
+- [Neural Network](https://julius.ai/s/570fd7c2-7cc5-4d2f-9518-06b3b0a4b1bf)
+- [Reading and Using a Saved Model](https://julius.ai/s/72380ce9-752f-442a-a529-349643954153)
+- [Predicting House Prices](https://julius.ai/s/2dbe1780-713d-4cd4-8676-4eb7ef2c9801)
 
 10. April 11
 

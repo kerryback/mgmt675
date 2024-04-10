@@ -39,7 +39,7 @@
     "href": "conversations.html",
     "title": "",
     "section": "",
-    "text": "March 12\n\n\nWarm-Up\nLong-Run Risk\nRetirement Planning with Simulation\nMonte Carlo Option Valuation\nTwo-Stage Growth Model Simulation\n\n\nMarch 14\n\n\nTickers and Metrics Datasets\nOnline Data\n\n\nMarch 19\n\n\nDownload Data and Merge\nRegression and Visualization\nCVX Cost of Equity\n\n\nMarch 21\n\n\nCreate fmagx_ff5 Dataset\nPerformance Evaluation\nVisualization for tickers and metrics_5year\nVisualization of CVX and Crude During April 2020\n\n\nMarch 26\n\n\nOptimal International Portfolios\n\n\nMarch 28\nApril 2\nApril 4\nApril 9\nApril 11\nApril 16\nApril 18"
+    "text": "March 12\n\n\nWarm-Up\nLong-Run Risk\nRetirement Planning with Simulation\nMonte Carlo Option Valuation\nTwo-Stage Growth Model Simulation\n\n\nMarch 14\n\n\nTickers and Metrics Datasets\nOnline Data\n\n\nMarch 19\n\n\nDownload Data and Merge\nRegression and Visualization\nCVX Cost of Equity\n\n\nMarch 21\n\n\nCreate fmagx_ff5 Dataset\nPerformance Evaluation\nVisualization for tickers and metrics_5year\nVisualization of CVX and Crude During April 2020\n\n\nMarch 26\n\n\nOptimal International Portfolios\n\n\nMarch 28\n\n\nACF and AR(p) for HML\nSimulated AR(1)\nACF and AR(p) for Treasury Yields and Exchange Rates\nVector Autoregression for Fama-French Factors\n\n\nApril 2\n\n\nRidge and Lasso Regression\nRidge Regression, Pipeline with Standard Scaler, and GridSearchCV\n\n\nApril 4\n\n\nDecision Tree, Random Forest, and XGBoost\n\n\nApril 9\n\n\nNeural Network\nReading and Using a Saved Model\nPredicting House Prices\n\n\nApril 11\nApril 16\nApril 18"
   },
   {
     "objectID": "solutions.html",
