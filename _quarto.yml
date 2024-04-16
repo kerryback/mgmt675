@@ -8,6 +8,7 @@ project:
     - data.qmd
     - conversations.qmd
     - solutions.qmd
+    - vizly.qmd
               
 website:
   title: ""
@@ -27,6 +28,8 @@ website:
         file: assignments.qmd
       - text: Solutions 
         file: solutions.qmd   
+      - text: Vizly
+        file: vizly.qmd
         
 format: 
   html:
