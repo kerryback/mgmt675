@@ -154,7 +154,7 @@ Microsoft Excel, released for Windows in 1987
 
 ## What Julius does
 
-- Python interpreter and proprietary LLM
+- Python interpreter connected to ChatGPT and other LLMs
 - Julius executes and debugs code
 - Provides links to images, tables, datasets it creates
 - Provides download of conversation (and code) as Jupyter notebook or Word doc
