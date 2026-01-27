@@ -10,13 +10,14 @@ J. Howard Creekmore Professor of Finance and Professor of Economics
 ### Meeting Schedule
 
 TTh 12:30 -- 2:00<br>
-3/17/2026 -- 4/23/2026<br>
-McNair 212
+3/17/2026 -- 4/23/2026
 
 ##### Special sessions:
 
-1. Saturday, March 21, 9:00-12:00: optional Python session
-2. Tuesday, April 28 (exam week), 1:00-2:30: group presentations
+- Saturday, March 21, 9:00-12:00 - optional Python session
+- Tuesday, April 28 (exam week), 1:00-2:30 -  group presentations
+
+All sessions will be in McNair 212, including the special sessions.
 
 ### Learning Objectives
 
@@ -41,28 +42,25 @@ McNair 212
 12. Catch-up and extras
 
 
-
-All sessions will be in Room 212, including the special sessions.
-
 ### Grading
 
-Grades will be based on group projects, a group presentation, and peer assessments.  weekly individual homework assignments (60%) and a group project write-up (20%) and presentation (20%).  The presentations will be during exam week.
+Grades will be based on three group projects (20% each), a group presentation (20%), and peer assessments (20%). The presentations will be on April 28 during exam week.
 
 #### Group Project 1
 
-Create a **Jupyter notebook** in Google Colab in which the user inputs the number of assets, their expected returns, their standard deviations, the correlation matrix, and the risk-free rate.  The notebook should compute the **tangency portfolio** and plot the mean-variance frontier and capital allocation line.  Due: 11:59 pm, March 31.
+Create a [**Jupyter notebook**]{style="color: tomato;"} in Google Colab in which the user inputs the number of assets, their expected returns, their standard deviations, the correlation matrix, and the risk-free rate.  The notebook should compute the [**tangency portfolio**]{style="color: tomato;"} and plot the mean-variance frontier and capital allocation line.  Due: 11:59 pm, March 31.
 
 #### Group Project 2
 
-Create a **web app** in which the user inputs  an income statement and balance sheet and forecasted future sales growth and certain financial ratios.  The app should generate a Word doc containing **pro forma income statements, balance sheets, and statements of cash flows**.  Due: 11:59 pm, April 24.
+Create a [**web app**]{style="color: tomato;"} in which the user inputs  an income statement and balance sheet and forecasted future sales growth and certain financial ratios.  The app should generate a Word doc containing [**pro forma income statements, balance sheets, and statements of cash flows**]{style="color: tomato;"}.  Due: 11:59 pm, April 24.
 
 #### Group Project 3
 
-Create a web app in which an **AI agent queries the user** regarding an income statement, balance sheet, and future sales growth and certain financial ratios.  The app should generate a Word doc and PowerPoint deck containing a **two-stage DCF analysis and an AI-generated discussion of the analysis**.  Due: 1:00 pm, April 28.
+Create a web app in which an [**AI agent queries the user**]{style="color: tomato;"} regarding an income statement, balance sheet, and future sales growth and certain financial ratios.  The app should generate a Word doc and PowerPoint deck containing a [**two-stage DCF analysis and an AI-generated discussion of the analysis**]{style="color: tomato;"}.  Due: 1:00 pm, April 28.
 
 ### Claude Accounts
 
-Each student will be provided or reimbursed for a Claude Pro account ($20 per month).
+Each student will be reimbursed for a Claude Pro account ($20 per month).
 
 ### Honor Code
 
