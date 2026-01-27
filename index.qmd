@@ -1,58 +1,72 @@
 
-## AI-Assisted Financial Analysis<br>Spring 2024<br><br>![](images/RiceBusiness-transparent-logo-sm.png){width=40%} 
+## AI-Assisted Financial Analysis<br>Spring 2026<br><br>![](images/RiceBusiness-transparent-logo-sm.png){width=40%} 
 
 
-#### Instructor
+### Instructor
 
 [Kerry Back](https://kerryback.com)<br> (<a href="mailto:kerryback@gmail.com">kerryback@gmail.com)</a><br>
 J. Howard Creekmore Professor of Finance and Professor of Economics
 
-#### Meeting Schedule
+### Meeting Schedule
 
-Room 318 McNair Hall<br>
 TTh 12:30 -- 2:00<br>
-3/12/2024 -- 4/18/2024
+3/17/2026 -- 4/23/2026<br>
+McNair 212
 
-#### Course Description
+### Learning Objectives
 
-Each of us will, in the future if not already, use large language models (LLMs) as assistants.  The models and interfaces will change over time, but it is worthwhile to learn what is available now and adapt as things evolve.  Undoubtedly, everyone has already used ChatGPT and other LLMs for some purposes.  What we will explore in this course is using an LLM with python to perform data analysis, specifically financial data analysis.  We will use [Julius.AI](https://julius.ai/), which combines access to several LLMs (including ChatGPT4) with a python interpreter (which I'll call LLM + Python).
+1. How to use AI with code-execution tools to perform financial analysis and generate spreadsheets, reports, and presentations
+2. How to collaborate with AI in planning and evaluating work
+3. How custom chatbots and AI agents work and are used in finance
+4. How to use AI with code-execution tools as general agents
 
-At the end of the course, I anticipate that everyone may still prefer to use Excel for most things.  However, there are some things for which an LLM + Python is better suited, and there are other things for which an LLM + Python may be faster.  In any case, it is worthwhile to learn what can be done with this new tool, so we will be better prepared for the future.  It is quite possible that everyone will end up using Python in Excel and Microsoft Copilot, rather than Julius.AI, but Python in Excel is not generally available yet, and, in any case, Microsoft Copilot + Python in Excel will also be an LLM + Python (+ spreadsheet).  
+### Schedule
 
-The format of the course is that we will successively consider different types of analyses.  We will perform each analysis live in class using Julius.AI.  Then, your assignments will be to have similar conversations with Julius.  
+1. Using Google Colab with Gemini
+2. Mean-variance analysis with AI and Python
+3. Generating reports and presentations
+4. Building web apps with Streamlit
+5. Using Claude, Python, and Claude Code
+6. Generating pro-forma statements
+7. Using Claude Code in VS Code, using GitHub, and deploying web apps
+8. Valuing companies
+9. Custom chatbots and AI agents 
+10. Building a valuation agent
+11. Claude skills
+12. Catch-up and extras
 
-We will spend roughly a third of the course on topics that were covered in Applied Finance.  This course will differ from Applied Finance in that we will ask an LLM + Python to do the work for us, instead of using Excel and @Risk.  In the other 2/3 of the course, we will cover new topics, including machine learning and forecasting.
+##### Special sessions:
 
-#### Topics
+1. Saturday, March 21, 9:00-12:00: optional Python session
+2. Tuesday, April 28 (exam week), 1:00-2:30: group presentations.
 
-1.  Simulation
-2.  Data handling
-3.  Cost of capital and performance evaluation 
-4.  Visualization
-5.  Portfolio optimization
-6.  Autocorrelation and autoregression
-7.  Machine learning
-    a. Overfitting, shrinkage, and linear models
-    b. Random forests and gradient boosting (application = valuing houses)
-    c. Classification (application = predicting loan default)
-    d. Neural networks
+All sessions will be in Room 212, including the special sessions.
 
+### Grading
 
+Grades will be based on group projects, a group presentation, and peer assessments.  weekly individual homework assignments (60%) and a group project write-up (20%) and presentation (20%).  The presentations will be during exam week.
 
+#### Group Project 1
 
-#### Grading
+Create a **Jupyter notebook** in Google Colab in which the user inputs the number of assets, their expected returns, their standard deviations, the correlation matrix, and the risk-free rate.  The notebook should compute the **tangency portfolio** and plot the mean-variance frontier and capital allocation line.  Due: 11:59 pm, March 31.
 
-Grades will be based on weekly individual homework assignments (60%) and a final exam during exam week (40%).  The final exam will be a timed at-home exam distributed through Canvas.
+#### Group Project 2
 
-#### Julius
+Create a **web app** in which the user inputs  an income statement and balance sheet and forecasted future sales growth and certain financial ratios.  The app should generate a Word doc containing **pro forma income statements, balance sheets, and statements of cash flows**.  Due: 11:59 pm, April 24.
 
-Julius.AI provides a 50% academic discount.  Sign up for a free account, then send an email using your Rice email account to [team@julius.ai](mailto:team@julius.ai) and ask for the academic discount.  They will respond with a promo code to use.  The Basic account allows 250 messages per month and will probably be ok.  If the message limit becomes binding, you can always switch at that time to the Essential account, which allows unlimited messages.   Everything is run in the cloud from a web browser, so there is no software to download. In particular, it is not necessary to have python installed on your computer.
+#### Group Project 3
 
-#### Honor Code
+Create a web app in which an **AI agent queries the user** regarding an income statement, balance sheet, and future sales growth and certain financial ratios.  The app should generate a Word doc and PowerPoint deck containing a **two-stage DCF analysis and an AI-generated discussion of the analysis**.  Due: 1:00 pm, April 28.
+
+### Claude Accounts
+
+Each student will be provided or reimbursed for a Claude Pro account ($20 per month).
+
+### Honor Code
 
 The Rice University honor code applies to all work in this course.  Each student must do his or her own assignments, but it is allowed and in fact encouraged for students to seek advice from each other. 
 
-#### Disability Accommodations
+### Disability Accommodations
 
 Any student with a documented disability requiring accommodations in this course is encouraged to
 contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations
