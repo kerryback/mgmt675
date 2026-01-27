@@ -3,13 +3,7 @@ project:
   output-dir: docs
   render:
     - index.qmd
-    - slides.qmd
-    - assignments.qmd
-    - data.qmd
-    - conversations.qmd
-    - solutions.qmd
-    - vizly.qmd
-              
+                
 website:
   title: ""
   search: false  

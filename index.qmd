@@ -13,6 +13,11 @@ TTh 12:30 -- 2:00<br>
 3/17/2026 -- 4/23/2026<br>
 McNair 212
 
+##### Special sessions:
+
+1. Saturday, March 21, 9:00-12:00: optional Python session
+2. Tuesday, April 28 (exam week), 1:00-2:30: group presentations
+
 ### Learning Objectives
 
 1. How to use AI with code-execution tools to perform financial analysis and generate spreadsheets, reports, and presentations
@@ -20,7 +25,7 @@ McNair 212
 3. How custom chatbots and AI agents work and are used in finance
 4. How to use AI with code-execution tools as general agents
 
-### Schedule
+### Topic Schedule
 
 1. Using Google Colab with Gemini
 2. Mean-variance analysis with AI and Python
@@ -35,10 +40,7 @@ McNair 212
 11. Claude skills
 12. Catch-up and extras
 
-##### Special sessions:
 
-1. Saturday, March 21, 9:00-12:00: optional Python session
-2. Tuesday, April 28 (exam week), 1:00-2:30: group presentations.
 
 All sessions will be in Room 212, including the special sessions.
 
