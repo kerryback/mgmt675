@@ -21,6 +21,9 @@ format:
       light: flatly
       dark: superhero
     link-external-newwindow: true
+
+comments:
+  hypothesis: true
     
    
 

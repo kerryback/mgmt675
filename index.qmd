@@ -29,11 +29,11 @@ All sessions will be in McNair 212, including the special sessions.
 ### Topic Schedule
 
 1. Using Google Colab with Gemini
-2. Mean-variance analysis with AI and Python
+2. Mean-variance analysis and cost of equity with AI and Python
 3. Generating reports and presentations
 4. Building web apps with Streamlit
 5. Using Claude, Python, and Claude Code
-6. Generating pro-forma statements
+6. Generating pro-forma statements and simulation
 7. Using Claude Code in VS Code, using GitHub, and deploying web apps
 8. Valuing companies
 9. Custom chatbots and AI agents 
@@ -52,11 +52,11 @@ Create a [**Jupyter notebook**]{style="color: tomato;"} in Google Colab in which
 
 #### Group Project 2
 
-Create a [**web app**]{style="color: tomato;"} in which the user inputs  an income statement and balance sheet and forecasted future sales growth and certain financial ratios.  The app should generate a Word doc containing [**pro forma income statements, balance sheets, and statements of cash flows**]{style="color: tomato;"}.  Due: 11:59 pm, April 24.
+Create a [**web app**]{style="color: tomato;"} in which the user inputs  a current income statement and balance sheet and forecasts of future sales growth and financial ratios.  The app should generate a Word doc containing [**pro forma income statements, balance sheets, and statements of cash flows**]{style="color: tomato;"}.  Due: 11:59 pm, April 24.
 
 #### Group Project 3
 
-Create a web app in which an [**AI agent queries the user**]{style="color: tomato;"} regarding an income statement, balance sheet, and future sales growth and certain financial ratios.  The app should generate a Word doc and PowerPoint deck containing a [**two-stage DCF analysis and an AI-generated discussion of the analysis**]{style="color: tomato;"}.  Due: 1:00 pm, April 28.
+Create a web app in which an [**AI agent queries the user**]{style="color: tomato;"} to build a current income statement, balance sheet, and to get forecasts of future sales growth and financial ratios.  The app should generate a Word doc and PowerPoint deck containing a [**two-stage DCF analysis and an AI-generated discussion of the analysis**]{style="color: tomato;"}.  Due: 1:00 pm, April 28.
 
 ### Claude Accounts
 
