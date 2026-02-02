@@ -131,21 +131,73 @@ else
     print_warning "Skills folder not found"
 fi
 
+# Verification
 echo ""
 echo "=============================================="
-echo "  Installation Complete!"
+echo "  Verifying Installation"
 echo "=============================================="
+echo ""
+
+ALL_GOOD=true
+
+print_status "Checking installed versions..."
+
+# Check Python
+if command_exists python3; then
+    print_success "  Python: $(python3 --version 2>&1)"
+else
+    print_warning "  Python: NOT FOUND"
+    ALL_GOOD=false
+fi
+
+# Check Git
+if command_exists git; then
+    print_success "  Git: $(git --version 2>&1)"
+else
+    print_warning "  Git: NOT FOUND"
+    ALL_GOOD=false
+fi
+
+# Check Node
+if command_exists node; then
+    print_success "  Node.js: $(node --version 2>&1)"
+else
+    print_warning "  Node.js: NOT FOUND"
+    ALL_GOOD=false
+fi
+
+# Check GitHub CLI
+if command_exists gh; then
+    print_success "  GitHub CLI: $(gh --version 2>&1 | head -1)"
+else
+    print_warning "  GitHub CLI: NOT FOUND"
+    ALL_GOOD=false
+fi
+
+# Check Claude
+if command_exists claude; then
+    print_success "  Claude Code: $(claude --version 2>&1)"
+else
+    print_warning "  Claude Code: NOT FOUND"
+    ALL_GOOD=false
+fi
+
+echo ""
+if [ "$ALL_GOOD" = true ]; then
+    echo "=============================================="
+    echo "  Installation Complete!"
+    echo "=============================================="
+else
+    echo "=============================================="
+    echo "  Installation Complete (with warnings)"
+    echo "=============================================="
+    echo ""
+    echo "Some components may not be available until you"
+    echo "open a new terminal window."
+fi
 echo ""
 echo "Next steps:"
 echo "  1. Open a new terminal window"
 echo "  2. Run 'gh auth login' to authenticate with GitHub"
 echo "  3. Run 'claude' to start Claude Code and authenticate"
-echo ""
-echo "Installed software:"
-echo "  - Python $(python3 --version 2>/dev/null | cut -d' ' -f2 || echo 'check version')"
-echo "  - Git $(git --version 2>/dev/null | cut -d' ' -f3 || echo 'check version')"
-echo "  - GitHub CLI $(gh --version 2>/dev/null | head -1 | cut -d' ' -f3 || echo 'check version')"
-echo "  - Node.js $(node --version 2>/dev/null || echo 'check version')"
-echo "  - VS Code"
-echo "  - Claude Code"
 echo ""

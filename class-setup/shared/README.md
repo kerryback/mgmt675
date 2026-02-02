@@ -2,6 +2,24 @@
 
 This package installs the development environment for MGMT 675.
 
+## Requirements
+
+Before you begin, ensure you have:
+
+- **Internet connection** - The installer downloads software (~500 MB)
+- **Disk space** - At least 3 GB of free disk space
+- **Administrator access** - Required to install software
+
+### Which Package to Download (Windows Only)
+
+Most Windows computers use **x64**. To check your system type:
+
+1. Press `Win + I` to open Settings
+2. Go to **System** → **About**
+3. Look for **System type**:
+   - If it says "64-bit operating system, x64-based processor" → Download **class-setup-windows-x64.zip**
+   - If it says "64-bit operating system, ARM-based processor" → Download **class-setup-windows-arm.zip**
+
 ## What Gets Installed
 
 - **Python 3.12** - Programming language
@@ -31,16 +49,17 @@ Pre-configured skills for working with:
 
 ### Windows
 
-1. **Extract the zip file** to a folder on your computer
+1. **Extract the zip file** to a folder on your computer (e.g., your Downloads folder)
 
 2. **Open PowerShell as Administrator**
    - Press `Win + X` and select "Windows Terminal (Admin)" or "PowerShell (Admin)"
    - Or search for PowerShell, right-click, and select "Run as administrator"
 
-3. **Navigate to the extracted folder**
+3. **Navigate to the extracted folder** (the folder containing `install.ps1`)
    ```powershell
-   cd "C:\path\to\extracted\folder"
+   cd "C:\Users\YourName\Downloads\class-setup-windows-x64"
    ```
+   Replace `YourName` with your Windows username and adjust the path if you extracted elsewhere.
 
 4. **Enable script execution** (if needed)
    ```powershell
@@ -56,15 +75,17 @@ Pre-configured skills for working with:
 
 ### macOS
 
-1. **Extract the zip file** to a folder on your computer
+1. **Extract the zip file** to a folder on your computer (e.g., your Downloads folder)
+   - Double-click the zip file to extract it
 
 2. **Open Terminal**
    - Press `Cmd + Space`, type "Terminal", and press Enter
 
-3. **Navigate to the extracted folder**
+3. **Navigate to the extracted folder** (the folder containing `install.sh`)
    ```bash
-   cd /path/to/extracted/folder
+   cd ~/Downloads/class-setup-mac
    ```
+   Adjust the path if you extracted elsewhere.
 
 4. **Make the script executable**
    ```bash
@@ -98,7 +119,12 @@ Run Claude Code for the first time:
 claude
 ```
 
-This will open a browser window to authenticate with your Anthropic account.
+This will:
+1. Open a browser window to the Anthropic website
+2. Prompt you to sign in or create an Anthropic account (free)
+3. Ask you to authorize Claude Code to use your account
+
+After authorizing, return to your terminal. Claude Code is now ready to use in VS Code.
 
 ### 3. Set up your Rice Data Portal token (if using database skills)
 
@@ -120,6 +146,20 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ### "Command not found" after installation
 
 Close and reopen your terminal/PowerShell window to refresh the PATH.
+
+### Python not recognized (Windows)
+
+If `python` is not recognized after installation:
+
+1. Close and reopen PowerShell
+2. If still not working, manually add Python to your PATH:
+   - Press `Win + I` to open Settings
+   - Search for "environment variables"
+   - Click "Edit the system environment variables"
+   - Click "Environment Variables"
+   - Under "System variables", find "Path" and click "Edit"
+   - Add `C:\Program Files\Python312` and `C:\Program Files\Python312\Scripts`
+   - Click OK to save and restart PowerShell
 
 ### VS Code extensions not installing
 

@@ -195,10 +195,76 @@ Write-Status "Cleaning up temporary files..."
 Remove-Item -Recurse -Force $TempDir -ErrorAction SilentlyContinue
 Write-Success "Cleanup complete"
 
+# Verification
 Write-Host ""
 Write-Host "==============================================" -ForegroundColor Cyan
-Write-Host "  Installation Complete!" -ForegroundColor Green
+Write-Host "  Verifying Installation" -ForegroundColor Cyan
 Write-Host "==============================================" -ForegroundColor Cyan
+Write-Host ""
+
+Refresh-Path
+$AllGood = $true
+
+Write-Status "Checking installed versions..."
+
+# Check Python
+try {
+    $PyVersion = python --version 2>&1
+    Write-Success "  Python: $PyVersion"
+} catch {
+    Write-Warning "  Python: NOT FOUND"
+    $AllGood = $false
+}
+
+# Check Git
+try {
+    $GitVersion = git --version 2>&1
+    Write-Success "  Git: $GitVersion"
+} catch {
+    Write-Warning "  Git: NOT FOUND"
+    $AllGood = $false
+}
+
+# Check Node
+try {
+    $NodeVersion = node --version 2>&1
+    Write-Success "  Node.js: $NodeVersion"
+} catch {
+    Write-Warning "  Node.js: NOT FOUND"
+    $AllGood = $false
+}
+
+# Check GitHub CLI
+try {
+    $GhVersion = gh --version 2>&1 | Select-Object -First 1
+    Write-Success "  GitHub CLI: $GhVersion"
+} catch {
+    Write-Warning "  GitHub CLI: NOT FOUND"
+    $AllGood = $false
+}
+
+# Check Claude
+try {
+    $ClaudeVersion = claude --version 2>&1
+    Write-Success "  Claude Code: $ClaudeVersion"
+} catch {
+    Write-Warning "  Claude Code: NOT FOUND"
+    $AllGood = $false
+}
+
+Write-Host ""
+if ($AllGood) {
+    Write-Host "==============================================" -ForegroundColor Cyan
+    Write-Host "  Installation Complete!" -ForegroundColor Green
+    Write-Host "==============================================" -ForegroundColor Cyan
+} else {
+    Write-Host "==============================================" -ForegroundColor Cyan
+    Write-Host "  Installation Complete (with warnings)" -ForegroundColor Yellow
+    Write-Host "==============================================" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "Some components may not be available until you" -ForegroundColor Yellow
+    Write-Host "close and reopen PowerShell." -ForegroundColor Yellow
+}
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "  1. Close and reopen PowerShell or Command Prompt"
