@@ -4,10 +4,12 @@ project:
   render:
     - index.qmd
     - slides.qmd
+    - software.qmd
   resources:
     - CNAME
     - .nojekyll
     - slides/*.pdf
+    - class-setup/dist/*.zip
 
 website:
   title: ""
@@ -20,6 +22,8 @@ website:
         text: Home
       - href: slides.qmd
         text: Slides
+      - href: software.qmd
+        text: Software
     
 format:
   html:

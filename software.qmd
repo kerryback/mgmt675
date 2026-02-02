@@ -1,0 +1,48 @@
+---
+title: Software Setup
+---
+
+## Development Environment
+
+Download the installer package for your operating system. Each package includes a script that will install:
+
+- Python 3.12
+- VS Code
+- Git
+- GitHub CLI
+- Node.js
+- Claude Code
+
+The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills.
+
+## Download
+
+| Platform | Download |
+|----------|----------|
+| macOS | [{{< fa brands apple >}} class-setup-mac.zip](class-setup/dist/class-setup-mac.zip) |
+| Windows (Intel/AMD) | [{{< fa brands windows >}} class-setup-windows-x64.zip](class-setup/dist/class-setup-windows-x64.zip) |
+| Windows (ARM) | [{{< fa brands windows >}} class-setup-windows-arm.zip](class-setup/dist/class-setup-windows-arm.zip) |
+
+## Installation Instructions
+
+### Windows
+
+1. Extract the zip file to a folder
+2. Open PowerShell as Administrator
+3. Navigate to the extracted folder
+4. Run: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+5. Run: `.\install.ps1`
+
+### macOS
+
+1. Extract the zip file to a folder
+2. Open Terminal
+3. Navigate to the extracted folder
+4. Run: `chmod +x install.sh`
+5. Run: `./install.sh`
+
+## After Installation
+
+1. Open a new terminal window
+2. Run `gh auth login` to authenticate with GitHub
+3. Run `claude` to start Claude Code and authenticate with your Anthropic account

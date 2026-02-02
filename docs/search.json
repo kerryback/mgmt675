@@ -1,17 +1,38 @@
 [
   {
-    "objectID": "slides.html",
-    "href": "slides.html",
-    "title": "Slides",
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software Setup",
     "section": "",
-    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nChatGPT & Claude\n\n\n\n3\nGoogle Colab\n\n\n\n4\nVS Code & Claude\n\n\n\n5\nClaude Code Skills"
+    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
   },
   {
-    "objectID": "slides.html#course-slides",
-    "href": "slides.html#course-slides",
-    "title": "Slides",
+    "objectID": "software.html#development-environment",
+    "href": "software.html#development-environment",
+    "title": "Software Setup",
     "section": "",
-    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nChatGPT & Claude\n\n\n\n3\nGoogle Colab\n\n\n\n4\nVS Code & Claude\n\n\n\n5\nClaude Code Skills"
+    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
+  },
+  {
+    "objectID": "software.html#download",
+    "href": "software.html#download",
+    "title": "Software Setup",
+    "section": "Download",
+    "text": "Download\n\n\n\nPlatform\nDownload\n\n\n\n\nmacOS\n class-setup-mac.zip\n\n\nWindows (Intel/AMD)\n class-setup-windows-x64.zip\n\n\nWindows (ARM)\n class-setup-windows-arm.zip"
+  },
+  {
+    "objectID": "software.html#installation-instructions",
+    "href": "software.html#installation-instructions",
+    "title": "Software Setup",
+    "section": "Installation Instructions",
+    "text": "Installation Instructions\n\nWindows\n\nExtract the zip file to a folder\nOpen PowerShell as Administrator\nNavigate to the extracted folder\nRun: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser\nRun: .\\install.ps1\n\n\n\nmacOS\n\nExtract the zip file to a folder\nOpen Terminal\nNavigate to the extracted folder\nRun: chmod +x install.sh\nRun: ./install.sh"
+  },
+  {
+    "objectID": "software.html#after-installation",
+    "href": "software.html#after-installation",
+    "title": "Software Setup",
+    "section": "After Installation",
+    "text": "After Installation\n\nOpen a new terminal window\nRun gh auth login to authenticate with GitHub\nRun claude to start Claude Code and authenticate with your Anthropic account"
   },
   {
     "objectID": "index.html",
@@ -26,5 +47,19 @@
     "title": "",
     "section": "",
     "text": "Kerry Back (kerryback@gmail.com) J. Howard Creekmore Professor of Finance and Professor of Economics\n\n\n\nTTh 12:30 – 2:00 3/17/2026 – 4/23/2026\n\n\n\nSaturday, March 21, 9:00-12:00 - optional Python session\nTuesday, April 28 (exam week), 1:00-2:30 - group presentations\n\nAll sessions will be in McNair 212, including the special sessions.\n\n\n\n\n\nHow to use AI with code-execution tools to perform financial analysis and generate spreadsheets, reports, and presentations\nHow to collaborate with AI in planning and evaluating work\nHow custom chatbots and AI agents work and are used in finance\nHow to use AI with code-execution tools as general agents\n\n\n\n\n\nUsing Google Colab with Gemini\nMean-variance analysis and cost of equity with AI and Python\nGenerating reports and presentations\nBuilding web apps with Streamlit\nUsing Claude, Python, and Claude Code\nGenerating pro-forma statements and simulation\nUsing Claude Code in VS Code, using GitHub, and deploying web apps\nValuing companies\nCustom chatbots and AI agents\nBuilding a valuation agent\nClaude skills\nCatch-up and extras\n\n\n\n\nGrades will be based on three group projects (20% each), a group presentation (20%), and peer assessments (20%). The presentations will be on April 28 during exam week.\n\n\nCreate a Jupyter notebook in Google Colab in which the user inputs the number of assets, their expected returns, their standard deviations, the correlation matrix, and the risk-free rate. The notebook should compute the tangency portfolio and plot the mean-variance frontier and capital allocation line. Due: 11:59 pm, March 31.\n\n\n\nCreate a web app in which the user inputs a current income statement and balance sheet and forecasts of future sales growth and financial ratios. The app should generate a Word doc containing pro forma income statements, balance sheets, and statements of cash flows. Due: 11:59 pm, April 24.\n\n\n\nCreate a web app in which an AI agent queries the user to build a current income statement, balance sheet, and to get forecasts of future sales growth and financial ratios. The app should generate a Word doc and PowerPoint deck containing a two-stage DCF analysis and an AI-generated discussion of the analysis. Due: 1:00 pm, April 28.\n\n\n\n\nEach student will be reimbursed for a Claude Pro account ($20 per month).\n\n\n\nThe Rice University honor code applies to all work in this course. Each student must do his or her own assignments, but it is allowed and in fact encouraged for students to seek advice from each other.\n\n\n\nAny student with a documented disability requiring accommodations in this course is encouraged to contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations regarding assignments or the final exam must be made in advance. Students with disabilities should also contact Disability Support Services in the Allen Center."
+  },
+  {
+    "objectID": "slides.html",
+    "href": "slides.html",
+    "title": "Slides",
+    "section": "",
+    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nChatGPT & Claude\n\n\n\n3\nGoogle Colab\n\n\n\n4\nVS Code & Claude\n\n\n\n5\nClaude Code Skills"
+  },
+  {
+    "objectID": "slides.html#course-slides",
+    "href": "slides.html#course-slides",
+    "title": "Slides",
+    "section": "",
+    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nChatGPT & Claude\n\n\n\n3\nGoogle Colab\n\n\n\n4\nVS Code & Claude\n\n\n\n5\nClaude Code Skills"
   }
 ]

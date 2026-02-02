@@ -175,9 +175,9 @@ ChatGPT will write Python code, run it, show results, and let you download the c
 \begin{itemize}
   \item Python/Bash on server
   \item Full Ubuntu environment
-  \item Install any package (pip)
+  \item \alert{Can install packages (pip)}
   \item 9GB RAM, 5GB disk
-  \item API access (beta)
+  \item No internet access
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -261,10 +261,10 @@ Claude creates a React app with input fields, calculations, and a Recharts visua
 \toprule
 \textbf{Feature} & \textbf{ChatGPT} & \textbf{Claude} \\
 \midrule
-Language & Python & JavaScript (browser) \\
-Execution & Server-side & Browser-side \\
-Libraries & 300+ pre-installed & Lodash, Papa Parse \\
-Install packages & No & No \\
+Language & Python & JavaScript / Python \\
+Execution & Server-side & Browser / Server \\
+Libraries & 300+ pre-installed & Lodash, Papa Parse / pip \\
+Install packages & No & Yes (Code Exec Tool) \\
 File upload & Yes (100 MB) & Yes (context limit) \\
 Internet access & No & No \\
 Output format & Files, charts & Artifacts, apps \\

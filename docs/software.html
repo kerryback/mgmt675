@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Slides</title>
+<title>Software Setup</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,11 +85,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./slides.html" aria-current="page"> 
+    <a class="nav-link" href="./slides.html"> 
 <span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./software.html"> 
+    <a class="nav-link active" href="./software.html" aria-current="page"> 
 <span class="menu-text">Software</span></a>
   </li>  
 </ul>
@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Slides</h1>
+<h1 class="title">Software Setup</h1>
 </div>
 
 
@@ -127,45 +127,74 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="course-slides" class="level2">
-<h2 class="anchored" data-anchor-id="course-slides">Course Slides</h2>
-<p>Click on a topic to download the PDF slide deck.</p>
+<section id="development-environment" class="level2">
+<h2 class="anchored" data-anchor-id="development-environment">Development Environment</h2>
+<p>Download the installer package for your operating system. Each package includes a script that will install:</p>
+<ul>
+<li>Python 3.12</li>
+<li>VS Code</li>
+<li>Git</li>
+<li>GitHub CLI</li>
+<li>Node.js</li>
+<li>Claude Code</li>
+</ul>
+<p>The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills.</p>
+</section>
+<section id="download" class="level2">
+<h2 class="anchored" data-anchor-id="download">Download</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">#</th>
-<th>Topic</th>
-<th style="text-align: center;"></th>
+<th>Platform</th>
+<th>Download</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">1</td>
-<td><a href="slides/01-intro.pdf">Course Introduction</a></td>
-<td style="text-align: center;"><a href="slides/01-intro.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+<td>macOS</td>
+<td><a href="class-setup/dist/class-setup-mac.zip"><i class="fa-brands fa-apple" aria-label="apple"></i> class-setup-mac.zip</a></td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">2</td>
-<td><a href="slides/02-chatgpt-claude.pdf">ChatGPT &amp; Claude</a></td>
-<td style="text-align: center;"><a href="slides/02-chatgpt-claude.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+<td>Windows (Intel/AMD)</td>
+<td><a href="class-setup/dist/class-setup-windows-x64.zip"><i class="fa-brands fa-windows" aria-label="windows"></i> class-setup-windows-x64.zip</a></td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">3</td>
-<td><a href="slides/03-colab.pdf">Google Colab</a></td>
-<td style="text-align: center;"><a href="slides/03-colab.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td><a href="slides/04-vscode-claude.pdf">VS Code &amp; Claude</a></td>
-<td style="text-align: center;"><a href="slides/04-vscode-claude.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td><a href="slides/05-claude-code-skills.pdf">Claude Code Skills</a></td>
-<td style="text-align: center;"><a href="slides/05-claude-code-skills.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+<td>Windows (ARM)</td>
+<td><a href="class-setup/dist/class-setup-windows-arm.zip"><i class="fa-brands fa-windows" aria-label="windows"></i> class-setup-windows-arm.zip</a></td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="installation-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="installation-instructions">Installation Instructions</h2>
+<section id="windows" class="level3">
+<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<ol type="1">
+<li>Extract the zip file to a folder</li>
+<li>Open PowerShell as Administrator</li>
+<li>Navigate to the extracted folder</li>
+<li>Run: <code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></li>
+<li>Run: <code>.\install.ps1</code></li>
+</ol>
+</section>
+<section id="macos" class="level3">
+<h3 class="anchored" data-anchor-id="macos">macOS</h3>
+<ol type="1">
+<li>Extract the zip file to a folder</li>
+<li>Open Terminal</li>
+<li>Navigate to the extracted folder</li>
+<li>Run: <code>chmod +x install.sh</code></li>
+<li>Run: <code>./install.sh</code></li>
+</ol>
+</section>
+</section>
+<section id="after-installation" class="level2">
+<h2 class="anchored" data-anchor-id="after-installation">After Installation</h2>
+<ol type="1">
+<li>Open a new terminal window</li>
+<li>Run <code>gh auth login</code> to authenticate with GitHub</li>
+<li>Run <code>claude</code> to start Claude Code and authenticate with your Anthropic account</li>
+</ol>
 
 
 </section>
