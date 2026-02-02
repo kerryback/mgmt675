@@ -1,15 +1,15 @@
-## Slide Decks<br>AI-Assisted Financial Analysis<br>Rice University<br>
+---
+title: Slides
+---
 
-0. [Course Intro](0-intro.html){target="_blank"} [(pdf)](pdfs/0-intro.pdf){target="_blank"} <br>
-1. [Simulation](1-simulation.html){target="_blank"} [(pdf)](pdfs/1-simulation.pdf){target="_blank"} <br>
-2. [Data Handling](2-data.html){target="_blank"} [(pdf)](pdfs/2-data.pdf){target="_blank"} <br>
-3. [Alphas and Betas](3-alphas_betas.html){target="_blank"} [(pdf)](pdfs/3-alphas_betas.pdf){target="_blank"} <br>
-4. [Visualization](4-visualization.html){target="_blank"} [(pdf)](pdfs/4-visualization.pdf){target="_blank"} <br>
-5. [Optimal Portfolios](5-portfolios.html){target="_blank"} [(pdf)](pdfs/5-portfolios.pdf){target="_blank"} <br>
-5b. [Optimal Portfolios the Easy Way](5b-portfolios-again.html){target="_blank"} [(pdf)](pdfs/5b-portfolios-again.pdf){target="_blank"} <br>
-6. [Autocorrelation and Autoregression](6-autoregression.html){target="_blank"} [(pdf)](pdfs/5-autoregression.pdf){target="_blank"} <br>
-7. [Intro to Machine Learning](7-linear.html){target="_blank"} [(pdf)](pdfs/7-linear.pdf){target="_blank"} <br>
-8. [Trees, Forests, and Nets](8-trees.html){target="_blank"} [(pdf)](pdfs/8-trees.pdf){target="_blank"} <br>
-9. [Classification](9-classification.html){target="_blank"} [(pdf)](pdfs/9-classification.pdf){target="_blank"} <br>
-10. [Web Scraping](10-scraping.html){target="_blank"} [(pdf)](pdfs/10-scraping.pdf){target="_blank"} <br>
+## Course Slides
 
+Click on a topic to download the PDF slide deck.
+
+| # | Topic | |
+|--:|-------|:-:|
+| 1 | [Course Introduction](slides/01-intro.pdf) | [{{< fa file-pdf >}}](slides/01-intro.pdf) |
+| 2 | [ChatGPT & Claude](slides/02-chatgpt-claude.pdf) | [{{< fa file-pdf >}}](slides/02-chatgpt-claude.pdf) |
+| 3 | [Google Colab](slides/03-colab.pdf) | [{{< fa file-pdf >}}](slides/03-colab.pdf) |
+| 4 | [VS Code & Claude](slides/04-vscode-claude.pdf) | [{{< fa file-pdf >}}](slides/04-vscode-claude.pdf) |
+| 5 | [Claude Code Skills](slides/05-claude-code-skills.pdf) | [{{< fa file-pdf >}}](slides/05-claude-code-skills.pdf) |

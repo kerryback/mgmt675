@@ -1,0 +1,202 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Course Introduction}
+\author{Kerry Back}
+
+\date{}
+\titlegraphic{\includegraphics[width=4cm]{images/slide1_img1.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{From Makers to Checkers}
+\begin{shadedbox}\centerline{Derek Waldron, JP Morgan Chief Analytics Officer}\end{shadedbox}
+
+What we're working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.
+
+You'll still have people at the top who are managing and have relationships with clients, but many, many of the processes underneath are now being done by AI systems.
+
+Workers would shift from being creators of reports or software updates, or 'makers' ... to 'checkers' or managers of AI agents doing that work.
+\end{frame}
+
+\begin{frame}{The New Skills Landscape}
+\begin{shadedbox}\centerline{Brookings Institute, 2025}\end{shadedbox}
+
+As AI models begin to handle underwriting, compliance, and asset allocation, the traditional architecture of financial work is undergoing a fundamental shift.
+
+As job descriptions evolve, so does the definition of financial talent. Excel is no longer a differentiator. Python is fast becoming the new Excel.
+
+But technical skills alone will not cut it. The most in demand profiles today are those that speak both AI and finance.
+\end{frame}
+
+\begin{frame}{Course Focus}
+\begin{columns}[T]
+  \begin{column}{0.3\textwidth}
+\begin{shadedbox}[title=\textbf{Financial Analysis}]
+\begin{itemize}
+  \item Cost of equity
+  \item Mean-variance analysis
+  \item Pro-forma statements
+  \item Discounted cash flow
+  \item Simulation
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.3\textwidth}
+\begin{shadedbox}[title=\textbf{Using AI}]
+\begin{itemize}
+  \item Financial analysis
+  \item Visualizations
+  \item Spreadsheets
+  \item Word, PowerPoint
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.3\textwidth}
+\begin{shadedbox}[title=\textbf{Building Agents}]
+\begin{itemize}
+  \item System prompts
+  \item API calls
+  \item Agent logic
+  \item Claude skills
+\end{itemize}
+\end{shadedbox}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}{Chatbots and Agents}
+\vspace{0.5cm}
+\begin{center}
+\includegraphics[height=0.7\textheight]{images/c3po_r2d2_transparent.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{What is an AI Agent?}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\vskip\baselineskip
+\begin{baritemize}\small
+  \item A chatbot equipped with tools to perform actions beyond conversation.
+  \item Code execution (Python, etc.)
+  \item File generation (Excel, Word, PDF)
+  \item Database access
+  \item Web search and API calls
+  \item System commands (copy, move files, etc.)
+\end{baritemize}
+\end{column}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=\textwidth]{images/slide6_img1.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{data-portal.rice-business.org}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+  \vskip\baselineskip
+\begin{baritemize}\small
+
+  \item Prompt + System Prompt $\rightarrow$ LLM
+  \item LLM $\rightarrow$ SQL code or a question for the user
+  \item Agent $\rightarrow$ SQL code to database or $\rightarrow$ question to the user
+  \item Eventually, SQL code $\rightarrow$ database
+  \item Database $\rightarrow$ data or error message
+  \item Error message $\rightarrow$ LLM
+  \item Eventually data $\rightarrow$ user
+\end{baritemize}
+\end{column}
+\begin{column}{0.6\textwidth}
+\vspace{1cm}
+\begin{shadedbox}\begin{center}
+  Visit \href{https://data-portal.rice-business.org}{data-portal.rice-business.org}
+  \newline Get access token, Log in, Ask for data
+\end{center}\end{shadedbox}
+\vspace*{-2\baselineskip}
+\includegraphics[width=\textwidth]{images/agent_database.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{How do We Build It?}
+\begin{baritemize}
+  \item System prompt provides info to LLM and tells it what we want
+  \item Agent logic is hard-coded as "if ... then ..." (\alert{not AI})
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Spreadsheets $\rightarrow$ AI Agents}
+\vspace{1cm}
+\begin{center}
+\begin{shadedbox}[width=0.6\textwidth]
+\centering\large\textbf{What can we build?}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\begin{frame}{Where All Computing is Probably Headed}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{baritemize}
+  \item \textbf{Terminal Era:} Unix, MS-DOS, Linux, ...
+  \item \textbf{Graphical User Interface:} Point \& click
+  \item \textbf{Chat:} AI agent does everything. Agents will change the way people use computers.
+\end{baritemize}
+\end{column}
+\begin{column}{0.55\textwidth}
+\vspace{1cm}
+\includegraphics[width=\textwidth]{images/slide10_img1.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{AI Tools in Course}
+\begin{baritemize}
+   \item Claude for Excel
+  \item Python execution in ChatGPT and Claude
+   \item Google Gemini in Colab
+  \item Claude Code in VS Code
+  \item Cursor and Google AntiGravity
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Claude for Excel}
+\begin{columns}[b]
+\begin{column}{0.3\textwidth}
+\href{https://marketplace.microsoft.com/en-us/product/saas/wa200009404?tab=overview}{Claude Add-In for Excel}
+\vspace{1cm}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=0.7\textwidth]{images/claude_excel_agent.jpeg}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Launch and Log In}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{images/launch_the_addin.png}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=0.8\textwidth]{images/claude_add_in.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Get Started}
+\begin{barenumerate}
+  \item Ask Claude to create an example two-stage DCF analysis
+  \item Open any spreadsheet, click the Claude icon at top right, ask Claude to do things
+\end{barenumerate}
+\end{frame}
+
+\end{document}

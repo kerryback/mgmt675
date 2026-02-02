@@ -3,17 +3,23 @@ project:
   output-dir: docs
   render:
     - index.qmd
+    - slides.qmd
   resources:
     - CNAME
     - .nojekyll
-                
+    - slides/*.pdf
+
 website:
   title: ""
-  search: false  
+  search: false
   navbar:
     search: false
     title: MGMT 675
-    file: index.qmd
+    left:
+      - href: index.qmd
+        text: Home
+      - href: slides.qmd
+        text: Slides
     
 format:
   html:

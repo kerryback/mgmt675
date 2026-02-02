@@ -1,0 +1,319 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Claude Code as a General Agent}
+\author{Kerry Back}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Recall: What is an AI Agent?}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\vspace{0.3cm}
+\begin{baritemize}\footnotesize
+  \item Chatbot with tools for actions beyond conversation
+  \item Code execution (Python, etc.)
+  \item File generation (Excel, Word)
+  \item Database access
+  \item Web search and API calls
+\end{baritemize}
+\end{column}
+\begin{column}{0.55\textwidth}
+\vspace{0.3cm}
+\begin{shadedbox}[title=\textbf{Agent Components}]
+\begin{enumerate}\footnotesize
+  \item \textbf{LLM}: The ``brain'' (GPT-4, Claude)
+  \item \textbf{System Prompt}: Instructions
+  \item \textbf{Agent Logic}: Control flow
+  \item \textbf{Tools}: Code, APIs, databases
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Stand-Alone Agent Architecture}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Custom-Built Agent}]
+\begin{itemize}\small
+  \item Hard-coded system prompt
+  \item Hard-coded agent logic
+  \item Specific tools integrated
+  \item Fixed to one use case
+  \item Requires developer to modify
+\end{itemize}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\alert{Example: Rice Data Portal}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}
+\begin{center}
+\textbf{Stand-Alone Agent Flow}
+\end{center}
+\begin{enumerate}\small
+  \item User prompt $\rightarrow$ Agent
+  \item Agent adds system prompt
+  \item Combined $\rightarrow$ LLM
+  \item LLM $\rightarrow$ SQL or question
+  \item Agent executes or asks user
+  \item Loop until done
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Claude Code: A General-Purpose Agent}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{baritemize}\small
+  \item Claude Code is an agent application
+  \item LLM: Claude Opus or Sonnet
+  \item Built-in tools: file I/O, bash, code execution, web search
+  \item Agent logic: built into Claude Code
+  \item \alert{Skills} customize it for specific tasks
+\end{baritemize}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{shadedbox}[title=\textbf{Claude Code Architecture}]
+\begin{center}
+\begin{tabular}{ll}
+\textbf{Component} & \textbf{Provider} \\
+\midrule
+LLM & Claude Opus/Sonnet \\
+Agent Logic & Claude Code app \\
+Base Tools & Claude Code app \\
+System Prompt & \alert{Skill} \\
+Custom Tools & \alert{Skill scripts} \\
+\end{tabular}
+\end{center}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{What is a Skill?}
+\begin{shadedbox}
+A \textbf{skill} is a folder containing instructions and optional code that transforms Claude Code into a specialized agent for a specific domain or task.
+\end{shadedbox}
+\vspace{0.5cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{A Skill Provides}]
+\begin{itemize}\small
+  \item System prompt (domain knowledge)
+  \item Workflow instructions
+  \item Best practices and constraints
+  \item Python/JavaScript helper scripts
+  \item Reference documentation
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Claude Code Provides}]
+\begin{itemize}\small
+  \item The LLM (Opus or Sonnet)
+  \item Agent control loop
+  \item File read/write tools
+  \item Code execution sandbox
+  \item Web search capability
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Anatomy of a Skill}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Skill Folder Structure}]\small
+\begin{verbatim}
+skills/
+  xlsx/
+    SKILL.md     <- Main file
+    scripts/
+      recalc.py
+    references/
+      schema.md
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{shadedbox}[title=\textbf{SKILL.md Structure}]\small
+\begin{verbatim}
+---
+name: xlsx
+description: "Excel file..."
+---
+
+# Requirements for Outputs
+- Zero formula errors
+- Use formulas, not hardcodes
+
+# Workflows
+1. Choose pandas or openpyxl
+2. Create/modify file
+3. Recalculate formulas
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{SKILL.md: The System Prompt}
+\begin{baritemize}
+  \item \textbf{Frontmatter}: Name and description (YAML header)
+  \item \textbf{Requirements}: Quality standards and constraints
+  \item \textbf{Workflows}: Step-by-step procedures
+  \item \textbf{Code Examples}: Patterns for the LLM to follow
+  \item \textbf{Error Handling}: How to diagnose and fix problems
+\end{baritemize}
+\vspace{0.3cm}
+\begin{shadedbox}
+The SKILL.md file is automatically injected into Claude's context when working in a project that contains the skill.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Scripts: The Custom Tools}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{baritemize}\small
+  \item Python or JavaScript files in \texttt{scripts/} folder
+  \item Claude Code can execute them
+  \item Extend Claude's capabilities
+  \item Handle tasks LLM can't do directly
+\end{baritemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Example Scripts}]
+\begin{itemize}\small
+  \item \texttt{recalc.py} -- Recalculate Excel formulas via LibreOffice
+  \item \texttt{validate.py} -- Check file structure
+  \item \texttt{unpack.py} -- Extract XML from Office files
+  \item \texttt{html2pptx.js} -- Convert HTML to PowerPoint
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Example: Rice Database Skill}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Stand-Alone App}]
+\begin{itemize}\small
+  \item Custom web application
+  \item Hard-coded SQL generation prompt
+  \item Fixed agent logic in Python
+  \item Single-purpose: query database
+  \item Requires developer to update
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Claude Code + Skill}]
+\begin{itemize}\small
+  \item SKILL.md with database schema
+  \item Connection code examples
+  \item Table descriptions
+  \item \alert{Plus}: Can also make charts, Excel files, Word reports
+  \item User can extend easily
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\alert{Same database access, but infinitely more flexible}
+\end{center}
+\end{frame}
+
+\begin{frame}{Skill vs Stand-Alone Agent}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Feature} & \textbf{Stand-Alone} & \textbf{Skill} \\
+\midrule
+Agent logic & Custom code & Claude Code \\
+System prompt & Hard-coded & SKILL.md file \\
+LLM & Your choice & Claude Opus/Sonnet \\
+Tools & Custom built & Scripts + built-in \\
+Maintenance & Developer & Edit markdown \\
+Combine tasks & No & Yes \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.5cm}
+\begin{shadedbox}
+Skills let you create \alert{specialized agents} without writing agent logic. Claude Code handles the control flow; you just provide the domain knowledge.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Where Skills Live}
+\begin{baritemize}
+  \item \textbf{Project skills}: \texttt{.claude/skills/} in your project folder
+  \item \textbf{User skills}: \texttt{\textasciitilde/.claude/skills/} (shared across projects)
+  \item Claude Code automatically loads skills from both locations
+  \item Skills can reference each other (e.g., xlsx skill uses ooxml validation)
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Creating Your Own Skill}
+\begin{barenumerate}
+  \item Create folder: \texttt{.claude/skills/my-skill/}
+  \item Create \texttt{SKILL.md} with:
+  \begin{itemize}
+    \item YAML frontmatter (name, description)
+    \item Domain knowledge and instructions
+    \item Code examples and workflows
+  \end{itemize}
+  \item Optionally add \texttt{scripts/} folder with helper code
+  \item Start using Claude Code -- skill is automatically loaded
+\end{barenumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Claude Code}]
+\begin{itemize}\small
+  \item General-purpose agent
+  \item LLM + Agent Logic + Tools
+  \item Works out of the box
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Skills}]
+\begin{itemize}\small
+  \item Specialize Claude Code
+  \item System prompt + scripts
+  \item Easy to create and modify
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\begin{shadedbox}[width=0.8\textwidth]
+\centering
+\textbf{Skills replace stand-alone agents}\\[0.3em]
+Same capabilities, less code, more flexibility
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\end{document}

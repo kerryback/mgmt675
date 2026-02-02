@@ -1,0 +1,259 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+
+\input{mgmt675-style}
+
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{VS Code with Claude Code}
+\author{Kerry Back}
+
+\date{}
+\titlegraphic{\includegraphics[width=4cm]{images/slide1_img1.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{What is VS Code?}
+\begin{baritemize}
+  \item Visual Studio Code: a free code editor from Microsoft
+  \item Works on Windows, Mac, and Linux
+  \item Lightweight but powerful
+  \item Huge ecosystem of extensions
+  \item We'll use it as a UI for \alert{Claude Code}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Why VS Code + Claude Code?}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Colab}]
+\begin{itemize}
+  \item Browser-based
+  \item No installation
+  \item Google Drive storage
+  \item Google Gemini AI
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{VS Code}]
+\begin{itemize}
+  \item Desktop application
+  \item Local file access
+  \item Claude Code AI
+  \item More powerful tools
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\centering Both support Jupyter notebooks!
+\end{frame}
+
+\begin{frame}{What You Need}
+\begin{baritemize}
+  \item VS Code installed (free from \alert{code.visualstudio.com})
+  \item Claude Code extension (free to install)
+  \item Anthropic account for Claude API access
+  \item Python extension (for notebooks)
+  \item Jupyter extension (for notebooks)
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Installing the Claude Code Extension}
+\begin{barenumerate}
+  \item Open VS Code
+  \item Press Ctrl+Shift+X (Windows) or Cmd+Shift+X (Mac)
+  \item Search for ``Claude Code''
+  \item Click \textbf{Install} on the official Anthropic extension
+  \item Sign in when prompted
+\end{barenumerate}
+\end{frame}
+
+\begin{frame}{The Claude Code Interface}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{images/vscode_claude_interface.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Opening Claude Code}
+\begin{baritemize}
+  \item \textbf{Spark icon}: Click the spark icon in the top-right corner of any open file
+  \item \textbf{Status bar}: Click ``Claude Code'' in the bottom-right corner
+  \item \textbf{Command Palette}: Ctrl+Shift+P $\rightarrow$ type ``Claude Code''
+  \item \textbf{Keyboard shortcut}: Cmd+Esc (Mac) / Ctrl+Esc (Windows)
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{How Claude Code Works}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{images/vscode_claude_workflow.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Chatting with Claude}
+\begin{baritemize}
+  \item Type your question or request in the prompt box
+  \item Press Enter to send
+  \item Claude can see your selected code automatically
+  \item Use \texttt{@filename} to reference specific files
+  \item Claude asks permission before making changes
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{What Claude Code Can Do}
+\begin{baritemize}
+  \item Explain code and answer questions
+  \item Write new code from descriptions
+  \item Fix errors and debug problems
+  \item Edit files (with your approval)
+  \item Run commands in the terminal
+  \item Create and modify Jupyter notebooks
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Reviewing Changes}
+\begin{baritemize}
+  \item Claude shows changes in a side-by-side diff view
+  \item Green = additions, Red = deletions
+  \item You can \alert{Accept} or \alert{Reject} each change
+  \item Or tell Claude what to do differently
+  \item Changes are not applied until you approve them
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Jupyter Notebooks in VS Code}
+\vspace{0.5cm}
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\large\textbf{Same concept as Colab, local execution}
+\end{shadedbox}
+\end{center}
+\vspace{0.5cm}
+\begin{baritemize}
+  \item Code cells and text cells
+  \item Run cells with Shift+Enter
+  \item Output appears below each cell
+  \item No browser or internet required
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Creating a New Notebook}
+\begin{barenumerate}
+  \item Ctrl+Shift+P (or Cmd+Shift+P on Mac)
+  \item Type ``Create: New Jupyter Notebook''
+  \item Select a Python kernel from the top-right picker
+  \item Start coding!
+\end{barenumerate}
+\vspace{0.3cm}
+Or simply create a new file with \texttt{.ipynb} extension
+\end{frame}
+
+\begin{frame}{Opening Existing Notebooks}
+\begin{baritemize}
+  \item File $\rightarrow$ Open File $\rightarrow$ select \texttt{.ipynb} file
+  \item Drag and drop notebook file into VS Code
+  \item Double-click notebook in the Explorer sidebar
+  \item Download from Colab and open locally
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{The VS Code Notebook Interface}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{images/vscode_notebook.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Running Cells}
+\begin{baritemize}
+  \item \textbf{Shift+Enter}: Run cell and move to next
+  \item \textbf{Ctrl+Enter}: Run cell and stay
+  \item \textbf{Alt+Enter}: Run cell and insert new cell below
+  \item Click the play button ($\triangleright$) left of the cell
+  \item ``Run All'' button in toolbar runs entire notebook
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Notebook Keyboard Shortcuts}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Running Code}]
+\begin{itemize}
+  \item Shift+Enter: Run cell
+  \item Ctrl+Enter: Run, stay
+  \item Alt+Enter: Run, insert below
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Managing Cells}]
+\begin{itemize}
+  \item A: Add cell above
+  \item B: Add cell below
+  \item DD: Delete cell
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\centering Press \textbf{Esc} to enter command mode, \textbf{Enter} to edit
+\end{frame}
+
+\begin{frame}{Selecting a Kernel}
+\begin{baritemize}
+  \item The kernel runs your code (like Colab's runtime)
+  \item Click the kernel picker in the top-right corner
+  \item Select ``Python Environments'' $\rightarrow$ choose your Python
+  \item Kernel must be selected before running code
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Using Claude with Notebooks}
+\begin{baritemize}
+  \item Ask Claude to create a notebook for you
+  \item Claude can add, edit, or delete cells
+  \item Select code and ask Claude to explain it
+  \item Request data visualizations or analysis
+  \item Claude can fix errors in your notebook code
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Key Differences from Colab}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Colab}]
+\begin{itemize}
+  \item Browser-based
+  \item Gemini AI built-in
+  \item Auto-saves to Drive
+  \item Free GPU access
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{VS Code}]
+\begin{itemize}
+  \item Desktop app
+  \item Claude Code AI
+  \item Local file storage
+  \item Uses your computer
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Quick Reference}
+\begin{baritemize}
+  \item \textbf{Open Claude}: Click spark icon or Ctrl+Esc
+  \item \textbf{New notebook}: Ctrl+Shift+P $\rightarrow$ ``New Jupyter Notebook''
+  \item \textbf{Run cell}: Shift+Enter
+  \item \textbf{Select kernel}: Click picker in top-right
+  \item \textbf{Reference file}: Type \texttt{@filename} in Claude prompt
+\end{baritemize}
+\end{frame}
+
+\end{document}
