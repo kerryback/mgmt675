@@ -1,0 +1,55 @@
+================================================================================
+  MGMT 675 - Windows Installation Quick Start
+================================================================================
+
+SIMPLEST METHOD (RECOMMENDED):
+------------------------------
+1. Right-click on "INSTALL.bat"
+2. Select "Run as administrator"
+3. Follow the prompts
+
+That's it!
+
+
+ALTERNATIVE METHOD (PowerShell):
+-------------------------------
+1. Right-click PowerShell and select "Run as administrator"
+2. Navigate to this folder (cd path\to\windows)
+3. Run: powershell -ExecutionPolicy Bypass -File .\run.ps1
+
+
+IF YOU GET "SCRIPT NOT SIGNED" ERROR:
+------------------------------------
+Run these commands in PowerShell (as Administrator):
+
+    Unblock-File -Path .\install.ps1
+    Unblock-File -Path .\run.ps1
+    .\run.ps1
+
+
+WHAT GETS INSTALLED:
+-------------------
+- Python 3.12
+- Git for Windows
+- GitHub CLI
+- Node.js
+- Visual Studio Code
+- Claude Code
+- Koyeb CLI
+- VS Code extensions
+- Claude skills
+
+
+AFTER INSTALLATION:
+------------------
+1. Close and reopen PowerShell/Command Prompt
+2. Run: gh auth login
+3. Run: claude
+4. Run: koyeb login
+
+
+NEED HELP?
+---------
+See README.md for detailed instructions and troubleshooting.
+
+================================================================================
