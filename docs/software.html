@@ -167,13 +167,20 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="installation-instructions">Installation Instructions</h2>
 <section id="windows" class="level3">
 <h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<p><strong>Easiest Method (Recommended):</strong></p>
 <ol type="1">
 <li>Extract the zip file to a folder</li>
-<li>Open PowerShell as Administrator</li>
-<li>Navigate to the extracted folder</li>
-<li>Run: <code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></li>
-<li>Run: <code>.\install.ps1</code></li>
+<li>Right-click on <code>INSTALL.bat</code></li>
+<li>Select “Run as administrator”</li>
 </ol>
+<p><strong>Alternative Method:</strong></p>
+<ol type="1">
+<li>Extract the zip file to a folder</li>
+<li>Right-click PowerShell and select “Run as administrator”</li>
+<li>Navigate to the extracted folder</li>
+<li>Run: <code>powershell -ExecutionPolicy Bypass -File .\run.ps1</code></li>
+</ol>
+<p>See the included <code>README.md</code> for troubleshooting and additional installation methods.</p>
 </section>
 <section id="macos" class="level3">
 <h3 class="anchored" data-anchor-id="macos">macOS</h3>

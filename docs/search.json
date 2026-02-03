@@ -25,7 +25,7 @@
     "href": "software.html#installation-instructions",
     "title": "Software Setup",
     "section": "Installation Instructions",
-    "text": "Installation Instructions\n\nWindows\n\nExtract the zip file to a folder\nOpen PowerShell as Administrator\nNavigate to the extracted folder\nRun: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser\nRun: .\\install.ps1\n\n\n\nmacOS\n\nExtract the zip file to a folder\nOpen Terminal\nNavigate to the extracted folder\nRun: chmod +x install.sh\nRun: ./install.sh"
+    "text": "Installation Instructions\n\nWindows\nEasiest Method (Recommended):\n\nExtract the zip file to a folder\nRight-click on INSTALL.bat\nSelect “Run as administrator”\n\nAlternative Method:\n\nExtract the zip file to a folder\nRight-click PowerShell and select “Run as administrator”\nNavigate to the extracted folder\nRun: powershell -ExecutionPolicy Bypass -File .\\run.ps1\n\nSee the included README.md for troubleshooting and additional installation methods.\n\n\nmacOS\n\nExtract the zip file to a folder\nOpen Terminal\nNavigate to the extracted folder\nRun: chmod +x install.sh\nRun: ./install.sh"
   },
   {
     "objectID": "software.html#after-installation",
