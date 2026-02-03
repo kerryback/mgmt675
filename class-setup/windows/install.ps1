@@ -1,5 +1,5 @@
 # MGMT 675 Development Environment Installer for Windows
-# This script installs Python, VS Code, Git, GitHub CLI, Node.js, and Claude Code
+# This script installs Python, VS Code, Git, GitHub CLI, Node.js, Claude Code, and Koyeb CLI
 # Supports both x64 and ARM64 architectures (auto-detected)
 # Run this script as Administrator
 
@@ -24,6 +24,8 @@ if ($IsArm) {
     $NodeInstaller = "node-v22.13.1-arm64.msi"
     $VSCodeUrl = "https://update.code.visualstudio.com/latest/win32-arm64/stable"
     $VSCodeInstaller = "VSCodeSetup-arm64.exe"
+    $KoyebUrl = "https://github.com/koyeb/koyeb-cli/releases/download/v5.9.0/koyeb-cli_5.9.0_windows_arm64.zip"
+    $KoyebArchive = "koyeb-cli_5.9.0_windows_arm64.zip"
 } else {
     $ArchLabel = "x64"
     $PythonUrl = "https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe"
@@ -34,6 +36,8 @@ if ($IsArm) {
     $NodeInstaller = "node-v22.13.1-x64.msi"
     $VSCodeUrl = "https://update.code.visualstudio.com/latest/win32-x64/stable"
     $VSCodeInstaller = "VSCodeSetup-x64.exe"
+    $KoyebUrl = "https://github.com/koyeb/koyeb-cli/releases/download/v5.9.0/koyeb-cli_5.9.0_windows_amd64.zip"
+    $KoyebArchive = "koyeb-cli_5.9.0_windows_amd64.zip"
 }
 
 # Git uses x64 for both (no native ARM build available, runs via emulation)
@@ -182,7 +186,38 @@ if (-not $ClaudeInstalled) {
     Write-Success "Claude Code already installed"
 }
 
-# Step 7: Install VS Code extensions
+# Step 7: Install Koyeb CLI
+Write-Status "Installing Koyeb CLI ($ArchLabel)..."
+Refresh-Path
+$KoyebInstalled = Test-CommandExists "koyeb"
+if (-not $KoyebInstalled) {
+    $KoyebPath = "$TempDir\$KoyebArchive"
+    $KoyebExtract = "$TempDir\koyeb"
+    $KoyebDest = "C:\Program Files\Koyeb"
+
+    Write-Status "  Downloading Koyeb CLI $ArchLabel..."
+    Invoke-WebRequest -Uri $KoyebUrl -OutFile $KoyebPath
+
+    Write-Status "  Extracting Koyeb CLI..."
+    Expand-Archive -Path $KoyebPath -DestinationPath $KoyebExtract -Force
+
+    Write-Status "  Installing Koyeb CLI..."
+    New-Item -ItemType Directory -Force -Path $KoyebDest | Out-Null
+    Copy-Item "$KoyebExtract\koyeb.exe" "$KoyebDest\koyeb.exe" -Force
+
+    # Add to system PATH
+    $CurrentPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+    if ($CurrentPath -notlike "*$KoyebDest*") {
+        [System.Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$KoyebDest", "Machine")
+    }
+
+    Refresh-Path
+    Write-Success "Koyeb CLI installed"
+} else {
+    Write-Success "Koyeb CLI already installed"
+}
+
+# Step 9: Install VS Code extensions
 Write-Status "Installing VS Code extensions..."
 Refresh-Path
 $CodePath = "C:\Program Files\Microsoft VS Code\bin\code.cmd"
@@ -204,7 +239,7 @@ if (Test-Path $CodePath) {
     Write-Warning "VS Code CLI not found. Please install extensions manually."
 }
 
-# Step 8: Install Claude skills
+# Step 10: Install Claude skills
 Write-Status "Installing Claude skills..."
 $SkillsSource = Join-Path $ScriptDir "skills"
 $SkillsDest = "$env:USERPROFILE\.claude\skills"
@@ -278,6 +313,15 @@ try {
     $AllGood = $false
 }
 
+# Check Koyeb
+try {
+    $KoyebVersion = koyeb version 2>&1
+    Write-Success "  Koyeb CLI: $KoyebVersion"
+} catch {
+    Write-Warning "  Koyeb CLI: NOT FOUND"
+    $AllGood = $false
+}
+
 Write-Host ""
 if ($AllGood) {
     Write-Host "==============================================" -ForegroundColor Cyan
@@ -296,6 +340,7 @@ Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "  1. Close and reopen PowerShell or Command Prompt"
 Write-Host "  2. Run 'gh auth login' to authenticate with GitHub"
 Write-Host "  3. Run 'claude' to start Claude Code and authenticate"
+Write-Host "  4. Run 'koyeb login' to authenticate with Koyeb"
 Write-Host ""
 Write-Host "Installed software:" -ForegroundColor Yellow
 Write-Host "  - Python 3.12 ($ArchLabel)"
@@ -304,4 +349,5 @@ Write-Host "  - GitHub CLI ($ArchLabel)"
 Write-Host "  - Node.js ($ArchLabel)"
 Write-Host "  - VS Code ($ArchLabel)"
 Write-Host "  - Claude Code"
+Write-Host "  - Koyeb CLI ($ArchLabel)"
 Write-Host ""

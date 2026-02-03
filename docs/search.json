@@ -4,14 +4,14 @@
     "href": "software.html",
     "title": "Software Setup",
     "section": "",
-    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
+    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\nKoyeb CLI\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
   },
   {
     "objectID": "software.html#development-environment",
     "href": "software.html#development-environment",
     "title": "Software Setup",
     "section": "",
-    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
+    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\nKoyeb CLI\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
   },
   {
     "objectID": "software.html#download",
@@ -32,7 +32,7 @@
     "href": "software.html#after-installation",
     "title": "Software Setup",
     "section": "After Installation",
-    "text": "After Installation\n\nOpen a new terminal window\nRun gh auth login to authenticate with GitHub\nRun claude to start Claude Code and authenticate with your Anthropic account"
+    "text": "After Installation\n\nOpen a new terminal window\nRun gh auth login to authenticate with GitHub\nRun claude to start Claude Code and authenticate with your Anthropic account\nRun koyeb login to authenticate with Koyeb"
   },
   {
     "objectID": "index.html",

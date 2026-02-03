@@ -18,6 +18,7 @@ Before you begin, ensure you have:
 - **GitHub CLI** - Command-line interface for GitHub
 - **Node.js** - JavaScript runtime (required for Claude Code)
 - **Claude Code** - AI coding assistant
+- **Koyeb CLI** - Command-line interface for Koyeb serverless platform
 
 ### VS Code Extensions
 
@@ -33,7 +34,6 @@ Pre-configured skills for working with:
 - Excel spreadsheets (xlsx)
 - Word documents (docx)
 - PowerPoint presentations (pptx)
-- Rice Data Portal database
 
 ## Installation Instructions
 
@@ -116,13 +116,15 @@ This will:
 
 After authorizing, return to your terminal. Claude Code is now ready to use in VS Code.
 
-### 3. Set up your Rice Data Portal token (if using database skills)
+### 3. Authenticate with Koyeb
 
-Create a `.env` file in your project folder with your Rice Data Portal access token:
+Run the Koyeb CLI to authenticate:
 
+```bash
+koyeb login
 ```
-RICE_ACCESS_TOKEN=your_token_here
-```
+
+This will open a browser window to authenticate with your Koyeb account.
 
 ## Troubleshooting
 

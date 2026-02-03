@@ -1,6 +1,6 @@
 #!/bin/bash
 # MGMT 675 Development Environment Installer for macOS
-# This script installs Python, VS Code, Git, GitHub CLI, Node.js, and Claude Code
+# This script installs Python, VS Code, Git, GitHub CLI, Node.js, Claude Code, and Koyeb CLI
 
 set -e
 
@@ -106,7 +106,16 @@ else
     print_success "Claude Code installed"
 fi
 
-# Step 8: Install VS Code extensions
+# Step 8: Install Koyeb CLI
+print_status "Installing Koyeb CLI..."
+if command_exists koyeb; then
+    print_success "Koyeb CLI already installed"
+else
+    brew install koyeb/tap/koyeb
+    print_success "Koyeb CLI installed"
+fi
+
+# Step 9: Install VS Code extensions
 print_status "Installing VS Code extensions..."
 if command_exists code; then
     while IFS= read -r ext || [[ -n "$ext" ]]; do
@@ -120,7 +129,7 @@ else
     print_warning "VS Code CLI not found. Please install extensions manually."
 fi
 
-# Step 9: Install Claude skills
+# Step 10: Install Claude skills
 print_status "Installing Claude skills..."
 SKILLS_DEST="$HOME/.claude/skills"
 mkdir -p "$SKILLS_DEST"
@@ -182,6 +191,14 @@ else
     ALL_GOOD=false
 fi
 
+# Check Koyeb
+if command_exists koyeb; then
+    print_success "  Koyeb CLI: $(koyeb version 2>&1)"
+else
+    print_warning "  Koyeb CLI: NOT FOUND"
+    ALL_GOOD=false
+fi
+
 echo ""
 if [ "$ALL_GOOD" = true ]; then
     echo "=============================================="
@@ -200,4 +217,5 @@ echo "Next steps:"
 echo "  1. Open a new terminal window"
 echo "  2. Run 'gh auth login' to authenticate with GitHub"
 echo "  3. Run 'claude' to start Claude Code and authenticate"
+echo "  4. Run 'koyeb login' to authenticate with Koyeb"
 echo ""

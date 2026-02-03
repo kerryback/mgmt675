@@ -12,6 +12,7 @@ Download the installer package for your operating system. Each package includes 
 - GitHub CLI
 - Node.js
 - Claude Code
+- Koyeb CLI
 
 The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills.
 
@@ -47,3 +48,4 @@ The Windows installer automatically detects your processor type (Intel/AMD or AR
 1. Open a new terminal window
 2. Run `gh auth login` to authenticate with GitHub
 3. Run `claude` to start Claude Code and authenticate with your Anthropic account
+4. Run `koyeb login` to authenticate with Koyeb
