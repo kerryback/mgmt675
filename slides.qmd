@@ -14,4 +14,7 @@ Click on a topic to download the PDF slide deck.
 | 4 | [Spreadsheets and AI](slides/04-spreadsheets.pdf) | [{{< fa file-pdf >}}](slides/04-spreadsheets.pdf) |
 | 5 | [Google Colab](slides/05-colab.pdf) | [{{< fa file-pdf >}}](slides/05-colab.pdf) |
 | 6 | [VS Code with Claude Code](slides/06-vscode.pdf) | [{{< fa file-pdf >}}](slides/06-vscode.pdf) |
-| 7 | [Claude Code Skills](slides/07-skills.pdf) | [{{< fa file-pdf >}}](slides/07-skills.pdf) |
+| 7 | [Creating Web Apps](slides/07-apps.pdf) | [{{< fa file-pdf >}}](slides/07-apps.pdf) |
+| 8 | [Creating Custom Chatbots](slides/08-chatbots.pdf) | [{{< fa file-pdf >}}](slides/08-chatbots.pdf) |
+| 9 | [Creating AI Agents](slides/09-agents.pdf) | [{{< fa file-pdf >}}](slides/09-agents.pdf) |
+| 10 | [Claude Code Skills](slides/10-skills.pdf) | [{{< fa file-pdf >}}](slides/10-skills.pdf) |
