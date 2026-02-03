@@ -1,5 +1,6 @@
-# MGMT 675 Development Environment Installer for Windows x64
+# MGMT 675 Development Environment Installer for Windows
 # This script installs Python, VS Code, Git, GitHub CLI, Node.js, and Claude Code
+# Supports both x64 and ARM64 architectures (auto-detected)
 # Run this script as Administrator
 
 #Requires -RunAsAdministrator
@@ -9,9 +10,39 @@ $ProgressPreference = 'SilentlyContinue'  # Speed up downloads
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
+# Detect architecture
+$Arch = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture
+$IsArm = $Arch -eq [System.Runtime.InteropServices.Architecture]::Arm64
+
+if ($IsArm) {
+    $ArchLabel = "ARM64"
+    $PythonUrl = "https://www.python.org/ftp/python/3.12.8/python-3.12.8-arm64.exe"
+    $PythonInstaller = "python-3.12.8-arm64.exe"
+    $GhUrl = "https://github.com/cli/cli/releases/download/v2.65.0/gh_2.65.0_windows_arm64.msi"
+    $GhInstaller = "gh_2.65.0_windows_arm64.msi"
+    $NodeUrl = "https://nodejs.org/dist/v22.13.1/node-v22.13.1-arm64.msi"
+    $NodeInstaller = "node-v22.13.1-arm64.msi"
+    $VSCodeUrl = "https://update.code.visualstudio.com/latest/win32-arm64/stable"
+    $VSCodeInstaller = "VSCodeSetup-arm64.exe"
+} else {
+    $ArchLabel = "x64"
+    $PythonUrl = "https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe"
+    $PythonInstaller = "python-3.12.8-amd64.exe"
+    $GhUrl = "https://github.com/cli/cli/releases/download/v2.65.0/gh_2.65.0_windows_amd64.msi"
+    $GhInstaller = "gh_2.65.0_windows_amd64.msi"
+    $NodeUrl = "https://nodejs.org/dist/v22.13.1/node-v22.13.1-x64.msi"
+    $NodeInstaller = "node-v22.13.1-x64.msi"
+    $VSCodeUrl = "https://update.code.visualstudio.com/latest/win32-x64/stable"
+    $VSCodeInstaller = "VSCodeSetup-x64.exe"
+}
+
+# Git uses x64 for both (no native ARM build available, runs via emulation)
+$GitUrl = "https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe"
+$GitInstaller = "Git-2.47.1-64-bit.exe"
+
 Write-Host "==============================================" -ForegroundColor Cyan
 Write-Host "  MGMT 675 Development Environment Installer" -ForegroundColor Cyan
-Write-Host "  for Windows x64" -ForegroundColor Cyan
+Write-Host "  for Windows ($ArchLabel)" -ForegroundColor Cyan
 Write-Host "==============================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -47,17 +78,16 @@ function Refresh-Path {
 }
 
 # Step 1: Install Python 3.12
-Write-Status "Installing Python 3.12..."
-$PythonInstalled = Test-Path "C:\Program Files\Python312\python.exe"
+Write-Status "Installing Python 3.12 ($ArchLabel)..."
+$PythonInstalled = (Test-Path "C:\Program Files\Python312\python.exe") -or (Test-Path "C:\Program Files\Python312-arm64\python.exe")
 if (-not $PythonInstalled) {
-    $PythonUrl = "https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe"
-    $PythonInstaller = "$TempDir\python-3.12.8-amd64.exe"
+    $PythonPath = "$TempDir\$PythonInstaller"
 
-    Write-Status "  Downloading Python 3.12..."
-    Invoke-WebRequest -Uri $PythonUrl -OutFile $PythonInstaller
+    Write-Status "  Downloading Python 3.12 $ArchLabel..."
+    Invoke-WebRequest -Uri $PythonUrl -OutFile $PythonPath
 
     Write-Status "  Running Python installer..."
-    Start-Process -Wait -FilePath $PythonInstaller -ArgumentList "/quiet", "InstallAllUsers=1", "PrependPath=1", "Include_test=0"
+    Start-Process -Wait -FilePath $PythonPath -ArgumentList "/quiet", "InstallAllUsers=1", "PrependPath=1", "Include_test=0"
 
     Refresh-Path
     Write-Success "Python 3.12 installed"
@@ -65,18 +95,17 @@ if (-not $PythonInstalled) {
     Write-Success "Python 3.12 already installed"
 }
 
-# Step 2: Install Git
+# Step 2: Install Git (x64 for both architectures)
 Write-Status "Installing Git..."
 $GitInstalled = Test-CommandExists "git"
 if (-not $GitInstalled) {
-    $GitUrl = "https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe"
-    $GitInstaller = "$TempDir\Git-2.47.1-64-bit.exe"
+    $GitPath = "$TempDir\$GitInstaller"
 
     Write-Status "  Downloading Git..."
-    Invoke-WebRequest -Uri $GitUrl -OutFile $GitInstaller
+    Invoke-WebRequest -Uri $GitUrl -OutFile $GitPath
 
     Write-Status "  Running Git installer..."
-    Start-Process -Wait -FilePath $GitInstaller -ArgumentList "/VERYSILENT", "/NORESTART", "/NOCANCEL", "/SP-", "/CLOSEAPPLICATIONS", "/RESTARTAPPLICATIONS"
+    Start-Process -Wait -FilePath $GitPath -ArgumentList "/VERYSILENT", "/NORESTART", "/NOCANCEL", "/SP-", "/CLOSEAPPLICATIONS", "/RESTARTAPPLICATIONS"
 
     Refresh-Path
     Write-Success "Git installed"
@@ -85,18 +114,17 @@ if (-not $GitInstalled) {
 }
 
 # Step 3: Install GitHub CLI
-Write-Status "Installing GitHub CLI..."
+Write-Status "Installing GitHub CLI ($ArchLabel)..."
 Refresh-Path
 $GhInstalled = Test-CommandExists "gh"
 if (-not $GhInstalled) {
-    $GhUrl = "https://github.com/cli/cli/releases/download/v2.65.0/gh_2.65.0_windows_amd64.msi"
-    $GhInstaller = "$TempDir\gh_2.65.0_windows_amd64.msi"
+    $GhPath = "$TempDir\$GhInstaller"
 
-    Write-Status "  Downloading GitHub CLI..."
-    Invoke-WebRequest -Uri $GhUrl -OutFile $GhInstaller
+    Write-Status "  Downloading GitHub CLI $ArchLabel..."
+    Invoke-WebRequest -Uri $GhUrl -OutFile $GhPath
 
     Write-Status "  Running GitHub CLI installer..."
-    Start-Process -Wait msiexec -ArgumentList "/i", "`"$GhInstaller`"", "/quiet", "/norestart"
+    Start-Process -Wait msiexec -ArgumentList "/i", "`"$GhPath`"", "/quiet", "/norestart"
 
     Refresh-Path
     Write-Success "GitHub CLI installed"
@@ -105,18 +133,17 @@ if (-not $GhInstalled) {
 }
 
 # Step 4: Install Node.js
-Write-Status "Installing Node.js..."
+Write-Status "Installing Node.js ($ArchLabel)..."
 Refresh-Path
 $NodeInstalled = Test-CommandExists "node"
 if (-not $NodeInstalled) {
-    $NodeUrl = "https://nodejs.org/dist/v22.13.1/node-v22.13.1-x64.msi"
-    $NodeInstaller = "$TempDir\node-v22.13.1-x64.msi"
+    $NodePath = "$TempDir\$NodeInstaller"
 
-    Write-Status "  Downloading Node.js..."
-    Invoke-WebRequest -Uri $NodeUrl -OutFile $NodeInstaller
+    Write-Status "  Downloading Node.js $ArchLabel..."
+    Invoke-WebRequest -Uri $NodeUrl -OutFile $NodePath
 
     Write-Status "  Running Node.js installer..."
-    Start-Process -Wait msiexec -ArgumentList "/i", "`"$NodeInstaller`"", "/quiet", "/norestart"
+    Start-Process -Wait msiexec -ArgumentList "/i", "`"$NodePath`"", "/quiet", "/norestart"
 
     Refresh-Path
     Write-Success "Node.js installed"
@@ -125,17 +152,16 @@ if (-not $NodeInstalled) {
 }
 
 # Step 5: Install VS Code
-Write-Status "Installing VS Code..."
+Write-Status "Installing VS Code ($ArchLabel)..."
 $VSCodeInstalled = Test-Path "C:\Program Files\Microsoft VS Code\Code.exe"
 if (-not $VSCodeInstalled) {
-    $VSCodeUrl = "https://update.code.visualstudio.com/latest/win32-x64/stable"
-    $VSCodeInstaller = "$TempDir\VSCodeSetup-x64.exe"
+    $VSCodePath = "$TempDir\$VSCodeInstaller"
 
-    Write-Status "  Downloading VS Code..."
-    Invoke-WebRequest -Uri $VSCodeUrl -OutFile $VSCodeInstaller
+    Write-Status "  Downloading VS Code $ArchLabel..."
+    Invoke-WebRequest -Uri $VSCodeUrl -OutFile $VSCodePath
 
     Write-Status "  Running VS Code installer..."
-    Start-Process -Wait -FilePath $VSCodeInstaller -ArgumentList "/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"
+    Start-Process -Wait -FilePath $VSCodePath -ArgumentList "/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"
 
     Refresh-Path
     Write-Success "VS Code installed"
@@ -272,10 +298,10 @@ Write-Host "  2. Run 'gh auth login' to authenticate with GitHub"
 Write-Host "  3. Run 'claude' to start Claude Code and authenticate"
 Write-Host ""
 Write-Host "Installed software:" -ForegroundColor Yellow
-Write-Host "  - Python 3.12"
+Write-Host "  - Python 3.12 ($ArchLabel)"
 Write-Host "  - Git"
-Write-Host "  - GitHub CLI"
-Write-Host "  - Node.js"
-Write-Host "  - VS Code"
+Write-Host "  - GitHub CLI ($ArchLabel)"
+Write-Host "  - Node.js ($ArchLabel)"
+Write-Host "  - VS Code ($ArchLabel)"
 Write-Host "  - Claude Code"
 Write-Host ""

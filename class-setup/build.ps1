@@ -59,8 +59,7 @@ function Build-Package {
 
 # Build each platform package
 Build-Package -Platform "mac" -PlatformDir "mac"
-Build-Package -Platform "windows-x64" -PlatformDir "windows-x64"
-Build-Package -Platform "windows-arm" -PlatformDir "windows-arm"
+Build-Package -Platform "windows" -PlatformDir "windows"
 
 Write-Host ""
 Write-Host "Build complete!" -ForegroundColor Green

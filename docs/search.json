@@ -18,7 +18,7 @@
     "href": "software.html#download",
     "title": "Software Setup",
     "section": "Download",
-    "text": "Download\n\n\n\nPlatform\nDownload\n\n\n\n\nmacOS\n class-setup-mac.zip\n\n\nWindows (Intel/AMD)\n class-setup-windows-x64.zip\n\n\nWindows (ARM)\n class-setup-windows-arm.zip"
+    "text": "Download\n\n\n\nPlatform\nDownload\n\n\n\n\nmacOS\n class-setup-mac.zip\n\n\nWindows\n class-setup-windows.zip\n\n\n\nThe Windows installer automatically detects your processor type (Intel/AMD or ARM) and installs the appropriate versions."
   },
   {
     "objectID": "software.html#installation-instructions",

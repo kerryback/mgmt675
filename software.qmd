@@ -20,8 +20,9 @@ The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaT
 | Platform | Download |
 |----------|----------|
 | macOS | [{{< fa brands apple >}} class-setup-mac.zip](class-setup/dist/class-setup-mac.zip) |
-| Windows (Intel/AMD) | [{{< fa brands windows >}} class-setup-windows-x64.zip](class-setup/dist/class-setup-windows-x64.zip) |
-| Windows (ARM) | [{{< fa brands windows >}} class-setup-windows-arm.zip](class-setup/dist/class-setup-windows-arm.zip) |
+| Windows | [{{< fa brands windows >}} class-setup-windows.zip](class-setup/dist/class-setup-windows.zip) |
+
+The Windows installer automatically detects your processor type (Intel/AMD or ARM) and installs the appropriate versions.
 
 ## Installation Instructions
 

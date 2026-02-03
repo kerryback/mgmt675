@@ -10,16 +10,6 @@ Before you begin, ensure you have:
 - **Disk space** - At least 3 GB of free disk space
 - **Administrator access** - Required to install software
 
-### Which Package to Download (Windows Only)
-
-Most Windows computers use **x64**. To check your system type:
-
-1. Press `Win + I` to open Settings
-2. Go to **System** → **About**
-3. Look for **System type**:
-   - If it says "64-bit operating system, x64-based processor" → Download **class-setup-windows-x64.zip**
-   - If it says "64-bit operating system, ARM-based processor" → Download **class-setup-windows-arm.zip**
-
 ## What Gets Installed
 
 - **Python 3.12** - Programming language
@@ -57,7 +47,7 @@ Pre-configured skills for working with:
 
 3. **Navigate to the extracted folder** (the folder containing `install.ps1`)
    ```powershell
-   cd "C:\Users\YourName\Downloads\class-setup-windows-x64"
+   cd "C:\Users\YourName\Downloads\class-setup-windows"
    ```
    Replace `YourName` with your Windows username and adjust the path if you extracted elsewhere.
 
