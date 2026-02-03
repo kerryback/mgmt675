@@ -6,7 +6,7 @@
 \input{mgmt675-style}
 
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{AI with Code Execution}
+\title{Python Execution in ChatGPT and Claude}
 \author{Kerry Back}
 
 \date{}
@@ -23,42 +23,34 @@
   \begin{itemize}
     \item Data analysis with real calculations
     \item Visualizations and charts
-    \item File processing (Excel, CSV, PDF)
+    \item File creation (Excel, CSV, PDF)
     \item Iterative debugging---run, fix, repeat
   \end{itemize}
   \item Transforms chatbots into computational tools
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Three Approaches}
+\begin{frame}{Two Approaches}
 \begin{columns}[T]
-  \begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{ChatGPT}]
-\begin{itemize}\small
-  \item Python on server
-  \item 300+ libraries
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{ChatGPT Code Interpreter}]
+\begin{itemize}
+  \item Python execution
+  \item Server-side sandbox
+  \item 300+ pre-installed libraries
   \item File upload/download
-  \item Since 2023
+  \item Integrated since 2023
 \end{itemize}
 \end{shadedbox}
 \end{column}
-\begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Claude}]
-\begin{itemize}\small
-  \item JavaScript in browser
-  \item Python on server
-  \item Interactive Artifacts
-  \item Since late 2024
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Local Execution}]
-\begin{itemize}\small
-  \item AI writes code locally
-  \item Full environment access
-  \item Any language/library
-  \item VS Code, Cursor, etc.
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Claude Analysis Tool}]
+\begin{itemize}
+  \item JavaScript execution
+  \item Runs in your browser
+  \item Lightweight libraries
+  \item Combined with Artifacts
+  \item Released October 2024
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -259,92 +251,24 @@ Claude creates a React app with input fields, calculations, and a Recharts visua
 \end{frame}
 
 % ========================================
-% LOCAL EXECUTION SECTION
-% ========================================
-
-\begin{frame}{Running Code Locally}
-\begin{shadedbox}\centerline{\large Why Local Execution?}\end{shadedbox}
-
-\begin{baritemize}
-  \item \alert{Full environment access}---any library, any data source
-  \item Internet access for APIs, databases, web scraping
-  \item No file size limits or context window constraints
-  \item Persistent files and project state
-  \item AI can read, write, and execute code on your machine
-\end{baritemize}
-\end{frame}
-
-\begin{frame}{Local Execution Tools}
-\begin{columns}[T]
-  \begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{IDE Extensions}]
-\begin{itemize}
-  \item \textbf{Claude Code}---terminal agent
-  \item \textbf{VS Code + Claude/Copilot}
-  \item \textbf{Cursor}---AI-native IDE
-  \item \textbf{Google AntiGravity}
-  \item AI writes and runs code in your environment
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{Notebooks}]
-\begin{itemize}
-  \item \textbf{Google Colab}---Gemini built-in
-  \item \textbf{Jupyter + AI assistants}
-  \item \textbf{VS Code notebooks}
-  \item AI can generate and execute cells
-  \item See results inline
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Local Execution: Advantages}
-\begin{baritemize}
-  \item \textbf{No sandboxing}---access databases, APIs, local files
-  \item \textbf{Install anything}---pip install, npm, system packages
-  \item \textbf{Large datasets}---no upload limits
-  \item \textbf{Persistent state}---pick up where you left off
-  \item \textbf{Version control}---code saved in your repo
-  \item \textbf{Production path}---code is ready to deploy
-\end{baritemize}
-\end{frame}
-
-\begin{frame}{Local Execution: Considerations}
-\begin{baritemize}
-  \item \alert{Security}---AI can execute arbitrary code on your machine
-  \item Requires local Python/development environment setup
-  \item More setup than browser-based tools
-  \item Best with permission controls (Claude Code prompts for approval)
-\end{baritemize}
-
-\vspace{0.5cm}
-\begin{shadedbox}
-\centerline{Best for: Serious projects, production code, large datasets}
-\end{shadedbox}
-\end{frame}
-
-% ========================================
 % COMPARISON
 % ========================================
 
 \begin{frame}{Side-by-Side Comparison}
-\footnotesize
+\small
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabular}{lll}
 \toprule
-\textbf{Feature} & \textbf{ChatGPT} & \textbf{Claude} & \textbf{Local} \\
+\textbf{Feature} & \textbf{ChatGPT} & \textbf{Claude} \\
 \midrule
-Language & Python & JS / Python & Any \\
-Execution & Server & Browser / Server & Your machine \\
-Libraries & 300+ pre-installed & Limited / pip & Unlimited \\
-Install packages & No & Yes (server) & Yes \\
-File access & Upload (100 MB) & Upload (context) & Full disk \\
-Internet access & No & No & Yes \\
-Output format & Files, charts & Artifacts, apps & Any \\
-Cost & Plus (\$20/mo) & Free tier avail. & Varies \\
+Language & Python & JavaScript / Python \\
+Execution & Server-side & Browser / Server \\
+Libraries & 300+ pre-installed & Lodash, Papa Parse / pip \\
+Install packages & No & Yes (Code Exec Tool) \\
+File upload & Yes (100 MB) & Yes (context limit) \\
+Internet access & No & No \\
+Output format & Files, charts & Artifacts, apps \\
+Subscription & Plus (\$20/mo) & Free tier available \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -352,33 +276,25 @@ Cost & Plus (\$20/mo) & Free tier avail. & Varies \\
 
 \begin{frame}{When to Use Which?}
 \begin{columns}[T]
-  \begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{ChatGPT}]
-\begin{itemize}\small
-  \item Quick data analysis
-  \item Statistical tests
-  \item File conversion
-  \item One-off tasks
+  \begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Use ChatGPT for:}]
+\begin{itemize}
+  \item Heavy data processing
+  \item Statistical analysis
+  \item Machine learning
+  \item File format conversion
+  \item Downloading results
 \end{itemize}
 \end{shadedbox}
 \end{column}
-\begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Claude}]
-\begin{itemize}\small
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Use Claude for:}]
+\begin{itemize}
   \item Interactive dashboards
   \item Quick prototypes
   \item React/web apps
+  \item Visual explanations
   \item Shareable artifacts
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Local}]
-\begin{itemize}\small
-  \item Production code
-  \item Large datasets
-  \item API integrations
-  \item Ongoing projects
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -459,12 +375,12 @@ Cost & Plus (\$20/mo) & Free tier avail. & Varies \\
 
 \begin{frame}{Summary}
 \begin{baritemize}
-  \item \textbf{ChatGPT:} Python sandbox for quick data analysis
-  \item \textbf{Claude:} JavaScript (browser) or Python (server) + Artifacts
-  \item \textbf{Local execution:} Full power---any library, any data, internet access
-  \item Browser tools: convenient but sandboxed, no internet
-  \item Local tools: more setup but production-ready
-  \item Choose based on task complexity and data access needs
+  \item \textbf{ChatGPT Code Interpreter:} Python sandbox for data-heavy tasks
+  \item \textbf{Claude Analysis Tool:} JavaScript for quick calculations
+  \item \textbf{Claude Artifacts:} Interactive apps and visualizations
+  \item Both tools transform chatbots into computational assistants
+  \item \alert{Neither has internet access}---download data first
+  \item Combine them: ChatGPT for analysis, Claude for presentation
 \end{baritemize}
 \end{frame}
 

@@ -1,0 +1,226 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Spreadsheets and AI}
+\author{Kerry Back}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% AI AND SPREADSHEETS OVERVIEW
+% ========================================
+
+\begin{frame}{AI Can Create Spreadsheets with Python}
+\begin{baritemize}
+  \item Python libraries like \texttt{openpyxl} create/modify Excel files
+  \item AI writes Python code that:
+  \begin{itemize}
+    \item Inserts data values into cells
+    \item Writes Excel formulas (e.g., \texttt{=SUM(A1:A10)})
+    \item Applies formatting (fonts, colors, borders)
+    \item Creates charts and pivot tables
+  \end{itemize}
+  \item Result: fully functional spreadsheet with \alert{live formulas}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Formulas vs. Hardcoded Values}
+\begin{columns}[T]
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Hardcoded (Bad)}]
+\small
+\texttt{sheet['B10'] = 1500}
+\vspace{0.3cm}
+
+Cell shows 1500, but if inputs change, the total doesn't update.
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Formula (Good)}]
+\small
+\texttt{sheet['B10'] = '=SUM(B2:B9)'}
+\vspace{0.3cm}
+
+Cell contains a formula that recalculates when inputs change.
+\end{shadedbox}
+\end{column}
+\end{columns}
+
+\vspace{0.5cm}
+\begin{shadedbox}
+\centerline{AI must be instructed to use formulas, not compute values in Python}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Claude Skills for Excel}
+\begin{baritemize}
+  \item Claude Code can use ``skills''---instructions for specific tasks
+  \item The \texttt{xlsx} skill instructs Claude to:
+  \begin{itemize}
+    \item Use Excel formulas instead of hardcoded values
+    \item Apply professional formatting (color coding, number formats)
+    \item Verify zero formula errors (\#REF!, \#DIV/0!, etc.)
+    \item Follow financial modeling standards
+  \end{itemize}
+  \item Skills ensure consistent, high-quality output
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Two Ways AI Interacts with Spreadsheets}
+\begin{columns}[T]
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Inside Excel (Add-ins)}]
+\begin{itemize}\small
+  \item Sidebar panel in Excel
+  \item Sees your current workbook
+  \item Modifies cells directly
+  \item Context-aware suggestions
+  \item Examples: Claude for Excel, Microsoft Copilot
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Outside Excel (Python)}]
+\begin{itemize}\small
+  \item Runs in terminal or IDE
+  \item Creates/modifies .xlsx files
+  \item You open result in Excel
+  \item Full programming power
+  \item Examples: Claude Code, ChatGPT
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Microsoft Copilot in Excel}
+\begin{baritemize}
+  \item \textbf{Formula mode:} Suggests Excel formulas (XLOOKUP, SUMIF, etc.)
+  \item \textbf{Python mode:} Runs Python in Microsoft Cloud (Anaconda libraries)
+  \item Tightly integrated---sees your data context automatically
+  \item Requires OneDrive/SharePoint (auto-save must be enabled)
+  \item \alert{Requires Microsoft 365 Copilot license (\$30/user/month)}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Claude for Excel Add-in}
+\begin{baritemize}
+  \item Runs Python in a server-side sandbox
+  \item Reads multi-tab workbooks, explains calculations
+  \item Modifies cells while preserving formula dependencies
+  \item \alert{Does not require OneDrive}---works with local files
+  \item Available on Claude Pro, Max, Team, and Enterprise plans
+  \item Free tier available with usage limits
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Copilot vs. Claude: Key Differences}
+\footnotesize
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{Microsoft Copilot} & \textbf{Claude for Excel} \\
+\midrule
+Integration & Native (built into Excel) & Add-in (sidebar) \\
+Languages & Excel formulas + Python & Python \\
+Cloud requirement & OneDrive/SharePoint & None \\
+Context awareness & Automatic & Reads workbook \\
+Speed & Slower & Faster responses \\
+Alternatives shown & Limited & Multiple options \\
+Cost & \$30/user/month & Free tier available \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\begin{shadedbox}
+\centerline{Use Copilot for quick in-place edits; Claude for complex analysis}
+\end{shadedbox}
+\end{frame}
+
+% ========================================
+% CLAUDE FOR EXCEL DETAILS
+% ========================================
+
+\begin{frame}{Claude for Excel}
+\begin{columns}[b]
+\begin{column}{0.3\textwidth}
+\href{https://marketplace.microsoft.com/en-us/product/saas/wa200009404?tab=overview}{Claude Add-In for Excel}
+\vspace{1cm}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=0.7\textwidth]{images/claude_excel_agent.jpeg}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Launch and Log In}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{images/launch_the_addin.png}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=0.8\textwidth]{images/claude_add_in.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Get Started}
+\begin{barenumerate}
+  \item Ask Claude to create an example two-stage DCF analysis
+  \item Open any spreadsheet, click the Claude icon at top right, ask Claude to do things
+\end{barenumerate}
+\end{frame}
+
+\begin{frame}{Exercise: Computing Returns}
+\begin{baritemize}
+  \item Download the Excel file containing NOV price and dividend history
+  \item Compute daily returns including dividends
+  \item Calculate annualized mean return and volatility
+\end{baritemize}
+
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/exercises/exercise1-returns.xlsx}{Download exercise1-returns.xlsx}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\begin{frame}{Exercise: Aggregating Spreadsheets}
+\begin{baritemize}
+  \item Download the zip file containing five regional sales spreadsheets
+  \item Each file has similar but not identical column layouts
+  \item Reconcile column names and aggregate into a single table
+\end{baritemize}
+
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/exercises/exercise2-aggregation.zip}{Download exercise2-aggregation.zip}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\begin{frame}{Exercise: Computing Financial Ratios}
+\begin{baritemize}
+  \item Download the Excel file containing NOV financial statements
+  \item Income statement, balance sheet, and cash flow statement
+  \item Compute key financial ratios and analyze trends
+\end{baritemize}
+
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/exercises/exercise3-statements.xlsx}{Download exercise3-statements.xlsx}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\end{document}

@@ -17,6 +17,18 @@
 
 \maketitle
 
+\begin{frame}{A Different Approach}
+\begin{shadedbox}\centerline{Code Environment + Chatbot}\end{shadedbox}
+
+\begin{baritemize}
+  \item ChatGPT and Claude: Chatbots with code execution added
+  \item Google Colab: Code execution environment with chatbot added
+  \item Colab started as Jupyter notebooks in the cloud (2017)
+  \item Gemini was integrated into Colab later (2024)
+  \item Philosophy: Write and run code first, use AI to assist
+\end{baritemize}
+\end{frame}
+
 \begin{frame}{What is Google Colab?}
 \begin{baritemize}
   \item A free tool from Google for running code in your browser
@@ -202,9 +214,9 @@ Gemini is built into Colab to help you write code
 \begin{frame}{Restarting the Runtime}
 If your code isn't working as expected:
 
-\begin{shadebox}
+\begin{shadedbox}
 \centerline{Runtime $\rightarrow$ Restart runtime}
-\end{shadebox}
+\end{shadedbox}
 
 This clears all variables and starts fresh.
 
@@ -229,6 +241,20 @@ Note: You'll need to re-run your cells after restarting
   \item Ask Gemini how you can save the return data.
   \item Ask Gemini how yu can save the notebook
   \end{barenumerate}
+\end{frame}
+
+\begin{frame}{Exercise: Computing Returns}
+\begin{baritemize}
+  \item Download the Excel file containing NOV price and dividend history
+  \item Compute daily returns including dividends
+  \item Calculate annualized mean return and volatility
+\end{baritemize}
+
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/exercises/exercise1-returns.xlsx}{Download exercise1-returns.xlsx}
+\end{shadedbox}
+\end{center}
 \end{frame}
 
 \end{document}

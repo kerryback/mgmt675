@@ -10,6 +10,7 @@ project:
     - .nojekyll
     - slides/*.pdf
     - class-setup/dist/*.zip
+    - exercises/*
 
 website:
   title: ""
