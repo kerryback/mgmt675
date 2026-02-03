@@ -9,7 +9,8 @@ Click on a topic to download the PDF slide deck.
 | # | Topic | |
 |--:|-------|:-:|
 | 1 | [Course Introduction](slides/01-intro.pdf) | [{{< fa file-pdf >}}](slides/01-intro.pdf) |
-| 2 | [ChatGPT & Claude](slides/02-chatgpt-claude.pdf) | [{{< fa file-pdf >}}](slides/02-chatgpt-claude.pdf) |
-| 3 | [Google Colab](slides/03-colab.pdf) | [{{< fa file-pdf >}}](slides/03-colab.pdf) |
-| 4 | [VS Code & Claude](slides/04-vscode-claude.pdf) | [{{< fa file-pdf >}}](slides/04-vscode-claude.pdf) |
-| 5 | [Claude Code Skills](slides/05-claude-code-skills.pdf) | [{{< fa file-pdf >}}](slides/05-claude-code-skills.pdf) |
+| 2 | [Collaborating with AI](slides/02-collaborating.pdf) | [{{< fa file-pdf >}}](slides/02-collaborating.pdf) |
+| 3 | [ChatGPT & Claude](slides/03-chatgpt-claude.pdf) | [{{< fa file-pdf >}}](slides/03-chatgpt-claude.pdf) |
+| 4 | [Google Colab](slides/04-colab.pdf) | [{{< fa file-pdf >}}](slides/04-colab.pdf) |
+| 5 | [VS Code & Claude](slides/05-vscode-claude.pdf) | [{{< fa file-pdf >}}](slides/05-vscode-claude.pdf) |
+| 6 | [Claude Code Skills](slides/06-claude-code-skills.pdf) | [{{< fa file-pdf >}}](slides/06-claude-code-skills.pdf) |
