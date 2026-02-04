@@ -1,24 +1,15 @@
-## Datasets<br>AI-Assisted Financial Analysis<br>Rice University
+---
+title: Data
+---
 
+## Exercise Data Files
 
-- Data Handling
-  - [metrics.xlsx](https://www.dropbox.com/scl/fi/2x48zp2xxqt3nznt1yr3s/metrics.xlsx?rlkey=o1fyg9h7n4wh628age7fwqjga&dl=1)
-  - [tickers.xlsx](https://www.dropbox.com/scl/fi/d8jfx5zml22p6wd6zsghk/tickers.xlsx?rlkey=k5t0xwmp087wq7rcrcsybx88x&dl=1)
+Click on a file to download the data.
 
-- Performance Evaluation
-  - [fmagx_ff5.xlsx](https://www.dropbox.com/scl/fi/7uquqkfu2vl5fp3ycz087/fmagx_ff5.xlsx?rlkey=29ekxxzrq54pcer0l21rahi72&dl=1)
-
-- Visualization
-  - [metrics_5year.xlsx](https://www.dropbox.com/scl/fi/pfy3zva24o878t81enp9w/metrics_5year.xlsx?rlkey=289wbumfl0q2b7d7k93iexm27&dl=1)
-
-- Portfolio Optimization
-  - [international.xlsx](https://www.dropbox.com/scl/fi/n9xetoaasf7fpm7jh9qqb/international.xlsx?rlkey=15tuk93vvb3an0f2ddjxfltwa&dl=1)
-  - [international_corrs.xlsx](https://www.dropbox.com/scl/fi/c096l6631jmoyvv5anepm/international_corrs.xlsx?rlkey=m5jykolrs466tj07aezn8ksji&dl=1)
-  - [portfolios.xlsx](https://www.dropbox.com/scl/fi/lqrb8xcdwzqqlsrhl9zhs/portfolios.xlsx?rlkey=gyivtivt67rvl9q1oruw272a7&dl=1)
-
-- Machine Learning 
-  - [mldata.xlsx](https://www.dropbox.com/scl/fi/mqnp8cp3ybn5z04bmu4hy/mldata.xlsx?rlkey=1hdklk6k28ev966krcasehh7s&dl=1)
-  - [house_prices.xlsx](https://www.dropbox.com/scl/fi/1761zmmee59o244p2of1l/house_prices.xlsx?rlkey=08w4fenefdmkc9pn89829ijlw&dl=1)
-  - [house_prices_description.txt](https://www.dropbox.com/scl/fi/05k8ayxm8v473con0qtg4/house_prices_description.txt?rlkey=lq3mt4vmqhexy3qfkii0c75cp&dl=1)
-  - [loan_defaults.xlsx](https://www.dropbox.com/scl/fi/2kf5ogv0sno8f7zmwb4ji/loan_defaults.xlsx?rlkey=5j62gincp0ty49b8xcqam0n40&dl=1)
-
+| # | File | Description | |
+|--:|------|-------------|:-:|
+| 1 | [betas.xlsx](exercises/betas.xlsx) | CAPM beta estimation | [{{< fa file-excel >}}](exercises/betas.xlsx) |
+| 2 | [meanvariance.xlsx](exercises/meanvariance.xlsx) | Mean-variance optimization | [{{< fa file-excel >}}](exercises/meanvariance.xlsx) |
+| 3 | [returns.xlsx](exercises/returns.xlsx) | Stock prices and dividends data | [{{< fa file-excel >}}](exercises/returns.xlsx) |
+| 4 | [statements.xlsx](exercises/statements.xlsx) | Financial statements | [{{< fa file-excel >}}](exercises/statements.xlsx) |
+| 5 | [aggregation.zip](exercises/aggregation.zip) | Data aggregation exercise | [{{< fa file-zipper >}}](exercises/aggregation.zip) |

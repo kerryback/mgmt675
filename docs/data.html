@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Software Setup</title>
+<title>Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,11 +89,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html"> 
+    <a class="nav-link active" href="./data.html" aria-current="page"> 
 <span class="menu-text">Data</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./software.html" aria-current="page"> 
+    <a class="nav-link" href="./software.html"> 
 <span class="menu-text">Software</span></a>
   </li>  
 </ul>
@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Software Setup</h1>
+<h1 class="title">Data</h1>
 </div>
 
 
@@ -131,103 +131,53 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="development-environment" class="level2">
-<h2 class="anchored" data-anchor-id="development-environment">Development Environment</h2>
-<p>Download the installer package for your operating system. Each package includes a script that will install:</p>
-<ul>
-<li>Python 3.12</li>
-<li>VS Code</li>
-<li>Git</li>
-<li>GitHub CLI</li>
-<li>Node.js</li>
-<li>Claude Code</li>
-<li>Koyeb CLI</li>
-</ul>
-<p>The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, GitHub Copilot, LaTeX Workshop, Quarto) and pre-configured Claude skills.</p>
-</section>
-<section id="download" class="level2">
-<h2 class="anchored" data-anchor-id="download">Download</h2>
+<section id="exercise-data-files" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-data-files">Exercise Data Files</h2>
+<p>Click on a file to download the data.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Platform</th>
-<th>Download</th>
+<th style="text-align: right;">#</th>
+<th>File</th>
+<th>Description</th>
+<th style="text-align: center;"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>macOS</td>
-<td><a href="class-setup/dist/class-setup-mac.zip"><i class="fa-brands fa-apple" aria-label="apple"></i> class-setup-mac.zip</a></td>
+<td style="text-align: right;">1</td>
+<td><a href="exercises/betas.xlsx">betas.xlsx</a></td>
+<td>CAPM beta estimation</td>
+<td style="text-align: center;"><a href="exercises/betas.xlsx"><i class="fa-solid fa-file-excel" aria-label="file-excel"></i></a></td>
 </tr>
 <tr class="even">
-<td>Windows</td>
-<td><a href="class-setup/dist/class-setup-windows.zip"><i class="fa-brands fa-windows" aria-label="windows"></i> class-setup-windows.zip</a></td>
+<td style="text-align: right;">2</td>
+<td><a href="exercises/meanvariance.xlsx">meanvariance.xlsx</a></td>
+<td>Mean-variance optimization</td>
+<td style="text-align: center;"><a href="exercises/meanvariance.xlsx"><i class="fa-solid fa-file-excel" aria-label="file-excel"></i></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td><a href="exercises/returns.xlsx">returns.xlsx</a></td>
+<td>Stock prices and dividends data</td>
+<td style="text-align: center;"><a href="exercises/returns.xlsx"><i class="fa-solid fa-file-excel" aria-label="file-excel"></i></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><a href="exercises/statements.xlsx">statements.xlsx</a></td>
+<td>Financial statements</td>
+<td style="text-align: center;"><a href="exercises/statements.xlsx"><i class="fa-solid fa-file-excel" aria-label="file-excel"></i></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><a href="exercises/aggregation.zip">aggregation.zip</a></td>
+<td>Data aggregation exercise</td>
+<td style="text-align: center;"><a href="exercises/aggregation.zip"><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i></a></td>
 </tr>
 </tbody>
 </table>
-<p>The Windows installer automatically detects your processor type (Intel/AMD or ARM) and installs the appropriate versions.</p>
-</section>
-<section id="installation-instructions" class="level2">
-<h2 class="anchored" data-anchor-id="installation-instructions">Installation Instructions</h2>
-<section id="windows" class="level3">
-<h3 class="anchored" data-anchor-id="windows">Windows</h3>
-<p><strong>Easiest Method (Recommended):</strong></p>
-<ol type="1">
-<li>Extract the zip file to a folder</li>
-<li>Right-click on <code>INSTALL.bat</code></li>
-<li>Select “Run as administrator”</li>
-</ol>
-<p><strong>Alternative Method:</strong></p>
-<ol type="1">
-<li>Extract the zip file to a folder</li>
-<li>Right-click PowerShell and select “Run as administrator”</li>
-<li>Navigate to the extracted folder</li>
-<li>Run: <code>powershell -ExecutionPolicy Bypass -File .\run.ps1</code></li>
-</ol>
-<p>See the included <code>README.md</code> for troubleshooting and additional installation methods.</p>
-</section>
-<section id="macos" class="level3">
-<h3 class="anchored" data-anchor-id="macos">macOS</h3>
-<ol type="1">
-<li>Extract the zip file to a folder</li>
-<li>Open Terminal</li>
-<li>Navigate to the extracted folder</li>
-<li>Run: <code>chmod +x install.sh</code></li>
-<li>Run: <code>./install.sh</code></li>
-</ol>
-</section>
-</section>
-<section id="after-installation" class="level2">
-<h2 class="anchored" data-anchor-id="after-installation">After Installation</h2>
-<ol type="1">
-<li>Open a new terminal window</li>
-<li>Run <code>gh auth login</code> to authenticate with GitHub</li>
-<li>Run <code>koyeb login</code> to authenticate with Koyeb</li>
-</ol>
-<section id="using-claude-code" class="level3">
-<h3 class="anchored" data-anchor-id="using-claude-code">Using Claude Code</h3>
-<p>Claude Code is an AI coding assistant integrated into VS Code.</p>
-<ol type="1">
-<li>Open VS Code</li>
-<li>Click the Claude icon in the sidebar (or press <code>Ctrl+Shift+P</code> / <code>Cmd+Shift+P</code> and type “Claude”)</li>
-<li>On first launch, you’ll be prompted to authenticate with your Anthropic account</li>
-<li>Follow the browser prompts to sign in or create an account</li>
-<li>Once authenticated, you can chat with Claude in the sidebar panel</li>
-</ol>
-</section>
-<section id="using-github-copilot" class="level3">
-<h3 class="anchored" data-anchor-id="using-github-copilot">Using GitHub Copilot</h3>
-<p>GitHub Copilot is an AI coding assistant that provides code completions directly in VS Code.</p>
-<ol type="1">
-<li>Open VS Code</li>
-<li>Click the Copilot icon in the sidebar (or press <code>Ctrl+Shift+I</code> / <code>Cmd+Shift+I</code>)</li>
-<li>Sign in with your GitHub account when prompted</li>
-<li>GitHub Copilot Free provides 2,000 code completions and 50 chat messages per month</li>
-</ol>
-<p>Once signed in, Copilot will automatically suggest code as you type. Press <code>Tab</code> to accept a suggestion.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
