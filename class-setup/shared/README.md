@@ -25,6 +25,7 @@ Before you begin, ensure you have:
 - Python
 - Jupyter
 - Claude Code
+- GitHub Copilot
 - LaTeX Workshop
 - Quarto
 
@@ -101,22 +102,28 @@ gh auth login
 
 Follow the prompts to authenticate with your GitHub account.
 
-### 2. Authenticate with Claude
+### 2. Sign in to Claude Code
 
-Run Claude Code for the first time:
+Claude Code is an AI coding assistant integrated into VS Code.
 
-```bash
-claude
-```
+1. Open VS Code
+2. Click the Claude icon in the sidebar (or press `Ctrl+Shift+P` on Windows, `Cmd+Shift+P` on Mac and type "Claude")
+3. On first launch, you'll be prompted to authenticate with your Anthropic account
+4. Follow the browser prompts to sign in or create an account (free)
+5. Once authenticated, you can chat with Claude in the sidebar panel
 
-This will:
-1. Open a browser window to the Anthropic website
-2. Prompt you to sign in or create an Anthropic account (free)
-3. Ask you to authorize Claude Code to use your account
+### 3. Sign in to GitHub Copilot
 
-After authorizing, return to your terminal. Claude Code is now ready to use in VS Code.
+GitHub Copilot provides AI-powered code completions directly in VS Code.
 
-### 3. Authenticate with Koyeb
+1. Open VS Code
+2. Click the Copilot icon in the sidebar (or press `Ctrl+Shift+I` on Windows, `Cmd+Shift+I` on Mac)
+3. Sign in with your GitHub account when prompted
+4. GitHub Copilot Free provides 2,000 code completions and 50 chat messages per month
+
+Once signed in, Copilot will automatically suggest code as you type. Press `Tab` to accept a suggestion.
+
+### 4. Authenticate with Koyeb
 
 Run the Koyeb CLI to authenticate:
 

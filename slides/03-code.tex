@@ -30,35 +30,35 @@
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Three Approaches}
+\begin{frame}{Code Execution Approaches}
 \begin{columns}[T]
   \begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{ChatGPT}]
+\begin{shadedbox}[title=\textbf{Chat-Based}]
 \begin{itemize}\small
-  \item Python on server
-  \item 300+ libraries
-  \item File upload/download
-  \item Since 2023
+  \item ChatGPT, Claude, Gemini
+  \item Upload files, ask questions
+  \item Server-side sandbox
+  \item No internet access
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Claude}]
+\begin{shadedbox}[title=\textbf{Local Agents}]
 \begin{itemize}\small
-  \item JavaScript in browser
-  \item Python on server
-  \item Interactive Artifacts
-  \item Since late 2024
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Local Execution}]
-\begin{itemize}\small
-  \item AI writes code locally
+  \item Cursor, VS Code, Claude Code
+  \item AI runs code on your machine
   \item Full environment access
-  \item Any language/library
-  \item VS Code, Cursor, etc.
+  \item Internet, databases, APIs
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Cloud Agents}]
+\begin{itemize}\small
+  \item Jules, GitHub Copilot agent
+  \item Work on GitHub repos
+  \item Cloud sandbox execution
+  \item Async---runs in background
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -68,6 +68,19 @@
 % ========================================
 % CHATGPT SECTION
 % ========================================
+
+\begin{frame}[plain]
+\begin{columns}[c]
+\begin{column}{0.55\textwidth}
+\centering
+{\fontsize{48}{52}\selectfont\bfseries ChatGPT}
+\end{column}
+\begin{column}{0.45\textwidth}
+\centering
+\includegraphics[height=5cm]{images/chatgpt_logo.png}
+\end{column}
+\end{columns}
+\end{frame}
 
 \begin{frame}{ChatGPT Code Interpreter}
 \begin{shadedbox}\centerline{\large What is it?}\end{shadedbox}
@@ -82,109 +95,96 @@
 
 \begin{frame}{Accessing Code Interpreter}
 \begin{baritemize}
-  \item Requires ChatGPT Plus subscription (\$20/month)
-  \item Select GPT-4o from the model dropdown
+  \item Available on free tier (limited to twice per day)
+  \item ChatGPT Plus (\$20/month) provides more usage
+  \item GPT-5 is now the default model (GPT-4o still available)
   \item Code Interpreter is enabled automatically
   \item Upload files directly to the conversation
-  \item As of March 2025, also available in o3-mini
 \end{baritemize}
-% \begin{center}
-% \includegraphics[width=0.7\textwidth]{images/chatgpt_interface.png}
-% \end{center}
 \end{frame}
 
 \begin{frame}{ChatGPT: What You Can Do}
-\begin{columns}[T]
-  \begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{Data Analysis}]
-\begin{itemize}
+
+\begin{baritemize}
   \item Upload CSV, Excel files
   \item Statistical analysis
-  \item Time series processing
+  \item Financial analysis
   \item Create visualizations
   \item Download results
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{Finance Tasks}]
-\begin{itemize}
-  \item Portfolio optimization
-  \item Stock return analysis
-  \item Risk metrics (VaR, Sharpe)
-  \item DCF calculations
-  \item Monte Carlo simulation
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
+\end{baritemize}
+
 \end{frame}
 
-\begin{frame}{ChatGPT: Pre-installed Libraries}
-\begin{baritemize}
-  \item \textbf{Data:} pandas, numpy, scipy
-  \item \textbf{Visualization:} matplotlib, seaborn, plotly
-  \item \textbf{Machine Learning:} scikit-learn, statsmodels
-  \item \textbf{Files:} openpyxl, PyPDF2, Pillow
-  \item 300+ packages total---no manual installation
-  \item \alert{Cannot install additional packages}
-\end{baritemize}
-\end{frame}
+
 
 \begin{frame}{ChatGPT: Limitations}
 \begin{baritemize}
   \item \alert{No internet access}---cannot fetch live data
-  \item Maximum file upload: 100 MB
+  \item Maximum file upload: 512 MB
   \item Runtime limit: 120 seconds per execution
   \item Session state clears when environment resets
   \item Pre-installed packages only
 \end{baritemize}
-
-\vspace{0.5cm}
-\begin{shadedbox}
-\centerline{Workaround: Download data first, then upload to ChatGPT}
-\end{shadedbox}
 \end{frame}
 
-\begin{frame}{ChatGPT: Finance Example}
-\begin{shadedbox}\centerline{Example Prompt}\end{shadedbox}
+\begin{frame}{ChatGPT Exercise}
 
-\textit{``I'm uploading a CSV with daily returns for AAPL, MSFT, and GOOGL. Please:
-\begin{enumerate}
-  \item Calculate annualized mean return and volatility for each stock
-  \item Compute the correlation matrix
-  \item Find the minimum variance portfolio weights
-  \item Plot the efficient frontier
-\end{enumerate}''}
+
+\textit{``I'm uploading an Excel file with monthly returns for WMT, the excess market return (MKT-RF) and the risk-free rate (RF).  Calculate excess returns for WMT and regress on MKT-RF to estimate the beta of WMT.  Plot the data and the regression line.''}
 
 \vspace{0.3cm}
 ChatGPT will write Python code, run it, show results, and let you download the chart.
+\end{frame}
+\vspace{0.3cm}
+\begin{shadebox}
+\centerline{\href{https://mgmt675.kerryback.com/exercises/betas.xlsx}{Download Data for Beta Exercise}}
+\end{shadebox}
+\end{frame}
+
+\begin{frame}{What Do We Need to Check?}
+
+  \begin{baritemize}
+  \item Mostly, that it used the correct left-hand side and right-hand variables.  Miscommunication could possibly cause an error.
+  \item AI knows how to run regressions with Python, so that is not an issue.
+  \item Can ask to see the code.  Python is mostly readable.  If something is unclear, ask ChatGPT about it.
+  \item Can check against calculation by other method, but then no need to use AI, unless we are taking a step towards building an app.
+  \end{baritemize}
 \end{frame}
 
 % ========================================
 % CLAUDE SECTION
 % ========================================
 
+\begin{frame}[plain]
+\begin{columns}[c]
+\begin{column}{0.55\textwidth}
+\centering
+{\fontsize{48}{52}\selectfont\bfseries Claude}
+\end{column}
+\begin{column}{0.45\textwidth}
+\centering
+\includegraphics[height=5cm]{images/claude_logo.png}
+\end{column}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Claude: Two Code Execution Features}
 \begin{columns}[T]
   \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Analysis Tool}]
+\begin{shadedbox}[title=\textbf{Artifacts}]
 \begin{itemize}
   \item JavaScript in your browser
   \item Fast, lightweight
-  \item CSV parsing (Papa Parse)
-  \item Utility functions (Lodash)
-  \item Creates artifacts
+  \item Can save and publish artifacts
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Code Execution Tool}]
+\begin{shadedbox}[title=\textbf{Python Execution}]
 \begin{itemize}
   \item Python/Bash on server
-  \item Full Ubuntu environment
+  \item Full linux environment
   \item \alert{Can install packages (pip)}
-  \item 9GB RAM, 5GB disk
   \item No internet access
 \end{itemize}
 \end{shadedbox}
@@ -192,111 +192,64 @@ ChatGPT will write Python code, run it, show results, and let you download the c
 \end{columns}
 \end{frame}
 
-\begin{frame}{Claude Analysis Tool}
-\begin{baritemize}
-  \item Runs JavaScript directly in your browser
-  \item No server round-trip---instant execution
-  \item Available on Claude.ai (free and Pro)
-  \item Enable in Settings $\rightarrow$ Feature Preview $\rightarrow$ Analysis Tool
-  \item Results feed into Artifacts for visualization
-\end{baritemize}
+\begin{frame}{Claude Exercise}
+
+
+\textit{``I'm uploading an Excel file with monthly returns for WMT, the excess market return (MKT-RF) and the risk-free rate (RF).  Calculate excess returns for WMT and regress on MKT-RF to estimate the beta of WMT.  Plot the data and the regression line.''}
+
+\vspace{0.3cm}
+Claude will write Python code, run it, show results, and let you download the chart.
+\end{frame}
+\vspace{0.3cm}
+\begin{shadebox}
+\centerline{Use same betas.xlsx file.}}
+\end{shadebox}
 \end{frame}
 
+
+
 \begin{frame}{Claude Artifacts}
-\begin{shadedbox}\centerline{\large What are Artifacts?}\end{shadedbox}
 
 \begin{baritemize}
   \item Interactive content in a panel next to the chat
-  \item Types: code, documents, visualizations, web apps
+  \item Codes in React/JavaScript---runs in your browser
   \item View, edit, and iterate in real-time
-  \item Export as files or share with others
-  \item Can create React components, SVG graphics, charts
+  \item \textbf{Save} artifacts to your account for later use
+  \item \textbf{Publish} to create a public URL others can use (with charges to \alert{their account, not yours}.)
+  \item Create and check once.  Use forever!
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Claude: Visualization Power}
-\begin{baritemize}
-  \item Analysis Tool + Artifacts = interactive dashboards
-  \item Libraries available in Artifacts:
-  \begin{itemize}
-    \item React for UI components
-    \item Recharts for charts and graphs
-    \item Tailwind CSS for styling
-    \item Three.js for 3D graphics
-  \end{itemize}
-  \item Charts are interactive---hover, zoom, filter
-\end{baritemize}
-\end{frame}
+ \begin{frame}{Claude Artifact Exercise}
 
-\begin{frame}{Claude: Limitations}
-\begin{baritemize}
-  \item Analysis Tool: JavaScript only (not Python)
-  \item Limited libraries: Lodash, Papa Parse
-  \item No direct file system access
-  \item Uploaded files consume context window
-  \item Code Execution Tool (Python): API only, in beta
-\end{baritemize}
-
-\vspace{0.5cm}
-\begin{shadedbox}
-\centerline{Best for: Quick calculations, interactive visualizations, prototypes}
-\end{shadedbox}
-\end{frame}
-
-\begin{frame}{Claude: Finance Example}
-\begin{shadedbox}\centerline{Example Prompt}\end{shadedbox}
-
-\textit{``Create an interactive artifact that:
-\begin{enumerate}
-  \item Lets me input expected returns for 3 stocks
-  \item Lets me input a covariance matrix
-  \item Calculates the tangency portfolio
-  \item Shows a chart of the efficient frontier
-\end{enumerate}''}
+\textit{``Create an artifact that allows me to upload a csv file containing the return of a stock, the market excess return, and the risk-free rate over a given time period.  Compute excess returns of the stock and regress them on the market excess return.  Display the beta of the stock and a plot of the data with the regression line.''}
 
 \vspace{0.3cm}
-Claude creates a React app with input fields, calculations, and a Recharts visualization---all in one artifact.
+Claude creates an interactive artifact with file upload, regression calculations, and a chart---all running in your browser.
+\end{frame}
+
+\begin{frame}{Claude Artifact Limitations}
+\begin{baritemize}
+  \item Artifacts use JavaScript only (not Python)
+  \item Limited libraries
+  \item No direct file system access
+  \item Uploaded files consume context window
+\end{baritemize}
 \end{frame}
 
 % ========================================
 % LOCAL EXECUTION SECTION
 % ========================================
 
-\begin{frame}{Running Code Locally}
-\begin{shadedbox}\centerline{\large Why Local Execution?}\end{shadedbox}
-
-\begin{baritemize}
-  \item \alert{Full environment access}---any library, any data source
-  \item Internet access for APIs, databases, web scraping
-  \item No file size limits or context window constraints
-  \item Persistent files and project state
-  \item AI can read, write, and execute code on your machine
-\end{baritemize}
-\end{frame}
-
-\begin{frame}{Local Execution Tools}
-\begin{columns}[T]
-  \begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{IDE Extensions}]
-\begin{itemize}
-  \item \textbf{Claude Code}---terminal agent
-  \item \textbf{VS Code + Claude/Copilot}
-  \item \textbf{Cursor}---AI-native IDE
-  \item \textbf{Google AntiGravity}
-  \item AI writes and runs code in your environment
-\end{itemize}
-\end{shadedbox}
+\begin{frame}[plain]
+\begin{columns}[c]
+\begin{column}{0.55\textwidth}
+\centering
+{\fontsize{48}{52}\selectfont\bfseries Local Execution}
 \end{column}
-\begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{Notebooks}]
-\begin{itemize}
-  \item \textbf{Google Colab}---Gemini built-in
-  \item \textbf{Jupyter + AI assistants}
-  \item \textbf{VS Code notebooks}
-  \item AI can generate and execute cells
-  \item See results inline
-\end{itemize}
-\end{shadedbox}
+\begin{column}{0.45\textwidth}
+\centering
+\includegraphics[height=5cm]{images/terminal_icon.png}
 \end{column}
 \end{columns}
 \end{frame}
@@ -312,160 +265,20 @@ Claude creates a React app with input fields, calculations, and a Recharts visua
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Local Execution: Considerations}
-\begin{baritemize}
-  \item \alert{Security}---AI can execute arbitrary code on your machine
-  \item Requires local Python/development environment setup
-  \item More setup than browser-based tools
-  \item Best with permission controls (Claude Code prompts for approval)
-\end{baritemize}
 
-\vspace{0.5cm}
+\begin{frame}{Leading Local Execution Tools}
+
 \begin{shadedbox}
-\centerline{Best for: Serious projects, production code, large datasets}
-\end{shadedbox}
-\end{frame}
-
-% ========================================
-% COMPARISON
-% ========================================
-
-\begin{frame}{Side-by-Side Comparison}
-\footnotesize
-\begin{center}
-\begin{tabular}{llll}
-\toprule
-\textbf{Feature} & \textbf{ChatGPT} & \textbf{Claude} & \textbf{Local} \\
-\midrule
-Language & Python & JS / Python & Any \\
-Execution & Server & Browser / Server & Your machine \\
-Libraries & 300+ pre-installed & Limited / pip & Unlimited \\
-Install packages & No & Yes (server) & Yes \\
-File access & Upload (100 MB) & Upload (context) & Full disk \\
-Internet access & No & No & Yes \\
-Output format & Files, charts & Artifacts, apps & Any \\
-Cost & Plus (\$20/mo) & Free tier avail. & Varies \\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{frame}
-
-\begin{frame}{When to Use Which?}
-\begin{columns}[T]
-  \begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{ChatGPT}]
-\begin{itemize}\small
-  \item Quick data analysis
-  \item Statistical tests
-  \item File conversion
-  \item One-off tasks
+\begin{itemize}
+  \item \textbf{Claude Code}---terminal agent
+  \item \textbf{VS Code + Claude/Copilot}
+  \item \textbf{Cursor}---AI-native IDE
+  \item \textbf{Google AntiGravity}
+  \item AI writes and runs code in your environment
 \end{itemize}
 \end{shadedbox}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Claude}]
-\begin{itemize}\small
-  \item Interactive dashboards
-  \item Quick prototypes
-  \item React/web apps
-  \item Shareable artifacts
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.32\textwidth}
-\begin{shadedbox}[title=\textbf{Local}]
-\begin{itemize}\small
-  \item Production code
-  \item Large datasets
-  \item API integrations
-  \item Ongoing projects
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
+
 \end{frame}
 
-% ========================================
-% WORKFLOW COMPARISON
-% ========================================
-
-\begin{frame}{Workflow: Data Analysis}
-\begin{shadedbox}[title=\textbf{ChatGPT Workflow}]
-\begin{enumerate}
-  \item Upload CSV/Excel file
-  \item Describe analysis in plain English
-  \item ChatGPT writes and runs Python code
-  \item View output, ask follow-up questions
-  \item Download charts and results
-\end{enumerate}
-\end{shadedbox}
-\end{frame}
-
-\begin{frame}{Workflow: Interactive Tool}
-\begin{shadedbox}[title=\textbf{Claude Workflow}]
-\begin{enumerate}
-  \item Describe the tool you want to build
-  \item Claude creates an Artifact (React app)
-  \item Interact with the tool in real-time
-  \item Ask Claude to modify or enhance it
-  \item Share or publish the artifact
-\end{enumerate}
-\end{shadedbox}
-\end{frame}
-
-% ========================================
-% GETTING STARTED
-% ========================================
-
-\begin{frame}{Get Started: ChatGPT}
-\begin{barenumerate}
-  \item Go to \href{https://chat.openai.com}{chat.openai.com} and log in
-  \item Select GPT-4o from the model menu
-  \item Upload a CSV file with stock prices
-  \item Ask: ``Calculate daily returns and plot them''
-  \item Ask: ``What is the annualized volatility?''
-  \item Download the resulting chart
-\end{barenumerate}
-\end{frame}
-
-\begin{frame}{Get Started: Claude}
-\begin{barenumerate}
-  \item Go to \href{https://claude.ai}{claude.ai} and log in
-  \item Enable Analysis Tool in Feature Preview (if needed)
-  \item Ask: ``Create an interactive compound interest calculator''
-  \item Try the artifact---enter values and see results
-  \item Ask Claude to add a chart showing growth over time
-  \item Publish or share the artifact
-\end{barenumerate}
-\end{frame}
-
-\begin{frame}{Finance Exercise: Portfolio Analysis}
-\begin{shadedbox}[title=\textbf{Try Both Tools}]\small
-\textbf{ChatGPT:}
-\begin{enumerate}
-  \item Download 1 year of daily prices for 5 stocks from Yahoo Finance
-  \item Upload to ChatGPT and ask for mean returns, volatilities, correlations
-  \item Ask for minimum variance portfolio weights
-\end{enumerate}
-
-\textbf{Claude:}
-\begin{enumerate}
-  \item Ask Claude to create an interactive mean-variance optimizer
-  \item Input the returns and covariance from ChatGPT
-  \item Explore different risk levels on the efficient frontier
-\end{enumerate}
-\end{shadedbox}
-\end{frame}
-
-\begin{frame}{Summary}
-\begin{baritemize}
-  \item \textbf{ChatGPT:} Python sandbox for quick data analysis
-  \item \textbf{Claude:} JavaScript (browser) or Python (server) + Artifacts
-  \item \textbf{Local execution:} Full power---any library, any data, internet access
-  \item Browser tools: convenient but sandboxed, no internet
-  \item Local tools: more setup but production-ready
-  \item Choose based on task complexity and data access needs
-\end{baritemize}
-\end{frame}
 
 \end{document}

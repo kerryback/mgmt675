@@ -61,20 +61,7 @@ Cell contains a formula that recalculates when inputs change.
 \end{shadedbox}
 \end{frame}
 
-\begin{frame}{Claude Skills for Excel}
-\begin{baritemize}
-  \item Claude Code can use ``skills''---instructions for specific tasks
-  \item The \texttt{xlsx} skill instructs Claude to:
-  \begin{itemize}
-    \item Use Excel formulas instead of hardcoded values
-    \item Apply professional formatting (color coding, number formats)
-    \item Verify zero formula errors (\#REF!, \#DIV/0!, etc.)
-    \item Follow financial modeling standards
-  \end{itemize}
-  \item Skills ensure consistent, high-quality output
-  \item \href{https://github.com/anthropics/claude-code/blob/main/skills/xlsx/skill.md}{View the full xlsx skill documentation}
-\end{baritemize}
-\end{frame}
+
 
 \begin{frame}{Two Ways AI Interacts with Spreadsheets}
 \begin{columns}[T]
@@ -124,29 +111,6 @@ Cell contains a formula that recalculates when inputs change.
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Copilot vs. Claude: Key Differences}
-\footnotesize
-\begin{center}
-\begin{tabular}{lll}
-\toprule
-\textbf{Feature} & \textbf{Microsoft Copilot} & \textbf{Claude for Excel} \\
-\midrule
-Integration & Native (built into Excel) & Add-in (sidebar) \\
-Languages & Excel formulas + Python & Python \\
-Cloud requirement & OneDrive/SharePoint & None \\
-Context awareness & Automatic & Reads workbook \\
-Speed & Slower & Faster responses \\
-Alternatives shown & Limited & Multiple options \\
-Cost & \$30/user/month & Free tier available \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\vspace{0.3cm}
-\begin{shadedbox}
-\centerline{Use Copilot for quick in-place edits; Claude for complex analysis}
-\end{shadedbox}
-\end{frame}
 
 % ========================================
 % CLAUDE FOR EXCEL DETAILS
@@ -175,53 +139,35 @@ Cost & \$30/user/month & Free tier available \\
 \end{columns}
 \end{frame}
 
-\begin{frame}{Get Started}
+\begin{frame}{Exercises}
 \begin{barenumerate}
-  \item Ask Claude to create an example two-stage DCF analysis
-  \item Open any spreadsheet, click the Claude icon at top right, ask Claude to do things
+  \item Open betas.xlsx.  Ask Claude to compute WalMart's beta.
+  \item Open a new workbook.  Ask Claude to create an example two-stage DCF analysis
 \end{barenumerate}
 \end{frame}
 
-\begin{frame}{Exercise: Computing Returns}
-\begin{baritemize}
-  \item Download the Excel file containing NOV price and dividend history
-  \item Compute daily returns including dividends
-  \item Calculate annualized mean return and volatility
-\end{baritemize}
 
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/exercises/returns.xlsx}{Download returns.xlsx}
+\begin{frame}{Outside Excel}
+  \begin{shadedbox}\centerline{Go to claude.ai or use Claude Desktop}\end{shadedbox}
+\vspace{0.5cm}
+
+\begin{shadedbox}
+\centerline{``Create an Excel workbook to illustrate two-stage DCF analysis.''}
 \end{shadedbox}
-\end{center}
 \end{frame}
 
-\begin{frame}{Exercise: Aggregating Spreadsheets}
+\begin{frame}{Claude Skills for Excel}
 \begin{baritemize}
-  \item Download the zip file containing five regional sales spreadsheets
-  \item Each file has similar but not identical column layouts
-  \item Reconcile column names and aggregate into a single table
+  \item Claude Code can use ``skills''---instructions for specific tasks
+  \item The \texttt{xlsx} skill instructs Claude to:
+  \begin{itemize}
+    \item Use Excel formulas instead of hardcoded values
+    \item Apply professional formatting (color coding, number formats)
+    \item Verify zero formula errors (\#REF!, \#DIV/0!, etc.)
+    \item Follow financial modeling standards
+  \end{itemize}
+  \item Skills ensure consistent, high-quality output
+  \item \href{https://github.com/anthropics/claude-code/blob/main/skills/xlsx/skill.md}{View the full xlsx skill documentation}
 \end{baritemize}
-
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/exercises/aggregation.zip}{Download aggregation.zip}
-\end{shadedbox}
-\end{center}
 \end{frame}
-
-\begin{frame}{Exercise: Computing Financial Ratios}
-\begin{baritemize}
-  \item Download the Excel file containing NOV financial statements
-  \item Income statement, balance sheet, and cash flow statement
-  \item Compute key financial ratios and analyze trends
-\end{baritemize}
-
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/exercises/statements.xlsx}{Download statements.xlsx}
-\end{shadedbox}
-\end{center}
-\end{frame}
-
 \end{document}

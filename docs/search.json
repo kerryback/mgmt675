@@ -4,14 +4,14 @@
     "href": "software.html",
     "title": "Software Setup",
     "section": "",
-    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\nKoyeb CLI\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
+    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\nKoyeb CLI\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, GitHub Copilot, LaTeX Workshop, Quarto) and pre-configured Claude skills."
   },
   {
     "objectID": "software.html#development-environment",
     "href": "software.html#development-environment",
     "title": "Software Setup",
     "section": "",
-    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\nKoyeb CLI\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills."
+    "text": "Download the installer package for your operating system. Each package includes a script that will install:\n\nPython 3.12\nVS Code\nGit\nGitHub CLI\nNode.js\nClaude Code\nKoyeb CLI\n\nThe installer also sets up VS Code extensions (Python, Jupyter, Claude Code, GitHub Copilot, LaTeX Workshop, Quarto) and pre-configured Claude skills."
   },
   {
     "objectID": "software.html#download",
@@ -32,7 +32,7 @@
     "href": "software.html#after-installation",
     "title": "Software Setup",
     "section": "After Installation",
-    "text": "After Installation\n\nOpen a new terminal window\nRun gh auth login to authenticate with GitHub\nRun claude to start Claude Code and authenticate with your Anthropic account\nRun koyeb login to authenticate with Koyeb"
+    "text": "After Installation\n\nOpen a new terminal window\nRun gh auth login to authenticate with GitHub\nRun koyeb login to authenticate with Koyeb\n\n\nUsing Claude Code\nClaude Code is an AI coding assistant integrated into VS Code.\n\nOpen VS Code\nClick the Claude icon in the sidebar (or press Ctrl+Shift+P / Cmd+Shift+P and type “Claude”)\nOn first launch, you’ll be prompted to authenticate with your Anthropic account\nFollow the browser prompts to sign in or create an account\nOnce authenticated, you can chat with Claude in the sidebar panel\n\n\n\nUsing GitHub Copilot\nGitHub Copilot is an AI coding assistant that provides code completions directly in VS Code.\n\nOpen VS Code\nClick the Copilot icon in the sidebar (or press Ctrl+Shift+I / Cmd+Shift+I)\nSign in with your GitHub account when prompted\nGitHub Copilot Free provides 2,000 code completions and 50 chat messages per month\n\nOnce signed in, Copilot will automatically suggest code as you type. Press Tab to accept a suggestion."
   },
   {
     "objectID": "index.html",
@@ -53,13 +53,13 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nCollaborating with AI\n\n\n\n3\nAI with Code Execution\n\n\n\n4\nSpreadsheets and AI\n\n\n\n5\nGoogle Colab\n\n\n\n6\nVS Code with Claude Code\n\n\n\n7\nPro Forma Statements\n\n\n\n8\nDCF Analysis\n\n\n\n9\nCreating Web Apps\n\n\n\n10\nCreating Custom Chatbots\n\n\n\n11\nCreating AI Agents\n\n\n\n12\nCreating Skills"
+    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nCollaborating with AI\n\n\n\n3\nAI with Code Execution\n\n\n\n4\nSpreadsheets and AI\n\n\n\n5\nGoogle Colab\n\n\n\n6\nVS Code with Claude Code\n\n\n\n7\nPro Forma Statements\n\n\n\n8\nDCF Analysis\n\n\n\n9\nCreating Skills\n\n\n\n10\nCreating Web Apps\n\n\n\n11\nCreating Custom Chatbots\n\n\n\n12\nCreating AI Agents"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nCollaborating with AI\n\n\n\n3\nAI with Code Execution\n\n\n\n4\nSpreadsheets and AI\n\n\n\n5\nGoogle Colab\n\n\n\n6\nVS Code with Claude Code\n\n\n\n7\nPro Forma Statements\n\n\n\n8\nDCF Analysis\n\n\n\n9\nCreating Web Apps\n\n\n\n10\nCreating Custom Chatbots\n\n\n\n11\nCreating AI Agents\n\n\n\n12\nCreating Skills"
+    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nTopic\n\n\n\n\n\n1\nCourse Introduction\n\n\n\n2\nCollaborating with AI\n\n\n\n3\nAI with Code Execution\n\n\n\n4\nSpreadsheets and AI\n\n\n\n5\nGoogle Colab\n\n\n\n6\nVS Code with Claude Code\n\n\n\n7\nPro Forma Statements\n\n\n\n8\nDCF Analysis\n\n\n\n9\nCreating Skills\n\n\n\n10\nCreating Web Apps\n\n\n\n11\nCreating Custom Chatbots\n\n\n\n12\nCreating AI Agents"
   }
 ]

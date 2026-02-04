@@ -139,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Claude Code</li>
 <li>Koyeb CLI</li>
 </ul>
-<p>The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, LaTeX Workshop, Quarto) and pre-configured Claude skills.</p>
+<p>The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, GitHub Copilot, LaTeX Workshop, Quarto) and pre-configured Claude skills.</p>
 </section>
 <section id="download" class="level2">
 <h2 class="anchored" data-anchor-id="download">Download</h2>
@@ -198,11 +198,32 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>Open a new terminal window</li>
 <li>Run <code>gh auth login</code> to authenticate with GitHub</li>
-<li>Run <code>claude</code> to start Claude Code and authenticate with your Anthropic account</li>
 <li>Run <code>koyeb login</code> to authenticate with Koyeb</li>
 </ol>
+<section id="using-claude-code" class="level3">
+<h3 class="anchored" data-anchor-id="using-claude-code">Using Claude Code</h3>
+<p>Claude Code is an AI coding assistant integrated into VS Code.</p>
+<ol type="1">
+<li>Open VS Code</li>
+<li>Click the Claude icon in the sidebar (or press <code>Ctrl+Shift+P</code> / <code>Cmd+Shift+P</code> and type “Claude”)</li>
+<li>On first launch, you’ll be prompted to authenticate with your Anthropic account</li>
+<li>Follow the browser prompts to sign in or create an account</li>
+<li>Once authenticated, you can chat with Claude in the sidebar panel</li>
+</ol>
+</section>
+<section id="using-github-copilot" class="level3">
+<h3 class="anchored" data-anchor-id="using-github-copilot">Using GitHub Copilot</h3>
+<p>GitHub Copilot is an AI coding assistant that provides code completions directly in VS Code.</p>
+<ol type="1">
+<li>Open VS Code</li>
+<li>Click the Copilot icon in the sidebar (or press <code>Ctrl+Shift+I</code> / <code>Cmd+Shift+I</code>)</li>
+<li>Sign in with your GitHub account when prompted</li>
+<li>GitHub Copilot Free provides 2,000 code completions and 50 chat messages per month</li>
+</ol>
+<p>Once signed in, Copilot will automatically suggest code as you type. Press <code>Tab</code> to accept a suggestion.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

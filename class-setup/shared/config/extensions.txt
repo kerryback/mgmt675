@@ -1,5 +1,6 @@
 ms-python.python
 ms-toolsai.jupyter
 anthropic.claude-code
+GitHub.copilot
 james-yu.latex-workshop
 quarto-dev.quarto
