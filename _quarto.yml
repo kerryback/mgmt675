@@ -4,7 +4,7 @@ project:
   render:
     - index.qmd
     - slides.qmd
-    - data.qmd
+    - files.qmd
     - software.qmd
   resources:
     - CNAME
@@ -24,8 +24,8 @@ website:
         text: Home
       - href: slides.qmd
         text: Slides
-      - href: data.qmd
-        text: Data
+      - href: files.qmd
+        text: Files
       - href: software.qmd
         text: Software
     

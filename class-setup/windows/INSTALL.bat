@@ -23,7 +23,7 @@ if %errorLevel% neq 0 (
 echo Starting installer...
 echo.
 
-REM Run the PowerShell bootstrap script with Bypass execution policy
+REM Run the PowerShell installer script with Bypass execution policy
 powershell.exe -ExecutionPolicy Bypass -NoProfile -File "%~dp0run.ps1"
 
 if %errorLevel% neq 0 (

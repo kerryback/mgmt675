@@ -1,6 +1,6 @@
 #!/bin/bash
 # MGMT 675 Development Environment Installer for macOS
-# This script installs Python, VS Code, Git, GitHub CLI, Node.js, Claude Code, and Koyeb CLI
+# This script installs Python, VS Code, Git, GitHub CLI, Node.js, Claude Code, Koyeb CLI, and Quarto
 
 set -e
 
@@ -115,7 +115,25 @@ else
     print_success "Koyeb CLI installed"
 fi
 
-# Step 9: Install VS Code extensions
+# Step 9: Install Quarto
+print_status "Installing Quarto..."
+if command_exists quarto; then
+    print_success "Quarto already installed"
+else
+    brew install --cask quarto
+    print_success "Quarto installed"
+fi
+
+# Step 10: Install TinyTeX (LaTeX distribution for LaTeX Workshop)
+print_status "Installing TinyTeX..."
+if [[ -d "$HOME/Library/TinyTeX" ]]; then
+    print_success "TinyTeX already installed"
+else
+    quarto install tinytex --no-prompt
+    print_success "TinyTeX installed"
+fi
+
+# Step 11: Install VS Code extensions
 print_status "Installing VS Code extensions..."
 if command_exists code; then
     while IFS= read -r ext || [[ -n "$ext" ]]; do
@@ -129,7 +147,7 @@ else
     print_warning "VS Code CLI not found. Please install extensions manually."
 fi
 
-# Step 10: Install Claude skills
+# Step 12: Install Claude skills
 print_status "Installing Claude skills..."
 SKILLS_DEST="$HOME/.claude/skills"
 mkdir -p "$SKILLS_DEST"
@@ -196,6 +214,22 @@ if command_exists koyeb; then
     print_success "  Koyeb CLI: $(koyeb version 2>&1)"
 else
     print_warning "  Koyeb CLI: NOT FOUND"
+    ALL_GOOD=false
+fi
+
+# Check Quarto
+if command_exists quarto; then
+    print_success "  Quarto: $(quarto --version 2>&1)"
+else
+    print_warning "  Quarto: NOT FOUND"
+    ALL_GOOD=false
+fi
+
+# Check TinyTeX
+if [[ -d "$HOME/Library/TinyTeX" ]]; then
+    print_success "  TinyTeX: installed"
+else
+    print_warning "  TinyTeX: NOT FOUND"
     ALL_GOOD=false
 fi
 

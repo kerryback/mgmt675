@@ -1,5 +1,5 @@
 # MGMT 675 Development Environment Installer for Windows
-# This script installs Python, VS Code, Git, GitHub CLI, Node.js, Claude Code, and Koyeb CLI
+# This script installs Python, VS Code, Git, GitHub CLI, Node.js, Claude Code, Koyeb CLI, and Quarto
 # Supports both x64 and ARM64 architectures (auto-detected)
 # Run this script as Administrator
 
@@ -26,6 +26,8 @@ if ($IsArm) {
     $VSCodeInstaller = "VSCodeSetup-arm64.exe"
     $KoyebUrl = "https://github.com/koyeb/koyeb-cli/releases/download/v5.9.0/koyeb-cli_5.9.0_windows_arm64.zip"
     $KoyebArchive = "koyeb-cli_5.9.0_windows_arm64.zip"
+    $QuartoUrl = "https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.42/quarto-1.6.42-win-arm64.msi"
+    $QuartoInstaller = "quarto-1.6.42-win-arm64.msi"
 } else {
     $ArchLabel = "x64"
     $PythonUrl = "https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe"
@@ -38,6 +40,8 @@ if ($IsArm) {
     $VSCodeInstaller = "VSCodeSetup-x64.exe"
     $KoyebUrl = "https://github.com/koyeb/koyeb-cli/releases/download/v5.9.0/koyeb-cli_5.9.0_windows_amd64.zip"
     $KoyebArchive = "koyeb-cli_5.9.0_windows_amd64.zip"
+    $QuartoUrl = "https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.42/quarto-1.6.42-win.msi"
+    $QuartoInstaller = "quarto-1.6.42-win.msi"
 }
 
 # Git uses x64 for both (no native ARM build available, runs via emulation)
@@ -217,7 +221,39 @@ if (-not $KoyebInstalled) {
     Write-Success "Koyeb CLI already installed"
 }
 
-# Step 9: Install VS Code extensions
+# Step 8: Install Quarto
+Write-Status "Installing Quarto ($ArchLabel)..."
+Refresh-Path
+$QuartoInstalled = Test-CommandExists "quarto"
+if (-not $QuartoInstalled) {
+    $QuartoPath = "$TempDir\$QuartoInstaller"
+
+    Write-Status "  Downloading Quarto $ArchLabel..."
+    Invoke-WebRequest -Uri $QuartoUrl -OutFile $QuartoPath
+
+    Write-Status "  Running Quarto installer..."
+    Start-Process -Wait msiexec -ArgumentList "/i", "`"$QuartoPath`"", "/quiet", "/norestart"
+
+    Refresh-Path
+    Write-Success "Quarto installed"
+} else {
+    Write-Success "Quarto already installed"
+}
+
+# Step 9: Install TinyTeX (LaTeX distribution for LaTeX Workshop)
+Write-Status "Installing TinyTeX..."
+Refresh-Path
+$TinyTexInstalled = Test-Path "$env:APPDATA\TinyTeX\bin\windows\tlmgr.bat"
+if (-not $TinyTexInstalled) {
+    Write-Status "  Running quarto install tinytex..."
+    quarto install tinytex --no-prompt
+    Refresh-Path
+    Write-Success "TinyTeX installed"
+} else {
+    Write-Success "TinyTeX already installed"
+}
+
+# Step 10: Install VS Code extensions
 Write-Status "Installing VS Code extensions..."
 Refresh-Path
 $CodePath = "C:\Program Files\Microsoft VS Code\bin\code.cmd"
@@ -239,7 +275,7 @@ if (Test-Path $CodePath) {
     Write-Warning "VS Code CLI not found. Please install extensions manually."
 }
 
-# Step 10: Install Claude skills
+# Step 11: Install Claude skills
 Write-Status "Installing Claude skills..."
 $SkillsSource = Join-Path $ScriptDir "skills"
 $SkillsDest = "$env:USERPROFILE\.claude\skills"
@@ -322,6 +358,23 @@ try {
     $AllGood = $false
 }
 
+# Check Quarto
+try {
+    $QuartoVersion = quarto --version 2>&1
+    Write-Success "  Quarto: $QuartoVersion"
+} catch {
+    Write-Warning "  Quarto: NOT FOUND"
+    $AllGood = $false
+}
+
+# Check TinyTeX
+if (Test-Path "$env:APPDATA\TinyTeX\bin\windows\tlmgr.bat") {
+    Write-Success "  TinyTeX: installed"
+} else {
+    Write-Warning "  TinyTeX: NOT FOUND"
+    $AllGood = $false
+}
+
 Write-Host ""
 if ($AllGood) {
     Write-Host "==============================================" -ForegroundColor Cyan
@@ -350,4 +403,6 @@ Write-Host "  - Node.js ($ArchLabel)"
 Write-Host "  - VS Code ($ArchLabel)"
 Write-Host "  - Claude Code"
 Write-Host "  - Koyeb CLI ($ArchLabel)"
+Write-Host "  - Quarto ($ArchLabel)"
+Write-Host "  - TinyTeX (LaTeX)"
 Write-Host ""
