@@ -16,17 +16,21 @@
 
 \maketitle
 
+% ========================================
+% SECTION 1: VS CODE BASICS
+% ========================================
+
 \begin{frame}{What is VS Code?}
 \begin{baritemize}
   \item Visual Studio Code: a free code editor from Microsoft
   \item Works on Windows, Mac, and Linux
   \item Lightweight but powerful
   \item Huge ecosystem of extensions
-  \item We'll use it as a UI for \alert{Claude Code}
+  \item We'll use it primarily as a user interface for Claude Code
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Why VS Code + Claude Code?}
+\begin{frame}{VS Code + Claude Code vs Colab}
 \begin{columns}[T]
   \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Colab}]
@@ -59,23 +63,98 @@
   \item VS Code with extensions (Python, Jupyter, Claude Code)
   \item Git and GitHub CLI
   \item Node.js
-  \item Claude Code
-  \item Koyeb CLI
-  \item API authentication: GitHub, Anthropic, Koyeb
+  \item Claude Code (need Anthropic account and authentication)
+  \item GitHub Copilot (need Github account and authentication)
+    \item Koyeb CLI (eventually need Koyeb account)
 \end{baritemize}
 \vspace{0.3cm}
-\centering\small\url{https://kerryback.com/mgmt675/software.html}
+\begin{shadedbox}
+\centering\href{https://kerryback.com/mgmt675/software.html}{Software Installation Page}
+\end{shadedbox}
 \end{frame}
 
-\begin{frame}{Installing the Claude Code Extension}
-\begin{barenumerate}
-  \item Open VS Code
-  \item Press Ctrl+Shift+X (Windows) or Cmd+Shift+X (Mac)
-  \item Search for ``Claude Code''
-  \item Click \textbf{Install} on the official Anthropic extension
-  \item Sign in when prompted
-\end{barenumerate}
+% ========================================
+% SECTION 2: OPENING FOLDERS
+% ========================================
+
+\begin{frame}{Opening a Folder in VS Code}
+\begin{baritemize}
+  \item VS Code works with \alert{folders}, not individual files
+  \item File $\rightarrow$ Open Folder $\rightarrow$ select your project folder
+  \item The folder appears in the Explorer sidebar (left panel)
+  \item All files in the folder are accessible
+  \item This is your workspace for a project
+\end{baritemize}
+\vspace{0.3cm}
+\begin{shadedbox}
+\centering Tip: Create a dedicated folder for course work
+\end{shadedbox}
 \end{frame}
+
+% ========================================
+% SECTION 3: JUPYTER NOTEBOOKS IN VS CODE
+% ========================================
+
+\begin{frame}{Jupyter Notebooks in VS Code}
+\vspace{0.5cm}
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\large\textbf{Same concept as Colab but local execution}
+\end{shadedbox}
+\end{center}
+\vspace{0.5cm}
+\begin{baritemize}
+  \item Code cells and text cells 
+  \item Run cells with Shift+Enter or click Run button
+  \item Output appears below each cell
+  \item No browser or internet required
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Try It: Open a Notebook}
+\begin{barenumerate}
+  \item Download the notebook from the course site
+  \item File $\rightarrow$ Open File $\rightarrow$ select the notebook
+  \item Select a Python kernel from the top-right picker (like Colab's runtime, must be selected before code can be run)
+  \item Run the cells 
+\end{barenumerate}
+\vspace{0.5cm}
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/exercises/objects.ipynb}{Download objects.ipynb}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\begin{frame}{Other VS Code Features}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Useful Panels}]
+\begin{itemize}\small
+  \item \textbf{Explorer}: View $\rightarrow$ Explorer (or click folder icon)
+  \item \textbf{Terminal}: View $\rightarrow$ Terminal
+  \item \textbf{Command Palette}: Ctrl+Shift+P
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Dark Mode}]
+\begin{itemize}\small
+  \item File $\rightarrow$ Preferences $\rightarrow$ Theme $\rightarrow$ Color Theme
+  \item Choose a dark theme
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{shadedbox}
+\centering VS Code has many features---you won't need most of the menu items or command palette options for this course.
+\end{shadedbox}
+\end{frame}
+
+% ========================================
+% SECTION 4: CLAUDE CODE
+% ========================================
 
 \begin{frame}{The Claude Code Interface}
 \begin{center}
@@ -129,92 +208,6 @@
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Jupyter Notebooks in VS Code}
-\vspace{0.5cm}
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\large\textbf{Same concept as Colab, local execution}
-\end{shadedbox}
-\end{center}
-\vspace{0.5cm}
-\begin{baritemize}
-  \item Code cells and text cells
-  \item Run cells with Shift+Enter
-  \item Output appears below each cell
-  \item No browser or internet required
-\end{baritemize}
-\end{frame}
-
-\begin{frame}{Creating a New Notebook}
-\begin{barenumerate}
-  \item Ctrl+Shift+P (or Cmd+Shift+P on Mac)
-  \item Type ``Create: New Jupyter Notebook''
-  \item Select a Python kernel from the top-right picker
-  \item Start coding!
-\end{barenumerate}
-\vspace{0.3cm}
-Or simply create a new file with \texttt{.ipynb} extension
-\end{frame}
-
-\begin{frame}{Opening Existing Notebooks}
-\begin{baritemize}
-  \item File $\rightarrow$ Open File $\rightarrow$ select \texttt{.ipynb} file
-  \item Drag and drop notebook file into VS Code
-  \item Double-click notebook in the Explorer sidebar
-  \item Download from Colab and open locally
-\end{baritemize}
-\end{frame}
-
-\begin{frame}{The VS Code Notebook Interface}
-\begin{center}
-\includegraphics[width=0.85\textwidth]{images/vscode_notebook.png}
-\end{center}
-\end{frame}
-
-\begin{frame}{Running Cells}
-\begin{baritemize}
-  \item \textbf{Shift+Enter}: Run cell and move to next
-  \item \textbf{Ctrl+Enter}: Run cell and stay
-  \item \textbf{Alt+Enter}: Run cell and insert new cell below
-  \item Click the play button ($\triangleright$) left of the cell
-  \item ``Run All'' button in toolbar runs entire notebook
-\end{baritemize}
-\end{frame}
-
-\begin{frame}{Notebook Keyboard Shortcuts}
-\begin{columns}[T]
-  \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Running Code}]
-\begin{itemize}
-  \item Shift+Enter: Run cell
-  \item Ctrl+Enter: Run, stay
-  \item Alt+Enter: Run, insert below
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Managing Cells}]
-\begin{itemize}
-  \item A: Add cell above
-  \item B: Add cell below
-  \item DD: Delete cell
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\vspace{0.3cm}
-\centering Press \textbf{Esc} to enter command mode, \textbf{Enter} to edit
-\end{frame}
-
-\begin{frame}{Selecting a Kernel}
-\begin{baritemize}
-  \item The kernel runs your code (like Colab's runtime)
-  \item Click the kernel picker in the top-right corner
-  \item Select ``Python Environments'' $\rightarrow$ choose your Python
-  \item Kernel must be selected before running code
-\end{baritemize}
-\end{frame}
-
 \begin{frame}{Using Claude with Notebooks}
 \begin{baritemize}
   \item Ask Claude to create a notebook for you
@@ -225,33 +218,17 @@ Or simply create a new file with \texttt{.ipynb} extension
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Key Differences from Colab}
-\begin{columns}[T]
-  \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Colab}]
-\begin{itemize}
-  \item Browser-based
-  \item Gemini AI built-in
-  \item Auto-saves to Drive
-  \item Free GPU access
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{VS Code}]
-\begin{itemize}
-  \item Desktop app
-  \item Claude Code AI
-  \item Local file storage
-  \item Uses your computer
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
+\begin{frame}{Using Claude with Scripts}
+\begin{baritemize}
+\item If Claude is writing the code, you don't really need notebooks.
+\item It is easier for Claude to write Python scripts, which are just text files containing code.
+\item A Python script can be executed with \texttt{python {scriptname}} in a terminal.
+\item Claude can run terminal commands, so it can execute the scripts it writes.
+\end{baritemize}
 \end{frame}
 
 % ========================================
-% ALTERNATIVES
+% SECTION 5: ALTERNATIVES
 % ========================================
 
 \begin{frame}{Other AI Coding Tools}
@@ -270,108 +247,34 @@ Or simply create a new file with \texttt{.ipynb} extension
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{High-Level Comparison}
-\begin{columns}[T]
-  \begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{VS Code + Claude Code}]
-\begin{itemize}\small
-  \item Chat with AI in sidebar
-  \item AI makes multi-file changes
-  \item You approve each change
-  \item Works in familiar VS Code
-\end{itemize}
-\end{shadedbox}
+% ========================================
+% SECTION 6: EXERCISES
+% ========================================
 
-\vspace{0.3cm}
-
-\begin{shadedbox}[title=\textbf{Cursor}]
-\begin{itemize}\small
-  \item Like VS Code but AI-native
-  \item Tab to accept suggestions
-  \item Fast, real-time
-  \item \$20/month
-\end{itemize}
-\end{shadedbox}
-\end{column}
-
-\begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{GitHub Copilot}]
-\begin{itemize}\small
-  \item Extension for multiple IDEs
-  \item Autocomplete as you type
-  \item Tab to accept suggestions
-  \item \$10/month
-\end{itemize}
-\end{shadedbox}
-
-\vspace{0.3cm}
-
-\begin{shadedbox}[title=\textbf{Google Antigravity}]
-\begin{itemize}\small
-  \item Web-based (VS Code fork)
-  \item Gemini-powered
-  \item Free (preview)
-  \item Still experimental
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Which Should You Use?}
+\begin{frame}{Exercise: Estimating Betas}
 \begin{shadedbox}
-\centerline{They're designed for different tasks---not mutually exclusive}
+ Ask Claude Code to compute WMT's excess returns and run a regression to estimate its beta.  Ask for a Word doc containing a scatterplot of the data with the regression line and a discussion of why the beta is what it is.
 \end{shadedbox}
 
-\begin{baritemize}
-  \item \textbf{GitHub Copilot}: Best for autocomplete while typing
-  \item \textbf{Cursor}: Best for fast iteration and staying in flow
-  \item \textbf{Claude Code}: Best for complex multi-file changes
-  \item \textbf{Antigravity}: Experimental, worth trying when it matures
-  \item Many developers use Copilot + Claude Code together in VS Code
-\end{baritemize}
-\end{frame}
-
-% ========================================
-% BACK TO ORIGINAL CONTENT
-% ========================================
-
-\begin{frame}{Quick Reference}
-\begin{baritemize}
-  \item \textbf{Open Claude}: Click spark icon or Ctrl+Esc
-  \item \textbf{New notebook}: Ctrl+Shift+P $\rightarrow$ ``New Jupyter Notebook''
-  \item \textbf{Run cell}: Shift+Enter
-  \item \textbf{Select kernel}: Click picker in top-right
-  \item \textbf{Reference file}: Type \texttt{@filename} in Claude prompt
-\end{baritemize}
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/exercises/betas.xlsx}{Data for the beta exercise}
+\end{shadedbox}
+\end{center}
 \end{frame}
 
 \begin{frame}{Exercise: Aggregating Spreadsheets}
-\begin{baritemize}
-  \item Download the zip file containing five regional sales spreadsheets
-  \item Each file has similar but not identical column layouts
-  \item Reconcile column names and aggregate into a single table
-\end{baritemize}
+\begin{shadedbox}
+The zip file aggregation.zip contains multiple Excel workbooks, each containing a table.  Some tables are missing some columns and the names of some of the columns vvary somewhat across the tables.  Use Claude Code to combine the tables into a single table, including all columns, and reconciling the varying names.
+\end{shadedbox}
 
 \begin{center}
 \begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/exercises/aggregation.zip}{Download aggregation.zip}
+\centering\href{https://kerryback.com/mgmt675/exercises/aggregation.zip}{Zip file for the table aggregation exercise}
 \end{shadedbox}
 \end{center}
 \end{frame}
 
-\begin{frame}{Exercise: Estimating Betas}
-\begin{baritemize}
-  \item Download the Excel file containing stock and market returns
-  \item Estimate betas for each stock using regression
-  \item Interpret the results
-\end{baritemize}
 
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/exercises/betas.xlsx}{Download betas.xlsx}
-\end{shadedbox}
-\end{center}
-\end{frame}
 
 \end{document}

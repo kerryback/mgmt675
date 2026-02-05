@@ -16,18 +16,34 @@
 
 \maketitle
 
-\begin{frame}{Why Code Execution Matters}
+
+
+\begin{frame}{Benefit of Bundling Code Execution with AI}
 \begin{baritemize}
   \item LLMs can write code, but writing is not the same as running
-  \item Code execution enables:
+  \item Attaching a code execution tool enables:
   \begin{itemize}
     \item Data analysis with real calculations
     \item Visualizations and charts
     \item File processing (Excel, CSV, PDF)
-    \item Iterative debugging---run, fix, repeat
+    \item \alert{Iterative debugging---run, fix, repeat}
   \end{itemize}
   \item Transforms chatbots into computational tools
 \end{baritemize}
+\end{frame}
+
+\begin{frame}{Vibe Coding}
+\begin{shadedbox}\centerline{\textit{Fortune, Jan 29, 2026}}\end{shadedbox}
+\vspace{0.5cm}
+
+\textbf{Boris Cherny}, head of Claude Code at Anthropic:
+
+\vspace{0.3cm}
+\textit{``For me personally, it has been 100\% for two+ months now, I don't even make small edits by hand.''}
+
+\vspace{0.3cm}
+Across Anthropic, Cherny says \textit{``pretty much 100\%''} of code is AI-generated \ldots\ An Anthropic spokesperson said company-wide the figure is between 70\% and 90\%.
+
 \end{frame}
 
 \begin{frame}{Code Execution Approaches}
@@ -134,11 +150,11 @@
 
 \vspace{0.3cm}
 ChatGPT will write Python code, run it, show results, and let you download the chart.
-\end{frame}
+
 \vspace{0.3cm}
-\begin{shadebox}
+\begin{shadedbox}
 \centerline{\href{https://mgmt675.kerryback.com/exercises/betas.xlsx}{Download Data for Beta Exercise}}
-\end{shadebox}
+\end{shadedbox}
 \end{frame}
 
 \begin{frame}{What Do We Need to Check?}
@@ -199,11 +215,11 @@ ChatGPT will write Python code, run it, show results, and let you download the c
 
 \vspace{0.3cm}
 Claude will write Python code, run it, show results, and let you download the chart.
-\end{frame}
+
 \vspace{0.3cm}
-\begin{shadebox}
-\centerline{Use same betas.xlsx file.}}
-\end{shadebox}
+\begin{shadedbox}
+\centerline{Use same betas.xlsx file.}
+\end{shadedbox}
 \end{frame}
 
 
@@ -243,13 +259,13 @@ Claude creates an interactive artifact with file upload, regression calculations
 
 \begin{frame}[plain]
 \begin{columns}[c]
-\begin{column}{0.55\textwidth}
+\begin{column}{0.65\textwidth}
 \centering
 {\fontsize{48}{52}\selectfont\bfseries Local Execution}
 \end{column}
-\begin{column}{0.45\textwidth}
+\begin{column}{0.35\textwidth}
 \centering
-\includegraphics[height=5cm]{images/terminal_icon.png}
+\includegraphics[height=\textheight]{images/local_execution.png}
 \end{column}
 \end{columns}
 \end{frame}

@@ -15,4 +15,357 @@
 
 \maketitle
 
+\begin{frame}{What is a Chatbot?}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Simple Definition}]
+A chatbot is a program that:
+\begin{enumerate}\small
+  \item Accepts user input (prompt)
+  \item Sends it to an LLM via API
+  \item Displays the response
+  \item Repeats in a loop
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{baritemize}\small
+  \item ChatGPT, Claude, Gemini are chatbots
+  \item The LLM is the ``brain''
+  \item The chatbot is the interface
+  \item You can build your own!
+\end{baritemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The API: Talking to an LLM}
+\begin{shadedbox}
+An \textbf{API} (Application Programming Interface) lets your code communicate with an LLM service over the internet.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{How It Works}]
+\begin{enumerate}\small
+  \item Your code sends a request
+  \item Request includes your prompt
+  \item LLM processes the prompt
+  \item API returns the response
+  \item Your code displays it
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What You Need}]
+\begin{itemize}\small
+  \item API endpoint (URL)
+  \item API key (authentication)
+  \item Model name to use
+  \item Your prompt/messages
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{OpenRouter: One API, Many Models}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What is OpenRouter?}]
+\begin{itemize}\small
+  \item Unified API for 100+ models
+  \item OpenAI, Anthropic, Google, Meta, etc.
+  \item Single API key for all models
+  \item Some models are free!
+\end{itemize}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\texttt{openrouter.ai}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Free Models on Hugging Face}]
+\begin{itemize}\small
+  \item Hugging Face hosts open models
+  \item OpenRouter provides free access
+  \item Examples:
+  \begin{itemize}\footnotesize
+    \item \texttt{mistralai/mistral-7b-instruct:free}
+    \item \texttt{meta-llama/llama-3-8b-instruct:free}
+    \item \texttt{google/gemma-7b-it:free}
+  \end{itemize}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{A Single API Call}
+\begin{shadedbox}[title=\textbf{Basic Structure}]
+\begin{verbatim}
+import requests
+
+response = requests.post(
+    "https://openrouter.ai/api/v1/chat/completions",
+    headers={"Authorization": f"Bearer {API_KEY}"},
+    json={
+        "model": "mistralai/mistral-7b-instruct:free",
+        "messages": [{"role": "user", "content": prompt}]
+    }
+)
+answer = response.json()["choices"][0]["message"]["content"]
+\end{verbatim}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{The Problem: LLMs Have No Memory}
+\begin{shadedbox}
+Each API call is independent. The LLM doesn't remember previous messages unless you send them again.
+\end{shadedbox}
+\vspace{0.5cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Without History}]
+\begin{itemize}\small
+  \item User: ``My name is Alice''
+  \item LLM: ``Nice to meet you, Alice!''
+  \item User: ``What's my name?''
+  \item LLM: ``I don't know your name.''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{With History}]
+\begin{itemize}\small
+  \item Send all previous messages
+  \item LLM sees full conversation
+  \item Can reference earlier context
+  \item Feels like a real conversation
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Conversation Loop}
+\begin{shadedbox}
+To create a chatbot, you need a loop that maintains the conversation history.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{shadedbox}[title=\textbf{The Pattern}]
+\begin{enumerate}\small
+  \item Initialize empty message list
+  \item Get user input
+  \item Append user message to list
+  \item Send \alert{entire list} to API
+  \item Get response from API
+  \item Append assistant response to list
+  \item Display response
+  \item Go to step 2
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{baritemize}\small
+  \item History grows each turn
+  \item LLM sees everything
+  \item Context is preserved
+  \item This is how ChatGPT works!
+\end{baritemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Message Format}
+\begin{shadedbox}[title=\textbf{Messages Are a List of Dictionaries}]
+\begin{verbatim}
+messages = [
+    {"role": "user", "content": "My name is Alice"},
+    {"role": "assistant", "content": "Nice to meet you!"},
+    {"role": "user", "content": "What's my name?"}
+]
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Roles}]
+\begin{itemize}\small
+  \item \texttt{user}: Human messages
+  \item \texttt{assistant}: LLM responses
+  \item \texttt{system}: Instructions (special)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{baritemize}\small
+  \item Each message has role + content
+  \item Order matters (chronological)
+  \item Send full list each API call
+\end{baritemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The System Prompt}
+\begin{shadedbox}
+The \textbf{system prompt} is a special message that defines the chatbot's personality, knowledge, and behavior. It's the key to customization.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Does}]
+\begin{itemize}\small
+  \item Sets the chatbot's persona
+  \item Defines its expertise
+  \item Specifies response style
+  \item Adds domain knowledge
+  \item Sets guardrails/rules
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Placement}]
+\begin{itemize}\small
+  \item First message in the list
+  \item Role is \texttt{system}
+  \item Sent with every API call
+  \item User never sees it directly
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{System Prompt Examples}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Finance Tutor}]\small
+\begin{verbatim}
+You are a patient finance
+tutor. Explain concepts
+simply. Use examples with
+real companies. Always
+check understanding before
+moving on.
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Investment Analyst}]\small
+\begin{verbatim}
+You are a senior equity
+analyst. Be concise and
+data-driven. Always cite
+sources. Flag risks and
+uncertainties clearly.
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\alert{The system prompt transforms a generic LLM into a specialized assistant}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Complete Message Structure}
+\begin{shadedbox}[title=\textbf{Messages with System Prompt}]
+\begin{verbatim}
+messages = [
+    {"role": "system", "content": "You are a helpful
+        finance tutor..."},
+    {"role": "user", "content": "What is a P/E ratio?"},
+    {"role": "assistant", "content": "A P/E ratio is..."},
+    {"role": "user", "content": "How do I interpret it?"}
+]
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}\small
+  \item System prompt stays at the beginning
+  \item User and assistant messages alternate
+  \item Entire list sent with each API call
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Putting It All Together}
+\begin{shadedbox}[title=\textbf{Chatbot Architecture}]
+\begin{center}
+\begin{tabular}{cl}
+\textbf{Component} & \textbf{Purpose} \\
+\midrule
+System Prompt & Defines chatbot personality/expertise \\
+Message List & Stores conversation history \\
+Loop & Continuously gets input, calls API, shows output \\
+API Call & Sends messages, receives response \\
+\end{tabular}
+\end{center}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\alert{These four components create any custom chatbot}
+\end{center}
+\end{frame}
+
+\begin{frame}{Exercise: Build a Finance Chatbot}
+\begin{shadedbox}
+Build and deploy a Streamlit chatbot using OpenRouter and a free model.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Requirements}]
+\begin{itemize}\small
+  \item Custom system prompt
+  \item Conversation history
+  \item Streamlit interface
+  \item Deploy to Koyeb
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Ask Claude}]
+``Create a Streamlit chatbot app using OpenRouter with [model]. Make it a [describe persona]. Deploy to Koyeb.''
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Key Concepts}]
+\begin{itemize}\small
+  \item API calls send prompts to LLMs
+  \item LLMs have no memory
+  \item You must send full history
+  \item System prompt customizes behavior
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Building Blocks}]
+\begin{itemize}\small
+  \item OpenRouter API
+  \item Message list (history)
+  \item Conversation loop
+  \item System prompt
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\begin{shadedbox}[width=0.8\textwidth]
+\centering
+\alert{A chatbot = Loop + History + System Prompt + API}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
 \end{document}
