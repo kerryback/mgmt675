@@ -10,7 +10,10 @@ Download the installer package for your operating system. Each package includes 
 - VS Code
 - Git
 - GitHub CLI
+- GitHub Copilot CLI
 - Node.js
+- Quarto
+- TinyTeX
 - Claude Code
 - Koyeb CLI
 
