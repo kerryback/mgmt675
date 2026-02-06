@@ -12,6 +12,7 @@ build/
 develop-eggs/
 dist/
 !class-setup/dist/
+!docs/class-setup/dist/
 downloads/
 eggs/
 .eggs/
