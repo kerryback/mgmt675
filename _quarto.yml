@@ -11,7 +11,7 @@ project:
     - .nojekyll
     - slides/*.pdf
     - class-setup/dist/*.zip
-    - exercises/*
+    - files/*
 
 website:
   title: ""
