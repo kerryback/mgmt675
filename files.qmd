@@ -1,0 +1,15 @@
+---
+title: Data
+---
+
+## Exercise Data Files
+
+Click on a file to download the data.
+
+| # | File | Description | |
+|--:|------|-------------|:-:|
+| 1 | [betas.xlsx](files/betas.xlsx) | CAPM beta estimation | [{{< fa file-excel >}}](files/betas.xlsx) |
+| 2 | [meanvariance.xlsx](files/meanvariance.xlsx) | Mean-variance optimization | [{{< fa file-excel >}}](files/meanvariance.xlsx) |
+| 3 | [prices-dividends.xlsx](files/prices-dividends.xlsx) | Stock prices and dividends data | [{{< fa file-excel >}}](files/prices-dividends.xlsx) |
+| 4 | [statements.xlsx](files/statements.xlsx) | Financial statements | [{{< fa file-excel >}}](files/statements.xlsx) |
+| 5 | [aggregation.zip](files/aggregation.zip) | Data aggregation exercise | [{{< fa file-zipper >}}](files/aggregation.zip) |
