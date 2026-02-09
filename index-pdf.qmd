@@ -1,15 +1,26 @@
+---
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \definecolor{tomato}{RGB}{255,99,71}
+---
 
-## AI-Assisted Financial Analysis<br>Spring 2026<br><br>![](RiceBusiness-transparent-logo-sm.png){width=40%} 
+## AI-Assisted Financial Analysis\newline Spring 2026
+
+![](RiceBusiness-transparent-logo-sm.png){width=40%}
 
 
 ### Instructor
 
-[Kerry Back](https://kerryback.com)<br> (<a href="mailto:kerryback@gmail.com">kerryback@gmail.com)</a><br>
+[Kerry Back](https://kerryback.com)\
+[kerryback@gmail.com](mailto:kerryback@gmail.com)\
 J. Howard Creekmore Professor of Finance and Professor of Economics
 
 ### Meeting Schedule
 
-TTh 12:30 -- 2:00<br>
+TTh 12:30 -- 2:00\
 3/17/2026 -- 4/23/2026
 
 ##### Special sessions:
@@ -43,11 +54,9 @@ All sessions will be in McNair 212, including the special sessions.
 12. Databases
 
 
-
-
 ### Grading
 
-Grades will be based on six group projects (10% each), a group presentation (20%), and peer assessments (20%). The presentations will be on April 28 during exam week.  
+Grades will be based on six group projects (10% each), a group presentation (20%), and peer assessments (20%). The presentations will be on April 28 during exam week.
 
 The projects are as follows.  Details will be posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28.
 
@@ -64,7 +73,7 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).
 
 ### Honor Code
 
-The Rice University honor code applies to all work in this course.  
+The Rice University honor code applies to all work in this course.
 
 ### Disability Accommodations
 
@@ -72,8 +81,3 @@ Any student with a documented disability requiring accommodations in this course
 contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations
 regarding assignments or the final exam must be made in advance. Students with disabilities
 should also contact Disability Support Services in the Allen Center.
-
-
-
-
-

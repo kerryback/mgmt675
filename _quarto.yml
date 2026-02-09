@@ -6,12 +6,14 @@ project:
     - slides.qmd
     - files.qmd
     - software.qmd
+    - index-pdf.qmd
   resources:
     - CNAME
     - .nojekyll
     - slides/*.pdf
     - class-setup/dist/*.zip
     - files/*
+    - index-pdf.pdf
 
 website:
   title: ""
