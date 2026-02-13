@@ -8,6 +8,7 @@ project:
     - files.qmd
     - software.qmd
     - index-pdf.qmd
+    - exercises.qmd
   resources:
     - CNAME
     - .nojekyll

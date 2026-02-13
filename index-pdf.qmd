@@ -7,7 +7,7 @@ format:
         \definecolor{tomato}{RGB}{255,99,71}
 ---
 
-## AI-Assisted Financial Analysis\newline Spring 2026
+## Generative AI for Finance\newline Spring 2026
 
 ![](RiceBusiness-transparent-logo-sm.png){width=40%}
 
@@ -33,45 +33,44 @@ All sessions will be in McNair 212, including the special sessions.
 ### Learning Objectives
 
 1. How to use AI with code-execution tools to perform financial analysis and generate spreadsheets, reports, and presentations
-2. How to use AI with code-execution tools to search, organize, and filter data and text
-3. How to collaborate with AI in planning and evaluating work
-4. How custom chatbots and AI agents work and are used in finance
-5. How to use AI with code-execution tools as general agents
+2. How to use AI with other tools -- terminal execution, browser control, database connections -- for finance applications
+3. How to collaborate with AI in planning, executing, and evaluating financial analysis
+4. How AI agents can automate repetitive tasks in finance
+5. Methods for reducing the hallucination rate of AI
+6. How AI can be used in trading
 
-### Course Topics
+### Course Description
 
-1. Claude.ai/Desktop
-2. Mean-Variance Optimization
-3. Google Gemini in Colab
-4. Model Context Protocol
-5. Claude Cowork
-6. Claude Desktop in Code Mode
-7. Claude Add-In for Excel
-8. Claude Skills
-9. Claude Code in VS Code
-10. Discounted Cash Flow Analysis
-11. Retrieval Augmented Generation
-12. Fine-Tuning and Small Language Models
-13. Building an AI Agent
-14. Trading on News with AI
+The course is about financial applications of generative AI.  We will discuss and use current AI tools but also discuss broader concepts of AI and how they relate to finance.  The course will be "hands-on."  We will be working in class on laptops each day.
 
+We will use Anthropic's Claude throughout the course.  Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork).  Claude has also generally led all other models in coding tasks for the past two years.  We will also briefly look at ChatGPT, Gemini, and other large language models.
+
+The following lists the course topics in the order that we will study them.  This is not a "by day" schedule.  In discussing each AI tool, we will see how it can be used in financial analysis.  The financial topics that we will cover are ones you have already seen in the core Finance course and the Applied Finance course that are prerequisites.  The two topics on which we will spend the most time are mean-variance analysis and discounted cash flow valuation of companies.
+
+1. AI that writes and executes code 
+2. AI coding for mean-variance analysis
+3. Executing AI-written code in Jupyter notebooks
+4. Connecting tools to AI
+5. Connecting a virtual machine to AI
+6. Connecting your computer to AI
+7. Using AI inside Excel
+8. Automated as-needed loading of specialized prompts
+9. Using AI inside an integrated development environment (IDE)
+10. Using AI for discounted cash flow valuation of companies
+11. Retrieval augmented generation
+12. Fine-tuning and small language models
+13. Building an AI agent
+14. Trading on news with AI
 
 ### Grading
 
-Grades will be based on six group projects (10% each), a group presentation (20%), and peer assessments (20%). The presentations will be on April 28 during exam week.
+Grades will be based on six group projects (10% each), a group presentation (20%), and peer assessments (20%). Groups can consist of no more than five students.  The presentations will be on April 28 during exam week.
 
-The projects are as follows.  Details will be posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28.
-
-1.  Organizing and filtering text and data
-2.  Mean-variance analysis
-3.  Simulation
-4.  DCF analysis
-5.  Claude skill for DCF analysis
-6.  Agent for DCF analysis
+The assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28.
 
 ### Claude Accounts
 
-Each student will be reimbursed for a Claude Pro account ($20 per month).
+Each student will be reimbursed for a Claude Pro account ($20 per month).  The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel, all through the Claude Sonnet model.
 
 ### Honor Code
 
