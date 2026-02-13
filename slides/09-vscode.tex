@@ -6,7 +6,7 @@
 \input{mgmt675-style}
 
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Claude Code and Local Execution}
+\title{Claude Code in VS Code}
 \author{Kerry Back}
 
 \date{}
@@ -17,28 +17,9 @@
 \maketitle
 
 % ========================================
-% SECTION 1: LOCAL EXECUTION
+% SECTION 1: VS CODE BASICS
 % ========================================
-
-\begin{frame}[plain]
-\begin{columns}[c]
-\begin{column}{0.65\textwidth}
-\centering
-{\fontsize{48}{52}\selectfont\bfseries Local Execution}
-\end{column}
-\begin{column}{0.35\textwidth}
-\centering
-\includegraphics[height=\textheight]{images/local_execution.png}
-\end{column}
-\end{columns}
-\end{frame}
-
-
-
-
-% ========================================
-% SECTION 2: VS CODE BASICS
-% ========================================
+\section{VS Code Basics}
 
 \begin{frame}{What is VS Code?}
 \begin{baritemize}
@@ -142,29 +123,45 @@
 \end{center}
 \end{frame}
 
-\begin{frame}{Other VS Code Features}
+\begin{frame}{Navigating VS Code}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Useful Panels}]
+\begin{shadedbox}[title=\textbf{Activity Bar (Left Edge)}]
 \begin{itemize}\small
-  \item \textbf{Explorer}: View $\rightarrow$ Explorer (or click folder icon)
-  \item \textbf{Terminal}: View $\rightarrow$ Terminal
-  \item \textbf{Command Palette}: Ctrl+Shift+P
+  \item \textbf{Explorer} (folder icon) --- browse and open files
+  \item \textbf{Search} (magnifying glass) --- find text across files
+  \item \textbf{Extensions} (blocks icon) --- install add-ons
+  \item Click an icon to toggle its panel open/closed
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Dark Mode}]
+\begin{shadedbox}[title=\textbf{Essential Actions}]
 \begin{itemize}\small
-  \item File $\rightarrow$ Preferences $\rightarrow$ Theme $\rightarrow$ Color Theme
-  \item Choose a dark theme
+  \item \textbf{Open file}: click it in Explorer, or Ctrl+O
+  \item \textbf{Open folder}: File $\rightarrow$ Open Folder
+  \item \textbf{Open terminal}: Ctrl+\textasciigrave{} \;(backtick)
+  \item \textbf{Command Palette}: Ctrl+Shift+P --- search any command
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
-\vspace{0.5cm}
+\vspace{0.3cm}
 \begin{shadedbox}
-\centering VS Code has many features---you won't need most of the menu items or command palette options for this course.
+\centering VS Code has many features---you won't need most of them for this course. Focus on Explorer, Terminal, and Claude Code.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{VS Code Resources}
+\begin{baritemize}
+  \item \href{https://code.visualstudio.com/docs/getstarted/getting-started}{Official Tutorial: Get Started with VS Code} --- interactive walkthrough
+  \item \href{https://code.visualstudio.com/docs/getstarted/introvideos}{Introductory Videos} --- short official videos (7 min setup, 3 min editing, 4 min tips)
+  \item \href{https://learn.microsoft.com/en-us/shows/visual-studio-code/learn-visual-studio-code-in-7min-official-beginner-tutorial}{Learn VS Code in 7 Minutes} --- Microsoft Learn video
+  \item \href{https://code.visualstudio.com/docs}{VS Code Documentation} --- full reference
+\end{baritemize}
+\vspace{0.3cm}
+\begin{shadedbox}
+\centering You don't need to master VS Code.  Just learn to open folders, open files, and use the terminal. Claude Code handles the rest.
 \end{shadedbox}
 \end{frame}
 

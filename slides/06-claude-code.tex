@@ -21,7 +21,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Claude Code}
+\title{Claude Desktop in Code Mode}
 \author{Kerry Back}
 \date{}
 
@@ -496,25 +496,12 @@ Wait for the 5-hour reset, or fall back to Chat + Artifacts (much lower token co
 % ============================================================
 \section{Exercises}
 
-\begin{frame}{Exercise: Aggregating Tables}
-\begin{baritemize}
-\item Download aggregation.zip into the folder open in VS Code.
-\item Extract all the workbooks in the zip file.
-\item Each workbook contains a table with similar data.  Some tables are missing some columns and the names of some of the columns vary somewhat across the tables.  Ask Claude Code to combine the tables into a single table, to include all columns, and to reconcile the varying names.
-\end{baritemize}
-
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/files/aggregation.zip}{Data for Exercise}
-\end{shadedbox}
-\end{center}
-\end{frame}
-
 \begin{frame}{Exercise: Invoice Reconciliation}
 \begin{baritemize}
-\item Download exercise2\_invoices.zip into the folder open in VS Code.
+\item Download exercise2\_invoices.zip into your project folder.
 \item Extract the files.  You will have an invoice register (PDF), a payment log (xlsx), and a vendor disputes memo (docx).
-\item Ask Claude Code to extract the invoice table from the PDF, match invoices to payments (handling inconsistent reference formats), and identify which invoices are fully paid, partially paid, or unpaid.
+\item In Claude Desktop, go to Code $\rightarrow$ Local and select your project folder.
+\item Ask Claude to extract the invoice table from the PDF, match invoices to payments (handling inconsistent reference formats), and identify which invoices are fully paid, partially paid, or unpaid.
 \item Ask it to apply the dispute resolutions from the memo and produce a reconciliation summary with the total outstanding amount.
 \end{baritemize}
 

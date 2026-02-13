@@ -45,10 +45,10 @@ All sessions will be in McNair 212, including the special sessions.
 3. Google Gemini in Colab
 4. Model Context Protocol
 5. Claude Cowork
-6. Claude Code
+6. Claude Desktop in Code Mode
 7. Claude Add-In for Excel
 8. Claude Skills
-9. Claude Code and Local Execution
+9. Claude Code in VS Code
 10. Discounted Cash Flow Analysis
 11. Retrieval Augmented Generation
 12. Fine-Tuning and Small Language Models
