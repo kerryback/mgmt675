@@ -16,6 +16,7 @@ project:
     - class-setup/dist/*.zip
     - files/*
     - index-pdf.pdf
+    - exercises.pdf
 
 website:
   title: ""
