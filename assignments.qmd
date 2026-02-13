@@ -1,51 +1,118 @@
-## Assignments<br>AI-Assisted Financial Analysis<br>Rice University
+---
+title: Assignments
+---
 
-::: {.callout-note appearance="default" icon="false"}
-# Assigment 1
+All assignments are group projects.  Each is due on Tuesday at 11:59 pm.  Submit a Word document or PDF to Canvas.
 
-You plan to put $8,000 in your retirement account next year.  You expect this amount to grow by 3% per year for 30 years.  You then hope to withdraw $100,000 per year for 30 years.  You currently have no savings.  You hope to make 8% on your investments and will make depsoits and withdrawals at the end of each year.
+## Assignment 1: Working with Unstructured Data
 
-(a) Ask Julius to create a table containing the balance at the beginning of each year, the gain on the investment account each year, the deposit or withdrawal each year, and the ending balance each year.  Ask Julius to save the table as an excel file.
+Due March 24.
 
-(b) Ask Julius to plot the account balance by year and save it as a jpeg.
+Each exercise below asks you to use Claude Code to extract, reconcile, and analyze data from multiple file formats (xlsx, csv, PDF, and docx).  Download each zip file into the folder open in VS Code, extract the files, and follow the instructions.
 
-(c) Now tell Julius to simulate 1,000 possible lifetimes by drawing the return each year and in each simulation from a normal distribution with a mean of 8% and a standard deviation of 15%.  What is the mean ending balance and what is the median ending balance?
+### Exercise 1: Loan Portfolio Risk Filtering
 
-(d) Ask Julius to create a histogram of the simulated ending account balances and to save it as a jpeg.
+You have a loan tape (xlsx) with 220 loans, a state regulations document (PDF) with regulatory thresholds embedded in narrative text, and an internal risk policy (docx) with a 4-tier classification system.
 
-(e) Create a report describing the exercise and including the table and figures and information learned.  You can ask Julius to write the report, but you are responsible for checking it.  
+1. Ask Claude Code to extract the state-specific regulatory rules (LTV caps, FICO thresholds, DTI limits) from the PDF.
+2. Ask it to extract the risk tier criteria from the Word doc.
+3. Ask it to assign each loan a risk tier per the internal policy, apply state-specific regulatory flags, and check for special conditions (concentration risk, vintage risk, rate risk).
+4. Ask for a risk report showing tier distribution, state breakdown, flagged loans, and total reserves needed.
 
-Due by midnight, Sunday, March 17.  Submit a docx or pdf file to canvas.  
-:::
+[{{< fa file-zipper >}} Download exercise3_loans.zip](files/exercise3_loans.zip)
 
-::: {.callout-note appearance="default" icon="false"}
-# Assigment 2
+### Exercise 2: Financial Statement Assembly
 
-Estimate the WMT cost of equity capital using the following data sources: adjusted closing prices from Yahoo, MKT-RF and RF from the monthly and annual Fama-French factors files from Ken French's data library, and the 1-month T-bill rate from FRED.  Get the 1-month T-bill rate on March 1, 2024.  Use the last 120 months for which all variables are present to compute the beta (remember to subtract RF from the WMT return before running the regression).  In general, follow our March 19 conversations.  Write a brief report of your results.  Include a scatter plot with excess WMT returns (return minus risk-free rate) on the y axis and MKT-RF on the x axis.  Include the regression line in the scatter plot.
+You have an income statement (xlsx) with non-standard labels, a balance sheet (PDF), a CFO memo (docx) with cash flow figures embedded in narrative paragraphs, and prior-year financials (csv) with abbreviated headers.
 
-Due by midnight, Sunday, March 24.  Submit a docx or pdf file to Canvas.
-:::
+1. Ask Claude Code to extract all financial data from the four files, mapping non-standard and abbreviated labels to GAAP line items.
+2. Ask it to construct a Statement of Cash Flows from the CFO memo.
+3. Ask it to build a comparative 2-year financial summary (2022 vs 2023).
+4. Ask for key metrics: gross margin, operating margin, net margin, current ratio, debt-to-equity, and YoY growth rates.
 
+[{{< fa file-zipper >}} Download exercise4_financials.zip](files/exercise4_financials.zip)
 
-::: {.callout-note appearance="default" icon="false"}
-# Assigment 3
+### Exercise 3: M&A Due Diligence
 
-- Ask Julius to explain XGBoost, GridSearchCV, and R-squareds.
+You have a target company's customer list with contract details and quarterly revenue (xlsx), detailed contract terms for top customers (PDF), acquirer screening criteria (docx), and industry benchmarks (csv).
 
-- Ask Julius to use xgboost to predict MEDV using the other features in the Boston house price data (ask Julius to get the data from sklearn).  Use GridSearchCV to choose the max depth and the learning rate.  Get the R-squareds on the training data and on the test data.
+1. Ask Claude Code to extract contract terms from the PDF, including change-of-control provisions, termination terms, and expiry dates.
+2. Ask it to apply the acquirer's screening criteria from the Word doc to each customer.
+3. Ask it to calculate retention probabilities, compute quality-adjusted revenue, and identify critical change-of-control risk contracts.
+4. Ask for a due diligence summary with customer concentration analysis and comparison against industry benchmarks.
 
-- Save the conversation as a notebook.  Edit the text cells (in Google Colab or however you prefer) to include the explanations and a summary of the results, but remove the chat identifiers.
+[{{< fa file-zipper >}} Download exercise5_manda.zip](files/exercise5_manda.zip)
 
-- Save the notebook as a pdf and submit to Canvas.
+## Assignment 2: Mean-Variance Analysis
 
-Due by midnight, Monday, April 8.  
-:::
+Due March 31.
 
+Download meanvariance.xlsx, which contains monthly returns for five ETFs: SPY (U.S. stocks), EFA (international stocks), IEF (U.S. bonds), GLD (gold), and UUP (U.S. dollar).  Place the file in the folder open in VS Code.
 
-::: {.callout-note appearance="default" icon="false"}
-# Assigment 4
+1. Ask Claude Code to compute annualized mean returns and standard deviations for each ETF and to produce a correlation matrix.
+2. Ask it to find the tangency portfolio using a risk-free rate of 4.5% and to report the portfolio weights, expected return, standard deviation, and Sharpe ratio.
+3. Ask it to plot the efficient frontier of the five risky assets and the capital allocation line from the risk-free rate through the tangency portfolio.
+4. Ask it to generate a Word document containing the statistics, portfolio weights, chart, and a brief interpretation of the results.
 
-Train at least two different models (random forest, xgboost, neural network, ridge regression, ...) to predict the sale price in house_prices.xlsx.  Use at least 3 variables as predictors (features), including at least one categorical variable.  For each model, create a pipeline including the model that applies one hot encoder to the categorical variables and standard scaler to the numeric variables.  Apply GridSearchCV to the pipeline to find at least one hyperparameter for each model and get the average validation score for the best hyperparameters.  Select a model and hyperparameter based on the best average validation score.  Find the R-squared on the test data.  Retrain the model on the entire dataset and save the fitted model.  Save your chat as a notebook.  Convert the notebook to pdf and submit to Canvas.
+[{{< fa file-excel >}} Download meanvariance.xlsx](files/meanvariance.xlsx)
 
-Due by midnight, Sunday, April 14.  
-:::
+## Assignment 3: Simulation
+
+Due April 7.
+
+Use the tangency portfolio weights from Assignment 2.  Assume a risk-free rate of 4.5%, the annualized mean return and standard deviation from Assignment 2, and that annual returns are normally distributed.
+
+1. Ask Claude Code to simulate 10,000 paths of cumulative portfolio wealth over 20 years, starting with $100,000.  Assume the portfolio is rebalanced annually to the tangency weights.
+2. Ask it to plot a fan chart showing the median path and the 5th, 25th, 75th, and 95th percentile paths.
+3. Now suppose you withdraw $6,000 per year (at the end of each year), growing at 2% per year for inflation.  Ask Claude Code to simulate 10,000 paths and compute the probability that the portfolio is exhausted before 20 years.
+4. Ask Claude Code to find (by trial and error or optimization) the maximum initial annual withdrawal (growing at 2% per year) such that the probability of exhaustion within 20 years is at most 5%.
+5. Ask it to generate a Word document containing the fan chart, the probability of exhaustion, the maximum safe withdrawal amount, and a discussion of the results.
+
+## Assignment 4: DCF Analysis
+
+Due April 14.
+
+Download statements.xlsx, which contains the income statement, balance sheet, and cash flow statement for a company for 2021--2024.  Place the file in the folder open in VS Code.
+
+1. Ask Claude Code to compute free cash flow for each year.  Free cash flow is operating cash flow minus capital expenditures.
+2. Ask Claude Code to project free cash flows for the next five years (2025--2029) using reasonable growth assumptions based on the historical trends.  Ask it to explain and justify the assumptions.
+3. Ask it to estimate a terminal value at the end of 2029 using a perpetuity growth model.  Use a long-run growth rate of 3% and a discount rate (weighted average cost of capital) of 10%.
+4. Ask it to discount all projected free cash flows and the terminal value back to the present at the 10% discount rate to obtain the enterprise value.
+5. Using the most recent balance sheet, ask it to subtract net debt (total debt minus cash) from the enterprise value to obtain the equity value, and divide by shares outstanding to get the per-share value.
+6. Ask it to generate a Word document with the historical free cash flows, projected free cash flows, valuation summary, and a sensitivity table showing how the per-share value changes with different discount rates (8%, 9%, 10%, 11%, 12%) and terminal growth rates (2%, 2.5%, 3%, 3.5%, 4%).
+
+[{{< fa file-excel >}} Download statements.xlsx](files/statements.xlsx)
+
+## Assignment 5: Claude Skill for DCF Analysis
+
+Due April 21.
+
+Create a Claude Code skill that automates DCF analysis.  The skill should work for any company, given a statements file in the same format as statements.xlsx.
+
+1. Create a skill folder at `.claude/skills/dcf/` with a `SKILL.md` file.
+2. The skill's system prompt should instruct Claude Code to:
+    - Read the financial statements from an uploaded file
+    - Compute historical free cash flows
+    - Project future free cash flows based on historical trends
+    - Estimate terminal value using a perpetuity growth model
+    - Compute enterprise value, equity value, and per-share value
+    - Generate a Word document with the full analysis, including a sensitivity table
+3. The skill should accept parameters for the discount rate, terminal growth rate, and projection horizon, with sensible defaults (10%, 3%, and 5 years).
+4. Test the skill on statements.xlsx and verify the results are consistent with Assignment 4.
+5. Submit the SKILL.md file and the Word document produced by the skill.
+
+## Assignment 6: Agent for DCF Analysis
+
+Due April 28.
+
+Build and deploy a Streamlit app that functions as an agent for DCF analysis.  The app should allow a user to upload financial statements, set assumptions, and receive a complete DCF valuation.
+
+1. Ask Claude Code to create a Streamlit app with:
+    - A file uploader for the financial statements (xlsx)
+    - Input fields for the discount rate, terminal growth rate, and projection horizon
+    - A button to run the analysis
+    - Display of the results: historical free cash flows, projections, valuation summary, and sensitivity table
+    - A downloadable Word document with the full report
+2. The app should use the OpenRouter API with a free model to generate the narrative discussion sections of the report.
+3. Create a GitHub repository for the app and deploy it to Koyeb.
+4. Submit the public URL of the deployed app and a Word document describing the app's architecture, including how the system prompt, tools, and agent loop work together (referencing the concepts from class).

@@ -1,0 +1,290 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Fine-Tuning and Small Language Models}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================
+% OVERVIEW
+% ============================================================
+\begin{frame}{Beyond RAG}
+\begin{baritemize}
+  \item RAG injects knowledge at query time without changing the model
+  \item But what if you need the model itself to behave differently?
+  \item Two approaches, in order of increasing effort and control:
+  \begin{enumerate}
+    \item \textbf{Fine-tuning} --- adjust a pre-trained model's weights
+    \item \textbf{Training a small language model} --- build from scratch on your data
+  \end{enumerate}
+\end{baritemize}
+\end{frame}
+
+% ============================================================
+% FINE-TUNING
+% ============================================================
+\section{Fine-Tuning}
+
+\begin{frame}{What is Fine-Tuning?}
+\begin{shadedbox}
+\textbf{Fine-tuning} = take a pre-trained LLM and continue training it on a smaller, task-specific dataset. The model's weights are updated to reflect new patterns.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item Starts from a capable base model (e.g., GPT-4, Llama, Mistral)
+  \item Additional training on curated examples teaches style, format, or domain knowledge
+  \item The result is a customized model that ``just knows'' your domain
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{How Fine-Tuning Works}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=3.5cm, minimum height=0.9cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (base) {Pre-trained\\LLM};
+\node[sbox, right=of base] (data) {Training Data\\(prompt/response pairs)};
+\node[sbox, right=of data] (train) {Fine-Tune\\(update weights)};
+\node[sbox, below=1cm of train] (model) {Customized\\Model};
+
+\draw[sarrow] (base) -- (data);
+\draw[sarrow] (data) -- (train);
+\draw[sarrow] (train) -- (model);
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item Training data: hundreds to thousands of example prompt/response pairs
+  \item Often uses parameter-efficient methods (LoRA) --- only a small fraction of weights are updated
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Fine-Tuning in Finance}
+\begin{baritemize}
+  \item \textbf{Report generation} --- train the model to produce reports in your firm's style and format
+  \item \textbf{Sentiment analysis} --- fine-tune on labeled financial text (earnings calls, news)
+  \item \textbf{Classification} --- categorize transactions, flag compliance issues
+  \item \textbf{Code generation} --- specialize for your internal tools, databases, or APIs
+  \item \textbf{Client communication} --- match your firm's tone and terminology
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Fine-Tuning: Strengths and Limitations}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Strengths}]
+\begin{itemize}\small
+  \item Domain knowledge baked into the model
+  \item Consistent style and format without long prompts
+  \item Often faster inference (no retrieval step)
+  \item Can improve accuracy on specific tasks
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Limitations}]
+\begin{itemize}\small
+  \item Requires curated training data
+  \item Model can ``forget'' general capabilities (catastrophic forgetting)
+  \item Expensive to retrain as data changes
+  \item Can hallucinate confidently on topics outside training
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================
+% SMALL LANGUAGE MODELS
+% ============================================================
+\section{Training Small Language Models}
+
+\begin{frame}{What is a Small Language Model?}
+\begin{shadedbox}
+A \textbf{small language model (SLM)} is a language model trained from scratch (or heavily adapted) on a focused corpus. It trades general capability for efficiency and domain specificity.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item Typically 1--10 billion parameters (vs.\ hundreds of billions for frontier LLMs)
+  \item Trained on domain-specific data: financial filings, legal documents, medical records, etc.
+  \item Can run on modest hardware --- even a single GPU or CPU
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Why Train a Small Model?}
+\begin{baritemize}
+  \item \textbf{Privacy} --- data never leaves your infrastructure
+  \item \textbf{Cost} --- much cheaper to run than large cloud-hosted models
+  \item \textbf{Speed} --- low latency for real-time applications
+  \item \textbf{Control} --- full ownership of the model and its behavior
+  \item \textbf{Specialization} --- a small model trained on your data can outperform a general LLM on your specific tasks
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{SLMs in Finance}
+\begin{baritemize}
+  \item \textbf{BloombergGPT} --- 50B parameter model trained on financial data (news, filings, Bloomberg terminal data)
+  \item \textbf{FinGPT} --- open-source financial LLM for sentiment analysis, forecasting
+  \item \textbf{Internal models} --- banks training proprietary models on transaction data, risk reports, internal communications
+  \item \textbf{On-device models} --- running locally for privacy-sensitive tasks (client data, trading signals)
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{SLMs: Strengths and Limitations}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Strengths}]
+\begin{itemize}\small
+  \item Full data privacy and control
+  \item Low inference cost at scale
+  \item Can excel at narrow tasks
+  \item No vendor lock-in
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Limitations}]
+\begin{itemize}\small
+  \item Requires significant ML expertise
+  \item Large training data requirements
+  \item Limited general reasoning ability
+  \item Ongoing maintenance burden
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================
+% HANDS-ON: TRAINING A TINY LANGUAGE MODEL
+% ============================================================
+\section{Hands-On: Training a Tiny Language Model}
+
+\begin{frame}{Why Train One Yourself?}
+\begin{baritemize}
+  \item Training a model yourself --- even a tiny one --- builds intuition for how LLMs work
+  \item Key concepts become concrete: tokenization, attention, loss, overfitting
+  \item A model with $<$1M parameters can train on your laptop's CPU in minutes
+\end{baritemize}
+\vspace{0.3cm}
+\begin{shadedbox}
+Belcak et al.\ (2025) argue that small, specialized models are more economical and often sufficient for agentic AI tasks that are performed repetitively.\\[4pt]
+\small\url{https://arxiv.org/abs/2506.02153}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Resources: Karpathy's \textit{Zero to Hero}}
+\begin{baritemize}
+  \item Andrej Karpathy's video lecture series builds a GPT from an empty file
+  \item The key lecture: \textit{Let's build GPT: from scratch, in code, spelled out} (2 hrs)
+  \item Covers attention, positional encoding, layer normalization, training loops
+  \item Course page: \url{https://karpathy.ai/zero-to-hero.html}
+\end{baritemize}
+\vspace{0.3cm}
+We will try two exercises:
+\begin{barenumerate}
+  \item \textbf{nanoGPT on Shakespeare} --- a quick demo you can run in minutes
+  \item \textbf{GPT from scratch in a notebook} --- a deeper, step-by-step walkthrough
+\end{barenumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise 1: nanoGPT on Shakespeare}
+\begin{shadedbox}
+Train a $\sim$0.8M-parameter character-level GPT on Shakespeare's complete works using Karpathy's \textbf{nanoGPT} (\url{https://github.com/karpathy/nanoGPT}).
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{baritemize}
+  \item Prepare data, then train on CPU:
+\end{baritemize}
+\vspace{0.1cm}
+{\small
+\begin{verbatim}
+  python data/shakespeare_char/prepare.py
+  python train.py config/train_shakespeare_char.py \
+    --device=cpu --compile=False --eval_iters=20 \
+    --block_size=64 --batch_size=12 --n_layer=4  \
+    --n_head=4 --n_embd=128 --max_iters=2000     \
+    --lr_decay_iters=2000 --dropout=0.0
+\end{verbatim}
+}
+\vspace{0.1cm}
+\begin{baritemize}
+  \item Trains in a few minutes on a laptop CPU
+  \item The model generates pseudo-Shakespearean text
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: GPT from Scratch in a Single Notebook}
+\begin{shadedbox}
+Walk through a complete GPT implementation in one Jupyter notebook:\\
+\url{https://github.com/kevinpdev/gpt-from-scratch}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item A single notebook (\texttt{llm-from-scratch.ipynb}) covers end to end:
+  \begin{itemize}
+    \item \textbf{Tokenization} --- converting text to token IDs
+    \item \textbf{Positional encoding} --- telling the model about word order
+    \item \textbf{Self-attention} --- the core mechanism of transformers
+    \item \textbf{Transformer decoder blocks} --- multi-head attention + feedforward
+    \item \textbf{Training loop} --- pretraining and supervised fine-tuning
+    \item \textbf{Inference} --- generating new text from the trained model
+  \end{itemize}
+  \item Runs on CPU --- no GPU required
+\end{baritemize}
+\end{frame}
+
+% ============================================================
+% COMPARISON
+% ============================================================
+\section{Putting It All Together}
+
+\begin{frame}{Comparison}
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+& \textbf{RAG} & \textbf{Fine-Tuning} & \textbf{Train SLM} \\
+\midrule
+Effort to set up & Low & Medium & High \\
+Data requirements & Documents & Labeled examples & Large corpus \\
+Model weights change? & No & Yes & Yes \\
+Data freshness & Real-time & Retrain needed & Retrain needed \\
+Privacy & Data sent to LLM & Data used in training & Fully private \\
+Best for & Fact lookup & Style \& format & Full control \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{These Approaches Are Complementary}
+\begin{baritemize}
+  \item RAG + fine-tuning: a fine-tuned model that also retrieves current documents
+  \item SLM + RAG: a private, domain-specific model augmented with a vector database
+  \item The right choice depends on your data, budget, privacy needs, and use case
+  \item Start simple (RAG), add complexity only when needed
+\end{baritemize}
+
+\vspace{0.3cm}
+\begin{shadedbox}
+\textit{``The best approach is usually the simplest one that meets your requirements.''}
+\end{shadedbox}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,274 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+\usepackage{textcomp}
+
+\input{mgmt675-style}
+
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Google Gemini in Colab}
+\author{Kerry Back}
+
+\date{}
+\titlegraphic{\includegraphics[width=4cm]{images/colab_slide1_img4.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{A Different Approach}
+\begin{shadedbox}\centerline{Code Environment + Chatbot}\end{shadedbox}
+
+\begin{baritemize}
+  \item ChatGPT and Claude: Chatbots with code execution added
+  \item Google Colab: Code execution environment with chatbot added
+  \item Colab started as Jupyter notebooks in the cloud (2017)
+  \item Gemini was integrated into Colab later (2024)
+  \item Philosophy: Write and run code first, use AI to assist
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{What is Google Colab?}
+\begin{baritemize}
+  \item A free tool from Google for running code in your browser
+  \item No software installation required
+  \item Works on any computer with internet access
+  \item All your work saves automatically to Google Drive
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{What You Need}
+\begin{baritemize}
+  \item Just two things:
+  \item A Google account (Gmail works)
+  \item A web browser (Chrome recommended)
+  \item That's it!
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Accessing Colab: From Google Drive}
+Click New $\rightarrow$ More $\rightarrow$ Google Colaboratory
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/colab_slide4_img2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Accessing Colab: Direct}
+\begin{center}
+\begin{shadedbox}
+\centerline{\Large\href{https://colab.research.google.com}{colab.research.google.com}}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\begin{frame}{The Open Notebook Dialog}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/colab_slide6_img2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Opening Notebooks}
+\begin{baritemize}
+  \item Examples: Google's tutorial notebooks
+  \item Recent: Your recently opened notebooks
+  \item Google Drive: Notebooks saved in your Drive
+  \item GitHub: Open notebooks from GitHub repos
+  \item Upload: Upload a .ipynb file
+  \item Click + New notebook to start a fresh notebook
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{The Colab Interface: Notebook + Gemini}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/colab_slide8_img2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{How Notebooks Work}
+\begin{baritemize}
+\item Three elements: notebook, notebook interface (Colab or other), and Python runtime environment
+\item A notebook (.ipynb file) is just a text file
+\item The interface renders the file to create what you see and handles communication with the runtime environment
+\begin{enumerate}
+\item When you run a cell, the code is transmitted to a runtime environment (called a kernel).
+\item The runtime processes and executes your code.
+\item Results flow back to the notebook interface.
+\item The interface renders outputs, visualizations, and any error messages.
+\end{enumerate}
+\end{baritemize}
+
+\end{frame}
+
+\begin{frame}{Navigating a Notebook}
+\begin{baritemize}
+  \item + Code: Add a new code cell
+  \item + Text: Add a text/markdown cell
+  \item Connect: Connect to Google's servers
+  \item Files (folder icon): View and upload files
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{What is a Cell?}
+\begin{baritemize}
+  \item A cell is a box where you write code or text.
+  \item Two types:
+  \item Code cells: Run Python code
+  \item Text cells: Write notes and explanations
+  \item You can have as many cells as you need.
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Your First Code: Simple Math}
+Type 5*3 and press Shift + Enter $\rightarrow$ Result: 15
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/colab_slide12_img2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Your First Code: Hello World}
+Type print('hello world') and press Shift + Enter
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/colab_slide13_img2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Running Code: Three Ways}
+\begin{baritemize}
+  \item Click the play button ($>$) on the left of the cell
+  \item Press Shift + Enter (runs and moves to next cell)
+  \item Press Ctrl + Enter (runs and stays in cell)
+  \item Tip: Shift + Enter is the most common method
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Understanding the Play Button}
+\begin{baritemize}
+  \item Before running:
+  \item Circle with play icon ($>$) - Cell is ready
+  \item While running:
+  \item Spinning circle - Code is executing
+  \item After running:
+  \item Checkmark - Output appears below
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Cell Numbers}
+\begin{baritemize}
+  \item Notice the [1] or [2] next to cells?
+  \item Shows the order cells were run
+  \item Empty [ ] means not yet run
+  \item [*] means currently running
+  \item Important: Can run cells in any order but top to bottom avoids confusion.
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Adding New Cells}
+\begin{baritemize}
+  \item From the toolbar:
+  \item Click + Code for a code cell
+  \item Click + Text for a text cell
+  \item Using keyboard:
+  \item Ctrl + M, B $\rightarrow$ Add cell below
+  \item Ctrl + M, A $\rightarrow$ Add cell above
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Deleting and Moving Cells}
+\begin{baritemize}
+  \item To delete a cell:
+  \item Click the trash icon in the cell toolbar
+  \item Or: Ctrl + M, D
+  \item To move a cell:
+  \item Click the up/down arrows in the cell toolbar
+  \item Or drag and drop the cell
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Meet Gemini: Your AI Assistant}
+Gemini is built into Colab to help you write code
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/colab_slide19_img2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{What Gemini Can Do}
+\begin{baritemize}
+  \item Generate code from plain English descriptions
+  \item Explain what existing code does
+  \item Fix errors in your code
+  \item Suggest improvements
+  \item Answer Python questions
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Runtime: What Powers Your Code}
+\begin{baritemize}
+  \item When you click Connect, Colab gives you a virtual computer:
+  \item CPU (standard processing)
+  \item RAM (memory)
+  \item Disk space
+  \item And optionally: GPU or TPU for machine learning
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Restarting the Runtime}
+If your code isn't working as expected:
+
+\begin{shadedbox}
+\centerline{Runtime $\rightarrow$ Restart runtime}
+\end{shadedbox}
+
+This clears all variables and starts fresh.
+
+Note: You'll need to re-run your cells after restarting
+
+\end{frame}
+
+\begin{frame}{Session Limits}
+\begin{baritemize}
+   \item Sessions disconnect after $\sim$90 minutes idle
+  \item Maximum $\sim$12 hours continuous use
+  \item Limited GPU/TPU hours per week
+\end{baritemize}
+\end{frame}
+
+
+\begin{frame}{Get Started}
+  \begin{barenumerate}
+  \item Ask Gemini to get stock price data from Yahoo Finance and compute daily returns.
+  \item Ask Gemini to generate a boxplot of the daily returns.
+  \item Ask Gemini how you can save the boxplot.
+  \item Ask Gemini how you can save the return data.
+  \item Ask Gemini how yu can save the notebook
+  \end{barenumerate}
+\end{frame}
+
+\begin{frame}{Exercise: Computing Returns}
+\begin{baritemize}
+  \item Download \href{https://kerryback.com/mgmt675/files/prices-dividends.xlsx}{prices-dividends.xlsx} to your Google Drive
+  \item Ask Gemini to mount your Google Drive
+  \item Ask Gemini to compute daily returns including dividends
+  \item Ask Gemini to calculate annualized mean return and volatility
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Exercise: Estimating Betas}
+\begin{baritemize}
+  \item Download \href{https://kerryback.com/mgmt675/files/betas.xlsx}{betas.xlsx} to your Google Drive
+  \item Ask Gemini to mount your Google Drive
+  \item Ask Gemini to estimate betas for each stock using regression
+  \item Ask Gemini to interpret the results
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Exercise: Mean-Variance Analysis}
+\begin{baritemize}
+  \item Download \href{https://kerryback.com/mgmt675/files/meanvariance.xlsx}{meanvariance.xlsx} to your Google Drive
+  \item Ask Gemini to mount your Google Drive
+  \item Ask Gemini to find the tangency portfolio
+  \item Ask Gemini to plot the efficient frontier
+\end{baritemize}
+\end{frame}
+
+\end{document}

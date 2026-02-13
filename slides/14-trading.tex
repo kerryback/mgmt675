@@ -1,0 +1,792 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Trading on News with AI}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% PART 1: MOTIVATION
+% ========================================
+
+\begin{frame}{Why News Moves Markets}
+\begin{shadedbox}
+Asset prices reflect expectations. News changes expectations. The trader who \alert{understands news faster and more accurately} captures the profit.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item Earnings surprises, Fed announcements, M\&A rumors, FDA decisions, geopolitical shocks
+  \item For decades, humans read the news and placed trades
+  \item Quantitative firms began automating this with simple keyword rules in the 2000s
+  \item \alert{LLMs now understand nuance, context, and implication}---a qualitative leap
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{The Evolution of Text-Based Trading}
+\begin{center}
+\small
+\begin{tabular}{@{} l l l @{}}
+\toprule
+\textbf{Era} & \textbf{Method} & \textbf{Capability} \\
+\midrule
+Pre-2010 & Keyword matching & Count positive/negative words \\
+2011 & Loughran-McDonald dictionary & Finance-specific word lists \\
+2018--19 & BERT / FinBERT & Contextual understanding of sentences \\
+2023 & GPT-3.5 / GPT-4 & Zero-shot reasoning about market impact \\
+2024--25 & Fine-tuned SLMs + agents & Domain-optimized, multi-step analysis \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\begin{shadedbox}
+Tetlock (2007) showed media content predicts stock returns. Loughran \& McDonald (2011) showed generic sentiment dictionaries fail on financial text.  LLMs resolve both problems.
+\end{shadedbox}
+\end{frame}
+
+% ========================================
+% PART 2: KEY MODELS
+% ========================================
+\section{The Models}
+
+\begin{frame}{FinBERT: The First Financial Sentiment Model}
+\begin{shadedbox}
+\textbf{FinBERT} (Araci, 2019) = BERT pre-trained on financial text and fine-tuned for 3-class sentiment (positive / negative / neutral).
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Architecture}]
+\begin{itemize}\small
+  \item 110M parameters (BERT-base)
+  \item Pre-trained on financial news and 10-K filings
+  \item Fine-tuned on Financial PhraseBank (4,840 labeled sentences)
+  \item Open source: \texttt{ProsusAI/finbert} on HuggingFace
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Performance}]
+\begin{itemize}\small
+  \item \textasciitilde87\% accuracy on Financial PhraseBank
+  \item 14 pp improvement over vanilla BERT
+  \item Inference in \textasciitilde5--10ms on GPU
+  \item Became the standard baseline for all subsequent financial NLP
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{BloombergGPT and FinGPT}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{BloombergGPT (2023)}]
+\begin{itemize}\footnotesize
+  \item 50B parameters; \textasciitilde\$10M training cost
+  \item Trained on Bloomberg's FinPile (363B tokens) + 345B tokens of general text
+  \item State-of-the-art on financial NLP benchmarks
+  \item \alert{Proprietary}---weights not released
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{FinGPT (2023)}]
+\begin{itemize}\footnotesize
+  \item Open-source (AI4Finance Foundation)
+  \item Fine-tunes Llama, Falcon, etc.\ with LoRA
+  \item Training cost: \alert{under \$300}
+  \item Sentiment analysis, trading signals
+  \item GitHub: \texttt{AI4Finance-Foundation/ FinGPT}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.1cm}
+\begin{center}
+\alert{BloombergGPT proved the concept; FinGPT democratized it}
+\end{center}
+\end{frame}
+
+\begin{frame}{GPT-4 and General-Purpose LLMs}
+\begin{shadedbox}
+General-purpose LLMs (GPT-4, Claude, Gemini) can classify financial sentiment \alert{with zero training data}---just a well-crafted prompt.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Strengths}]
+\begin{itemize}\small
+  \item Understands complex constructs: ``despite strong revenue, guidance was weak'' $\rightarrow$ \alert{negative}
+  \item Handles sarcasm, hedging, implicit sentiment
+  \item Flexible: sentiment + event classification + summarization in one model
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Weaknesses}]
+\begin{itemize}\small
+  \item Latency: 500ms--5s per API call
+  \item Cost: \$30/M input tokens (GPT-4 Turbo)
+  \item Non-deterministic outputs
+  \item Dependency on external API
+  \item Regulatory concerns: data leaves your infrastructure
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% PART 3: RESULTS FROM THE LITERATURE
+% ========================================
+\section{What the Research Shows}
+
+\begin{frame}{Can ChatGPT Forecast Stock Prices?}
+\begin{shadedbox}
+Lopez-Lira \& Tang (2023). Accepted at the \textit{Journal of Finance}.\\
+\small\url{https://arxiv.org/abs/2304.07619}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item 67,586 headlines for 4,138 companies (Oct 2021--Dec 2022)
+  \item GPT-4 achieves \textasciitilde90\% hit rate on initial market reactions
+  \item Long-short strategies based on GPT-4 sentiment:
+  \begin{itemize}
+    \item Overnight news: \alert{Sharpe ratio 2.97}
+    \item Intraday news: \alert{Sharpe ratio 2.63}
+  \end{itemize}
+  \item Stronger for small-cap stocks (less analyst coverage)
+  \item Forecasting ability \alert{increases with model size}---financial reasoning is an ``emerging capability'' of larger LLMs
+  \item Returns \alert{decline over time} as LLM adoption rises $\rightarrow$ markets becoming more efficient
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{LLMs vs.\ Traditional Sentiment Analysis}
+\begin{shadedbox}
+Kirtac \& Germano (2024), \textit{Finance Research Letters}.  965,375 U.S.\ financial news articles, Jan 2010--Jun 2023.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l c c @{}}
+\toprule
+\textbf{Method} & \textbf{Sentiment Accuracy} & \textbf{Long-Short Sharpe} \\
+\midrule
+Loughran-McDonald dictionary & 50.1\% & 1.23 \\
+FinBERT & 72.2\% & 2.07 \\
+BERT & 72.5\% & 2.11 \\
+OPT (GPT-3 family) & \alert{74.4\%} & \alert{3.05} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item OPT produced a \alert{355\% cumulative gain} from Aug 2021 to Jul 2023
+  \item The Loughran-McDonald dictionary shows \textit{no significant relationship} with subsequent returns
+  \item Traditional bag-of-words methods are now effectively obsolete for this task
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{More Key Results}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{GPT-4 vs.\ Human Analysts}]
+\begin{itemize}\footnotesize
+  \item Kim, Muhn \& Nikolaev (2024), Chicago Booth
+  \item GPT-4 given only anonymized financial statements
+  \item \alert{Outperforms the median human analyst} at predicting earnings direction
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Fine-Tuned Small Models}]
+\begin{itemize}\footnotesize
+  \item FinLlama (2024, Imperial College)
+  \item Llama 2 7B fine-tuned with LoRA (4.2M trainable params)
+  \item Outperforms FinBERT by \alert{44.7\%} in cumulative returns
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{shadedbox}[title=\textbf{Multi-Agent Systems}]
+\begin{itemize}\footnotesize
+  \item MarketSenseAI 2.0 (2025): GPT-4 + RAG multi-agent $\rightarrow$ \alert{125.9\% cumulative returns} vs.\ 73.5\% for S\&P 100
+  \item FinCon (NeurIPS 2024): manager-analyst LLM hierarchy outperforms deep-RL approaches
+\end{itemize}
+\end{shadedbox}
+\end{frame}
+
+% ========================================
+% PART 4: IMPLEMENTATION
+% ========================================
+\section{How It Works: Implementation}
+
+\begin{frame}{The News Trading Pipeline}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.2cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2.2cm, minimum height=0.9cm, fill=excelinput, text=titlegray, font=\footnotesize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (ingest) {Data\\Ingestion};
+\node[sbox, right=0.5cm of ingest] (ner) {Entity\\Resolution};
+\node[sbox, right=0.5cm of ner] (sent) {Sentiment\\Extraction};
+\node[sbox, right=0.5cm of sent] (signal) {Signal\\Construction};
+\node[sbox, right=0.5cm of signal] (exec) {Trade\\Execution};
+
+\draw[sarrow] (ingest) -- (ner);
+\draw[sarrow] (ner) -- (sent);
+\draw[sarrow] (sent) -- (signal);
+\draw[sarrow] (signal) -- (exec);
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{baritemize}\small
+  \item \textbf{Data ingestion}: Reuters, Bloomberg, SEC filings, social media
+  \item \textbf{Entity resolution}: ``Apple'' $\rightarrow$ AAPL (not the fruit)
+  \item \textbf{Sentiment extraction}: The LLM's core job
+\end{baritemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{baritemize}\small
+  \item \textbf{Signal construction}: Aggregate, weight by source reliability, normalize
+  \item \textbf{Trade execution}: Route orders to exchanges
+  \item \alert{The LLM replaces steps 2 and 3}
+\end{baritemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{What the LLM Extracts}
+\begin{shadedbox}
+Sentiment is more than positive/negative. A production system classifies along multiple dimensions:
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l l l @{}}
+\toprule
+\textbf{Dimension} & \textbf{Question} & \textbf{Example} \\
+\midrule
+Polarity & Positive, negative, or neutral? & ``Revenue beat estimates'' $\rightarrow$ positive \\
+Magnitude & How strong? & ``Slight miss'' vs.\ ``catastrophic failure'' \\
+Relevance & Is this market-moving? & Routine board meeting $\rightarrow$ low \\
+Novelty & Is this new information? & Rehash of known facts $\rightarrow$ low \\
+Direction & Which asset is affected? & ``AAPL supplier warns'' $\rightarrow$ AAPL \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\begin{center}
+\alert{LLMs handle all five dimensions in a single prompt; traditional methods handle only polarity}
+\end{center}
+\end{frame}
+
+\begin{frame}{Small Models vs.\ Large Models in Production}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Fine-Tuned Small Model}]
+\begin{itemize}\footnotesize
+  \item FinBERT, FinLlama, custom BERT
+  \item Inference: \alert{5--10ms} on GPU
+  \item Deterministic; runs on your infra
+  \item Needs labeled training data
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{General-Purpose LLM}]
+\begin{itemize}\footnotesize
+  \item GPT-4, Claude, Gemini
+  \item Inference: \alert{500ms--5s} via API
+  \item Zero labeled data needed
+  \item Handles nuance; non-deterministic
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{shadedbox}[title=\textbf{The Cascade Architecture (Best Practice)}]
+\begin{enumerate}\footnotesize
+  \item \textbf{Fast path}: FinBERT processes all headlines in real time (\textasciitilde5ms).  High-confidence $\rightarrow$ immediate signals.
+  \item \textbf{Slow path}: Low-confidence items routed to GPT-4 (\textasciitilde1--5s).
+  \item \textbf{Batch path}: End-of-day reprocessing by large model for portfolio review.
+\end{enumerate}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Latency and Alpha Decay}
+\begin{shadedbox}
+\textbf{Alpha decay} = the rate at which a trading signal's profitability diminishes as the market incorporates the information.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l l l l @{}}
+\toprule
+\textbf{Strategy} & \textbf{Latency Budget} & \textbf{Model} & \textbf{Alpha Persists} \\
+\midrule
+HFT / market making & $<$1ms & Keyword lookup & Microseconds \\
+Low-latency systematic & 1--100ms & FinBERT & Seconds--minutes \\
+Event-driven & 100ms--5s & FinBERT + LLM & Minutes--hours \\
+Daily systematic & Minutes--hours & Full LLM pipeline & Hours--days \\
+Fundamental & Hours--days & Deep LLM analysis & Days--weeks \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item You don't need to be the fastest---you need to be \alert{fast enough for the alpha you're targeting}
+  \item Ke, Kelly \& Xiu (2020): news sentiment signals retain significant predictive power for 1--3 days
+\end{baritemize}
+\end{frame}
+
+% ========================================
+% PART 5: EVENT-DRIVEN STRATEGIES
+% ========================================
+\section{Event-Driven Strategies}
+
+\begin{frame}{Types of News Events}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Scheduled Events}]
+\begin{itemize}\small
+  \item \textbf{Earnings releases}: Compare actuals to consensus; analyze management tone on the call
+  \item \textbf{Fed / central bank}: Single word changes carry enormous implications (``patient'' vs.\ ``data dependent'')
+  \item \textbf{Economic data}: CPI, jobs reports, PMI
+  \item LLM advantage: pre-compute templates, fill in on release
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Unscheduled Events}]
+\begin{itemize}\small
+  \item \textbf{M\&A announcements}: Assess deal likelihood and regulatory risk
+  \item \textbf{FDA decisions}: Binary, high-impact
+  \item \textbf{Geopolitical shocks}: Sanctions, trade policy, elections
+  \item \textbf{Activist campaigns}: Detect early signals in 13D filings
+  \item LLM advantage: parse complex, novel situations
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{shadedbox}\small
+Huang, Zang \& Zheng (2014): the \alert{tone of an earnings call} often matters more for stock returns than the reported numbers.  LLMs excel at tone analysis.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Earnings Call Example}
+\begin{shadedbox}[title=\textbf{The Prompt}]
+\small
+``You are a financial analyst. Read this earnings call excerpt for AAPL. Rate management's tone on a scale from $-$5 (very bearish) to +5 (very bullish). Explain your reasoning. Identify any forward-looking statements that differ from consensus expectations.''
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item The LLM can process the entire transcript (8,000--15,000 tokens)
+  \item Detects hedging: ``We're \textit{pleased} with results but \textit{expect headwinds} in Q4'' $\rightarrow$ net negative
+  \item Traditional keyword methods would flag ``pleased'' as positive
+  \item The LLM also compares current tone to previous quarter's tone
+\end{baritemize}
+\vspace{0.3cm}
+\begin{center}
+\alert{This is where LLMs provide the greatest edge over traditional NLP}
+\end{center}
+\end{frame}
+
+% ========================================
+% PART 6: INDUSTRY AND REAL WORLD
+% ========================================
+\section{Industry Adoption}
+
+\begin{frame}{Who Is Doing This?}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Hedge Funds}]
+\begin{itemize}\small
+  \item \textbf{Bridgewater}: \$2B AI fund (Jul 2024) using OpenAI, Anthropic, Perplexity
+  \item \textbf{Two Sigma}: NLP for 10+ years; generative AI for 5+ years
+  \item \textbf{Man AHL}: ML-driven strategies since 2014
+  \item \textbf{Numerai}: Crowdsourced AI fund, \$550M AUM, JPMorgan backing
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Data Platforms}]
+\begin{itemize}\small
+  \item \textbf{Bloomberg}: BloombergGPT; terminal-integrated NLP
+  \item \textbf{RavenPack}: Structured sentiment signals for quant desks
+  \item \textbf{Kensho}: Acquired by S\&P Global for \$550M
+  \item \textbf{AlphaSense}: NLP search across filings, calls, and research
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{shadedbox}
+\textbf{Permutable AI} (London) launched an LLM-based trading platform live in Oct 2024: \alert{20.6\% return, Sharpe ratio 2.85}, with negative correlation to S\&P 500 during tariff-driven volatility.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Cautionary Tales}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{AP Twitter Hack (April 2013)}]
+\begin{itemize}\small
+  \item Hackers posted fake tweet: ``Explosions at the White House''
+  \item NLP-driven algorithms triggered massive sell-off
+  \item S\&P 500 lost \alert{\$136 billion} in seconds
+  \item Markets recovered within 6 minutes
+  \item Demonstrated fragility of automated news trading
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Adversarial Attacks (2025)}]
+\begin{itemize}\small
+  \item Research shows imperceptible changes in headlines can trick LLM trading systems
+  \item Fake-news fabrication caused severe losses in simulations
+  \item Alpha Arena crypto competition: ChatGPT suffered a \alert{63\% loss}
+  \item IMF (Oct 2024) warned AI-driven trading increases volatility
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\alert{The competitive edge is real, but so are the risks}
+\end{center}
+\end{frame}
+
+% ========================================
+% PART 7: BEYOND COMPANY SENTIMENT
+% ========================================
+\section{Beyond Company Sentiment: The Macro Perspective}
+
+\begin{frame}{The Propagation Problem}
+\begin{shadedbox}
+Most LLM trading research focuses on \alert{company-level} sentiment: ``AAPL beats estimates'' $\rightarrow$ buy AAPL. But the real competitive advantage lies in understanding how \alert{macro events propagate across sectors}.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item ``Russia invades Ukraine'' --- which sectors benefit? Which suffer?
+  \item The answer requires multi-hop causal reasoning:
+  \begin{itemize}
+    \item \textbf{1st order}: Oil prices rise $\rightarrow$ energy stocks up
+    \item \textbf{2nd order}: Fertilizer costs rise $\rightarrow$ agriculture costs up
+    \item \textbf{3rd order}: Food prices rise $\rightarrow$ consumer staples margins squeezed
+  \end{itemize}
+  \item This kind of reasoning is where sustainable alpha lives --- it is hard to replicate and slow to be arbitraged away
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Measuring Geopolitical Risk with NLP}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Caldara-Iacoviello GPR Index}]
+\begin{itemize}\footnotesize
+  \item Published in \textit{AER} (2022)
+  \item Counts articles in 10 newspapers across 8 categories (war threats, terror, military buildups, \ldots)
+  \item Decomposed into Threats vs.\ Acts
+  \item Available for 44 countries since 1900
+  \item Rising GPR $\rightarrow$ lower investment, higher uncertainty
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{BlackRock BGRI}]
+\begin{itemize}\footnotesize
+  \item Neural network NLP on Refinitiv brokerage reports + Dow Jones news
+  \item Two components: \textbf{market attention} (NLP score) + \textbf{market movement} (asset price pattern)
+  \item For each risk, identifies the \alert{3 most sensitive assets}
+  \item Expert-built ``Market-Driven Scenarios'' map each risk to sector exposures
+  \item The industry gold standard
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Which Sectors Are Most Exposed?}
+\begin{shadedbox}\small
+Culver, Niepmann \& Sheng (Fed, 2025): NLP on \alert{240,000+ earnings call transcripts} from \textasciitilde7,000 US firms to build industry-specific geopolitical risk sentiment indices.
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Most Exposed (Negative)}]
+\begin{itemize}\footnotesize
+  \item Finance
+  \item Mining (incl.\ oil extraction)
+  \item Manufacturing
+  \item Fabricated products, electronic equipment
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Least Exposed / Benefiting}]
+\begin{itemize}\footnotesize
+  \item Agriculture
+  \item Pharmaceuticals
+  \item Defense / aerospace
+  \item Insulated from or benefit from geopolitical turmoil
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{center}\small
+A 1-SD increase in GPR $\rightarrow$ \alert{1.6\% decline in investment} for firms in the top quartile of risk exposure
+\end{center}
+\end{frame}
+
+\begin{frame}{Case Study: Russia-Ukraine War (Feb 2022)}
+\begin{baritemize}\small
+  \item \textbf{Defense}: European defense stocks saw abnormal returns of \alert{up to +12\%} within days
+  \item \textbf{Energy}: US energy outperformed; European energy initially suffered, then surged
+  \item \textbf{Commodities}: Oil, wheat, palladium spiked (Russia/Ukraine = major exporters)
+  \item \textbf{Geographic}: Closer countries suffered more; trade linkages explained \alert{2/3 of differential returns} (Federle et al., \textit{JMCB}, 2024)
+\end{baritemize}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Amundi / Causality Link (2022)}]
+\begin{itemize}\footnotesize
+  \item NLP processed 50,000+ texts/day in 27 languages with real-time causal extraction
+  \item Ontology covers 3,000+ GICS-aligned industry segments
+  \item Most impacted: automobiles, electric utilities, energy, aerospace/defense
+  \item Before Mar 2022: semiconductor shortage was the main driver; after: war and sanctions
+\end{itemize}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Knowledge Graphs: Mapping How Shocks Propagate}
+\begin{shadedbox}
+A \textbf{knowledge graph} maps entities (firms, sectors, commodities) and their relationships (supplies, competes with, depends on). Combined with an LLM, it enables multi-hop reasoning about shock propagation.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{FinDKG (Li et al., ICAIF 2024)}]
+\begin{itemize}\footnotesize
+  \item Fine-tuned LLM builds a \alert{dynamic} knowledge graph from financial news
+  \item Tracks causal effects between markets, persons, and events
+  \item Outperforms thematic ETFs at identifying sector themes
+  \item Open source: \texttt{github.com/ xiaohui-victor-li/FinDKG}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Supply Chain Mapping}]
+\begin{itemize}\footnotesize
+  \item InterCorpRel-LLM (2025): GNN + LLM maps 3,211 firms and 11,635 supply links
+  \item AlMahri et al.\ (2024): zero-shot LLM extracts multi-tier supplier networks from public sources
+  \item Hilt \& Schwenkler (2024): extracts 4 firm-network types from 40+ years of NYT articles
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Building a Proprietary Transmission Map}
+\begin{shadedbox}
+The sustainable competitive advantage: a proprietary model that maps how different event types affect different sectors, validated against historical shocks.
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{barenumerate}\small
+  \item \textbf{Knowledge graph backbone} --- extract firm/sector relationships from news, filings, and supply chain data
+  \item \textbf{Causal extraction} --- LLM identifies cause-effect statements across industries (Causality Link approach: 3,000+ industry segments)
+  \item \textbf{Economic structure} --- integrate input-output tables (Acemoglu production networks, BEA I-O data) to trace propagation paths
+  \item \textbf{Historical validation} --- backtest against Russia-Ukraine, COVID, US-China trade war, Brexit
+  \item \textbf{Real-time updating} --- process news flows continuously to update edge weights
+\end{barenumerate}
+\vspace{0.2cm}
+\begin{center}
+\alert{The key gap: no public system yet integrates real-time LLM news analysis with production network models}
+\end{center}
+\end{frame}
+
+\begin{frame}{The Frontier and Its Limitations}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What Works Today}]
+\begin{itemize}\small
+  \item GPR indices (keyword + NLP)
+  \item BlackRock BGRI (NLP + expert scenarios)
+  \item Industry-level sentiment from earnings calls (Fed study)
+  \item Dynamic knowledge graphs (FinDKG)
+  \item Supply chain mapping with LLMs
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What Doesn't Work Yet}]
+\begin{itemize}\small
+  \item LLMs still \alert{struggle with multi-hop economic reasoning} (EconNLI, 2024)
+  \item 2nd/3rd order effects are unreliable without structured knowledge
+  \item Shock magnitude estimation (not just direction)
+  \item Nonlinear amplification in large shocks (ECB WP, 2024)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{shadedbox}\small
+Combine LLM text understanding with \alert{structured economic models}. LLMs identify \textit{what} happened; production networks and knowledge graphs predict \textit{where} it propagates.
+\end{shadedbox}
+\end{frame}
+
+% ========================================
+% PART 8: THE BIG PICTURE
+% ========================================
+\section{The Big Picture}
+
+\begin{frame}{The Crowding Problem}
+\begin{shadedbox}
+As more firms adopt the same LLM-based analysis, the alpha from news sentiment decays faster.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item Lopez-Lira \& Tang document declining returns as LLM adoption rises---consistent with the Efficient Market Hypothesis
+  \item Simple positive/negative sentiment from headlines has seen significant alpha erosion since 2015
+  \item More sophisticated signals (tone analysis, reading between the lines, cross-referencing sources) retain more alpha
+  \item The arms race: better NLP $\rightarrow$ alpha captured $\rightarrow$ faster decay $\rightarrow$ need even better NLP
+\end{baritemize}
+\vspace{0.3cm}
+\begin{shadedbox}
+The moat is shifting from \alert{speed of access} (everyone sees the same news) to \alert{depth of understanding} (interpreting nuance, context, and implication).  This is where LLMs provide genuine differentiation.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What We Know}]
+\begin{itemize}\small
+  \item LLMs dramatically outperform dictionary-based methods (50\% $\rightarrow$ 74\% accuracy)
+  \item GPT-4 can match or beat human financial analysts
+  \item Fine-tuned small models (FinLlama) compete with large LLMs at a fraction of the cost
+  \item Multi-agent systems are the current frontier
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What to Watch}]
+\begin{itemize}\small
+  \item Alpha decay as adoption increases
+  \item Adversarial attacks and market manipulation
+  \item Regulatory response (SEC, ESMA)
+  \item ``Monoculture'' risk: correlated AI-driven trades causing systemic instability
+  \item Hybrid cascade architectures becoming standard
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.1cm}
+\begin{center}
+\alert{The value of LLMs in trading is not just speed---it is depth of understanding}
+\end{center}
+\end{frame}
+
+% ========================================
+% REFERENCES
+% ========================================
+\section{References}
+
+\begin{frame}{Key References}
+{\footnotesize
+\begin{itemize}
+  \item Lopez-Lira, A.\ \& Tang, Y.\ (2023). ``Can ChatGPT Forecast Stock Price Movements?''  \textit{Journal of Finance} (accepted). \url{https://arxiv.org/abs/2304.07619}
+  \item Kirtac, K.\ \& Germano, G.\ (2024). ``Sentiment Trading with Large Language Models.''  \textit{Finance Research Letters}, 62. \url{https://arxiv.org/abs/2412.19245}
+  \item Kim, A., Muhn, M.\ \& Nikolaev, V.\ (2024). ``Financial Statement Analysis with Large Language Models.'' \url{https://arxiv.org/abs/2407.17866}
+  \item Araci, D.\ (2019). ``FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.'' \url{https://arxiv.org/abs/1908.10063}
+  \item Wu, S.\ et al.\ (2023). ``BloombergGPT: A Large Language Model for Finance.'' \url{https://arxiv.org/abs/2303.17564}
+  \item Yang, H.\ et al.\ (2023). ``FinGPT: Open-Source Financial Large Language Models.'' \url{https://arxiv.org/abs/2306.06031}
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{More References}
+{\scriptsize
+\begin{itemize}
+  \item FinLlama (2024). ``Financial Sentiment Analysis for Algorithmic Trading.''  ICAIF '24. \url{https://arxiv.org/abs/2403.12285}
+  \item Fatouros, G.\ et al.\ (2024). ``MarketSenseAI.'' \textit{Neural Computing and Applications}. \url{https://arxiv.org/abs/2401.03737}
+  \item Xiao, Y.\ et al.\ (2024). ``FinCon: A Synthesized LLM Multi-Agent System.'' NeurIPS 2024. \url{https://arxiv.org/abs/2407.06567}
+  \item Tetlock, P.\ (2007). ``Giving Content to Investor Sentiment.'' \textit{Journal of Finance}.
+  \item Loughran, T.\ \& McDonald, B.\ (2011). ``When Is a Liability Not a Liability?'' \textit{Journal of Finance}.
+  \item Ke, Z., Kelly, B.\ \& Xiu, D.\ (2020). ``Predicting Returns with Text Data.'' NBER Working Paper.
+  \item Gentzkow, M., Kelly, B.\ \& Taddy, M.\ (2019). ``Text as Data.'' \textit{Journal of Economic Literature}, 57(3).
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Macro \& Cross-Sector References}
+{\scriptsize
+\begin{itemize}
+  \item Caldara, D.\ \& Iacoviello, M.\ (2022). ``Measuring Geopolitical Risk.'' \textit{AER}, 112(4). \url{https://www.matteoiacoviello.com/gpr.htm}
+  \item Culver, I., Niepmann, F.\ \& Sheng, L.\ (2025). ``Measuring Geopolitical Risk Exposure Across Industries.'' Fed FEDS Notes (Aug 2025).
+  \item Federle, J.\ et al.\ (2024). ``Proximity to War.'' \textit{J.\ Money, Credit and Banking}. \url{https://onlinelibrary.wiley.com/doi/full/10.1111/jmcb.13226}
+  \item Li, V.\ et al.\ (2024). ``FinDKG: Dynamic Knowledge Graphs with LLMs.'' ICAIF '24. \url{https://arxiv.org/abs/2407.10909}
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Macro \& Cross-Sector References (cont.)}
+{\scriptsize
+\begin{itemize}
+  \item Kwon, B.\ et al.\ (2024). ``Parsing the Pulse: Decomposing Macroeconomic Sentiment with LLMs.'' BIS WP 1294. \url{https://www.bis.org/publ/work1294.pdf}
+  \item IMF GFSR Ch.\ 2 (2025). ``Geopolitical Risks: Implications for Asset Prices and Financial Stability.''
+  \item Amundi / Causality Link (2022). ``When AI Meets Economy: Analysis of the Ukraine War.''
+  \item AlMahri, S.\ et al.\ (2024). ``Enhancing Supply Chain Visibility with Knowledge Graphs and LLMs.'' \url{https://arxiv.org/abs/2408.07705}
+  \item Hilt, V.\ \& Schwenkler, G.\ (2024). ``The Different Networks of Firms Implied by the News.'' SSRN 4946066.
+  \item InterCorpRel-LLM (2025). ``Enhancing Financial Relational Understanding with Graph-Language Models.'' \url{https://arxiv.org/abs/2510.09735}
+  \item Gueta, A.\ et al.\ (2025). ``Can LLMs Learn Macroeconomic Narratives from Social Media?'' NAACL 2025. \url{https://arxiv.org/abs/2406.12109}
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Resources for Further Exploration}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Open-Source Code}]
+\begin{itemize}\small
+  \item FinGPT: \url{github.com/AI4Finance-Foundation/FinGPT}
+  \item FinBERT: \url{github.com/ProsusAI/finBERT}
+  \item TradingAgents: \url{github.com/TauricResearch/TradingAgents}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Books \& Data}]
+\begin{itemize}\small
+  \item Jansen, \textit{ML for Algorithmic Trading} (2020)---3 NLP chapters with notebooks
+  \item CFA Institute, \textit{AI in Asset Management} (2025)---free PDF
+  \item Financial PhraseBank dataset on HuggingFace
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+{\small
+\begin{itemize}
+  \item \textbf{Surveys}: ``The New Quant'' (2025, \url{https://arxiv.org/abs/2510.05533}); ``LLM Agent in Financial Trading'' (2024, \url{https://arxiv.org/abs/2408.06361})
+\end{itemize}
+}
+\end{frame}
+
+\end{document}

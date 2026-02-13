@@ -1,0 +1,288 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Claude Add-In for Excel}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================
+% BACKGROUND
+% ============================================================
+\section{Background}
+
+\begin{frame}{AI Can Create Spreadsheets with Python}
+\begin{baritemize}
+  \item Python libraries like \texttt{openpyxl} create/modify Excel files
+  \item AI writes Python code that:
+  \begin{itemize}
+    \item Inserts data values into cells
+    \item Writes Excel formulas (e.g., \texttt{=SUM(A1:A10)})
+    \item Applies formatting (fonts, colors, borders)
+    \item Creates charts and pivot tables
+  \end{itemize}
+  \item Result: fully functional spreadsheet with \alert{live formulas}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Formulas vs. Hardcoded Values}
+\begin{columns}[T]
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Hardcoded (Bad)}]
+\small
+\texttt{sheet['B10'] = 1500}
+\vspace{0.3cm}
+
+Cell shows 1500, but if inputs change, the total doesn't update.
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Formula (Good)}]
+\small
+\texttt{sheet['B10'] = '=SUM(B2:B9)'}
+\vspace{0.3cm}
+
+Cell contains a formula that recalculates when inputs change.
+\end{shadedbox}
+\end{column}
+\end{columns}
+
+\vspace{0.5cm}
+\begin{shadedbox}
+\centerline{AI must be instructed to use formulas, not compute values in Python}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Two Ways AI Interacts with Spreadsheets}
+\begin{columns}[T]
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Inside Excel (Add-ins)}]
+\begin{itemize}\small
+  \item Sidebar panel in Excel
+  \item Sees your current workbook
+  \item Modifies cells directly
+  \item Context-aware suggestions
+  \item Examples: Claude for Excel, Microsoft Copilot
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Outside Excel (Python)}]
+\begin{itemize}\small
+  \item Runs in terminal or IDE
+  \item Creates/modifies .xlsx files
+  \item You open result in Excel
+  \item Full programming power
+  \item Examples: Claude Code, ChatGPT
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================
+% OVERVIEW
+% ============================================================
+\section{Overview}
+
+\begin{frame}{What Is the Claude Excel Add-in?}
+\begin{baritemize}
+  \item AI sidebar that lives inside Excel
+  \item Reads your workbook---all tabs, formulas, and structure
+  \item Modifies cells directly while preserving formula dependencies
+  \item Powered by Claude Opus 4.6 (switchable to Sonnet 4.5)
+  \item Works with local files---\alert{no OneDrive required}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Plan Requirements}
+\begin{baritemize}
+  \item Requires Claude Pro (\$20/month), Max, Team, or Enterprise plan
+  \item Shares your existing Claude usage pool
+  \item Works with Excel 2016+ on Windows, Mac, and Excel for the web
+  \item Supports \texttt{.xlsx} and \texttt{.xlsm} files
+\end{baritemize}
+\end{frame}
+
+% ============================================================
+% INSTALLATION
+% ============================================================
+\section{Installation}
+
+\begin{frame}{Installing the Add-in}
+\begin{barenumerate}
+  \item Open Excel and go to the \textbf{Insert} tab in the ribbon
+  \item Click \textbf{Get Add-ins} (or \textbf{Add-ins} on some versions)
+  \item Search for \textbf{``Claude by Anthropic''}
+  \item Click \textbf{Get It Now} and accept the permissions prompt
+  \item The Claude icon appears in your ribbon
+\end{barenumerate}
+
+\vspace{0.3cm}
+\begin{shadedbox}
+\centerline{
+  \href{https://marketplace.microsoft.com/en-us/product/saas/wa200009404?tab=overview}{Microsoft Marketplace: Claude by Anthropic}
+}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Launching Claude in Excel}
+\begin{barenumerate}
+  \item Click the \textbf{Claude icon} in the ribbon to open the sidebar
+    \begin{itemize}
+      \item Windows: \textbf{Home} tab $\rightarrow$ Add-ins
+      \item Mac: \textbf{Tools} tab $\rightarrow$ Add-ins
+    \end{itemize}
+  \item Sign in with your Claude account credentials
+  \item The sidebar now sees your open workbook
+\end{barenumerate}
+\end{frame}
+
+\begin{frame}{Launch and Log In}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{images/launch_the_addin.png}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=0.8\textwidth]{images/claude_add_in.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================
+% KEY FEATURES
+% ============================================================
+\section{Key Features}
+
+\begin{frame}{What Claude Can Do in Excel}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Analysis \& Understanding}]
+\begin{itemize}\footnotesize
+  \item Ask questions about workbook content
+  \item Get answers with clickable cell references
+  \item Navigate multi-tab spreadsheets
+  \item Trace formulas and dependencies
+\end{itemize}
+\end{shadedbox}
+\begin{shadedbox}[title=\textbf{Error Resolution}]
+\begin{itemize}\footnotesize
+  \item Identify \texttt{\#REF!}, \texttt{\#VALUE!}, circular references
+  \item Trace errors to their root cause
+  \item Apply fixes preserving spreadsheet integrity
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Data Modification}]
+\begin{itemize}\footnotesize
+  \item Update assumptions preserving formulas
+  \item Highlighted changes with explanations
+  \item Sort, filter, conditional formatting
+  \item Create charts and pivot tables
+\end{itemize}
+\end{shadedbox}
+\begin{shadedbox}[title=\textbf{Model Building}]
+\begin{itemize}\footnotesize
+  \item Build spreadsheets from scratch
+  \item Populate templates with formulas
+  \item Create financial models
+  \item Add data validation and dropdowns
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================
+% TIPS AND LIMITATIONS
+% ============================================================
+\section{Tips and Limitations}
+
+\begin{frame}{Best Practices}
+\begin{baritemize}
+  \item Always review changes before finalizing---Claude highlights what it modified
+  \item Claude warns before overwriting existing data
+  \item Optional: enable the \textbf{Claude Log} tab to track all actions in a session
+  \item Long conversations are automatically compacted to maintain context
+  \item Chat history does not persist between sessions
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Limitations}
+\begin{baritemize}
+  \item Does not support \textbf{macros or VBA}
+  \item Does not support Excel \textbf{data tables} (What-If Analysis)
+  \item Not recommended for audit-critical calculations without human review
+  \item \alert{Security:} only use with trusted spreadsheets---malicious content in cells could attempt to manipulate the AI
+\end{baritemize}
+\end{frame}
+
+% ============================================================
+% CLAUDE FOR EXCEL VS. ALTERNATIVES
+% ============================================================
+
+\begin{frame}{Claude for Excel vs.\ Microsoft Copilot}
+\begin{center}
+\small
+\begin{tabular}{p{3.5cm} p{4.5cm} p{4.5cm}}
+\toprule
+ & \textbf{Claude for Excel} & \textbf{Microsoft Copilot} \\
+\midrule
+Cost & Claude Pro (\$20/mo) & Microsoft 365 Copilot (\$30/mo) \\
+OneDrive required & No & Yes (AutoSave must be on) \\
+Python execution & Server-side sandbox & Microsoft Cloud (Anaconda) \\
+Formula mode & Yes & Yes \\
+VBA / macros & No & No \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+% ============================================================
+% EXERCISES
+% ============================================================
+\section{Exercises}
+
+\begin{frame}{Exercises}
+\begin{barenumerate}
+  \item Open betas.xlsx.  Ask Claude to compute WalMart's beta.
+  \item Open a new workbook.  Ask Claude to create an example two-stage DCF analysis
+\end{barenumerate}
+\end{frame}
+
+\begin{frame}{Exercise for Claude.ai or Claude Desktop}
+
+\begin{shadedbox}
+\centerline{``Create an Excel workbook to illustrate two-stage DCF analysis.''}
+\end{shadedbox}
+\end{frame}
+
+% ============================================================
+% CLAUDE SKILLS
+% ============================================================
+
+\begin{frame}{Claude Skills}
+\begin{baritemize}
+  \item Claude ``skills'' are instructions that Claude reads when needed
+  \item The \texttt{xlsx} skill instructs Claude to:
+  \begin{itemize}
+    \item Use Excel formulas instead of hardcoded values
+    \item Apply professional formatting (color coding, number formats)
+    \item Verify zero formula errors (\#REF!, \#DIV/0!, etc.)
+    \item Follow financial modeling standards
+  \end{itemize}
+  \item Many available, easily customizable or created (just text files)
+  \item \href{https://github.com/anthropics/claude-code/blob/main/skills/xlsx/skill.md}{View the full xlsx skill documentation}
+\end{baritemize}
+\end{frame}
+
+\end{document}

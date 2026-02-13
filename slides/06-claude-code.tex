@@ -1,0 +1,538 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+\usepackage{listings}
+
+\lstset{
+  basicstyle=\ttfamily\scriptsize,
+  backgroundcolor=\color{excelinput},
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{titlegray},
+  breaklines=true,
+  columns=fullflexible,
+}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Claude Code}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================
+% WHAT IS CLAUDE CODE?
+% ============================================================
+\section{What is Claude Code?}
+
+\begin{frame}{Three Ways Claude Runs Code}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Chat (Analysis)}]
+\begin{itemize}\footnotesize
+  \item Sandboxed Python in the browser
+  \item No local file access
+  \item Must upload data manually
+  \item State lost between chats
+  \item Good for quick calculations
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Cowork}]
+\begin{itemize}\footnotesize
+  \item Runs in a remote VM
+  \item Can install packages
+  \item Files synced to/from VM
+  \item VM is temporary
+  \item Higher token cost
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Code}]
+\begin{itemize}\footnotesize
+  \item Runs on \alert{your machine}
+  \item Full local file access
+  \item Persistent state
+  \item Version control built in
+  \item Most token-efficient
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\alert{Code mode} gives Claude direct access to your machine---no sandbox, no VM, no upload step.
+\end{center}
+\end{frame}
+
+\begin{frame}{Local Execution: Advantages}
+\begin{baritemize}
+  \item \textbf{No sandboxing}---access databases, APIs, local files
+  \item \textbf{Install anything}---pip install, npm, system packages
+  \item \textbf{Large datasets}---no upload limits
+  \item \textbf{Persistent state}---pick up where you left off
+  \item \textbf{Version control}---code saved in your repo
+  \item \textbf{Production path}---code is ready to deploy
+\end{baritemize}
+\end{frame}
+
+% ============================================================
+% CODE LOCAL
+% ============================================================
+\section{Code Local}
+
+\begin{frame}{Step 5: Code (Local) --- Efficient Agentic Work}
+
+Switch to the \textbf{Code} tab $\rightarrow$ select \textbf{Local} $\rightarrow$ choose a project folder.
+
+\begin{shadedbox}[title={How it differs from Cowork}]
+\begin{itemize}
+  \item Runs code \textbf{directly on your machine} (no VM overhead)
+  \item More token-efficient --- fewer planning/orchestration tokens
+  \item \textbf{Requires Python} (or R, Node, etc.) installed locally
+  \item Coding-oriented interface, but works for data analysis
+\end{itemize}
+\end{shadedbox}
+
+\begin{exampleblock}{Finance example}
+\textit{``Read the file sp500\_monthly.csv. Run a Fama--French regression for each of the 10 industry portfolios. Save the results to a table in results.xlsx and create a plot of the estimated betas with confidence intervals.''}
+\end{exampleblock}
+
+Claude reads the file, writes a Python script, runs it, and saves the outputs --- all in one step.
+
+\end{frame}
+
+\begin{frame}[fragile]{Code Local --- Setup Requirements}
+
+\begin{shadedbox}[title={One-time setup}]
+\begin{enumerate}
+  \item Install Claude Desktop (already done from Step 3)
+  \item Install Python: \texttt{python.org/downloads}
+  \item Recommended: install key packages
+\end{enumerate}
+\end{shadedbox}
+
+\begin{lstlisting}
+pip install pandas numpy matplotlib statsmodels openpyxl
+\end{lstlisting}
+
+\vspace{0.2cm}
+Or let Claude install them for you --- it will run \texttt{pip install} as needed.
+
+\vspace{0.3cm}
+\begin{shadedbox}[title={Token comparison}]
+\begin{tabular}{lcc}
+\toprule
+\textbf{Surface} & \textbf{Relative token cost} & \textbf{Why} \\
+\midrule
+Chat / Artifacts & Low & No code execution \\
+Code (Local) & Medium & Direct execution, lean context \\
+Cowork & High & VM, sub-agents, planning overhead \\
+\bottomrule
+\end{tabular}
+\end{shadedbox}
+
+\end{frame}
+
+% ============================================================
+% CODE REMOTE
+% ============================================================
+\section{Code Remote \& GitHub}
+
+\begin{frame}{Step 6: Code (Remote) --- Cloud Execution via GitHub}
+
+Switch to the \textbf{Code} tab $\rightarrow$ select \textbf{Remote} $\rightarrow$ choose a GitHub repository.
+
+\begin{shadedbox}[title={How it works}]
+\begin{enumerate}
+  \item Your project lives in a GitHub repository
+  \item Claude clones it on Anthropic's cloud servers
+  \item Claude runs code, installs packages, pushes results back
+  \item You pull the results or view them in Claude Desktop
+\end{enumerate}
+\end{shadedbox}
+
+\begin{shadedbox}[title={When to use this}]
+\begin{itemize}
+  \item Python won't install on your machine (fallback)
+  \item You want to work on a project you haven't cloned locally
+  \item You want cloud compute for intensive tasks
+  \item Collaborative work: Claude creates a pull request you can review
+\end{itemize}
+\end{shadedbox}
+
+\end{frame}
+
+\begin{frame}{A Brief Detour: Why GitHub?}
+
+\begin{columns}[T]
+\column{0.55\textwidth}
+\begin{block}{GitHub in 30 seconds}
+\begin{itemize}
+  \item Cloud storage for code and data files
+  \item \textbf{Version control}: every change is tracked
+  \item \textbf{Collaboration}: multiple people can work on the same project
+  \item Free for students (GitHub Education)
+  \item Industry standard in finance: quant teams, fintech, open-source models
+\end{itemize}
+\end{block}
+
+\column{0.42\textwidth}
+\begin{exampleblock}{Finance workflow}
+\begin{enumerate}
+  \item Push your data \& scripts to GitHub
+  \item Tell Claude: \textit{``run the event study in event\_study.py and fix any errors''}
+  \item Claude clones, runs, fixes, pushes
+  \item You pull the clean results
+\end{enumerate}
+\end{exampleblock}
+\end{columns}
+
+\vspace{0.4cm}
+Even if you never use Code Remote, learning GitHub is valuable. Every quantitative finance job expects it.
+
+\end{frame}
+
+% ============================================================
+% COMPARISON TABLE
+% ============================================================
+\section{Comparison}
+
+\begin{frame}{Comparison: Which Tool When?}
+
+\begin{center}
+\scriptsize
+\begin{tabular}{p{2.5cm} p{2cm} p{1.7cm} p{1.7cm} p{1.7cm} p{2cm}}
+\toprule
+\textbf{Task} & \textbf{Chat} & \textbf{Artifacts} & \textbf{Cowork} & \textbf{Code Local} & \textbf{Code Remote} \\
+\midrule
+Explain WACC formula & \checkmark & & & & \\
+Draft an investment memo & \checkmark & \checkmark & & & \\
+Interactive DCF calculator & & \checkmark & & & \\
+Analyze CSV, create Excel & & & \checkmark & \checkmark & \checkmark \\
+Run Fama--French regressions & & & \checkmark & \checkmark & \checkmark \\
+Organize 50 PDF 10-Ks & & & \checkmark & & \\
+Event study on CRSP data & & & & \checkmark & \checkmark \\
+Team project with version control & & & & & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Rule of thumb:} Start with Chat. If you need a visual, use Artifacts. If you need file I/O and code execution, use Code Local. Save Cowork for complex multi-file tasks. Use Remote when you need GitHub or can't run locally.
+
+\end{frame}
+
+% ============================================================
+% SLASH COMMANDS
+% ============================================================
+\section{Slash Commands}
+
+\begin{frame}{Built-in Slash Commands}
+\begin{shadedbox}
+Type \texttt{/} in Claude Code to see all available commands. These work in the Code tab, the CLI, and the VS Code extension.
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l p{9cm} @{}}
+\toprule
+\textbf{Command} & \textbf{What It Does} \\
+\midrule
+\texttt{/help} & Show all available commands (built-in + custom) \\
+\texttt{/clear} & Clear conversation history and start fresh \\
+\texttt{/compact} & Compress the conversation to free up context window space \\
+\texttt{/cost} & Show token usage for the current session \\
+\texttt{/model} & Switch between models (Sonnet, Opus) \\
+\texttt{/review} & Ask Claude to review your code for issues \\
+\texttt{/init} & Create a \texttt{CLAUDE.md} file for your project \\
+\texttt{/memory} & Edit your \texttt{CLAUDE.md} memory files \\
+\texttt{/agents} & Create, browse, or run custom subagents \\
+\texttt{/mcp} & Manage MCP server connections \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Useful Slash Commands for Finance Work}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Session Management}]
+\begin{itemize}\small
+  \item \texttt{/clear} --- start a new task without leftover context from the previous one
+  \item \texttt{/compact} --- keep working but free up space when context gets long
+  \item \texttt{/cost} --- check how much of your token budget you've used
+  \item \texttt{/model sonnet} --- switch to a faster, cheaper model for simple tasks
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Project Setup}]
+\begin{itemize}\small
+  \item \texttt{/init} --- creates a \texttt{CLAUDE.md} file that gives Claude persistent context about your project (e.g., ``this folder contains SEC filings'')
+  \item \texttt{/memory} --- edit these instructions later
+  \item \texttt{/review} --- ask Claude to review code it wrote for errors before you rely on it
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{shadedbox}
+\centering
+\alert{Tip:} Use \texttt{/clear} between unrelated tasks and \texttt{/compact} within a long task. This keeps Claude focused and saves tokens.
+\end{shadedbox}
+\end{frame}
+
+% ============================================================
+% SUBAGENTS
+% ============================================================
+\section{Subagents}
+
+\begin{frame}{What Are Subagents?}
+\begin{shadedbox}
+A \textbf{subagent} is a specialized AI assistant that handles a specific type of task. Each subagent runs in its own context window with a custom system prompt and specific tools.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Built-in Subagents}]
+\begin{itemize}\small
+  \item \textbf{Explore} --- fast, read-only agent for searching files and understanding code
+  \item \textbf{Plan} --- researches your project before proposing an approach
+  \item \textbf{General-purpose} --- handles complex, multi-step tasks
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize Claude uses these automatically when appropriate.}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Why Subagents?}]
+\begin{itemize}\small
+  \item \textbf{Focus}: each agent has its own context window, so it doesn't get distracted
+  \item \textbf{Expertise}: custom system prompt teaches it domain knowledge
+  \item \textbf{Parallelism}: multiple agents can work on different subtasks at once
+  \item \textbf{Safety}: you can restrict which tools each agent can use
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The \texttt{/agents} Command}
+\begin{shadedbox}
+Type \texttt{/agents} to create, browse, or run custom subagents. Claude walks you through the setup interactively.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{barenumerate}
+  \item Type \texttt{/agents} and select \textbf{Create new agent}
+  \item Choose scope: \textbf{Project} (this folder only) or \textbf{User} (all projects)
+  \item Select \textbf{Generate with Claude} and describe what the agent should do
+  \item Claude generates the system prompt and configuration
+  \item The agent is saved as a markdown file:
+  \begin{itemize}\small
+    \item Project: \texttt{.claude/agents/my-agent.md}
+    \item User: \texttt{\textasciitilde/.claude/agents/my-agent.md}
+  \end{itemize}
+  \item Invoke it anytime with \texttt{/agents} $\rightarrow$ select the agent
+\end{barenumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Example: Financial Data Analyst Agent}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{.claude/agents/analyst.md}]\scriptsize
+\begin{verbatim}
+---
+name: financial-analyst
+description: "Analyzes financial
+  data files and produces
+  reports with charts"
+tools: Read, Write, Bash, Glob
+model: sonnet
+---
+
+You are a financial data analyst.
+
+# Workflow
+1. Read the data file(s)
+2. Clean and validate the data
+3. Compute requested metrics
+4. Create charts with matplotlib
+5. Save results to Excel
+
+# Standards
+- Always annualize returns
+- Use log returns for regressions
+- Label all chart axes
+- Include data sources in output
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{shadedbox}[title=\textbf{How to Use It}]
+\begin{itemize}\small
+  \item Type \texttt{/agents} $\rightarrow$ select \texttt{financial-analyst}
+  \item Or Claude invokes it automatically when you ask for data analysis
+  \item The agent follows your standards every time (annualized returns, log returns, labeled axes)
+\end{itemize}
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{shadedbox}[title=\textbf{Other Finance Agent Ideas}]
+\begin{itemize}\small
+  \item \textbf{SEC filing reader}: extracts tables and key metrics from 10-K/10-Q PDFs
+  \item \textbf{Portfolio optimizer}: runs mean-variance optimization, outputs weights
+  \item \textbf{Earnings summarizer}: parses transcripts, extracts guidance changes
+  \item \textbf{Risk reporter}: computes VaR, drawdowns, and stress scenarios
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{When to Use Subagents}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Use a Subagent When}]
+\begin{itemize}\small
+  \item You repeat the same type of task often (e.g., ``analyze this CSV the same way every week'')
+  \item The task has specific standards Claude should always follow
+  \item You want to delegate a subtask while Claude works on something else
+  \item The task is complex enough to benefit from a dedicated context window
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Just Use Claude Directly When}]
+\begin{itemize}\small
+  \item It's a one-off task with no recurring standards
+  \item The task is simple (a quick question, a small edit)
+  \item You want to iterate interactively on the approach
+  \item You haven't done the task enough to know what standards to enforce
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{shadedbox}
+\centering
+\alert{Start by using Claude directly.} When you notice you're repeating the same instructions, that's the signal to create a subagent.
+\end{shadedbox}
+\end{frame}
+
+% ============================================================
+% TOKEN STRATEGY
+% ============================================================
+\section{Managing Usage}
+
+\begin{frame}{Managing Your Token Budget}
+
+All Claude products share the \textbf{same usage pool}. Usage resets every 5 hours.
+
+\vspace{0.3cm}
+\begin{shadedbox}[title={Strategies for the Pro plan (\$20/month)}]
+\begin{enumerate}
+  \item \textbf{Use Chat for questions} --- ``Explain Jensen's alpha'' costs very few tokens
+  \item \textbf{Use Artifacts for quick visuals} --- paste data, get a chart
+  \item \textbf{Use Code Local for analysis assignments} --- lean and efficient
+  \item \textbf{Reserve Cowork for heavy-lift tasks} --- multi-file, complex output
+  \item \textbf{Clear context between tasks} --- type \texttt{/clear} in Code sessions
+  \item \textbf{Bundle related work} --- don't start a new session for every subtask
+\end{enumerate}
+\end{shadedbox}
+
+\begin{alertblock}{If you hit your limit}
+Wait for the 5-hour reset, or fall back to Chat + Artifacts (much lower token cost) to keep working.
+\end{alertblock}
+
+\end{frame}
+
+
+
+% ============================================================
+% GETTING STARTED
+% ============================================================
+\section{Getting Started}
+
+\begin{frame}{Getting Started --- Your Setup Checklist}
+
+\begin{enumerate}
+  \item \textbf{Create a Claude account} at \texttt{claude.ai}
+  \item \textbf{Subscribe to Pro} (\$20/month) via the account settings
+  \item \textbf{Download Claude Desktop} from \texttt{claude.com/download}
+    \begin{itemize}
+      \item Windows (x64) or Mac
+    \end{itemize}
+  \item \textbf{Install Python} from \texttt{python.org/downloads}
+    \begin{itemize}
+      \item Check ``Add Python to PATH'' during installation
+    \end{itemize}
+  \item \textbf{Try each mode:}
+    \begin{itemize}
+      \item Chat tab: ask a finance question
+      \item Chat tab: paste data and request an artifact
+      \item Code tab $\rightarrow$ Local: point at a folder with a CSV, ask for analysis
+    \end{itemize}
+  \item \textbf{(Optional)} Create a GitHub account at \texttt{github.com}
+    \begin{itemize}
+      \item Apply for GitHub Education (free Pro features for students)
+    \end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+% ============================================================
+% EXERCISES
+% ============================================================
+\section{Exercises}
+
+\begin{frame}{Exercise: Aggregating Tables}
+\begin{baritemize}
+\item Download aggregation.zip into the folder open in VS Code.
+\item Extract all the workbooks in the zip file.
+\item Each workbook contains a table with similar data.  Some tables are missing some columns and the names of some of the columns vary somewhat across the tables.  Ask Claude Code to combine the tables into a single table, to include all columns, and to reconcile the varying names.
+\end{baritemize}
+
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/files/aggregation.zip}{Data for Exercise}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\begin{frame}{Exercise: Invoice Reconciliation}
+\begin{baritemize}
+\item Download exercise2\_invoices.zip into the folder open in VS Code.
+\item Extract the files.  You will have an invoice register (PDF), a payment log (xlsx), and a vendor disputes memo (docx).
+\item Ask Claude Code to extract the invoice table from the PDF, match invoices to payments (handling inconsistent reference formats), and identify which invoices are fully paid, partially paid, or unpaid.
+\item Ask it to apply the dispute resolutions from the memo and produce a reconciliation summary with the total outstanding amount.
+\end{baritemize}
+
+\begin{center}
+\begin{shadedbox}[width=0.7\textwidth]
+\centering\href{https://kerryback.com/mgmt675/files/exercise2_invoices.zip}{Download Data for Exercise}
+\end{shadedbox}
+\end{center}
+\end{frame}
+
+\begin{frame}[standout]
+Questions?
+
+\vspace{1cm}
+{\normalsize\texttt{claude.ai} \quad $\mid$ \quad \texttt{claude.com/download}}
+
+\vspace{0.5cm}
+{\small Claude Help Center: \texttt{support.claude.com}}
+\end{frame}
+
+\end{document}

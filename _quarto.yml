@@ -4,6 +4,7 @@ project:
   render:
     - index.qmd
     - slides.qmd
+    - assignments.qmd
     - files.qmd
     - software.qmd
     - index-pdf.qmd
@@ -26,6 +27,8 @@ website:
         text: Home
       - href: slides.qmd
         text: Slides
+      - href: assignments.qmd
+        text: Assignments
       - href: files.qmd
         text: Files
       - href: software.qmd

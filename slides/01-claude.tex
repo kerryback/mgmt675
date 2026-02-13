@@ -1,0 +1,382 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+\usepackage{listings}
+
+\lstset{
+  basicstyle=\ttfamily\scriptsize,
+  backgroundcolor=\color{excelinput},
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{titlegray},
+  breaklines=true,
+  columns=fullflexible,
+}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Claude.ai/Desktop}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================
+% OUTLINE
+% ============================================================
+\begin{frame}{Roadmap}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.6cm,
+  every node/.style={font=\small},
+  mystep/.style={draw=titlegray, rounded corners, minimum width=5.5cm, minimum height=0.7cm, fill=excelinput, text=titlegray, font=\small\bfseries},
+  arrow/.style={-{Stealth[length=3mm]}, thick, accentblue}
+]
+\node[mystep] (s1) {1. Claude.ai --- Web Chat};
+\node[mystep, below=of s1] (s2) {2. Claude.ai --- Artifacts};
+\node[mystep, below=of s2] (s3) {3. Claude Desktop --- Chat};
+\node[mystep, below=of s3] (s4) {4. Claude Desktop --- Cowork};
+\node[mystep, below=of s4] (s5) {5. Claude Desktop --- Code (Local)};
+\node[mystep, below=of s5] (s6) {6. Claude Desktop --- Code (Remote / GitHub)};
+
+\draw[arrow] (s1) -- (s2);
+\draw[arrow] (s2) -- (s3);
+\draw[arrow] (s3) -- (s4);
+\draw[arrow] (s4) -- (s5);
+\draw[arrow] (s5) -- (s6);
+
+\node[right=0.6cm of s1, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Chatbot + code execution};
+\node[right=0.6cm of s2, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Interactive charts and apps};
+\node[right=0.6cm of s3, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Same, but installed on your machine};
+\node[right=0.6cm of s4, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Claude acts on your files autonomously};
+\node[right=0.6cm of s5, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Claude runs code on your machine};
+\node[right=0.6cm of s6, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Cloud execution via GitHub};
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+% ============================================================
+% BIG IDEA
+% ============================================================
+\begin{frame}{The Big Idea}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[-{Stealth[length=5mm]}, ultra thick, accentblue] (0,0) -- (12,0);
+\node[above, font=\large\bfseries, text=titlegray] at (1.5,0.5) {Passive};
+\node[above, font=\large\bfseries, text=alertorange] at (10.5,0.5) {Agentic};
+\node[below, font=\small, text=titlegray, text width=3cm, align=center] at (1.5,-0.3) {Claude \emph{answers}\\your questions};
+\node[below, font=\small, text=titlegray, text width=3cm, align=center] at (6,-0.3) {Claude \emph{creates}\\deliverables};
+\node[below, font=\small, text=titlegray, text width=3cm, align=center] at (10.5,-0.3) {Claude \emph{executes}\\multi-step tasks};
+\filldraw[titlegray] (1.5,0) circle (4pt);
+\filldraw[titlegray] (6,0) circle (4pt);
+\filldraw[alertorange] (10.5,0) circle (4pt);
+\node[below=1.2cm, font=\scriptsize, text=titlegray] at (1.5,-0.3) {Chat};
+\node[below=1.2cm, font=\scriptsize, text=titlegray] at (6,-0.3) {Artifacts};
+\node[below=1.2cm, font=\scriptsize, text=alertorange] at (10.5,-0.3) {Cowork / Code};
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+Each step gives Claude more \textbf{capability} and more \textbf{access} to your work.
+
+\end{frame}
+
+
+% ============================================================
+% PART 1: CLAUDE.AI CHAT
+% ============================================================
+\section{Claude.ai --- Web Chat}
+
+\begin{frame}{Step 1: Claude.ai --- Web Chat}
+
+Go to \texttt{claude.ai} in any browser. No installation required.  Icon at top left opens sidebar.
+
+\begin{shadedbox}[title={What it can do}]
+It's a chatbot with a code execution tool.  It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in.  It can also generate charts, Excel files, Word docs, and PowerPoint decks.
+\end{shadedbox}
+
+\begin{shadedbox}[title=\textbf{Example}]
+\textit{``Create an Excel file to illustrate two-stage DCF analysis.''}
+\end{shadedbox}
+
+\end{frame}
+
+% ============================================================
+% PART 2: ARTIFACTS
+% ============================================================
+\section{Artifacts}
+
+\begin{frame}{Step 2: Artifacts --- Interactive Charts and Apps}
+
+\begin{baritemize}
+  \item Still in \texttt{claude.ai}, Claude can produce \textbf{interactive charts and apps} that appear in a side panel.
+  \item Choose Artifacts $\rightarrow$ Create an Artifact $\rightarrow$ apps or websites.
+  \item Artifacts aren't throwaway --- they persist and can be shared.
+  \item Click \textbf{Publish} to get a shareable link --- anyone can view and interact with it, no Claude account needed
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Artifact Examples}
+\begin{shadedbox}[title=\textbf{Example 1}]
+\textit{``Here is an Excel file [upload \href{https://mgmt675.kerryback.com/files/wmt_spy_rf.xlsx}{this file} to \texttt{claude.ai}] containing monthly returns for WMT and SPY and the one-month T-bill yield.  Create an interactive scatter plot of AAPL excess returns vs.\ market excess returns, show the regression line, and display alpha and beta. Include the month in the hover data.''}
+\end{shadedbox}
+
+\begin{shadedbox}[title=\textbf{Example 2}]
+\textit{``Create an app that permits a user to input a bond yield, years to maturity, and coupon rate.  Tell the user to input the yield and coupon rate as annual rates.  Assume semi-annual coupon payments.  Compute the bond price.  Create an interactive plot showing the relationship between the bond's yield and its price.''}
+\end{shadedbox}
+
+\begin{shadedbox}[title=\textbf{Publish}]
+Publish the artifacts and share the links in Canvas chat.
+\end{shadedbox}
+\end{frame}
+
+% ============================================================
+% PART 3: CLAUDE DESKTOP CHAT
+% ============================================================
+\section{Claude Desktop --- Chat}
+
+\begin{frame}{Step 3: Claude Desktop --- Chat}
+
+Download the Claude app from \texttt{claude.com/download}.
+
+\begin{shadedbox}[title={What changes from web?}]
+\begin{itemize}
+  \item Same chat + artifact capabilities
+  \item Installed application
+  \item Foundation for Cowork and Code tabs (next steps)
+\end{itemize}
+\end{shadedbox}
+
+\begin{shadedbox}[title=\textbf{Setup}]
+Install the app $\rightarrow$ sign in with your Claude account $\rightarrow$ use the \textbf{Chat} tab. That's it. Same experience as the web, but now you have access to Cowork and Code, which we will investigate later.
+\end{shadedbox}
+
+\end{frame}
+
+\section{Chatbots, System Prompts, and Skills}
+
+\begin{frame}{What is a Chatbot?}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Simple Definition}]
+A chatbot is a program that:
+\begin{enumerate}\small
+  \item Accepts user input (prompt)
+  \item Adds system prompt and sends to an LLM (large language model)
+  \item Displays the response
+  \item Captures prompts and responses in a loop and sends history to LLM each time
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{baritemize}\small
+  \item ChatGPT, Claude, Gemini are chatbots
+  \item The LLM is the ``brain''
+  \item The chatbot is the interface
+\end{baritemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Chatbot Architecture}
+\begin{center}
+\includegraphics[width=\textwidth,,keepaspectratio]{images/chatbot2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{The System Prompt}
+\begin{shadedbox}
+The \textbf{system prompt} is a special message that defines the chatbot's personality, knowledge, and behavior. It's the key to customization.
+\end{shadedbox}
+\vspace{0.3cm}
+
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{What It Does}]
+\begin{itemize}\small
+  \item Sets the chatbot's persona
+  \item Defines its expertise
+  \item Specifies response style
+  \item Adds domain knowledge
+  \item Sets guardrails/rules
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{How It Works}]
+\begin{itemize}\small
+  \item Sent to LLM with every prompt
+  \item User never sees it directly
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{shadedbox}
+\centerline{\href{https://docs.anthropic.com/en/release-notes/system-prompts}{Anthropic's Published System Prompts for Claude}}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Claude Skills}
+\begin{baritemize}
+  \item Claude `skills' are text files (instructions) that the chatbot sends to the LLM when needed 
+  \item An overview of available skills is part of the system prompt
+  \item The overview tells LLM: `ask for this skill in these circumstances \ldots'
+  \item In those circumstances, LLM sends response to chatbot: `send skill'
+  \item Chatbot sends system prompt + prompt + chat history + skill
+  \item LLM sends response
+  \end{baritemize}
+\end{frame}
+
+\begin{frame}{Claude Excel Skill}
+  \begin{baritemize}
+  \item The \texttt{xlsx} skill instructs Claude to:
+  \begin{itemize}
+    \item Use Excel formulas instead of hardcoded values
+    \item Apply professional formatting (color coding, number formats)
+    \item Verify there are no formula errors (\#REF!, \#DIV/0!, etc.)
+    \item Follow financial modeling standards
+  \end{itemize}
+\end{baritemize}
+\vspace{0.3cm}
+
+\begin{shadedbox}
+\centerline{
+\href{https://github.com/anthropics/claude-code/blob/main/skills/xlsx/skill.md}{View the full xlsx skill documentation}
+}
+\end{shadedbox}
+\end{frame}
+
+% ============================================================
+% EFFECTIVE PROMPTING
+% ============================================================
+\section{Effective Prompting}
+
+\begin{frame}{Effective Prompting = Collaboration with AI}
+\begin{baritemize}
+  \item AI is not a search engine---it's a \alert{collaborator}
+  \item Do not try to craft the ``perfect prompt''
+  \item Instead: have a \alert{conversation}
+  \item Think of AI as a capable colleague, not a vending machine
+  \item The goal is \textit{iterative refinement}, not one-shot perfection
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Do's and Dont's for Effective Prompting}
+
+\begin{columns}[T]
+  \vspace*{0.3cm}
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Don't Do This}]
+\begin{itemize}
+  \item Try to anticipate every edge case
+  \item Give up when the first response is wrong
+  \item Treat AI as a one-shot tool
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Do This Instead}]
+\begin{itemize}
+  \item Start with a rough request
+  \item Refine based on the response
+  \item Ask follow-up questions
+  \item Iterate until you get what you need
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{shadedbox}[title=\textbf{Ask the AI What It Can Do}]
+  \begin{itemize}
+  \item Ask: ``What information do you need from me to do this?''
+  \item Ask: ``What are the different ways you could approach this?''
+  \item Ask: ``What should I consider before we start?''
+  \end{itemize}
+\end{shadedbox}
+\end{frame}
+
+
+\begin{frame}{The Plan-Execute-Evaluate Cycle}
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+  % Nodes
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (plan) at (0,2) {\textbf{Plan}};
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (execute) at (4,2) {\textbf{Execute}};
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (evaluate) at (2,0) {\textbf{Evaluate}};
+
+  % Arrows
+  \draw[->, thick, accentblue] (plan) -- (execute);
+  \draw[->, thick, accentblue] (execute) -- (evaluate);
+  \draw[->, thick, accentblue] (evaluate) -- (plan);
+\end{tikzpicture}
+\end{center}
+
+\begin{baritemize}
+  \item \textbf{Plan:} Define the task, gather requirements, outline approach
+  \item \textbf{Execute:} Let AI do the work with your guidance
+  \item \textbf{Evaluate:} Check results, identify gaps, refine
+  \item Repeat until satisfied
+\end{baritemize}
+\end{frame}
+
+
+\begin{frame}{Cross-Evaluation with Other AI Conversations}
+\begin{baritemize}
+  \item Start a \alert{new conversation} to evaluate the plan and output
+  \item Even with the \textit{same model}, a fresh context can catch errors
+  \item Ask the new conversation to review, critique, or verify
+  \item Different phrasing may reveal blind spots
+  \item Consider using a \textit{different model} for additional perspective
+\end{baritemize}
+
+\vspace*{0.3cm}
+
+\begin{shadedbox}
+\textit{``I received this analysis from another session. Can you review it for errors or questionable assumptions?''}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Claude Pricing Options}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Subscription Plans}]
+\begin{itemize}\small
+  \item \textbf{Free:} Limited usage
+  \item \textbf{Pro:} \$20/month --- 5$\times$ free usage, Claude Code, Cowork, memory
+  \item \textbf{Max:} \$100/month (5$\times$ Pro) or \$200/month (20$\times$ Pro)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{API (Pay Per Token)}]
+\begin{itemize}\small
+  \item \textbf{Sonnet 4.5:} \$3 input / \$15 output per million tokens
+  \item \textbf{Haiku 4.5:} \$1 input / \$5 output per MTok
+  \item \textbf{Opus 4.6:} \$5 input / \$25 output per MTok
+  \item Does not include Code, Cowork, or Excel add-in (subscription only)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{shadedbox}[title=\textbf{Example: What Does a Typical Query Cost via API?}]
+\small A 1-page prompt $\approx$ 500 tokens. A 2-page response $\approx$ 1{,}000 tokens.\\
+Using Sonnet 4.5: input = 500 $\times$ \$3/1M = \$0.0015, output = 1{,}000 $\times$ \$15/1M = \$0.015.\\
+\textbf{Total $\approx$ 1.7 cents.} You could send $\sim$1{,}200 such queries for \$20 (the cost of Pro).
+\end{shadedbox}
+\end{frame}
+
+\end{document}

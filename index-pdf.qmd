@@ -40,18 +40,20 @@ All sessions will be in McNair 212, including the special sessions.
 
 ### Course Topics
 
-1. AI and coding
-2. Claude for Excel
-3. Searching, organizing, and filtering data and text
-4. Claude artifacts
-5. Cost of equity
-6. Mean-variance analysis
-7. Simulation
-8. DCF analysis
-9. Claude skills
-10. Claude Code and local execution
-11. Apps, custom chatbots, and agents
-12. Databases
+1. Claude.ai/Desktop
+2. Mean-Variance Optimization
+3. Google Gemini in Colab
+4. Model Context Protocol
+5. Claude Cowork
+6. Claude Code
+7. Claude Add-In for Excel
+8. Claude Skills
+9. Claude Code and Local Execution
+10. Discounted Cash Flow Analysis
+11. Retrieval Augmented Generation
+12. Fine-Tuning and Small Language Models
+13. Building an AI Agent
+14. Trading on News with AI
 
 
 ### Grading

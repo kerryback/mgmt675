@@ -1,0 +1,68 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Mean-Variance Optimization}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Goals}
+\begin{baritemize}
+  \item Compute and plot the \textbf{tangency portfolio}
+  \item Compute and plot the \textbf{global minimum variance portfolio}
+  \item Compute and plot the \textbf{efficient frontier} of risky assets
+  \item Compute and plot the \textbf{capital allocation line}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Possible Constraints}
+\begin{baritemize}
+  \item No short sales
+  \item Minimum and maximum positions
+  \item Margin requirements (sum of absolute values of longs and shorts $\leq 2$)
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Solution Methods}
+\begin{baritemize}
+  \item \textbf{Solver}
+    \begin{itemize}
+      \item Maximize Sharpe ratio
+      \item Minimize risk subject to achieving a target expected return
+      \item Minimize risk
+    \end{itemize}
+  \item \textbf{Analytic/algebraic solution}
+    \begin{itemize}
+      \item Solution of a system of linear equations for tangency portfolio
+      \item Solution of a system of linear equations for global minimum variance portfolio
+      \item Combining solutions of two systems of linear equations for efficient frontier
+      \item Available only when there are no constraints
+    \end{itemize}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Python Solver Options}
+\begin{baritemize}
+  \item scipy.minimize
+  \item cvxopt
+  \item cvxpy
+\end{baritemize}
+
+\begin{shadedbox}[title={Ask Claude}]
+Discuss methods to find the tangency portfolio when there are no short sales constraints.
+\end{shadedbox}
+
+\begin{shadedbox}[title={Ask Claude}]
+Discuss the advantages and disadvantages of these solver options for mean-variance analysis.
+\end{shadedbox}
+\end{frame}
+
+\end{document}

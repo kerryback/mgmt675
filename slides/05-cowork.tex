@@ -1,0 +1,88 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Claude Cowork}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================
+% PART 4: COWORK
+% ============================================================
+\section{Cowork}
+
+\begin{frame}{Step 4: Cowork --- Claude Acts on Your Files}
+
+\begin{center}
+\textbf{This is the point at which Claude goes from answering to doing.}
+\end{center}
+
+\vspace{0.3cm}
+
+Switch to the \textbf{Cowork} tab in Claude Desktop.
+
+\begin{shadedbox}[title={How it works}]
+\begin{enumerate}
+  \item Point Claude at a folder on your computer
+  \item Describe the task in plain English
+  \item Claude plans, executes in an isolated VM, delivers results
+  \item No Python, R, or GitHub needed --- the VM has everything
+\end{enumerate}
+\end{shadedbox}
+
+\begin{exampleblock}{Finance example}
+\textit{``I've pointed you at my FinanceData folder. Read the file portfolio\_returns.csv. Calculate the Sharpe ratio for each fund, identify the top 3, and create an Excel spreadsheet with a summary table and a bar chart.''}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Cowork --- Key Details}
+
+\begin{columns}[T]
+\column{0.48\textwidth}
+\begin{block}{Strengths}
+\begin{itemize}
+  \item Zero setup beyond the app
+  \item VM installs packages itself
+  \item Parallel sub-agents for complex tasks
+  \item Produces Excel, PowerPoint, PDF
+  \item Great for non-coders
+\end{itemize}
+\end{block}
+
+\column{0.48\textwidth}
+\begin{alertblock}{Watch out}
+\begin{itemize}
+  \item Uses tokens \textbf{fast} (VM overhead, planning steps, sub-agents)
+  \item Pro plan (\$20/mo) limits hit quickly
+  \item App must stay open while running
+  \item Not available on Windows ARM64
+\end{itemize}
+\end{alertblock}
+\end{columns}
+
+\vspace{0.5cm}
+\textbf{Recommendation:} Use Cowork for tasks that need file I/O and complex orchestration. Use regular Chat/Artifacts for quick questions to save tokens.
+
+\end{frame}
+
+\begin{frame}[standout]
+Questions?
+
+\vspace{1cm}
+{\normalsize\texttt{claude.ai} \quad $\mid$ \quad \texttt{claude.com/download}}
+
+\vspace{0.5cm}
+{\small Claude Help Center: \texttt{support.claude.com}}
+\end{frame}
+
+\end{document}
