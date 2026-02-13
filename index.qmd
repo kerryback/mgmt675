@@ -12,12 +12,11 @@ J. Howard Creekmore Professor of Finance and Professor of Economics
 TTh 12:30 -- 2:00<br>
 3/17/2026 -- 4/23/2026
 
-##### Special sessions:
+##### Special session:
 
 - Saturday, March 21, 9:00-12:00 - optional Python session
-- Tuesday, April 28 (exam week), 1:00-2:30 -  group presentations
 
-All sessions will be in McNair 212, including the special sessions.
+All sessions will be in McNair 212, including the special session.
 
 ### Learning Objectives
 
@@ -26,7 +25,7 @@ All sessions will be in McNair 212, including the special sessions.
 3. How to collaborate with AI in planning, executing, and evaluating financial analysis
 4. How AI agents can automate repetitive tasks in finance
 5. Methods for reducing the hallucination rate of AI
-6. How AI can be used in trading
+6. How AI can be used for trading on news sentiment
 
 ### Course Description
 
@@ -58,9 +57,9 @@ The following lists the course topics in the order that we will study them.  Thi
 
 ### Grading
 
-Grades will be based on six group projects (10% each), a group presentation (20%), and peer assessments (20%). Groups can consist of no more than five students.  The presentations will be on April 28 during exam week.  
+Grades will be based on six group assignments (15% each) and peer assessments (10%). Groups can consist of no more than five students.  Each assignment consists of multiple exercises and will take a nontrivial amount of time to complete.  Do not wait until the last minute to get started.
 
-The assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28.
+The assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28 (during exam week).
 
 ### Claude Accounts
 

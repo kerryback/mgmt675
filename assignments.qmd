@@ -2,117 +2,17 @@
 title: Assignments
 ---
 
-All assignments are group projects.  Each is due on Tuesday at 11:59 pm.  Submit a Word document or PDF to Canvas.
+## Course Assignments
 
-## Assignment 1: Working with Unstructured Data
+All assignments are group projects (up to five students per group). Each is due on Tuesday at 11:59 pm. Upload your zip file to Canvas.
 
-Due March 24.
+Click on an assignment to download the PDF.
 
-Each exercise below asks you to use Claude Code to extract, reconcile, and analyze data from multiple file formats (xlsx, csv, PDF, and docx).  Download each zip file into the folder open in VS Code, extract the files, and follow the instructions.
-
-### Exercise 1: Loan Portfolio Risk Filtering
-
-You have a loan tape (xlsx) with 220 loans, a state regulations document (PDF) with regulatory thresholds embedded in narrative text, and an internal risk policy (docx) with a 4-tier classification system.
-
-1. Ask Claude Code to extract the state-specific regulatory rules (LTV caps, FICO thresholds, DTI limits) from the PDF.
-2. Ask it to extract the risk tier criteria from the Word doc.
-3. Ask it to assign each loan a risk tier per the internal policy, apply state-specific regulatory flags, and check for special conditions (concentration risk, vintage risk, rate risk).
-4. Ask for a risk report showing tier distribution, state breakdown, flagged loans, and total reserves needed.
-
-[{{< fa file-zipper >}} Download exercise3_loans.zip](files/exercise3_loans.zip)
-
-### Exercise 2: Financial Statement Assembly
-
-You have an income statement (xlsx) with non-standard labels, a balance sheet (PDF), a CFO memo (docx) with cash flow figures embedded in narrative paragraphs, and prior-year financials (csv) with abbreviated headers.
-
-1. Ask Claude Code to extract all financial data from the four files, mapping non-standard and abbreviated labels to GAAP line items.
-2. Ask it to construct a Statement of Cash Flows from the CFO memo.
-3. Ask it to build a comparative 2-year financial summary (2022 vs 2023).
-4. Ask for key metrics: gross margin, operating margin, net margin, current ratio, debt-to-equity, and YoY growth rates.
-
-[{{< fa file-zipper >}} Download exercise4_financials.zip](files/exercise4_financials.zip)
-
-### Exercise 3: M&A Due Diligence
-
-You have a target company's customer list with contract details and quarterly revenue (xlsx), detailed contract terms for top customers (PDF), acquirer screening criteria (docx), and industry benchmarks (csv).
-
-1. Ask Claude Code to extract contract terms from the PDF, including change-of-control provisions, termination terms, and expiry dates.
-2. Ask it to apply the acquirer's screening criteria from the Word doc to each customer.
-3. Ask it to calculate retention probabilities, compute quality-adjusted revenue, and identify critical change-of-control risk contracts.
-4. Ask for a due diligence summary with customer concentration analysis and comparison against industry benchmarks.
-
-[{{< fa file-zipper >}} Download exercise5_manda.zip](files/exercise5_manda.zip)
-
-## Assignment 2: Mean-Variance Analysis
-
-Due March 31.
-
-Download meanvariance.xlsx, which contains monthly returns for five ETFs: SPY (U.S. stocks), EFA (international stocks), IEF (U.S. bonds), GLD (gold), and UUP (U.S. dollar).  Place the file in the folder open in VS Code.
-
-1. Ask Claude Code to compute annualized mean returns and standard deviations for each ETF and to produce a correlation matrix.
-2. Ask it to find the tangency portfolio using a risk-free rate of 4.5% and to report the portfolio weights, expected return, standard deviation, and Sharpe ratio.
-3. Ask it to plot the efficient frontier of the five risky assets and the capital allocation line from the risk-free rate through the tangency portfolio.
-4. Ask it to generate a Word document containing the statistics, portfolio weights, chart, and a brief interpretation of the results.
-
-[{{< fa file-excel >}} Download meanvariance.xlsx](files/meanvariance.xlsx)
-
-## Assignment 3: Simulation
-
-Due April 7.
-
-Use the tangency portfolio weights from Assignment 2.  Assume a risk-free rate of 4.5%, the annualized mean return and standard deviation from Assignment 2, and that annual returns are normally distributed.
-
-1. Ask Claude Code to simulate 10,000 paths of cumulative portfolio wealth over 20 years, starting with $100,000.  Assume the portfolio is rebalanced annually to the tangency weights.
-2. Ask it to plot a fan chart showing the median path and the 5th, 25th, 75th, and 95th percentile paths.
-3. Now suppose you withdraw $6,000 per year (at the end of each year), growing at 2% per year for inflation.  Ask Claude Code to simulate 10,000 paths and compute the probability that the portfolio is exhausted before 20 years.
-4. Ask Claude Code to find (by trial and error or optimization) the maximum initial annual withdrawal (growing at 2% per year) such that the probability of exhaustion within 20 years is at most 5%.
-5. Ask it to generate a Word document containing the fan chart, the probability of exhaustion, the maximum safe withdrawal amount, and a discussion of the results.
-
-## Assignment 4: DCF Analysis
-
-Due April 14.
-
-Download statements.xlsx, which contains the income statement, balance sheet, and cash flow statement for a company for 2021--2024.  Place the file in the folder open in VS Code.
-
-1. Ask Claude Code to compute free cash flow for each year.  Free cash flow is operating cash flow minus capital expenditures.
-2. Ask Claude Code to project free cash flows for the next five years (2025--2029) using reasonable growth assumptions based on the historical trends.  Ask it to explain and justify the assumptions.
-3. Ask it to estimate a terminal value at the end of 2029 using a perpetuity growth model.  Use a long-run growth rate of 3% and a discount rate (weighted average cost of capital) of 10%.
-4. Ask it to discount all projected free cash flows and the terminal value back to the present at the 10% discount rate to obtain the enterprise value.
-5. Using the most recent balance sheet, ask it to subtract net debt (total debt minus cash) from the enterprise value to obtain the equity value, and divide by shares outstanding to get the per-share value.
-6. Ask it to generate a Word document with the historical free cash flows, projected free cash flows, valuation summary, and a sensitivity table showing how the per-share value changes with different discount rates (8%, 9%, 10%, 11%, 12%) and terminal growth rates (2%, 2.5%, 3%, 3.5%, 4%).
-
-[{{< fa file-excel >}} Download statements.xlsx](files/statements.xlsx)
-
-## Assignment 5: Claude Skill for DCF Analysis
-
-Due April 21.
-
-Create a Claude Code skill that automates DCF analysis.  The skill should work for any company, given a statements file in the same format as statements.xlsx.
-
-1. Create a skill folder at `.claude/skills/dcf/` with a `SKILL.md` file.
-2. The skill's system prompt should instruct Claude Code to:
-    - Read the financial statements from an uploaded file
-    - Compute historical free cash flows
-    - Project future free cash flows based on historical trends
-    - Estimate terminal value using a perpetuity growth model
-    - Compute enterprise value, equity value, and per-share value
-    - Generate a Word document with the full analysis, including a sensitivity table
-3. The skill should accept parameters for the discount rate, terminal growth rate, and projection horizon, with sensible defaults (10%, 3%, and 5 years).
-4. Test the skill on statements.xlsx and verify the results are consistent with Assignment 4.
-5. Submit the SKILL.md file and the Word document produced by the skill.
-
-## Assignment 6: Agent for DCF Analysis
-
-Due April 28.
-
-Build and deploy a Streamlit app that functions as an agent for DCF analysis.  The app should allow a user to upload financial statements, set assumptions, and receive a complete DCF valuation.
-
-1. Ask Claude Code to create a Streamlit app with:
-    - A file uploader for the financial statements (xlsx)
-    - Input fields for the discount rate, terminal growth rate, and projection horizon
-    - A button to run the analysis
-    - Display of the results: historical free cash flows, projections, valuation summary, and sensitivity table
-    - A downloadable Word document with the full report
-2. The app should use the OpenRouter API with a free model to generate the narrative discussion sections of the report.
-3. Create a GitHub repository for the app and deploy it to Koyeb.
-4. Submit the public URL of the deployed app and a Word document describing the app's architecture, including how the system prompt, tools, and agent loop work together (referencing the concepts from class).
+| # | Assignment | Due | |
+|--:|------------|-----|:-:|
+| 1 | [Exercises 1--4](assignment1.pdf) | March 24 | [{{< fa file-pdf >}}](assignment1.pdf) |
+| 2 | [Exercises 5--8](assignment2.pdf) | March 31 | [{{< fa file-pdf >}}](assignment2.pdf) |
+| 3 | [Exercises 9--12](assignment3.pdf) | April 7 | [{{< fa file-pdf >}}](assignment3.pdf) |
+| 4 | [Exercises 13--16](assignment4.pdf) | April 14 | [{{< fa file-pdf >}}](assignment4.pdf) |
+| 5 | [Exercises 17--20](assignment5.pdf) | April 21 | [{{< fa file-pdf >}}](assignment5.pdf) |
+| 6 | [Exercises 21--24](assignment6.pdf) | April 28 | [{{< fa file-pdf >}}](assignment6.pdf) |

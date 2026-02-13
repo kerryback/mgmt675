@@ -1,0 +1,24 @@
+---
+title: "Assignment 5"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+---
+
+**Exercise 17: Jupyter Notebook Analysis.**
+Ask Claude Code to create a Jupyter notebook that (a) loads a financial dataset of your choice, (b) computes summary statistics, (c) creates at least two visualizations (e.g., time series plot and histogram), and (d) includes markdown cells explaining each step. Run the notebook and verify all cells execute without errors. Submit the completed notebook (`Exercise17.ipynb`) and a screenshot of the notebook with cell outputs visible (`Exercise17-Screenshot.png`).
+
+**Exercise 18: DCF Cross-Check.**
+Perform a DCF valuation for a company using Claude, then start a new conversation and ask Claude to critique the valuation. Have the second conversation identify at least three questionable assumptions and suggest alternatives. Revise the model based on the critique. Submit the original valuation (`Exercise18-Original.xlsx`), the revised valuation (`Exercise18-Revised.xlsx`), and a summary of changes (`Exercise18-Summary.pdf`) that includes the critique. Submit screenshots of both Claude conversations (`Exercise18-Screenshot1.png`, `Exercise18-Screenshot2.png`).
+
+**Exercise 19: NotebookLM Financial Analysis.**
+Upload at least three financial documents (e.g., a 10-K filing, an earnings call transcript, and an analyst report) for the same company into Google NotebookLM. Ask at least five questions about the company's financial performance, strategy, and risk factors. Note how NotebookLM cites specific sources in its answers. Submit the five Q&A pairs with citations and a brief assessment of answer quality (`Exercise19.pdf`). Submit a screenshot of the NotebookLM interface showing your sources and a sample answer with citations (`Exercise19-Screenshot.png`).
+
+**Exercise 20: RAG Pipeline in Colab.**
+Work through the [Agentic RAG for Dummies](https://colab.research.google.com/gist/GiovanniPasq/ddfc4a09d16b5b97c5c532b5c49f7789/agentic_rag_for_dummies.ipynb) notebook using a corporate annual report of your choice (not Walmart). Ask at least five finance-specific questions (e.g., revenue breakdown, risk factors, capital allocation plans). For each question, note whether the RAG system's answer is grounded in the document or appears to be hallucinated. Submit the notebook (`Exercise20.ipynb`) and your evaluation of the five answers (`Exercise20-Evaluation.pdf`). Submit a screenshot of the Gradio chat interface with a sample question and answer (`Exercise20-Screenshot.png`).
+
+\bigskip
+\noindent\textbf{Submission.} Upload a zip file containing each file requested above with the filename shown in parentheses. Label the zip file ``Assignment5''.

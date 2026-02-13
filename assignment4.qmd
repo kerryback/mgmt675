@@ -1,0 +1,24 @@
+---
+title: "Assignment 4"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+---
+
+**Exercise 13: Subagent Design.**
+In Claude Code, use the `/agents` command to create a custom subagent called "financial-analyst" that is specialized for analyzing CSV data files. Define its system prompt to include standards such as always annualizing returns, labeling chart axes, and saving results to Excel. Test the subagent on a sample dataset. Submit the agent's markdown file (`Exercise13-Agent.md`), a screenshot of the `/agents` command (`Exercise13-Screenshot1.png`), and a screenshot of the subagent producing results (`Exercise13-Screenshot2.png`).
+
+**Exercise 14: Beta Estimation in Excel.**
+Download [betas.xlsx](https://kerryback.com/mgmt675/files/betas.xlsx) and open it in Excel with the Claude Add-in. Ask Claude to compute excess returns for WMT and run a regression to estimate its beta. Then ask Claude to create a scatter plot of excess returns with the regression line displayed. Submit the workbook (`Exercise14.xlsx`) with the regression results and chart. Submit a screenshot of the Excel workbook showing the scatter plot and regression output (`Exercise14-Screenshot.png`).
+
+**Exercise 15: Debugging a Broken Spreadsheet.**
+Obtain or create an Excel workbook that contains several intentional errors: a \#REF! error, a circular reference, a \#DIV/0! error, and at least one hardcoded value that should be a formula. Open it with the Claude Add-in and ask Claude to identify and fix all errors. Submit the original workbook (`Exercise15-Original.xlsx`), the corrected workbook (`Exercise15-Corrected.xlsx`), and Claude's explanation of each fix (`Exercise15-Explanation.pdf`). Submit screenshots of the workbook before (`Exercise15-Screenshot1.png`) and after (`Exercise15-Screenshot2.png`) Claude's fixes.
+
+**Exercise 16: Investment Memo Skill.**
+Create a Claude skill called `investment-memo` in your project's `.claude/skills/` folder. The SKILL.md file should define the output format (executive summary, business overview, financial analysis, risk factors, recommendation), specify workflows, and include code examples. Test the skill by asking Claude to write an investment memo for a public company. Submit the SKILL.md file (`Exercise16-SKILL.md`), the generated memo (`Exercise16-Memo.pdf`), and a screenshot of Claude invoking the skill (`Exercise16-Screenshot.png`).
+
+\bigskip
+\noindent\textbf{Submission.} Upload a zip file containing each file requested above with the filename shown in parentheses. Label the zip file ``Assignment4''.

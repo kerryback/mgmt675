@@ -9,6 +9,12 @@ project:
     - software.qmd
     - index-pdf.qmd
     - exercises.qmd
+    - assignment1.qmd
+    - assignment2.qmd
+    - assignment3.qmd
+    - assignment4.qmd
+    - assignment5.qmd
+    - assignment6.qmd
   resources:
     - CNAME
     - .nojekyll
@@ -17,6 +23,12 @@ project:
     - files/*
     - index-pdf.pdf
     - exercises.pdf
+    - assignment1.pdf
+    - assignment2.pdf
+    - assignment3.pdf
+    - assignment4.pdf
+    - assignment5.pdf
+    - assignment6.pdf
 
 website:
   title: ""

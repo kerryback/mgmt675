@@ -135,120 +135,58 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>All assignments are group projects. Each is due on Tuesday at 11:59 pm. Submit a Word document or PDF to Canvas.</p>
-<section id="assignment-1-working-with-unstructured-data" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-1-working-with-unstructured-data">Assignment 1: Working with Unstructured Data</h2>
-<p>Due March 24.</p>
-<p>Each exercise below asks you to use Claude Code to extract, reconcile, and analyze data from multiple file formats (xlsx, csv, PDF, and docx). Download each zip file into the folder open in VS Code, extract the files, and follow the instructions.</p>
-<section id="exercise-1-loan-portfolio-risk-filtering" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-1-loan-portfolio-risk-filtering">Exercise 1: Loan Portfolio Risk Filtering</h3>
-<p>You have a loan tape (xlsx) with 220 loans, a state regulations document (PDF) with regulatory thresholds embedded in narrative text, and an internal risk policy (docx) with a 4-tier classification system.</p>
-<ol type="1">
-<li>Ask Claude Code to extract the state-specific regulatory rules (LTV caps, FICO thresholds, DTI limits) from the PDF.</li>
-<li>Ask it to extract the risk tier criteria from the Word doc.</li>
-<li>Ask it to assign each loan a risk tier per the internal policy, apply state-specific regulatory flags, and check for special conditions (concentration risk, vintage risk, rate risk).</li>
-<li>Ask for a risk report showing tier distribution, state breakdown, flagged loans, and total reserves needed.</li>
-</ol>
-<p><a href="files/exercise3_loans.zip"><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> Download exercise3_loans.zip</a></p>
-</section>
-<section id="exercise-2-financial-statement-assembly" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-2-financial-statement-assembly">Exercise 2: Financial Statement Assembly</h3>
-<p>You have an income statement (xlsx) with non-standard labels, a balance sheet (PDF), a CFO memo (docx) with cash flow figures embedded in narrative paragraphs, and prior-year financials (csv) with abbreviated headers.</p>
-<ol type="1">
-<li>Ask Claude Code to extract all financial data from the four files, mapping non-standard and abbreviated labels to GAAP line items.</li>
-<li>Ask it to construct a Statement of Cash Flows from the CFO memo.</li>
-<li>Ask it to build a comparative 2-year financial summary (2022 vs 2023).</li>
-<li>Ask for key metrics: gross margin, operating margin, net margin, current ratio, debt-to-equity, and YoY growth rates.</li>
-</ol>
-<p><a href="files/exercise4_financials.zip"><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> Download exercise4_financials.zip</a></p>
-</section>
-<section id="exercise-3-ma-due-diligence" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-3-ma-due-diligence">Exercise 3: M&amp;A Due Diligence</h3>
-<p>You have a target company’s customer list with contract details and quarterly revenue (xlsx), detailed contract terms for top customers (PDF), acquirer screening criteria (docx), and industry benchmarks (csv).</p>
-<ol type="1">
-<li>Ask Claude Code to extract contract terms from the PDF, including change-of-control provisions, termination terms, and expiry dates.</li>
-<li>Ask it to apply the acquirer’s screening criteria from the Word doc to each customer.</li>
-<li>Ask it to calculate retention probabilities, compute quality-adjusted revenue, and identify critical change-of-control risk contracts.</li>
-<li>Ask for a due diligence summary with customer concentration analysis and comparison against industry benchmarks.</li>
-</ol>
-<p><a href="files/exercise5_manda.zip"><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> Download exercise5_manda.zip</a></p>
-</section>
-</section>
-<section id="assignment-2-mean-variance-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-2-mean-variance-analysis">Assignment 2: Mean-Variance Analysis</h2>
-<p>Due March 31.</p>
-<p>Download meanvariance.xlsx, which contains monthly returns for five ETFs: SPY (U.S. stocks), EFA (international stocks), IEF (U.S. bonds), GLD (gold), and UUP (U.S. dollar). Place the file in the folder open in VS Code.</p>
-<ol type="1">
-<li>Ask Claude Code to compute annualized mean returns and standard deviations for each ETF and to produce a correlation matrix.</li>
-<li>Ask it to find the tangency portfolio using a risk-free rate of 4.5% and to report the portfolio weights, expected return, standard deviation, and Sharpe ratio.</li>
-<li>Ask it to plot the efficient frontier of the five risky assets and the capital allocation line from the risk-free rate through the tangency portfolio.</li>
-<li>Ask it to generate a Word document containing the statistics, portfolio weights, chart, and a brief interpretation of the results.</li>
-</ol>
-<p><a href="files/meanvariance.xlsx"><i class="fa-solid fa-file-excel" aria-label="file-excel"></i> Download meanvariance.xlsx</a></p>
-</section>
-<section id="assignment-3-simulation" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-3-simulation">Assignment 3: Simulation</h2>
-<p>Due April 7.</p>
-<p>Use the tangency portfolio weights from Assignment 2. Assume a risk-free rate of 4.5%, the annualized mean return and standard deviation from Assignment 2, and that annual returns are normally distributed.</p>
-<ol type="1">
-<li>Ask Claude Code to simulate 10,000 paths of cumulative portfolio wealth over 20 years, starting with $100,000. Assume the portfolio is rebalanced annually to the tangency weights.</li>
-<li>Ask it to plot a fan chart showing the median path and the 5th, 25th, 75th, and 95th percentile paths.</li>
-<li>Now suppose you withdraw $6,000 per year (at the end of each year), growing at 2% per year for inflation. Ask Claude Code to simulate 10,000 paths and compute the probability that the portfolio is exhausted before 20 years.</li>
-<li>Ask Claude Code to find (by trial and error or optimization) the maximum initial annual withdrawal (growing at 2% per year) such that the probability of exhaustion within 20 years is at most 5%.</li>
-<li>Ask it to generate a Word document containing the fan chart, the probability of exhaustion, the maximum safe withdrawal amount, and a discussion of the results.</li>
-</ol>
-</section>
-<section id="assignment-4-dcf-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-4-dcf-analysis">Assignment 4: DCF Analysis</h2>
-<p>Due April 14.</p>
-<p>Download statements.xlsx, which contains the income statement, balance sheet, and cash flow statement for a company for 2021–2024. Place the file in the folder open in VS Code.</p>
-<ol type="1">
-<li>Ask Claude Code to compute free cash flow for each year. Free cash flow is operating cash flow minus capital expenditures.</li>
-<li>Ask Claude Code to project free cash flows for the next five years (2025–2029) using reasonable growth assumptions based on the historical trends. Ask it to explain and justify the assumptions.</li>
-<li>Ask it to estimate a terminal value at the end of 2029 using a perpetuity growth model. Use a long-run growth rate of 3% and a discount rate (weighted average cost of capital) of 10%.</li>
-<li>Ask it to discount all projected free cash flows and the terminal value back to the present at the 10% discount rate to obtain the enterprise value.</li>
-<li>Using the most recent balance sheet, ask it to subtract net debt (total debt minus cash) from the enterprise value to obtain the equity value, and divide by shares outstanding to get the per-share value.</li>
-<li>Ask it to generate a Word document with the historical free cash flows, projected free cash flows, valuation summary, and a sensitivity table showing how the per-share value changes with different discount rates (8%, 9%, 10%, 11%, 12%) and terminal growth rates (2%, 2.5%, 3%, 3.5%, 4%).</li>
-</ol>
-<p><a href="files/statements.xlsx"><i class="fa-solid fa-file-excel" aria-label="file-excel"></i> Download statements.xlsx</a></p>
-</section>
-<section id="assignment-5-claude-skill-for-dcf-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-5-claude-skill-for-dcf-analysis">Assignment 5: Claude Skill for DCF Analysis</h2>
-<p>Due April 21.</p>
-<p>Create a Claude Code skill that automates DCF analysis. The skill should work for any company, given a statements file in the same format as statements.xlsx.</p>
-<ol type="1">
-<li>Create a skill folder at <code>.claude/skills/dcf/</code> with a <code>SKILL.md</code> file.</li>
-<li>The skill’s system prompt should instruct Claude Code to:
-<ul>
-<li>Read the financial statements from an uploaded file</li>
-<li>Compute historical free cash flows</li>
-<li>Project future free cash flows based on historical trends</li>
-<li>Estimate terminal value using a perpetuity growth model</li>
-<li>Compute enterprise value, equity value, and per-share value</li>
-<li>Generate a Word document with the full analysis, including a sensitivity table</li>
-</ul></li>
-<li>The skill should accept parameters for the discount rate, terminal growth rate, and projection horizon, with sensible defaults (10%, 3%, and 5 years).</li>
-<li>Test the skill on statements.xlsx and verify the results are consistent with Assignment 4.</li>
-<li>Submit the SKILL.md file and the Word document produced by the skill.</li>
-</ol>
-</section>
-<section id="assignment-6-agent-for-dcf-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-6-agent-for-dcf-analysis">Assignment 6: Agent for DCF Analysis</h2>
-<p>Due April 28.</p>
-<p>Build and deploy a Streamlit app that functions as an agent for DCF analysis. The app should allow a user to upload financial statements, set assumptions, and receive a complete DCF valuation.</p>
-<ol type="1">
-<li>Ask Claude Code to create a Streamlit app with:
-<ul>
-<li>A file uploader for the financial statements (xlsx)</li>
-<li>Input fields for the discount rate, terminal growth rate, and projection horizon</li>
-<li>A button to run the analysis</li>
-<li>Display of the results: historical free cash flows, projections, valuation summary, and sensitivity table</li>
-<li>A downloadable Word document with the full report</li>
-</ul></li>
-<li>The app should use the OpenRouter API with a free model to generate the narrative discussion sections of the report.</li>
-<li>Create a GitHub repository for the app and deploy it to Koyeb.</li>
-<li>Submit the public URL of the deployed app and a Word document describing the app’s architecture, including how the system prompt, tools, and agent loop work together (referencing the concepts from class).</li>
-</ol>
+<section id="course-assignments" class="level2">
+<h2 class="anchored" data-anchor-id="course-assignments">Course Assignments</h2>
+<p>All assignments are group projects (up to five students per group). Each is due on Tuesday at 11:59 pm. Upload your zip file to Canvas.</p>
+<p>Click on an assignment to download the PDF.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">#</th>
+<th>Assignment</th>
+<th>Due</th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td><a href="assignment1.pdf">Exercises 1–4</a></td>
+<td>March 24</td>
+<td style="text-align: center;"><a href="assignment1.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td><a href="assignment2.pdf">Exercises 5–8</a></td>
+<td>March 31</td>
+<td style="text-align: center;"><a href="assignment2.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td><a href="assignment3.pdf">Exercises 9–12</a></td>
+<td>April 7</td>
+<td style="text-align: center;"><a href="assignment3.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><a href="assignment4.pdf">Exercises 13–16</a></td>
+<td>April 14</td>
+<td style="text-align: center;"><a href="assignment4.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><a href="assignment5.pdf">Exercises 17–20</a></td>
+<td>April 21</td>
+<td style="text-align: center;"><a href="assignment5.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td><a href="assignment6.pdf">Exercises 21–24</a></td>
+<td>April 28</td>
+<td style="text-align: center;"><a href="assignment6.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i></a></td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

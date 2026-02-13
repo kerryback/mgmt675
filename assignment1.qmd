@@ -1,0 +1,24 @@
+---
+title: "Assignment 1"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+---
+
+**Exercise 1: AI Use Cases in Finance.**
+Pick a specific finance role (e.g., equity research analyst, credit underwriter, portfolio manager, compliance officer). Using Claude.ai, have a conversation in which you identify five concrete tasks that AI could automate or augment in that role. For each task, classify it as "maker" work or "checker" work (per the JP Morgan framing in the slides). Submit a one-page summary (`Exercise1.pdf`) with your classifications and a brief argument for which task would deliver the most value if automated first. Submit a screenshot of your Claude conversation (`Exercise1-Screenshot.png`).
+
+**Exercise 2: AI Capabilities Audit.**
+Choose a publicly traded company and ask Claude to (a) summarize its most recent earnings release, (b) pull its current P/E ratio from the web, and (c) generate a simple bar chart comparing its revenue over the past four quarters. For each task, note which AI capability from the slides it relies on (e.g., document analysis, web search, code execution). Submit screenshots of the conversation (`Exercise2-Screenshot1.png`, `Exercise2-Screenshot2.png`, ...) along with your capability mapping (`Exercise2-Mapping.pdf`).
+
+**Exercise 3: Cross-Model Evaluation.**
+Ask Claude and at least one other AI (ChatGPT, Gemini, or Copilot) the same finance question: *"Explain the Modigliani-Miller theorem and its real-world limitations."* Compare the two responses on accuracy, depth, and clarity. Then start a new Claude conversation and ask it to critique the other model's answer. Submit screenshots of all three outputs (`Exercise3-Screenshot1.png`, `Exercise3-Screenshot2.png`, `Exercise3-Screenshot3.png`) with a short reflection (`Exercise3-Reflection.pdf`, half page) on what you learned about cross-evaluation.
+
+**Exercise 4: Interactive Bond Pricing App.**
+Using Claude.ai Artifacts, create an interactive app that lets a user input a bond's coupon rate, yield to maturity, face value, and years to maturity (assume semi-annual coupons). The app should compute the bond price and display an interactive chart showing how the price changes as the yield varies from 0% to 15%. Publish the artifact and submit the shareable link (`Exercise4-Link.txt`). Submit a screenshot of the published artifact (`Exercise4-Screenshot.png`).
+
+\bigskip
+\noindent\textbf{Submission.} Upload a zip file containing each file requested above with the filename shown in parentheses. Label the zip file ``Assignment1''.
