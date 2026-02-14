@@ -6,7 +6,7 @@
 \input{mgmt675-style}
 
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Automating Specialized Prompts}
+\title{Claude Code Skills}
 \author{Kerry Back}
 
 \date{}
@@ -359,6 +359,37 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
   \item \textbf{Cowork}: best for batch tasks on local files
   \item \textbf{Code / VS Code}: best when you want to see and edit the code
 \end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Skills and Slash Commands}
+\begin{shadedbox}
+Every skill has a \textbf{name}. That name becomes a \textbf{slash command} you can type in the Code tab (or CLI or VS Code).
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{How It Works}]
+\begin{itemize}\small
+  \item A skill's name is set in the YAML frontmatter of \texttt{SKILL.md}
+  \item Type \texttt{/name} to invoke it explicitly
+  \item Or just describe your task---Claude loads the skill automatically when it detects a match
+  \item Automatic loading works in all modes (Claude.ai, Chat, Cowork, and Code)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Examples}]
+\begin{itemize}\small
+  \item \texttt{/xlsx} --- invoke the Excel skill
+  \item \texttt{/earnings-call} --- invoke an earnings call analysis skill
+  \item \texttt{/investment-memo} --- invoke a memo-writing skill
+  \item \texttt{/commit} --- invoke a git commit skill
+\end{itemize}
+\vspace{0.2cm}
+{\scriptsize These appear alongside built-in commands like \texttt{/clear} and \texttt{/compact} when you type \texttt{/}.}
 \end{shadedbox}
 \end{column}
 \end{columns}

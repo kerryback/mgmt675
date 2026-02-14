@@ -39,17 +39,17 @@ Switch to the \textbf{Cowork} tab in Claude Desktop.
 \end{enumerate}
 \end{shadedbox}
 
-\begin{exampleblock}{Finance example}
+\begin{shadedbox}[title=\textbf{Example}]
 \textit{``I've pointed you at my FinanceData folder. Read the file portfolio\_returns.csv. Calculate the Sharpe ratio for each fund, identify the top 3, and create an Excel spreadsheet with a summary table and a bar chart.''}
-\end{exampleblock}
+\end{shadedbox}
 
 \end{frame}
 
 \begin{frame}{Cowork --- Key Details}
 
 \begin{columns}[T]
-\column{0.48\textwidth}
-\begin{block}{Strengths}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Strengths}]
 \begin{itemize}
   \item Zero setup beyond the app
   \item VM installs packages itself
@@ -57,32 +57,23 @@ Switch to the \textbf{Cowork} tab in Claude Desktop.
   \item Produces Excel, PowerPoint, PDF
   \item Great for non-coders
 \end{itemize}
-\end{block}
-
-\column{0.48\textwidth}
-\begin{alertblock}{Watch out}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{\alert{Watch Out}}]
 \begin{itemize}
   \item Uses tokens \textbf{fast} (VM overhead, planning steps, sub-agents)
   \item Pro plan (\$20/mo) limits hit quickly
   \item App must stay open while running
   \item Not available on Windows ARM64
 \end{itemize}
-\end{alertblock}
+\end{shadedbox}
+\end{column}
 \end{columns}
 
 \vspace{0.5cm}
 \textbf{Recommendation:} Use Cowork for tasks that need file I/O and complex orchestration. Use regular Chat/Artifacts for quick questions to save tokens.
 
-\end{frame}
-
-\begin{frame}[standout]
-Questions?
-
-\vspace{1cm}
-{\normalsize\texttt{claude.ai} \quad $\mid$ \quad \texttt{claude.com/download}}
-
-\vspace{0.5cm}
-{\small Claude Help Center: \texttt{support.claude.com}}
 \end{frame}
 
 \end{document}

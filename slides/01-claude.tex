@@ -46,7 +46,7 @@
 \node[mystep, below=of s2] (s3) {3. Claude Desktop --- Chat};
 \node[mystep, below=of s3] (s4) {4. Claude Desktop --- Cowork};
 \node[mystep, below=of s4] (s5) {5. Claude Desktop --- Code (Local)};
-\node[mystep, below=of s5] (s6) {6. Claude Desktop --- Code (Remote / GitHub)};
+\node[mystep, below=of s5] (s6) {6. Claude Code in VS Code};
 
 \draw[arrow] (s1) -- (s2);
 \draw[arrow] (s2) -- (s3);
@@ -59,7 +59,7 @@
 \node[right=0.6cm of s3, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Same, but installed on your machine};
 \node[right=0.6cm of s4, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Claude acts on your files autonomously};
 \node[right=0.6cm of s5, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Claude runs code on your machine};
-\node[right=0.6cm of s6, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {Cloud execution via GitHub};
+\node[right=0.6cm of s6, text=titlegray, font=\scriptsize\itshape, text width=5.5cm] {AI coding inside an IDE};
 \end{tikzpicture}
 \end{center}
 
@@ -103,7 +103,7 @@ Each step gives Claude more \textbf{capability} and more \textbf{access} to your
 Go to \texttt{claude.ai} in any browser. No installation required.  Icon at top left opens sidebar.
 
 \begin{shadedbox}[title={What it can do}]
-It's a chatbot with a code execution tool.  It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in.  It can also generate charts, Excel files, Word docs, and PowerPoint decks.
+It's a chatbot with a code execution tool.  It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in.  It can also generate charts, Excel files, Word docs, and PowerPoint decks.  Code runs in a \textbf{sandbox}---can \texttt{pip install} packages but has \alert{no internet access}.
 \end{shadedbox}
 
 \begin{shadedbox}[title=\textbf{Example}]
@@ -161,6 +161,87 @@ Download the Claude app from \texttt{claude.com/download}.
 \begin{shadedbox}[title=\textbf{Setup}]
 Install the app $\rightarrow$ sign in with your Claude account $\rightarrow$ use the \textbf{Chat} tab. That's it. Same experience as the web, but now you have access to Cowork and Code, which we will investigate later.
 \end{shadedbox}
+
+\end{frame}
+
+% ============================================================
+% CODE EXECUTION CAPABILITIES
+% ============================================================
+\section{Code Execution Capabilities}
+
+\begin{frame}{Code Execution: Sandbox vs.\ Local}
+
+All chatbot code execution runs in a \textbf{sandbox}---an isolated container with restricted network access.
+
+\vspace{0.3cm}
+
+\begin{center}\small
+\begin{tabular}{@{}l c c c@{}}
+\toprule
+\textbf{Mode} & \texttt{pip install} & \textbf{Internet} & \textbf{External APIs} \\
+\midrule
+ChatGPT (Data Analysis) & {\color{accentblue}\textbf{Yes}}\textsuperscript{*} & {\color{alertorange}\textbf{No}} & {\color{alertorange}\textbf{No}} \\
+Claude Chat (web) & {\color{accentblue}\textbf{Yes}} & {\color{alertorange}\textbf{No}} & {\color{alertorange}\textbf{No}} \\
+Claude Cowork (VM) & {\color{accentblue}\textbf{Yes}} & {\color{alertorange}\textbf{No}} & {\color{alertorange}\textbf{No}} \\
+Claude Code (local) & {\color{accentblue}\textbf{Yes}} & {\color{accentblue}\textbf{Yes}} & {\color{accentblue}\textbf{Yes}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+{\scriptsize \textsuperscript{*}ChatGPT added \texttt{pip install} in January 2026; previously limited to pre-installed packages.}
+
+\vspace{0.2cm}
+
+\begin{shadedbox}
+\textbf{Key insight:} Only \alert{Claude Code} (running on your machine) can call external APIs---Yahoo Finance, Alpha Vantage, Financial Modeling Prep, databases, etc.
+\end{shadedbox}
+
+\end{frame}
+
+\begin{frame}[fragile]{Example: Live Stock Data with \texttt{yfinance}}
+
+With Claude Code running locally, you can fetch \textbf{live financial data}:
+
+\begin{shadedbox}[title=\textbf{Prompt to Claude Code}]
+\textit{``Get the last year of daily prices for AAPL and MSFT using yfinance. Plot the cumulative returns.''}
+\end{shadedbox}
+
+\textbf{Python code Claude writes and executes:}
+\begin{lstlisting}
+import yfinance as yf
+import matplotlib.pyplot as plt
+
+data = yf.download(["AAPL", "MSFT"], period="1y")
+rets = data["Close"].pct_change().cumsum()
+rets.plot(title="Cumulative Returns (1 Year)")
+plt.savefig("returns.png")
+\end{lstlisting}
+
+\texttt{yfinance} is free and requires no API key.  This \alert{fails in Chat, Cowork, and ChatGPT}---the sandbox blocks the network call.
+
+\end{frame}
+
+\begin{frame}[fragile]{Example: Financial Modeling Prep API}
+
+APIs requiring \textbf{authentication} also work in Claude Code:
+
+\begin{shadedbox}[title=\textbf{Prompt to Claude Code}]
+\textit{``Use Financial Modeling Prep to get Apple's income statement. My API key is in the environment variable FMP\_API\_KEY.''}
+\end{shadedbox}
+
+\textbf{Python code Claude writes and executes:}
+\begin{lstlisting}
+import os, requests, pandas as pd
+
+key = os.environ["FMP_API_KEY"]
+url = "https://financialmodelingprep.com/api/v3"
+url += f"/income-statement/AAPL?apikey={key}"
+resp = requests.get(url)
+df = pd.DataFrame(resp.json())
+print(df[["date", "revenue", "netIncome"]])
+\end{lstlisting}
+
+Free tier: 250 requests/day at \texttt{financialmodelingprep.com}.
 
 \end{frame}
 

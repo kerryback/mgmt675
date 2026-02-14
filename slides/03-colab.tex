@@ -244,6 +244,26 @@ Note: You'll need to re-run your cells after restarting
   \end{barenumerate}
 \end{frame}
 
+\begin{frame}{Reading Data Files in Colab}
+\begin{baritemize}
+  \item Download the file to your \textbf{Google Drive} (e.g., to My Drive or a subfolder)
+  \item In your Colab notebook, ask Gemini to \textbf{mount your Google Drive}
+  \item Gemini will generate code like:
+    \begin{itemize}
+      \item \texttt{from google.colab import drive}
+      \item \texttt{drive.mount('/content/drive')}
+    \end{itemize}
+  \item Run the cell and authorize access when prompted
+  \item Your Drive files are now at \texttt{/content/drive/MyDrive/...}
+  \item Ask Gemini to load the file with pandas --- it will use the correct path and reader (\texttt{read\_excel}, \texttt{read\_csv}, etc.)
+\end{baritemize}
+
+\vspace{0.2cm}
+\begin{shadedbox}
+When unsure about anything in Colab, ask Gemini.
+\end{shadedbox}
+\end{frame}
+
 \begin{frame}{Exercise: Computing Returns}
 \begin{baritemize}
   \item Download \href{https://kerryback.com/mgmt675/files/prices-dividends.xlsx}{prices-dividends.xlsx} to your Google Drive
@@ -262,12 +282,13 @@ Note: You'll need to re-run your cells after restarting
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Exercise: Mean-Variance Analysis}
+\begin{frame}{Exercise: Pairs Trading Signals}
 \begin{baritemize}
-  \item Download \href{https://kerryback.com/mgmt675/files/meanvariance.xlsx}{meanvariance.xlsx} to your Google Drive
-  \item Ask Gemini to mount your Google Drive
-  \item Ask Gemini to find the tangency portfolio
-  \item Ask Gemini to plot the efficient frontier
+  \item Download \href{https://kerryback.com/mgmt675/files/pairs-ko-pep.xlsx}{pairs-ko-pep.xlsx} (or \href{https://kerryback.com/mgmt675/files/pairs-f-gm.xlsx}{pairs-f-gm.xlsx}) to your Google Drive
+  \item Ask Gemini to mount your Google Drive and load the price data
+  \item Ask Gemini to compute the price ratio of the two stocks and plot it over time
+  \item Ask Gemini to compute the rolling 30-day z-score of the ratio and plot it, with horizontal lines at $\pm 1$ and $\pm 2$
+  \item Ask Gemini to highlight dates where the z-score crosses $\pm 2$ (potential entry signals) and where it returns to 0 (potential exit signals)
 \end{baritemize}
 \end{frame}
 
