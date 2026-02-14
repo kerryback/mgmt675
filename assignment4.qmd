@@ -6,10 +6,11 @@ format:
     include-in-header:
       text: |
         \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
 **Exercise 10: Beta Estimation in Excel.**
-Download [betas.xlsx](https://kerryback.com/mgmt675/files/betas.xlsx) and open it in Excel with the Claude Add-in. Ask Claude to compute excess returns for WMT and run a regression to estimate its beta. Then ask Claude to create a scatter plot of excess returns with the regression line displayed. Submit the workbook (`Exercise10.xlsx`) with the regression results and chart. Submit a screenshot of the Excel workbook showing the scatter plot and regression output (`Exercise10-Screenshot.png`).
+Download [exercise10-betas.xlsx](https://kerryback.com/mgmt675/files/exercise10-betas.xlsx) and open it in Excel with the Claude Add-in. Ask Claude to compute excess returns for WMT and run a regression to estimate its beta. Then ask Claude to create a scatter plot of excess returns with the regression line displayed. Submit the workbook (`Exercise10.xlsx`) with the regression results and chart. Submit a screenshot of the Excel workbook showing the scatter plot and regression output (`Exercise10-Screenshot.png`).
 
 **Exercise 11: Debugging a Broken Spreadsheet.**
 Obtain or create an Excel workbook that contains several intentional errors: a \#REF! error, a circular reference, a \#DIV/0! error, and at least one hardcoded value that should be a formula. Open it with the Claude Add-in and ask Claude to identify and fix all errors. Submit the original workbook (`Exercise11-Original.xlsx`), the corrected workbook (`Exercise11-Corrected.xlsx`), and Claude's explanation of each fix (`Exercise11-Explanation.pdf`). Submit screenshots of the workbook before (`Exercise11-Screenshot1.png`) and after (`Exercise11-Screenshot2.png`) Claude's fixes.

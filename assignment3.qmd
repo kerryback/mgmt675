@@ -6,6 +6,7 @@ format:
     include-in-header:
       text: |
         \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
 **Exercise 7: Financial Data with MCP.**
@@ -15,7 +16,7 @@ Install the Alpha Vantage or Financial Modeling Prep MCP server in Claude Deskto
 Install the Browser-Use MCP server in Claude Desktop. Ask Claude to navigate to a financial website (e.g., Yahoo Finance or the SEC EDGAR site), extract a specific piece of data (e.g., the current market cap and P/E ratio for a company), and present it in a formatted response. Submit screenshots of the browser automation in action (`Exercise8-Screenshot1.png`) and the final result (`Exercise8-Screenshot2.png`).
 
 **Exercise 9: Multi-File Document Processing.**
-Download [exercise2\_invoices.zip](https://kerryback.com/mgmt675/files/exercise2_invoices.zip) and extract it into a folder. In Cowork, ask Claude to read the invoice register (PDF), the payment log (xlsx), and the vendor disputes memo (docx). Have Claude match invoices to payments, apply dispute resolutions, and produce a reconciliation summary (`Exercise9-Reconciliation.xlsx`) with the total outstanding amount. Submit a screenshot of the Cowork session showing the steps Claude took (`Exercise9-Screenshot.png`).
+Download [exercise9-invoices.zip](https://kerryback.com/mgmt675/files/exercise9-invoices.zip) and extract it into a folder. In Cowork, ask Claude to read the invoice register (PDF), the payment log (xlsx), and the vendor disputes memo (docx). Have Claude match invoices to payments, apply dispute resolutions, and produce a reconciliation summary (`Exercise9-Reconciliation.xlsx`) with the total outstanding amount. Submit a screenshot of the Cowork session showing the steps Claude took (`Exercise9-Screenshot.png`).
 
 \bigskip
 \noindent\textbf{Submission.} Upload a zip file containing each file requested above with the filename shown in parentheses. Name the zip file Assignment3.zip.

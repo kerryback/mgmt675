@@ -6,6 +6,7 @@ format:
     include-in-header:
       text: |
         \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
 ## 00 -- Course Introduction
@@ -53,7 +54,7 @@ Ask Claude to find the tangency portfolio for a set of at least three assets usi
 In Google Colab, use Gemini to write code that downloads daily price data for three stocks of your choice from Yahoo Finance, computes daily returns, and produces (a) a boxplot of the daily returns, (b) a summary statistics table (mean, std, min, max, skewness, kurtosis), and (c) a correlation matrix heatmap. Save the notebook and the output files to Google Drive. Submit the notebook (.ipynb) and a screenshot of the outputs.
 
 **Exercise 11: Beta Estimation.**
-Download [betas.xlsx](https://kerryback.com/mgmt675/files/betas.xlsx) to your Google Drive. In Colab, ask Gemini to mount your Drive, load the data, estimate betas for each stock using OLS regression, and create a bar chart of the estimated betas with 95% confidence intervals. Ask Gemini to interpret the results: which stocks are defensive and which are aggressive? Submit the notebook and a short written summary.
+Download [exercise10-betas.xlsx](https://kerryback.com/mgmt675/files/exercise10-betas.xlsx) to your Google Drive. In Colab, ask Gemini to mount your Drive, load the data, estimate betas for each stock using OLS regression, and create a bar chart of the estimated betas with 95% confidence intervals. Ask Gemini to interpret the results: which stocks are defensive and which are aggressive? Submit the notebook and a short written summary.
 
 **Exercise 12: Colab vs. Claude Comparison.**
 Perform the same analysis task in both Google Colab (with Gemini) and Claude.ai: compute the annualized mean return and volatility for a set of at least three stocks using one year of daily data. Compare the two experiences: Which was easier to set up? Which produced more reliable code on the first attempt? Which gave better explanations? Submit both outputs and a one-page comparison.
@@ -79,7 +80,7 @@ Configure at least two MCP servers in Claude Desktop (e.g., DesktopCommander + a
 Create a CSV file containing monthly returns for at least three funds over the past two years. Place it in a folder on your computer. In Claude Desktop's Cowork tab, point Claude at the folder and ask it to compute the Sharpe ratio for each fund, identify the top performer, and create an Excel spreadsheet with a summary table and a bar chart of the Sharpe ratios. Submit the CSV input, the Excel output, and a screenshot of the Cowork session.
 
 **Exercise 17: Multi-File Document Processing.**
-Download [exercise2\_invoices.zip](https://kerryback.com/mgmt675/files/exercise2_invoices.zip) and extract it into a folder. In Cowork, ask Claude to read the invoice register (PDF), the payment log (xlsx), and the vendor disputes memo (docx). Have Claude match invoices to payments, apply dispute resolutions, and produce a reconciliation summary with the total outstanding amount. Submit the input files and the reconciliation output.
+Download [exercise9-invoices.zip](https://kerryback.com/mgmt675/files/exercise9-invoices.zip) and extract it into a folder. In Cowork, ask Claude to read the invoice register (PDF), the payment log (xlsx), and the vendor disputes memo (docx). Have Claude match invoices to payments, apply dispute resolutions, and produce a reconciliation summary with the total outstanding amount. Submit the input files and the reconciliation output.
 
 **Exercise 18: Cowork vs. Code Mode Comparison.**
 Perform the same data analysis task (e.g., computing descriptive statistics and a histogram for a dataset) in both the Cowork tab and the Code (Local) tab. Compare: Which was faster? Which used more tokens (check with /cost)? Which gave you more control over the output? Write a half-page reflection on when you would use each mode.
@@ -92,7 +93,7 @@ Perform the same data analysis task (e.g., computing descriptive statistics and 
 Download or create a CSV file with monthly returns for five industry portfolios and the Fama-French three factors (Mkt-RF, SMB, HML) plus RF. In Claude Desktop's Code tab (Local), ask Claude to run a Fama-French three-factor regression for each portfolio, save the results (alpha, betas, R-squared) to an Excel file, and create a plot of the estimated market betas with confidence intervals. Submit the data file, the Excel output, and the plot.
 
 **Exercise 20: Invoice Reconciliation in Code Mode.**
-Download [exercise2\_invoices.zip](https://kerryback.com/mgmt675/files/exercise2_invoices.zip) into your project folder. In Code (Local), ask Claude to extract the invoice table from the PDF, match invoices to payments from the Excel file (handling inconsistent reference formats), identify fully paid, partially paid, and unpaid invoices, and apply dispute resolutions from the Word memo. Ask for a final reconciliation summary. Submit the output and a brief description of the steps Claude took.
+Download [exercise9-invoices.zip](https://kerryback.com/mgmt675/files/exercise9-invoices.zip) into your project folder. In Code (Local), ask Claude to extract the invoice table from the PDF, match invoices to payments from the Excel file (handling inconsistent reference formats), identify fully paid, partially paid, and unpaid invoices, and apply dispute resolutions from the Word memo. Ask for a final reconciliation summary. Submit the output and a brief description of the steps Claude took.
 
 **Exercise 21: Subagent Design.**
 In Claude Code, use the `/agents` command to create a custom subagent called "financial-analyst" that is specialized for analyzing CSV data files. Define its system prompt to include standards such as always annualizing returns, labeling chart axes, and saving results to Excel. Test the subagent on a sample dataset. Submit the agent's markdown file (`.claude/agents/analyst.md`), the test conversation, and the output.
@@ -105,7 +106,7 @@ In Claude Code, use the `/agents` command to create a custom subagent called "fi
 Open a blank Excel workbook and use the Claude Excel Add-in to build a two-stage DCF model. The model should include (a) explicit forecast period assumptions (revenue growth, margins, capex, etc.), (b) a terminal value calculation, (c) a WACC computation, and (d) a final enterprise value and implied share price. Ensure all calculations use Excel formulas, not hardcoded values. Submit the workbook.
 
 **Exercise 23: Beta Estimation in Excel.**
-Download [betas.xlsx](https://kerryback.com/mgmt675/files/betas.xlsx) and open it in Excel with the Claude Add-in. Ask Claude to compute excess returns for WMT and run a regression to estimate its beta. Then ask Claude to create a scatter plot of excess returns with the regression line displayed. Submit the workbook with the regression results and chart.
+Download [exercise10-betas.xlsx](https://kerryback.com/mgmt675/files/exercise10-betas.xlsx) and open it in Excel with the Claude Add-in. Ask Claude to compute excess returns for WMT and run a regression to estimate its beta. Then ask Claude to create a scatter plot of excess returns with the regression line displayed. Submit the workbook with the regression results and chart.
 
 **Exercise 24: Debugging a Broken Spreadsheet.**
 Obtain or create an Excel workbook that contains several intentional errors: a \#REF! error, a circular reference, a \#DIV/0! error, and at least one hardcoded value that should be a formula. Open it with the Claude Add-in and ask Claude to identify and fix all errors. Submit the original (broken) workbook and the corrected version, along with Claude's explanation of each fix.
@@ -128,7 +129,7 @@ Pick a recurring financial analysis task (e.g., analyzing a quarterly earnings r
 ## 09 -- Claude Code in VS Code
 
 **Exercise 28: Beta Estimation with Word Report.**
-In VS Code with Claude Code, open a folder containing [betas.xlsx](https://kerryback.com/mgmt675/files/betas.xlsx). Ask Claude Code to compute WMT's excess returns, run a regression to estimate its beta, and produce a Word document containing a scatter plot of the data with the regression line and a discussion of why the beta is what it is. Submit the Word document and the Python script Claude wrote.
+In VS Code with Claude Code, open a folder containing [exercise10-betas.xlsx](https://kerryback.com/mgmt675/files/exercise10-betas.xlsx). Ask Claude Code to compute WMT's excess returns, run a regression to estimate its beta, and produce a Word document containing a scatter plot of the data with the regression line and a discussion of why the beta is what it is. Submit the Word document and the Python script Claude wrote.
 
 **Exercise 29: Table Aggregation.**
 Download [aggregation.zip](https://kerryback.com/mgmt675/files/aggregation.zip) into your VS Code project folder and extract the workbooks. Each workbook contains a table with similar but not identical columns and column names. Ask Claude Code to combine all tables into a single unified table, reconciling the varying column names and including all columns. Submit the combined table (as Excel or CSV) and a description of how Claude handled the name reconciliation.

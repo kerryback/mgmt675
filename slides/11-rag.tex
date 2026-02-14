@@ -232,14 +232,14 @@ NotebookLM is a practical example of RAG that you can use today --- no API keys,
 
 \begin{frame}{Hands-On: RAG with an Annual Report}
 \begin{shadedbox}
-Try RAG yourself using the \textbf{Agentic RAG for Dummies} Google Colab notebook. Upload Walmart's 2024 annual report and ask questions about it.
+Try RAG yourself using the \textbf{Agentic RAG for Dummies} Google Colab notebook. Upload Apple's 2024 10-K filing and ask questions about it.
 \end{shadedbox}
 \vspace{0.3cm}
 \begin{baritemize}
   \item \textbf{Colab notebook:}\\
     {\small\url{https://colab.research.google.com/gist/GiovanniPasq/ddfc4a09d16b5b97c5c532b5c49f7789/agentic_rag_for_dummies.ipynb}}
-  \item \textbf{Walmart 2024 Annual Report} (PDF):
-    {\small\url{https://corporate.walmart.com/content/dam/corporate/documents/newsroom/2024/04/25/walmart-releases-2024-annual-report-and-proxy-statement/walmart-inc-2024-annual-report.pdf}}
+  \item \textbf{Apple 2024 10-K} (PDF): download from\\
+    {\small\url{https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AAPL&type=10-K}}
   \item \textbf{GitHub repo:}
     {\small\url{https://github.com/GiovanniPasq/agentic-rag-for-dummies}}
 \end{baritemize}
@@ -248,7 +248,7 @@ Try RAG yourself using the \textbf{Agentic RAG for Dummies} Google Colab noteboo
 \begin{frame}{What You'll See in the Notebook}
 \begin{barenumerate}
   \item \textbf{Install libraries} --- LangGraph, LangChain, Qdrant (vector database), and HuggingFace embeddings
-  \item \textbf{Upload a PDF} --- the Walmart annual report is converted from PDF to structured text
+  \item \textbf{Upload a PDF} --- the annual report is converted from PDF to structured text
   \item \textbf{Chunk and embed} --- the text is split into small, overlapping pieces and converted into numerical vectors (embeddings)
   \item \textbf{Store in a vector database} --- chunks are indexed in Qdrant for fast similarity search
   \item \textbf{Ask questions} --- type a question and the system retrieves the most relevant chunks, then passes them to an LLM to generate a grounded answer
@@ -260,11 +260,11 @@ Try RAG yourself using the \textbf{Agentic RAG for Dummies} Google Colab noteboo
 Once the notebook is running, try asking:
 \vspace{0.2cm}
 \begin{baritemize}
-  \item What was Walmart's total revenue in fiscal year 2024?
-  \item How did e-commerce sales perform compared to the prior year?
-  \item What are Walmart's main risk factors?
-  \item What is Walmart's strategy for international markets?
-  \item Summarize Walmart's capital expenditure plans.
+  \item What was Apple's total revenue in fiscal year 2024?
+  \item How did services revenue grow compared to the prior year?
+  \item What are Apple's main risk factors related to supply chain?
+  \item What is Apple's strategy for emerging markets?
+  \item Summarize Apple's research and development spending trends.
 \end{baritemize}
 \vspace{0.2cm}
 \begin{shadedbox}

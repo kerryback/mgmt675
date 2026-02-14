@@ -201,47 +201,48 @@ Skills let you create \alert{specialized agents} without writing agent logic. Cl
 \end{barenumerate}
 \end{frame}
 
-\begin{frame}[fragile]{Example: Investment Memo Skill}
+\begin{frame}[fragile]{Example: Earnings Call Skill}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
 \begin{shadedbox}[title=\textbf{SKILL.md}]\scriptsize
 \begin{verbatim}
 ---
-name: investment-memo
-description: "Create investment
-  memos with DCF, comps,
-  and risk analysis"
+name: earnings-call
+description: "Analyze earnings call
+  transcripts and extract
+  key financial insights"
 ---
 
 # Output Format
-- Executive summary (1 paragraph)
-- Business overview
-- Financial analysis (DCF + comps)
-- Risk factors (bull/bear case)
-- Recommendation with price target
+- Key metrics vs. consensus
+- Management guidance summary
+- Notable analyst Q&A highlights
+- Sentiment and tone assessment
+- Three actionable takeaways
 
 # Workflows
-1. Gather financials from SEC filings
-   or uploaded files
-2. Build DCF in Excel with formulas
-3. Pull peer group multiples
-4. Write memo in Word format
+1. Parse transcript from uploaded
+   file or pasted text
+2. Extract financial figures and
+   compare to prior quarter
+3. Summarize guidance changes
+4. Write report in Word format
 \end{verbatim}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.55\textwidth}
 \begin{shadedbox}[title=\textbf{What This Gives You}]
 \begin{itemize}\small
-  \item Type: ``Write an investment memo for Apple''
+  \item Type: ``Analyze the Tesla Q4 earnings call''
   \item Claude follows the structure automatically
-  \item Consistent format across every memo
-  \item Produces Excel model + Word report
+  \item Consistent format across every analysis
+  \item Produces Word report with key highlights
 \end{itemize}
 \end{shadedbox}
 \vspace{0.2cm}
 \begin{shadedbox}[title=\textbf{Other Finance Skill Ideas}]
 \begin{itemize}\small
-  \item \textbf{Earnings call}: Summarize transcripts, extract guidance, flag surprises
+  \item \textbf{Investment memo}: DCF, comps, risk factors, recommendation
   \item \textbf{Portfolio report}: Monthly performance, attribution, charts
   \item \textbf{Loan analysis}: Parse credit agreements, extract covenants
   \item \textbf{ESG scoring}: Rate companies on ESG criteria from filings
