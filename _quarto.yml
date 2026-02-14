@@ -5,10 +5,7 @@ project:
     - index.qmd
     - slides.qmd
     - assignments.qmd
-    - files.qmd
-    - software.qmd
     - index-pdf.qmd
-    - exercises.qmd
     - assignment1.qmd
     - assignment2.qmd
     - assignment3.qmd
@@ -19,10 +16,7 @@ project:
     - CNAME
     - .nojekyll
     - slides/*.pdf
-    - class-setup/dist/*.zip
-    - files/*
     - index-pdf.pdf
-    - exercises.pdf
     - assignment1.pdf
     - assignment2.pdf
     - assignment3.pdf
@@ -43,10 +37,6 @@ website:
         text: Slides
       - href: assignments.qmd
         text: Assignments
-      - href: files.qmd
-        text: Files
-      - href: software.qmd
-        text: Software
     
 format:
   html:
