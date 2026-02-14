@@ -8,17 +8,14 @@ format:
         \usepackage{xcolor}
 ---
 
-**Exercise 5: Tangency Portfolio with Real Data.**
-Download monthly return data for five ETFs of your choice (e.g., SPY, AGG, GLD, VNQ, EFA) and the one-month T-bill rate from a source such as FRED or Yahoo Finance. Upload the data to Claude and ask it to compute the tangency portfolio weights, the expected return and standard deviation of the tangency portfolio, and the Sharpe ratio. Have Claude plot the efficient frontier and the capital allocation line. Submit the data file (`Exercise5-Data.xlsx`), a screenshot of the Claude conversation (`Exercise5-Screenshot.png`), and the final plot (`Exercise5-Plot.png`).
+**Exercise 4: Tangency Portfolio with Real Data.**
+Download monthly return data for five ETFs of your choice (e.g., SPY, AGG, GLD, VNQ, EFA) and the one-month T-bill rate from a source such as FRED or Yahoo Finance. Upload the data to Claude and ask it to compute the tangency portfolio weights, the expected return and standard deviation of the tangency portfolio, and the Sharpe ratio. Have Claude plot the efficient frontier and the capital allocation line. Submit the data file (`Exercise4-Data.xlsx`), a screenshot of the Claude conversation (`Exercise4-Screenshot.png`), and the final plot (`Exercise4-Plot.png`).
 
-**Exercise 6: Constrained Optimization Comparison.**
-Using the same data from Exercise 5 (or a new set of at least four assets), ask Claude to solve for the tangency portfolio under three scenarios: (a) unconstrained, (b) no short sales, and (c) maximum 40% in any single asset. Compare the portfolio weights, Sharpe ratios, and efficient frontiers across all three cases. Submit a one-page memo (`Exercise6-Memo.pdf`) discussing how constraints affect diversification and performance. Submit a screenshot of the three efficient frontiers plotted together (`Exercise6-Screenshot.png`).
+**Exercise 5: Constrained Optimization Comparison.**
+Using the same data from Exercise 4 (or a new set of at least four assets), ask Claude to solve for the tangency portfolio under three scenarios: (a) unconstrained, (b) no short sales, and (c) maximum 40% in any single asset. Compare the portfolio weights, Sharpe ratios, and efficient frontiers across all three cases. Submit a one-page memo (`Exercise5-Memo.pdf`) discussing how constraints affect diversification and performance. Submit a screenshot of the three efficient frontiers plotted together (`Exercise5-Screenshot.png`).
 
-**Exercise 7: Stock Return Analysis in Colab.**
-In Google Colab, use Gemini to write code that downloads daily price data for three stocks of your choice from Yahoo Finance, computes daily returns, and produces (a) a boxplot of the daily returns, (b) a summary statistics table (mean, std, min, max, skewness, kurtosis), and (c) a correlation matrix heatmap. Save the notebook and the output files to Google Drive. Submit the notebook (`Exercise7.ipynb`) and a screenshot of the outputs (`Exercise7-Screenshot.png`).
-
-**Exercise 8: Colab vs. Claude Comparison.**
-Perform the same analysis task in both Google Colab (with Gemini) and Claude.ai: compute the annualized mean return and volatility for a set of at least three stocks using one year of daily data. Compare the two experiences: Which was easier to set up? Which produced more reliable code on the first attempt? Which gave better explanations? Submit screenshots of both outputs (`Exercise8-Screenshot1.png`, `Exercise8-Screenshot2.png`) and a one-page comparison (`Exercise8-Comparison.pdf`).
+**Exercise 6: Stock Return Analysis in Colab.**
+In Google Colab, use Gemini to write code that downloads daily price data for three stocks of your choice from Yahoo Finance, computes daily returns, and produces (a) a boxplot of the daily returns, (b) a summary statistics table (mean, std, min, max, skewness, kurtosis), and (c) a correlation matrix heatmap. Save the notebook and the output files to Google Drive. Submit the notebook (`Exercise6.ipynb`) and a screenshot of the outputs (`Exercise6-Screenshot.png`).
 
 \bigskip
-\noindent\textbf{Submission.} Upload a zip file containing each file requested above with the filename shown in parentheses. Label the zip file ``Assignment2''.
+\noindent\textbf{Submission.} Upload a zip file containing each file requested above with the filename shown in parentheses. Name the zip file Assignment2.zip.
