@@ -149,10 +149,10 @@ Every major AI provider runs code in a sandbox.  Cowork is unusual in combining 
 \toprule
 & \textbf{Claude Cowork} & \textbf{ChatGPT Data Analysis} & \textbf{Google Colab + Gemini} & \textbf{OpenAI Codex} \\
 \midrule
-Execution & Local VM & Cloud sandbox & Cloud VM (notebook) & Cloud sandbox \\
-Internet & No & No & Yes & No \\
+Execution & Local VM & Cloud sandbox & Cloud VM (notebook) & Cloud or local sandbox \\
+Internet & Restricted & No & Yes & No (configurable) \\
 Local files & Mounted folder & Upload manually & Google Drive & GitHub repo \\
-Autonomy & Fully autonomous & Conversational & User-driven & Autonomous \\
+Autonomy & Fully autonomous & Conversational & Hybrid & Autonomous \\
 Sub-agents & Yes & No & No & No \\
 Focus & General tasks & Data analysis & Notebooks / code & Coding tasks \\
 \bottomrule
