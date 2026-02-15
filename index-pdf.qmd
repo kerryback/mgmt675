@@ -32,12 +32,13 @@ All sessions will be in McNair 212, including the special session.
 
 ### Learning Objectives
 
-1. How to use AI with code-execution tools to perform financial analysis and generate spreadsheets, reports, and presentations
-2. How to use AI with other tools -- terminal execution, browser control, database connections -- for finance applications
+1. How to use AI with code-execution tools to perform financial analysis, handle data and text, and generate visualizations, spreadsheets, reports, and presentations
+2. How to use AI with other tools -- terminal execution, browser control, database connections -- for finance applications 
 3. How to collaborate with AI in planning, executing, and evaluating financial analysis
-4. How AI agents can automate repetitive tasks in finance
-5. Methods for reducing the hallucination rate of AI
-6. How AI can be used for trading on news sentiment
+4. How the different AI code execution environments work - cloud sandboxed, virtual machines, local
+5. How to create and deploy task-specific prompts that can be used repeatedly
+6. How to reduce the hallucination rate of AI through retrieval-augmented generation, fine tuning, or building specialized models
+7. How AI can be used to classify the sentiment of news or social media for trading
 
 ### Course Description
 

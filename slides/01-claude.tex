@@ -45,7 +45,7 @@
 \node[mystep, below=of s1] (s2) {2. Claude.ai --- Artifacts};
 \node[mystep, below=of s2] (s3) {3. Claude Desktop --- Chat};
 \node[mystep, below=of s3] (s4) {4. Claude Desktop --- Cowork};
-\node[mystep, below=of s4] (s5) {5. Claude Desktop --- Code (Local)};
+\node[mystep, below=of s4] (s5) {5. Claude Desktop --- Code};
 \node[mystep, below=of s5] (s6) {6. Claude Code in VS Code};
 
 \draw[arrow] (s1) -- (s2);
@@ -312,12 +312,14 @@ The \textbf{system prompt} is a special message that defines the chatbot's perso
 
 \begin{frame}{Claude Skills}
 \begin{baritemize}
-  \item Claude `skills' are text files (instructions) that the chatbot sends to the LLM when needed 
+  \item Claude `skills' are text files (instructions) that the chatbot sends to the LLM when needed
   \item An overview of available skills is part of the system prompt
   \item The overview tells LLM: `ask for this skill in these circumstances \ldots'
   \item In those circumstances, LLM sends response to chatbot: `send skill'
   \item Chatbot sends system prompt + prompt + chat history + skill
   \item LLM sends response
+  \item This pattern is universal: Custom GPTs, Copilot instructions, \texttt{.cursorrules}, Gems
+  \item A skill is just a system prompt extension---extra text the model sees
   \end{baritemize}
 \end{frame}
 

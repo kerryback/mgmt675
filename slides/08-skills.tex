@@ -6,7 +6,7 @@
 \input{mgmt675-style}
 
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Claude Code Skills}
+\title{Customizing AI with Prompts}
 \author{Kerry Back}
 
 \date{}
@@ -15,9 +15,25 @@
 
 \maketitle
 
+\begin{frame}{The Big Idea: It's All Just Text}
+\begin{shadedbox}
+Every AI customization---skills, slash commands, custom instructions---works the same way: \alert{additional text is added to the prompt} that the model sees.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{baritemize}
+  \item \textbf{Skills} = instructions for \textit{how} (a system prompt extension loaded when relevant)
+  \item \textbf{Slash commands} = triggers that say \textit{do} (typing \texttt{/name} loads that skill's instructions into context)
+  \item Same pattern everywhere: Custom GPTs, Copilot instructions, \texttt{.cursorrules}, Gems
+\end{baritemize}
+\vspace{0.3cm}
+\begin{shadedbox}
+This deck uses Claude's implementation as the example, but the concepts are universal.  Any platform that lets you add instructions to the prompt is doing the same thing.
+\end{shadedbox}
+\end{frame}
+
 \begin{frame}{What is a Skill?}
 \begin{shadedbox}
-A \textbf{skill} is a folder containing instructions and optional code that transforms Claude Code into a specialized agent for a specific domain or task.
+A \textbf{skill} is a set of instructions (and optional code) that specializes a general-purpose AI for a specific domain or task.  In Claude, it's a folder with a markdown file; other platforms use similar mechanisms.
 \end{shadedbox}
 \vspace{0.5cm}
 \begin{columns}[T]
@@ -33,7 +49,7 @@ A \textbf{skill} is a folder containing instructions and optional code that tran
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Claude Code Provides}]
+\begin{shadedbox}[title=\textbf{The AI Platform Provides}]
 \begin{itemize}\small
   \item The LLM (Opus or Sonnet)
   \item Agent control loop
@@ -201,30 +217,27 @@ Skills let you create \alert{specialized agents} without writing agent logic. Cl
 \end{barenumerate}
 \end{frame}
 
-\begin{frame}[fragile]{Example: Earnings Call Skill}
+\begin{frame}[fragile,shrink=10]{Example: Earnings Call Skill}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
 \begin{shadedbox}[title=\textbf{SKILL.md}]\scriptsize
 \begin{verbatim}
 ---
 name: earnings-call
-description: "Analyze earnings call
-  transcripts and extract
-  key financial insights"
+description: "Analyze earnings
+  call transcripts"
 ---
 
 # Output Format
 - Key metrics vs. consensus
 - Management guidance summary
-- Notable analyst Q&A highlights
-- Sentiment and tone assessment
+- Analyst Q&A highlights
+- Sentiment assessment
 - Three actionable takeaways
 
 # Workflows
-1. Parse transcript from uploaded
-   file or pasted text
-2. Extract financial figures and
-   compare to prior quarter
+1. Parse transcript
+2. Extract financial figures
 3. Summarize guidance changes
 4. Write report in Word format
 \end{verbatim}
@@ -232,16 +245,16 @@ description: "Analyze earnings call
 \end{column}
 \begin{column}{0.55\textwidth}
 \begin{shadedbox}[title=\textbf{What This Gives You}]
-\begin{itemize}\small
+\begin{itemize}\scriptsize
   \item Type: ``Analyze the Tesla Q4 earnings call''
   \item Claude follows the structure automatically
   \item Consistent format across every analysis
   \item Produces Word report with key highlights
 \end{itemize}
 \end{shadedbox}
-\vspace{0.2cm}
+\vspace{0.1cm}
 \begin{shadedbox}[title=\textbf{Other Finance Skill Ideas}]
-\begin{itemize}\small
+\begin{itemize}\scriptsize
   \item \textbf{Investment memo}: DCF, comps, risk factors, recommendation
   \item \textbf{Portfolio report}: Monthly performance, attribution, charts
   \item \textbf{Loan analysis}: Parse credit agreements, extract covenants
@@ -256,7 +269,7 @@ description: "Analyze earnings call
 \begin{shadedbox}
 Skills are not limited to Claude Code. The same skill can be deployed and used across Claude.ai, Claude Desktop, and Claude Code.
 \end{shadedbox}
-\vspace{0.2cm}
+\vspace{0.1cm}
 \begin{center}
 \small
 \begin{tabular}{@{} l l l @{}}
@@ -272,7 +285,7 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{0.2cm}
+\vspace{0.1cm}
 \begin{baritemize}
   \item \textbf{Automatic}: Claude loads the skill when it detects a relevant task
   \item \textbf{\texttt{/name}}: You invoke it explicitly (e.g., \texttt{/investment-memo})
@@ -322,42 +335,42 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 \end{columns}
 \end{frame}
 
-\begin{frame}{Using Skills: Examples Across Formats}
+\begin{frame}[shrink=2]{Using Skills: Examples Across Formats}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Claude.ai or Chat}]
-\begin{itemize}\small
+\begin{itemize}\scriptsize
   \item ``Write an investment memo for Tesla''
-  \item Claude sees the skill is relevant and loads it automatically
+  \item Claude loads the skill automatically
   \item Uses code execution to build Excel model
   \item Produces downloadable Word doc
 \end{itemize}
 \end{shadedbox}
-\vspace{0.2cm}
+\vspace{0.1cm}
 \begin{shadedbox}[title=\textbf{Claude Code / VS Code}]
-\begin{itemize}\small
+\begin{itemize}\scriptsize
   \item Type \texttt{/investment-memo} to invoke explicitly
-  \item Or just describe the task---Claude loads the skill automatically
+  \item Or just describe the task---auto-loaded
   \item Creates files directly in your project folder
-  \item Can combine with other skills (e.g., xlsx skill for the model)
+  \item Can combine with other skills (e.g., xlsx)
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Cowork}]
-\begin{itemize}\small
+\begin{itemize}\scriptsize
   \item Drag a folder of 10-K filings into Cowork
-  \item ``Analyze these filings and produce an investment memo for each company''
+  \item ``Analyze these and produce an investment memo for each company''
   \item Claude works through them autonomously
   \item Outputs organized files to your folder
 \end{itemize}
 \end{shadedbox}
-\vspace{0.2cm}
+\vspace{0.1cm}
 \begin{shadedbox}[title=\textbf{Key Difference}]
-\begin{itemize}\small
-  \item \textbf{Claude.ai / Chat}: best for one-off tasks; download results manually
-  \item \textbf{Cowork}: best for batch tasks on local files
-  \item \textbf{Code / VS Code}: best when you want to see and edit the code
+\begin{itemize}\scriptsize
+  \item \textbf{Claude.ai / Chat}: one-off tasks; download results
+  \item \textbf{Cowork}: batch tasks on local files
+  \item \textbf{Code / VS Code}: see and edit the code
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -366,7 +379,7 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 
 \begin{frame}{Skills and Slash Commands}
 \begin{shadedbox}
-Every skill has a \textbf{name}. That name becomes a \textbf{slash command} you can type in the Code tab (or CLI or VS Code).
+Typing \texttt{/name} simply loads that skill's instructions into the AI's context---it's just a prompt.  Every skill has a \textbf{name} that becomes a \textbf{slash command}.
 \end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
@@ -397,11 +410,11 @@ Every skill has a \textbf{name}. That name becomes a \textbf{slash command} you 
 
 \begin{frame}{Skills vs.\ Subagents}
 \begin{shadedbox}
-Skills and subagents both customize Claude, but they serve different purposes. A \textbf{skill} is a reference manual Claude follows in your conversation. A \textbf{subagent} is a separate worker you dispatch to handle a task independently.
+A \textbf{skill} is a reference manual Claude follows in your conversation. A \textbf{subagent} is a separate worker you dispatch independently.
 \end{shadedbox}
-\vspace{0.2cm}
+\vspace{0.1cm}
 \begin{center}
-\small
+\scriptsize
 \begin{tabular}{@{} l l l @{}}
 \toprule
 & \textbf{Skill} & \textbf{Subagent} \\
@@ -416,10 +429,10 @@ Best for & Standards, templates, workflows & Delegating well-defined tasks \\
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{0.2cm}
-\begin{baritemize}
-  \item \textbf{Use a skill} when you want Claude to follow specific standards \textit{while you work with it interactively} (e.g., ``always format memos this way'')
-  \item \textbf{Use a subagent} when you want to \textit{hand off} a self-contained task (e.g., ``go analyze these 10 files and report back'')
+\vspace{0.1cm}
+\begin{baritemize}\scriptsize
+  \item \textbf{Use a skill} when you want Claude to follow specific standards \textit{while you work with it interactively}
+  \item \textbf{Use a subagent} when you want to \textit{hand off} a self-contained task (e.g., ``analyze these 10 files'')
   \item They combine naturally: a subagent can have skills loaded, giving it both independence and domain expertise
 \end{baritemize}
 \end{frame}
@@ -449,8 +462,8 @@ Best for & Standards, templates, workflows & Delegating well-defined tasks \\
 \begin{center}
 \begin{shadedbox}[width=0.8\textwidth]
 \centering
-\textbf{Skills replace stand-alone agents}\\[0.3em]
-Same capabilities, less code, more flexibility
+\textbf{All AI customization is prompt engineering}\\[0.3em]
+Skills, Custom GPTs, Copilot instructions, \texttt{.cursorrules}---same pattern, different platforms
 \end{shadedbox}
 \end{center}
 \end{frame}

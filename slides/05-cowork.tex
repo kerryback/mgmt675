@@ -20,60 +20,179 @@
 % ============================================================
 \section{Cowork}
 
-\begin{frame}{Step 4: Cowork --- Claude Acts on Your Files}
-
-\begin{center}
-\textbf{This is the point at which Claude goes from answering to doing.}
-\end{center}
-
-\vspace{0.3cm}
-
-Switch to the \textbf{Cowork} tab in Claude Desktop.
-
+\begin{frame}[shrink=3]{Step 4: Cowork --- Claude Acts on Your Files}
+Claude works autonomously on your local files---you describe the goal, it handles the rest.  Switch to the \textbf{Cowork} tab in Claude Desktop.
 \begin{shadedbox}[title={How it works}]
-\begin{enumerate}
+\begin{enumerate}\small
   \item Point Claude at a folder on your computer
   \item Describe the task in plain English
-  \item Claude plans, executes in an isolated VM, delivers results
-  \item No Python, R, or GitHub needed --- the VM has everything
+  \item Claude plans, writes code, runs it, and delivers results
+  \item Nothing needs to be installed on your machine---Claude creates a sandboxed workspace automatically
 \end{enumerate}
 \end{shadedbox}
-
 \begin{shadedbox}[title=\textbf{Example}]
-\textit{``I've pointed you at my FinanceData folder. Read the file portfolio\_returns.csv. Calculate the Sharpe ratio for each fund, identify the top 3, and create an Excel spreadsheet with a summary table and a bar chart.''}
+\small\textit{``Read portfolio\_returns.csv.  Calculate the Sharpe ratio for each fund, identify the top~3, and create an Excel file with a summary table and bar chart.''}
 \end{shadedbox}
-
 \end{frame}
 
-\begin{frame}{Cowork --- Key Details}
+% ============================================================
+% WHAT IS A VIRTUAL MACHINE?
+% ============================================================
+\section{What is a Virtual Machine?}
 
+\begin{frame}[shrink=1]{What is a Virtual Machine?}
+\begin{shadedbox}
+A \textbf{virtual machine (VM)} is a computer simulated in software---it has its own operating system, file system, and installed programs, but it runs inside your real computer as an isolated workspace.
+\end{shadedbox}
+\vspace{0.15cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{Strengths}]
-\begin{itemize}
-  \item Zero setup beyond the app
-  \item VM installs packages itself
-  \item Parallel sub-agents for complex tasks
-  \item Produces Excel, PowerPoint, PDF
-  \item Great for non-coders
+\begin{shadedbox}[title=\textbf{What's Inside the VM}]
+\begin{itemize}\small
+  \item Linux operating system
+  \item Python (pre-installed)
+  \item Common libraries: \texttt{pandas}, \texttt{numpy}, \texttt{matplotlib}, \texttt{openpyxl}, etc.
+  \item Can \texttt{pip install} additional packages
+  \item Your files from the folder you selected (mounted into the VM)
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.48\textwidth}
-\begin{shadedbox}[title=\textbf{\alert{Watch Out}}]
-\begin{itemize}
-  \item Uses tokens \textbf{fast} (VM overhead, planning steps, sub-agents)
-  \item Pro plan (\$20/mo) limits hit quickly
-  \item App must stay open while running
-  \item Not available on Windows ARM64
+\begin{shadedbox}[title=\textbf{What Makes It ``Virtual''}]
+\begin{itemize}\small
+  \item Created on demand when you start a task
+  \item Runs on your machine, but isolated from your real files and applications
+  \item Temporary---destroyed when the session ends
+  \item Can't accidentally break anything outside the sandbox
+  \item Multiple VMs can run in parallel (sub-agents)
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{0.5cm}
-\textbf{Recommendation:} Use Cowork for tasks that need file I/O and complex orchestration. Use regular Chat/Artifacts for quick questions to save tokens.
+% ============================================================
+% THE SANDBOX
+% ============================================================
 
+\begin{frame}{The Sandbox: What the VM Can and Can't Do}
+\begin{shadedbox}
+The VM is \textbf{sandboxed}---it runs in an isolated environment on your machine with restricted access.  This keeps your system safe but limits what Cowork can do.
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{{\color{accentblue}Can Do}}]
+\begin{itemize}\scriptsize
+  \item Run Python, R, shell scripts
+  \item \texttt{pip install} packages
+  \item Read and write files in your selected folder
+  \item Create Excel, Word, PowerPoint, PDF, charts
+  \item Spawn sub-agents for parallel work
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{{\color{alertorange}Cannot Do}}]
+\begin{itemize}\scriptsize
+  \item \alert{No internet access}---can't call APIs, scrape websites, or fetch live data
+  \item Can't access databases or cloud services
+  \item Can't run GUI applications
+  \item Can't access files outside the selected folder
+  \item Session state lost when the task ends
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.1cm}
+\begin{shadedbox}
+\centering\small
+\alert{Key implication:} Cowork can analyze data you provide, but it cannot fetch new data from the internet.  For live API calls, use \textbf{Claude Code} instead.
+\end{shadedbox}
+\end{frame}
+
+% ============================================================
+% HOW COWORK RELATES TO OTHER TOOLS
+% ============================================================
+\section{Comparisons}
+
+\begin{frame}{Cowork vs.\ Claude Code}
+\begin{center}\footnotesize
+\begin{tabular}{@{} p{3cm} p{5cm} p{5cm} @{}}
+\toprule
+& \textbf{Cowork} & \textbf{Claude Code} \\
+\midrule
+Code runs & In a local VM (sandboxed) & Directly on your machine (no sandbox) \\
+Internet access & No & Yes --- APIs, databases, web \\
+Setup required & None & Python must be installed \\
+File access & Selected folder only & Full local file system \\
+Sub-agents & Yes (parallel VMs) & Yes (parallel threads) \\
+Best for & Non-coders; batch file tasks & Coders; tasks needing live data \\
+Token cost & Higher (VM overhead) & Lower (lean context) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.2cm}
+\begin{shadedbox}
+\centering\small
+Both are \textbf{agentic}---Claude plans and executes autonomously.  The difference is \textit{how isolated} the execution is and \textit{what} it can access.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{How Other AI Products Handle Code Execution}
+\begin{shadedbox}
+Every major AI provider runs code in a sandbox.  Cowork is unusual in combining \textbf{autonomous planning}, \textbf{local file access}, and \textbf{parallel sub-agents}.
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{center}\scriptsize
+\begin{tabular}{@{} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm} @{}}
+\toprule
+& \textbf{Claude Cowork} & \textbf{ChatGPT Data Analysis} & \textbf{Google Colab + Gemini} & \textbf{OpenAI Codex} \\
+\midrule
+Execution & Local VM & Cloud sandbox & Cloud VM (notebook) & Cloud sandbox \\
+Internet & No & No & Yes & No \\
+Local files & Mounted folder & Upload manually & Google Drive & GitHub repo \\
+Autonomy & Fully autonomous & Conversational & User-driven & Autonomous \\
+Sub-agents & Yes & No & No & No \\
+Focus & General tasks & Data analysis & Notebooks / code & Coding tasks \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+% ============================================================
+% EXERCISES
+% ============================================================
+\section{Exercises}
+
+\begin{frame}{Exercise: Aggregating Diverse Files}
+\begin{baritemize}
+  \item Download \href{https://kerryback.com/mgmt675/files/loans.zip}{loans.zip} and extract the files into a folder.  You will have a loan tape (CSV), a collateral appraisal report (PDF), and a policy exceptions memo (DOCX).
+  \item In Claude Desktop, go to the Cowork tab and select the folder.
+  \item Ask Claude to read all three files, summarize the key information from each, and produce a single Excel workbook that:
+  \begin{itemize}\small
+    \item Lists every loan with its terms from the CSV
+    \item Adds a column with the appraised collateral value from the PDF
+    \item Flags loans that violate the policy limits described in the memo
+  \end{itemize}
+  \item Notice that Cowork reads CSV, PDF, and DOCX without any setup on your part---no Python, no file parsing code, no uploads.
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{Exercise: Sub-Agents in Action}
+\begin{baritemize}
+  \item Download \href{https://kerryback.com/mgmt675/files/aggregation.zip}{aggregation.zip} and extract the workbooks into a folder.
+  \item In the Cowork tab, select the folder and give Claude this prompt:
+\end{baritemize}
+
+\begin{shadedbox}
+\small\textit{``Each Excel file in this folder contains a data table.  Column names vary across files and some columns are missing.  For each file independently, summarize the columns present, the number of rows, and basic descriptive statistics.  Then combine all files into a single table, reconciling the column names, and save the result as combined.xlsx.''}
+\end{shadedbox}
+\vspace{0.2cm}
+
+\begin{shadedbox}
+\alert{Watch the status panel:} Cowork may spawn \textbf{sub-agents}---separate workers that analyze individual files in parallel before combining the results.  This is the same ``divide and conquer'' pattern used in professional data pipelines.
+\end{shadedbox}
 \end{frame}
 
 \end{document}

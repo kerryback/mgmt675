@@ -202,6 +202,10 @@ In the \textbf{Code tab}, type \texttt{/} to see available commands.  These also
 \end{center}
 \vspace{0.2cm}
 \begin{shadedbox}
+A slash command is just a prompt---it loads instructions into Claude's context.  Other tools have equivalents: Copilot's \texttt{/fix}, Cursor's \texttt{/edit}, etc.
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}
 \alert{Tip:} Use \texttt{/clear} between unrelated tasks and \texttt{/compact} within a long task. This keeps Claude focused and saves tokens.
 \end{shadedbox}
 \end{frame}
@@ -236,6 +240,36 @@ A \textbf{subagent} is a specialized AI assistant with its own context window an
 \begin{shadedbox}
 \centering
 \alert{Start by using Claude directly.} When you notice you're repeating the same instructions, that's the signal to create a subagent.
+\end{shadedbox}
+\end{frame}
+
+% ============================================================
+% AI CODING TOOLS
+% ============================================================
+
+\begin{frame}{AI Coding Tools: A Common Architecture}
+\begin{shadedbox}
+All AI coding tools share the same fundamental pattern: an \textbf{LLM} with \textbf{code execution} ability and \textbf{file access}.  The differences are in UI, models, and pricing---not in the architecture.
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+& \textbf{Interface} & \textbf{Model(s)} & \textbf{Runs Where} \\
+\midrule
+Claude Code & Terminal / Desktop / VS Code & Claude & Your machine \\
+OpenAI Codex & Web / CLI & GPT / o3 & Cloud sandbox \\
+Cursor & Desktop editor & Multiple & Your machine \\
+GitHub Copilot & VS Code / JetBrains & GPT / Claude & Your machine \\
+Google Jules & Web & Gemini & Cloud VM \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.2cm}
+\begin{shadedbox}
+\centering
+Learn the pattern once, and you can move between tools as they evolve.
 \end{shadedbox}
 \end{frame}
 

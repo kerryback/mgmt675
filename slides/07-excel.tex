@@ -70,7 +70,7 @@ Cell contains a formula that recalculates when inputs change.
   \item Sees your current workbook
   \item Modifies cells directly
   \item Context-aware suggestions
-  \item Examples: Claude for Excel, Microsoft Copilot
+  \item Examples: Claude for Excel, Microsoft Copilot, Google Sheets + Gemini
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -230,18 +230,19 @@ Cell contains a formula that recalculates when inputs change.
 % CLAUDE FOR EXCEL VS. ALTERNATIVES
 % ============================================================
 
-\begin{frame}{Claude for Excel vs.\ Microsoft Copilot}
+\begin{frame}{AI Spreadsheet Tools Compared}
 \begin{center}
-\small
-\begin{tabular}{p{3.5cm} p{4.5cm} p{4.5cm}}
+\scriptsize
+\begin{tabular}{p{2.5cm} p{3.2cm} p{3.2cm} p{3.2cm}}
 \toprule
- & \textbf{Claude for Excel} & \textbf{Microsoft Copilot} \\
+ & \textbf{Claude for Excel} & \textbf{Microsoft Copilot} & \textbf{Google Sheets + Gemini} \\
 \midrule
-Cost & Claude Pro (\$20/mo) & Microsoft 365 Copilot (\$30/mo) \\
-OneDrive required & No & Yes (AutoSave must be on) \\
-Python execution & Server-side sandbox & Microsoft Cloud (Anaconda) \\
-Formula mode & Yes & Yes \\
-VBA / macros & No & No \\
+Cost & Claude Pro (\$20/mo) & M365 Copilot (\$30/mo) & Google One AI Premium (\$20/mo) \\
+Platform & Excel (Win/Mac/Web) & Excel (Win/Mac/Web) & Google Sheets (Web) \\
+OneDrive required & No & Yes (AutoSave on) & N/A (Google Drive) \\
+Python execution & Server-side sandbox & Microsoft Cloud & Apps Script \\
+Formula mode & Yes & Yes & Yes \\
+VBA / macros & No & No & Apps Script only \\
 \bottomrule
 \end{tabular}
 \end{center}
