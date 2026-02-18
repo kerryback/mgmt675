@@ -16,6 +16,8 @@ project:
     - CNAME
     - .nojekyll
     - slides/*.pdf
+    - files/*.zip
+    - files/*.xlsx
     - index-pdf.pdf
     - assignment1.pdf
     - assignment2.pdf

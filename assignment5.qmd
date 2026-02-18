@@ -9,14 +9,14 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-**Exercise 13: DCF Cross-Check.**
-Perform a DCF valuation for a company using Claude, then start a new conversation and ask Claude to critique the valuation. Have the second conversation identify at least three questionable assumptions and suggest alternatives. Revise the model based on the critique. Submit the original valuation (`Exercise13-Original.xlsx`), the revised valuation (`Exercise13-Revised.xlsx`), and a summary of changes (`Exercise13-Summary.pdf`) that includes the critique. Submit screenshots of both Claude conversations (`Exercise13-Screenshot1.png`, `Exercise13-Screenshot2.png`).
+**Exercise 17: DCF Cross-Check.**
+Perform a DCF valuation for a company using Claude, then start a new conversation and ask Claude to critique the valuation. Have the second conversation identify at least three questionable assumptions and suggest alternatives. Revise the model based on the critique. Submit the original valuation (`Exercise17-Original.xlsx`), the revised valuation (`Exercise17-Revised.xlsx`), and a summary of changes (`Exercise17-Summary.pdf`) that includes the critique. Submit screenshots of both Claude conversations (`Exercise17-Screenshot1.png`, `Exercise17-Screenshot2.png`).
 
-**Exercise 14: NotebookLM Financial Analysis.**
-Upload at least three financial documents (e.g., a 10-K filing, an earnings call transcript, and an analyst report) for the same company into Google NotebookLM. Ask at least five questions about the company's financial performance, strategy, and risk factors. Note how NotebookLM cites specific sources in its answers. Submit the five Q&A pairs with citations and a brief assessment of answer quality (`Exercise14.pdf`). Submit a screenshot of the NotebookLM interface showing your sources and a sample answer with citations (`Exercise14-Screenshot.png`).
+**Exercise 18: NotebookLM Financial Analysis.**
+Upload at least three financial documents (e.g., a 10-K filing, an earnings call transcript, and an analyst report) for the same company into Google NotebookLM. Ask at least five questions about the company's financial performance, strategy, and risk factors. Note how NotebookLM cites specific sources in its answers. Submit the five Q&A pairs with citations and a brief assessment of answer quality (`Exercise18.pdf`). Submit a screenshot of the NotebookLM interface showing your sources and a sample answer with citations (`Exercise18-Screenshot.png`).
 
-**Exercise 15: RAG Pipeline in Colab.**
-Work through the [Agentic RAG for Dummies](https://colab.research.google.com/gist/GiovanniPasq/ddfc4a09d16b5b97c5c532b5c49f7789/agentic_rag_for_dummies.ipynb) notebook using a corporate annual report of your choice. Ask at least five finance-specific questions (e.g., revenue breakdown, risk factors, capital allocation plans). For each question, note whether the RAG system's answer is grounded in the document or appears to be hallucinated. Submit the notebook (`Exercise15.ipynb`) and your evaluation of the five answers (`Exercise15-Evaluation.pdf`). Submit a screenshot of the Gradio chat interface with a sample question and answer (`Exercise15-Screenshot.png`).
+**Exercise 19: RAG Pipeline in Colab.**
+Work through the [Agentic RAG for Dummies](https://colab.research.google.com/gist/GiovanniPasq/ddfc4a09d16b5b97c5c532b5c49f7789/agentic_rag_for_dummies.ipynb) notebook using a corporate annual report of your choice. Ask at least five finance-specific questions (e.g., revenue breakdown, risk factors, capital allocation plans). For each question, note whether the RAG system's answer is grounded in the document or appears to be hallucinated. Submit the notebook (`Exercise19.ipynb`) and your evaluation of the five answers (`Exercise19-Evaluation.pdf`). Submit a screenshot of the Gradio chat interface with a sample question and answer (`Exercise19-Screenshot.png`).
 
 \bigskip
 \noindent\textbf{Submission.} Upload a zip file containing each file requested above with the filename shown in parentheses. Name the zip file Assignment5.zip.
