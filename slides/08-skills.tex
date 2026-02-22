@@ -265,6 +265,63 @@ description: "Analyze earnings
 \end{columns}
 \end{frame}
 
+\begin{frame}[fragile,shrink=5]{In-Class Exercise: Personal Task List Skill}
+\begin{shadedbox}
+Create a skill that manages a personal task list organized by categories.  Claude will add, complete, and review tasks---following \textit{your} format automatically.
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{SKILL.md (Sketch)}]\scriptsize
+\begin{verbatim}
+---
+name: tasks
+description: "Manage my personal
+  task list"
+---
+
+# File Layout
+- research/tasks.md
+- teaching/tasks.md
+- admin/tasks.md
+- personal/tasks.md
+
+# Task Format
+- [ ] [#tag] Description
+      — added YYYY-MM-DD
+- [x] [#tag] Done task
+      — done YYYY-MM-DD
+
+# Behaviors
+- "add task" -> append to file
+- "what's pending" -> scan all
+- "weekly review" -> summarize
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{shadedbox}[title=\textbf{Try It}]
+\begin{enumerate}\scriptsize
+  \item Create \texttt{.claude/skills/tasks/SKILL.md}
+  \item Define your categories (work, personal, school, \ldots)
+  \item Define your format (checkboxes, tags, dates)
+  \item Start Claude Code and say: ``Add `buy groceries' to my personal tasks''
+  \item Then: ``What's pending?''
+\end{enumerate}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Why This Works}]
+\begin{itemize}\scriptsize
+  \item Claude creates the folder and files for you
+  \item Follows your format every time---no drift
+  \item Natural language in, structured markdown out
+  \item \alert{You defined the system by writing a prompt}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Skills Across Claude Formats}
 \begin{shadedbox}
 Skills are not limited to Claude Code. The same skill can be deployed and used across Claude.ai, Claude Desktop, and Claude Code.
@@ -437,9 +494,418 @@ Best for & Standards, templates, workflows & Delegating well-defined tasks \\
 \end{baritemize}
 \end{frame}
 
-\begin{frame}{Summary}
+\begin{frame}{What is a Plugin?}
+\begin{shadedbox}
+A \textbf{plugin} is a \textit{packaged collection} of skills, agents, hooks, and MCP servers that can be shared across teams and projects.  Think of it as the distribution format for skills.
+\end{shadedbox}
+\vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{A Plugin Can Include}]
+\begin{itemize}\small
+  \item Skills (\texttt{SKILL.md} files)
+  \item Agents (\texttt{AGENT.md} files)
+  \item Hooks (auto-run on events)
+  \item MCP servers (external tools)
+  \item LSP servers (language analysis)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Why Use Plugins?}]
+\begin{itemize}\small
+  \item Share skills with your team
+  \item Namespace prevents conflicts
+  \item Semantic versioning
+  \item Install from marketplaces
+  \item Bundle multiple components
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Anatomy of a Plugin}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Directory Structure}]\small
+\begin{verbatim}
+my-plugin/
+  .claude-plugin/
+    plugin.json    <- Manifest
+  skills/
+    code-review/
+      SKILL.md
+    documentation/
+      SKILL.md
+  agents/
+    reviewer.md
+  hooks/
+    hooks.json
+  .mcp.json
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{shadedbox}[title=\textbf{plugin.json (Required)}]\small
+\begin{verbatim}
+{
+  "name": "my-plugin",
+  "description": "What it does",
+  "version": "1.0.0",
+  "author": {
+    "name": "Your Name"
+  },
+  "repository":
+    "github.com/user/plugin",
+  "license": "MIT"
+}
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Skills vs.\ Plugins}
+\begin{center}
+\small
+\begin{tabular}{@{} l l l @{}}
+\toprule
+\textbf{Aspect} & \textbf{Standalone Skill} & \textbf{Plugin} \\
+\midrule
+Best for & Personal workflows & Team / community sharing \\
+Invocation & \texttt{/skill-name} & \texttt{/plugin:skill-name} \\
+Location & \texttt{.claude/skills/} & Own directory with manifest \\
+Components & Skills only & Skills + agents + hooks + MCP \\
+Versioning & None built-in & Semantic versioning \\
+Distribution & Copy the folder & Marketplace or \texttt{/plugin install} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\begin{shadedbox}
+\textbf{Practical workflow:} Start with a standalone skill for quick prototyping.  When you're ready to share, wrap it in a plugin by adding a \texttt{.claude-plugin/plugin.json} manifest.
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}[fragile,shrink=5]{Installing and Managing Plugins}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{CLI Commands}]\small
+\begin{verbatim}
+# Install from marketplace
+/plugin install my-plugin
+
+# Install from local dir
+claude --plugin-dir ./my-plugin
+
+# List installed plugins
+/plugin list
+
+# Update a plugin
+/plugin update my-plugin
+
+# Remove a plugin
+/plugin uninstall my-plugin
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Namespacing}]
+\begin{itemize}\small
+  \item Plugin name becomes a namespace prefix
+  \item Prevents skill name collisions
+  \item Example: plugin \texttt{finance} with skill \texttt{memo} becomes \texttt{/finance:memo}
+\end{itemize}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Sources}]
+\begin{itemize}\small
+  \item Anthropic official marketplace
+  \item GitHub repositories
+  \item Private / enterprise registries
+  \item Local directories (for testing)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Plugin Ecosystem}
+\begin{shadedbox}
+The plugin ecosystem is growing rapidly.  Plugins are available for code quality, external integrations, development workflows, and domain-specific tasks.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Example Plugin Categories}]
+\begin{itemize}\small
+  \item Code review and linting
+  \item Git workflow automation
+  \item Database connectors (MCP)
+  \item API integrations (Slack, Jira, \ldots)
+  \item Documentation generators
+  \item Testing frameworks
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Resources}]
+\begin{itemize}\small
+  \item \href{https://code.claude.com/docs/en/plugins.md}{Plugins documentation}
+  \item \href{https://code.claude.com/docs/en/discover-plugins.md}{Discover \& install plugins}
+  \item \href{https://code.claude.com/docs/en/plugin-marketplaces.md}{Plugin marketplaces}
+  \item \href{https://code.claude.com/docs/en/skills.md}{Skills documentation}
+  \item \href{https://agentskills.io}{Agent Skills Standard}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile,shrink=5]{Example: The Finance Plugin}
+\begin{shadedbox}
+Anthropic's official \textbf{finance plugin} bundles skills, MCP connectors, and slash commands for accounting and FP\&A workflows---a concrete example of a plugin in the wild.
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Plugin Structure}]\scriptsize
+\begin{verbatim}
+finance/
+  .claude-plugin/
+    plugin.json
+  .mcp.json        <- Snowflake,
+                      BigQuery, ...
+  commands/
+    journal-entry/
+    reconciliation/
+    income-statement/
+    variance-analysis/
+    sox-testing/
+  skills/
+    accounting/
+      SKILL.md
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{shadedbox}[title=\textbf{Slash Commands}]
+\begin{itemize}\scriptsize
+  \item \texttt{/finance:journal-entry} --- accruals, fixed assets, payroll with debits/credits
+  \item \texttt{/finance:reconciliation} --- compare GL to bank or subledger
+  \item \texttt{/finance:income-statement} --- period-over-period comparison
+  \item \texttt{/finance:variance-analysis} --- decompose budget vs.\ actual gaps
+  \item \texttt{/finance:sox-testing} --- SOX compliance workpapers
+\end{itemize}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Data Connectors (MCP)}]
+\begin{itemize}\scriptsize
+  \item Snowflake, Databricks, BigQuery
+  \item Microsoft 365, Slack
+  \item Or just upload a spreadsheet
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{What is Variance Analysis?}
+\begin{shadedbox}
+\textbf{Variance analysis} compares \alert{budgeted} (planned) figures to \alert{actual} results and decomposes the differences into actionable drivers.  It is the core analytical task in FP\&A (Financial Planning \& Analysis).
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Why It Matters}]
+\begin{itemize}\small
+  \item Every public company does it quarterly
+  \item Boards and investors ask ``why did we miss?''
+  \item Drives re-forecasting and capital allocation
+  \item Required for SOX internal controls
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Key Decompositions}]
+\begin{itemize}\small
+  \item \textbf{Revenue}: volume vs.\ price vs.\ mix
+  \item \textbf{COGS}: volume vs.\ unit cost
+  \item \textbf{SG\&A}: headcount vs.\ rate vs.\ discretionary
+  \item \textbf{Operating income}: revenue variance + cost variance
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{shadedbox}
+\centering
+Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix effect}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}[shrink=5]{Variance Analysis: Example Data}
+\begin{shadedbox}
+\textbf{Scenario:} You are an FP\&A analyst at a consumer products company.  Q1 actuals just closed. The CEO wants to know why operating income missed budget by \$1.3M.
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{center}
+\scriptsize
+\begin{tabular}{@{} l r r r r @{}}
+\toprule
+& \textbf{Budget} & \textbf{Actual} & \textbf{Variance} & \textbf{\$ Var} \\
+\midrule
+\textbf{Revenue} &&&&\\
+\quad Units sold & 100,000 & 95,000 & $-$5,000 & \\
+\quad Avg price & \$50.00 & \$51.00 & +\$1.00 & \\
+\quad \textit{Total Revenue} & \textit{\$5,000,000} & \textit{\$4,845,000} & & \textit{(\$155,000)} \\
+\midrule
+\textbf{Cost of Goods Sold} &&&&\\
+\quad Unit cost & \$30.00 & \$32.00 & +\$2.00 & \\
+\quad \textit{Total COGS} & \textit{\$3,000,000} & \textit{\$3,040,000} & & \textit{(\$40,000)} \\
+\midrule
+\textit{Gross Profit} & \textit{\$2,000,000} & \textit{\$1,805,000} & & \textit{(\$195,000)} \\
+\midrule
+\textbf{SG\&A} &&&&\\
+\quad Salaries (50 FTEs @ \$15K/mo) & \$750,000 & \$780,000 & & (\$30,000) \\
+\quad Marketing & \$500,000 & \$575,000 & & (\$75,000) \\
+\quad Rent \& facilities & \$200,000 & \$200,000 & & --- \\
+\quad \textit{Total SG\&A} & \textit{\$1,450,000} & \textit{\$1,555,000} & & \textit{(\$105,000)} \\
+\midrule
+\textbf{Operating Income} & \textbf{\$550,000} & \textbf{\$250,000} & & \textbf{(\$300,000)} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.1cm}
+{\scriptsize Unfavorable variances shown in parentheses.  Data is simplified for illustration.}
+\end{frame}
+
+\begin{frame}[shrink=10]{Decomposing the Variances}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Revenue Variance: $-$\$155K}]
+\begin{itemize}\scriptsize
+  \item \textbf{Volume effect}: $-$5,000 units $\times$ \$50 budget price = \alert{$-$\$250,000}
+  \item \textbf{Price effect}: +\$1.00 $\times$ 95,000 actual units = \alert{+\$95,000}
+  \item Total: $-$\$250K + \$95K = $-$\$155K \checkmark
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize \textit{We sold fewer units but at a higher price.  Volume shortfall dominated.}}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{COGS Variance: $-$\$40K}]
+\begin{itemize}\scriptsize
+  \item \textbf{Volume effect}: $-$5,000 units $\times$ \$30 = \alert{+\$150,000} (favorable---fewer units)
+  \item \textbf{Rate effect}: +\$2.00 $\times$ 95,000 units = \alert{$-$\$190,000} (unfavorable)
+  \item Total: +\$150K $-$ \$190K = $-$\$40K \checkmark
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize \textit{Lower volume saved money, but unit costs rose \$2---likely supply chain issues.}}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{SG\&A Variance: $-$\$105K}]
+\begin{itemize}\scriptsize
+  \item \textbf{Salaries}: $-$\$30K (raises? overtime?)
+  \item \textbf{Marketing}: $-$\$75K (unplanned campaign?)
+  \item \textbf{Rent}: \$0 (fixed cost, on budget)
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize \textit{Marketing overspend is the largest driver---was there an approved campaign change?}}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Operating Income Bridge}]
+\begin{itemize}\scriptsize
+  \item Budget OI: \$550,000
+  \item Revenue volume: $-$\$250,000
+  \item Revenue price: +\$95,000
+  \item COGS volume: +\$150,000
+  \item COGS rate: $-$\$190,000
+  \item SG\&A: $-$\$105,000
+  \item \textbf{Actual OI: \$250,000}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=10]{Using the Plugin: \texttt{/finance:variance-analysis}}
+\begin{shadedbox}
+With the finance plugin installed, you type one command and provide the data:
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{shadedbox}[title=\textbf{Prompt}]
+\texttt{/finance:variance-analysis}\\[0.3em]
+\small ``Here is our Q1 budget vs.\ actuals spreadsheet. Decompose the \$300K operating income miss into volume, price, cost, and discretionary spending drivers.  Produce a waterfall chart and a summary memo for the CFO.''
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{shadedbox}[title=\textbf{What the Plugin Does}]
+\begin{enumerate}\small
+  \item \textbf{Skill activates}: domain knowledge about variance decomposition formulas
+  \item \textbf{MCP connector} pulls data (or reads the uploaded spreadsheet)
+  \item \textbf{Decomposes} revenue into volume + price; COGS into volume + rate
+  \item \textbf{Generates} waterfall chart (budget $\rightarrow$ adjustments $\rightarrow$ actual)
+  \item \textbf{Writes} CFO-ready memo in Word format with tables and chart
+\end{enumerate}
+\end{shadedbox}
+\vspace{0.2cm}
+{\small This is one slash command replacing what typically takes an FP\&A analyst 2--4 hours.}
+\end{frame}
+
+\begin{frame}[shrink=10]{The ``SaaSpocalypse'': Market Reaction to Plugins}
+\begin{shadedbox}
+On January 30, 2026, Anthropic released 11 open-source plugins for Claude.  Within days, \alert{\$285 billion} in market cap evaporated from software, legal tech, and financial services stocks.
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Hardest-Hit Stocks}]
+\scriptsize
+\begin{tabular}{@{} l r @{}}
+\toprule
+\textbf{Company} & \textbf{Drop} \\
+\midrule
+LegalZoom & $-$20\% \\
+Thomson Reuters & $-$16\% \\
+RELX (LexisNexis) & $-$14\% \\
+Wolters Kluwer & $-$13\% \\
+Xero (accounting) & worst day since 2013 \\
+Intuit & $>-$10\% \\
+Salesforce & $-$7\% \\
+ServiceNow & $-$7\% \\
+Adobe & $-$7\% \\
+GS Software Basket & $-$6\% \\
+Indian IT (Infosys, TCS, \ldots) & $-$6 to 8\% \\
+\bottomrule
+\end{tabular}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Why It Happened}]
+\begin{itemize}\scriptsize
+  \item Plugins showed AI could replicate \textit{core workflows} of specialized enterprise software
+  \item Legal plugin: contract review, NDA triage, compliance checks
+  \item Finance plugin: close management, reconciliation, variance analysis
+  \item \textbf{No proprietary code}---just markdown instructions + database connectors
+  \item Investors asked: ``Why pay \$50K/yr for software when a plugin does it?''
+\end{itemize}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{The Counterargument}]
+\begin{itemize}\scriptsize
+  \item Plugins are ``research preview''---not production-ready
+  \item Regulated industries require audit trails, SOC 2, etc.
+  \item But the \textit{direction of travel} spooked the market
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
 \begin{shadedbox}[title=\textbf{Claude Code}]
 \begin{itemize}\small
   \item General-purpose agent
@@ -448,12 +914,21 @@ Best for & Standards, templates, workflows & Delegating well-defined tasks \\
 \end{itemize}
 \end{shadedbox}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.33\textwidth}
 \begin{shadedbox}[title=\textbf{Skills}]
 \begin{itemize}\small
   \item Specialize Claude Code
   \item System prompt + scripts
   \item Easy to create and modify
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Plugins}]
+\begin{itemize}\small
+  \item Package and share skills
+  \item Bundle multiple components
+  \item Install from marketplaces
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -463,7 +938,7 @@ Best for & Standards, templates, workflows & Delegating well-defined tasks \\
 \begin{shadedbox}[width=0.8\textwidth]
 \centering
 \textbf{All AI customization is prompt engineering}\\[0.3em]
-Skills, Custom GPTs, Copilot instructions, \texttt{.cursorrules}---same pattern, different platforms
+Skills, plugins, Custom GPTs, Copilot instructions, \texttt{.cursorrules}---same pattern, different platforms
 \end{shadedbox}
 \end{center}
 \end{frame}
