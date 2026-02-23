@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usetheme{metropolis}
 \usepackage{appendixnumberbeamer}
-\usepackage{booktabs, hyperref}
+\usepackage{booktabs, hyperref, graphicx}
 
 \input{mgmt675-style}
 
@@ -555,6 +555,86 @@ Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Deskto
 \end{frame}
 
 % ============================================================
+% GOOGLE CALENDAR MCP SERVER
+% ============================================================
+\section{Google Calendar: Scheduling from Chat}
+
+\begin{frame}{What is Google Calendar MCP?}
+\begin{shadedbox}
+The \textbf{Google Calendar MCP server} connects Claude to your Google Calendar, letting you manage events, check availability, and schedule meetings---all from a conversation.
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Tools Provided}]
+\begin{itemize}\small
+  \item \texttt{list-events} / \texttt{search-events}
+  \item \texttt{create-event} / \texttt{update-event}
+  \item \texttt{delete-event} / \texttt{respond-to-event}
+  \item \texttt{get-freebusy} (check availability)
+  \item \texttt{list-calendars} / \texttt{list-colors}
+  \item \texttt{manage-accounts} (multi-account)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Example Tasks}]
+\begin{itemize}\small
+  \item ``What's on my calendar tomorrow?''
+  \item ``Schedule a team lunch next Friday at noon''
+  \item ``Am I free Tuesday afternoon?''
+  \item ``Decline all meetings on March 14''
+  \item ``Find my next meeting with Alex''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Installing Google Calendar MCP}
+\begin{shadedbox}[title=\textbf{Add to Claude Desktop Config}]
+\begin{verbatim}
+"google-calendar": {
+  "command": "npx",
+  "args": ["@cocal/google-calendar-mcp"],
+  "env": {
+    "GOOGLE_OAUTH_CREDENTIALS":
+      "/path/to/gcp-oauth.keys.json"
+  }
+}
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{baritemize}
+  \item \textbf{Prerequisite}: Node.js installed; a Google Cloud OAuth 2.0 credential file
+  \item \textbf{Setup}: Create a project in Google Cloud Console, enable the Calendar API, create OAuth Desktop credentials, and download the JSON key file
+  \item On first launch, the server opens your browser for OAuth login
+  \item Supports \textbf{multiple Google accounts} (work + personal) simultaneously
+  \item GitHub: \url{https://github.com/nspady/google-calendar-mcp}
+\end{baritemize}
+\end{frame}
+
+\begin{frame}{The Bigger Picture: Chat as Interface}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\vspace{0.3cm}
+\includegraphics[width=\textwidth]{images/ui-evolution-monitors}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{baritemize}
+  \item \textbf{Terminal}: type commands
+  \item \textbf{GUI}: point and click
+  \item \textbf{Chat}: describe what you want
+\end{baritemize}
+\vspace{0.2cm}
+\begin{shadedbox}
+MCP is the protocol that makes the third screen work. It connects the chat interface to \alert{everything else}---your calendar, browser, terminal, databases, and APIs.
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================
 % PUTTING IT ALL TOGETHER
 % ============================================================
 \section{Putting It All Together}
@@ -671,6 +751,7 @@ Available on & All plans & Pro+ & Pro+ \\
   \item \textbf{Browser-Use}: autonomous web browsing---forms, downloads, data extraction
   \item \textbf{DesktopCommanderMCP}: terminal access---commands, files, processes
   \item \textbf{Alpha Vantage} and \textbf{Financial Modeling Prep}: financial data with free tiers
+  \item \textbf{Google Calendar}: schedule, query, and manage events from chat
   \item Combine servers for end-to-end workflows
 \end{baritemize}
 \vspace{0.3cm}
