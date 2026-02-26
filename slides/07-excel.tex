@@ -231,13 +231,14 @@ Cell contains a formula that recalculates when inputs change.
 % ============================================================
 
 \begin{frame}{AI Spreadsheet Tools Compared}
+\hypertarget{comparison}{}
 \begin{center}
 \scriptsize
 \begin{tabular}{p{2.5cm} p{3.2cm} p{3.2cm} p{3.2cm}}
 \toprule
  & \textbf{Claude for Excel} & \textbf{Microsoft Copilot} & \textbf{Google Sheets + Gemini} \\
 \midrule
-Cost & Claude Pro (\$20/mo) & M365 Copilot (\$30/mo) & Google One AI Premium (\$20/mo) \\
+Cost & Claude Pro (\$20/mo) & M365 Copilot (\$30/mo) & Google One AI Pro (\$20/mo) \\
 Platform & Excel (Win/Mac/Web) & Excel (Win/Mac/Web) & Google Sheets (Web) \\
 OneDrive required & No & Yes (AutoSave on) & N/A (Google Drive) \\
 Python execution & Server-side sandbox & Microsoft Cloud & Apps Script \\
@@ -245,6 +246,11 @@ Formula mode & Yes & Yes & Yes \\
 VBA / macros & No & No & Apps Script only \\
 \bottomrule
 \end{tabular}
+\end{center}
+\vspace{0.2cm}
+\begin{center}\small
+\hyperlink{copilot-appendix}{\beamergotobutton{Microsoft Copilot details}} \quad
+\hyperlink{gemini-appendix}{\beamergotobutton{Gemini for Sheets details}}
 \end{center}
 \end{frame}
 
@@ -265,6 +271,141 @@ VBA / macros & No & No & Apps Script only \\
 \begin{shadedbox}
 \centerline{``Create an Excel workbook to illustrate two-stage DCF analysis.''}
 \end{shadedbox}
+\end{frame}
+
+% ============================================================
+% APPENDIX: MICROSOFT COPILOT IN EXCEL
+% ============================================================
+\appendix
+
+\begin{frame}{Microsoft Copilot in Excel}
+\hypertarget{copilot-appendix}{}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{What It Is}]
+\begin{itemize}\small
+  \item AI assistant built into the Excel ribbon
+  \item Powered by GPT-5.2 (switchable to Claude Opus 4.5)
+  \item Included with M365 Copilot add-on (\$30/user/mo on top of M365)
+  \item Also available via Copilot Pro (\$20/mo on top of M365 Personal)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Key Features}]
+\begin{itemize}\small
+  \item Natural language formula generation
+  \item Agent Mode: autonomous multi-step tasks (build models, reshape tables, create charts)
+  \item \texttt{=COPILOT()} function: AI prompts directly in cells
+  \item Python in Excel: generates and runs Python code for advanced analytics
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{center}\small
+\hyperlink{comparison}{\beamerreturnbutton{Back to comparison}}
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=3]{Copilot: Strengths and Limitations}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Strengths vs.\ Claude for Excel}]
+\begin{itemize}\small
+  \item \textbf{Agent Mode}: plans and executes multi-step tasks autonomously
+  \item \textbf{\texttt{=COPILOT()} function}: AI as a cell formula---results update when data changes
+  \item \textbf{Python in Excel}: pandas, matplotlib, scikit-learn inside the spreadsheet
+  \item \textbf{Formula completion}: real-time suggestions as you type
+  \item \textbf{Web search}: pulls live data with source citations
+  \item \textbf{Enterprise ecosystem}: integrates with SharePoint, Teams, Power BI
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Limitations vs.\ Claude for Excel}]
+\begin{itemize}\small
+  \item \textbf{Expensive}: \$30/mo add-on on top of M365 (\$66--87/user/mo total for enterprise)
+  \item \textbf{OneDrive dependency}: historically required cloud storage; local file support still rolling out
+  \item \textbf{Table format required}: data must be formatted as Excel tables
+  \item \textbf{Multi-sheet weakness}: struggles with complex cross-tab formula tracing
+  \item \textbf{No audit trail}: Claude logs all AI-assisted changes to a separate tab
+  \item \textbf{Accuracy caveat}: Microsoft warns against using \texttt{=COPILOT()} for tasks ``requiring accuracy or reproducibility''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{center}\small
+\hyperlink{comparison}{\beamerreturnbutton{Back to comparison}}
+\end{center}
+\end{frame}
+
+% ============================================================
+% APPENDIX: GEMINI IN GOOGLE SHEETS
+% ============================================================
+
+\begin{frame}{Gemini in Google Sheets}
+\hypertarget{gemini-appendix}{}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{What It Is}]
+\begin{itemize}\small
+  \item AI assistant built into Google Sheets (web only)
+  \item Powered by Gemini 2.5 Pro (3.1 Pro rolling out)
+  \item Included in Workspace Business Standard (\$14/user/mo) and above
+  \item Consumer: Google One AI Pro (\$20/mo)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Key Features}]
+\begin{itemize}\small
+  \item Natural language formula generation with explanations
+  \item \texttt{=AI()} function: AI prompts directly in cells, with Google Search access
+  \item ``Help me organize'': generate structured tables from a description
+  \item Multi-step task execution from a single prompt (formatting, formulas, filters)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{center}\small
+\hyperlink{comparison}{\beamerreturnbutton{Back to comparison}}
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=3]{Gemini for Sheets: Strengths and Limitations}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Strengths vs.\ Claude for Excel}]
+\begin{itemize}\small
+  \item \textbf{Cloud-native}: works entirely in the browser, accessible from any device
+  \item \textbf{Real-time collaboration}: multiple users with simultaneous AI assistance
+  \item \textbf{\texttt{=AI()} function}: AI as a cell formula---can also query Google Search for live data
+  \item \textbf{Google ecosystem}: deep integration with Drive, Gmail, BigQuery
+  \item \textbf{Lower entry price}: included in Workspace Business Standard (\$14/user/mo)
+  \item \textbf{Smart Fill}: auto-completes patterns as you type
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Limitations vs.\ Claude for Excel}]
+\begin{itemize}\small
+  \item \textbf{No desktop Excel}: Google Sheets only---Excel is the finance industry standard
+  \item \textbf{Capacity limits}: Sheets caps at $\sim$10M cells; 200-cell AI analysis limit per request
+  \item \textbf{Monthly cap}: 500 AI interactions/month
+  \item \textbf{No VBA / Power Query}: uses Apps Script instead (different ecosystem)
+  \item \textbf{Charts don't auto-update}: Gemini-generated charts are static snapshots
+  \item \textbf{No offline access}: requires internet; Claude for Excel works in desktop Excel offline
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{center}\small
+\hyperlink{comparison}{\beamerreturnbutton{Back to comparison}}
+\end{center}
 \end{frame}
 
 \end{document}

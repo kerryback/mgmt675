@@ -1,42 +1,69 @@
 # MGMT 675: Generative AI for Finance
 
-## Project Overview
+## Overview
+Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry Back. Meets TTh 12:30-2:00, McNair 212, 3/17/2026-4/23/2026. Deployed at mgmt675.kerryback.com via GitHub Pages.
 
-Course materials for MGMT 675 at Rice Business, including slides, exercises, and documentation.
+## Build
+- `quarto render` renders the site to `docs/`
+- `quarto preview` for local development
+- Slides are compiled separately with LaTeX (not Quarto)
 
-## Skills
+## Structure
 
-### gamma-presentations
+### Website (Quarto)
+- `_quarto.yml` — site config (renders index, slides, assignments pages)
+- `index.qmd` — syllabus and course description
+- `slides.qmd` — slide deck index (links to PDFs)
+- `assignments.qmd` — assignment overview
+- `assignment1.qmd` through `assignment6.qmd` — individual assignments
+- `index-pdf.qmd` — PDF version of syllabus
+- `docs/` — rendered site (committed for GitHub Pages)
+- `files/` — data files for exercises (.xlsx, .zip)
 
-Create professional slide decks using gamma.app with AI-generated images. Use this skill when:
+### Slides (Beamer LaTeX)
+- `slides/` — all slide decks as `.tex` + `.pdf` pairs
+- `slides/mgmt675-style.tex` — shared style (metropolis theme, custom colors, tcolorbox environments)
+- `slides/images/` — images used in slides
+- Numbered `00` through `15` (plus `18-obsidian`):
+  - 00-intro, 01-claude, 02-meanvariance, 03-colab, 04-mcp, 05-cowork
+  - 06-claude-code, 07-excel, 08-dashboards, 09-skills, 10-vscode
+  - 11-dcf, 12-rag, 13-slms, 14-agents, 15-trading, 18-obsidian
 
-- Creating presentation slides with AI-generated imagery
-- Processing gamma.app PPTX exports
-- Creating cover slides for course topics
-- Generating custom images via the Gamma API
+### Other
+- `gamma_pptx_utils.py` — Python utilities for PPTX processing
+- `test_gamma_api.py` — Gamma API test script
+- `.claude/skills/gamma-presentations.md` — skill for creating slides with Gamma API
 
-**Key capabilities:**
-- Generate presentations with AI images via Gamma API
-- Post-process PPTX files (ensure 16:9, adjust fonts, replace colors)
-- Create cover slides with course branding
+## Slide Conventions
+- **Aspect ratio:** 16:9 (`\documentclass[aspectratio=169]{beamer}`)
+- **Theme:** metropolis with custom style via `\input{mgmt675-style}`
+- **Colors:** accentblue (RGB 37,99,235), titlegray (RGB 19,60,71), alertorange (RGB 230,90,50)
+- **Custom environments:** `shadedbox`, `baritemize` (bulleted list in shaded box), `barenumerate` (numbered list in shaded box)
+- **Title slides:** radial gradient background, title graphic on right
+- **Compile:** `pdflatex slides/XX-name.tex` (from repo root, or `cd slides && pdflatex XX-name.tex`)
 
-**Example commands:**
-- "Create a gamma image for [topic]"
-- "Process gamma export [filename]"
-- "Create cover slide for [topic]"
+## Quarto Conventions
+- Themes: flatly (light) / superhero (dark)
+- External links open in new window
+- Hypothesis comments enabled
+- Font Awesome icons for PDF download links
 
-See `.claude/skills/gamma-presentations.md` for full documentation.
+## Course Topics (in order)
+1. AI with code execution (Claude)
+2. Mean-variance analysis with AI
+3. AI-written code in Jupyter notebooks
+4. Connecting tools to AI (MCP)
+5. Connecting a virtual machine to AI (Cowork)
+6. Connecting your computer to AI (Claude Code)
+7. Using AI in Excel
+8. Replacing dashboards with natural language
+9. Automating specialized prompts (skills)
+10. Using AI inside an IDE (VS Code)
+11. Valuing companies with AI (DCF)
+12. Retrieval augmented generation
+13. Fine-tuning and small language models
+14. Building AI agents
+15. Trading on news with AI
 
-## File Structure
-
-- `slides/` - Beamer LaTeX slide decks
-- `slides/images/` - Images for presentations
-- `docs/` - Course documentation and exercises
-- `gamma_pptx_utils.py` - Python utilities for PPTX processing
-- `test_gamma_api.py` - Gamma API test script
-
-## Conventions
-
-- Slides use 16:9 aspect ratio
-- Section title slides: large title on left, image on right
-- Images stored in `slides/images/`
+## Grading
+Six group assignments (15% each) + peer assessments (10%). Due Tuesdays at 11:59pm, March 24 through April 28.

@@ -16,10 +16,11 @@ Click on a topic to download the PDF slide deck.
 | 5 | [Connecting a Virtual Machine to AI](slides/05-cowork.pdf) | [{{< fa file-pdf >}}](slides/05-cowork.pdf) |
 | 6 | [Connecting Your Computer to AI](slides/06-claude-code.pdf) | [{{< fa file-pdf >}}](slides/06-claude-code.pdf) |
 | 7 | [Using AI in Excel](slides/07-excel.pdf) | [{{< fa file-pdf >}}](slides/07-excel.pdf) |
-| 8 | [Automating Specialized Prompts](slides/08-skills.pdf) | [{{< fa file-pdf >}}](slides/08-skills.pdf) |
-| 9 | [Using AI inside an IDE](slides/09-vscode.pdf) | [{{< fa file-pdf >}}](slides/09-vscode.pdf) |
-| 10 | [Valuing Companies with AI](slides/10-dcf.pdf) | [{{< fa file-pdf >}}](slides/10-dcf.pdf) |
-| 11 | [Retrieval Augmented Generation](slides/11-rag.pdf) | [{{< fa file-pdf >}}](slides/11-rag.pdf) |
-| 12 | [Fine-Tuning and Small Language Models](slides/12-slms.pdf) | [{{< fa file-pdf >}}](slides/12-slms.pdf) |
-| 13 | [Building AI Agents](slides/13-agents.pdf) | [{{< fa file-pdf >}}](slides/13-agents.pdf) |
-| 14 | [Trading on News with AI](slides/14-trading.pdf) | [{{< fa file-pdf >}}](slides/14-trading.pdf) |
+| 8 | [Replacing Dashboards with Natural Language](slides/08-dashboards.pdf) | [{{< fa file-pdf >}}](slides/08-dashboards.pdf) |
+| 9 | [Automating Specialized Prompts](slides/09-skills.pdf) | [{{< fa file-pdf >}}](slides/09-skills.pdf) |
+| 10 | [Using AI inside an IDE](slides/10-vscode.pdf) | [{{< fa file-pdf >}}](slides/10-vscode.pdf) |
+| 11 | [Valuing Companies with AI](slides/11-dcf.pdf) | [{{< fa file-pdf >}}](slides/11-dcf.pdf) |
+| 12 | [Retrieval Augmented Generation](slides/12-rag.pdf) | [{{< fa file-pdf >}}](slides/12-rag.pdf) |
+| 13 | [Fine-Tuning and Small Language Models](slides/13-slms.pdf) | [{{< fa file-pdf >}}](slides/13-slms.pdf) |
+| 14 | [Building AI Agents](slides/14-agents.pdf) | [{{< fa file-pdf >}}](slides/14-agents.pdf) |
+| 15 | [Trading on News with AI](slides/15-trading.pdf) | [{{< fa file-pdf >}}](slides/15-trading.pdf) |

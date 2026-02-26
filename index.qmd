@@ -23,7 +23,7 @@ All sessions will be in McNair 212, including the special session.
 1. How to use AI with code-execution tools to perform financial analysis, handle data and text, and generate visualizations, spreadsheets, reports, and presentations
 2. How to use AI with other tools -- terminal execution, browser control, database connections -- for finance applications 
 3. How to collaborate with AI in planning, executing, and evaluating financial analysis
-4. How the different AI code execution environments work - cloud sandboxed, virtual machines, local
+4. How to use agentic AI to replace dashboards (and other things) with natural language prompts
 5. How to create and deploy task-specific prompts that can be used repeatedly
 6. How to reduce the hallucination rate of AI through retrieval-augmented generation, fine tuning, or building specialized models
 7. How AI can be used to classify the sentiment of news or social media for trading
@@ -38,20 +38,21 @@ The following lists the course topics in the order that we will study them (not 
 
 
 
-1. AI that writes and executes code 
+1. AI that writes and executes code
 2. AI coding for mean-variance analysis
 3. Executing AI-written code in Jupyter notebooks
 4. Connecting tools to AI
 5. Connecting a virtual machine to AI
 6. Connecting your computer to AI
 7. Using AI inside Excel
-8. Automated as-needed loading of specialized prompts
-9. Using AI inside an integrated development environment (IDE)
-10. Using AI for discounted cash flow valuation of companies
-11. Retrieval augmented generation
-12. Fine-tuning and small language models
-13. Building an AI agent
-14. Trading on news with AI
+8. Replacing dashboards with natural language prompts
+9. Automated as-needed loading of specialized prompts
+10. Using AI inside an integrated development environment (IDE)
+11. Using AI for discounted cash flow valuation of companies
+12. Retrieval augmented generation
+13. Fine-tuning and small language models
+14. Building an AI agent
+15. Trading on news with AI
 
 
 
