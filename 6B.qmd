@@ -1,0 +1,27 @@
+---
+title: "Exercise 6B: Earnings Call Analysis"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Download an earnings call transcript for a company that had a **significant post-earnings stock move** (at least $\pm$3\% on the day after the call). Good sources include Seeking Alpha, Motley Fool Transcripts, or company investor relations pages.
+
+Upload the transcript to Claude and ask it to:
+
+1. **Rate management's overall tone** on a scale from $-5$ (very negative) to $+5$ (very positive)
+2. **Identify 3--5 forward-looking statements** that differ from consensus expectations
+3. **Flag hedging language** or qualifications (e.g., "cautiously optimistic," "subject to macroeconomic conditions")
+4. **Summarize the Q\&A section** --- were analysts skeptical or supportive?
+
+Compare Claude's assessment to the stock's actual post-earnings move. Did the tone analysis predict the market reaction? Where did it succeed or fail?
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Claude's analysis of the transcript (`7B-Analysis.pdf`)
+- Comparison to actual stock movement with discussion (`7B-Comparison.pdf`, half page)

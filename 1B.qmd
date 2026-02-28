@@ -1,0 +1,27 @@
+---
+title: "Exercise 1B: Interactive Bond Pricing App"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Using Claude.ai Artifacts, create an interactive app that lets a user input:
+
+- Coupon rate
+- Yield to maturity
+- Face value
+- Years to maturity
+
+Assume semi-annual coupons. The app should compute the bond price and display an interactive chart showing how the price changes as the yield varies from 0% to 15%.
+
+Publish the artifact so it has a shareable link.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Shareable artifact link (`1C-Link.txt`)
+- Screenshot of the published artifact (`1C-Screenshot.png`)

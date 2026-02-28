@@ -1,0 +1,27 @@
+---
+title: "Exercise 4C: DCF Cross-Check"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Take the DCF model you built in Exercise 2B. Start a **new** Claude conversation (do not continue the original) and upload the workbook. Ask Claude to critique the valuation:
+
+1. **Identify at least 3 questionable assumptions** --- are the growth rates, margins, or discount rate reasonable?
+2. **Check formula consistency** --- does FCF match the pro forma income statement and balance sheet?
+3. **Evaluate the terminal value** --- is the implied terminal growth rate reasonable relative to GDP growth? What fraction of enterprise value comes from the terminal value?
+4. **Suggest specific revisions** with justification
+
+Revise the model based on the critique and compare the original and revised valuations.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Original DCF model (`5A-Original.xlsx`)
+- Revised DCF model (`5A-Revised.xlsx`)
+- Summary of what changed and why (`5A-Summary.pdf`, 1 page)
+- Screenshots of both Claude conversations (`5A-Screenshot1.png`, `5A-Screenshot2.png`)

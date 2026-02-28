@@ -102,13 +102,10 @@ Each step gives Claude more \textbf{capability} and more \textbf{access} to your
 
 Go to \texttt{claude.ai} in any browser. No installation required.  Icon at top left opens sidebar.
 
-\begin{shadedbox}[title={What it can do}]
+\textbf{What it can do:}
 It's a chatbot with a code execution tool.  It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in.  It can also generate charts, Excel files, Word docs, and PowerPoint decks.  Code runs in a \textbf{sandbox}---can \texttt{pip install} packages but has \alert{no internet access}.
-\end{shadedbox}
 
-\begin{shadedbox}[title=\textbf{Example}]
-\textit{``Create an Excel file to illustrate two-stage DCF analysis.''}
-\end{shadedbox}
+\textbf{Example:} \textit{``Create an Excel file to illustrate two-stage DCF analysis.''}
 
 \end{frame}
 
@@ -119,26 +116,21 @@ It's a chatbot with a code execution tool.  It can answer questions, explain con
 
 \begin{frame}{Step 2: Artifacts --- Interactive Charts and Apps}
 
-\begin{baritemize}
+\begin{itemize}
   \item Still in \texttt{claude.ai}, Claude can produce \textbf{interactive charts and apps} that appear in a side panel.
   \item Choose Artifacts $\rightarrow$ Create an Artifact $\rightarrow$ apps or websites.
-  \item Artifacts aren't throwaway --- they persist and can be shared.
-  \item Click \textbf{Publish} to get a shareable link --- anyone can view and interact with it, no Claude account needed
-\end{baritemize}
+  \item Click \textbf{Publish} to get a shareable link --- anyone can view and interact, no Claude account needed.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Artifact Examples}
-\begin{shadedbox}[title=\textbf{Example 1}]
+\textbf{Example 1:}
 \textit{``Here is an Excel file [upload \href{https://kerryback.com/mgmt675/files/wmt_spy_rf.xlsx}{this file} to \texttt{claude.ai}] containing monthly returns for WMT and SPY and the one-month T-bill yield.  Create an interactive scatter plot of AAPL excess returns vs.\ market excess returns, show the regression line, and display alpha and beta. Include the month in the hover data.''}
-\end{shadedbox}
 
-\begin{shadedbox}[title=\textbf{Example 2}]
+\textbf{Example 2:}
 \textit{``Create an app that lets a user input a stock's current price, the strike price, the risk-free rate, the volatility, and the time to expiration in years.  Compute the Black-Scholes call and put option prices.  Create an interactive plot showing how both option prices change as the stock price varies from 50\% to 150\% of the strike price.''}
-\end{shadedbox}
 
-\begin{shadedbox}[title=\textbf{Publish}]
-Publish the artifacts and share the links in Canvas chat.
-\end{shadedbox}
+\textbf{Publish:} Publish the artifacts and share the links in Canvas chat.
 \end{frame}
 
 % ============================================================
@@ -150,17 +142,15 @@ Publish the artifacts and share the links in Canvas chat.
 
 Download the Claude app from \texttt{claude.com/download}.
 
-\begin{shadedbox}[title={What changes from web?}]
+\textbf{What changes from web?}
 \begin{itemize}
   \item Same chat + artifact capabilities
   \item Installed application
   \item Foundation for Cowork and Code tabs (next steps)
 \end{itemize}
-\end{shadedbox}
 
-\begin{shadedbox}[title=\textbf{Setup}]
+\textbf{Setup:}
 Install the app $\rightarrow$ sign in with your Claude account $\rightarrow$ use the \textbf{Chat} tab. That's it. Same experience as the web, but now you have access to Cowork and Code, which we will investigate later.
-\end{shadedbox}
 
 \end{frame}
 
@@ -192,9 +182,7 @@ Claude Code (local) & {\color{accentblue}\textbf{Yes}} & {\color{accentblue}\tex
 
 \vspace{0.2cm}
 
-\begin{shadedbox}
 \textbf{Key insight:} Only \alert{Claude Code} (running on your machine) can call external APIs---Yahoo Finance, Alpha Vantage, Financial Modeling Prep, databases, etc.
-\end{shadedbox}
 
 \end{frame}
 
@@ -202,9 +190,8 @@ Claude Code (local) & {\color{accentblue}\textbf{Yes}} & {\color{accentblue}\tex
 
 With Claude Code running locally, you can fetch \textbf{live financial data}:
 
-\begin{shadedbox}[title=\textbf{Prompt to Claude Code}]
+\textbf{Prompt to Claude Code:}
 \textit{``Get the last year of daily prices for AAPL and MSFT using yfinance. Plot the cumulative returns.''}
-\end{shadedbox}
 
 \textbf{Python code Claude writes and executes:}
 \begin{lstlisting}
@@ -225,9 +212,8 @@ plt.savefig("returns.png")
 
 APIs requiring \textbf{authentication} also work in Claude Code:
 
-\begin{shadedbox}[title=\textbf{Prompt to Claude Code}]
+\textbf{Prompt to Claude Code:}
 \textit{``Use Financial Modeling Prep to get Apple's income statement. My API key is in the environment variable FMP\_API\_KEY.''}
-\end{shadedbox}
 
 \textbf{Python code Claude writes and executes:}
 \begin{lstlisting}
@@ -250,22 +236,21 @@ Free tier: 250 requests/day at \texttt{financialmodelingprep.com}.
 \begin{frame}{What is a Chatbot?}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Simple Definition}]
+\textbf{Simple Definition}
+
 A chatbot is a program that:
 \begin{enumerate}\small
   \item Accepts user input (prompt)
   \item Adds system prompt and sends to an LLM (large language model)
   \item Displays the response
-  \item Captures prompts and responses in a loop and sends history to LLM each time
 \end{enumerate}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item ChatGPT, Claude, Gemini are chatbots
   \item The LLM is the ``brain''
   \item The chatbot is the interface
-\end{baritemize}
+\end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
@@ -277,69 +262,53 @@ A chatbot is a program that:
 \end{frame}
 
 \begin{frame}{The System Prompt}
-\begin{shadedbox}
 The \textbf{system prompt} is a special message that defines the chatbot's personality, knowledge, and behavior. It's the key to customization.
-\end{shadedbox}
 \vspace{0.3cm}
 
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{What It Does}]
+\textbf{What It Does}
 \begin{itemize}\small
-  \item Sets the chatbot's persona
-  \item Defines its expertise
-  \item Specifies response style
-  \item Adds domain knowledge
-  \item Sets guardrails/rules
+  \item Sets the chatbot's persona and expertise
+  \item Specifies response style and domain knowledge
+  \item Sets guardrails and rules
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{How It Works}]
+\textbf{How It Works}
 \begin{itemize}\small
   \item Sent to LLM with every prompt
   \item User never sees it directly
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 
 \vspace{0.3cm}
-\begin{shadedbox}
 \centerline{\href{https://docs.anthropic.com/en/release-notes/system-prompts}{Anthropic's Published System Prompts for Claude}}
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Claude Skills}
-\begin{baritemize}
-  \item Claude `skills' are text files (instructions) that the chatbot sends to the LLM when needed
-  \item An overview of available skills is part of the system prompt
-  \item The overview tells LLM: `ask for this skill in these circumstances \ldots'
-  \item In those circumstances, LLM sends response to chatbot: `send skill'
-  \item Chatbot sends system prompt + prompt + chat history + skill
-  \item LLM sends response
-  \item This pattern is universal: Custom GPTs, Copilot instructions, \texttt{.cursorrules}, Gems
-  \item A skill is just a system prompt extension---extra text the model sees
-  \end{baritemize}
+\begin{itemize}
+  \item Claude `skills' are text files (instructions) that the chatbot sends to the LLM when needed, triggered by matching circumstances
+  \item The chatbot sends system prompt + prompt + chat history + skill, and the LLM responds accordingly
+  \item This pattern is universal: Custom GPTs, Copilot instructions, \texttt{.cursorrules}, Gems---a skill is just a system prompt extension
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Claude Excel Skill}
-  \begin{baritemize}
+  \begin{itemize}
   \item The \texttt{xlsx} skill instructs Claude to:
   \begin{itemize}
     \item Use Excel formulas instead of hardcoded values
     \item Apply professional formatting (color coding, number formats)
     \item Verify there are no formula errors (\#REF!, \#DIV/0!, etc.)
-    \item Follow financial modeling standards
   \end{itemize}
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
 
-\begin{shadedbox}
 \centerline{
 \href{https://github.com/anthropics/claude-code/blob/main/skills/xlsx/skill.md}{View the full xlsx skill documentation}
 }
-\end{shadedbox}
 \end{frame}
 
 % ============================================================
@@ -348,13 +317,11 @@ The \textbf{system prompt} is a special message that defines the chatbot's perso
 \section{Effective Prompting}
 
 \begin{frame}{Effective Prompting = Collaboration with AI}
-\begin{baritemize}
-  \item AI is not a search engine---it's a \alert{collaborator}
-  \item Do not try to craft the ``perfect prompt''
-  \item Instead: have a \alert{conversation}
-  \item Think of AI as a capable colleague, not a vending machine
+\begin{itemize}
+  \item AI is not a search engine---it's a \alert{collaborator}; think of it as a capable colleague
+  \item Do not try to craft the ``perfect prompt''---instead, have a \alert{conversation}
   \item The goal is \textit{iterative refinement}, not one-shot perfection
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Do's and Dont's for Effective Prompting}
@@ -382,13 +349,12 @@ The \textbf{system prompt} is a special message that defines the chatbot's perso
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}[title=\textbf{Ask the AI What It Can Do}]
+\textbf{Ask the AI What It Can Do}
   \begin{itemize}
   \item Ask: ``What information do you need from me to do this?''
   \item Ask: ``What are the different ways you could approach this?''
   \item Ask: ``What should I consider before we start?''
   \end{itemize}
-\end{shadedbox}
 \end{frame}
 
 
@@ -407,29 +373,24 @@ The \textbf{system prompt} is a special message that defines the chatbot's perso
 \end{tikzpicture}
 \end{center}
 
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Plan:} Define the task, gather requirements, outline approach
   \item \textbf{Execute:} Let AI do the work with your guidance
-  \item \textbf{Evaluate:} Check results, identify gaps, refine
-  \item Repeat until satisfied
-\end{baritemize}
+  \item \textbf{Evaluate:} Check results, identify gaps, refine---then repeat
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Cross-Evaluation with Other AI Conversations}
-\begin{baritemize}
-  \item Start a \alert{new conversation} to evaluate the plan and output
-  \item Even with the \textit{same model}, a fresh context can catch errors
-  \item Ask the new conversation to review, critique, or verify
-  \item Different phrasing may reveal blind spots
+\begin{itemize}
+  \item Start a \alert{new conversation} to evaluate the plan and output---even with the same model, a fresh context can catch errors
+  \item Ask the new conversation to review, critique, or verify; different phrasing may reveal blind spots
   \item Consider using a \textit{different model} for additional perspective
-\end{baritemize}
+\end{itemize}
 
 \vspace*{0.3cm}
 
-\begin{shadedbox}
-\textit{``I received this analysis from another session. Can you review it for errors or questionable assumptions?''}
-\end{shadedbox}
+\textbf{Example:} \textit{``I received this analysis from another session. Can you review it for errors or questionable assumptions?''}
 \end{frame}
 
 \begin{frame}{Claude Pricing Options}
@@ -455,11 +416,10 @@ The \textbf{system prompt} is a special message that defines the chatbot's perso
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}[title=\textbf{Example: What Does a Typical Query Cost via API?}]
+\textbf{Example: What Does a Typical Query Cost via API?}\\
 \small A 1-page prompt $\approx$ 500 tokens. A 2-page response $\approx$ 1{,}000 tokens.\\
 Using Sonnet 4.5: input = 500 $\times$ \$3/1M = \$0.0015, output = 1{,}000 $\times$ \$15/1M = \$0.015.\\
 \textbf{Total $\approx$ 1.7 cents.} You could send $\sim$1{,}200 such queries for \$20 (the cost of Pro).
-\end{shadedbox}
 \end{frame}
 
 \end{document}

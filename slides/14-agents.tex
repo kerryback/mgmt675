@@ -26,19 +26,15 @@
 \begin{itemize}\small
   \item Receives prompts
   \item Generates text responses
-  \item That's it---just conversation
   \item Cannot take actions
-  \item Cannot access external data
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Agent}]
 \begin{itemize}\small
-  \item Receives prompts
   \item Can generate text \alert{or} request actions
   \item Has access to \textbf{tools}
-  \item Can query databases, run code, search web
   \item Takes actions to accomplish goals
 \end{itemize}
 \end{shadedbox}
@@ -51,9 +47,7 @@
 \end{frame}
 
 \begin{frame}{What Are Tools?}
-\begin{shadedbox}
 \textbf{Tools} are functions the agent can call to interact with the outside world.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -61,10 +55,7 @@
 \begin{itemize}\small
   \item Execute SQL queries
   \item Run Python code
-  \item Read/write files
   \item Search the web
-  \item Send emails
-  \item Call APIs
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -73,9 +64,7 @@
 \begin{enumerate}\small
   \item LLM decides to use a tool
   \item Returns tool name + parameters
-  \item Agent executes the tool
   \item Result sent back to LLM
-  \item LLM continues reasoning
 \end{enumerate}
 \end{shadedbox}
 \end{column}
@@ -88,19 +77,15 @@
 \section{Foundation: Calling an LLM from Code}
 
 \begin{frame}{The API: Talking to an LLM}
-\begin{shadedbox}
 An \textbf{API} (Application Programming Interface) lets your code communicate with an LLM service over the internet.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{How It Works}]
 \begin{enumerate}\small
   \item Your code sends a request
-  \item Request includes your prompt
   \item LLM processes the prompt
   \item API returns the response
-  \item Your code uses the result
 \end{enumerate}
 \end{shadedbox}
 \end{column}
@@ -110,7 +95,6 @@ An \textbf{API} (Application Programming Interface) lets your code communicate w
   \item API endpoint (URL)
   \item API key (authentication)
   \item Model name to use
-  \item Your prompt/messages
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -123,7 +107,6 @@ An \textbf{API} (Application Programming Interface) lets your code communicate w
 \begin{shadedbox}[title=\textbf{What is OpenRouter?}]
 \begin{itemize}\small
   \item Unified API for 100+ models
-  \item OpenAI, Anthropic, Google, Meta, etc.
   \item Single API key for all models
   \item Some models are free!
 \end{itemize}
@@ -181,11 +164,11 @@ messages = [
 \end{verbatim}
 \end{shadedbox}
 \vspace{0.3cm}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item Each API call is independent---LLM has no memory
   \item You must send the \alert{entire conversation history} each time
   \item The \textbf{system prompt} (role \texttt{system}) defines the agent's behavior
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 % ========================================
@@ -194,9 +177,7 @@ messages = [
 \section{The Agent Loop}
 
 \begin{frame}{The Agent Loop}
-\begin{shadedbox}
 The agent runs in a loop: LLM thinks $\rightarrow$ tool executes $\rightarrow$ result returns $\rightarrow$ LLM thinks again.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{center}
 \begin{tabular}{ccc}
@@ -209,18 +190,18 @@ The agent runs in a loop: LLM thinks $\rightarrow$ tool executes $\rightarrow$ r
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item LLM decides next action
   \item Returns tool name + parameters
   \item Agent executes the tool
-\end{baritemize}
+\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item Result added to message history
   \item LLM sees result, reasons again
   \item Loop continues until task complete
-\end{baritemize}
+\end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
@@ -254,17 +235,13 @@ while not done:
 \section{Building an Agent Step by Step}
 
 \begin{frame}{The Key Pieces}
-\begin{shadedbox}
 To build an agent, you need five components:
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{barenumerate}
+\begin{enumerate}
   \item \textbf{Define tools}: What actions can the agent take?
   \item \textbf{Write a system prompt}: Describe available tools, schema, and rules
   \item \textbf{Implement the agent loop}: Send messages, parse tool calls, execute, repeat
-  \item \textbf{Handle tool execution}: Safely run SQL, Python, etc.
-  \item \textbf{Manage context}: Keep message history, handle token limits
-\end{barenumerate}
+\end{enumerate}
 \vspace{0.3cm}
 \begin{center}
 \alert{Or use an agent framework: LangChain, CrewAI, Claude Code SDK}
@@ -272,22 +249,14 @@ To build an agent, you need five components:
 \end{frame}
 
 \begin{frame}{Example: Database Analytics Agent}
-\begin{shadedbox}
 User request: ``Analyze quarterly revenue trends for our top 5 customers and create a summary report.''
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{shadedbox}[title=\textbf{What the Agent Needs to Do}]
+\textbf{What the Agent Needs to Do}
 \begin{enumerate}\small
   \item Write SQL to identify top 5 customers by revenue
   \item Execute the SQL query against the database
-  \item Write SQL to get quarterly revenue for those customers
-  \item Execute that query
   \item Write Python to analyze trends and create visualizations
-  \item Execute the Python code
-  \item Analyze the results
-  \item Generate a written report for the user
 \end{enumerate}
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Step 1: User Prompt Arrives}
@@ -302,17 +271,15 @@ user & Analyze quarterly revenue trends for top 5 customers... \\
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item System prompt defines capabilities
   \item Lists available tools
   \item Specifies database schema
-  \item Sets response format
-\end{baritemize}
+\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{LLM Decides}]
+\textbf{LLM Decides}\\[0.3em]
 ``I need to first find the top 5 customers. I'll write a SQL query.''
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -331,12 +298,11 @@ user & Analyze quarterly revenue trends for top 5 customers... \\
 \end{verbatim}
 \end{shadedbox}
 \vspace{0.3cm}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item LLM doesn't return text to user yet
   \item Instead, requests a tool execution
   \item Agent code intercepts this and runs the SQL
-  \item Database returns results
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Step 3: Tool Result Returns to LLM}
@@ -358,20 +324,16 @@ user & Analyze quarterly revenue trends for top 5 customers... \\
 \end{frame}
 
 \begin{frame}{Step 4: LLM Continues Reasoning}
-\begin{shadedbox}
 With the top 5 customers identified, the LLM decides what to do next.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{LLM Thinks}]
+\textbf{LLM Thinks}\\[0.3em]
 ``I have the top 5 customers: ACME, Globex, Initech, Umbrella, Wayne. Now I need quarterly data for each.''
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Next Tool Call}]
+\textbf{Next Tool Call}\\[0.3em]
 \texttt{execute\_sql}: Get quarterly revenue for these 5 customers...
-\end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
@@ -409,22 +371,18 @@ The loop continues: tool call $\rightarrow$ result $\rightarrow$ reasoning $\rig
 \begin{columns}
 \begin{column}{0.4\textwidth}
   \vskip\baselineskip
-\begin{baritemize}\small
+\begin{itemize}\small
   \item Prompt + System Prompt $\rightarrow$ LLM
   \item LLM $\rightarrow$ SQL code or a question for the user
-  \item Agent $\rightarrow$ SQL code to database or $\rightarrow$ question to the user
   \item Eventually, SQL code $\rightarrow$ database
-  \item Database $\rightarrow$ data or error message
-  \item Error message $\rightarrow$ LLM
-  \item Eventually data $\rightarrow$ user
-\end{baritemize}
+\end{itemize}
 \end{column}
 \begin{column}{0.6\textwidth}
 \vspace{1cm}
-\begin{shadedbox}\begin{center}
+\begin{center}
   Visit \href{https://data-portal.rice-business.org}{data-portal.rice-business.org}
   \newline Get access token, Log in, Ask for data
-\end{center}\end{shadedbox}
+\end{center}
 \vspace*{-2\baselineskip}
 \includegraphics[width=\textwidth]{images/agent_database.png}
 \end{column}
@@ -432,15 +390,13 @@ The loop continues: tool call $\rightarrow$ result $\rightarrow$ reasoning $\rig
 \end{frame}
 
 \begin{frame}{How the Data Portal is Built}
-\begin{baritemize}
+\begin{itemize}
   \item System prompt provides the database schema and instructions to the LLM
   \item Agent logic is hard-coded as ``if \ldots\ then \ldots'' (\alert{not AI})
   \item The LLM writes SQL; the agent executes it
-  \item If the database returns an error, the agent sends it back to the LLM to try again
-  \item If the LLM needs clarification, the agent displays the question to the user
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}[title=\textbf{Architecture}]
+\textbf{Architecture}
 \begin{center}
 \begin{tabular}{ll}
 \textbf{Component} & \textbf{Implementation} \\
@@ -451,7 +407,6 @@ Agent Loop & Python if/else logic \\
 UI & Streamlit web interface \\
 \end{tabular}
 \end{center}
-\end{shadedbox}
 \end{frame}
 
 % ========================================
@@ -460,9 +415,7 @@ UI & Streamlit web interface \\
 \section{User Interface and Deployment}
 
 \begin{frame}{Adding a User Interface}
-\begin{shadedbox}
 An agent doesn't need a web UI---it can run in a terminal or as a script. But a UI makes it accessible to non-technical users.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -471,8 +424,6 @@ An agent doesn't need a web UI---it can run in a terminal or as a script. But a 
   \item Python library for web apps
   \item No HTML/CSS/JavaScript needed
   \item Built-in chat UI components
-  \item Great for data apps and dashboards
-  \item \url{streamlit.io}
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -482,8 +433,6 @@ An agent doesn't need a web UI---it can run in a terminal or as a script. But a 
   \item Python library for ML demos
   \item Even simpler chat interface
   \item Built-in sharing via public links
-  \item Popular in the ML community
-  \item \url{gradio.app}
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -500,10 +449,8 @@ An agent doesn't need a web UI---it can run in a terminal or as a script. But a 
 \begin{shadedbox}[title=\textbf{Without UI (Terminal)}]
 \begin{itemize}\small
   \item Agent runs in a Python script
-  \item User types prompts at the command line
   \item Results printed to the terminal
   \item Simple, fast to develop
-  \item Good for personal tools and scripts
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -511,32 +458,24 @@ An agent doesn't need a web UI---it can run in a terminal or as a script. But a 
 \begin{shadedbox}[title=\textbf{With Streamlit/Gradio UI}]
 \begin{itemize}\small
   \item Agent wrapped in a web interface
-  \item Chat bubbles, file uploads, charts
   \item Shareable via URL
   \item Accessible to non-technical users
-  \item Good for team tools and demos
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
 The \textbf{agent logic is the same} either way. Streamlit and Gradio only handle how the user interacts with the agent---they don't change how the agent works.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{From Idea to Deployed Agent}
-\begin{shadedbox}
 The complete workflow to build and deploy an agent---all handled by Claude Code with natural language requests.
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{barenumerate}
+\begin{enumerate}
   \item \textbf{Build the agent}: Define tools, system prompt, and agent loop
   \item \textbf{Add a UI} (optional): Wrap with Streamlit or Gradio
-  \item \textbf{Create a GitHub repository}: Version control and collaboration
   \item \textbf{Deploy}: Push to a cloud platform (e.g., Koyeb) for a public URL
-  \item \textbf{Iterate}: Push updates that auto-deploy
-\end{barenumerate}
+\end{enumerate}
 \vspace{0.3cm}
 \begin{center}
 \alert{Ask Claude Code to do each step---no commands to memorize}
@@ -549,9 +488,7 @@ The complete workflow to build and deploy an agent---all handled by Claude Code 
 \section{Advanced: Orchestration}
 
 \begin{frame}{The Orchestration Layer}
-\begin{shadedbox}
 The agent's control logic coordinates everything: which LLM to call, which system prompt to use, and what to do with each response.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -559,7 +496,6 @@ The agent's control logic coordinates everything: which LLM to call, which syste
 \begin{itemize}\small
   \item SQL generation $\rightarrow$ database schema prompt
   \item Python analysis $\rightarrow$ data science prompt
-  \item Report writing $\rightarrow$ communication prompt
   \item Each task gets specialized instructions
 \end{itemize}
 \end{shadedbox}
@@ -569,7 +505,6 @@ The agent's control logic coordinates everything: which LLM to call, which syste
 \begin{itemize}\small
   \item Simple classification $\rightarrow$ fast, cheap model
   \item Complex reasoning $\rightarrow$ powerful model
-  \item Code generation $\rightarrow$ code-specialized model
   \item Cost and speed optimization
 \end{itemize}
 \end{shadedbox}
@@ -580,16 +515,14 @@ The agent's control logic coordinates everything: which LLM to call, which syste
 \begin{frame}{Claude Code: A General-Purpose Agent}
 \begin{columns}
 \begin{column}{0.45\textwidth}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item Claude Code is itself an agent
   \item LLM: Claude Opus or Sonnet
   \item Built-in tools: file I/O, bash, code execution, web search
-  \item Agent logic: built into Claude Code
-  \item \alert{Skills} customize it for specific tasks
-\end{baritemize}
+\end{itemize}
 \end{column}
 \begin{column}{0.55\textwidth}
-\begin{shadedbox}[title=\textbf{Claude Code Architecture}]
+\textbf{Claude Code Architecture}
 \begin{center}
 \begin{tabular}{ll}
 \textbf{Component} & \textbf{Provider} \\
@@ -601,7 +534,6 @@ System Prompt & \alert{Skill} \\
 Custom Tools & \alert{Skill scripts} \\
 \end{tabular}
 \end{center}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -617,9 +549,7 @@ Custom Tools & \alert{Skill scripts} \\
 \begin{itemize}\small
   \item Agent = Chatbot + Tools
   \item LLM decides which tools to use
-  \item Tool results feed back to LLM
   \item Agent loop orchestrates the flow
-  \item Full message history provides context
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -629,18 +559,13 @@ Custom Tools & \alert{Skill scripts} \\
   \item API call to an LLM (OpenRouter)
   \item System prompt with tool definitions
   \item Agent loop (while not done)
-  \item Tool execution (SQL, Python, etc.)
-  \item Optional UI (Streamlit / Gradio)
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.5cm}
 \begin{center}
-\begin{shadedbox}[width=0.85\textwidth]
-\centering
 \alert{Agents extend LLMs from conversation to action}
-\end{shadedbox}
 \end{center}
 \end{frame}
 

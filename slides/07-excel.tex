@@ -20,17 +20,11 @@
 \section{Background}
 
 \begin{frame}{AI Can Create Spreadsheets with Python}
-\begin{baritemize}
+\begin{itemize}
   \item Python libraries like \texttt{openpyxl} create/modify Excel files
-  \item AI writes Python code that:
-  \begin{itemize}
-    \item Inserts data values into cells
-    \item Writes Excel formulas (e.g., \texttt{=SUM(A1:A10)})
-    \item Applies formatting (fonts, colors, borders)
-    \item Creates charts and pivot tables
-  \end{itemize}
+  \item AI writes Python code that inserts data, writes formulas, applies formatting, and creates charts
   \item Result: fully functional spreadsheet with \alert{live formulas}
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Formulas vs. Hardcoded Values}
@@ -56,9 +50,7 @@ Cell contains a formula that recalculates when inputs change.
 \end{columns}
 
 \vspace{0.5cm}
-\begin{shadedbox}
 \centerline{AI must be instructed to use formulas, not compute values in Python}
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Two Ways AI Interacts with Spreadsheets}
@@ -94,22 +86,19 @@ Cell contains a formula that recalculates when inputs change.
 \section{Overview}
 
 \begin{frame}{What Is the Claude Excel Add-in?}
-\begin{baritemize}
-  \item AI sidebar that lives inside Excel
-  \item Reads your workbook---all tabs, formulas, and structure
-  \item Modifies cells directly while preserving formula dependencies
-  \item Powered by Claude Opus 4.6 (switchable to Sonnet 4.5)
+\begin{itemize}
+  \item AI sidebar that lives inside Excel---reads your workbook and modifies cells directly
+  \item Preserves formula dependencies; powered by Claude Opus 4.6
   \item Works with local files---\alert{no OneDrive required}
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Plan Requirements}
-\begin{baritemize}
+\begin{itemize}
   \item Requires Claude Pro (\$20/month), Max, Team, or Enterprise plan
   \item Shares your existing Claude usage pool
   \item Works with Excel 2016+ on Windows, Mac, and Excel for the web
-  \item Supports \texttt{.xlsx} and \texttt{.xlsm} files
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 % ============================================================
@@ -118,24 +107,20 @@ Cell contains a formula that recalculates when inputs change.
 \section{Installation}
 
 \begin{frame}{Installing the Add-in}
-\begin{barenumerate}
-  \item Open Excel and go to the \textbf{Insert} tab in the ribbon
-  \item Click \textbf{Get Add-ins} (or \textbf{Add-ins} on some versions)
-  \item Search for \textbf{``Claude by Anthropic''}
-  \item Click \textbf{Get It Now} and accept the permissions prompt
+\begin{enumerate}
+  \item Open Excel $\rightarrow$ \textbf{Insert} tab $\rightarrow$ \textbf{Get Add-ins}
+  \item Search for \textbf{``Claude by Anthropic''} and click \textbf{Get It Now}
   \item The Claude icon appears in your ribbon
-\end{barenumerate}
+\end{enumerate}
 
 \vspace{0.3cm}
-\begin{shadedbox}
 \centerline{
   \href{https://marketplace.microsoft.com/en-us/product/saas/wa200009404?tab=overview}{Microsoft Marketplace: Claude by Anthropic}
 }
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Launching Claude in Excel}
-\begin{barenumerate}
+\begin{enumerate}
   \item Click the \textbf{Claude icon} in the ribbon to open the sidebar
     \begin{itemize}
       \item Windows: \textbf{Home} tab $\rightarrow$ Add-ins
@@ -143,7 +128,7 @@ Cell contains a formula that recalculates when inputs change.
     \end{itemize}
   \item Sign in with your Claude account credentials
   \item The sidebar now sees your open workbook
-\end{barenumerate}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Launch and Log In}
@@ -208,22 +193,19 @@ Cell contains a formula that recalculates when inputs change.
 \section{Tips and Limitations}
 
 \begin{frame}{Best Practices}
-\begin{baritemize}
+\begin{itemize}
   \item Always review changes before finalizing---Claude highlights what it modified
-  \item Claude warns before overwriting existing data
-  \item Optional: enable the \textbf{Claude Log} tab to track all actions in a session
-  \item Long conversations are automatically compacted to maintain context
-  \item Chat history does not persist between sessions
-\end{baritemize}
+  \item Enable the \textbf{Claude Log} tab to track all actions in a session
+  \item Chat history does not persist between sessions; long conversations auto-compact
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Limitations}
-\begin{baritemize}
-  \item Does not support \textbf{macros or VBA}
-  \item Does not support Excel \textbf{data tables} (What-If Analysis)
+\begin{itemize}
+  \item Does not support \textbf{macros, VBA}, or Excel \textbf{data tables}
   \item Not recommended for audit-critical calculations without human review
-  \item \alert{Security:} only use with trusted spreadsheets---malicious content in cells could attempt to manipulate the AI
-\end{baritemize}
+  \item \alert{Security:} only use with trusted spreadsheets---malicious cell content could manipulate the AI
+\end{itemize}
 \end{frame}
 
 % ============================================================
@@ -260,17 +242,15 @@ VBA / macros & No & No & Apps Script only \\
 \section{Exercises}
 
 \begin{frame}{Exercises}
-\begin{barenumerate}
+\begin{enumerate}
   \item Open a new workbook.  Ask Claude to build a loan amortization table for a \$200{,}000 mortgage at 6.5\% for 30 years with monthly payments, and create a chart showing the principal vs.\ interest portions over time.
   \item Open a new workbook.  Ask Claude to create an example two-stage DCF analysis.
-\end{barenumerate}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Exercise for Claude.ai or Claude Desktop}
 
-\begin{shadedbox}
 \centerline{``Create an Excel workbook to illustrate two-stage DCF analysis.''}
-\end{shadedbox}
 \end{frame}
 
 % ============================================================

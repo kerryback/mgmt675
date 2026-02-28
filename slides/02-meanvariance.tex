@@ -15,46 +15,43 @@
 \maketitle
 
 \begin{frame}{Goals}
-\begin{baritemize}
-  \item Compute and plot the \textbf{tangency portfolio}
-  \item Compute and plot the \textbf{global minimum variance portfolio}
+\begin{itemize}
+  \item Compute and plot the \textbf{tangency portfolio} and the \textbf{global minimum variance portfolio}
   \item Compute and plot the \textbf{efficient frontier} of risky assets
   \item Compute and plot the \textbf{capital allocation line}
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Possible Constraints}
-\begin{baritemize}
+\begin{itemize}
   \item No short sales
   \item Minimum and maximum positions
   \item Margin requirements (sum of absolute values of longs and shorts $\leq 2$)
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Solution Methods}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Solver}
     \begin{itemize}
       \item Maximize Sharpe ratio (tangency portfolio)
-      \item Minimize risk subject to achieving a target expected return (efficient frontier)
+      \item Minimize risk for a target return (efficient frontier)
       \item Minimize risk (global minimum variance portfolio)
     \end{itemize}
   \item \textbf{Analytic/algebraic solution}
     \begin{itemize}
-      \item Solution of a system of linear equations (tangency portfolio)
-      \item Solution of a system of linear equations (global minimum variance portfolio)
-      \item Combining solutions of two systems of linear equations (efficient frontier)
+      \item Solve systems of linear equations for tangency, GMV, and frontier
       \item Available only when there are no constraints
     \end{itemize}
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Python Solver Options}
-\begin{baritemize}
+\begin{itemize}
   \item scipy.minimize
   \item cvxopt
   \item cvxpy
-\end{baritemize}
+\end{itemize}
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -93,11 +90,11 @@ Correlations: $\rho_{AB} = 0.3$, \quad $\rho_{AC} = 0.1$, \quad $\rho_{BC} = 0.5
 
 \vspace{0.1cm}
 Assume a risk-free rate of 4\%.  Ask Claude to:
-\begin{barenumerate}
+\begin{enumerate}
   \item Generate 10{,}000 random portfolios (random weights summing to 1, no short sales) and plot each portfolio's expected return vs.\ standard deviation.
   \item Overlay the efficient frontier and the capital allocation line on the same plot.
   \item Mark the tangency portfolio and the global minimum variance portfolio.
-\end{barenumerate}
+\end{enumerate}
 \end{frame}
 
 \end{document}

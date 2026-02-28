@@ -22,13 +22,11 @@
 \section{VS Code Basics}
 
 \begin{frame}{What is VS Code?}
-\begin{baritemize}
+\begin{itemize}
   \item Visual Studio Code: a free code editor from Microsoft
   \item Works on Windows, Mac, and Linux
-  \item Lightweight but powerful
-  \item Huge ecosystem of extensions
   \item We'll use it primarily as a user interface for Claude Code
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{VS Code + Claude Code vs Colab}
@@ -59,15 +57,13 @@
 \end{frame}
 
 \begin{frame}{Course Install Files}
-\begin{baritemize}
+\begin{itemize}
   \item Python 3.12, VS Code, Git, Quarto, TinyTeX, Node.js, Claude Code
   \item VS Code extensions: Python, Jupyter, Claude Code, Quarto, LaTeX Workshop, GitHub Copilot
  \item Command line interfaces for GitHub, Koyeb
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
 \centering\href{https://kerryback.com/mgmt675/software.html}{Class Software Installer}
-\end{shadedbox}
 \end{frame}
 
 % ========================================
@@ -75,17 +71,13 @@
 % ========================================
 
 \begin{frame}{Opening a Folder in VS Code}
-\begin{baritemize}
+\begin{itemize}
   \item VS Code works with \alert{folders}, not individual files
   \item File $\rightarrow$ Open Folder $\rightarrow$ select your project folder
   \item The folder appears in the Explorer sidebar (left panel)
-  \item All files in the folder are accessible
-  \item This is your workspace for a project
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering Tip: Create a dedicated folder for course work
-\end{shadedbox}
+Tip: Create a dedicated folder for course work
 \end{frame}
 
 % ========================================
@@ -94,33 +86,23 @@
 
 \begin{frame}{Jupyter Notebooks in VS Code}
 \vspace{0.5cm}
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
 \centering\large\textbf{Same concept as Colab but local execution}
-\end{shadedbox}
-\end{center}
 \vspace{0.5cm}
-\begin{baritemize}
-  \item Code cells and text cells
-  \item Run cells with Shift+Enter or click Run button
+\begin{itemize}
+  \item Code cells and text cells --- run with Shift+Enter
   \item Output appears below each cell
   \item No browser or internet required
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Try It: Open a Notebook}
-\begin{barenumerate}
+\begin{enumerate}
   \item Download the notebook from the course site
   \item File $\rightarrow$ Open File $\rightarrow$ select the notebook
-  \item Select a Python kernel from the top-right picker (like Colab's runtime, must be selected before code can be run)
-  \item Run the cells
-\end{barenumerate}
+  \item Select a Python kernel from the top-right picker and run the cells
+\end{enumerate}
 \vspace{0.5cm}
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
 \centering\href{https://kerryback.com/mgmt675/files/objects.ipynb}{Download objects.ipynb}
-\end{shadedbox}
-\end{center}
 \end{frame}
 
 \begin{frame}{Navigating VS Code}
@@ -147,22 +129,17 @@
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
 \centering VS Code has many features---you won't need most of them for this course. Focus on Explorer, Terminal, and Claude Code.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{VS Code Resources}
-\begin{baritemize}
+\begin{itemize}
   \item \href{https://code.visualstudio.com/docs/getstarted/getting-started}{Official Tutorial: Get Started with VS Code} --- interactive walkthrough
-  \item \href{https://code.visualstudio.com/docs/getstarted/introvideos}{Introductory Videos} --- short official videos (7 min setup, 3 min editing, 4 min tips)
+  \item \href{https://code.visualstudio.com/docs/getstarted/introvideos}{Introductory Videos} --- short official videos
   \item \href{https://learn.microsoft.com/en-us/shows/visual-studio-code/learn-visual-studio-code-in-7min-official-beginner-tutorial}{Learn VS Code in 7 Minutes} --- Microsoft Learn video
-  \item \href{https://code.visualstudio.com/docs}{VS Code Documentation} --- full reference
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering You don't need to master VS Code.  Just learn to open folders, open files, and use the terminal. Claude Code handles the rest.
-\end{shadedbox}
+You don't need to master VS Code.  Just learn to open folders, open files, and use the terminal. Claude Code handles the rest.
 \end{frame}
 
 % ========================================
@@ -176,12 +153,11 @@
 \end{frame}
 
 \begin{frame}{Opening Claude Code}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Spark icon}: Click the spark icon in the top-right corner of any open file
-  \item \textbf{Status bar}: Click ``Claude Code'' in the bottom-right corner
   \item \textbf{Command Palette}: Ctrl+Shift+P $\rightarrow$ type ``Claude Code''
   \item \textbf{Keyboard shortcut}: Cmd+Esc (Mac) / Ctrl+Esc (Windows)
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{How Claude Code Works}
@@ -191,53 +167,43 @@
 \end{frame}
 
 \begin{frame}{Chatting with Claude}
-\begin{baritemize}
-  \item Type your question or request in the prompt box
-  \item Press Enter to send
-  \item Claude can see your selected code automatically
+\begin{itemize}
+  \item Type your question or request and press Enter
   \item Use \texttt{@filename} to reference specific files
   \item Claude asks permission before making changes
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{What Claude Code Can Do}
-\begin{baritemize}
-  \item Explain code and answer questions
-  \item Write new code from descriptions
-  \item Fix errors and debug problems
+\begin{itemize}
+  \item Write new code from descriptions and fix errors
   \item Edit files (with your approval)
   \item \alert{Run commands in the terminal}
-  \item Create and modify Jupyter notebooks, Python scripts, LaTeX files, \ldots
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Reviewing Changes}
-\begin{baritemize}
+\begin{itemize}
   \item Claude shows changes in a side-by-side diff view
-  \item Green = additions, Red = deletions
   \item You can \alert{Accept} or \alert{Reject} each change
-  \item Or tell Claude what to do differently
   \item Changes are not applied until you approve them
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Using Claude with Notebooks}
-\begin{baritemize}
+\begin{itemize}
   \item Ask Claude to create a notebook for you
   \item Claude can add, edit, or delete cells
-  \item Select code and ask Claude to explain it
   \item Request data visualizations or analysis
-  \item Claude can fix errors in your notebook code
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Using Claude with Scripts}
-\begin{baritemize}
+\begin{itemize}
 \item If Claude is writing the code, you don't really need notebooks.
 \item It is easier for Claude to write Python scripts, which are just text files containing code.
-\item A Python script can be executed with \texttt{python {scriptname}} in a terminal.
 \item Claude can run terminal commands, so it can execute the scripts it writes.
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 % ========================================
@@ -245,63 +211,48 @@
 % ========================================
 
 \begin{frame}{Exercise: Estimating Betas}
-\begin{baritemize}
+\begin{itemize}
 \item In VS Code, open the folder containing betas.xlsx (or copy it into the folder currently open in VS Code)
 \item  Ask Claude Code to compute WMT's excess returns and run a regression to estimate its beta.
 \item Ask for a Word doc containing a scatterplot of the data with the regression line and a discussion of why the beta is what it is.
-\end{baritemize}
+\end{itemize}
 
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
 \centering\href{https://kerryback.com/mgmt675/files/exercise10-betas.xlsx}{Data for Exercise}
-\end{shadedbox}
-\end{center}
 \end{frame}
 
 \begin{frame}{Exercise: Aggregating Tables}
-\begin{baritemize}
+\begin{itemize}
 \item Download aggregation.zip into the folder open in VS Code.
 \item Extract all the workbooks in the zip file.
 \item Each workbook contains a table with similar data.  Some tables are missing some columns and the names of some of the columns vary somewhat across the tables.  Ask Claude Code to combine the tables into a single table, to include all columns, and to reconcile the varying names.
-\end{baritemize}
+\end{itemize}
 
-\begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
 \centering\href{https://kerryback.com/mgmt675/files/aggregation.zip}{Data for Exercise}
-\end{shadedbox}
-\end{center}
 \end{frame}
 
 \begin{frame}{Other AI Coding Tools}
-\begin{shadedbox}\centerline{You need to try them to understand the differences}\end{shadedbox}
+You need to try them to understand the differences.
 
-\begin{baritemize}
-  \item VS Code + Claude Code is one of several options
+\begin{itemize}
   \item Three other popular tools:
   \begin{itemize}
     \item \textbf{Cursor}: AI-optimized editor (fork of VS Code)
     \item \textbf{GitHub Copilot}: Extension for VS Code and other IDEs
     \item \textbf{Google Antigravity}: Web-based editor (fork of VS Code)
   \end{itemize}
-  \item Each has different strengths and workflows
-  \item \textbf{Common architecture}: All these tools share the same pattern---an LLM with access to your files and the ability to execute code
-  \item Note: You can use Copilot \alert{and} Claude Code together in VS Code
-\end{baritemize}
+  \item \textbf{Common architecture}: All share the same pattern---an LLM with access to your files and the ability to execute code
+  \item You can use Copilot \alert{and} Claude Code together in VS Code
+\end{itemize}
 \end{frame}
 
 \begin{frame}{AI for Class Preparation and Research}
 Some Claude Code prompts:
 
-\begin{baritemize}
+\begin{itemize}
 \item Using this data \ldots compute these statistics \ldots and put them in a latex table like this \ldots and insert them in my paper in \ldots
 \item Using this data \ldots generate figures like this \ldots and insert them in \ldots
-\item I don't like the way I worded things in this paragraph \ldots Please clean it up.
-\item I want to add a slide to my lecture about \ldots It should say \ldots in bullet points
-\item Use the Google API to get an image that represents \ldots and insert it into  \ldots
 \item Make this edit to \ldots and then render, commit, and push to update this website \ldots
-\item Build my latex file.  Find and fix any errors.
-\item Using sympy, simplify this integral \ldots
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \end{document}

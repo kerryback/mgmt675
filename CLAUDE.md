@@ -15,7 +15,7 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - `index.qmd` — syllabus and course description
 - `slides.qmd` — slide deck index (links to PDFs)
 - `assignments.qmd` — assignment overview
-- `assignment1.qmd` through `assignment6.qmd` — individual assignments
+- `1A.qmd` through `6B.qmd` — individual exercise sheets (rendered to PDF)
 - `index-pdf.qmd` — PDF version of syllabus
 - `docs/` — rendered site (committed for GitHub Pages)
 - `files/` — data files for exercises (.xlsx, .zip)
@@ -24,10 +24,11 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - `slides/` — all slide decks as `.tex` + `.pdf` pairs
 - `slides/mgmt675-style.tex` — shared style (metropolis theme, custom colors, tcolorbox environments)
 - `slides/images/` — images used in slides
-- Numbered `00` through `15` (plus `18-obsidian`):
-  - 00-intro, 01-claude, 02-meanvariance, 03-colab, 04-mcp, 05-cowork
-  - 06-claude-code, 07-excel, 08-dashboards, 09-skills, 10-vscode
-  - 11-dcf, 12-rag, 13-slms, 14-agents, 15-trading, 18-obsidian
+- `00-intro` — course introduction
+- Module decks: `m1` through `m8`:
+  - m1-ai-financial-tool, m2-portfolio-valuation, m3-data-tools
+  - m4-automating-workflows, m5-verification, m6-financial-documents
+  - m7-financial-applications, m8-trading-markets
 
 ### Other
 - `gamma_pptx_utils.py` — Python utilities for PPTX processing
@@ -48,22 +49,25 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - Hypothesis comments enabled
 - Font Awesome icons for PDF download links
 
-## Course Topics (in order)
-1. AI with code execution (Claude)
-2. Mean-variance analysis with AI
-3. AI-written code in Jupyter notebooks
-4. Connecting tools to AI (MCP)
-5. Connecting a virtual machine to AI (Cowork)
-6. Connecting your computer to AI (Claude Code)
-7. Using AI in Excel
-8. Replacing dashboards with natural language
-9. Automating specialized prompts (skills)
-10. Using AI inside an IDE (VS Code)
-11. Valuing companies with AI (DCF)
-12. Retrieval augmented generation
-13. Fine-tuning and small language models
-14. Building AI agents
-15. Trading on news with AI
+## Modules (in order)
+1. AI as a Financial Tool
+2. Portfolio Optimization and Company Valuation
+3. Connecting AI to Data and Tools
+4. Automating Financial Workflows
+5. Verifying AI-Generated Analysis
+6. Working with Financial Documents
+7. Building Financial AI Applications
+8. AI in Trading and Markets
+
+## Assignment Schedule (6 weeks)
+| Week | Due | Modules | Exercises |
+|------|-----|---------|-----------|
+| 1 | 3/24 | M1 | 1A, 1B, 1C |
+| 2 | 3/31 | M2 | 2A, 2B, 2C |
+| 3 | 4/7 | M3 | 3A, 3B, 3C, 3D |
+| 4 | 4/14 | M4 + M5 | 4A, 4B, 4C |
+| 5 | 4/21 | M6 + M7 | 5A, 5B, 5C |
+| 6 | 4/28 | M8 | 6A, 6B |
 
 ## Grading
 Six group assignments (15% each) + peer assessments (10%). Due Tuesdays at 11:59pm, March 24 through April 28.

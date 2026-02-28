@@ -18,33 +18,28 @@
 \maketitle
 
 \begin{frame}{A Different Approach}
-\begin{shadedbox}\centerline{Code Environment + Chatbot}\end{shadedbox}
+Code Environment + Chatbot
 
-\begin{baritemize}
-  \item ChatGPT and Claude: Chatbots with code execution added
-  \item Google Colab: Code execution environment with chatbot added
-  \item Colab started as Jupyter notebooks in the cloud (2017)
-  \item Gemini was integrated into Colab later (2024)
+\begin{itemize}
+  \item ChatGPT and Claude are chatbots with code execution; Colab is a code environment with a chatbot
+  \item Colab started as Jupyter notebooks in the cloud (2017); Gemini was integrated in 2024
   \item Philosophy: Write and run code first, use AI to assist
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{What is Google Colab?}
-\begin{baritemize}
+\begin{itemize}
   \item A free tool from Google for running code in your browser
-  \item No software installation required
-  \item Works on any computer with internet access
+  \item No installation required --- works on any computer with internet access
   \item All your work saves automatically to Google Drive
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{What You Need}
-\begin{baritemize}
-  \item Just two things:
+\begin{itemize}
   \item A Google account (Gmail works)
   \item A web browser (Chrome recommended)
-  \item That's it!
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Accessing Colab: From Google Drive}
@@ -56,9 +51,7 @@ Click New $\rightarrow$ More $\rightarrow$ Google Colaboratory
 
 \begin{frame}{Accessing Colab: Direct}
 \begin{center}
-\begin{shadedbox}
-\centerline{\Large\href{https://colab.research.google.com}{colab.research.google.com}}
-\end{shadedbox}
+{\Large\href{https://colab.research.google.com}{colab.research.google.com}}
 \end{center}
 \end{frame}
 
@@ -69,14 +62,10 @@ Click New $\rightarrow$ More $\rightarrow$ Google Colaboratory
 \end{frame}
 
 \begin{frame}{Opening Notebooks}
-\begin{baritemize}
-  \item Examples: Google's tutorial notebooks
-  \item Recent: Your recently opened notebooks
-  \item Google Drive: Notebooks saved in your Drive
-  \item GitHub: Open notebooks from GitHub repos
-  \item Upload: Upload a .ipynb file
+\begin{itemize}
+  \item Open from Examples, Recent, Google Drive, GitHub, or Upload
   \item Click + New notebook to start a fresh notebook
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{The Colab Interface: Notebook + Gemini}
@@ -86,37 +75,27 @@ Click New $\rightarrow$ More $\rightarrow$ Google Colaboratory
 \end{frame}
 
 \begin{frame}{How Notebooks Work}
-\begin{baritemize}
-\item Three elements: notebook, notebook interface (Colab or other), and Python runtime environment
-\item A notebook (.ipynb file) is just a text file
-\item The interface renders the file to create what you see and handles communication with the runtime environment
-\begin{enumerate}
-\item When you run a cell, the code is transmitted to a runtime environment (called a kernel).
-\item The runtime processes and executes your code.
-\item Results flow back to the notebook interface.
-\item The interface renders outputs, visualizations, and any error messages.
-\end{enumerate}
-\end{baritemize}
-
+\begin{itemize}
+\item Three elements: notebook (.ipynb file), interface (Colab), and Python runtime (kernel)
+\item The interface renders your notebook and communicates with the runtime
+\item When you run a cell, code goes to the kernel, executes, and results flow back to the interface
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Navigating a Notebook}
-\begin{baritemize}
-  \item + Code: Add a new code cell
-  \item + Text: Add a text/markdown cell
+\begin{itemize}
+  \item + Code / + Text: Add a new code or text cell
   \item Connect: Connect to Google's servers
   \item Files (folder icon): View and upload files
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{What is a Cell?}
-\begin{baritemize}
-  \item A cell is a box where you write code or text.
-  \item Two types:
-  \item Code cells: Run Python code
-  \item Text cells: Write notes and explanations
-  \item You can have as many cells as you need.
-\end{baritemize}
+\begin{itemize}
+  \item A cell is a box where you write code or text
+  \item Code cells run Python code; text cells hold notes and explanations
+  \item You can have as many cells as you need
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Your First Code: Simple Math}
@@ -134,55 +113,41 @@ Type print('hello world') and press Shift + Enter
 \end{frame}
 
 \begin{frame}{Running Code: Three Ways}
-\begin{baritemize}
+\begin{itemize}
   \item Click the play button ($>$) on the left of the cell
-  \item Press Shift + Enter (runs and moves to next cell)
-  \item Press Ctrl + Enter (runs and stays in cell)
-  \item Tip: Shift + Enter is the most common method
-\end{baritemize}
+  \item Shift + Enter: run and move to next cell
+  \item Ctrl + Enter: run and stay in cell
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Understanding the Play Button}
-\begin{baritemize}
-  \item Before running:
-  \item Circle with play icon ($>$) - Cell is ready
-  \item While running:
-  \item Spinning circle - Code is executing
-  \item After running:
-  \item Checkmark - Output appears below
-\end{baritemize}
+\begin{itemize}
+  \item Play icon ($>$): Cell is ready to run
+  \item Spinning circle: Code is executing
+  \item Checkmark: Execution complete, output appears below
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Cell Numbers}
-\begin{baritemize}
-  \item Notice the [1] or [2] next to cells?
-  \item Shows the order cells were run
-  \item Empty [ ] means not yet run
-  \item [*] means currently running
-  \item Important: Can run cells in any order but top to bottom avoids confusion.
-\end{baritemize}
+\begin{itemize}
+  \item Numbers like [1], [2] show the order cells were run; [ ] means not yet run; [*] means running
+  \item You can run cells in any order, but top to bottom avoids confusion
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Adding New Cells}
-\begin{baritemize}
-  \item From the toolbar:
-  \item Click + Code for a code cell
-  \item Click + Text for a text cell
-  \item Using keyboard:
+\begin{itemize}
+  \item Toolbar: Click + Code or + Text
   \item Ctrl + M, B $\rightarrow$ Add cell below
   \item Ctrl + M, A $\rightarrow$ Add cell above
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Deleting and Moving Cells}
-\begin{baritemize}
-  \item To delete a cell:
-  \item Click the trash icon in the cell toolbar
-  \item Or: Ctrl + M, D
-  \item To move a cell:
-  \item Click the up/down arrows in the cell toolbar
-  \item Or drag and drop the cell
-\end{baritemize}
+\begin{itemize}
+  \item Delete: Trash icon or Ctrl + M, D
+  \item Move: Up/down arrows or drag and drop
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Meet Gemini: Your AI Assistant}
@@ -193,103 +158,84 @@ Gemini is built into Colab to help you write code
 \end{frame}
 
 \begin{frame}{What Gemini Can Do}
-\begin{baritemize}
+\begin{itemize}
   \item Generate code from plain English descriptions
-  \item Explain what existing code does
-  \item Fix errors in your code
-  \item Suggest improvements
-  \item Answer Python questions
-\end{baritemize}
+  \item Explain existing code and fix errors
+  \item Suggest improvements and answer Python questions
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Runtime: What Powers Your Code}
-\begin{baritemize}
-  \item When you click Connect, Colab gives you a virtual computer:
-  \item CPU (standard processing)
-  \item RAM (memory)
-  \item Disk space
-  \item And optionally: GPU or TPU for machine learning
-\end{baritemize}
+\begin{itemize}
+  \item When you click Connect, Colab gives you a virtual computer with CPU, RAM, and disk space
+  \item Optionally: GPU or TPU for machine learning
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Restarting the Runtime}
 If your code isn't working as expected:
 
-\begin{shadedbox}
-\centerline{Runtime $\rightarrow$ Restart runtime}
-\end{shadedbox}
+Runtime $\rightarrow$ Restart runtime
 
-This clears all variables and starts fresh.
-
-Note: You'll need to re-run your cells after restarting
-
+This clears all variables and starts fresh. You'll need to re-run your cells after restarting.
 \end{frame}
 
 \begin{frame}{Session Limits}
-\begin{baritemize}
-   \item Sessions disconnect after $\sim$90 minutes idle
+\begin{itemize}
+  \item Sessions disconnect after $\sim$90 minutes idle
   \item Maximum $\sim$12 hours continuous use
   \item Limited GPU/TPU hours per week
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Get Started}
-  \begin{barenumerate}
+  \begin{enumerate}
   \item Ask Gemini to get monthly GDP data from FRED using the \texttt{pandas-datareader} library.
   \item Ask Gemini to plot GDP over time as a line chart.
   \item Ask Gemini how you can save the chart.
   \item Ask Gemini how you can save the GDP data as a CSV file.
   \item Ask Gemini how you can save the notebook.
-  \end{barenumerate}
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}{Reading Data Files in Colab}
-\begin{baritemize}
-  \item Download the file to your \textbf{Google Drive} (e.g., to My Drive or a subfolder)
-  \item In your Colab notebook, ask Gemini to \textbf{mount your Google Drive}
-  \item Gemini will generate code like:
-    \begin{itemize}
-      \item \texttt{from google.colab import drive}
-      \item \texttt{drive.mount('/content/drive')}
-    \end{itemize}
-  \item Run the cell and authorize access when prompted
-  \item Your Drive files are now at \texttt{/content/drive/MyDrive/...}
-  \item Ask Gemini to load the file with pandas --- it will use the correct path and reader (\texttt{read\_excel}, \texttt{read\_csv}, etc.)
-\end{baritemize}
+\begin{itemize}
+  \item Download the file to your \textbf{Google Drive}
+  \item Ask Gemini to \textbf{mount your Google Drive} and authorize access when prompted
+  \item Ask Gemini to load the file with pandas --- it will use the correct path and reader
+\end{itemize}
 
 \vspace{0.2cm}
-\begin{shadedbox}
 When unsure about anything in Colab, ask Gemini.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Exercise: Computing Returns}
-\begin{baritemize}
+\begin{itemize}
   \item Download \href{https://kerryback.com/mgmt675/files/prices-dividends.xlsx}{prices-dividends.xlsx} to your Google Drive
   \item Ask Gemini to mount your Google Drive
   \item Ask Gemini to compute daily returns including dividends
   \item Ask Gemini to calculate annualized mean return and volatility
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Exercise: Estimating Betas}
-\begin{baritemize}
+\begin{itemize}
   \item Download \href{https://kerryback.com/mgmt675/files/exercise10-betas.xlsx}{exercise10-betas.xlsx} to your Google Drive
   \item Ask Gemini to mount your Google Drive
   \item Ask Gemini to estimate betas for each stock using regression
   \item Ask Gemini to interpret the results
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Exercise: Pairs Trading Signals}
-\begin{baritemize}
+\begin{itemize}
   \item Download \href{https://kerryback.com/mgmt675/files/pairs-ko-pep.xlsx}{pairs-ko-pep.xlsx} (or \href{https://kerryback.com/mgmt675/files/pairs-f-gm.xlsx}{pairs-f-gm.xlsx}) to your Google Drive
   \item Ask Gemini to mount your Google Drive and load the price data
   \item Ask Gemini to compute the price ratio of the two stocks and plot it over time
   \item Ask Gemini to compute the rolling 30-day z-score of the ratio and plot it, with horizontal lines at $\pm 1$ and $\pm 2$
   \item Ask Gemini to highlight dates where the z-score crosses $\pm 2$ (potential entry signals) and where it returns to 0 (potential exit signals)
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \end{document}

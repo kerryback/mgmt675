@@ -1,0 +1,431 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 5: Verifying AI-Generated Analysis}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: THE TRUST SPECTRUM
+% ========================================
+\section{The Trust Spectrum}
+
+\begin{frame}{AI with Code Execution: A Fast Junior Analyst}
+AI with code execution is like a \alert{fast junior analyst} --- capable but needs oversight. The level of oversight depends on the stakes.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Low-Stakes}]
+\begin{itemize}\small
+  \item Exploratory charts
+  \item Directional trends
+  \item Internal brainstorming
+\end{itemize}
+\vspace{0.2cm}
+\centering\small\textit{Quick sanity check.}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Medium-Stakes}]
+\begin{itemize}\small
+  \item Team tools and skills
+  \item Recurring reports
+  \item Internal dashboards
+\end{itemize}
+\vspace{0.2cm}
+\centering\small\textit{Test with known answers.}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{High-Stakes}]
+\begin{itemize}\small
+  \item Client deliverables
+  \item Regulatory filings
+  \item Board presentations
+\end{itemize}
+\vspace{0.2cm}
+\centering\small\textit{Full verification protocol.}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+The more consequential the decision, the more you verify. \alert{Not distrust --- calibrated confidence.}
+\end{frame}
+
+% ========================================
+% SECTION 2: SILENT ANALYTICAL ERRORS
+% ========================================
+\section{AI Makes Silent Analytical Errors}
+
+\begin{frame}{The Real Risk: Not Hallucination --- Bugs}
+AI in code-execution mode doesn't invent facts the way a chatbot might. Instead, it makes \alert{silent analytical errors}: wrong filters, dropped rows, incorrect joins.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Common errors}
+\begin{itemize}\small
+  \item Missing data silently dropped
+  \item Date or currency parsing surprises
+  \item Filters slightly off; aggregating before vs.\ after filtering
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why it's dangerous}
+\begin{itemize}\small
+  \item The output \textit{looks} professional
+  \item Charts render cleanly even if data is wrong
+  \item Nobody questions a polished result
+  \item \alert{Confidence without verification is the real risk}
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Catching a Silent Error}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{The prompt}\\[0.3em]
+\small\textit{``What's the average profit margin by sub-category? Exclude any sub-categories with negative total profit.''}
+\vspace{0.3cm}
+
+\textbf{The trap}
+\begin{itemize}\small
+  \item Does AI filter \textit{before} or \textit{after} aggregating?
+  \item Does it drop rows with negative profit, or sub-categories with negative \textit{total} profit?
+  \item The order matters --- and AI often gets it wrong
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{How to catch it}
+\begin{itemize}\small
+  \item \alert{``Show me the code''} --- inspect the filter logic
+  \item \alert{``How many rows are in the result?''} --- does it match your expectation?
+  \item \alert{``List the excluded sub-categories''} --- are they the right ones?
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Lesson}: The more specific the filter logic, the more likely AI misinterprets it. Always verify multi-step operations.
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 3: THE VERIFICATION CHECKLIST
+% ========================================
+\section{The Verification Checklist}
+
+\begin{frame}{A 4-Step Verification Protocol}
+Apply this to \alert{any} AI-generated analysis.
+\vspace{0.5cm}
+\begin{enumerate}
+  \item \textbf{Sanity-check with known answers}\\
+  \small Ask questions where you already know the result: row count, column names, a total you can verify in Excel.
+  \item \textbf{Ask AI to show its methodology}\\
+  \small ``Show me the code'' or ``Show me the SQL.'' Read the logic, not just the output.
+  \item \textbf{Cross-check by rephrasing}\\
+  \small Ask the same question differently. Start a fresh conversation and ask again. Do answers agree?
+  \item \textbf{Spot-check edge cases}\\
+  \small Test the smallest group, zero values, null fields, boundary dates. Errors hide at the edges.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{}
+\vspace{2cm}
+\begin{center}
+{\Large\bfseries Trust is a process, not a setting.}
+\vspace{1cm}
+
+Every AI output deserves the same scrutiny\\you'd give a new analyst's first deliverable.
+\end{center}
+\end{frame}
+
+% ========================================
+% SECTION 4: VALIDATING WORK FROM MODULES 1--4
+% ========================================
+\section{Hands-On: Validating Prior Work}
+
+\begin{frame}{Reproducibility Test}
+Take analysis from Modules 1--4 and test whether it reproduces.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{The exercise}
+\begin{enumerate}\small
+  \item Pick a financial analysis from Module 2 (DCF or portfolio optimization)
+  \item Start a \alert{fresh conversation}
+  \item Give the same data and ask the same question
+  \item Compare: do the results match?
+\end{enumerate}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{What you're testing}
+\begin{itemize}\small
+  \item \textbf{Reproducibility}: Same data, same question --- same answer?
+  \item \textbf{Methodology}: Did AI use the same approach both times?
+  \item \textbf{Stability}: Small rephrasing shouldn't change the result
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+If the numbers don't match, that's not a failure --- it's \alert{exactly why we verify}. And it's exactly why \textbf{skills} (Module 4) matter.
+\end{frame}
+
+\begin{frame}{Auditing a DCF Model}
+Take the DCF built in Module 2. Start a fresh conversation. Ask Claude to \alert{critique} it.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{What to ask}
+\begin{itemize}\small
+  \item ``Identify 3+ questionable assumptions''
+  \item ``Check formula consistency --- does FCF match the pro formas?''
+  \item ``Is the terminal value calculation reasonable?''
+  \item ``What's the implied terminal growth vs.\ GDP growth?''
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why this matters}
+\begin{itemize}\small
+  \item The most valuable use of AI is often having it \alert{check} work, not produce it
+  \item Cross-evaluation: use a second conversation to critique the first
+  \item Compare original vs.\ revised valuations
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Red-Teaming a Deployed Skill}
+The database skill from Module 4 is the kind of tool people \alert{stop questioning} once deployed. Test it like any tool your team depends on.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Adversarial queries}
+\begin{enumerate}\small
+  \item Query for nonexistent data (``Sales in 2030'')
+  \item Request something not in the schema (``Customer satisfaction scores'')
+  \item Use ambiguous language (``Best employee'')
+\end{enumerate}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{For each failure}
+\begin{itemize}\small
+  \item \textbf{Diagnose}: Bad SQL? Missing context? Wrong assumption?
+  \item \textbf{Fix}: Add clarification, examples, or constraints to SKILL.md
+  \item \textbf{Retest}: Run the query again after the fix
+\end{itemize}
+\vspace{0.3cm}
+This is how production skills get hardened. \alert{Every failure makes the skill better.}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 5: THREE LAYERS OF AUDITABILITY
+% ========================================
+\section{Three Layers of Auditability}
+
+\begin{frame}{Defense in Depth}
+\begin{enumerate}
+  \item \textbf{RAG}: Ground answers in source documents with citations (Module 6 preview). AI answers based on \alert{your content}, not its training data.
+  \item \textbf{Show the code}: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.
+  \item \textbf{Guardrails}: Read-only database access, restricted tables, every query logged for audit. The system \textit{prevents} mistakes, not just detects them.
+\end{enumerate}
+\vspace{0.5cm}
+The more layers you add, the harder it is for errors to reach your team. \alert{Same principle as cybersecurity.}
+\end{frame}
+
+% ========================================
+% SECTION 6: SECURITY AND GOVERNANCE
+% ========================================
+\section{Security and Governance}
+
+\begin{frame}{Data Policies: Training and Retention}
+Before sending data to any AI provider, know the answers to two questions.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Will they train on your data?}
+\begin{itemize}\small
+  \item \alert{Consumer tiers} (free ChatGPT, free Claude) may use your input to improve models
+  \item \alert{API and enterprise tiers} typically do not
+  \item Check your agreement and settings
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{How long do they keep it?}
+\begin{itemize}\small
+  \item Providers retain prompts for a window (often 30 days) for safety monitoring
+  \item Enterprise contracts may offer zero retention
+  \item Know the policy \alert{before} you send sensitive data
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Schema-Only Pattern}
+AI can analyze sensitive data \alert{without ever reading it}. It only needs the table structure.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{How it works}
+\begin{enumerate}\small
+  \item Describe tables in instructions: names, columns, types
+  \item Ask AI to write the query
+  \item AI writes SQL \alert{from the schema alone} --- never sees actual records
+  \item Script runs locally; output stays local
+\end{enumerate}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why it's compliant}
+\begin{itemize}\small
+  \item Table metadata is \alert{not PII} --- safe to share
+  \item Sensitive records stay on your server
+  \item AI produces the \textit{tool}, not the \textit{output}
+  \item Works for FERPA, HIPAA, SOX, GDPR
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 7: ADOPTION ROADMAP
+% ========================================
+\section{AI Adoption Roadmap}
+
+\begin{frame}{The Sandbox-Audit-Deploy Pattern}
+Before deploying any AI workflow to your team, follow three phases.
+\vspace{0.3cm}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=3.2cm, minimum height=1cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (sandbox) {1. Sandbox\\{\scriptsize\normalfont Test with dummy data}};
+\node[sbox, right=of sandbox] (audit) {2. Audit\\{\scriptsize\normalfont Review logs and logic}};
+\node[sbox, right=of audit] (deploy) {3. Deploy\\{\scriptsize\normalfont Roll out with monitoring}};
+
+\draw[sarrow] (sandbox) -- (audit);
+\draw[sarrow] (audit) -- (deploy);
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+\begin{itemize}\small
+  \item \textbf{Sandbox}: Run the full workflow with synthetic data. Test edge cases. Break it on purpose.
+  \item \textbf{Audit}: Export session logs. Verify SQL logic. Check for data leakage.
+  \item \textbf{Deploy}: Roll out to users with monitoring. Review logs weekly.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The AI Adoption Roadmap}
+Each adoption stage maps to a trust level.
+\vspace{0.3cm}
+\begin{enumerate}
+  \item \textbf{Quick wins} (weeks) --- \textit{light verification}:
+  \begin{itemize}\small
+    \item Chat for research, summarization, drafts
+    \item Upload spreadsheets for ad-hoc analysis
+  \end{itemize}
+  \item \textbf{Medium-term} (months) --- \textit{test-before-deploy}:
+  \begin{itemize}\small
+    \item Skills for recurring workflows (Module 4)
+    \item MCP integrations and Streamlit apps (Modules 3, 7)
+  \end{itemize}
+  \item \textbf{Strategic} (quarters) --- \textit{full audit trail}:
+  \begin{itemize}\small
+    \item Production apps with authentication
+    \item AI usage policy and governance framework
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+% ========================================
+% SECTION 8: EXERCISES
+% ========================================
+\section{Exercises}
+
+\begin{frame}{Exercise 1: DCF Cross-Check}
+\begin{enumerate}
+  \item Take your DCF model from Module 2
+  \item Start a new conversation
+  \item Ask Claude to critique it: identify 3+ questionable assumptions
+  \item Revise based on the critique
+  \item Submit: original + revised models + summary of what changed and why
+\end{enumerate}
+\vspace{0.3cm}
+\alert{The most valuable use of AI is often having it check work, not produce it.}
+\end{frame}
+
+\begin{frame}{Exercise 2: Red-Team Your Skill}
+\begin{enumerate}
+  \item Take the database skill from Module 4
+  \item Write 10 adversarial queries designed to produce wrong answers
+  \item Document what breaks and fix the SKILL.md
+  \item Submit: original SKILL.md, adversarial queries, failures found, revised SKILL.md
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 3: AI Usage Policy}
+Review a transcript of an AI analysis session. Then:
+\begin{enumerate}
+  \item Identify potential errors, unsupported assumptions, and missing validations
+  \item Draft a one-page AI usage policy for a hypothetical finance team:
+  \begin{itemize}\small
+    \item What data can/cannot go to AI providers
+    \item Which tools are approved
+    \item When human review is required
+    \item How session logs should be archived
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Verification}]
+\begin{itemize}\small
+  \item The trust spectrum
+  \item 4-step protocol
+  \item Red-teaming skills
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Governance}]
+\begin{itemize}\small
+  \item Data policies
+  \item Schema-only pattern
+  \item Session log auditing
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Adoption}]
+\begin{itemize}\small
+  \item Sandbox-audit-deploy
+  \item Quick wins to strategic
+  \item Trust is a process
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\alert{Verify, govern, then deploy.}
+\end{center}
+\end{frame}
+
+\end{document}

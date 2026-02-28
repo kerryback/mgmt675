@@ -1,0 +1,639 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref, graphicx}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 3: Connecting AI to Data and Tools}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: THE CONNECTIVITY PROBLEM
+% ========================================
+\section{The Connectivity Problem}
+
+\begin{frame}{AI in a Browser Is Powerful but Isolated}
+In Modules 1--2 we used Claude's built-in sandbox to analyze data and build models. But the sandbox has limits:
+\vspace{0.3cm}
+\begin{itemize}
+  \item Cannot access your local files, databases, or APIs
+  \item Must upload data manually; no internet access from the sandbox
+  \item State is lost between conversations
+\end{itemize}
+\vspace{0.3cm}
+\alert{To do real financial work, AI needs to connect to the outside world.}
+\end{frame}
+
+\begin{frame}{Three Ways to Extend AI's Reach}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{MCP Servers}]
+\begin{itemize}\small
+  \item Plug-in protocol
+  \item Connect to APIs, databases, browsers
+  \item Works with Claude Desktop
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Code Execution}]
+\begin{itemize}\small
+  \item Claude Code runs on your machine
+  \item Full file and network access
+  \item VS Code or terminal
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{AI in Apps}]
+\begin{itemize}\small
+  \item Excel add-in, Colab, Sheets
+  \item AI works inside tools you already use
+  \item Platform-specific features
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+This module covers all three approaches and when to use each.
+\end{frame}
+
+% ========================================
+% SECTION 2: MCP — CONNECTING AI TO TOOLS
+% ========================================
+\section{MCP: The Universal Connector}
+
+\begin{frame}{What is MCP?}
+The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI applications connect to external tools and data sources through a uniform interface.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Idea}]
+\begin{itemize}\small
+  \item A standard ``plug-in'' protocol
+  \item AI app connects to MCP servers
+  \item Each server provides specific tools
+  \item Tools appear automatically in the AI
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Analogy}]
+\begin{itemize}\small
+  \item USB is a standard for peripherals
+  \item Plug in a keyboard, it just works
+  \item MCP is a standard for AI tools
+  \item Connect a server, tools just appear
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{How MCP Works}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.2cm and 2cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=3.2cm, minimum height=0.9cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox, minimum width=3.5cm] (app) {Claude Desktop\\(MCP Client)};
+\node[sbox, right=2.5cm of app, yshift=1.5cm] (s1) {Browser\\Server};
+\node[sbox, right=2.5cm of app] (s2) {Financial\\Data Server};
+\node[sbox, right=2.5cm of app, yshift=-1.5cm] (s3) {Terminal\\Server};
+
+\draw[sarrow] (app) -- (s1) node[midway, above, font=\scriptsize\itshape, text=titlegray, sloped] {MCP protocol};
+\draw[sarrow] (app) -- (s2);
+\draw[sarrow] (app) -- (s3);
+
+\node[right=0.5cm of s1, font=\scriptsize, text=titlegray] {Chrome, Firefox, ...};
+\node[right=0.5cm of s2, font=\scriptsize, text=titlegray] {Alpha Vantage, FMP, ...};
+\node[right=0.5cm of s3, font=\scriptsize, text=titlegray] {PowerShell, Bash, ...};
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+\begin{itemize}
+  \item Claude Desktop is the \textbf{client}; each external service runs as a \textbf{server}
+  \item Servers expose \textbf{tools} (functions the AI can call) via a standard protocol
+  \item You can connect multiple servers at once
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Two Ways to Install MCP Servers}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Desktop Extensions (Easy)}]
+\begin{enumerate}\small
+  \item Open Claude Desktop
+  \item Go to \textbf{Settings $\rightarrow$ Extensions}
+  \item Click \textbf{Browse extensions}
+  \item Find the server you want
+  \item Click \textbf{Install}
+\end{enumerate}
+\vspace{0.2cm}
+One-click install. Anthropic-reviewed.
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Manual Configuration}]
+\begin{enumerate}\small
+  \item Install prerequisites (Node.js or uv)
+  \item Edit a JSON config file
+  \item Specify the server command
+  \item Restart Claude Desktop
+  \item Tools appear automatically
+\end{enumerate}
+\vspace{0.2cm}
+More control. Works with any server.
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Prerequisites: Node.js and uv}
+MCP servers are distributed as Node.js or Python packages.
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Node.js} (for \texttt{npx} servers)]
+\begin{itemize}\small
+  \item Download the \textbf{LTS} installer from \url{https://nodejs.org}
+  \item Run the installer (includes \texttt{npm} and \texttt{npx})
+  \item Verify: \texttt{node --version}
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize Used by: DesktopCommander, FMP}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{uv} (for \texttt{uvx} servers)]
+\begin{itemize}\small
+  \item \textbf{Mac}: \texttt{brew install uv}
+  \item \textbf{Windows}: \texttt{winget install astral-sh.uv}
+  \item Verify: \texttt{uv --version}
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize Used by: Browser-Use, Alpha Vantage}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{center}\small
+\alert{Install these before configuring any MCP server.}
+\end{center}
+\end{frame}
+
+% ========================================
+% SECTION 3: FINANCIAL DATA SERVERS
+% ========================================
+\section{Connecting to Financial Data}
+
+\begin{frame}[fragile]{MCP Servers for Financial Data}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Alpha Vantage}]
+\begin{itemize}\small
+  \item 115+ tools: stock prices, options, forex, crypto, economic indicators
+  \item Free API key at \url{https://www.alphavantage.co}
+  \item \alert{Free tier}: 25 requests/day
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Financial Modeling Prep}]
+\begin{itemize}\small
+  \item 253+ tools: financial statements, fundamentals, SEC filings
+  \item Free API key at \url{https://financialmodelingprep.com}
+  \item \alert{Free tier}: 250 requests/day
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}\small
+Install the server, ask Claude to pull data --- \alert{no code, no API documentation needed}.\\[0.3em]
+Example: ``Get Apple's income statement for the last 5 years and compute revenue growth rates''
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Installing Financial Data Servers}
+\begin{shadedbox}[title=\textbf{Alpha Vantage}]
+\begin{verbatim}
+"alphavantage": {
+  "command": "uvx",
+  "args": ["av-mcp", "YOUR_API_KEY"]
+}
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{shadedbox}[title=\textbf{Financial Modeling Prep}]
+\begin{verbatim}
+"financial-modeling-prep": {
+  "command": "npx",
+  "args": ["-y", "@houtini/fmp-mcp"],
+  "env": { "FMP_API_KEY": "YOUR_API_KEY" }
+}
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{center}\small
+Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Desktop.
+\end{center}
+\end{frame}
+
+\begin{frame}{Browser-Use: Web Automation via MCP}
+\textbf{Browser-Use} is an MCP server that lets Claude autonomously control a web browser. Describe a task in plain English, and it handles the navigation.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Finance Applications}
+\begin{itemize}\small
+  \item ``Search for AAPL on Yahoo Finance and get the P/E ratio''
+  \item ``Download all linked CSV files from this SEC page''
+  \item ``Fill out this application form with my information''
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Key Features}
+\begin{itemize}\small
+  \item Plain-language task descriptions
+  \item Navigates pages and fills forms
+  \item Extracts data from web pages
+  \item \alert{Recommended}: local (self-hosted) for full privacy
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 4: CONNECTING TO YOUR COMPUTER
+% ========================================
+\section{Connecting to Your Computer}
+
+\begin{frame}{Three Ways Claude Runs Code}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Chat (Analysis)}]
+\begin{itemize}\footnotesize
+  \item Sandboxed Python in the browser
+  \item No local file access
+  \item Must upload data manually
+  \item Good for quick calculations
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Cowork}]
+\begin{itemize}\footnotesize
+  \item Runs in a local VM
+  \item Can install packages
+  \item Files synced to/from VM
+  \item \alert{No internet access}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Code}]
+\begin{itemize}\footnotesize
+  \item Runs on \alert{your machine}
+  \item Full local file access
+  \item Full internet access
+  \item Most token-efficient
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\alert{Code mode} gives Claude direct access to your machine --- no sandbox, no VM, no upload step.
+\end{center}
+\end{frame}
+
+\begin{frame}{DesktopCommander: Terminal Control via MCP}
+\textbf{DesktopCommander} gives Claude Desktop the ability to execute terminal commands, manage files, and control processes --- without switching to Code mode.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Can Do}]
+\begin{itemize}\small
+  \item Run terminal commands (\texttt{pip install}, git, scripts)
+  \item Read, write, and search files
+  \item Manage running processes
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{When to Use It}]
+\begin{itemize}\small
+  \item You want to stay in Claude Desktop Chat
+  \item Quick terminal tasks
+  \item \alert{Always review commands before approving}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Which Tool When?}
+\begin{center}
+\small
+\begin{tabular}{@{} p{4.5cm} c c c c @{}}
+\toprule
+\textbf{Task} & \textbf{Chat} & \textbf{Artifacts} & \textbf{Cowork} & \textbf{Code} \\
+\midrule
+Explain WACC formula & \checkmark & & & \\
+Interactive DCF calculator & & \checkmark & & \\
+Analyze CSV, create Excel & & & \checkmark & \checkmark \\
+Run Fama--French regressions & & & \checkmark & \checkmark \\
+Organize 50 PDF 10-Ks & & & \checkmark & \\
+Fetch live data from APIs & & & & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\textbf{Rule of thumb:} Start with Chat. If you need a visual, use Artifacts. If you need file I/O, use Code. Save Cowork for complex multi-file tasks.
+\end{frame}
+
+% ========================================
+% SECTION 5: WORKING IN NOTEBOOKS
+% ========================================
+\section{Working in Notebooks}
+
+\begin{frame}{Google Colab + Gemini}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What is Colab?}]
+\begin{itemize}\small
+  \item Free browser-based notebooks from Google
+  \item No installation required
+  \item Saves to Google Drive
+  \item Gemini AI built in
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{How Gemini Helps}]
+\begin{itemize}\small
+  \item Generate code from English descriptions
+  \item Explain existing code and fix errors
+  \item Suggest improvements
+  \item Mount Google Drive for data files
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Philosophy: \textit{code environment with a chatbot} (vs.\ Claude: chatbot with code execution).
+\end{frame}
+
+\begin{frame}{VS Code + Claude Code}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{VS Code}]
+\begin{itemize}\small
+  \item Free desktop editor from Microsoft
+  \item Works on Windows, Mac, Linux
+  \item Supports Jupyter notebooks
+  \item Explorer, Terminal, Extensions
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Claude Code Extension}]
+\begin{itemize}\small
+  \item AI sidebar inside VS Code
+  \item Reference files with \texttt{@filename}
+  \item Writes and runs code with your approval
+  \item Same Claude Code as the terminal/desktop
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\textbf{When to use which:} Colab for quick browser-based exploration; VS Code for serious projects with local files.
+\end{center}
+\end{frame}
+
+% ========================================
+% SECTION 6: AI IN SPREADSHEETS
+% ========================================
+\section{AI in Spreadsheets}
+
+\begin{frame}{Formulas vs.\ Hardcoded Values}
+\begin{columns}[T]
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Hardcoded (Bad)}]
+\small
+\texttt{sheet['B10'] = 1500}
+\vspace{0.3cm}
+
+Cell shows 1500, but if inputs change, the total doesn't update.
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Formula (Good)}]
+\small
+\texttt{sheet['B10'] = '=SUM(B2:B9)'}
+\vspace{0.3cm}
+
+Cell contains a formula that recalculates when inputs change.
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\centerline{\alert{Always instruct AI to use formulas, not hardcoded values.}}
+\end{frame}
+
+\begin{frame}{Claude for Excel Add-in}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Does}]
+\begin{itemize}\small
+  \item AI sidebar inside Excel
+  \item Reads your workbook, modifies cells
+  \item Preserves formula dependencies
+  \item Works with local files --- \alert{no OneDrive required}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Capabilities}]
+\begin{itemize}\small
+  \item Ask questions about workbook content
+  \item Build financial models from scratch
+  \item Trace and fix formula errors
+  \item Create charts and pivot tables
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}\small
+Requires Claude Pro (\$20/mo). Install via \textbf{Insert $\rightarrow$ Get Add-ins $\rightarrow$ ``Claude by Anthropic''}.
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=3]{AI Spreadsheet Tools Compared}
+\begin{center}
+\scriptsize
+\begin{tabular}{p{2.5cm} p{3.2cm} p{3.2cm} p{3.2cm}}
+\toprule
+ & \textbf{Claude for Excel} & \textbf{Microsoft Copilot} & \textbf{Google Sheets + Gemini} \\
+\midrule
+Cost & Claude Pro (\$20/mo) & M365 Copilot (\$30/mo) & Google One AI Pro (\$20/mo) \\
+Platform & Excel (Win/Mac/Web) & Excel (Win/Mac/Web) & Google Sheets (Web) \\
+Key feature & Formula-preserving edits & Agent Mode, \texttt{=COPILOT()} & \texttt{=AI()} function \\
+Python & Server-side sandbox & Python in Excel & Apps Script \\
+OneDrive & Not required & Required (AutoSave on) & N/A (Google Drive) \\
+Best for & Financial modeling & Enterprise ecosystem & Cloud collaboration \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.2cm}
+All three can produce the same kinds of financial tools --- DCF calculators, amortization tables, scenario analyzers.  Choose based on your ecosystem.
+\end{frame}
+
+% ========================================
+% SECTION 7: COMBINING CONNECTIONS
+% ========================================
+\section{Combining Multiple Connections}
+
+\begin{frame}[fragile,shrink=5]{Multi-Server MCP Configurations}
+You can connect multiple MCP servers at once. Claude sees all their tools and can use them together.
+\vspace{0.2cm}
+\begin{shadedbox}[title=\textbf{Example: Three Servers in One Config}]
+\begin{verbatim}
+{
+  "mcpServers": {
+    "browser-use": {
+      "command": "uvx",
+      "args": ["--from", "browser-use[cli]",
+               "browser-use", "--mcp"],
+      "env": {"ANTHROPIC_API_KEY": "sk-ant-..."}
+    },
+    "desktop-commander": {
+      "command": "npx",
+      "args": ["-y", "desktop-commander-mcp"]
+    },
+    "alphavantage": {
+      "command": "uvx",
+      "args": ["av-mcp", "YOUR_AV_KEY"]
+    }
+  }
+}
+\end{verbatim}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Built-In Alternatives to MCP}
+DesktopCommander and Browser-Use add capabilities to Claude's \textbf{Chat} mode. But Code and Cowork modes have some of these built in.
+\vspace{0.2cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+& \textbf{Chat} & \textbf{Code tab} & \textbf{Cowork tab} \\
+\midrule
+Terminal / files & \alert{MCP needed} & Built in & Built in \\
+Browser control & \alert{MCP needed} & Chrome extension & Chrome extension \\
+Internet access & No & Yes & No \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.2cm}
+MCP servers for \textbf{data sources} (Alpha Vantage, FMP, databases) remain valuable on any mode.
+\end{frame}
+
+% ========================================
+% SECTION 8: EXERCISES
+% ========================================
+\section{Exercises}
+
+\begin{frame}{Exercise 1: Financial Data via MCP}
+\begin{enumerate}
+  \item Get a free API key from Alpha Vantage or Financial Modeling Prep
+  \item Install the corresponding MCP server in Claude Desktop
+  \item Ask Claude to retrieve a company's financial data, analyze trends, and produce formatted Excel output
+\end{enumerate}
+\vspace{0.3cm}
+\alert{No code required} --- just install the server and ask questions in natural language.
+\end{frame}
+
+\begin{frame}{Exercise 2: Browser Automation}
+Use Browser-Use MCP to navigate a financial website:
+\begin{itemize}
+  \item Extract market cap, P/E ratio, and revenue for a company
+  \item Compile a summary comparison of 3 companies
+  \item Save results to a formatted document
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 3: Stock Analysis in Colab}
+\begin{enumerate}
+  \item Open Google Colab (\url{https://colab.research.google.com})
+  \item Ask Gemini to download daily returns for 3 stocks using \texttt{pandas-datareader} or \texttt{yfinance}
+  \item Ask Gemini to compute annualized mean returns, volatilities, betas, and a correlation matrix
+  \item Ask Gemini to create boxplots and cumulative return charts
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 4: Loan Amortization in Excel}
+\begin{enumerate}
+  \item Open a new workbook in Excel
+  \item Launch the Claude add-in (Insert $\rightarrow$ Claude icon)
+  \item Ask Claude to build a 30-year mortgage amortization table for a \$200{,}000 loan at 6.5\% with monthly payments
+  \item Ask Claude to chart principal vs.\ interest over time
+  \item Verify: \alert{all values should use live formulas, not hardcoded numbers}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{MCP}]
+\begin{itemize}\small
+  \item Universal plug-in protocol
+  \item Financial data, browser, terminal
+  \item Works with Claude Desktop
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Code Execution}]
+\begin{itemize}\small
+  \item Chat, Cowork, Code modes
+  \item Match the tool to the task
+  \item Code for APIs and files
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{AI in Apps}]
+\begin{itemize}\small
+  \item Excel, Colab, Sheets
+  \item Formulas, not hardcodes
+  \item Choose by ecosystem
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\alert{AI becomes truly powerful when it can reach your data, your tools, and your files.}
+\end{center}
+\end{frame}
+
+\end{document}

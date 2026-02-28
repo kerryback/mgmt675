@@ -1,0 +1,33 @@
+---
+title: "Exercise 4A: Build a Database Skill"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Create a SKILL.md file for a sample database (the Chinook music retailer database or a dataset of your choice). The skill should include:
+
+- **Schema description**: table names, columns, data types, and relationships
+- **Business context**: what the data represents, key metrics, important definitions
+- **Example queries** with expected output format
+- **Guardrails**: common pitfalls, edge cases, things the skill should warn about
+
+Test your skill by asking 5 **decision-relevant** questions --- not just data lookups, but questions a manager would ask. For example:
+
+- "Which artist generates the most revenue, and is that revenue concentrated in one album?"
+- "What's the trend in invoice totals by quarter --- is the business growing?"
+- "Which sales rep has the highest average invoice value?"
+
+Then have a classmate ask 3 questions they come up with (that you haven't tested). Document any failures and fix the SKILL.md.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- SKILL.md file (`4A-SKILL.md`)
+- Output from your 5 test queries (`4A-MyQueries.pdf`)
+- Output from your classmate's 3 queries (`4A-PeerQueries.pdf`)
+- Notes on any failures and fixes made (`4A-Fixes.pdf`, if applicable)

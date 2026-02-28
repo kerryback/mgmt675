@@ -1,0 +1,456 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 1: AI as a Financial Tool}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: WHY AI MATTERS FOR FINANCE
+% ========================================
+\section{Why AI Matters for Finance}
+
+\begin{frame}{From Makers to Checkers}
+\centerline{Derek Waldron, JP Morgan Chief Analytics Officer}
+
+What we're working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.
+
+You'll still have people at the top who are managing and have relationships with clients, but many, many of the processes underneath are now being done by AI systems.
+
+Workers would shift from being creators of reports or software updates, or `makers' \ldots\ to `checkers' or managers of AI agents doing that work.
+\end{frame}
+
+\begin{frame}{CFOs Are Going All In on AI}
+\centerline{Deloitte Q4 2025 CFO Signals Survey --- 200 CFOs at \$1B+ companies}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+  \item \textbf{87\%} say AI will be extremely or very important to finance operations in 2026
+  \item \textbf{54\%} prioritize integrating AI agents in their finance departments
+  \item \textbf{50\%} cite digital transformation of finance as their \#1 priority
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+  \item \textbf{49\%} prioritize automating processes to free employees for higher-value work
+  \item Only \textbf{2\%} say AI won't be important
+  \item CFO confidence at highest level since late 2021
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=5]{Case Study: HPE's ``Alfred''}
+\centerline{Marie Myers, CFO of Hewlett Packard Enterprise (\#143 on Fortune 500)}
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Problem}]
+\begin{itemize}\small
+  \item Weekly 90-minute operational review required 100+ slides
+  \item Hundreds of hours of preparation across business units
+  \item No time left for forward-looking analysis
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The AI Solution}]
+\begin{itemize}\small
+  \item Built ``Alfred''---AI agents that pull, reconcile, and analyze data automatically
+  \item \textbf{90\%} of manual prep eliminated; cycle time reduced \textbf{40\%}, costs down \textbf{25\%}
+  \item 3,000+ finance employees being reskilled to build their own agents
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\centering
+``The goal is for finance professionals to become \alert{masters of their own destiny} rather than casualties of automation.'' --- Marie Myers
+\end{frame}
+
+\begin{frame}{Something Big is Happening}
+\centerline{Matt Shumer, CEO of HyperWrite AI, Feb.\ 2025}
+
+The person who walks into a meeting and says ``I used AI to do this analysis in an hour instead of three days'' is going to be the most valuable person in the room. Not eventually. Right now.
+
+\bigskip
+
+Here's a simple commitment that will put you ahead of almost everyone: spend one hour a day experimenting with AI \ldots\ try to get it to do something new, something you're not sure it can handle. If you do this for the next six months, you will understand what's coming better than 99\% of the people around you.
+\end{frame}
+
+% ========================================
+% SECTION 2: CODE EXECUTION
+% ========================================
+\section{AI with Code Execution}
+
+\begin{frame}{Why Code Execution Changes Everything}
+Attaching a code execution tool transforms a chatbot into a \alert{computational engine}.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Without Code Execution}]
+\begin{itemize}\small
+  \item AI can describe how to analyze your data
+  \item AI can outline the steps for a calculation
+  \item \alert{You still do the work}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{With Code Execution}]
+\begin{itemize}\small
+  \item AI loads your data and computes results
+  \item AI builds a complete analysis with charts
+  \item \alert{AI does the work}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+Finance examples: portfolio optimization, DCF models, regression analysis, Monte Carlo simulations---all built and executed by AI in seconds.
+\end{frame}
+
+\begin{frame}{Three Execution Environments}
+AI can write and run code in three places.  The difference is \alert{where} it runs and \alert{what} it can access.
+\vspace{0.3cm}
+
+\begin{center}\small
+\begin{tabular}{@{} l l l l @{}}
+\toprule
+\textbf{Environment} & \textbf{Best for} & \textbf{Internet} & \textbf{Examples} \\
+\midrule
+Cloud Sandbox & Quick, ad-hoc analysis & {\color{alertorange}\textbf{No}} & Claude Chat, ChatGPT \\
+Virtual Machine & Batch work on files & {\color{alertorange}\textbf{No}} & Claude Cowork \\
+Local (Your PC) & Full integration & {\color{accentblue}\textbf{Yes}} & Claude Code, VS Code \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Key insight:} Only \alert{local execution} can call external APIs---Yahoo Finance, Alpha Vantage, Financial Modeling Prep, databases, etc.
+
+\vspace{0.2cm}
+We start with the cloud sandbox today.  Modules 2--3 introduce local execution and data connections.
+\end{frame}
+
+\begin{frame}{What AI Can Build in Minutes}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Analysis}
+\begin{itemize}\small
+  \item Sales trends and forecasting
+  \item Portfolio optimization
+  \item Financial statement analysis
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Deliverables}
+\begin{itemize}\small
+  \item Charts and visualizations
+  \item Excel workbooks with live formulas
+  \item Interactive web dashboards
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.8cm}
+\begin{center}
+\textbf{Example prompt:} \textit{``Create an Excel file illustrating two-stage DCF analysis with sensitivity tables.''}
+\end{center}
+\end{frame}
+
+% ========================================
+% SECTION 3: CLAUDE.AI AND ARTIFACTS
+% ========================================
+\section{Claude.ai and Artifacts}
+
+\begin{frame}{Getting Started: Claude.ai}
+
+Go to \texttt{claude.ai} in any browser. No installation required.  Icon at top left opens sidebar.
+
+\textbf{What it can do:}
+It's a chatbot with a code execution tool.  It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in.  It can also generate charts, Excel files, Word docs, and PowerPoint decks.  Code runs in a \textbf{sandbox}---can \texttt{pip install} packages but has \alert{no internet access}.
+
+\textbf{Getting started:}
+\begin{enumerate}\small
+  \item Go to \texttt{claude.ai} and sign in (or create an account)
+  \item Type a question or upload a file
+  \item Iterate: refine, ask follow-ups, request changes
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Artifacts: Interactive Charts and Apps}
+
+\begin{itemize}
+  \item Claude can produce \textbf{interactive charts and apps} that appear in a side panel
+  \item Choose Artifacts $\rightarrow$ Create an Artifact $\rightarrow$ apps or websites
+  \item Click \textbf{Publish} to get a shareable link --- anyone can view and interact, no Claude account needed
+\end{itemize}
+
+\vspace{0.3cm}
+
+\begin{shadedbox}[title=\textbf{What Artifacts Can Build}]
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{itemize}\small
+  \item Interactive charts with hover/zoom
+  \item Financial calculators
+  \item Scenario analysis with sliders
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}\small
+  \item ROI tools and comparisons
+  \item Dashboards with filters
+  \item Surveys and data collection
+\end{itemize}
+\end{column}
+\end{columns}
+\end{shadedbox}
+
+\vspace{0.2cm}
+\small\textbf{Limitation:} Artifacts are client-side only---no database, no persistence.  They are \alert{disposable by design}: generate a new one when needs change, rather than maintaining an old one.
+\end{frame}
+
+\begin{frame}{Artifact Examples}
+\textbf{Example 1: Data Visualization}
+
+\textit{``Here is an Excel file [upload \href{https://kerryback.com/mgmt675/files/wmt_spy_rf.xlsx}{this file}] containing monthly returns for WMT and SPY and the one-month T-bill yield.  Create an interactive scatter plot of WMT excess returns vs.\ market excess returns, show the regression line, and display alpha and beta. Include the month in the hover data.''}
+
+\vspace{0.3cm}
+
+\textbf{Example 2: Financial Calculator}
+
+\textit{``Create an app that lets a user input a stock's current price, the strike price, the risk-free rate, the volatility, and the time to expiration in years.  Compute the Black-Scholes call and put option prices.  Create an interactive plot showing how both option prices change as the stock price varies from 50\% to 150\% of the strike price.''}
+
+\vspace{0.3cm}
+\textbf{Publish:} Publish the artifacts and share the links.
+\end{frame}
+
+\begin{frame}{Artifacts Across Platforms}
+
+\begin{center}\small
+\begin{tabular}{@{} l l l l @{}}
+\toprule
+& \textbf{Claude Artifacts} & \textbf{ChatGPT Canvas} & \textbf{Gemini Canvas} \\
+\midrule
+Technology & React & React & HTML/CSS/JS \\
+Sharing & One-click publish & Shareable link & Export/copy \\
+Account needed & No & No & Google account \\
+Iteration & Chat to refine & Inline editing + chat & Chat to refine \\
+Code execution & Separate (sandbox) & Separate (Python) & Separate (Colab link) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+All three let you describe what you want in plain English and get an interactive tool.  We use Claude, but the concepts transfer to any platform.
+\end{frame}
+
+% ========================================
+% SECTION 4: EFFECTIVE PROMPTING
+% ========================================
+\section{Effective Prompting}
+
+\begin{frame}{Start with the Decision, Not the Data}
+\begin{center}
+{\Large\bfseries AI is most useful when you know what you're trying to decide.}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Weak}]
+\begin{itemize}\small
+  \item ``Show me the data''
+  \item ``Make a chart of sales''
+  \item ``Summarize this spreadsheet''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Strong}]
+\begin{itemize}\small
+  \item ``Which regions should get more marketing budget?''
+  \item ``Which product lines should we cut?''
+  \item ``Is the discount strategy destroying margin?''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+Frame questions around the decision.  Follow-up questions cost nothing---just type.
+\end{frame}
+
+\begin{frame}{Prompting = Collaboration, Not Commands}
+\begin{itemize}
+  \item AI is not a search engine---it's a \alert{collaborator}; think of it as a capable colleague
+  \item Do not try to craft the ``perfect prompt''---instead, have a \alert{conversation}
+  \item The goal is \textit{iterative refinement}, not one-shot perfection
+\end{itemize}
+
+\vspace{0.3cm}
+
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Don't Do This}]
+\begin{itemize}\small
+  \item Try to anticipate every edge case
+  \item Give up when the first response is wrong
+  \item Treat AI as a one-shot tool
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Do This Instead}]
+\begin{itemize}\small
+  \item Start with a rough request
+  \item Refine based on the response
+  \item Iterate until you get what you need
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Ask the AI what it needs:} ``What information do you need from me to do this?''
+\end{frame}
+
+\begin{frame}{The Plan-Execute-Evaluate Cycle}
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+  % Nodes
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (plan) at (0,2) {\textbf{Plan}};
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (execute) at (4,2) {\textbf{Execute}};
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (evaluate) at (2,0) {\textbf{Evaluate}};
+
+  % Arrows
+  \draw[->, thick, accentblue] (plan) -- (execute);
+  \draw[->, thick, accentblue] (execute) -- (evaluate);
+  \draw[->, thick, accentblue] (evaluate) -- (plan);
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+  \item \textbf{Plan:} Define the task, gather requirements, outline approach
+  \item \textbf{Execute:} Let AI do the work with your guidance
+  \item \textbf{Evaluate:} Check results, identify gaps, refine---then repeat
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-Evaluation}
+\begin{itemize}
+  \item Start a \alert{new conversation} to evaluate the plan and output---even with the same model, a fresh context can catch errors
+  \item Ask the new conversation to review, critique, or verify; different phrasing may reveal blind spots
+  \item Consider using a \textit{different model} for additional perspective
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:} \textit{``I received this analysis from another session. Can you review it for errors or questionable assumptions?''}
+
+\vspace{0.3cm}
+This technique becomes critical in Module 5 (Verifying AI-Generated Analysis).
+\end{frame}
+
+% ========================================
+% SECTION 5: COURSE OVERVIEW
+% ========================================
+\section{Course Overview}
+
+\begin{frame}{Learning Objectives}
+\begin{enumerate}
+\item Use AI with code execution and connected tools to perform financial analysis, build models, and create deliverables
+\item Build reusable workflows (skills) that enforce consistent methodology, and verify AI-generated analysis
+\item Understand retrieval augmented generation, AI agents, and how AI is transforming trading and markets
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Course Modules}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{enumerate}
+  \item AI as a Financial Tool
+  \item Portfolio Optimization and Company Valuation
+  \item Connecting AI to Data and Tools
+  \item Automating Financial Workflows
+\end{enumerate}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{enumerate}
+  \setcounter{enumi}{4}
+  \item Verifying AI-Generated Analysis
+  \item Working with Financial Documents
+  \item Building Financial AI Applications
+  \item AI in Trading and Markets
+\end{enumerate}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Grading}
+  \begin{itemize}
+\item Six group assignments (15\% each), each consisting of exercises
+\item Due Tuesdays 11:59 pm March 24 through April 28 (exam week)
+\item Peer assessments (10\%)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Account Options and Model Access}
+\begin{center}\scriptsize
+\begin{tabular}{@{} p{2.2cm} p{2.5cm} p{2.5cm} p{2.5cm} p{2.5cm} @{}}
+\toprule
+& \textbf{Claude Free} & \textbf{Claude Pro (\$20/mo)} & \textbf{ChatGPT Free} & \textbf{ChatGPT Plus (\$20/mo)} \\
+\midrule
+Chat model & Sonnet 4.5 & Sonnet 4.5 + limited Opus 4.6 & GPT-5 (limited) & GPT-5.2 \\
+Code execution & No & Cowork (cloud VM) & Data Analysis & Data Analysis \\
+Coding agent & No & Claude Code (Sonnet 4.5) & Codex (temporary) & Codex (GPT-5.3) \\
+VS Code & No & Claude Code extension & No & Codex extension \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Claude Pricing}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Subscription Plans}]
+\begin{itemize}\small
+  \item \textbf{Free:} Limited usage
+  \item \textbf{Pro:} \$20/month --- 5$\times$ free usage, Claude Code, Cowork, memory
+  \item \textbf{Max:} \$100/month (5$\times$ Pro) or \$200/month (20$\times$ Pro)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{API (Pay Per Token)}]
+\begin{itemize}\small
+  \item \textbf{Sonnet 4.5:} \$3 input / \$15 output per million tokens
+  \item \textbf{Haiku 4.5:} \$1 / \$5 per MTok
+  \item \textbf{Opus 4.6:} \$5 / \$25 per MTok
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\small \textbf{Example:} A 1-page prompt $\approx$ 500 tokens. A 2-page response $\approx$ 1{,}000 tokens.
+Using Sonnet 4.5: total $\approx$ 1.7 cents per query. You could send $\sim$1{,}200 such queries for \$20.
+\end{frame}
+
+\end{document}

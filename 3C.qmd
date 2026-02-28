@@ -1,0 +1,29 @@
+---
+title: "Exercise 3C: Loan Amortization in Excel"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Using the Claude for Excel add-in, build a 30-year fixed-rate mortgage amortization table. Inputs should include the loan amount, annual interest rate, and term in years.
+
+The table should compute for each month:
+
+- Monthly payment (using PMT or equivalent formula)
+- Interest portion
+- Principal portion
+- Remaining balance
+
+All values should use **live Excel formulas**, not hardcoded numbers. Tell Claude to use formulas rather than pasting values.
+
+Create a chart showing the breakdown of principal vs.\ interest over the life of the loan.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Excel workbook with amortization table and chart (`3C-Amortization.xlsx`)
+- Screenshot showing that formulas are live (`3C-Screenshot.png`)

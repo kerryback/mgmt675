@@ -1,0 +1,25 @@
+---
+title: "Exercise 1C: Portfolio Consolidation"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Download [portfolio-consolidation.zip](files/portfolio-consolidation.zip) and extract the files. You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
+
+Upload all three files to Claude.ai and ask it to:
+
+(a) Merge all equity holdings into a single consolidated view with standardized columns
+(b) Resolve inconsistencies between ticker symbols and full company names
+(c) Sum shares for positions that appear in multiple accounts
+(d) Produce a summary showing total portfolio value, top five holdings by market value, and asset allocation between equities and bonds
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Consolidated output (`1D-Consolidated.xlsx`)
+- Screenshot of the Claude conversation (`1D-Screenshot.png`)

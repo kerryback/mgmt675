@@ -16,25 +16,19 @@
 \maketitle
 
 \begin{frame}{The Big Idea: It's All Just Text}
-\begin{shadedbox}
 Every AI customization---skills, slash commands, custom instructions---works the same way: \alert{additional text is added to the prompt} that the model sees.
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Skills} = instructions for \textit{how} (a system prompt extension loaded when relevant)
   \item \textbf{Slash commands} = triggers that say \textit{do} (typing \texttt{/name} loads that skill's instructions into context)
   \item Same pattern everywhere: Custom GPTs, Copilot instructions, \texttt{.cursorrules}, Gems
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
 This deck uses Claude's implementation as the example, but the concepts are universal.  Any platform that lets you add instructions to the prompt is doing the same thing.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{What is a Skill?}
-\begin{shadedbox}
 A \textbf{skill} is a set of instructions (and optional code) that specializes a general-purpose AI for a specific domain or task.  In Claude, it's a folder with a markdown file; other platforms use similar mechanisms.
-\end{shadedbox}
 \vspace{0.5cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -43,8 +37,6 @@ A \textbf{skill} is a set of instructions (and optional code) that specializes a
   \item System prompt (domain knowledge)
   \item Workflow instructions
   \item Best practices and constraints
-  \item Python/JavaScript helper scripts
-  \item Reference documentation
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -52,10 +44,8 @@ A \textbf{skill} is a set of instructions (and optional code) that specializes a
 \begin{shadedbox}[title=\textbf{The AI Platform Provides}]
 \begin{itemize}\small
   \item The LLM (Opus or Sonnet)
-  \item Agent control loop
-  \item File read/write tools
+  \item Agent control loop and tools
   \item Code execution sandbox
-  \item Web search capability
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -65,7 +55,7 @@ A \textbf{skill} is a set of instructions (and optional code) that specializes a
 \begin{frame}[fragile]{Anatomy of a Skill}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Skill Folder Structure}]\small
+\textbf{Skill Folder Structure}\small
 \begin{verbatim}
 skills/
   xlsx/
@@ -75,10 +65,9 @@ skills/
     references/
       schema.md
 \end{verbatim}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.55\textwidth}
-\begin{shadedbox}[title=\textbf{SKILL.md Structure}]\small
+\textbf{SKILL.md Structure}\small
 \begin{verbatim}
 ---
 name: xlsx
@@ -94,44 +83,36 @@ description: "Excel file..."
 2. Create/modify file
 3. Recalculate formulas
 \end{verbatim}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{SKILL.md: The System Prompt}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Frontmatter}: Name and description (YAML header)
   \item \textbf{Requirements}: Quality standards and constraints
   \item \textbf{Workflows}: Step-by-step procedures
-  \item \textbf{Code Examples}: Patterns for the LLM to follow
-  \item \textbf{Error Handling}: How to diagnose and fix problems
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
 The SKILL.md file is automatically injected into Claude's context when working in a project that contains the skill.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Scripts: The Custom Tools}
 \begin{columns}
 \begin{column}{0.5\textwidth}
-\begin{baritemize}\small
+\begin{itemize}\small
   \item Python or JavaScript files in \texttt{scripts/} folder
   \item Claude Code can execute them
-  \item Extend Claude's capabilities
   \item Handle tasks LLM can't do directly
-\end{baritemize}
+\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Example Scripts}]
+\textbf{Example Scripts}
 \begin{itemize}\small
   \item \texttt{recalc.py} -- Recalculate Excel formulas via LibreOffice
   \item \texttt{validate.py} -- Check file structure
-  \item \texttt{unpack.py} -- Extract XML from Office files
   \item \texttt{html2pptx.js} -- Convert HTML to PowerPoint
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -141,10 +122,8 @@ The SKILL.md file is automatically injected into Claude's context when working i
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Stand-Alone App}]
 \begin{itemize}\small
-  \item Custom web application
+  \item Custom web application with fixed agent logic
   \item Hard-coded SQL generation prompt
-  \item Fixed agent logic in Python
-  \item Single-purpose: query database
   \item Requires developer to update
 \end{itemize}
 \end{shadedbox}
@@ -152,9 +131,7 @@ The SKILL.md file is automatically injected into Claude's context when working i
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Claude Code + Skill}]
 \begin{itemize}\small
-  \item SKILL.md with database schema
-  \item Connection code examples
-  \item Table descriptions
+  \item SKILL.md with database schema and table descriptions
   \item \alert{Plus}: Can also make charts, Excel files, Word reports
   \item User can extend easily
 \end{itemize}
@@ -183,28 +160,21 @@ Combine tasks & No & Yes \\
 \end{tabular}
 \end{center}
 \vspace{0.5cm}
-\begin{shadedbox}
 Skills let you create \alert{specialized agents} without writing agent logic. Claude Code handles the control flow; you just provide the domain knowledge.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Where Skills Live}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Project skills}: \texttt{.claude/skills/} in your project folder
   \item \textbf{User skills}: \texttt{\textasciitilde/.claude/skills/} (shared across projects)
-  \item Claude Code automatically loads skills from both locations
-  \item Skills can reference each other (e.g., xlsx skill uses ooxml validation)
   \item Skills also work in \textbf{Claude.ai}, \textbf{Chat}, and \textbf{Cowork} (details later)
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
-\textbf{Community Skills Repository:} \href{https://github.com/VoltAgent/awesome-agent-skills}{github.com/VoltAgent/awesome-agent-skills}\\[0.2em]
-200+ skills from official teams and the community
-\end{shadedbox}
+\textbf{Community Skills Repository:} \href{https://github.com/VoltAgent/awesome-agent-skills}{github.com/VoltAgent/awesome-agent-skills} --- 200+ skills from official teams and the community
 \end{frame}
 
 \begin{frame}{Creating Your Own Skill}
-\begin{barenumerate}
+\begin{enumerate}
   \item Create folder: \texttt{.claude/skills/my-skill/}
   \item Create \texttt{SKILL.md} with:
   \begin{itemize}
@@ -214,13 +184,13 @@ Skills let you create \alert{specialized agents} without writing agent logic. Cl
   \end{itemize}
   \item Optionally add \texttt{scripts/} folder with helper code
   \item Start using Claude Code -- skill is automatically loaded
-\end{barenumerate}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]{Example: Earnings Call Skill}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{SKILL.md}]\scriptsize
+\textbf{SKILL.md}\scriptsize
 \begin{verbatim}
 ---
 name: earnings-call
@@ -241,38 +211,31 @@ description: "Analyze earnings
 3. Summarize guidance changes
 4. Write report in Word format
 \end{verbatim}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.55\textwidth}
-\begin{shadedbox}[title=\textbf{What This Gives You}]
+\textbf{What This Gives You}
 \begin{itemize}\scriptsize
   \item Type: ``Analyze the Tesla Q4 earnings call''
   \item Claude follows the structure automatically
-  \item Consistent format across every analysis
   \item Produces Word report with key highlights
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Other Finance Skill Ideas}]
+\vspace{0.2cm}
+\textbf{Other Finance Skill Ideas}
 \begin{itemize}\scriptsize
   \item \textbf{Investment memo}: DCF, comps, risk factors, recommendation
   \item \textbf{Portfolio report}: Monthly performance, attribution, charts
   \item \textbf{Loan analysis}: Parse credit agreements, extract covenants
-  \item \textbf{ESG scoring}: Rate companies on ESG criteria from filings
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]{In-Class Exercise: Personal Task List Skill}
-\begin{shadedbox}
 Create a skill that manages a personal task list organized by categories.  Claude will add, complete, and review tasks---following \textit{your} format automatically.
-\end{shadedbox}
 \vspace{0.1cm}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{SKILL.md (Sketch)}]\scriptsize
+\textbf{SKILL.md (Sketch)}\scriptsize
 \begin{verbatim}
 ---
 name: tasks
@@ -297,10 +260,9 @@ description: "Manage my personal
 - "what's pending" -> scan all
 - "weekly review" -> summarize
 \end{verbatim}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.55\textwidth}
-\begin{shadedbox}[title=\textbf{Try It}]
+\textbf{Try It}
 \begin{enumerate}\scriptsize
   \item Create \texttt{.claude/skills/tasks/SKILL.md}
   \item Define your categories (work, personal, school, \ldots)
@@ -308,24 +270,20 @@ description: "Manage my personal
   \item Start Claude Code and say: ``Add `buy groceries' to my personal tasks''
   \item Then: ``What's pending?''
 \end{enumerate}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Why This Works}]
+\vspace{0.2cm}
+\textbf{Why This Works}
 \begin{itemize}\scriptsize
   \item Claude creates the folder and files for you
   \item Follows your format every time---no drift
   \item Natural language in, structured markdown out
   \item \alert{You defined the system by writing a prompt}
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Skills Across Claude Formats}
-\begin{shadedbox}
 Skills are not limited to Claude Code. The same skill can be deployed and used across Claude.ai, Claude Desktop, and Claude Code.
-\end{shadedbox}
 \vspace{0.1cm}
 \begin{center}
 \small
@@ -343,11 +301,11 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 \end{tabular}
 \end{center}
 \vspace{0.1cm}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Automatic}: Claude loads the skill when it detects a relevant task
   \item \textbf{\texttt{/name}}: You invoke it explicitly (e.g., \texttt{/investment-memo})
   \item Skills in \texttt{\textasciitilde/.claude/skills/} are shared across all your projects
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Deploying Skills: Three Methods}
@@ -356,10 +314,8 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 \begin{shadedbox}[title=\textbf{Claude.ai / Chat}]
 \begin{enumerate}\scriptsize
   \item ZIP your skill folder
-  \item Go to \textbf{Settings} $\rightarrow$ \textbf{Capabilities}
-  \item Click \textbf{Upload skill}
+  \item Go to \textbf{Settings} $\rightarrow$ \textbf{Capabilities} $\rightarrow$ \textbf{Upload skill}
   \item Toggle it \textbf{ON}
-  \item Requires code execution enabled
 \end{enumerate}
 \vspace{0.1cm}
 {\scriptsize Pro, Max, Team, Enterprise}
@@ -371,7 +327,6 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
   \item Click \textbf{Plugins} in sidebar
   \item Browse official plugins or click \textbf{Upload plugin}
   \item Plugins bundle skills + connectors + slash commands
-  \item 11 official plugins available
 \end{enumerate}
 \vspace{0.1cm}
 {\scriptsize Pro, Max, Team, Enterprise}
@@ -382,7 +337,6 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 \begin{enumerate}\scriptsize
   \item Create folder:\newline\texttt{.claude/skills/name/}
   \item Add \texttt{SKILL.md}
-  \item Optionally add \texttt{scripts/}
   \item Done---auto-detected
 \end{enumerate}
 \vspace{0.35cm}
@@ -395,49 +349,40 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 \begin{frame}[shrink=2]{Using Skills: Examples Across Formats}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Claude.ai or Chat}]
+\textbf{Claude.ai or Chat}
 \begin{itemize}\scriptsize
   \item ``Write an investment memo for Tesla''
   \item Claude loads the skill automatically
-  \item Uses code execution to build Excel model
   \item Produces downloadable Word doc
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Claude Code / VS Code}]
+\vspace{0.2cm}
+\textbf{Claude Code / VS Code}
 \begin{itemize}\scriptsize
   \item Type \texttt{/investment-memo} to invoke explicitly
-  \item Or just describe the task---auto-loaded
   \item Creates files directly in your project folder
   \item Can combine with other skills (e.g., xlsx)
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Cowork}]
+\textbf{Cowork}
 \begin{itemize}\scriptsize
   \item Drag a folder of 10-K filings into Cowork
   \item ``Analyze these and produce an investment memo for each company''
   \item Claude works through them autonomously
-  \item Outputs organized files to your folder
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Key Difference}]
+\vspace{0.2cm}
+\textbf{Key Difference}
 \begin{itemize}\scriptsize
   \item \textbf{Claude.ai / Chat}: one-off tasks; download results
   \item \textbf{Cowork}: batch tasks on local files
   \item \textbf{Code / VS Code}: see and edit the code
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Skills and Slash Commands}
-\begin{shadedbox}
 Typing \texttt{/name} simply loads that skill's instructions into the AI's context---it's just a prompt.  Every skill has a \textbf{name} that becomes a \textbf{slash command}.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -446,7 +391,6 @@ Typing \texttt{/name} simply loads that skill's instructions into the AI's conte
   \item A skill's name is set in the YAML frontmatter of \texttt{SKILL.md}
   \item Type \texttt{/name} to invoke it explicitly
   \item Or just describe your task---Claude loads the skill automatically when it detects a match
-  \item Automatic loading works in all modes (Claude.ai, Chat, Cowork, and Code)
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -456,7 +400,6 @@ Typing \texttt{/name} simply loads that skill's instructions into the AI's conte
   \item \texttt{/xlsx} --- invoke the Excel skill
   \item \texttt{/earnings-call} --- invoke an earnings call analysis skill
   \item \texttt{/investment-memo} --- invoke a memo-writing skill
-  \item \texttt{/commit} --- invoke a git commit skill
 \end{itemize}
 \vspace{0.2cm}
 {\scriptsize These appear alongside built-in commands like \texttt{/clear} and \texttt{/compact} when you type \texttt{/}.}
@@ -466,9 +409,7 @@ Typing \texttt{/name} simply loads that skill's instructions into the AI's conte
 \end{frame}
 
 \begin{frame}{Skills vs.\ Subagents}
-\begin{shadedbox}
 A \textbf{skill} is a reference manual Claude follows in your conversation. A \textbf{subagent} is a separate worker you dispatch independently.
-\end{shadedbox}
 \vspace{0.1cm}
 \begin{center}
 \scriptsize
@@ -487,40 +428,32 @@ Best for & Standards, templates, workflows & Delegating well-defined tasks \\
 \end{tabular}
 \end{center}
 \vspace{0.1cm}
-\begin{baritemize}\scriptsize
+\begin{itemize}\scriptsize
   \item \textbf{Use a skill} when you want Claude to follow specific standards \textit{while you work with it interactively}
   \item \textbf{Use a subagent} when you want to \textit{hand off} a self-contained task (e.g., ``analyze these 10 files'')
   \item They combine naturally: a subagent can have skills loaded, giving it both independence and domain expertise
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{What is a Plugin?}
-\begin{shadedbox}
 A \textbf{plugin} is a \textit{packaged collection} of skills, agents, hooks, and MCP servers that can be shared across teams and projects.  Think of it as the distribution format for skills.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{A Plugin Can Include}]
+\textbf{A Plugin Can Include}
 \begin{itemize}\small
   \item Skills (\texttt{SKILL.md} files)
   \item Agents (\texttt{AGENT.md} files)
-  \item Hooks (auto-run on events)
   \item MCP servers (external tools)
-  \item LSP servers (language analysis)
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Why Use Plugins?}]
+\textbf{Why Use Plugins?}
 \begin{itemize}\small
   \item Share skills with your team
   \item Namespace prevents conflicts
-  \item Semantic versioning
   \item Install from marketplaces
-  \item Bundle multiple components
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -528,7 +461,7 @@ A \textbf{plugin} is a \textit{packaged collection} of skills, agents, hooks, an
 \begin{frame}[fragile]{Anatomy of a Plugin}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Directory Structure}]\small
+\textbf{Directory Structure}\small
 \begin{verbatim}
 my-plugin/
   .claude-plugin/
@@ -544,10 +477,9 @@ my-plugin/
     hooks.json
   .mcp.json
 \end{verbatim}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.55\textwidth}
-\begin{shadedbox}[title=\textbf{plugin.json (Required)}]\small
+\textbf{plugin.json (Required)}\small
 \begin{verbatim}
 {
   "name": "my-plugin",
@@ -561,7 +493,6 @@ my-plugin/
   "license": "MIT"
 }
 \end{verbatim}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -583,9 +514,7 @@ Distribution & Copy the folder & Marketplace or \texttt{/plugin install} \\
 \end{tabular}
 \end{center}
 \vspace{0.3cm}
-\begin{shadedbox}
 \textbf{Practical workflow:} Start with a standalone skill for quick prototyping.  When you're ready to share, wrap it in a plugin by adding a \texttt{.claude-plugin/plugin.json} manifest.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]{Installing and Managing Plugins}
@@ -623,7 +552,6 @@ claude --plugin-dir ./my-plugin
 \begin{itemize}\small
   \item Anthropic official marketplace
   \item GitHub repositories
-  \item Private / enterprise registries
   \item Local directories (for testing)
 \end{itemize}
 \end{shadedbox}
@@ -632,45 +560,34 @@ claude --plugin-dir ./my-plugin
 \end{frame}
 
 \begin{frame}{Plugin Ecosystem}
-\begin{shadedbox}
 The plugin ecosystem is growing rapidly.  Plugins are available for code quality, external integrations, development workflows, and domain-specific tasks.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Example Plugin Categories}]
+\textbf{Example Plugin Categories}
 \begin{itemize}\small
   \item Code review and linting
-  \item Git workflow automation
   \item Database connectors (MCP)
   \item API integrations (Slack, Jira, \ldots)
-  \item Documentation generators
-  \item Testing frameworks
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Resources}]
+\textbf{Resources}
 \begin{itemize}\small
   \item \href{https://code.claude.com/docs/en/plugins.md}{Plugins documentation}
-  \item \href{https://code.claude.com/docs/en/discover-plugins.md}{Discover \& install plugins}
   \item \href{https://code.claude.com/docs/en/plugin-marketplaces.md}{Plugin marketplaces}
-  \item \href{https://code.claude.com/docs/en/skills.md}{Skills documentation}
   \item \href{https://agentskills.io}{Agent Skills Standard}
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]{Example: The Finance Plugin}
-\begin{shadedbox}
 Anthropic's official \textbf{finance plugin} bundles skills, MCP connectors, and slash commands for accounting and FP\&A workflows---a concrete example of a plugin in the wild.
-\end{shadedbox}
 \vspace{0.1cm}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Plugin Structure}]\scriptsize
+\textbf{Plugin Structure}\scriptsize
 \begin{verbatim}
 finance/
   .claude-plugin/
@@ -687,68 +604,52 @@ finance/
     accounting/
       SKILL.md
 \end{verbatim}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.55\textwidth}
-\begin{shadedbox}[title=\textbf{Slash Commands}]
+\textbf{Slash Commands}
 \begin{itemize}\scriptsize
   \item \texttt{/finance:journal-entry} --- accruals, fixed assets, payroll with debits/credits
   \item \texttt{/finance:reconciliation} --- compare GL to bank or subledger
-  \item \texttt{/finance:income-statement} --- period-over-period comparison
   \item \texttt{/finance:variance-analysis} --- decompose budget vs.\ actual gaps
-  \item \texttt{/finance:sox-testing} --- SOX compliance workpapers
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Data Connectors (MCP)}]
+\vspace{0.2cm}
+\textbf{Data Connectors (MCP)}
 \begin{itemize}\scriptsize
   \item Snowflake, Databricks, BigQuery
   \item Microsoft 365, Slack
   \item Or just upload a spreadsheet
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{What is Variance Analysis?}
-\begin{shadedbox}
 \textbf{Variance analysis} compares \alert{budgeted} (planned) figures to \alert{actual} results and decomposes the differences into actionable drivers.  It is the core analytical task in FP\&A (Financial Planning \& Analysis).
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Why It Matters}]
+\textbf{Why It Matters}
 \begin{itemize}\small
   \item Every public company does it quarterly
   \item Boards and investors ask ``why did we miss?''
   \item Drives re-forecasting and capital allocation
-  \item Required for SOX internal controls
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Key Decompositions}]
+\textbf{Key Decompositions}
 \begin{itemize}\small
   \item \textbf{Revenue}: volume vs.\ price vs.\ mix
   \item \textbf{COGS}: volume vs.\ unit cost
   \item \textbf{SG\&A}: headcount vs.\ rate vs.\ discretionary
-  \item \textbf{Operating income}: revenue variance + cost variance
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix effect}
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}[shrink=5]{Variance Analysis: Example Data}
-\begin{shadedbox}
 \textbf{Scenario:} You are an FP\&A analyst at a consumer products company.  Q1 actuals just closed. The CEO wants to know why operating income missed budget by \$1.3M.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{center}
 \scriptsize
@@ -784,7 +685,7 @@ Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix eff
 \begin{frame}[shrink=10]{Decomposing the Variances}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Revenue Variance: $-$\$155K}]
+\textbf{Revenue Variance: $-$\$155K}
 \begin{itemize}\scriptsize
   \item \textbf{Volume effect}: $-$5,000 units $\times$ \$50 budget price = \alert{$-$\$250,000}
   \item \textbf{Price effect}: +\$1.00 $\times$ 95,000 actual units = \alert{+\$95,000}
@@ -792,9 +693,9 @@ Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix eff
 \end{itemize}
 \vspace{0.1cm}
 {\scriptsize \textit{We sold fewer units but at a higher price.  Volume shortfall dominated.}}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{COGS Variance: $-$\$40K}]
+\vspace{0.2cm}
+
+\textbf{COGS Variance: $-$\$40K}
 \begin{itemize}\scriptsize
   \item \textbf{Volume effect}: $-$5,000 units $\times$ \$30 = \alert{+\$150,000} (favorable---fewer units)
   \item \textbf{Rate effect}: +\$2.00 $\times$ 95,000 units = \alert{$-$\$190,000} (unfavorable)
@@ -802,10 +703,9 @@ Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix eff
 \end{itemize}
 \vspace{0.1cm}
 {\scriptsize \textit{Lower volume saved money, but unit costs rose \$2---likely supply chain issues.}}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{SG\&A Variance: $-$\$105K}]
+\textbf{SG\&A Variance: $-$\$105K}
 \begin{itemize}\scriptsize
   \item \textbf{Salaries}: $-$\$30K (raises? overtime?)
   \item \textbf{Marketing}: $-$\$75K (unplanned campaign?)
@@ -813,9 +713,9 @@ Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix eff
 \end{itemize}
 \vspace{0.1cm}
 {\scriptsize \textit{Marketing overspend is the largest driver---was there an approved campaign change?}}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Operating Income Bridge}]
+\vspace{0.2cm}
+
+\textbf{Operating Income Bridge}
 \begin{itemize}\scriptsize
   \item Budget OI: \$550,000
   \item Revenue volume: $-$\$250,000
@@ -825,38 +725,31 @@ Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix eff
   \item SG\&A: $-$\$105,000
   \item \textbf{Actual OI: \$250,000}
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}[shrink=10]{Using the Plugin: \texttt{/finance:variance-analysis}}
-\begin{shadedbox}
 With the finance plugin installed, you type one command and provide the data:
-\end{shadedbox}
 \vspace{0.2cm}
-\begin{shadedbox}[title=\textbf{Prompt}]
+
+\textbf{Prompt}\\
 \texttt{/finance:variance-analysis}\\[0.3em]
 \small ``Here is our Q1 budget vs.\ actuals spreadsheet. Decompose the \$300K operating income miss into volume, price, cost, and discretionary spending drivers.  Produce a waterfall chart and a summary memo for the CFO.''
-\end{shadedbox}
 \vspace{0.2cm}
-\begin{shadedbox}[title=\textbf{What the Plugin Does}]
+
+\textbf{What the Plugin Does}
 \begin{enumerate}\small
   \item \textbf{Skill activates}: domain knowledge about variance decomposition formulas
-  \item \textbf{MCP connector} pulls data (or reads the uploaded spreadsheet)
-  \item \textbf{Decomposes} revenue into volume + price; COGS into volume + rate
-  \item \textbf{Generates} waterfall chart (budget $\rightarrow$ adjustments $\rightarrow$ actual)
+  \item \textbf{Decomposes} revenue into volume + price; COGS into volume + rate; generates waterfall chart
   \item \textbf{Writes} CFO-ready memo in Word format with tables and chart
 \end{enumerate}
-\end{shadedbox}
 \vspace{0.2cm}
 {\small This is one slash command replacing what typically takes an FP\&A analyst 2--4 hours.}
 \end{frame}
 
 \begin{frame}[shrink=10]{The ``SaaSpocalypse'': Market Reaction to Plugins}
-\begin{shadedbox}
 On January 30, 2026, Anthropic released 11 open-source plugins for Claude.  Within days, \alert{\$285 billion} in market cap evaporated from software, legal tech, and financial services stocks.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -885,20 +778,17 @@ Indian IT (Infosys, TCS, \ldots) & $-$6 to 8\% \\
 \begin{shadedbox}[title=\textbf{Why It Happened}]
 \begin{itemize}\scriptsize
   \item Plugins showed AI could replicate \textit{core workflows} of specialized enterprise software
-  \item Legal plugin: contract review, NDA triage, compliance checks
-  \item Finance plugin: close management, reconciliation, variance analysis
   \item \textbf{No proprietary code}---just markdown instructions + database connectors
   \item Investors asked: ``Why pay \$50K/yr for software when a plugin does it?''
 \end{itemize}
 \end{shadedbox}
 \vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{The Counterargument}]
+\textbf{The Counterargument}
 \begin{itemize}\scriptsize
   \item Plugins are ``research preview''---not production-ready
   \item Regulated industries require audit trails, SOC 2, etc.
   \item But the \textit{direction of travel} spooked the market
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -935,11 +825,8 @@ Indian IT (Infosys, TCS, \ldots) & $-$6 to 8\% \\
 \end{columns}
 \vspace{0.5cm}
 \begin{center}
-\begin{shadedbox}[width=0.8\textwidth]
-\centering
 \textbf{All AI customization is prompt engineering}\\[0.3em]
 Skills, plugins, Custom GPTs, Copilot instructions, \texttt{.cursorrules}---same pattern, different platforms
-\end{shadedbox}
 \end{center}
 \end{frame}
 

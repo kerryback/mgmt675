@@ -1,0 +1,329 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 6: Working with Financial Documents}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: BEYOND PROMPTING
+% ========================================
+\section{Beyond Prompting}
+
+\begin{frame}{Three Ways to Give AI Knowledge}
+Prompting and skills customize \textit{how} an LLM responds. But what if you need it to know things it wasn't trained on?
+\vspace{0.3cm}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.8cm,
+  every node/.style={font=\small},
+  box/.style={draw=titlegray, rounded corners, minimum width=4cm, minimum height=0.8cm, fill=excelinput, text=titlegray, font=\small\bfseries},
+]
+\node[box] (rag) {RAG};
+\node[box, below=of rag] (ft) {Fine-Tuning};
+\node[box, below=of ft] (slm) {Small Language Model};
+
+\node[right=0.8cm of rag, text=titlegray, font=\scriptsize, text width=5.5cm] {Need up-to-date or proprietary facts; data changes frequently};
+\node[right=0.8cm of ft, text=titlegray, font=\scriptsize, text width=5.5cm] {Need a specific tone, format, or domain expertise baked in};
+\node[right=0.8cm of slm, text=titlegray, font=\scriptsize, text width=5.5cm] {Need full control, privacy, or a highly specialized task};
+
+\draw[-{Stealth[length=3mm]}, thick, accentblue] ([xshift=-2.5cm]rag.south west) -- ([xshift=-2.5cm]slm.south west)
+  node[midway, left, font=\scriptsize\itshape, text=titlegray, text width=1.8cm, align=center] {More effort,\\more control};
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+This module focuses on \textbf{RAG} --- the most practical approach for working with financial documents.
+\end{frame}
+
+% ========================================
+% SECTION 2: HOW RAG WORKS
+% ========================================
+\section{How RAG Works}
+
+\begin{frame}{What is RAG?}
+\textbf{RAG} = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user's question. The LLM generates an answer \alert{grounded in the retrieved text}.
+\vspace{0.3cm}
+\begin{itemize}
+  \item The LLM's training data may be stale or lack your proprietary information
+  \item RAG injects current, domain-specific context at query time
+  \item No model weights are changed --- the base LLM is used as-is
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The RAG Pipeline}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.2cm and 1.5cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=3cm, minimum height=0.9cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (docs) {Documents};
+\node[sbox, right=of docs] (embed) {Chunk \&\\Embed};
+\node[sbox, right=of embed] (store) {Vector\\Database};
+\node[sbox, below=of store] (retrieve) {Retrieve\\Top Matches};
+\node[sbox, left=of retrieve] (prompt) {User\\Query};
+\node[sbox, below=of retrieve] (llm) {LLM};
+\node[sbox, left=of llm] (answer) {Grounded\\Answer};
+
+\draw[sarrow] (docs) -- (embed);
+\draw[sarrow] (embed) -- (store);
+\draw[sarrow] (prompt) -- (retrieve);
+\draw[sarrow] (store) -- (retrieve);
+\draw[sarrow] (retrieve) -- (llm) node[midway, right, font=\scriptsize\itshape, text=titlegray] {query + context};
+\draw[sarrow] (llm) -- (answer);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{RAG: Key Concepts}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Embeddings}]
+\begin{itemize}\small
+  \item Text converted into numerical vectors
+  \item Similar meaning $\rightarrow$ nearby vectors
+  \item Enables semantic search (not just keyword matching)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Vector Database}]
+\begin{itemize}\small
+  \item Stores document chunks as vectors
+  \item Fast similarity search
+  \item Examples: Pinecone, Chroma, FAISS
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Chunking}
+\begin{itemize}\small
+  \item Documents are split into small, overlapping pieces (chunks)
+  \item Chunk size matters: too large = noisy context, too small = lost meaning
+  \item Typical sizes: 200--1000 tokens per chunk
+\end{itemize}
+\end{frame}
+
+% ========================================
+% SECTION 3: RAG IN FINANCE
+% ========================================
+\section{RAG in Finance}
+
+\begin{frame}{Finance Applications of RAG}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Document Types}]
+\begin{itemize}\small
+  \item 10-K/10-Q filings and earnings transcripts
+  \item Analyst reports and deal documents
+  \item Internal policies and memos
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Use Cases}]
+\begin{itemize}\small
+  \item \textbf{Compliance Q\&A}: query regulatory filings, internal policies
+  \item \textbf{Due diligence}: search deal documents with citations
+  \item \textbf{Research synthesis}: combine multiple sources
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{RAG: Strengths and Limitations}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Strengths}]
+\begin{itemize}\small
+  \item No training required
+  \item Data can be updated in real time
+  \item Answers are traceable to source pages
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Limitations}]
+\begin{itemize}\small
+  \item Quality depends on retrieval quality
+  \item Context window limits how much can be passed
+  \item Chunking can split important context
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 4: NOTEBOOKLM
+% ========================================
+\section{NotebookLM: RAG Without Code}
+
+\begin{frame}{What is NotebookLM?}
+\textbf{Google NotebookLM} is a free, consumer-friendly RAG tool. Upload your documents, and it builds a personal knowledge base you can query with natural language.
+\vspace{0.3cm}
+\begin{itemize}
+  \item Available at \url{https://notebooklm.google}
+  \item Upload up to 50 sources: PDFs, Docs, Slides, web pages, YouTube
+  \item Ask questions and get answers with \alert{inline citations}; no code required
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NotebookLM Features}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Query \& Summarize}]
+\begin{itemize}\small
+  \item Chat with your documents
+  \item Answers include inline citations
+  \item Generate summaries, FAQs, study guides, timelines, briefing docs
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Audio Overview}]
+\begin{itemize}\small
+  \item Generates a podcast-style audio discussion of your sources
+  \item Two AI hosts discuss key points conversationally
+  \item Great for reviewing material on the go
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Visual Outputs}: Generate slide decks and infographics from your sources --- useful for turning research into presentation-ready visuals.
+\end{frame}
+
+\begin{frame}{NotebookLM for Finance}
+\begin{itemize}
+  \item \textbf{Earnings analysis}: Upload 10-K/10-Q filings and earnings transcripts, ask comparative questions
+  \item \textbf{Deal prep}: Load pitch books, CIMs, and contracts for quick reference
+  \item \textbf{Year-over-year comparison}: Upload two years of 10-Ks, ask AI to identify changes in risk factors, revenue composition, and guidance
+\end{itemize}
+\vspace{0.3cm}
+NotebookLM is a practical example of RAG that you can use \alert{today}.
+\end{frame}
+
+% ========================================
+% SECTION 5: BUILDING A RAG PIPELINE
+% ========================================
+\section{Building a RAG Pipeline}
+
+\begin{frame}{Under the Hood: The RAG Notebook}
+For those who want to understand the internals, the \textbf{Agentic RAG for Dummies} Colab notebook walks through building a RAG system step by step.
+\vspace{0.3cm}
+\begin{enumerate}
+  \item \textbf{Install libraries}: LangChain, Qdrant (vector database), HuggingFace embeddings
+  \item \textbf{Upload a PDF}: annual report converted from PDF to structured text
+  \item \textbf{Chunk and embed}: text split into overlapping pieces, converted to vectors
+  \item \textbf{Store}: chunks indexed in Qdrant for fast similarity search
+  \item \textbf{Query}: type a question $\rightarrow$ retrieve similar chunks $\rightarrow$ pass to LLM $\rightarrow$ grounded answer
+  \item \textbf{Chat interface}: Gradio web UI for interactive querying
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Example Questions to Try}
+Upload a company's 10-K and ask:
+\vspace{0.3cm}
+\begin{itemize}
+  \item What was total revenue in the most recent fiscal year?
+  \item What are the main risk factors related to supply chain?
+  \item Summarize management's outlook for the coming year
+\end{itemize}
+\vspace{0.3cm}
+Notice how answers are grounded in the actual document --- the key benefit of RAG over plain prompting.
+\end{frame}
+
+% ========================================
+% SECTION 6: EXERCISES
+% ========================================
+\section{Exercises}
+
+\begin{frame}{Exercise 1: NotebookLM Analysis}
+\begin{enumerate}
+  \item Upload 3+ financial documents for the same company into NotebookLM (10-K, earnings transcript, analyst report)
+  \item Ask 5+ questions across the documents
+  \item Note how citations trace back to specific sources
+  \item Submit: Q\&A pairs + quality assessment (were answers grounded? any hallucinations?)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 2: RAG Pipeline}
+\begin{enumerate}
+  \item Open the Agentic RAG for Dummies Colab notebook
+  \item Upload a corporate annual report (e.g., Apple 10-K)
+  \item Ask 5 finance-specific questions
+  \item Evaluate: are answers grounded in the document, or does the model hallucinate?
+  \item Submit: notebook + evaluation
+\end{enumerate}
+\vspace{0.3cm}
+\small\textbf{Colab notebook}: \url{https://colab.research.google.com/gist/GiovanniPasq/ddfc4a09d16b5b97c5c532b5c49f7789}
+\end{frame}
+
+\begin{frame}{Exercise 3: Document Comparison}
+\begin{enumerate}
+  \item Upload two years of 10-Ks for the same company into NotebookLM
+  \item Ask AI to identify the most significant changes in:
+  \begin{itemize}\small
+    \item Risk factors
+    \item Revenue composition
+    \item Management guidance
+    \item Accounting policies
+  \end{itemize}
+  \item Submit: summary of key changes with source citations
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{RAG}]
+\begin{itemize}\small
+  \item Retrieve, then generate
+  \item Grounds answers in sources
+  \item No training required
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{NotebookLM}]
+\begin{itemize}\small
+  \item Free RAG without code
+  \item Inline citations
+  \item Audio overviews
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Finance Uses}]
+\begin{itemize}\small
+  \item 10-K analysis
+  \item Earnings call Q\&A
+  \item Due diligence
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\alert{RAG gives AI knowledge it doesn't have --- grounded in your documents, with citations.}
+\end{center}
+\end{frame}
+
+\end{document}

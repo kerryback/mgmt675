@@ -1,0 +1,26 @@
+---
+title: "Exercise 6A: Headline Sentiment Classification"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Collect 20 recent financial news headlines from sources such as Reuters, Bloomberg, or Yahoo Finance. For each headline, use Claude to classify:
+
+- **Sentiment**: positive, negative, or neutral
+- **Magnitude**: strong or weak
+- **Relevance** to the stock price: high, medium, or low
+
+Then look up the actual stock price movement on the day of each headline. Record the one-day return.
+
+Calculate Claude's classification accuracy: what fraction of positive-sentiment headlines corresponded to positive returns (and vice versa)? Discuss where the model gets it right and where it fails --- pay attention to cases where nuance matters (e.g., "revenue beat expectations but guidance disappointed").
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Spreadsheet with headlines, classifications, price movements, and accuracy (`7A-Sentiment.xlsx`)
+- Screenshot of Claude's classification output for at least 5 headlines (`7A-Screenshot.png`)

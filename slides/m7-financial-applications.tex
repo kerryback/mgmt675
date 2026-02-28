@@ -1,0 +1,447 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref, graphicx}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 7: Building Financial AI Applications}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: FROM QUESTIONS TO GOALS
+% ========================================
+\section{From Questions to Goals}
+
+\begin{frame}{The Progression}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Question}]
+\begin{itemize}\small
+  \item ``What is Apple's revenue growth?''
+  \item One step, one answer
+  \item \textit{Chatbot}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Task}]
+\begin{itemize}\small
+  \item ``Build a DCF model for Apple''
+  \item Multiple steps, you direct each one
+  \item \textit{Tool-using AI}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Goal}]
+\begin{itemize}\small
+  \item ``Evaluate Apple as an acquisition target''
+  \item Agent plans and executes
+  \item \textit{Agent}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+This module: how to build the third kind --- \alert{agents that pursue goals autonomously}.
+\end{center}
+\end{frame}
+
+\begin{frame}{Chatbot vs.\ Agent}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Chatbot}]
+\begin{itemize}\small
+  \item Receives prompts
+  \item Generates text responses
+  \item Cannot take actions
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Agent}]
+\begin{itemize}\small
+  \item Can generate text \alert{or} request actions
+  \item Has access to \textbf{tools}
+  \item Takes actions to accomplish goals
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\alert{An agent is a chatbot with tools and a loop.}
+\end{center}
+\end{frame}
+
+\begin{frame}{What Are Tools?}
+\textbf{Tools} are functions the agent can call to interact with the outside world.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Example Tools}]
+\begin{itemize}\small
+  \item Execute SQL queries
+  \item Run Python code
+  \item Read, write, and search files
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{How Tools Work}]
+\begin{enumerate}\small
+  \item LLM decides to use a tool
+  \item Returns tool name + parameters
+  \item Agent code executes the tool
+  \item Result sent back to LLM
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Agent Loop}
+The agent runs in a loop: LLM thinks $\rightarrow$ tool executes $\rightarrow$ result returns $\rightarrow$ LLM thinks again.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{itemize}\small
+  \item \textbf{Think}: LLM decides next action
+  \item \textbf{Act}: call a tool (SQL, Python, fetch data)
+  \item \textbf{Observe}: get the result back
+  \item \textbf{Repeat} until goal is achieved
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{This is exactly what Claude Code does}]
+\begin{itemize}\small
+  \item Claude Code is a general-purpose agent
+  \item LLM: Claude Opus/Sonnet
+  \item Built-in tools: file I/O, bash, code execution, web search
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The API: Talking to an LLM from Code}
+An \textbf{API} lets your code communicate with an LLM service over the internet.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What You Need}]
+\begin{itemize}\small
+  \item API endpoint (URL)
+  \item API key (authentication)
+  \item Model name to use
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{OpenRouter}]
+\begin{itemize}\small
+  \item Unified API for 100+ models
+  \item Single API key; some models are free
+  \item \texttt{openrouter.ai}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{A Single API Call}
+\begin{shadedbox}[title=\textbf{Basic Structure}]
+\begin{verbatim}
+import requests
+
+response = requests.post(
+    "https://openrouter.ai/api/v1/chat/completions",
+    headers={"Authorization": f"Bearer {API_KEY}"},
+    json={
+        "model": "mistralai/mistral-7b-instruct:free",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ]
+    }
+)
+answer = response.json()["choices"][0]["message"]["content"]
+\end{verbatim}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}[fragile]{Conversation History}
+\begin{shadedbox}[title=\textbf{Messages Are a List of Dictionaries}]
+\begin{verbatim}
+messages = [
+    {"role": "system",
+     "content": "You are a finance tutor..."},
+    {"role": "user",
+     "content": "What is a P/E ratio?"},
+    {"role": "assistant",
+     "content": "A P/E ratio is..."},
+    {"role": "user",
+     "content": "How do I interpret it?"}
+]
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{itemize}\small
+  \item Each API call is independent --- LLM has no memory
+  \item You must send the \alert{entire conversation history} each time
+  \item The \textbf{system prompt} defines the agent's behavior and available tools
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Agent Loop Pseudocode}
+\begin{shadedbox}[title=\textbf{The Agent's Decision Loop}]
+\begin{verbatim}
+while not done:
+    response = call_llm(messages, system_prompt, tools)
+
+    if response.has_tool_call:
+        result = execute_tool(response.tool_call)
+        messages.append(tool_result)
+    elif response.is_final:
+        done = True
+        return response.content
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\alert{The agent is part LLM intelligence, part traditional programming.}
+\end{center}
+\end{frame}
+
+\begin{frame}{Example: Database Analytics Agent}
+User: ``Analyze quarterly revenue trends for our top 5 customers.''
+\vspace{0.3cm}
+\begin{shadedbox}[title=\textbf{What the LLM Sees at Report Time}]
+\begin{center}
+\small
+\begin{tabular}{cl}
+\# & \textbf{Message} \\
+\midrule
+1 & system: You are a data analyst with SQL and Python tools... \\
+2 & user: Analyze quarterly revenue for top 5 customers... \\
+3 & assistant: [tool call: SQL for top 5 customers] \\
+4 & tool: [results: ACME, Globex, Initech...] \\
+5 & assistant: [tool call: SQL for quarterly data] \\
+6 & tool: [results: Q1, Q2, Q3...] \\
+7 & assistant: [tool call: Python chart] \\
+8 & tool: [output: chart saved] \\
+9 & assistant: Here is my analysis... (final report)
+\end{tabular}
+\end{center}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}{Rice Data Portal: A Production Database Agent}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{itemize}\small
+  \item Production agent serving MBA students
+  \item 59K companies, 17M+ stock prices
+  \item Students ask in English; agent writes and executes SQL
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Architecture}]
+\begin{tabular}{ll}
+\textbf{Component} & \textbf{Implementation} \\
+\midrule
+LLM & OpenRouter API \\
+Tool & SQL execution \\
+Agent Loop & Python if/else \\
+UI & Streamlit web app \\
+Database & MotherDuck \\
+\end{tabular}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+The system prompt contains 53 rules encoding schema knowledge, business logic, and query patterns. \alert{Same concept as a SKILL.md --- just deployed as a web app.}
+\end{frame}
+
+% ========================================
+% SECTION 6: M&A DUE DILIGENCE WORKFLOW
+% ========================================
+\section{Finance Application: M\&A Due Diligence}
+
+\begin{frame}{M\&A Due Diligence with an Agent}
+Give an agent a goal: ``Evaluate this acquisition target.'' The agent:
+\vspace{0.3cm}
+\begin{enumerate}
+  \item Reads the customer list with contracts (Excel)
+  \item Extracts detailed terms from the contract document (PDF)
+  \item Applies acquirer's evaluation criteria (Word)
+  \item Computes quality-adjusted revenue and concentration risk
+  \item Benchmarks against industry standards (CSV)
+  \item Produces a summary memo with flagged risks
+\end{enumerate}
+\vspace{0.3cm}
+\alert{This is a single prompt to Claude Code.} The agent plans and executes all six steps autonomously, reading multiple file formats and combining the results.
+\end{frame}
+
+% ========================================
+% SECTION 7: USER INTERFACE AND DEPLOYMENT
+% ========================================
+\section{User Interface and Deployment}
+
+\begin{frame}{Adding a User Interface}
+An agent doesn't need a web UI --- it can run in a terminal. But a UI makes it accessible to non-technical users.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Streamlit}]
+\begin{itemize}\small
+  \item Python library for web apps
+  \item No HTML/CSS/JavaScript needed
+  \item Deploy to Streamlit Cloud (free)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Gradio}]
+\begin{itemize}\small
+  \item Python library for ML demos
+  \item Even simpler chat interface
+  \item Built-in sharing via public links
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\alert{Both let you build a chat UI in a few lines of Python.}
+\end{center}
+\end{frame}
+
+\begin{frame}{From Idea to Deployed Agent}
+\begin{enumerate}
+  \item \textbf{Build the agent}: Define tools, system prompt, and agent loop
+  \item \textbf{Add a UI} (optional): Wrap with Streamlit or Gradio
+  \item \textbf{Version control}: Push to GitHub with Git
+  \item \textbf{Deploy}: Streamlit Cloud (free), Koyeb, Render, or cloud providers
+\end{enumerate}
+\vspace{0.3cm}
+\begin{center}
+\alert{Ask Claude Code to do each step --- no commands to memorize.}
+\end{center}
+\end{frame}
+
+\begin{frame}{The Orchestration Layer}
+The agent's control logic can route different tasks to different models and prompts.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Different Prompts}]
+\begin{itemize}\small
+  \item SQL generation $\rightarrow$ database schema prompt
+  \item Python analysis $\rightarrow$ data science prompt
+  \item Each task gets specialized instructions
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Different Models}]
+\begin{itemize}\small
+  \item Simple classification $\rightarrow$ fast, cheap model
+  \item Complex reasoning $\rightarrow$ powerful model
+  \item Cost and speed optimization
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Sub-agents: dispatch specialized workers for parallel tasks. This is what Cowork does with its parallel VMs.
+\end{frame}
+
+% ========================================
+% SECTION 9: EXERCISES
+% ========================================
+\section{Exercises}
+
+\begin{frame}{Exercise 1: M\&A Due Diligence}
+\begin{enumerate}
+  \item Download the due diligence data pack (Excel + PDF + Word + CSV)
+  \item Ask Claude Code to evaluate the acquisition target end-to-end
+  \item Submit: the summary report + screenshots of intermediate steps
+\end{enumerate}
+\vspace{0.3cm}
+Watch how Claude plans its approach, reads each file, and combines the results into a coherent analysis.
+\end{frame}
+
+\begin{frame}{Exercise 2: Financial Chatbot}
+\begin{enumerate}
+  \item Get a free API key from OpenRouter
+  \item Ask Claude Code to build a Streamlit app that:
+  \begin{itemize}\small
+    \item Connects to a financial dataset (CSV or database)
+    \item Lets users ask questions in English
+    \item Displays results with charts
+  \end{itemize}
+  \item Write a system prompt with schema knowledge
+  \item Test with 5 questions
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 3: Deploy to Streamlit Cloud}
+\begin{enumerate}
+  \item Push one of your projects to GitHub
+  \item Connect your GitHub repo to Streamlit Cloud
+  \item Deploy and test the live URL
+  \item Submit: the live URL
+\end{enumerate}
+\vspace{0.3cm}
+\alert{Ask Claude Code to handle every step} --- from creating the Git repo to deploying the app.
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Agents}]
+\begin{itemize}\small
+  \item Chatbot + tools + loop
+  \item LLM decides what to do
+  \item Pursue goals autonomously
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Building Blocks}]
+\begin{itemize}\small
+  \item API calls to LLMs
+  \item System prompts + tools
+  \item Message history
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Deployment}]
+\begin{itemize}\small
+  \item Streamlit / Gradio UI
+  \item Git + GitHub
+  \item Streamlit Cloud (free)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\alert{Agents extend LLMs from conversation to action.}
+\end{center}
+\end{frame}
+
+\end{document}

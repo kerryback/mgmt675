@@ -1,0 +1,27 @@
+---
+title: "Exercise 2A: Tangency Portfolio"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Download monthly return data for five ETFs of your choice (e.g., SPY, AGG, GLD, VNQ, EFA) and the one-month T-bill rate from a source such as FRED or Yahoo Finance. Upload the data to Claude and ask it to:
+
+(a) Estimate expected returns, standard deviations, and correlations from the historical data
+(b) Compute the tangency portfolio weights, expected return, standard deviation, and Sharpe ratio
+(c) Plot the efficient frontier and the capital allocation line
+(d) Re-solve with a **no-short-sales** constraint (all weights $\geq 0$)
+(e) Re-solve with a **maximum 40\% allocation** constraint (no single weight $> 0.40$)
+
+Compare the portfolio weights and Sharpe ratios across all three cases. Write a one-page memo discussing how constraints affect diversification and performance.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Data file (`2A-Data.xlsx`)
+- Plot showing all three efficient frontiers (`2A-Plot.png`)
+- Memo (`2A-Memo.pdf`, 1 page)

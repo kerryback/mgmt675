@@ -1,0 +1,26 @@
+---
+title: "Exercise 1A: AI Use Cases in Finance"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Pick a specific finance role (e.g., equity research analyst, credit underwriter, portfolio manager, compliance officer). Using Claude.ai, have a conversation in which you identify five concrete tasks that AI could automate or augment in that role.
+
+For each task:
+
+- Describe what the task involves today (without AI)
+- Classify it as **"maker" work** (producing output: models, reports, presentations) or **"checker" work** (reviewing, validating, catching errors)
+- Explain how AI would change the task
+
+Write a brief argument for which of the five tasks would deliver the most value if automated first.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- One-page summary with classifications and recommendation (`1A-Summary.pdf`)
+- Screenshot of Claude conversation (`1A-Screenshot.png`)

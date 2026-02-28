@@ -6,12 +6,6 @@ project:
     - slides.qmd
     - assignments.qmd
     - index-pdf.qmd
-    - assignment1.qmd
-    - assignment2.qmd
-    - assignment3.qmd
-    - assignment4.qmd
-    - assignment5.qmd
-    - assignment6.qmd
   resources:
     - CNAME
     - .nojekyll
@@ -19,12 +13,24 @@ project:
     - files/*.zip
     - files/*.xlsx
     - index-pdf.pdf
-    - assignment1.pdf
-    - assignment2.pdf
-    - assignment3.pdf
-    - assignment4.pdf
-    - assignment5.pdf
-    - assignment6.pdf
+    - 1A.pdf
+    - 1B.pdf
+    - 1C.pdf
+    - 2A.pdf
+    - 2B.pdf
+    - 2C.pdf
+    - 3A.pdf
+    - 3B.pdf
+    - 3C.pdf
+    - 3D.pdf
+    - 4A.pdf
+    - 4B.pdf
+    - 4C.pdf
+    - 5A.pdf
+    - 5B.pdf
+    - 5C.pdf
+    - 6A.pdf
+    - 6B.pdf
 
 website:
   title: ""
@@ -39,7 +45,7 @@ website:
         text: Slides
       - href: assignments.qmd
         text: Assignments
-    
+
 format:
   html:
     theme:
@@ -49,8 +55,3 @@ format:
 
 comments:
   hypothesis: true
-    
-   
-
-
-

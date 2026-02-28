@@ -77,14 +77,11 @@
 \end{frame}
 
 \begin{frame}{Code Mode: Advantages}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{No sandboxing}---access databases, APIs, local files
-  \item \textbf{Install anything}---pip install, npm, system packages
-  \item \textbf{Large datasets}---no upload limits
   \item \textbf{Persistent state}---pick up where you left off
-  \item \textbf{Version control}---code saved in your repo
-  \item \textbf{Production path}---code is ready to deploy
-\end{baritemize}
+  \item \textbf{Production path}---code saved in your repo, ready to deploy
+\end{itemize}
 \end{frame}
 
 % ============================================================
@@ -180,9 +177,7 @@ Fetch live data from APIs & & & & \checkmark \\
 \section{Slash Commands and Subagents}
 
 \begin{frame}{Slash Commands}
-\begin{shadedbox}
 In the \textbf{Code tab}, type \texttt{/} to see available commands.  These also work in the Claude Code CLI and VS Code extension.  They are \alert{not available} in the Chat or Cowork tabs.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{center}
 \small
@@ -201,19 +196,14 @@ In the \textbf{Code tab}, type \texttt{/} to see available commands.  These also
 \end{tabular}
 \end{center}
 \vspace{0.2cm}
-\begin{shadedbox}
 A slash command is just a prompt---it loads instructions into Claude's context.  Other tools have equivalents: Copilot's \texttt{/fix}, Cursor's \texttt{/edit}, etc.
-\end{shadedbox}
+
 \vspace{0.1cm}
-\begin{shadedbox}
 \alert{Tip:} Use \texttt{/clear} between unrelated tasks and \texttt{/compact} within a long task. This keeps Claude focused and saves tokens.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Subagents}
-\begin{shadedbox}
 A \textbf{subagent} is a specialized AI assistant with its own context window and system prompt. Create one with \texttt{/agents} in the Code tab.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -237,10 +227,7 @@ A \textbf{subagent} is a specialized AI assistant with its own context window an
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 \alert{Start by using Claude directly.} When you notice you're repeating the same instructions, that's the signal to create a subagent.
-\end{shadedbox}
 \end{frame}
 
 % ============================================================
@@ -248,9 +235,7 @@ A \textbf{subagent} is a specialized AI assistant with its own context window an
 % ============================================================
 
 \begin{frame}{AI Coding Tools: A Common Architecture}
-\begin{shadedbox}
 All AI coding tools share the same fundamental pattern: an \textbf{LLM} with \textbf{code execution} ability and \textbf{file access}.  The differences are in UI, models, and pricing---not in the architecture.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{center}
 \small
@@ -267,10 +252,9 @@ Google Jules & Web & Gemini & Cloud VM \\
 \end{tabular}
 \end{center}
 \vspace{0.2cm}
-\begin{shadedbox}
-\centering
+\begin{center}
 Learn the pattern once, and you can move between tools as they evolve.
-\end{shadedbox}
+\end{center}
 \end{frame}
 
 % ============================================================
@@ -283,20 +267,14 @@ Learn the pattern once, and you can move between tools as they evolve.
 All Claude products share the \textbf{same usage pool}. Usage resets every 5 hours.
 
 \vspace{0.3cm}
-\begin{shadedbox}[title={Strategies for the Pro plan (\$20/month)}]
+\textbf{Strategies for the Pro plan (\$20/month)}
 \begin{enumerate}
-  \item \textbf{Use Chat for questions} --- ``Explain Jensen's alpha'' costs very few tokens
-  \item \textbf{Use Artifacts for quick visuals} --- paste data, get a chart
-  \item \textbf{Use Code for analysis assignments} --- lean and efficient
-  \item \textbf{Reserve Cowork for heavy-lift tasks} --- multi-file, complex output
+  \item \textbf{Use Chat for questions, Code for analysis} --- match the tool to the task
   \item \textbf{Clear context between tasks} --- type \texttt{/clear} in Code sessions
   \item \textbf{Bundle related work} --- don't start a new session for every subtask
 \end{enumerate}
-\end{shadedbox}
 
-\begin{shadedbox}
 \alert{If you hit your limit:} Wait for the 5-hour reset, or fall back to Chat + Artifacts (much lower token cost) to keep working.
-\end{shadedbox}
 
 \end{frame}
 
@@ -307,7 +285,7 @@ All Claude products share the \textbf{same usage pool}. Usage resets every 5 hou
 
 \begin{frame}{Your Setup Checklist}
 
-\begin{barenumerate}
+\begin{enumerate}
   \item \textbf{Create a Claude account} at \texttt{claude.ai}
   \item \textbf{Subscribe to Pro} (\$20/month) via the account settings
   \item \textbf{Download Claude Desktop} from \texttt{claude.com/download}
@@ -324,7 +302,7 @@ All Claude products share the \textbf{same usage pool}. Usage resets every 5 hou
       \item Chat tab: paste data and request an artifact
       \item Code tab: point at a folder with a CSV, ask for analysis
     \end{itemize}
-\end{barenumerate}
+\end{enumerate}
 
 \end{frame}
 
@@ -334,61 +312,51 @@ All Claude products share the \textbf{same usage pool}. Usage resets every 5 hou
 \section{Exercises}
 
 \begin{frame}{Exercise: Loan Portfolio Analysis}
-\begin{baritemize}
+\begin{itemize}
 \item Download loans.zip into your project folder.
 \item Extract the files.  You will have a loan tape (CSV), a collateral appraisal report (PDF), and a policy exceptions memo (docx).
 \item In Claude Desktop, go to the Code tab and select your project folder.
 \item Ask Claude to load the loan tape, compute the weighted average interest rate and LTV ratio, and flag any loans that exceed the policy limits described in the memo.
 \item Ask it to cross-reference the collateral values from the appraisal report and produce a summary of loans where the appraised value has declined.
-\end{baritemize}
+\end{itemize}
 
 \begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/files/loans.zip}{Download Data for Exercise}
-\end{shadedbox}
+\href{https://kerryback.com/mgmt675/files/loans.zip}{Download Data for Exercise}
 \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Exercise: Fetching Data with \texttt{curl}}
-\begin{shadedbox}
 Claude Code can run terminal commands. Ask it to fetch financial data using \texttt{curl} and then analyze the results.
-\end{shadedbox}
 \vspace{0.2cm}
-\begin{baritemize}
+\begin{itemize}
   \item Get a free API key from \href{https://www.alphavantage.co/support/\#api-key}{Alpha Vantage} and/or \href{https://financialmodelingprep.com}{Financial Modeling Prep}
   \item Ask Claude to use \texttt{curl} to fetch Apple's monthly stock prices from Alpha Vantage.  Ask it to parse the JSON response and save the data to a CSV file.
   \item Ask Claude to use \texttt{curl} to fetch Apple's income statement from Financial Modeling Prep.  Ask it to extract revenue and net income for the last 5 years and display them in a table.
-\end{baritemize}
+\end{itemize}
 \vspace{0.2cm}
-\begin{shadedbox}
 \alert{Key point:} These API calls \alert{fail} in Chat and Cowork because the sandbox blocks internet access.  Code mode runs on your machine, so it has full network access.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}[fragile]{Exercise: Fetching Data with Python}
-\begin{baritemize}
+\begin{itemize}
   \item Ask Claude to write a Python script that uses the \texttt{requests} library to fetch Apple's quarterly income statement from Financial Modeling Prep.  Ask it to compute revenue growth rates and create a bar chart.
   \item Ask Claude to write a Python script that uses the Alpha Vantage API to get daily prices for three stocks of your choice over the past year. Ask it to compute cumulative returns and plot them on a single chart.
   \item Ask Claude to combine data from both sources: fetch Apple's income statement from FMP and its stock price history from Alpha Vantage, then create a dual-axis chart showing revenue growth alongside stock returns.
-\end{baritemize}
+\end{itemize}
 \vspace{0.2cm}
-\begin{shadedbox}
 \alert{Tip:} Tell Claude your API key, or better yet, ask Claude to store it in an environment variable so it isn't hardcoded in scripts.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Exercise: Aggregating and Filtering Files}
-\begin{baritemize}
+\begin{itemize}
   \item Download \href{https://kerryback.com/mgmt675/files/aggregation.zip}{aggregation.zip} into your project folder and extract it.
   \item You will have several Excel workbooks, each containing a table with similar data.  Some tables are missing columns and column names vary across the files.
   \item Ask Claude to read all the workbooks, reconcile the varying column names, combine everything into a single table (including all columns), and save the result as a new Excel file.
   \item Ask Claude to filter the combined table to rows matching criteria of your choice and produce a summary with descriptive statistics.
-\end{baritemize}
+\end{itemize}
 
 \begin{center}
-\begin{shadedbox}[width=0.7\textwidth]
-\centering\href{https://kerryback.com/mgmt675/files/aggregation.zip}{Download Data for Exercise}
-\end{shadedbox}
+\href{https://kerryback.com/mgmt675/files/aggregation.zip}{Download Data for Exercise}
 \end{center}
 \end{frame}
 

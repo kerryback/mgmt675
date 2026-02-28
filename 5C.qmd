@@ -1,0 +1,29 @@
+---
+title: "Exercise 5C: Financial Chatbot"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Build a custom financial chatbot as a Streamlit app using the OpenRouter API with a free model (e.g., `mistralai/mistral-7b-instruct:free`).
+
+The chatbot should:
+
+1. **Connect to a financial dataset** (a CSV file or small database)
+2. **Include a system prompt** with schema knowledge and domain expertise --- tell the model what columns exist, what the data represents, and how to answer questions
+3. **Let users ask questions in English** and display results
+
+You can ask Claude Code to build the entire app for you. Focus on writing a good system prompt --- this is where the skill concepts from Module 4 apply.
+
+Test with at least 5 financial questions and evaluate the quality of the answers.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Code (`6B-Code.zip`)
+- Screenshot of the running app showing at least 3 exchanges (`6B-Screenshot.png`)
+- Evaluation of answer quality (`6B-Evaluation.pdf`, half page)

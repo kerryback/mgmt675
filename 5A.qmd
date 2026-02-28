@@ -1,0 +1,29 @@
+---
+title: "Exercise 5A: NotebookLM Financial Analysis"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Upload at least three financial documents for the same company into Google NotebookLM. Good combinations include:
+
+- A 10-K filing
+- An earnings call transcript
+- An analyst report or press release
+
+Ask at least **5 questions** about the company's financial performance, strategy, and risk factors. For each answer:
+
+- Note how NotebookLM **cites specific sources** (which document, which section)
+- Evaluate whether the answer is **grounded** in the documents or potentially **hallucinated**
+- Rate the answer quality (accurate / partially accurate / inaccurate)
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Q\&A pairs with citations and quality ratings (`5C-QA.pdf`)
+- Brief assessment of NotebookLM's reliability for financial analysis (half page, included in the same PDF)
+- Screenshot of the NotebookLM interface showing sources and a sample answer (`5C-Screenshot.png`)

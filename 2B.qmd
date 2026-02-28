@@ -1,0 +1,33 @@
+---
+title: "Exercise 2B: Two-Stage DCF Model"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Build a two-stage discounted cash flow model for a hypothetical or real company. Start by providing Claude with a small set of assumptions:
+
+- Sales growth rate, COGS as \% of sales, SG\&A, depreciation, tax rate
+- NWC as \% of sales, PP\&E as \% of sales
+- WACC, terminal growth rate
+
+The model should include:
+
+1. **Pro forma income statement** (5-year forecast): Sales $\rightarrow$ COGS $\rightarrow$ Gross Profit $\rightarrow$ SG\&A $\rightarrow$ Depreciation $\rightarrow$ EBIT $\rightarrow$ Taxes $\rightarrow$ NOPAT
+2. **Pro forma balance sheet**: NWC and PP\&E as \% of sales, capital expenditure derived from target PP\&E
+3. **Free cash flow**: NOPAT + Depreciation $-$ CapEx $-$ $\Delta$NWC
+4. **Terminal value**: growing perpetuity method ($\text{TV} = \text{FCF}_{T+1} / (\text{WACC} - g)$)
+5. **Enterprise value** and **per-share equity value**
+6. **Two-way sensitivity table**: WACC (rows) vs.\ terminal growth rate (columns)
+
+Produce the output as an Excel workbook with clearly labeled sheets.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Excel workbook with DCF model (`2B-DCF.xlsx`)
+- Screenshot of the Claude conversation (`2B-Screenshot.png`)

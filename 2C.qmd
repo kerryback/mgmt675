@@ -1,0 +1,31 @@
+---
+title: "Exercise 2C: Monte Carlo Valuation"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Take the DCF model from Exercise 2B. Instead of using fixed assumptions, assign probability distributions to four key inputs. For example:
+
+- Sales growth rate: Normal(8\%, 3\%)
+- COGS as \% of sales: Normal(60\%, 2\%)
+- Terminal growth rate: Uniform(1.5\%, 3.5\%)
+- WACC: Normal(10\%, 1.5\%)
+
+Ask Claude to run 10,000 simulations and produce:
+
+1. A **histogram** of enterprise values
+2. **Summary statistics**: mean, median, 10th percentile, 90th percentile
+3. A **tornado chart** showing which assumption drives the most variation in valuation
+
+Write a brief paragraph identifying the key driver of valuation uncertainty and explaining why.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Histogram and tornado chart (`2C-Histogram.png`, `2C-Tornado.png`)
+- Summary statistics and key-driver paragraph (`2C-Summary.pdf`, half page)

@@ -20,9 +20,7 @@
 % ========================================
 
 \begin{frame}{The Dashboard Trap}
-\begin{shadedbox}
 Organizations spend millions building dashboards that answer \alert{yesterday's questions}. When a new question arises, the cycle restarts: requirements gathering, design, development, QA, deployment.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -44,8 +42,6 @@ Organizations spend millions building dashboards that answer \alert{yesterday's 
   \item \textbf{Time}: Weeks to months per dashboard
   \item \textbf{Money}: Tableau/Power BI licenses, engineering hours, maintenance
   \item \textbf{Rigidity}: Fixed views of fixed data
-  \item \textbf{Low adoption}: Fewer than half of D\&A teams effectively provide value (\href{https://www.gartner.com/en/newsroom/press-releases/03-21-2023-gartner-survey-reveals-less-than-half-of-data-and-analytics-teams-effectively-provide-value-to-the-organization}{Gartner, 2023})
-  \item \textbf{Staleness}: Questions evolve; dashboards don't
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -53,21 +49,19 @@ Organizations spend millions building dashboards that answer \alert{yesterday's 
 \end{frame}
 
 \begin{frame}{Dashboard Fatigue is Real}
-\begin{baritemize}
+\begin{itemize}
   \item Gartner (2019): ``Through 2022, only \textbf{20\%} of analytic insights will deliver business outcomes'' (\href{https://designingforanalytics.com/resources/failure-rates-for-analytics-bi-iot-and-big-data-projects-85-yikes/}{Designing for Analytics summary})
   \item Most dashboards are built, viewed a few times, and abandoned
   \item The bottleneck isn't data --- it's the translation layer between \textit{questions} and \textit{answers}
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
 The fundamental problem: dashboards answer \textbf{pre-defined questions}. But the most valuable analysis comes from \textbf{ad-hoc questions} that arise in the moment.
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item ``What happened to margins in the Southeast last quarter?''
   \item ``Show me our top 10 customers by growth rate, excluding one-time orders''
   \item ``Compare Q3 headcount vs.\ budget by department, and flag anyone over 110\%''
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
 These are simple questions.  Getting answers shouldn't require a development cycle.
 \end{frame}
@@ -96,29 +90,20 @@ Cost per question & High (amortized) & Near zero (marginal) \\
 \end{tabular}
 \end{center}
 \vspace{0.3cm}
-\begin{shadedbox}
 \centering
 The dashboard was a \textit{workaround} for the fact that databases don't speak English.\\Now they do.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{How It Works}
-\begin{shadedbox}
 AI replaces the entire stack between a business question and a visual answer.
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{barenumerate}
+\begin{enumerate}
   \item \textbf{User asks a question} in natural language
-  \item \textbf{AI writes a query} (SQL, Python, API call) based on the data schema
-  \item \textbf{AI executes the query} and retrieves results
-  \item \textbf{AI generates a visualization} (chart, table, or both)
-  \item \textbf{AI explains the results} in plain English
+  \item \textbf{AI writes and executes a query} (SQL, Python, API call), generates a visualization, and explains the results
   \item \textbf{User asks a follow-up} --- AI refines, drills down, or pivots
-\end{barenumerate}
+\end{enumerate}
 \vspace{0.3cm}
-\begin{shadedbox}
 No SQL knowledge.  No chart configuration.  No waiting for IT.  The user \textit{describes what they want to see}, and AI produces it.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{What This Looks Like in Practice}
@@ -132,20 +117,15 @@ No SQL knowledge.  No chart configuration.  No waiting for IT.  The user \textit
   \item AI: refines the query, adds a region dimension, updates the chart
   \item \textit{``Which region had the biggest drop from Q2 to Q3?''}
   \item AI: calculates quarter-over-quarter changes, highlights the answer
-  \item \textit{``Put this in a slide deck''}
-  \item AI: generates a PowerPoint with charts and narrative
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{What AI Did Behind the Scenes}]
 \begin{itemize}\small
-  \item Read the database schema
   \item Wrote 4 different SQL queries
   \item Produced 3 visualizations (matplotlib/plotly)
-  \item Calculated derived metrics
-  \item Generated a narrative summary
-  \item Created a PPTX file
+  \item Calculated derived metrics and generated a narrative summary
 \end{itemize}
 \end{shadedbox}
 \vspace{0.1cm}
@@ -172,7 +152,6 @@ No SQL knowledge.  No chart configuration.  No waiting for IT.  The user \textit
 \begin{shadedbox}[title=\textbf{Upload Files}]
 \begin{itemize}\small
   \item Drag CSV, Excel, PDF into chat
-  \item Works in Chat, Cowork, Code
   \item No setup required
   \item Best for: ad-hoc analysis of exported data
 \end{itemize}
@@ -185,7 +164,6 @@ No SQL knowledge.  No chart configuration.  No waiting for IT.  The user \textit
 \begin{shadedbox}[title=\textbf{MCP Connectors}]
 \begin{itemize}\small
   \item Connect to databases, APIs, services directly
-  \item Snowflake, BigQuery, Postgres, etc.
   \item AI queries live data
   \item Best for: recurring analysis on production data
 \end{itemize}
@@ -198,7 +176,6 @@ No SQL knowledge.  No chart configuration.  No waiting for IT.  The user \textit
 \begin{shadedbox}[title=\textbf{API Calls}]
 \begin{itemize}\small
   \item Financial data providers (FMP, Alpha Vantage, Bloomberg)
-  \item Web scraping via browser
   \item Internal REST APIs
   \item Best for: market data, public filings, external sources
 \end{itemize}
@@ -211,9 +188,7 @@ No SQL knowledge.  No chart configuration.  No waiting for IT.  The user \textit
 \end{frame}
 
 \begin{frame}{The Database Agent Pattern}
-\begin{shadedbox}
 The most powerful dashboard replacement is an \textbf{AI agent connected to your database}.  The agent knows the schema, writes SQL, and presents results visually.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -230,11 +205,8 @@ The most powerful dashboard replacement is an \textbf{AI agent connected to your
 \begin{shadedbox}[title=\textbf{What the Agent Can Do}]
 \begin{itemize}\small
   \item Write and execute SQL queries
-  \item Join tables, aggregate, filter
   \item Compute derived metrics (growth rates, ratios, moving averages)
-  \item Generate charts (bar, line, scatter, waterfall)
-  \item Export to Excel or PowerPoint
-  \item Explain what it found and why it matters
+  \item Generate charts and export to Excel or PowerPoint
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -262,10 +234,8 @@ The most powerful dashboard replacement is an \textbf{AI agent connected to your
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{AI Delivers}]
 \begin{itemize}\small
-  \item Formatted comparison table
-  \item Grouped bar chart (revenue by unit, side-by-side years)
-  \item Margin waterfall chart
-  \item Red flags on units with $>$200bp decline
+  \item Formatted comparison table and grouped bar chart
+  \item Margin waterfall chart with red flags on $>$200bp declines
   \item Written summary: ``Two units saw margin compression \ldots''
 \end{itemize}
 \end{shadedbox}
@@ -287,9 +257,7 @@ AI writes a new query, decomposes the variance, and updates the analysis.
 \section{AI-Generated Visualizations}
 
 \begin{frame}{Describe the Chart, Not the Config}
-\begin{shadedbox}
 Traditional BI tools require you to configure chart type, axes, filters, colors, and labels manually.  With AI, you \alert{describe what you want to see} and the visualization is generated.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -298,8 +266,6 @@ Traditional BI tools require you to configure chart type, axes, filters, colors,
   \item ``Bar chart of revenue by quarter''
   \item ``Scatter plot of P/E vs.\ growth rate for our peer group''
   \item ``Waterfall chart from budget to actual operating income''
-  \item ``Heat map of correlations across our portfolio''
-  \item ``Time series of daily returns with a 20-day moving average''
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -307,10 +273,7 @@ Traditional BI tools require you to configure chart type, axes, filters, colors,
 \begin{shadedbox}[title=\textbf{AI Handles the Details}]
 \begin{itemize}\small
   \item Chooses appropriate chart libraries (matplotlib, plotly, seaborn)
-  \item Sets axis labels, titles, legends
-  \item Applies color schemes
-  \item Handles data transformations
-  \item Adds annotations where relevant
+  \item Sets axis labels, titles, legends, and color schemes
   \item Iterates if you say ``make it cleaner'' or ``add a trend line''
 \end{itemize}
 \end{shadedbox}
@@ -319,9 +282,7 @@ Traditional BI tools require you to configure chart type, axes, filters, colors,
 \end{frame}
 
 \begin{frame}{Interactive Artifacts}
-\begin{shadedbox}
 Claude's \textbf{artifacts} are interactive, publishable applications generated from a single prompt.  They go far beyond static charts.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -329,35 +290,26 @@ Claude's \textbf{artifacts} are interactive, publishable applications generated 
 \begin{itemize}\small
   \item Interactive dashboards with filters and dropdowns
   \item Calculators (loan amortization, DCF, option pricing)
-  \item Data explorers with sorting and search
   \item Scenario analysis tools with sliders
-  \item Formatted reports with charts and tables
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Key Advantage}]
 \begin{itemize}\small
-  \item Generated in seconds from a description
-  \item Publishable via a shareable link
+  \item Generated in seconds, publishable via a shareable link
   \item Fully interactive (React under the hood)
   \item \alert{Disposable}: Generate a new one when needs change instead of maintaining the old one
-  \item No engineering team required
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 An artifact is a \textit{single-serving dashboard} --- built for the question at hand, not for every possible question.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}[shrink=3]{Artifacts Across Platforms}
-\begin{shadedbox}
 Every major AI chatbot now generates interactive web applications from a prompt.  The feature goes by different names, but the concept is the same.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{center}
 \small
@@ -376,10 +328,7 @@ Best for & Interactive apps, calculators, dashboards & Collaborative writing + c
 \end{tabular}
 \end{center}
 \vspace{0.2cm}
-\begin{shadedbox}
-\centering
 All three can produce the same kinds of interactive finance tools --- DCF calculators, portfolio dashboards, scenario analyzers.  Choose based on your ecosystem and subscription.
-\end{shadedbox}
 \end{frame}
 
 % ========================================
@@ -391,38 +340,34 @@ All three can produce the same kinds of interactive finance tools --- DCF calcul
 \begin{frame}[shrink=5]{Replacing Finance Dashboards}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{FP\&A}]
+\textbf{FP\&A}
 \begin{itemize}\small
   \item \textit{``Show budget vs.\ actual for Q3, decompose the variance into volume, price, and cost drivers''}
   \item \textit{``Create a rolling 12-month revenue forecast chart with confidence bands''}
   \item \textit{``Which cost centers are trending above budget? Rank by dollar impact.''}
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Treasury \& Risk}]
+\vspace{0.2cm}
+\textbf{Treasury \& Risk}
 \begin{itemize}\small
   \item \textit{``Plot our cash position over the next 90 days using the latest AR/AP forecasts''}
   \item \textit{``Show VaR by desk for the last 30 days and flag any breaches''}
   \item \textit{``What's our FX exposure by currency? Show hedged vs.\ unhedged.''}
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Portfolio Management}]
+\textbf{Portfolio Management}
 \begin{itemize}\small
   \item \textit{``Chart our sector allocation vs.\ benchmark and show the active weights''}
   \item \textit{``Performance attribution for the quarter --- how much came from allocation vs.\ selection?''}
   \item \textit{``Show the return distribution of our book with a histogram''}
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Executive Reporting}]
+\vspace{0.2cm}
+\textbf{Executive Reporting}
 \begin{itemize}\small
   \item \textit{``Build a one-page executive summary with KPIs, trends, and commentary''}
   \item \textit{``Create a board deck from this quarter's financials --- 5 slides max''}
   \item \textit{``What are the top 3 things the CFO should know from this data?''}
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -461,10 +406,7 @@ All three can produce the same kinds of interactive finance tools --- DCF calcul
 \end{column}
 \end{columns}
 \vspace{0.2cm}
-\begin{shadedbox}
-\centering
 This is what HPE's ``Alfred'' did.  The 90\% reduction in prep time wasn't efficiency --- it was \alert{eliminating the translation layer} between data and decisions.
-\end{shadedbox}
 \end{frame}
 
 
@@ -475,9 +417,7 @@ This is what HPE's ``Alfred'' did.  The 90\% reduction in prep time wasn't effic
 \section{Making It Work}
 
 \begin{frame}{When Dashboards Still Win}
-\begin{shadedbox}
 Natural language AI doesn't replace \textit{all} dashboards.  Some use cases still favor traditional BI tools.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -485,7 +425,6 @@ Natural language AI doesn't replace \textit{all} dashboards.  Some use cases sti
 \begin{itemize}\small
   \item \textbf{Real-time monitoring}: Trading floors, server health, live KPIs on a wall screen
   \item \textbf{Regulatory reporting}: Fixed formats required by regulators (SEC, Basel)
-  \item \textbf{Self-service for non-AI users}: Some users prefer clicking to typing
   \item \textbf{Embedded analytics}: Dashboards inside products for customers
 \end{itemize}
 \end{shadedbox}
@@ -496,52 +435,34 @@ Natural language AI doesn't replace \textit{all} dashboards.  Some use cases sti
   \item \textbf{Ad-hoc analysis}: One-off questions that arise in meetings
   \item \textbf{Executive reporting}: Weekly/monthly decks assembled from data
   \item \textbf{Variance analysis}: ``Why did we miss?'' questions
-  \item \textbf{Exploratory analysis}: Data exploration, hypothesis testing
-  \item \textbf{Client reporting}: Customized reports per client
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.2cm}
-\begin{shadedbox}
-\centering
 The rule of thumb: if someone \textit{asks the same question every day}, build a dashboard.\\If they \textit{ask different questions every day}, give them an AI agent.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Ensuring Accuracy}
-\begin{shadedbox}
 The biggest objection: ``How do I know the AI queried the right data?''  This is solvable.
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Show the code}: AI can display the SQL or Python it wrote --- analysts can review it
-  \item \textbf{Spot-check results}: Compare AI output to a known number from an existing report
   \item \textbf{Schema descriptions}: Tell AI exactly what each table and column means (via system prompts or instructions)
   \item \textbf{Read-only access}: Connect AI to a read replica --- it can query but never modify
-  \item \textbf{Guardrails}: Restrict which tables AI can access; require approval for queries touching sensitive data
-  \item \textbf{Audit trail}: Log every query AI runs for compliance review
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 The same analysts who currently build dashboards become \alert{AI reviewers} --- checking AI-generated queries instead of writing them from scratch.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Getting Started: A Practical Roadmap}
-\begin{barenumerate}
+\begin{enumerate}
   \item \textbf{Start with uploaded files}: Export a CSV or Excel from your existing system.  Ask AI to analyze it in chat.  No integration needed.
-  \item \textbf{Build a schema document}: List your key tables, columns, and business definitions in a markdown file.  This becomes AI's ``data dictionary.''
   \item \textbf{Connect a read-only database}: Use MCP to connect AI to a read replica or data warehouse.  Start with one department's data.
   \item \textbf{Save your best prompts}: Write down the instructions that produce good results (weekly review, variance analysis, portfolio report).  Reuse them each time.
-  \item \textbf{Automate and share}: Later in the course, we'll see how to package these instructions as \textit{skills} and \textit{plugins} that your whole team can invoke with a single command.
-\end{barenumerate}
+\end{enumerate}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 Step 1 takes \textbf{5 minutes}.  Steps 1--3 can be done in \textbf{a single afternoon}.\\You don't need to replace your BI platform --- you just stop building new dashboards.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Summary}
@@ -551,7 +472,6 @@ Step 1 takes \textbf{5 minutes}.  Steps 1--3 can be done in \textbf{a single aft
 \begin{itemize}\small
   \item Dashboards answer fixed questions
   \item Building them is slow and expensive
-  \item Most are underused
   \item Follow-ups require a new build cycle
 \end{itemize}
 \end{shadedbox}
@@ -562,7 +482,6 @@ Step 1 takes \textbf{5 minutes}.  Steps 1--3 can be done in \textbf{a single aft
   \item Ask questions in plain English
   \item AI writes queries and charts
   \item Follow-ups are instant
-  \item Artifacts for interactive views
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -570,7 +489,6 @@ Step 1 takes \textbf{5 minutes}.  Steps 1--3 can be done in \textbf{a single aft
 \begin{shadedbox}[title=\textbf{How to Start}]
 \begin{itemize}\small
   \item Upload a file and ask questions
-  \item Build a schema description
   \item Connect a database via MCP
   \item Save and reuse your best prompts
 \end{itemize}
@@ -579,11 +497,7 @@ Step 1 takes \textbf{5 minutes}.  Steps 1--3 can be done in \textbf{a single aft
 \end{columns}
 \vspace{0.5cm}
 \begin{center}
-\begin{shadedbox}[width=0.85\textwidth]
-\centering
-\textbf{The best dashboard is no dashboard}\\[0.3em]
-It's a conversation with your data.
-\end{shadedbox}
+\textbf{The best dashboard is no dashboard} --- it's a conversation with your data.
 \end{center}
 \end{frame}
 

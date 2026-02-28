@@ -23,22 +23,17 @@
 % ============================================================
 
 \begin{frame}{The Problem: Isolated AI}
-\begin{shadedbox}
 Claude Desktop is powerful---but out of the box, it can only read and write text. It cannot control your browser, run terminal commands, or interact with other software.
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item Want Claude to fill out a web form? It can't reach your browser.
   \item Want Claude to run a shell command? It has no terminal access.
-  \item Want Claude to query a database? It has no connection.
   \item \alert{MCP servers solve this problem.}
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{What is MCP?}
-\begin{shadedbox}
 The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI applications connect to external tools and data sources through a uniform interface.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -87,11 +82,11 @@ The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI appli
 \end{tikzpicture}
 \end{center}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item Claude Desktop is the \textbf{client}; each external service runs as a \textbf{server}
   \item Servers expose \textbf{tools} (functions the AI can call) via a standard protocol
   \item You can connect multiple servers at once
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 % ============================================================
@@ -131,9 +126,7 @@ More control. Works with any server.
 \end{frame}
 
 \begin{frame}[fragile]{Prerequisites: Node.js and uv}
-\begin{shadedbox}
 MCP servers are distributed as Node.js or Python packages. You need one or both installed depending on which servers you use.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -166,9 +159,7 @@ MCP servers are distributed as Node.js or Python packages. You need one or both 
 \end{frame}
 
 \begin{frame}{Config File Location}
-\begin{shadedbox}
 For manual installation, edit the Claude Desktop configuration file:
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -183,11 +174,11 @@ For manual installation, edit the Claude Desktop configuration file:
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item Create the file if it doesn't exist
   \item The file defines which MCP servers to launch when Claude Desktop starts
   \item After editing, \alert{fully quit and restart} Claude Desktop
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Config File Structure}
@@ -208,28 +199,25 @@ For manual installation, edit the Claude Desktop configuration file:
 \end{verbatim}
 \end{shadedbox}
 \vspace{0.2cm}
-\begin{baritemize}
+\begin{itemize}
   \item Each server has a name, a command, and arguments
   \item \texttt{npx} runs Node.js packages; \texttt{uvx} runs Python packages
   \item Claude Desktop starts each server automatically on launch
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Verifying the Connection}
-\begin{barenumerate}
+\begin{enumerate}
   \item Restart Claude Desktop after editing the config file
-  \item Look for the \textbf{hammer icon} in the chat input area
-  \item Click it to see the list of available tools from your servers
+  \item Look for the \textbf{hammer icon} in the chat input area---click it to see available tools
   \item If a server fails to start, check the logs:
   \begin{itemize}\small
     \item macOS: \texttt{\textasciitilde/Library/Logs/Claude/mcp*.log}
     \item Windows: \texttt{\%APPDATA\%\textbackslash Claude\textbackslash logs\textbackslash mcp*.log}
   \end{itemize}
-\end{barenumerate}
+\end{enumerate}
 \vspace{0.3cm}
-\begin{shadedbox}
 When Claude wants to use a tool, it will ask for your \textbf{permission} before executing. You stay in control.
-\end{shadedbox}
 \end{frame}
 
 % ============================================================
@@ -238,30 +226,24 @@ When Claude wants to use a tool, it will ask for your \textbf{permission} before
 \section{Browser-Use: AI-Driven Browser Automation}
 
 \begin{frame}{What is Browser-Use?}
-\begin{shadedbox}
 \textbf{Browser-Use} is an MCP server that lets Claude autonomously control a web browser. You describe a task in plain English, and it handles the navigation, clicking, and typing.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Example Tasks}]
+\textbf{Example Tasks}
 \begin{itemize}\small
   \item ``Fill out the application form on this page with my information''
   \item ``Download all linked CSV files from this page''
   \item ``Search for AAPL on Yahoo Finance and get the P/E ratio''
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Key Features}]
+\textbf{Key Features}
 \begin{itemize}\small
   \item Plain-language task descriptions
-  \item Navigates pages autonomously
-  \item Fills forms, clicks buttons
+  \item Navigates pages and fills forms autonomously
   \item Extracts data from web pages
-  \item Works on Mac and Windows
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -286,11 +268,11 @@ When Claude wants to use a tool, it will ask for your \textbf{permission} before
 \end{tikzpicture}
 \end{center}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item Claude sends a high-level task (e.g., ``fill out this form'')
   \item Browser-Use translates the task into browser actions (click, type, scroll)
   \item Results (extracted text, confirmation, screenshots) return to Claude
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Browser-Use: Two Deployment Options}
@@ -298,10 +280,8 @@ When Claude wants to use a tool, it will ask for your \textbf{permission} before
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Cloud (Hosted)}]
 \begin{itemize}\small
-  \item No local setup required
-  \item Browser runs on their servers
-  \item \alert{10-step limit per task}
-  \item Requires a Browser-Use API key
+  \item No local setup required---browser runs on their servers
+  \item \alert{10-step limit per task}; requires a Browser-Use API key
   \item Persistent login profiles available
 \end{itemize}
 \end{shadedbox}
@@ -309,19 +289,15 @@ When Claude wants to use a tool, it will ask for your \textbf{permission} before
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Local (Self-Hosted)}]
 \begin{itemize}\small
-  \item Browser runs on your machine
-  \item No step limits
-  \item Requires your own LLM API key
-  \item Full privacy---data stays local
-  \item \alert{Recommended for most users}
+  \item Browser runs on your machine---no step limits
+  \item Requires your own LLM API key (adds cost per action)
+  \item \alert{Recommended for most users}; full privacy
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
 Docs: \url{https://docs.browser-use.com/customize/integrations/mcp-server}
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}[fragile]{Installing Browser-Use}
@@ -338,12 +314,11 @@ Docs: \url{https://docs.browser-use.com/customize/integrations/mcp-server}
 \end{verbatim}
 \end{shadedbox}
 \vspace{0.2cm}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Prerequisite}: \texttt{uv} installed and Chrome/Chromium on your machine
   \item The \texttt{[cli]} extra is required---without it, the MCP server won't start
-  \item \texttt{ANTHROPIC\_API\_KEY}: Browser-Use calls an LLM to decide how to navigate pages, so it needs its own API key (Anthropic or OpenAI)
-  \item Restart Claude Desktop after editing the config; a browser window will open when Claude uses the tool
-\end{baritemize}
+  \item \texttt{ANTHROPIC\_API\_KEY}: Browser-Use calls an LLM to navigate pages, so it needs its own API key
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Browser-Use: Strengths and Limitations}
@@ -351,10 +326,8 @@ Docs: \url{https://docs.browser-use.com/customize/integrations/mcp-server}
 \begin{column}{0.45\textwidth}
 \begin{shadedbox}[title=\textbf{Strengths}]
 \begin{itemize}\small
-  \item Natural language task descriptions
-  \item No need to write selectors or scripts
-  \item Form filling is a primary use case
-  \item Handles multi-step workflows
+  \item Natural language task descriptions---no selectors or scripts
+  \item Handles multi-step workflows and form filling
   \item Cross-platform (Mac, Windows, Linux)
 \end{itemize}
 \end{shadedbox}
@@ -364,7 +337,6 @@ Docs: \url{https://docs.browser-use.com/customize/integrations/mcp-server}
 \begin{itemize}\small
   \item AI-driven: can be unpredictable on complex pages
   \item Local version needs an LLM API key (adds cost per action)
-  \item Newer project, smaller community
   \item May struggle with heavily dynamic sites
 \end{itemize}
 \end{shadedbox}
@@ -378,47 +350,36 @@ Docs: \url{https://docs.browser-use.com/customize/integrations/mcp-server}
 \section{DesktopCommanderMCP: Terminal Control}
 
 \begin{frame}{What is DesktopCommanderMCP?}
-\begin{shadedbox}
 \textbf{DesktopCommanderMCP} is an MCP server that gives Claude Desktop the ability to execute terminal commands, manage files, and control processes on your computer.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Example Tasks}]
+\textbf{Example Tasks}
 \begin{itemize}\small
   \item ``Run \texttt{pip install pandas}''
   \item ``Show me all Python files in this folder''
   \item ``Start a Jupyter notebook server''
-  \item ``Check if port 8080 is in use''
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Key Features}]
+\textbf{Key Features}
 \begin{itemize}\small
   \item Execute terminal commands
   \item Read, write, and search files
   \item Manage running processes
-  \item Diff-based file editing
-  \item Works on Mac, Windows, and Linux
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Why Give Claude a Terminal?}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Software installation}: ``Install the Python libraries I need for this project''
   \item \textbf{Data processing}: ``Convert all the .xlsx files in this folder to .csv''
   \item \textbf{Git operations}: ``Initialize a git repo, commit my changes, and push''
-  \item \textbf{System administration}: ``Show disk usage'' or ``List running processes''
-  \item \textbf{Development}: ``Run my test suite and tell me what failed''
-\end{baritemize}
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
 With DesktopCommander, Claude Desktop can do much more than chat---it becomes an active tool on your computer.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}[fragile]{Installing DesktopCommanderMCP}
@@ -431,17 +392,13 @@ With DesktopCommander, Claude Desktop can do much more than chat---it becomes an
 \end{verbatim}
 \end{shadedbox}
 \vspace{0.2cm}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Prerequisite}: Node.js (LTS) installed
-  \item \texttt{npx -y} downloads and runs the package automatically---no separate install step
-  \item No API keys needed---everything runs locally
+  \item \texttt{npx -y} downloads and runs the package automatically---no API keys needed
   \item Restart Claude Desktop after editing the config
-  \item Claude will ask permission before running each command
-\end{baritemize}
+\end{itemize}
 \vspace{0.2cm}
-\begin{shadedbox}
 GitHub: \url{https://github.com/wonderwhy-er/DesktopCommanderMCP}
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{DesktopCommanderMCP: Tools Available}
@@ -470,12 +427,9 @@ GitHub: \url{https://github.com/wonderwhy-er/DesktopCommanderMCP}
 \begin{column}{0.45\textwidth}
 \begin{shadedbox}[title=\textbf{Strengths}]
 \begin{itemize}\small
-  \item Full terminal access
-  \item File operations built in
-  \item Process management
+  \item Full terminal access with file operations built in
   \item Well-established, large community
-  \item Cross-platform (Mac, Windows, Linux)
-  \item No API keys needed (runs locally)
+  \item Cross-platform; no API keys needed
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -484,17 +438,13 @@ GitHub: \url{https://github.com/wonderwhy-er/DesktopCommanderMCP}
 \begin{itemize}\small
   \item Powerful = potentially dangerous
   \item A bad command could delete files or break your system
-  \item Always review commands before approving
   \item No built-in sandboxing
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 \alert{Always review terminal commands before clicking ``Allow''---Claude asks permission for a reason.}
-\end{shadedbox}
 \end{frame}
 
 % ============================================================
@@ -507,20 +457,18 @@ GitHub: \url{https://github.com/wonderwhy-er/DesktopCommanderMCP}
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Alpha Vantage}]
 \begin{itemize}\small
-  \item 115+ tools: stock prices, options, forex, crypto, economic indicators, 50+ technical indicators
+  \item 115+ tools: stock prices, options, forex, crypto, economic indicators
   \item Free API key at \url{https://www.alphavantage.co}
-  \item \alert{Free tier}: 25 requests/day, 5/minute, last 100 data points per request
-  \item Paid: from \$49.99/month
+  \item \alert{Free tier}: 25 requests/day, 5/minute
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Financial Modeling Prep}]
 \begin{itemize}\small
-  \item 253+ tools: financial statements, fundamentals, SEC filings, earnings, ESG scores, insider trading
+  \item 253+ tools: financial statements, fundamentals, SEC filings, earnings
   \item Free API key at \url{https://financialmodelingprep.com}
-  \item \alert{Free tier}: 250 requests/day, 5 years of annual data, 500\,MB/month
-  \item Some endpoints are paid-only
+  \item \alert{Free tier}: 250 requests/day, 5 years of annual data
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -560,20 +508,15 @@ Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Deskto
 \section{Google Calendar: Scheduling from Chat}
 
 \begin{frame}{What is Google Calendar MCP?}
-\begin{shadedbox}
 The \textbf{Google Calendar MCP server} connects Claude to your Google Calendar, letting you manage events, check availability, and schedule meetings---all from a conversation.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Tools Provided}]
 \begin{itemize}\small
   \item \texttt{list-events} / \texttt{search-events}
-  \item \texttt{create-event} / \texttt{update-event}
-  \item \texttt{delete-event} / \texttt{respond-to-event}
+  \item \texttt{create-event} / \texttt{update-event} / \texttt{delete-event}
   \item \texttt{get-freebusy} (check availability)
-  \item \texttt{list-calendars} / \texttt{list-colors}
-  \item \texttt{manage-accounts} (multi-account)
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -583,8 +526,6 @@ The \textbf{Google Calendar MCP server} connects Claude to your Google Calendar,
   \item ``What's on my calendar tomorrow?''
   \item ``Schedule a team lunch next Friday at noon''
   \item ``Am I free Tuesday afternoon?''
-  \item ``Decline all meetings on March 14''
-  \item ``Find my next meeting with Alex''
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -605,13 +546,11 @@ The \textbf{Google Calendar MCP server} connects Claude to your Google Calendar,
 \end{verbatim}
 \end{shadedbox}
 \vspace{0.2cm}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Prerequisite}: Node.js installed; a Google Cloud OAuth 2.0 credential file
   \item \textbf{Setup}: Create a project in Google Cloud Console, enable the Calendar API, create OAuth Desktop credentials, and download the JSON key file
-  \item On first launch, the server opens your browser for OAuth login
-  \item Supports \textbf{multiple Google accounts} (work + personal) simultaneously
-  \item GitHub: \url{https://github.com/nspady/google-calendar-mcp}
-\end{baritemize}
+  \item On first launch, the server opens your browser for OAuth login; supports multiple accounts
+\end{itemize}
 \end{frame}
 
 \begin{frame}{The Bigger Picture: Chat as Interface}
@@ -621,15 +560,13 @@ The \textbf{Google Calendar MCP server} connects Claude to your Google Calendar,
 \includegraphics[width=\textwidth]{images/ui-evolution-monitors}
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Terminal}: type commands
   \item \textbf{GUI}: point and click
   \item \textbf{Chat}: describe what you want
-\end{baritemize}
+\end{itemize}
 \vspace{0.2cm}
-\begin{shadedbox}
 MCP is the protocol that makes the third screen work. It connects the chat interface to \alert{everything else}---your calendar, browser, terminal, databases, and APIs.
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -640,9 +577,7 @@ MCP is the protocol that makes the third screen work. It connects the chat inter
 \section{Putting It All Together}
 
 \begin{frame}{Combining Multiple MCP Servers}
-\begin{shadedbox}
 You can connect multiple MCP servers at once. Claude sees all their tools and can use them together in a single conversation.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -657,10 +592,8 @@ You can connect multiple MCP servers at once. Claude sees all their tools and ca
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Other Popular Servers}]
 \begin{itemize}\small
-  \item \textbf{Filesystem}: sandboxed file access
-  \item \textbf{PostgreSQL/SQLite}: database queries
-  \item \textbf{GitHub}: pull requests, issues
-  \item \textbf{Slack}: send messages
+  \item \textbf{Filesystem / GitHub}: file access, pull requests, issues
+  \item \textbf{PostgreSQL / SQLite}: database queries
   \item Browse all: \url{https://github.com/modelcontextprotocol/servers}
 \end{itemize}
 \end{shadedbox}
@@ -698,28 +631,17 @@ Add as many servers as you like. All start when Claude Desktop launches.
 \end{frame}
 
 \begin{frame}{Troubleshooting MCP Servers}
-\begin{shadedbox}
 MCP servers can be finicky to set up. If tools don't appear after restarting Claude Desktop, work through this checklist:
-\end{shadedbox}
 \vspace{0.2cm}
-\begin{barenumerate}
+\begin{enumerate}
   \item \textbf{Validate your JSON}: a missing comma or extra comma will silently break the config. Paste your config into \url{https://jsonlint.com} to check.
-  \item \textbf{Check prerequisites}: run \texttt{node --version} and \texttt{uvx --version} in a terminal. If either is ``not found,'' install it first.
   \item \textbf{Fully quit Claude Desktop}: on Mac, \texttt{Cmd+Q}; on Windows, right-click the system tray icon and \textbf{Quit}. Simply closing the window is not enough.
-  \item \textbf{Look for the hammer icon}: after restarting, click the hammer icon in the chat box to see if tools loaded.
-  \item \textbf{Check the logs}:
-  \begin{itemize}\small
-    \item Mac: \texttt{\textasciitilde/Library/Logs/Claude/mcp*.log}
-    \item Windows: \texttt{\%APPDATA\%\textbackslash Claude\textbackslash logs\textbackslash mcp*.log}
-  \end{itemize}
-  \item \textbf{Test the command manually}: copy the \texttt{command} and \texttt{args} from your config and run them in a terminal to see if the server starts.
-\end{barenumerate}
+  \item \textbf{Check the logs}: Mac: \texttt{\textasciitilde/Library/Logs/Claude/mcp*.log}; Windows: \texttt{\%APPDATA\%\textbackslash Claude\textbackslash logs\textbackslash mcp*.log}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Looking Ahead: Built-In Alternatives to MCP}
-\begin{shadedbox}
 DesktopCommander and Browser-Use add terminal and browser control to Claude Desktop's \textbf{Chat} mode. But Claude Desktop also has other modes---available on paid plans---that have these capabilities built in. We will cover them later in the course.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{center}
 \small
@@ -734,31 +656,21 @@ Available on & All plans & Pro+ & Pro+ \\
 \end{tabular}
 \end{center}
 \vspace{0.2cm}
-\begin{baritemize}
-  \item \textbf{Code tab}: a coding environment built into Claude Desktop with terminal and file access
-  \item \textbf{Cowork tab}: an agent that works with your local files in a sandboxed environment
+\begin{itemize}
+  \item \textbf{Code tab} and \textbf{Cowork tab}: built-in terminal, file access, and sandboxed agents
   \item \textbf{Claude in Chrome}: a browser extension---built-in alternative to Browser-Use MCP
-  \item \alert{On a paid plan, DesktopCommander and Browser-Use MCP are largely unnecessary}
   \item MCP servers for \textbf{data sources} (Alpha Vantage, FMP, databases) remain valuable on any plan
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Summary}
-\begin{baritemize}
-  \item \textbf{MCP} is a standard protocol that connects AI apps to external tools
-  \item \textbf{MCP servers} are plug-ins---each one adds specific capabilities
-  \item Install via \textbf{Desktop Extensions} (easy) or \textbf{config file} (flexible)
-  \item \textbf{Browser-Use}: autonomous web browsing---forms, downloads, data extraction
-  \item \textbf{DesktopCommanderMCP}: terminal access---commands, files, processes
-  \item \textbf{Alpha Vantage} and \textbf{Financial Modeling Prep}: financial data with free tiers
-  \item \textbf{Google Calendar}: schedule, query, and manage events from chat
-  \item Combine servers for end-to-end workflows
-\end{baritemize}
+\begin{itemize}
+  \item \textbf{MCP} is a standard protocol that connects AI apps to external tools via plug-in servers
+  \item Servers covered: \textbf{Browser-Use} (web automation), \textbf{DesktopCommander} (terminal), \textbf{Alpha Vantage / FMP} (financial data), \textbf{Google Calendar} (scheduling)
+  \item Combine multiple servers for end-to-end workflows
+\end{itemize}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 \alert{MCP turns Claude from a conversation partner into a tool that takes action on your computer.}
-\end{shadedbox}
 \end{frame}
 
 \end{document}

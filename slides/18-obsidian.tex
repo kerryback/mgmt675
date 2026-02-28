@@ -15,9 +15,7 @@
 \maketitle
 
 \begin{frame}{Why Obsidian?}
-\begin{shadedbox}
 \textbf{Obsidian} is a free, local-first note-taking app built on plain markdown files.  Your notes are just files in a folder---no cloud lock-in, no proprietary format.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -26,8 +24,6 @@
   \item Plain markdown files on your computer
   \item Wiki-style \texttt{[[backlinks]]} between notes
   \item Rich plugin ecosystem (2,000+)
-  \item Graph view of note connections
-  \item Works offline, syncs via any method
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -35,7 +31,6 @@
 \begin{shadedbox}[title=\textbf{Why It Pairs Well with AI}]
 \begin{itemize}\small
   \item Files are plain text---AI can read and edit them directly
-  \item Folder structure = project organization
   \item No API needed---just read/write files
   \item \texttt{CLAUDE.md} at vault root gives Claude context every session
 \end{itemize}
@@ -45,18 +40,13 @@
 \end{frame}
 
 \begin{frame}{Obsidian + Claude Code: The Idea}
-\begin{shadedbox}
 Combine Obsidian's note-taking strengths with Claude Code's agentic capabilities.  Claude can read, write, search, and organize your entire vault---from inside Obsidian.
-\end{shadedbox}
 \vspace{0.3cm}
-\begin{baritemize}
+\begin{itemize}
   \item ``Summarize my meeting notes from this week''
-  \item ``Add backlinks to all people mentioned in my journal entries''
   \item ``Create a research brief from these three papers''
-  \item ``Reorganize my project notes into a cleaner folder structure''
   \item ``Generate a weekly review from my daily notes''
-  \item \alert{Claude works directly on your files---results stay in your vault}
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Three Ways to Connect Claude Code to Obsidian}
@@ -66,9 +56,7 @@ Combine Obsidian's note-taking strengths with Claude Code's agentic capabilities
 \begin{itemize}\scriptsize
   \item Full Claude Code agent inside Obsidian
   \item Reads/writes vault files
-  \item Runs bash commands
   \item Vision support (images)
-  \item \alert{Recommended}
 \end{itemize}
 \vspace{0.1cm}
 {\scriptsize Install from Community Plugins}
@@ -79,9 +67,7 @@ Combine Obsidian's note-taking strengths with Claude Code's agentic capabilities
 \begin{itemize}\scriptsize
   \item Adds a terminal pane to Obsidian
   \item Run \texttt{claude} CLI directly
-  \item Full Claude Code experience
   \item Also run Python, git, etc.
-  \item Lightweight approach
 \end{itemize}
 \vspace{0.1cm}
 {\scriptsize Search ``Terminal'' in plugins}
@@ -91,7 +77,6 @@ Combine Obsidian's note-taking strengths with Claude Code's agentic capabilities
 \begin{shadedbox}[title=\textbf{3.\ MCP Server}]
 \begin{itemize}\scriptsize
   \item Claude Desktop reads your vault via MCP
-  \item \texttt{mcp-obsidian} server
   \item Tools: search, read, write, append, delete
   \item Works from Claude Desktop
 \end{itemize}
@@ -108,21 +93,15 @@ Combine Obsidian's note-taking strengths with Claude Code's agentic capabilities
 \includegraphics[width=\textwidth]{images/claudian-preview}
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Features}]
+\textbf{Features}
 \begin{itemize}\small
   \item Claude Code agent in sidebar
   \item Reads and edits your notes
-  \item Runs bash commands
   \item Drag-and-drop image analysis
-  \item Model selector (Opus, Sonnet)
-  \item Shows diffs for file edits
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}
+\vspace{0.3cm}
 \textbf{Install}: Settings $\rightarrow$ Community Plugins $\rightarrow$ search ``Claudian'' $\rightarrow$ Install $\rightarrow$ Enable\\[0.2em]
 \textbf{Requires}: Anthropic API key
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -147,23 +126,19 @@ my-vault/
 \end{shadedbox}
 \end{column}
 \begin{column}{0.55\textwidth}
-\begin{shadedbox}[title=\textbf{CLAUDE.md: Your AI Instructions}]
+\textbf{CLAUDE.md: Your AI Instructions}
 \begin{itemize}\small
   \item Placed at vault root
   \item Claude reads it every session
-  \item Contains: vault conventions, note format, tagging rules, workflows
   \item Think of it as a \textbf{skill for your vault}
 \end{itemize}
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Commands Folder}]
+\vspace{0.3cm}
+\textbf{Commands Folder}
 \begin{itemize}\small
   \item \texttt{/day} --- create today's daily note
   \item \texttt{/research} --- start a research note
   \item \texttt{/brainstorm} --- guided brainstorm
-  \item Reusable slash commands in markdown
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -201,9 +176,7 @@ This file is loaded into Claude's context automatically---it's the same concept 
 \begin{itemize}\small
   \item Auto-add backlinks to entities
   \item Generate summaries from daily notes
-  \item Tag and categorize notes
   \item Build reading lists from highlights
-  \item Create indexes and MOCs (Maps of Content)
 \end{itemize}
 \end{shadedbox}
 \vspace{0.1cm}
@@ -212,7 +185,6 @@ This file is loaded into Claude's context automatically---it's the same concept 
   \item Summarize papers into structured notes
   \item Extract key findings across sources
   \item Generate literature review outlines
-  \item Compare arguments across notes
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -222,7 +194,6 @@ This file is loaded into Claude's context automatically---it's the same concept 
   \item Manage task lists by category
   \item Weekly reviews from journal entries
   \item Track action items across meetings
-  \item Generate project status updates
 \end{itemize}
 \end{shadedbox}
 \vspace{0.1cm}
@@ -231,7 +202,6 @@ This file is loaded into Claude's context automatically---it's the same concept 
   \item Draft documents from notes
   \item Convert rough notes into polished prose
   \item Generate slide outlines from research
-  \item Create structured templates
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -239,9 +209,7 @@ This file is loaded into Claude's context automatically---it's the same concept 
 \end{frame}
 
 \begin{frame}{MCP Server: Claude Desktop + Obsidian}
-\begin{shadedbox}
 If you prefer using \textbf{Claude Desktop} (rather than a plugin inside Obsidian), you can connect to your vault via an MCP server.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -259,7 +227,6 @@ If you prefer using \textbf{Claude Desktop} (rather than a plugin inside Obsidia
   \item Obsidian vaults are just folders
   \item Point Claude Code at your vault directory
   \item No MCP server needed---Claude reads/writes files directly
-  \item Add \texttt{CLAUDE.md} and go
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -271,25 +238,16 @@ If you prefer using \textbf{Claude Desktop} (rather than a plugin inside Obsidia
 \end{frame}
 
 \begin{frame}{Getting Started}
-\begin{barenumerate}
+\begin{enumerate}
   \item \textbf{Install Obsidian}: Free at \url{https://obsidian.md}
   \item \textbf{Create a vault}: Pick a folder for your notes
   \item \textbf{Add CLAUDE.md}: Write your vault conventions and workflows
-  \item \textbf{Choose your integration}:
-  \begin{itemize}
-    \item Claudian plugin (richest experience inside Obsidian)
-    \item Terminal plugin (lightweight, run \texttt{claude} CLI)
-    \item Claude Code CLI pointed at your vault folder (no plugin needed)
-  \end{itemize}
-  \item \textbf{Start working}: ``Summarize my notes from today'' or \texttt{/day}
-\end{barenumerate}
+\end{enumerate}
 \vspace{0.2cm}
-\begin{shadedbox}
 \textbf{Further Reading}:\\[0.2em]
 \href{https://github.com/YishenTu/claudian}{Claudian plugin (GitHub)} $\cdot$
 \href{https://github.com/MarkusPfundstein/mcp-obsidian}{mcp-obsidian (GitHub)} $\cdot$
 \href{https://www.axtonliu.ai/newsletters/ai-2/posts/obsidian-claude-code-workflows}{Obsidian $\times$ Claude Code workflows}
-\end{shadedbox}
 \end{frame}
 
 \end{document}

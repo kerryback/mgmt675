@@ -22,14 +22,11 @@
 % ============================================================
 
 \begin{frame}{Goals}
-\begin{baritemize}
-  \item Build \textbf{pro forma financial statements} from a small set of assumptions
-  \item Compute \textbf{free cash flow to the firm} from the pro formas
-  \item Perform a \textbf{two-stage DCF valuation}
-  \item Conduct \textbf{sensitivity analysis} on key inputs
-  \item Use \textbf{Monte Carlo simulation} to compute expected cash flows and a distribution of values
-  \item Do all of this using AI across multiple platforms
-\end{baritemize}
+\begin{itemize}
+  \item Build \textbf{pro forma financial statements} and compute \textbf{free cash flow}
+  \item Perform a \textbf{two-stage DCF valuation} with \textbf{sensitivity analysis}
+  \item Use \textbf{Monte Carlo simulation} to produce a distribution of values
+\end{itemize}
 \end{frame}
 
 % ============================================================
@@ -38,9 +35,7 @@
 \section{Pro Forma Statements}
 
 \begin{frame}{The Assumption Set}
-\begin{shadedbox}
 A pro forma model is driven by a small number of assumptions.  Everything else is computed from these.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{center}
 \small
@@ -60,13 +55,7 @@ Tax rate & \% of pre-tax income \\
 \end{tabular}
 \end{center}
 \vspace{0.2cm}
-\begin{shadedbox}
 Capital expenditures are not assumed directly.  \alert{Cap ex = target PP\&E $-$ prior PP\&E + depreciation}, i.e., whatever is needed to hit the PP\&E target after accounting for depreciation.
-\end{shadedbox}
-\vspace{0.1cm}
-\begin{shadedbox}
-\textbf{Net other operating assets} = non-current operating assets (goodwill, intangibles, etc.) minus non-current operating liabilities (excluding debt and deferred taxes).
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Pro Forma Income Statement}
@@ -88,9 +77,7 @@ Taxes & Tax rate $\times$ EBIT \\
 \end{tabular}
 \end{center}
 \vspace{0.3cm}
-\begin{shadedbox}
 We use \textbf{NOPAT} (net operating profit after tax) rather than net income because DCF values the \textit{operations} of the firm, independent of how they are financed.
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Pro Forma Balance Sheet and Cap Ex}
@@ -116,13 +103,12 @@ We use \textbf{NOPAT} (net operating profit after tax) rather than net income be
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}[title=\textbf{Free Cash Flow to the Firm}]
+\textbf{Free Cash Flow to the Firm}
 \begin{center}
 \textbf{FCF = NOPAT + Depreciation $-$ Cap Ex $-$ $\Delta$NWC $-$ $\Delta$Net Other OA}
 \end{center}
 \vspace{0.2cm}
 Equivalently: FCF = NOPAT $-$ net investment in PP\&E $-$ net investment in NWC $-$ net investment in other operating assets.
-\end{shadedbox}
 \end{frame}
 
 % ============================================================
@@ -147,18 +133,15 @@ Equivalently: FCF = NOPAT $-$ net investment in PP\&E $-$ net investment in NWC 
 \end{tikzpicture}
 \end{center}
 \vspace{0.2cm}
-\begin{baritemize}
+\begin{itemize}
   \item \textbf{Stage 1}: Project FCF each year from pro forma assumptions
   \item \textbf{Stage 2}: Terminal value = FCF$_{T+1}$ / (WACC $-$ $g$), where $g$ is the long-run growth rate
-  \item Discount all cash flows at the \textbf{WACC}
-  \item \textbf{Equity value} = Enterprise value $-$ net debt
-\end{baritemize}
+  \item \textbf{Equity value} = Enterprise value $-$ net debt (discount at the WACC)
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Terminal Value}
-\begin{shadedbox}
 The terminal value typically accounts for \alert{60--80\%} of total enterprise value.  Getting it right matters more than the explicit forecast.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -190,9 +173,7 @@ The terminal value typically accounts for \alert{60--80\%} of total enterprise v
 \section{Sensitivity Analysis}
 
 \begin{frame}{Sensitivity Tables}
-\begin{shadedbox}
 A sensitivity table shows how the output (e.g., equity value per share) changes as you vary one or two key inputs.
-\end{shadedbox}
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -216,10 +197,7 @@ A sensitivity table shows how the output (e.g., equity value per share) changes 
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{shadedbox}
-\centering
 Ask Claude to produce sensitivity tables in Excel (with formulas) or as formatted output.  In Excel, the Data Table feature automates two-way tables.
-\end{shadedbox}
 \end{frame}
 
 % ============================================================
@@ -228,18 +206,15 @@ Ask Claude to produce sensitivity tables in Excel (with formulas) or as formatte
 \section{Monte Carlo Simulation}
 
 \begin{frame}{Why Simulate?}
-\begin{baritemize}
-  \item Sensitivity tables vary one or two inputs at a time
-  \item In reality, \alert{all assumptions are uncertain simultaneously}
+\begin{itemize}
+  \item Sensitivity tables vary one or two inputs; in reality, \alert{all assumptions are uncertain simultaneously}
   \item Monte Carlo simulation draws random values for each assumption, computes FCF and enterprise value, and repeats thousands of times
   \item The result: a \textbf{distribution} of enterprise values, not a single point estimate
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Simulation Setup}
-\begin{shadedbox}
 Assign a probability distribution to each uncertain assumption, then sample and compute.
-\end{shadedbox}
 \vspace{0.2cm}
 \begin{center}
 \small
@@ -255,12 +230,11 @@ WACC & Normal & $\mu = 10\%$, $\sigma = 1\%$ \\
 \end{tabular}
 \end{center}
 \vspace{0.2cm}
-\begin{baritemize}
+\begin{itemize}
   \item Run 10{,}000 simulations $\rightarrow$ 10{,}000 enterprise values
   \item Report mean, median, 10th/90th percentiles
-  \item Plot a histogram of the value distribution
-  \item Identify which assumptions drive the most variance
-\end{baritemize}
+  \item Plot a histogram and identify which assumptions drive the most variance
+\end{itemize}
 \end{frame}
 
 % ============================================================
@@ -283,11 +257,9 @@ Excel add-in & Open a blank workbook.  ``Build a two-stage DCF with pro forma st
 \end{tabular}
 \end{center}
 \vspace{0.2cm}
-\begin{shadedbox}
-\centering
 \alert{Key difference:} Chat and Cowork generate spreadsheets via Python (no internet).  Code mode can \alert{fetch live data} from APIs before building the model.
-\end{shadedbox}
 \vspace{0.1cm}
+
 These exercises work with any capable AI---ChatGPT, Gemini, or Claude.
 \end{frame}
 
@@ -297,7 +269,7 @@ These exercises work with any capable AI---ChatGPT, Gemini, or Claude.
 \section{Exercises}
 
 \begin{frame}{Exercise: DCF in Chat or Cowork}
-\begin{baritemize}
+\begin{itemize}
   \item In Claude.ai or Claude Desktop (Chat or Cowork), ask Claude to build a two-stage DCF model for a hypothetical company with the following assumptions:
   \begin{itemize}\small
     \item Current sales: \$500M; sales growth: 10\% (years 1--5), 3\% terminal
@@ -312,20 +284,20 @@ These exercises work with any capable AI---ChatGPT, Gemini, or Claude.
     \item Enterprise value and equity value per share
     \item A two-way sensitivity table: WACC (7--11\%) vs.\ terminal growth (1--4\%)
   \end{itemize}
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Exercise: DCF with Live Data in Code Mode}
-\begin{baritemize}
+\begin{itemize}
   \item In Code mode, ask Claude to fetch Apple's income statement and balance sheet from Financial Modeling Prep (or Alpha Vantage).
   \item Ask it to estimate historical averages for each assumption (COGS\%, SG\&A\%, NWC\%, PP\&E\%, net other OA\%, depreciation\%).
   \item Ask it to build a 5-year pro forma model using those historical averages, perform a two-stage DCF, and produce sensitivity tables.
   \item Compare the AI-estimated equity value to Apple's current market cap.
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Exercise: Monte Carlo Simulation}
-\begin{baritemize}
+\begin{itemize}
   \item Using the DCF model from either exercise above, ask Claude to run a Monte Carlo simulation with 10{,}000 trials.
   \item Ask it to vary sales growth, COGS\%, WACC, and terminal growth rate using normal or uniform distributions of your choice.
   \item Ask for:
@@ -335,11 +307,11 @@ These exercises work with any capable AI---ChatGPT, Gemini, or Claude.
     \item A tornado chart showing which assumption has the largest impact on value
   \end{itemize}
   \item Discuss: How does the range of simulated values compare to the single point estimate?
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Exercise: DCF in the Excel Add-in}
-\begin{baritemize}
+\begin{itemize}
   \item Open a blank Excel workbook and launch the Claude add-in.
   \item Ask Claude to build a two-stage DCF model with:
   \begin{itemize}\small
@@ -350,7 +322,7 @@ These exercises work with any capable AI---ChatGPT, Gemini, or Claude.
   \end{itemize}
   \item Change a few assumptions manually and verify the model recalculates correctly.
   \item Ask Claude to add conditional formatting to highlight the cells where equity value per share is negative.
-\end{baritemize}
+\end{itemize}
 \end{frame}
 
 \end{document}

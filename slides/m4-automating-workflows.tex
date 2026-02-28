@@ -1,0 +1,622 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 4: Automating Financial Workflows}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: THE DASHBOARD TRAP
+% ========================================
+\section{The Dashboard Trap}
+
+\begin{frame}{Dashboards Answer Yesterday's Questions}
+Organizations spend millions building dashboards. When a new question arises, the cycle restarts: requirements $\rightarrow$ design $\rightarrow$ build $\rightarrow$ deploy.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Typical Dashboard Lifecycle}]
+\begin{enumerate}\small
+  \item Business user requests a report
+  \item Analyst translates to requirements
+  \item Engineer builds SQL queries
+  \item Designer creates visualizations
+  \item IT deploys to Tableau/Power BI
+  \item User asks a follow-up question
+  \item \alert{Back to step 1}
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Cost}]
+\begin{itemize}\small
+  \item \textbf{Time}: Weeks to months per dashboard
+  \item \textbf{Money}: BI licenses, engineering hours, maintenance
+  \item \textbf{Rigidity}: Fixed views of fixed data
+\end{itemize}
+\end{shadedbox}
+\vspace{0.2cm}
+Gartner: only \textbf{20\%} of analytic insights deliver business outcomes.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Fundamental Problem}
+Dashboards answer \textbf{pre-defined questions}. But the most valuable analysis comes from \textbf{ad-hoc questions} that arise in the moment.
+\vspace{0.3cm}
+\begin{itemize}
+  \item ``What happened to margins in the Southeast last quarter?''
+  \item ``Show me our top 10 customers by growth rate, excluding one-time orders''
+  \item ``Compare Q3 headcount vs.\ budget by department, and flag anyone over 110\%''
+\end{itemize}
+\vspace{0.3cm}
+These are simple questions. Getting answers shouldn't require a development cycle.
+\end{frame}
+
+% ========================================
+% SECTION 2: NATURAL LANGUAGE AS INTERFACE
+% ========================================
+\section{Natural Language as the Query Interface}
+
+\begin{frame}{The Shift: From Dashboards to Conversations}
+\begin{center}
+\begin{tabular}{@{} l l l @{}}
+\toprule
+& \textbf{Traditional Dashboard} & \textbf{Natural Language AI} \\
+\midrule
+Query method & Click filters, select dates & Ask in plain English \\
+Time to answer & Minutes to weeks & Seconds \\
+Follow-up questions & New dashboard request & Next sentence \\
+Visualization & Pre-built charts & Generated on demand \\
+Who can use it & Trained users & Anyone \\
+Cost per question & High (amortized) & Near zero (marginal) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\centering
+The dashboard was a \textit{workaround} for the fact that databases don't speak English. Now they do.
+\end{frame}
+
+\begin{frame}{What This Looks Like in Practice}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Conversation}]
+\begin{itemize}\small
+  \item \textit{``Show me monthly revenue by product line for 2025''}
+  \item AI: writes SQL, produces grouped bar chart
+  \item \textit{``Break out Enterprise by region''}
+  \item AI: refines query, updates chart
+  \item \textit{``Which region had the biggest Q2--Q3 drop?''}
+  \item AI: calculates changes, highlights answer
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What the User Needed to Know}]
+\begin{itemize}\small
+  \item What questions to ask
+  \item Whether the answers make sense
+  \item \alert{Nothing else}
+\end{itemize}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Behind the Scenes}]
+\begin{itemize}\small
+  \item 4 different SQL queries written
+  \item 3 visualizations produced
+  \item Derived metrics calculated
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Database Agent Pattern}
+The most powerful dashboard replacement: an AI agent connected to your database.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{How to Build It}]
+\begin{enumerate}\small
+  \item Connect database via MCP or file upload
+  \item Give AI the schema: table names, columns, relationships
+  \item Describe the business context
+  \item Start asking questions
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What the Agent Can Do}]
+\begin{itemize}\small
+  \item Write and execute SQL queries
+  \item Compute derived metrics (growth rates, ratios)
+  \item Generate charts and export to Excel or PowerPoint
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=15]{Replacing Finance Dashboards by Department}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{FP\&A}
+\begin{itemize}\small
+  \item \textit{``Budget vs.\ actual for Q3, decompose the variance into volume, price, and cost drivers''}
+  \item \textit{``Rolling 12-month revenue forecast with confidence bands''}
+  \item \textit{``Which cost centers are trending above budget? Rank by dollar impact.''}
+\end{itemize}
+\vspace{0.2cm}
+\textbf{Treasury \& Risk}
+\begin{itemize}\small
+  \item \textit{``Cash position over the next 90 days using AR/AP forecasts''}
+  \item \textit{``VaR by desk for the last 30 days, flag breaches''}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Portfolio Management}
+\begin{itemize}\small
+  \item \textit{``Sector allocation vs.\ benchmark with active weights''}
+  \item \textit{``Performance attribution --- allocation vs.\ selection''}
+\end{itemize}
+\vspace{0.2cm}
+\textbf{Executive Reporting}
+\begin{itemize}\small
+  \item \textit{``One-page executive summary with KPIs and trends''}
+  \item \textit{``Board deck from this quarter's financials --- 5 slides max''}
+  \item \textit{``Top 3 things the CFO should know from this data''}
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Weekly Ops Review --- Before and After}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Before: The Dashboard Era}]
+\begin{enumerate}\small
+  \item Data team pulls exports (2 hours)
+  \item Analyst builds slides (4 hours)
+  \item Manager reviews (1 hour)
+  \item Analyst revises (2 hours)
+  \item VP asks a question not on the slide
+  \item ``We'll get back to you next week''
+\end{enumerate}
+\vspace{0.2cm}
+\centering\small\textbf{Total: 9+ hours per week}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{After: Natural Language AI}]
+\begin{enumerate}\small
+  \item AI agent connected to database
+  \item Analyst: \textit{``Generate the weekly ops review''}
+  \item AI: pulls data, charts, narrative (3 min)
+  \item Manager reviews, iterates in chat
+  \item VP asks a question not on the slide
+  \item \alert{AI answers it in 10 seconds}
+\end{enumerate}
+\vspace{0.2cm}
+\centering\small\textbf{Total: 15 minutes + live Q\&A}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 3: SKILLS
+% ========================================
+\section{Skills: Encoding Expertise in Reusable Instructions}
+
+\begin{frame}{It's All Just Text}
+Every AI customization --- skills, slash commands, custom instructions --- works the same way: \alert{additional text is added to the prompt} that the model sees.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{Skills} = instructions for \textit{how} (loaded when relevant)
+  \item \textbf{Slash commands} = triggers that say \textit{do} (typing \texttt{/name} loads that skill)
+  \item Same pattern everywhere: Custom GPTs, Copilot instructions, \texttt{.cursorrules}, Gems
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Skill?}
+A \textbf{skill} is a set of instructions that specializes a general-purpose AI for a specific domain or task. In Claude, it's a folder with a markdown file.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{A Skill Provides}]
+\begin{itemize}\small
+  \item System prompt (domain knowledge)
+  \item Workflow instructions
+  \item Best practices and constraints
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The AI Platform Provides}]
+\begin{itemize}\small
+  \item The LLM (Opus or Sonnet)
+  \item Agent control loop and tools
+  \item Code execution sandbox
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Skills let you create \alert{specialized agents without writing agent logic}.
+\end{frame}
+
+\begin{frame}[fragile]{Anatomy of a Skill}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Skill Folder Structure}\small
+\begin{verbatim}
+skills/
+  xlsx/
+    SKILL.md     <- Main file
+    scripts/
+      recalc.py
+    references/
+      schema.md
+\end{verbatim}
+\end{column}
+\begin{column}{0.55\textwidth}
+\textbf{SKILL.md Structure}\small
+\begin{verbatim}
+---
+name: xlsx
+description: "Excel file..."
+---
+
+# Requirements for Outputs
+- Zero formula errors
+- Use formulas, not hardcodes
+
+# Workflows
+1. Choose pandas or openpyxl
+2. Create/modify file
+3. Recalculate formulas
+\end{verbatim}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Where Skills Live}
+\begin{itemize}
+  \item \textbf{Project skills}: \texttt{.claude/skills/} in your project folder
+  \item \textbf{User skills}: \texttt{\textasciitilde/.claude/skills/} (shared across projects)
+  \item Skills also work in \textbf{Claude.ai} (upload ZIP), \textbf{Cowork} (install as plugin), and \textbf{VS Code}
+\end{itemize}
+\vspace{0.3cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l l l @{}}
+\toprule
+\textbf{Format} & \textbf{How to Install} & \textbf{How to Invoke} \\
+\midrule
+Claude.ai (web) & Upload ZIP in Settings & Automatic or \texttt{/name} \\
+Code tab / CLI & Place in \texttt{.claude/skills/} & Automatic or \texttt{/name} \\
+VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/name} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+% ========================================
+% SECTION 4: THE CONSISTENCY PROBLEM
+% ========================================
+\section{The Consistency Problem}
+
+\begin{frame}{Why Skills Matter for Finance}
+In Module 2, you built DCF models and portfolio optimizations in ad-hoc conversations. What happens when you start a new conversation?
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Problem}]
+\begin{itemize}\small
+  \item One conversation uses 10\% WACC, another uses 8\%
+  \item One assumes 3\% terminal growth, another 2.5\%
+  \item Portfolio optimization: 5-year history vs.\ 3-year
+  \item \alert{No audit trail, no reproducibility}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Fix: Skills}]
+\begin{itemize}\small
+  \item A DCF skill specifies: which assumptions, how to estimate them, what output format
+  \item A portfolio skill specifies: data source, estimation window, constraints
+  \item \alert{Every conversation follows the same playbook}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+This is how AI moves from \textit{personal productivity tool} to \textit{institutional capability}.
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=15]{Finance Skill Examples}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{DCF Skill}]
+\begin{itemize}\scriptsize
+  \item Estimate sales growth from trailing 5-year CAGR
+  \item Use sector median EV/EBITDA for exit multiple
+  \item Always produce two-way sensitivity table (WACC vs.\ terminal growth)
+  \item Output: formatted Excel workbook
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize Every analyst produces comparable valuations.}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Investment Memo Skill}]
+\begin{itemize}\scriptsize
+  \item Structure: exec summary, business overview, financials, risks, recommendation
+  \item Required data points and formatting standards
+  \item Every memo follows the same template
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Portfolio Optimization Skill}]
+\begin{itemize}\scriptsize
+  \item Data source: FMP API
+  \item Estimation window: trailing 60 months
+  \item Constraints: no short sales, max 25\% per position
+  \item Output: weights table, frontier plot, key statistics
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize Consistent methodology across quarterly rebalancing.}
+\end{shadedbox}
+\vspace{0.1cm}
+\begin{shadedbox}[title=\textbf{Database Query Skill}]
+\begin{itemize}\scriptsize
+  \item Schema descriptions and relationships
+  \item Business rules and naming conventions
+  \item Anyone can query data in plain English
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 5: VARIANCE ANALYSIS
+% ========================================
+\section{Variance Analysis with the Finance Plugin}
+
+\begin{frame}{What is Variance Analysis?}
+\textbf{Variance analysis} compares \alert{budgeted} figures to \alert{actual} results and decomposes the differences into actionable drivers. It is the core analytical task in FP\&A.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Why It Matters}
+\begin{itemize}\small
+  \item Every public company does it quarterly
+  \item Boards and investors ask ``why did we miss?''
+  \item Drives re-forecasting and capital allocation
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Key Decompositions}
+\begin{itemize}\small
+  \item \textbf{Revenue}: volume vs.\ price vs.\ mix
+  \item \textbf{COGS}: volume vs.\ unit cost
+  \item \textbf{SG\&A}: headcount vs.\ rate vs.\ discretionary
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix effect}
+\end{frame}
+
+\begin{frame}[shrink=5]{Variance Analysis: Example Data}
+\textbf{Scenario:} You are an FP\&A analyst. Q1 actuals just closed. The CEO wants to know why operating income missed budget by \$300K.
+\vspace{0.2cm}
+\begin{center}
+\scriptsize
+\begin{tabular}{@{} l r r r @{}}
+\toprule
+& \textbf{Budget} & \textbf{Actual} & \textbf{\$ Variance} \\
+\midrule
+\textbf{Revenue} & & & \\
+\quad Units sold & 100,000 & 95,000 & \\
+\quad Avg price & \$50.00 & \$51.00 & \\
+\quad \textit{Total Revenue} & \textit{\$5,000,000} & \textit{\$4,845,000} & \textit{(\$155,000)} \\
+\midrule
+\textbf{COGS} & & & \\
+\quad Unit cost & \$30.00 & \$32.00 & \\
+\quad \textit{Total COGS} & \textit{\$3,000,000} & \textit{\$3,040,000} & \textit{(\$40,000)} \\
+\midrule
+\textit{Gross Profit} & \textit{\$2,000,000} & \textit{\$1,805,000} & \textit{(\$195,000)} \\
+\midrule
+\textit{Total SG\&A} & \textit{\$1,450,000} & \textit{\$1,555,000} & \textit{(\$105,000)} \\
+\midrule
+\textbf{Operating Income} & \textbf{\$550,000} & \textbf{\$250,000} & \textbf{(\$300,000)} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=5]{Using the Finance Plugin}
+With the finance plugin installed, one command replaces 2--4 hours of FP\&A work:
+\vspace{0.2cm}
+
+\textbf{Prompt}\\
+\texttt{/finance:variance-analysis}\\[0.3em]
+\small ``Here is our Q1 budget vs.\ actuals spreadsheet. Decompose the \$300K operating income miss into volume, price, cost, and discretionary spending drivers.  Produce a waterfall chart and a summary memo for the CFO.''
+\normalsize
+\vspace{0.2cm}
+
+\textbf{What the Plugin Does}
+\begin{enumerate}\small
+  \item \textbf{Skill activates}: domain knowledge about variance decomposition formulas
+  \item \textbf{Decomposes} revenue into volume + price; COGS into volume + rate
+  \item \textbf{Generates} waterfall chart and writes CFO-ready memo in Word format
+\end{enumerate}
+\end{frame}
+
+% ========================================
+% SECTION 6: PLUGINS AND SAASPOCALYPSE
+% ========================================
+\section{Plugins and the SaaSpocalypse}
+
+\begin{frame}{What is a Plugin?}
+A \textbf{plugin} is a packaged collection of skills, agents, hooks, and MCP servers that can be shared across teams.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{A Plugin Can Include}
+\begin{itemize}\small
+  \item Skills (\texttt{SKILL.md} files)
+  \item Agents (\texttt{AGENT.md} files)
+  \item MCP servers (external tools)
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why Use Plugins?}
+\begin{itemize}\small
+  \item Share skills with your team
+  \item Namespace prevents conflicts
+  \item Install from marketplaces
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Practical workflow:} Start with a standalone skill for quick prototyping. When ready to share, wrap it in a plugin by adding a manifest file.
+\end{frame}
+
+\begin{frame}[shrink=10]{The ``SaaSpocalypse'': Market Reaction to Plugins}
+On January 30, 2026, Anthropic released 11 open-source plugins for Claude.  Within days, \alert{\$285 billion} in market cap evaporated from software, legal tech, and financial services stocks.
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Hardest-Hit Stocks}]
+\scriptsize
+\begin{tabular}{@{} l r @{}}
+\toprule
+\textbf{Company} & \textbf{Drop} \\
+\midrule
+LegalZoom & $-$20\% \\
+Thomson Reuters & $-$16\% \\
+RELX (LexisNexis) & $-$14\% \\
+Wolters Kluwer & $-$13\% \\
+Xero (accounting) & worst day since 2013 \\
+Intuit & $>-$10\% \\
+Salesforce & $-$7\% \\
+\bottomrule
+\end{tabular}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Why It Happened}]
+\begin{itemize}\scriptsize
+  \item Plugins showed AI could replicate \textit{core workflows} of specialized enterprise software
+  \item \textbf{No proprietary code} --- just markdown instructions + database connectors
+  \item Investors asked: ``Why pay \$50K/yr for software when a plugin does it?''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 7: EXERCISES
+% ========================================
+\section{Exercises}
+
+\begin{frame}{Exercise 1: Build a Database Skill}
+\begin{enumerate}
+  \item Create \texttt{.claude/skills/database/SKILL.md} for a sample database (Chinook or provided dataset)
+  \item Include: schema descriptions, table relationships, business rules
+  \item Test with 5 decision-relevant queries
+  \item Have a classmate ask 3 untested questions
+\end{enumerate}
+\vspace{0.3cm}
+\alert{The skill should enable anyone to query the database in plain English.}
+\end{frame}
+
+\begin{frame}{Exercise 2: DCF Skill}
+Create a skill that encodes a consistent DCF methodology:
+\begin{itemize}
+  \item Specify how to estimate each assumption (e.g., ``sales growth from trailing 5-year CAGR'')
+  \item Required output tables and sensitivity ranges
+  \item Consistent output format (Excel workbook)
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Test:} Run \texttt{/dcf-valuation} on two different companies in separate conversations. Verify that the \alert{methodology is consistent} across both.
+\end{frame}
+
+\begin{frame}{Exercise 3: Portfolio Optimization Skill}
+Create a skill that specifies:
+\begin{itemize}
+  \item Data source (e.g., FMP API)
+  \item Estimation window (trailing 60 months)
+  \item Constraint set (no short sales, max 25\% per position)
+  \item Output format (weights table, frontier plot, statistics)
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Test:} Run on two different sets of assets in separate conversations. Verify consistent methodology.
+\end{frame}
+
+\begin{frame}{Exercise 4: Interactive Dashboard Artifact}
+\begin{enumerate}
+  \item Choose a dataset (financial or otherwise)
+  \item Ask Claude to build an interactive artifact with filters and dropdowns
+  \item The artifact should replace a static dashboard
+  \item Compare: how long would the equivalent BI tool take to build?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Dashboards}]
+\begin{itemize}\small
+  \item Natural language replaces fixed dashboards
+  \item AI writes queries and charts
+  \item Follow-ups are instant
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Skills}]
+\begin{itemize}\small
+  \item Encode expertise in text
+  \item Solve the consistency problem
+  \item Create specialized agents
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Plugins}]
+\begin{itemize}\small
+  \item Package and share skills
+  \item SaaSpocalypse: \$285B impact
+  \item Finance is ground zero
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\alert{The best dashboard is no dashboard --- it's a conversation with your data.}
+\end{center}
+\end{frame}
+
+\end{document}

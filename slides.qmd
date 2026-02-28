@@ -6,21 +6,14 @@ title: Slides
 
 Click on a topic to download the PDF slide deck.
 
-| # | Topic | |
-|--:|-------|:-:|
+| # | Module | |
+|--:|--------|:-:|
 | 0 | [Course Introduction](slides/00-intro.pdf) | [{{< fa file-pdf >}}](slides/00-intro.pdf) |
-| 1 | [AI with Code Execution](slides/01-claude.pdf) | [{{< fa file-pdf >}}](slides/01-claude.pdf) |
-| 2 | [Mean-Variance Analysis with AI](slides/02-meanvariance.pdf) | [{{< fa file-pdf >}}](slides/02-meanvariance.pdf) |
-| 3 | [AI-Written Code in Jupyter Notebooks](slides/03-colab.pdf) | [{{< fa file-pdf >}}](slides/03-colab.pdf) |
-| 4 | [Connecting Tools to AI](slides/04-mcp.pdf) | [{{< fa file-pdf >}}](slides/04-mcp.pdf) |
-| 5 | [Connecting a Virtual Machine to AI](slides/05-cowork.pdf) | [{{< fa file-pdf >}}](slides/05-cowork.pdf) |
-| 6 | [Connecting Your Computer to AI](slides/06-claude-code.pdf) | [{{< fa file-pdf >}}](slides/06-claude-code.pdf) |
-| 7 | [Using AI in Excel](slides/07-excel.pdf) | [{{< fa file-pdf >}}](slides/07-excel.pdf) |
-| 8 | [Replacing Dashboards with Natural Language](slides/08-dashboards.pdf) | [{{< fa file-pdf >}}](slides/08-dashboards.pdf) |
-| 9 | [Automating Specialized Prompts](slides/09-skills.pdf) | [{{< fa file-pdf >}}](slides/09-skills.pdf) |
-| 10 | [Using AI inside an IDE](slides/10-vscode.pdf) | [{{< fa file-pdf >}}](slides/10-vscode.pdf) |
-| 11 | [Valuing Companies with AI](slides/11-dcf.pdf) | [{{< fa file-pdf >}}](slides/11-dcf.pdf) |
-| 12 | [Retrieval Augmented Generation](slides/12-rag.pdf) | [{{< fa file-pdf >}}](slides/12-rag.pdf) |
-| 13 | [Fine-Tuning and Small Language Models](slides/13-slms.pdf) | [{{< fa file-pdf >}}](slides/13-slms.pdf) |
-| 14 | [Building AI Agents](slides/14-agents.pdf) | [{{< fa file-pdf >}}](slides/14-agents.pdf) |
-| 15 | [Trading on News with AI](slides/15-trading.pdf) | [{{< fa file-pdf >}}](slides/15-trading.pdf) |
+| 1 | [AI as a Financial Tool](slides/m1-ai-financial-tool.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-financial-tool.pdf) |
+| 2 | [Portfolio Optimization and Company Valuation](slides/m2-portfolio-valuation.pdf) | [{{< fa file-pdf >}}](slides/m2-portfolio-valuation.pdf) |
+| 3 | [Connecting AI to Data and Tools](slides/m3-data-tools.pdf) | [{{< fa file-pdf >}}](slides/m3-data-tools.pdf) |
+| 4 | [Automating Financial Workflows](slides/m4-automating-workflows.pdf) | [{{< fa file-pdf >}}](slides/m4-automating-workflows.pdf) |
+| 5 | [Verifying AI-Generated Analysis](slides/m5-verification.pdf) | [{{< fa file-pdf >}}](slides/m5-verification.pdf) |
+| 6 | [Working with Financial Documents](slides/m6-financial-documents.pdf) | [{{< fa file-pdf >}}](slides/m6-financial-documents.pdf) |
+| 7 | [Building Financial AI Applications](slides/m7-financial-applications.pdf) | [{{< fa file-pdf >}}](slides/m7-financial-applications.pdf) |
+| 8 | [AI in Trading and Markets](slides/m8-trading-markets.pdf) | [{{< fa file-pdf >}}](slides/m8-trading-markets.pdf) |

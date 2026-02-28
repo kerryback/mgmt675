@@ -1,0 +1,34 @@
+---
+title: "Exercise 5B: M&A Due Diligence"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Download [manda-due-diligence.zip](files/manda-due-diligence.zip) and extract the files into a project folder. You will have:
+
+- A customer list with contract details (Excel)
+- Detailed contract terms for top customers (PDF)
+- Acquirer screening criteria (Word)
+- Industry benchmarks (CSV)
+
+In Claude Code (or the Code tab in Claude Desktop), ask Claude to evaluate the acquisition target **end-to-end**:
+
+1. Extract contract terms and change-of-control provisions from the PDF
+2. Apply the acquirer's screening criteria to each customer
+3. Calculate quality-adjusted revenue and retention probabilities
+4. Assess customer concentration risk
+5. Benchmark against industry standards
+6. Produce a due diligence summary suitable for an investment committee
+
+Watch how Claude plans its approach, reads each file, and combines the results.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Due diligence summary (`6A-DueDiligence.xlsx`)
+- Screenshots showing Claude's intermediate steps (`6A-Screenshot1.png`, `6A-Screenshot2.png`)

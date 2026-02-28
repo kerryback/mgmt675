@@ -1,0 +1,27 @@
+---
+title: "Exercise 3B: Stock Analysis in Colab"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+In Google Colab, use Gemini to write code that:
+
+1. Downloads daily price data for three stocks of your choice from Yahoo Finance (at least one year of data)
+2. Computes daily returns
+3. Produces the following outputs:
+    (a) A **boxplot** of daily returns for the three stocks
+    (b) A **summary statistics table**: mean, standard deviation, min, max, skewness, kurtosis
+    (c) A **correlation matrix heatmap**
+
+Save the notebook to Google Drive.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Colab notebook (`3B-Notebook.ipynb`)
+- Screenshot of the outputs (`3B-Screenshot.png`)

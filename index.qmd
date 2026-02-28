@@ -20,13 +20,14 @@ All sessions will be in McNair 212, including the special session.
 
 ### Learning Objectives
 
-1. How to use AI with code-execution tools to perform financial analysis, handle data and text, and generate visualizations, spreadsheets, reports, and presentations
-2. How to use AI with other tools -- terminal execution, browser control, database connections -- for finance applications 
-3. How to collaborate with AI in planning, executing, and evaluating financial analysis
-4. How to use agentic AI to replace dashboards (and other things) with natural language prompts
-5. How to create and deploy task-specific prompts that can be used repeatedly
-6. How to reduce the hallucination rate of AI through retrieval-augmented generation, fine tuning, or building specialized models
-7. How AI can be used to classify the sentiment of news or social media for trading
+1. How to use AI with code-execution tools to perform financial analysis, handle data, and generate visualizations and reports
+2. How to use AI for portfolio optimization and discounted cash flow valuation of companies
+3. How to connect AI to external data sources and tools (MCP servers, Jupyter notebooks, Excel)
+4. How to automate financial workflows with reusable, specialized prompts (skills)
+5. How to verify and validate AI-generated financial analysis
+6. How to use retrieval-augmented generation to ground AI in financial documents
+7. How to build financial AI applications such as chatbots and agents
+8. How AI can be used to classify the sentiment of news and earnings calls for trading
 
 ### Course Description
 
@@ -38,21 +39,14 @@ The following lists the course topics in the order that we will study them (not 
 
 
 
-1. AI that writes and executes code
-2. AI coding for mean-variance analysis
-3. Executing AI-written code in Jupyter notebooks
-4. Connecting tools to AI
-5. Connecting a virtual machine to AI
-6. Connecting your computer to AI
-7. Using AI inside Excel
-8. Replacing dashboards with natural language prompts
-9. Automated as-needed loading of specialized prompts
-10. Using AI inside an integrated development environment (IDE)
-11. Using AI for discounted cash flow valuation of companies
-12. Retrieval augmented generation
-13. Fine-tuning and small language models
-14. Building an AI agent
-15. Trading on news with AI
+1. AI as a financial tool
+2. Portfolio optimization and company valuation
+3. Connecting AI to data and tools
+4. Automating financial workflows
+5. Verifying AI-generated analysis
+6. Working with financial documents
+7. Building financial AI applications
+8. AI in trading and markets
 
 
 

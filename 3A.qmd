@@ -1,0 +1,26 @@
+---
+title: "Exercise 3A: Financial Data with MCP"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Install the Alpha Vantage or Financial Modeling Prep MCP server in Claude Desktop. Use it to retrieve financial data for a company of your choice (e.g., income statement, balance sheet, or stock prices for the last 5 years).
+
+Ask Claude to:
+
+(a) Retrieve the data using the MCP server tools
+(b) Analyze trends (e.g., revenue growth, margin changes, debt levels)
+(c) Produce a formatted summary table in Excel
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Excel summary (`3A-Summary.xlsx`)
+- Screenshot showing the MCP server in your config (`3A-Config.png`)
+- Screenshot showing Claude using the MCP tools (`3A-Tools.png`)
+- Screenshot of the final output (`3A-Output.png`)

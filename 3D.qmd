@@ -1,0 +1,31 @@
+---
+title: "Exercise 3D: Loan Portfolio Risk Analysis"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Download [loan-risk-analysis.zip](files/loan-risk-analysis.zip) and extract the files into a folder. You will have:
+
+- A loan tape with 220 loans (Excel)
+- State banking regulations (PDF)
+- An internal risk policy memo (Word)
+
+In Claude Desktop's Cowork tab (or Code tab), select the folder and ask Claude to:
+
+(a) Extract the state-specific regulatory thresholds from the PDF
+(b) Extract the risk tier classification criteria from the Word doc
+(c) Assign each loan a risk tier and flag state-specific regulatory violations
+(d) Produce a risk report showing tier distribution, flagged loans, and total estimated reserves
+
+Watch how Claude reads each file, combines the rules, and applies them to the loan data.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Risk report (`3D-RiskReport.xlsx`)
+- Screenshot of the Cowork or Code session (`3D-Screenshot.png`)

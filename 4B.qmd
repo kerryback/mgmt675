@@ -1,0 +1,36 @@
+---
+title: "Exercise 4B: Build a Finance Analysis Skill"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Create a skill (in `.claude/skills/`) that encodes a consistent methodology for one of the following:
+
+**(a) DCF valuation skill** --- specify:
+
+  - How to estimate each assumption (e.g., "use trailing 5-year revenue CAGR for sales growth," "use sector median EV/EBITDA for exit multiple")
+  - Required output tables (pro forma income statement, FCF, sensitivity table)
+  - Sensitivity ranges to test
+  - Output format and labeling
+
+**(b) Portfolio optimization skill** --- specify:
+
+  - Data source and estimation window (e.g., "trailing 60 months of monthly returns")
+  - Constraint set (e.g., no short sales, max 25\% per position)
+  - Required outputs (weights table, frontier plot, key statistics)
+  - Benchmark for comparison
+
+Test the skill by running it on **two different inputs** (two different companies for DCF, or two different asset sets for portfolio optimization) in **separate conversations**. Verify that the methodology is consistent across both runs.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- SKILL.md file (`4B-SKILL.md`)
+- Output from first test (`4B-Test1.pdf`)
+- Output from second test (`4B-Test2.pdf`)
+- Brief note confirming methodology consistency or explaining where it differed (`4B-Consistency.pdf`, half page)
