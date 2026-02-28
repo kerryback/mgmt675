@@ -9,7 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download [portfolio-consolidation.zip](files/portfolio-consolidation.zip) and extract the files. You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
+Download [portfolio-consolidation.zip](../files/portfolio-consolidation.zip) and extract the files. You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
 
 Upload all three files to Claude.ai and ask it to:
 

@@ -9,7 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download [loan-risk-analysis.zip](files/loan-risk-analysis.zip) and extract the files into a folder. You will have:
+Download [loan-risk-analysis.zip](../files/loan-risk-analysis.zip) and extract the files into a folder. You will have:
 
 - A loan tape with 220 loans (Excel)
 - State banking regulations (PDF)

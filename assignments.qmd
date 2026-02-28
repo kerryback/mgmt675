@@ -12,46 +12,46 @@ Click on an exercise to download the PDF.
 
 | | Exercise | |
 |:-:|----------|:-:|
-| 1A | [AI Use Cases in Finance](1A.pdf) | [{{< fa file-pdf >}}](1A.pdf) |
-| 1B | [Interactive Bond Pricing App](1B.pdf) | [{{< fa file-pdf >}}](1B.pdf) |
-| 1C | [Portfolio Consolidation](1C.pdf) | [{{< fa file-pdf >}}](1C.pdf) |
+| 1A | [AI Use Cases in Finance](exercises/1A.pdf) | [{{< fa file-pdf >}}](exercises/1A.pdf) |
+| 1B | [Interactive Bond Pricing App](exercises/1B.pdf) | [{{< fa file-pdf >}}](exercises/1B.pdf) |
+| 1C | [Portfolio Consolidation](exercises/1C.pdf) | [{{< fa file-pdf >}}](exercises/1C.pdf) |
 
 ### Week 2: Portfolio Optimization and Company Valuation (due March 31)
 
 | | Exercise | |
 |:-:|----------|:-:|
-| 2A | [Tangency Portfolio](2A.pdf) | [{{< fa file-pdf >}}](2A.pdf) |
-| 2B | [Two-Stage DCF Model](2B.pdf) | [{{< fa file-pdf >}}](2B.pdf) |
-| 2C | [Monte Carlo Valuation](2C.pdf) | [{{< fa file-pdf >}}](2C.pdf) |
+| 2A | [Tangency Portfolio](exercises/2A.pdf) | [{{< fa file-pdf >}}](exercises/2A.pdf) |
+| 2B | [Two-Stage DCF Model](exercises/2B.pdf) | [{{< fa file-pdf >}}](exercises/2B.pdf) |
+| 2C | [Monte Carlo Valuation](exercises/2C.pdf) | [{{< fa file-pdf >}}](exercises/2C.pdf) |
 
 ### Week 3: Connecting AI to Data and Tools (due April 7)
 
 | | Exercise | |
 |:-:|----------|:-:|
-| 3A | [Financial Data with MCP](3A.pdf) | [{{< fa file-pdf >}}](3A.pdf) |
-| 3B | [Stock Analysis in Colab](3B.pdf) | [{{< fa file-pdf >}}](3B.pdf) |
-| 3C | [Loan Amortization in Excel](3C.pdf) | [{{< fa file-pdf >}}](3C.pdf) |
-| 3D | [Loan Portfolio Risk Analysis](3D.pdf) | [{{< fa file-pdf >}}](3D.pdf) |
+| 3A | [Financial Data with MCP](exercises/3A.pdf) | [{{< fa file-pdf >}}](exercises/3A.pdf) |
+| 3B | [Stock Analysis in Colab](exercises/3B.pdf) | [{{< fa file-pdf >}}](exercises/3B.pdf) |
+| 3C | [Loan Amortization in Excel](exercises/3C.pdf) | [{{< fa file-pdf >}}](exercises/3C.pdf) |
+| 3D | [Loan Portfolio Risk Analysis](exercises/3D.pdf) | [{{< fa file-pdf >}}](exercises/3D.pdf) |
 
 ### Week 4: Automating Workflows and Verification (due April 14)
 
 | | Exercise | |
 |:-:|----------|:-:|
-| 4A | [Build a Database Skill](4A.pdf) | [{{< fa file-pdf >}}](4A.pdf) |
-| 4B | [Build a Finance Analysis Skill](4B.pdf) | [{{< fa file-pdf >}}](4B.pdf) |
-| 4C | [DCF Cross-Check](4C.pdf) | [{{< fa file-pdf >}}](4C.pdf) |
+| 4A | [Build a Database Skill](exercises/4A.pdf) | [{{< fa file-pdf >}}](exercises/4A.pdf) |
+| 4B | [Build a Finance Analysis Skill](exercises/4B.pdf) | [{{< fa file-pdf >}}](exercises/4B.pdf) |
+| 4C | [DCF Cross-Check](exercises/4C.pdf) | [{{< fa file-pdf >}}](exercises/4C.pdf) |
 
 ### Week 5: Financial Documents and Applications (due April 21)
 
 | | Exercise | |
 |:-:|----------|:-:|
-| 5A | [NotebookLM Financial Analysis](5A.pdf) | [{{< fa file-pdf >}}](5A.pdf) |
-| 5B | [M&A Due Diligence](5B.pdf) | [{{< fa file-pdf >}}](5B.pdf) |
-| 5C | [Financial Chatbot](5C.pdf) | [{{< fa file-pdf >}}](5C.pdf) |
+| 5A | [NotebookLM Financial Analysis](exercises/5A.pdf) | [{{< fa file-pdf >}}](exercises/5A.pdf) |
+| 5B | [M&A Due Diligence](exercises/5B.pdf) | [{{< fa file-pdf >}}](exercises/5B.pdf) |
+| 5C | [Financial Chatbot](exercises/5C.pdf) | [{{< fa file-pdf >}}](exercises/5C.pdf) |
 
 ### Week 6: AI in Trading and Markets (due April 28)
 
 | | Exercise | |
 |:-:|----------|:-:|
-| 6A | [Headline Sentiment Classification](6A.pdf) | [{{< fa file-pdf >}}](6A.pdf) |
-| 6B | [Earnings Call Analysis](6B.pdf) | [{{< fa file-pdf >}}](6B.pdf) |
+| 6A | [Headline Sentiment Classification](exercises/6A.pdf) | [{{< fa file-pdf >}}](exercises/6A.pdf) |
+| 6B | [Earnings Call Analysis](exercises/6B.pdf) | [{{< fa file-pdf >}}](exercises/6B.pdf) |

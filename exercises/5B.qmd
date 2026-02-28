@@ -9,7 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download [manda-due-diligence.zip](files/manda-due-diligence.zip) and extract the files into a project folder. You will have:
+Download [manda-due-diligence.zip](../files/manda-due-diligence.zip) and extract the files into a project folder. You will have:
 
 - A customer list with contract details (Excel)
 - Detailed contract terms for top customers (PDF)
