@@ -375,7 +375,7 @@ This is how AI moves from \textit{personal productivity tool} to \textit{institu
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Portfolio Optimization Skill}]
 \begin{itemize}\scriptsize
-  \item Data source: FMP API
+  \item Data source: Rice Data Portal
   \item Estimation window: trailing 60 months
   \item Constraints: no short sales, max 25\% per position
   \item Output: weights table, frontier plot, key statistics
@@ -384,11 +384,11 @@ This is how AI moves from \textit{personal productivity tool} to \textit{institu
 {\scriptsize Consistent methodology across quarterly rebalancing.}
 \end{shadedbox}
 \vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Database Query Skill}]
+\begin{shadedbox}[title=\textbf{Rice Data Portal Skill}]
 \begin{itemize}\scriptsize
-  \item Schema descriptions and relationships
-  \item Business rules and naming conventions
-  \item Anyone can query data in plain English
+  \item Table schemas (SEP, DAILY, SF1, TICKERS)
+  \item Query patterns and API access via \texttt{.env} token
+  \item Claude Code fetches data directly---no web UI needed
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -565,7 +565,7 @@ Create a skill that encodes a consistent DCF methodology:
 \begin{frame}{Exercise 3: Portfolio Optimization Skill}
 Create a skill that specifies:
 \begin{itemize}
-  \item Data source (e.g., FMP API)
+  \item Data source (e.g., Rice Data Portal)
   \item Estimation window (trailing 60 months)
   \item Constraint set (no short sales, max 25\% per position)
   \item Output format (weights table, frontier plot, statistics)

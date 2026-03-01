@@ -9,7 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download monthly return data for five ETFs of your choice (e.g., SPY, AGG, GLD, VNQ, EFA) and the one-month T-bill rate from a source such as FRED or Yahoo Finance. Upload the data to Claude and ask it to:
+Use Claude Code to query the Rice Data Portal for monthly stock price data (end-of-month `closeadj` from the SEP table) for five ETFs of your choice (e.g., SPY, AGG, GLD, VNQ, EFA) and the one-month T-bill rate from FRED. Have Claude Code compute monthly returns and then ask it to:
 
 (a) Estimate expected returns, standard deviations, and correlations from the historical data
 (b) Compute the tangency portfolio weights, expected return, standard deviation, and Sharpe ratio

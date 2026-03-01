@@ -142,10 +142,80 @@ Local (Your PC) & Full integration & {\color{accentblue}\textbf{Yes}} & Claude C
 \end{center}
 
 \vspace{0.3cm}
-\textbf{Key insight:} Only \alert{local execution} can call external APIs---Yahoo Finance, Alpha Vantage, Financial Modeling Prep, databases, etc.
+\textbf{Key insight:} Only \alert{local execution} can call external APIs---the Rice Data Portal, Alpha Vantage, Financial Modeling Prep, etc.
 
 \vspace{0.2cm}
 We start with the cloud sandbox today.  Modules 2--3 introduce local execution and data connections.
+\end{frame}
+
+% ========================================
+% RICE DATA PORTAL
+% ========================================
+\section{Rice Data Portal}
+
+\begin{frame}{Rice Data Portal: Stock Market Database}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Is}]
+\begin{itemize}\small
+  \item Stock market database for Rice students
+  \item 59{,}000+ companies, 17M+ stock prices
+  \item Financial statements from SEC filings
+  \item Guide: \url{https://portal-guide.rice-business.org}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Using the Web Interface}]
+\begin{itemize}\small
+  \item Visit \href{https://data-portal.rice-business.org}{data-portal.rice-business.org}
+  \item Sign in with your Rice credentials
+  \item Ask questions in plain English---the portal uses ChatGPT to generate SQL and query the database
+  \item Download results as CSV
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Database Tables}
+\begin{center}\small
+\begin{tabular}{@{} l l p{7.5cm} @{}}
+\toprule
+\textbf{Table} & \textbf{Content} & \textbf{Key Fields} \\
+\midrule
+\textbf{SEP} & Daily prices & \texttt{ticker}, \texttt{date}, \texttt{close} (split-adjusted), \texttt{closeadj} (fully adjusted), \texttt{volume} \\
+\textbf{DAILY} & Valuation & \texttt{ticker}, \texttt{date}, \texttt{marketcap}, \texttt{pb}, \texttt{pe}, \texttt{ps} \\
+\textbf{TICKERS} & Company info & \texttt{ticker}, \texttt{name}, \texttt{sector}, \texttt{industry}, \texttt{scalemarketcap} \\
+\textbf{SF1} & Fundamentals & \texttt{revenue}, \texttt{netinc}, \texttt{assets}, \texttt{equity}, \texttt{debt}, \texttt{roe}, \ldots \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\textbf{How to use it:} Describe the data you need in the portal's web interface.  It generates and runs the SQL query, then lets you download the results.  In Module 4, we'll automate this with Claude Code.
+\end{frame}
+
+\begin{frame}{Computing Returns}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Monthly Returns from \texttt{closeadj}}]
+\begin{itemize}\small
+  \item $r_t = \texttt{closeadj}_t \;/\; \texttt{closeadj}_{t-1} - 1$
+  \item Use \texttt{closeadj}, not \texttt{close}: it accounts for dividends and spinoffs, giving \alert{total return}
+  \item \texttt{close} (split-adjusted only) is useful for charting prices and moving averages
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Important}]
+\begin{itemize}\small
+  \item Always \alert{group by ticker} when computing returns---never mix prices across stocks
+  \item For monthly data, use end-of-month prices
+  \item Example prompt for the portal: ``Get end-of-month closeadj for SPY, AGG, and GLD from 2019 to 2024''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{What AI Can Build in Minutes}

@@ -15,7 +15,7 @@ Collect 20 recent financial news headlines from sources such as Reuters, Bloombe
 - **Magnitude**: strong or weak
 - **Relevance** to the stock price: high, medium, or low
 
-Then look up the actual stock price movement on the day of each headline. Record the one-day return.
+Then look up the actual stock price movement on the day of each headline (e.g., using the Rice Data Portal's SEP table or Yahoo Finance). Record the one-day return.
 
 Calculate Claude's classification accuracy: what fraction of positive-sentiment headlines corresponded to positive returns (and vice versa)? Discuss where the model gets it right and where it fails --- pay attention to cases where nuance matters (e.g., "revenue beat expectations but guidance disappointed").
 
