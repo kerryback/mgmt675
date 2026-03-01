@@ -56,7 +56,7 @@ The assignments are posted on Canvas. An assignment is due each Tuesday at 11:59
 
 ### Claude Accounts
 
-Each student will be reimbursed for a Claude Pro account ($20 per month).  The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel, all through the Claude Sonnet model.
+Each student will be reimbursed for a Claude Pro account ($20 per month).  The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.
 
 ### Honor Code
 
