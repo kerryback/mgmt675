@@ -10,7 +10,7 @@ Click on an exercise to download the PDF.
 
 ### Week 1: AI as a Financial Tool (due March 24)
 
-| | Exercise | |
+| | | |
 |:-:|----------|:-:|
 | 1A | [AI Use Cases in Finance](exercises/1A.pdf) | [{{< fa file-pdf >}}](exercises/1A.pdf) |
 | 1B | [Interactive Bond Pricing App](exercises/1B.pdf) | [{{< fa file-pdf >}}](exercises/1B.pdf) |
@@ -18,7 +18,7 @@ Click on an exercise to download the PDF.
 
 ### Week 2: Portfolio Optimization and Company Valuation (due March 31)
 
-| | Exercise | |
+| | | |
 |:-:|----------|:-:|
 | 2A | [Tangency Portfolio](exercises/2A.pdf) | [{{< fa file-pdf >}}](exercises/2A.pdf) |
 | 2B | [Two-Stage DCF Model](exercises/2B.pdf) | [{{< fa file-pdf >}}](exercises/2B.pdf) |
@@ -26,7 +26,7 @@ Click on an exercise to download the PDF.
 
 ### Week 3: Connecting AI to Data and Tools (due April 7)
 
-| | Exercise | |
+| | | |
 |:-:|----------|:-:|
 | 3A | [Financial Data with MCP](exercises/3A.pdf) | [{{< fa file-pdf >}}](exercises/3A.pdf) |
 | 3B | [Stock Analysis in Colab](exercises/3B.pdf) | [{{< fa file-pdf >}}](exercises/3B.pdf) |
@@ -35,7 +35,7 @@ Click on an exercise to download the PDF.
 
 ### Week 4: Automating Workflows and Verification (due April 14)
 
-| | Exercise | |
+| | | |
 |:-:|----------|:-:|
 | 4A | [Build a Database Skill](exercises/4A.pdf) | [{{< fa file-pdf >}}](exercises/4A.pdf) |
 | 4B | [Build a Finance Analysis Skill](exercises/4B.pdf) | [{{< fa file-pdf >}}](exercises/4B.pdf) |
@@ -43,7 +43,7 @@ Click on an exercise to download the PDF.
 
 ### Week 5: Financial Documents and Applications (due April 21)
 
-| | Exercise | |
+| | | |
 |:-:|----------|:-:|
 | 5A | [NotebookLM Financial Analysis](exercises/5A.pdf) | [{{< fa file-pdf >}}](exercises/5A.pdf) |
 | 5B | [M&A Due Diligence](exercises/5B.pdf) | [{{< fa file-pdf >}}](exercises/5B.pdf) |
@@ -51,7 +51,7 @@ Click on an exercise to download the PDF.
 
 ### Week 6: AI in Trading and Markets (due April 28)
 
-| | Exercise | |
+| | | |
 |:-:|----------|:-:|
 | 6A | [Headline Sentiment Classification](exercises/6A.pdf) | [{{< fa file-pdf >}}](exercises/6A.pdf) |
 | 6B | [Earnings Call Analysis](exercises/6B.pdf) | [{{< fa file-pdf >}}](exercises/6B.pdf) |

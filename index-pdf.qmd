@@ -8,7 +8,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-## Generative AI for Finance\newline Spring 2026
+# Generative AI for Finance\newline Spring 2026
 
 ![](RiceBusiness-transparent-logo-sm.png){width=40%}
 
