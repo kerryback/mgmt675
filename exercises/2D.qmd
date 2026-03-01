@@ -1,0 +1,75 @@
+---
+title: "Exercise 2D: Capital Budgeting with Option Value"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+## The FreshBlend Project --- Meridian Foods, Inc.
+
+Meridian Foods is a mid-size packaged food company evaluating a new product: **FreshBlend**, an instant smoothie mix sold through grocery and health-food channels. The project would repurpose idle spray-drying equipment from a discontinued powdered soup line.
+
+### Equipment and Investment
+
+The spray-drying equipment was purchased five years ago for \$1.2 million and is being depreciated straight-line over 10 years (\$120,000/year). Its current book value is \$600,000 with five years of depreciation remaining. The equipment has been idle since the soup line was shut down last year.
+
+To adapt the equipment for smoothie production, Meridian must invest **\$300,000 in modifications** at the start of the project (Year 0). The modification cost will be depreciated straight-line over five years (\$60,000/year).
+
+Meridian has already spent **\$150,000 on consumer testing** for FreshBlend, which confirmed strong interest in the product concept.
+
+### Alternative Use
+
+If Meridian does not proceed with FreshBlend, it could **lease the spray-drying equipment to a co-packer** for \$100,000 per year (pre-tax), with the lease beginning in Year 2 and running through Year 5.
+
+### Operating Projections
+
+Management has identified three demand scenarios:
+
+| | Year 1 | Year 2 | Year 3 | Year 4 | Year 5 |
+|:--|------:|------:|------:|------:|------:|
+| **Low (20\%)** | \$400K | \$420K | \$440K | \$460K | \$480K |
+| **Base (50\%)** | \$600K | \$660K | \$720K | \$790K | \$860K |
+| **High (30\%)** | \$800K | \$920K | \$1,060K | \$1,220K | \$1,400K |
+
+Probabilities are shown in parentheses. Additional assumptions:
+
+- **Variable costs:** 53\% of revenue
+- **Incremental fixed costs:** \$180,000/year (production staff, maintenance, quality control)
+- **Corporate overhead allocation:** \$110,000/year
+- **Net working capital:** 12\% of revenue, invested at the start of each year and recovered at project end
+- **Tax rate:** 25\%
+- **WACC:** 10\%
+- **Salvage value:** zero at end of Year 5
+
+### Flexibility
+
+**Shutdown option.** If demand turns out to be low, Meridian can abandon the project at the end of Year 2. Abandonment would recover all net working capital immediately and free the equipment for the co-packing lease (Years 3--5).
+
+**Expansion option.** If demand is high, Meridian can invest \$1.5 million at the end of Year 2 in a dedicated production line, extending the project from 5 to 12 years. Under the high scenario, revenue would continue growing at 15\% per year through Year 12. The new equipment would be depreciated straight-line over 10 years. Variable costs, incremental fixed costs, and NWC assumptions remain the same. NWC is recovered at the end of Year 12.
+
+\bigskip
+
+## Your Task
+
+Use Claude (or another AI assistant) as a thinking partner to analyze the FreshBlend project. Paste the case into the conversation and work through each part interactively --- ask questions, challenge assumptions, and iterate on the model.
+
+\medskip
+
+**(a)** Identify which costs and cash flows in the case are relevant to the investment decision and which are not. For each item you exclude, explain why.
+
+**(b)** Build a base-case NPV model (using the base scenario revenues) and then compute the probability-weighted expected NPV across all three demand scenarios.
+
+**(c)** Analyze how the shutdown option (if demand is low) and expansion option (if demand is high) change the project's expected value.
+
+**(d)** Based on your full analysis, decide whether Meridian should invest in FreshBlend and summarize the key analytical insights in a one-page recommendation memo.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Excel workbook with your NPV analysis (`2D-NPV.xlsx`)
+- One-page recommendation memo stating your recommendation and summarizing the key analytical insights (`2D-Memo.pdf`)
+- Link to your AI conversation (include in the memo or as a separate text file)

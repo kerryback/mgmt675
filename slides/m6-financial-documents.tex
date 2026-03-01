@@ -23,7 +23,7 @@
 % ========================================
 \section{Beyond Prompting}
 
-\begin{frame}{Three Ways to Give AI Knowledge}
+\begin{frame}[shrink=25]{Three Ways to Give AI Knowledge}
 Prompting and skills customize \textit{how} an LLM responds. But what if you need it to know things it wasn't trained on?
 \vspace{0.3cm}
 \begin{center}
@@ -89,7 +89,7 @@ This module focuses on \textbf{RAG} --- the most practical approach for working 
 \end{center}
 \end{frame}
 
-\begin{frame}{RAG: Key Concepts}
+\begin{frame}[shrink=5]{RAG: Key Concepts}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
 \begin{shadedbox}[title=\textbf{Embeddings}]
@@ -150,22 +150,20 @@ This module focuses on \textbf{RAG} --- the most practical approach for working 
 \begin{frame}{RAG: Strengths and Limitations}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Strengths}]
+\textbf{Strengths}
 \begin{itemize}\small
   \item No training required
   \item Data can be updated in real time
   \item Answers are traceable to source pages
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Limitations}]
+\textbf{Limitations}
 \begin{itemize}\small
   \item Quality depends on retrieval quality
   \item Context window limits how much can be passed
   \item Chunking can split important context
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -188,22 +186,20 @@ This module focuses on \textbf{RAG} --- the most practical approach for working 
 \begin{frame}{NotebookLM Features}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Query \& Summarize}]
+\textbf{Query \& Summarize}
 \begin{itemize}\small
   \item Chat with your documents
   \item Answers include inline citations
   \item Generate summaries, FAQs, study guides, timelines, briefing docs
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Audio Overview}]
+\textbf{Audio Overview}
 \begin{itemize}\small
   \item Generates a podcast-style audio discussion of your sources
   \item Two AI hosts discuss key points conversationally
   \item Great for reviewing material on the go
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
@@ -229,12 +225,9 @@ NotebookLM is a practical example of RAG that you can use \alert{today}.
 For those who want to understand the internals, the \textbf{Agentic RAG for Dummies} Colab notebook walks through building a RAG system step by step.
 \vspace{0.3cm}
 \begin{enumerate}
-  \item \textbf{Install libraries}: LangChain, Qdrant (vector database), HuggingFace embeddings
-  \item \textbf{Upload a PDF}: annual report converted from PDF to structured text
-  \item \textbf{Chunk and embed}: text split into overlapping pieces, converted to vectors
-  \item \textbf{Store}: chunks indexed in Qdrant for fast similarity search
-  \item \textbf{Query}: type a question $\rightarrow$ retrieve similar chunks $\rightarrow$ pass to LLM $\rightarrow$ grounded answer
-  \item \textbf{Chat interface}: Gradio web UI for interactive querying
+  \item Install libraries and upload a PDF
+  \item Chunk, embed, and store in a vector database
+  \item Query via Gradio chat interface
 \end{enumerate}
 \end{frame}
 
@@ -268,8 +261,7 @@ Notice how answers are grounded in the actual document --- the key benefit of RA
 \begin{enumerate}
   \item Open the Agentic RAG for Dummies Colab notebook
   \item Upload a corporate annual report (e.g., Apple 10-K)
-  \item Ask 5 finance-specific questions
-  \item Evaluate: are answers grounded in the document, or does the model hallucinate?
+  \item Ask 5 finance-specific questions and evaluate whether answers are grounded or hallucinated
   \item Submit: notebook + evaluation
 \end{enumerate}
 \vspace{0.3cm}
@@ -283,8 +275,7 @@ Notice how answers are grounded in the actual document --- the key benefit of RA
   \begin{itemize}\small
     \item Risk factors
     \item Revenue composition
-    \item Management guidance
-    \item Accounting policies
+    \item Management guidance and accounting policies
   \end{itemize}
   \item Submit: summary of key changes with source citations
 \end{enumerate}

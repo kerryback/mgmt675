@@ -23,6 +23,7 @@ Click on an exercise to download the PDF.
 | 2A | [Tangency Portfolio](exercises/2A.pdf) | [{{< fa file-pdf >}}](exercises/2A.pdf) |
 | 2B | [Two-Stage DCF Model](exercises/2B.pdf) | [{{< fa file-pdf >}}](exercises/2B.pdf) |
 | 2C | [Monte Carlo Valuation](exercises/2C.pdf) | [{{< fa file-pdf >}}](exercises/2C.pdf) |
+| 2D | [Capital Budgeting with Option Value](exercises/2D.pdf) | [{{< fa file-pdf >}}](exercises/2D.pdf) |
 
 ### Week 3: Connecting AI to Data and Tools (due April 7)
 

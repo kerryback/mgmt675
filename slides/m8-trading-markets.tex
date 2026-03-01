@@ -61,22 +61,20 @@ Loughran \& McDonald (2011) showed generic sentiment dictionaries fail on financ
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Architecture}]
+\textbf{Architecture}
 \begin{itemize}\small
   \item 110M parameters (BERT-base)
   \item Fine-tuned on Financial PhraseBank (4,840 labeled sentences)
   \item Open source: \texttt{ProsusAI/finbert} on HuggingFace
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Performance}]
+\textbf{Performance}
 \begin{itemize}\small
   \item \textasciitilde87\% accuracy on Financial PhraseBank
   \item 14 pp improvement over vanilla BERT
   \item Became the standard baseline for financial NLP
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -198,13 +196,13 @@ Traditional bag-of-words methods are now \alert{effectively obsolete} for this t
 \end{shadedbox}
 \end{column}
 \end{columns}
-\vspace{0.2cm}
-\begin{shadedbox}[title=\textbf{Multi-Agent Systems}]
+\end{frame}
+
+\begin{frame}{Multi-Agent Trading Systems}
+\textbf{MarketSenseAI 2.0} (2025): GPT-4 + RAG multi-agent system.
 \begin{itemize}\footnotesize
-  \item MarketSenseAI 2.0 (2025): GPT-4 + RAG multi-agent
   \item \alert{125.9\% cumulative returns} vs.\ 73.5\% for S\&P 100
 \end{itemize}
-\end{shadedbox}
 \end{frame}
 
 % ========================================
@@ -467,26 +465,17 @@ A \textbf{knowledge graph} maps entities (firms, sectors, commodities) and their
 \end{frame}
 
 \begin{frame}{Cautionary Tales}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{AP Twitter Hack (2013)}]
-\begin{itemize}\small
-  \item Fake tweet: ``Explosions at White House''
-  \item S\&P 500 lost \alert{\$136 billion} in seconds
-  \item Recovered within 6 minutes
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Adversarial Attacks}]
-\begin{itemize}\small
-  \item Imperceptible headline changes trick LLM trading systems
-  \item Alpha Arena: ChatGPT suffered a \alert{63\% loss}
-  \item IMF warned AI trading increases volatility
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
+\begin{center}\small
+\begin{tabular}{@{} l l l @{}}
+\toprule
+\textbf{Event} & \textbf{What Happened} & \textbf{Impact} \\
+\midrule
+AP Twitter Hack (2013) & Fake ``White House explosions'' tweet & S\&P 500 lost \$136B in seconds \\
+Alpha Arena & ChatGPT trading competition & 63\% loss \\
+IMF Warning & AI trading increases volatility & Regulatory scrutiny \\
+\bottomrule
+\end{tabular}
+\end{center}
 \vspace{0.3cm}
 \begin{center}
 \alert{The competitive edge is real, but so are the risks.}
@@ -512,16 +501,9 @@ The moat is shifting from \alert{speed of access} to \alert{depth of understandi
 
 \begin{frame}{Exercise 1: Headline Sentiment Classification}
 \begin{enumerate}
-  \item Collect 20 recent financial headlines
-  \item For each, have Claude classify:
-  \begin{itemize}\small
-    \item Sentiment (positive / negative / neutral)
-    \item Magnitude (strong / weak)
-    \item Relevance (high / low)
-  \end{itemize}
-  \item Compare to actual stock price movements over the following day
-  \item Calculate accuracy
-  \item Submit: spreadsheet with headlines + classifications + prices + accuracy
+  \item Collect 20 recent financial headlines and have Claude classify sentiment, magnitude, and relevance for each.
+  \item Compare classifications to actual stock price movements over the following day and calculate accuracy.
+  \item Submit: spreadsheet with headlines, classifications, prices, and accuracy.
 \end{enumerate}
 \end{frame}
 
@@ -578,20 +560,19 @@ The moat is shifting from \alert{speed of access} to \alert{depth of understandi
 % ========================================
 % REFERENCES
 % ========================================
-\section{References}
 
-\begin{frame}[shrink=10]{Key References}
-{\footnotesize
-\begin{itemize}
-  \item Lopez-Lira, A.\ \& Tang, Y.\ (2023). ``Can ChatGPT Forecast Stock Price Movements?''  \textit{Journal of Finance} (accepted).
-  \item Kirtac, K.\ \& Germano, G.\ (2024). ``Sentiment Trading with Large Language Models.''  \textit{Finance Research Letters}, 62.
-  \item Kim, A., Muhn, M.\ \& Nikolaev, V.\ (2024). ``Financial Statement Analysis with Large Language Models.''
-  \item Araci, D.\ (2019). ``FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.''
-  \item Wu, S.\ et al.\ (2023). ``BloombergGPT: A Large Language Model for Finance.''
-  \item Yang, H.\ et al.\ (2023). ``FinGPT: Open-Source Financial Large Language Models.''
-  \item FinLlama (2024). ``Financial Sentiment Analysis for Algorithmic Trading.'' ICAIF '24.
-  \item Caldara, D.\ \& Iacoviello, M.\ (2022). ``Measuring Geopolitical Risk.'' \textit{AER}, 112(4).
-  \item Li, V.\ et al.\ (2024). ``FinDKG: Dynamic Knowledge Graphs with LLMs.'' ICAIF '24.
+\begin{frame}{Key References}
+{\scriptsize
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item Lopez-Lira \& Tang (2023). Can ChatGPT Forecast Stock Price Movements? \textit{Journal of Finance}.
+  \item Kirtac \& Germano (2024). Sentiment Trading with Large Language Models. \textit{Finance Research Letters}.
+  \item Kim, Muhn \& Nikolaev (2024). Financial Statement Analysis with Large Language Models.
+  \item Araci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.
+  \item Wu et al.\ (2023). BloombergGPT: A Large Language Model for Finance.
+  \item Yang et al.\ (2023). FinGPT: Open-Source Financial Large Language Models.
+  \item FinLlama (2024). Financial Sentiment Analysis for Algorithmic Trading. ICAIF '24.
+  \item Caldara \& Iacoviello (2022). Measuring Geopolitical Risk. \textit{AER}, 112(4).
+  \item Li et al.\ (2024). FinDKG: Dynamic Knowledge Graphs with LLMs. ICAIF '24.
 \end{itemize}
 }
 \end{frame}

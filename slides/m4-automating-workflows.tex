@@ -31,12 +31,8 @@ Organizations spend millions building dashboards. When a new question arises, th
 \begin{shadedbox}[title=\textbf{The Typical Dashboard Lifecycle}]
 \begin{enumerate}\small
   \item Business user requests a report
-  \item Analyst translates to requirements
-  \item Engineer builds SQL queries
-  \item Designer creates visualizations
-  \item IT deploys to Tableau/Power BI
-  \item User asks a follow-up question
-  \item \alert{Back to step 1}
+  \item Team builds queries, charts, and deploys
+  \item User asks a follow-up --- \alert{back to step 1}
 \end{enumerate}
 \end{shadedbox}
 \end{column}
@@ -100,27 +96,23 @@ The dashboard was a \textit{workaround} for the fact that databases don't speak 
   \item AI: writes SQL, produces grouped bar chart
   \item \textit{``Break out Enterprise by region''}
   \item AI: refines query, updates chart
-  \item \textit{``Which region had the biggest Q2--Q3 drop?''}
-  \item AI: calculates changes, highlights answer
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{What the User Needed to Know}]
+\textbf{What the User Needed to Know}
 \begin{itemize}\small
   \item What questions to ask
   \item Whether the answers make sense
   \item \alert{Nothing else}
 \end{itemize}
-\end{shadedbox}
 \vspace{0.1cm}
-\begin{shadedbox}[title=\textbf{Behind the Scenes}]
+\textbf{Behind the Scenes}
 \begin{itemize}\small
   \item 4 different SQL queries written
   \item 3 visualizations produced
   \item Derived metrics calculated
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}
@@ -151,37 +143,50 @@ The most powerful dashboard replacement: an AI agent connected to your database.
 \end{columns}
 \end{frame}
 
-\begin{frame}[shrink=15]{Replacing Finance Dashboards by Department}
+\begin{frame}{Replacing Dashboards: FP\&A and Treasury}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{FP\&A}
+\begin{shadedbox}[title=\textbf{FP\&A}]
 \begin{itemize}\small
   \item \textit{``Budget vs.\ actual for Q3, decompose the variance into volume, price, and cost drivers''}
   \item \textit{``Rolling 12-month revenue forecast with confidence bands''}
-  \item \textit{``Which cost centers are trending above budget? Rank by dollar impact.''}
 \end{itemize}
-\vspace{0.2cm}
-\textbf{Treasury \& Risk}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Treasury \& Risk}]
 \begin{itemize}\small
   \item \textit{``Cash position over the next 90 days using AR/AP forecasts''}
   \item \textit{``VaR by desk for the last 30 days, flag breaches''}
 \end{itemize}
+\end{shadedbox}
 \end{column}
+\end{columns}
+\vspace{0.3cm}
+Each of these would take a BI team \textbf{days to build}. With a database agent, they take \alert{seconds}.
+\end{frame}
+
+\begin{frame}{Replacing Dashboards: Portfolio and Executive}
+\begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Portfolio Management}
+\begin{shadedbox}[title=\textbf{Portfolio Management}]
 \begin{itemize}\small
   \item \textit{``Sector allocation vs.\ benchmark with active weights''}
   \item \textit{``Performance attribution --- allocation vs.\ selection''}
 \end{itemize}
-\vspace{0.2cm}
-\textbf{Executive Reporting}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Executive Reporting}]
 \begin{itemize}\small
   \item \textit{``One-page executive summary with KPIs and trends''}
   \item \textit{``Board deck from this quarter's financials --- 5 slides max''}
-  \item \textit{``Top 3 things the CFO should know from this data''}
 \end{itemize}
+\end{shadedbox}
 \end{column}
 \end{columns}
+\vspace{0.3cm}
+The AI doesn't replace the analyst's judgment --- it replaces the \alert{mechanical work} of pulling data and building charts.
 \end{frame}
 
 \begin{frame}{The Weekly Ops Review --- Before and After}
@@ -189,12 +194,9 @@ The most powerful dashboard replacement: an AI agent connected to your database.
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Before: The Dashboard Era}]
 \begin{enumerate}\small
-  \item Data team pulls exports (2 hours)
-  \item Analyst builds slides (4 hours)
-  \item Manager reviews (1 hour)
-  \item Analyst revises (2 hours)
-  \item VP asks a question not on the slide
-  \item ``We'll get back to you next week''
+  \item Data team pulls exports and builds slides (6+ hrs)
+  \item Manager reviews and revises (3 hrs)
+  \item VP asks a question --- ``We'll get back to you next week''
 \end{enumerate}
 \vspace{0.2cm}
 \centering\small\textbf{Total: 9+ hours per week}
@@ -203,12 +205,9 @@ The most powerful dashboard replacement: an AI agent connected to your database.
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{After: Natural Language AI}]
 \begin{enumerate}\small
-  \item AI agent connected to database
-  \item Analyst: \textit{``Generate the weekly ops review''}
-  \item AI: pulls data, charts, narrative (3 min)
-  \item Manager reviews, iterates in chat
-  \item VP asks a question not on the slide
-  \item \alert{AI answers it in 10 seconds}
+  \item AI agent generates ops review (3 min)
+  \item Manager reviews and iterates in chat
+  \item VP asks a question --- \alert{AI answers in 10 seconds}
 \end{enumerate}
 \vspace{0.2cm}
 \centering\small\textbf{Total: 15 minutes + live Q\&A}
@@ -330,7 +329,6 @@ In Module 2, you built DCF models and portfolio optimizations in ad-hoc conversa
   \item One conversation uses 10\% WACC, another uses 8\%
   \item One assumes 3\% terminal growth, another 2.5\%
   \item Portfolio optimization: 5-year history vs.\ 3-year
-  \item \alert{No audit trail, no reproducibility}
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -345,54 +343,61 @@ In Module 2, you built DCF models and portfolio optimizations in ad-hoc conversa
 \end{column}
 \end{columns}
 \vspace{0.3cm}
+\alert{No audit trail, no reproducibility --- unless you encode the methodology in a skill.}
+\vspace{0.2cm}
 \begin{center}
 This is how AI moves from \textit{personal productivity tool} to \textit{institutional capability}.
 \end{center}
 \end{frame}
 
-\begin{frame}[shrink=15]{Finance Skill Examples}
+\begin{frame}{Finance Skill Examples: Analysis}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{DCF Skill}]
-\begin{itemize}\scriptsize
-  \item Estimate sales growth from trailing 5-year CAGR
-  \item Use sector median EV/EBITDA for exit multiple
-  \item Always produce two-way sensitivity table (WACC vs.\ terminal growth)
-  \item Output: formatted Excel workbook
+\begin{itemize}\small
+  \item Sales growth from trailing 5-year CAGR
+  \item Sector median EV/EBITDA for exit multiple
+  \item Two-way sensitivity table (WACC vs.\ growth)
 \end{itemize}
-\vspace{0.1cm}
-{\scriptsize Every analyst produces comparable valuations.}
 \end{shadedbox}
-\vspace{0.1cm}
+\end{column}
+\begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Investment Memo Skill}]
-\begin{itemize}\scriptsize
-  \item Structure: exec summary, business overview, financials, risks, recommendation
-  \item Required data points and formatting standards
+\begin{itemize}\small
+  \item Standard structure: exec summary, financials, risks, recommendation
+  \item Required data points and formatting
   \item Every memo follows the same template
 \end{itemize}
 \end{shadedbox}
 \end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{Every analyst produces comparable, auditable outputs.}
+\end{frame}
+
+\begin{frame}{Finance Skill Examples: Data}
+\begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Portfolio Optimization Skill}]
-\begin{itemize}\scriptsize
-  \item Data source: Rice Data Portal
-  \item Estimation window: trailing 60 months
-  \item Constraints: no short sales, max 25\% per position
-  \item Output: weights table, frontier plot, key statistics
+\begin{itemize}\small
+  \item Data: Rice Data Portal, trailing 60 months
+  \item Constraints: no short sales, max 25\%
+  \item Output: weights, frontier plot, statistics
 \end{itemize}
-\vspace{0.1cm}
-{\scriptsize Consistent methodology across quarterly rebalancing.}
 \end{shadedbox}
-\vspace{0.1cm}
+\end{column}
+\begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Rice Data Portal Skill}]
-\begin{itemize}\scriptsize
+\begin{itemize}\small
   \item Table schemas (SEP, DAILY, SF1, TICKERS)
-  \item Query patterns and API access via \texttt{.env} token
-  \item Claude Code fetches data directly---no web UI needed
+  \item Query patterns and API access via \texttt{.env}
+  \item Claude Code fetches data directly
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
+\vspace{0.3cm}
+\alert{Consistent methodology across quarterly rebalancing --- no manual intervention.}
 \end{frame}
 
 \begin{frame}[fragile]{Installing the Rice Data Portal Skill}
@@ -414,8 +419,7 @@ In Module 1 you queried the Rice Data Portal through its web interface.  Now let
 \begin{itemize}\small
   \item Connection setup and \texttt{.env} token handling
   \item Table schemas (SEP, DAILY, SF1, TICKERS)
-  \item SQL query patterns (end-of-month, fundamentals)
-  \item Precomputed variable checker
+  \item SQL query patterns and precomputed variable checker
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -545,8 +549,6 @@ On January 30, 2026, Anthropic released 11 open-source plugins for Claude.  With
 LegalZoom & $-$20\% \\
 Thomson Reuters & $-$16\% \\
 RELX (LexisNexis) & $-$14\% \\
-Wolters Kluwer & $-$13\% \\
-Xero (accounting) & worst day since 2013 \\
 Intuit & $>-$10\% \\
 Salesforce & $-$7\% \\
 \bottomrule
@@ -595,8 +597,7 @@ Create a skill that encodes a consistent DCF methodology:
 \begin{frame}{Exercise 3: Portfolio Optimization Skill}
 Create a skill that specifies:
 \begin{itemize}
-  \item Data source (e.g., Rice Data Portal)
-  \item Estimation window (trailing 60 months)
+  \item Data source and estimation window (e.g., Rice Data Portal, trailing 60 months)
   \item Constraint set (no short sales, max 25\% per position)
   \item Output format (weights table, frontier plot, statistics)
 \end{itemize}

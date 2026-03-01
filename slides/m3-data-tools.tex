@@ -82,8 +82,7 @@ The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI appli
 \begin{shadedbox}[title=\textbf{The Idea}]
 \begin{itemize}\small
   \item A standard ``plug-in'' protocol
-  \item AI app connects to MCP servers
-  \item Each server provides specific tools
+  \item AI app connects to servers, each providing specific tools
   \item Tools appear automatically in the AI
 \end{itemize}
 \end{shadedbox}
@@ -93,8 +92,7 @@ The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI appli
 \begin{itemize}\small
   \item USB is a standard for peripherals
   \item Plug in a keyboard, it just works
-  \item MCP is a standard for AI tools
-  \item Connect a server, tools just appear
+  \item MCP is the USB standard for AI tools --- connect a server and they appear
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -136,10 +134,8 @@ The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI appli
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Desktop Extensions (Easy)}]
 \begin{enumerate}\small
-  \item Open Claude Desktop
-  \item Go to \textbf{Settings $\rightarrow$ Extensions}
-  \item Click \textbf{Browse extensions}
-  \item Find the server you want
+  \item Open Claude Desktop $\rightarrow$ \textbf{Settings} $\rightarrow$ \textbf{Extensions}
+  \item Browse and find the server
   \item Click \textbf{Install}
 \end{enumerate}
 \vspace{0.2cm}
@@ -150,10 +146,8 @@ One-click install. Anthropic-reviewed.
 \begin{shadedbox}[title=\textbf{Manual Configuration}]
 \begin{enumerate}\small
   \item Install prerequisites (Node.js or uv)
-  \item Edit a JSON config file
-  \item Specify the server command
+  \item Edit JSON config with server command
   \item Restart Claude Desktop
-  \item Tools appear automatically
 \end{enumerate}
 \vspace{0.2cm}
 More control. Works with any server.
@@ -290,7 +284,6 @@ Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Deskto
   \item Sandboxed Python in the browser
   \item No local file access
   \item Must upload data manually
-  \item Good for quick calculations
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -298,7 +291,6 @@ Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Deskto
 \begin{shadedbox}[title=\textbf{Cowork}]
 \begin{itemize}\footnotesize
   \item Runs in a local VM
-  \item Can install packages
   \item Files synced to/from VM
   \item \alert{No internet access}
 \end{itemize}
@@ -310,7 +302,6 @@ Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Deskto
   \item Runs on \alert{your machine}
   \item Full local file access
   \item Full internet access
-  \item Most token-efficient
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -376,8 +367,7 @@ Fetch live data from APIs & & & & \checkmark \\
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{What is Colab?}]
 \begin{itemize}\small
-  \item Free browser-based notebooks from Google
-  \item No installation required
+  \item Free browser-based notebooks, no install needed
   \item Saves to Google Drive
   \item Gemini AI built in
 \end{itemize}
@@ -388,7 +378,6 @@ Fetch live data from APIs & & & & \checkmark \\
 \begin{itemize}\small
   \item Generate code from English descriptions
   \item Explain existing code and fix errors
-  \item Suggest improvements
   \item Mount Google Drive for data files
 \end{itemize}
 \end{shadedbox}
@@ -406,7 +395,6 @@ Philosophy: \textit{code environment with a chatbot} (vs.\ Claude: chatbot with 
   \item Free desktop editor from Microsoft
   \item Works on Windows, Mac, Linux
   \item Supports Jupyter notebooks
-  \item Explorer, Terminal, Extensions
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -415,8 +403,7 @@ Philosophy: \textit{code environment with a chatbot} (vs.\ Claude: chatbot with 
 \begin{itemize}\small
   \item AI sidebar inside VS Code
   \item Reference files with \texttt{@filename}
-  \item Writes and runs code with your approval
-  \item Same Claude Code as the terminal/desktop
+  \item Writes and runs code with your approval (same engine as terminal)
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -462,8 +449,7 @@ Cell contains a formula that recalculates when inputs change.
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{What It Does}]
 \begin{itemize}\small
-  \item AI sidebar inside Excel
-  \item Reads your workbook, modifies cells
+  \item AI sidebar that reads and edits your workbook
   \item Preserves formula dependencies
   \item Works with local files --- \alert{no OneDrive required}
 \end{itemize}
@@ -475,7 +461,6 @@ Cell contains a formula that recalculates when inputs change.
   \item Ask questions about workbook content
   \item Build financial models from scratch
   \item Trace and fix formula errors
-  \item Create charts and pivot tables
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -511,10 +496,9 @@ All three can produce the same kinds of financial tools --- DCF calculators, amo
 % ========================================
 \section{Combining Multiple Connections}
 
-\begin{frame}[fragile,shrink=5]{Multi-Server MCP Configurations}
+\begin{frame}[fragile,shrink=10]{Multi-Server MCP Configurations}
 You can connect multiple MCP servers at once. Claude sees all their tools and can use them together.
 \vspace{0.2cm}
-\begin{shadedbox}[title=\textbf{Example: Three Servers in One Config}]
 \begin{verbatim}
 {
   "mcpServers": {
@@ -535,7 +519,6 @@ You can connect multiple MCP servers at once. Claude sees all their tools and ca
   }
 }
 \end{verbatim}
-\end{shadedbox}
 \end{frame}
 
 \begin{frame}{Built-In Alternatives to MCP}

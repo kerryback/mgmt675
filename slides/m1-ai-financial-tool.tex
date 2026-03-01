@@ -168,8 +168,7 @@ We start with the cloud sandbox today.  Modules 2--3 introduce local execution a
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{Using the Web Interface}]
 \begin{itemize}\small
-  \item Visit \href{https://data-portal.rice-business.org}{data-portal.rice-business.org}
-  \item Sign in with your Rice credentials
+  \item Visit \href{https://data-portal.rice-business.org}{data-portal.rice-business.org} and sign in with Rice credentials
   \item Ask questions in plain English---the portal uses ChatGPT to generate SQL and query the database
   \item Download results as CSV
 \end{itemize}
@@ -186,12 +185,12 @@ We start with the cloud sandbox today.  Modules 2--3 introduce local execution a
 \midrule
 \textbf{SEP} & Daily prices & \texttt{ticker}, \texttt{date}, \texttt{close} (split-adjusted), \texttt{closeadj} (fully adjusted), \texttt{volume} \\
 \textbf{DAILY} & Valuation & \texttt{ticker}, \texttt{date}, \texttt{marketcap}, \texttt{pb}, \texttt{pe}, \texttt{ps} \\
-\textbf{TICKERS} & Company info & \texttt{ticker}, \texttt{name}, \texttt{sector}, \texttt{industry}, \texttt{scalemarketcap} \\
+\textbf{TICKERS} & Company info & \texttt{ticker}, \texttt{name}, \texttt{sector}, \texttt{industry} \\
 \textbf{SF1} & Fundamentals & \texttt{revenue}, \texttt{netinc}, \texttt{assets}, \texttt{equity}, \texttt{debt}, \texttt{roe}, \ldots \\
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{0.3cm}
+\vfill
 \textbf{How to use it:} Describe the data you need in the portal's web interface.  It generates and runs the SQL query, then lets you download the results.  In Module 4, we'll automate this with Claude Code.
 \end{frame}
 
@@ -274,7 +273,7 @@ It's a chatbot with a code execution tool.  It can answer questions, explain con
 
 \vspace{0.3cm}
 
-\begin{shadedbox}[title=\textbf{What Artifacts Can Build}]
+\textbf{What Artifacts Can Build}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{itemize}\small
@@ -291,7 +290,6 @@ It's a chatbot with a code execution tool.  It can answer questions, explain con
 \end{itemize}
 \end{column}
 \end{columns}
-\end{shadedbox}
 
 \vspace{0.2cm}
 \small\textbf{Limitation:} Artifacts are client-side only---no database, no persistence.  They are \alert{disposable by design}: generate a new one when needs change, rather than maintaining an old one.
@@ -300,13 +298,13 @@ It's a chatbot with a code execution tool.  It can answer questions, explain con
 \begin{frame}{Artifact Examples}
 \textbf{Example 1: Data Visualization}
 
-\textit{``Here is an Excel file [upload \href{https://kerryback.com/mgmt675/files/wmt_spy_rf.xlsx}{this file}] containing monthly returns for WMT and SPY and the one-month T-bill yield.  Create an interactive scatter plot of WMT excess returns vs.\ market excess returns, show the regression line, and display alpha and beta. Include the month in the hover data.''}
+\textit{``Here is an Excel file with monthly returns for WMT and SPY and the T-bill yield. Create an interactive scatter plot of WMT excess returns vs.\ market excess returns with the regression line, alpha, and beta.''}
 
 \vspace{0.3cm}
 
 \textbf{Example 2: Financial Calculator}
 
-\textit{``Create an app that lets a user input a stock's current price, the strike price, the risk-free rate, the volatility, and the time to expiration in years.  Compute the Black-Scholes call and put option prices.  Create an interactive plot showing how both option prices change as the stock price varies from 50\% to 150\% of the strike price.''}
+\textit{``Create a Black-Scholes option calculator with inputs for stock price, strike, rate, volatility, and expiration, and plot call and put prices as the stock price varies from 50\% to 150\% of the strike.''}
 
 \vspace{0.3cm}
 \textbf{Publish:} Publish the artifacts and share the links.
@@ -333,7 +331,73 @@ All three let you describe what you want in plain English and get an interactive
 \end{frame}
 
 % ========================================
-% SECTION 4: EFFECTIVE PROMPTING
+% SECTION 4: AI AS A THINKING PARTNER
+% ========================================
+\section{AI as a Thinking Partner}
+
+\begin{frame}{AI as a Thinking Partner}
+The hardest business decisions aren't data problems---they're \alert{thinking} problems.  AI isn't just an analyst.  It's a colleague who will argue with you.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{No agenda.}  Unlike colleagues, AI isn't protecting turf, managing up, or afraid to disagree with the boss.
+  \item \textbf{Tireless devil's advocate.}  You can say ``argue against my preferred option''---no hurt feelings, no relationship cost.
+  \item \textbf{Forces articulation.}  Explaining your reasoning to AI surfaces assumptions you didn't know you were making.
+\end{itemize}
+\vspace{0.3cm}
+\alert{The conversation is the deliverable.}  You leave with a sharper view of the decision, not a report.
+\end{frame}
+
+\begin{frame}{Conversation Moves for Better Decisions}
+Specific things you can say to AI to sharpen your thinking.
+\vspace{0.3cm}
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Move} & \textbf{What you say} \\
+\midrule
+Expand options & ``What options am I not considering?'' \\
+Challenge & ``Argue against my preferred choice.'' \\
+Surface assumptions & ``What would need to be true for Option B to win?'' \\
+Pre-mortem & ``If this fails, what's the most likely reason?'' \\
+Reframe & ``How would a CFO / customer / regulator see this?'' \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=15]{Example: Should We Cut Our Price?}
+\begin{shadedbox}[title=\textbf{The Scenario}]\scriptsize
+You're a VP at a SaaS company.  Your product is \$99/month.  A competitor just launched at \$79.  Your CEO wants a recommendation by Friday.
+\end{shadedbox}
+\vspace{0.1cm}
+\small You open a conversation: \textit{``Help me think through whether we should drop our price to match.''}
+\vspace{0.1cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{AI expands your options}]
+\begin{itemize}\scriptsize
+  \item New \$79 tier with fewer features, keep \$99
+  \item Add value at \$99 instead of cutting
+  \item Hold price, offer selective retention discounts
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{AI challenges assumptions}]
+\begin{itemize}\scriptsize
+  \item 20\% price cut needs 25\% more customers to break even
+  \item Signals your product wasn't worth \$99
+  \item Competitors can cut again---a race you can't win on price
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.1cm}
+\centering\small Five minutes.  Three options instead of two, risks of each, and a failure scenario to monitor.  \alert{No data was harmed in the making of this decision.}
+\end{frame}
+
+% ========================================
+% SECTION 5: EFFECTIVE PROMPTING
 % ========================================
 \section{Effective Prompting}
 
@@ -482,7 +546,7 @@ This technique becomes critical in Module 5 (Verifying AI-Generated Analysis).
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Account Options and Model Access}
+\begin{frame}[shrink=5]{Account Options and Model Access}
 \begin{center}\scriptsize
 \begin{tabular}{@{} p{2.2cm} p{2.5cm} p{2.5cm} p{2.5cm} p{2.5cm} @{}}
 \toprule
@@ -518,7 +582,7 @@ VS Code & No & Claude Code extension & No & Codex extension \\
 \end{shadedbox}
 \end{column}
 \end{columns}
-\vspace{0.3cm}
+\vspace{0.2cm}
 \small \textbf{Example:} A 1-page prompt $\approx$ 500 tokens. A 2-page response $\approx$ 1{,}000 tokens.
 Using Sonnet 4.5: total $\approx$ 1.7 cents per query. You could send $\sim$1{,}200 such queries for \$20.
 \end{frame}

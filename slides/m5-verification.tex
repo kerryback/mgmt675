@@ -23,7 +23,7 @@
 % ========================================
 \section{The Trust Spectrum}
 
-\begin{frame}{AI with Code Execution: A Fast Junior Analyst}
+\begin{frame}[shrink=5]{AI with Code Execution: A Fast Junior Analyst}
 AI with code execution is like a \alert{fast junior analyst} --- capable but needs oversight. The level of oversight depends on the stakes.
 \vspace{0.3cm}
 \begin{columns}[T]
@@ -72,7 +72,7 @@ The more consequential the decision, the more you verify. \alert{Not distrust --
 
 \begin{frame}{The Real Risk: Not Hallucination --- Bugs}
 AI in code-execution mode doesn't invent facts the way a chatbot might. Instead, it makes \alert{silent analytical errors}: wrong filters, dropped rows, incorrect joins.
-\vspace{0.3cm}
+\vspace{0.5cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Common errors}
@@ -86,8 +86,7 @@ AI in code-execution mode doesn't invent facts the way a chatbot might. Instead,
 \textbf{Why it's dangerous}
 \begin{itemize}\small
   \item The output \textit{looks} professional
-  \item Charts render cleanly even if data is wrong
-  \item Nobody questions a polished result
+  \item Charts render cleanly and nobody questions a polished result
   \item \alert{Confidence without verification is the real risk}
 \end{itemize}
 \end{column}
@@ -191,8 +190,7 @@ Take the DCF built in Module 2. Start a fresh conversation. Ask Claude to \alert
 \begin{itemize}\small
   \item ``Identify 3+ questionable assumptions''
   \item ``Check formula consistency --- does FCF match the pro formas?''
-  \item ``Is the terminal value calculation reasonable?''
-  \item ``What's the implied terminal growth vs.\ GDP growth?''
+  \item ``Is the terminal value reasonable? Compare implied terminal growth to GDP growth.''
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -283,8 +281,7 @@ AI can analyze sensitive data \alert{without ever reading it}. It only needs the
 \begin{enumerate}\small
   \item Describe tables in instructions: names, columns, types
   \item Ask AI to write the query
-  \item AI writes SQL \alert{from the schema alone} --- never sees actual records
-  \item Script runs locally; output stays local
+  \item AI writes SQL from the schema alone; the script runs locally and output stays local
 \end{enumerate}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -323,14 +320,10 @@ Before deploying any AI workflow to your team, follow three phases.
 \end{tikzpicture}
 \end{center}
 \vspace{0.3cm}
-\begin{itemize}\small
-  \item \textbf{Sandbox}: Run the full workflow with synthetic data. Test edge cases. Break it on purpose.
-  \item \textbf{Audit}: Export session logs. Verify SQL logic. Check for data leakage.
-  \item \textbf{Deploy}: Roll out to users with monitoring. Review logs weekly.
-\end{itemize}
+Test with synthetic data, review logs and logic, then roll out with weekly monitoring.
 \end{frame}
 
-\begin{frame}{The AI Adoption Roadmap}
+\begin{frame}{Adoption Timeline: From Quick Wins to Strategic}
 Each adoption stage maps to a trust level.
 \vspace{0.3cm}
 \begin{enumerate}
@@ -359,22 +352,20 @@ Each adoption stage maps to a trust level.
 
 \begin{frame}{Exercise 1: DCF Cross-Check}
 \begin{enumerate}
-  \item Take your DCF model from Module 2
-  \item Start a new conversation
-  \item Ask Claude to critique it: identify 3+ questionable assumptions
-  \item Revise based on the critique
-  \item Submit: original + revised models + summary of what changed and why
+  \item Start a new conversation and ask Claude to critique your Module 2 DCF model --- identify 3+ questionable assumptions.
+  \item Revise the model based on the critique.
+  \item Submit: original + revised models + summary of what changed and why.
 \end{enumerate}
 \vspace{0.3cm}
 \alert{The most valuable use of AI is often having it check work, not produce it.}
 \end{frame}
 
 \begin{frame}{Exercise 2: Red-Team Your Skill}
+\vfill
 \begin{enumerate}
   \item Take the database skill from Module 4
   \item Write 10 adversarial queries designed to produce wrong answers
-  \item Document what breaks and fix the SKILL.md
-  \item Submit: original SKILL.md, adversarial queries, failures found, revised SKILL.md
+  \item Document failures, fix SKILL.md, and submit: original + revised SKILL.md, adversarial queries, and failures found.
 \end{enumerate}
 \end{frame}
 
@@ -386,8 +377,7 @@ Review a transcript of an AI analysis session. Then:
   \begin{itemize}\small
     \item What data can/cannot go to AI providers
     \item Which tools are approved
-    \item When human review is required
-    \item How session logs should be archived
+    \item When human review is required and how session logs should be archived
   \end{itemize}
 \end{enumerate}
 \end{frame}

@@ -22,8 +22,7 @@
 \begin{enumerate}
   \item Construct optimal portfolios with real-world constraints using AI
   \item Build two-stage DCF models driven by a small set of assumptions
-  \item Perform one-way and two-way sensitivity analysis
-  \item Run Monte Carlo simulations to quantify valuation uncertainty
+  \item Perform sensitivity analysis and Monte Carlo simulation to quantify valuation uncertainty
 \end{enumerate}
 
 \vspace{0.5cm}
@@ -126,10 +125,11 @@ Mean-variance analysis provides the framework.  AI handles the computation.
   \item The efficient frontier shifts \alert{inward} (lower returns and/or higher risk)
   \item The tangency portfolio changes
   \item The Sharpe ratio cannot improve with constraints---it can only stay the same or get worse
-  \item The constrained frontier is still useful: it reflects what you can actually implement
 \end{itemize}
 \end{column}
 \end{columns}
+\vspace{0.3cm}
+\alert{The constrained frontier is still useful: it reflects what you can actually implement.}
 \end{frame}
 
 \begin{frame}{Solution Methods}
@@ -150,13 +150,11 @@ Mean-variance analysis provides the framework.  AI handles the computation.
 \vspace{0.3cm}
 Python solver options: \texttt{scipy.minimize}, \texttt{cvxopt}, \texttt{cvxpy}---AI chooses and writes the code.
 
-\vspace{0.3cm}
-\begin{shadedbox}[title={Ask Claude}]
-\small Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.
-\end{shadedbox}
+\vfill
+\alert{Ask Claude:} \small Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.
 \end{frame}
 
-\begin{frame}[shrink=5]{Exercise: Portfolio Cloud}
+\begin{frame}[shrink=15]{Exercise: Portfolio Cloud}
 
 Consider three assets with the following characteristics:
 
@@ -275,8 +273,6 @@ We use \textbf{NOPAT} (net operating profit after tax) rather than net income be
 \begin{center}
 \textbf{FCF = NOPAT + Depreciation $-$ Cap Ex $-$ $\Delta$NWC $-$ $\Delta$Net Other OA}
 \end{center}
-\vspace{0.2cm}
-Equivalently: FCF = NOPAT $-$ net investment in PP\&E $-$ net investment in NWC $-$ net investment in other operating assets.
 \end{frame}
 
 % ============================================================
@@ -358,8 +354,7 @@ A sensitivity table shows how the output (e.g., equity value per share) changes 
 \begin{itemize}\small
   \item Vary two inputs simultaneously
   \item Classic: WACC vs.\ terminal growth rate
-  \item Also useful: sales growth vs.\ COGS margin
-  \item Reveals interaction effects
+  \item Also useful for sales growth vs.\ COGS margin; reveals interaction effects
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -374,6 +369,7 @@ Ask Claude to produce sensitivity tables in Excel (with formulas) or as formatte
 \section{Monte Carlo Simulation}
 
 \begin{frame}{Why Simulate?}
+\vfill
 \begin{itemize}
   \item Sensitivity tables vary one or two inputs; in reality, \alert{all assumptions are uncertain simultaneously}
   \item Monte Carlo simulation draws random values for each assumption, computes FCF and enterprise value, and repeats thousands of times
@@ -397,7 +393,7 @@ WACC & Normal & $\mu = 10\%$, $\sigma = 1\%$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{0.2cm}
+\vspace{0.1cm}
 \begin{itemize}
   \item Run 10{,}000 simulations $\rightarrow$ 10{,}000 enterprise values
   \item Report mean, median, 10th/90th percentiles; plot a histogram
@@ -410,7 +406,7 @@ WACC & Normal & $\mu = 10\%$, $\sigma = 1\%$ \\
 % ============================================================
 \section{Building These Analyses with AI}
 
-\begin{frame}{Multiple Ways to Build with AI}
+\begin{frame}[shrink=5]{Multiple Ways to Build with AI}
 \begin{center}
 \small
 \begin{tabular}{@{} l p{9.5cm} @{}}
@@ -445,11 +441,9 @@ Describing the problem clearly---choosing the right assumptions, interpreting th
 
 \begin{frame}{Exercise 1: Tangency Portfolio}
 \begin{itemize}
-  \item Download data for 5 ETFs + T-bill rate
-  \item Ask AI to compute the tangency portfolio: portfolio weights, expected return, standard deviation, and Sharpe ratio
-  \item Plot the efficient frontier and capital allocation line
-  \item Add a no-short-sales constraint and compare: how do the weights, Sharpe ratio, and frontier change?
-  \item Submit the data, plots, and a short paragraph on how constraints changed the result
+  \item Download data for 5 ETFs + T-bill rate; compute tangency portfolio weights, return, standard deviation, and Sharpe ratio.
+  \item Plot the efficient frontier and capital allocation line, then add a no-short-sales constraint and compare.
+  \item Submit the data, plots, and a short paragraph on how constraints changed the result.
 \end{itemize}
 \end{frame}
 
@@ -474,23 +468,32 @@ Ask Claude to build an \textbf{interactive artifact} that generates 10{,}000 ran
 
 \begin{frame}{Exercise 3: DCF Model}
 Build a two-stage DCF for a hypothetical company:
-\begin{itemize}\small
-  \item Current sales: \$500M; sales growth: 10\% (years 1--5), 3\% terminal
-  \item COGS: 58\% of sales; SG\&A: \$20M + 12\% of sales
-  \item NWC: 15\% of sales; PP\&E: 40\% of sales; net other OA: 5\% of sales; depreciation: 10\% of PP\&E
-  \item Tax rate: 25\%; WACC: 9\%; net debt: \$200M; shares: 50M
-\end{itemize}
+\vspace{0.2cm}
+\begin{center}
+\small
+\begin{tabular}{@{} l l @{\hspace{1.5cm}} l l @{}}
+\toprule
+\textbf{Assumption} & \textbf{Value} & \textbf{Assumption} & \textbf{Value} \\
+\midrule
+Current sales & \$500M & NWC & 15\% of sales \\
+Sales growth (yrs 1--5) & 10\% & PP\&E & 40\% of sales \\
+Terminal growth & 3\% & Net other OA & 5\% of sales \\
+COGS & 58\% of sales & Depreciation & 10\% of PP\&E \\
+SG\&A & \$20M + 12\% of sales & Tax rate & 25\% \\
+WACC & 9\% & Net debt & \$200M \\
+Shares outstanding & 50M & & \\
+\bottomrule
+\end{tabular}
+\end{center}
 \vspace{0.2cm}
 Produce an Excel workbook with pro forma income statement, balance sheet items, FCF calculation, enterprise value, per-share value, and a two-way sensitivity table (WACC vs.\ terminal growth rate).
 \end{frame}
 
 \begin{frame}{Exercise 4: DCF with Live Data}
 \begin{itemize}
-  \item In Claude Code, fetch a real company's financials from the Rice Data Portal (SF1 table)
-  \item Estimate each assumption from historical patterns (trailing averages)
-  \item Build a 5-year pro forma and run a two-stage DCF
-  \item Compare your AI-generated valuation to the current market cap
-  \item Submit the code output + a short memo explaining the comparison
+  \item In Claude Code, fetch a real company's financials from the Rice Data Portal (SF1 table) and estimate assumptions from trailing averages.
+  \item Build a 5-year pro forma, run a two-stage DCF, and compare to the current market cap.
+  \item Submit the code output + a short memo explaining the comparison.
 \end{itemize}
 
 \vspace{0.3cm}
@@ -499,16 +502,9 @@ Produce an Excel workbook with pro forma income statement, balance sheet items, 
 
 \begin{frame}{Exercise 5: Monte Carlo Simulation}
 \begin{itemize}
-  \item Take your DCF model (from exercise 3 or 4)
-  \item Assign distributions to 4 key assumptions:
-  \begin{itemize}\small
-    \item Sales growth, COGS \%, terminal growth, WACC
-    \item Choose normal or uniform distributions with reasonable parameters
-  \end{itemize}
-  \item Run 10{,}000 simulations
-  \item Report: mean, median, 10th and 90th percentiles
-  \item Plot: histogram of enterprise values + tornado chart
-  \item Discuss: which assumption drives the most variation?
+  \item Take your DCF model and assign distributions to sales growth, COGS \%, terminal growth, and WACC.
+  \item Run 10{,}000 simulations; report mean, median, 10th/90th percentiles.
+  \item Plot a histogram + tornado chart; discuss which assumption drives the most variation.
 \end{itemize}
 \end{frame}
 

@@ -104,8 +104,7 @@ This module: how to build the third kind --- \alert{agents that pursue goals aut
 \begin{enumerate}\small
   \item LLM decides to use a tool
   \item Returns tool name + parameters
-  \item Agent code executes the tool
-  \item Result sent back to LLM
+  \item Agent code executes the tool and sends result back to the LLM
 \end{enumerate}
 \end{shadedbox}
 \end{column}
@@ -120,8 +119,7 @@ The agent runs in a loop: LLM thinks $\rightarrow$ tool executes $\rightarrow$ r
 \begin{itemize}\small
   \item \textbf{Think}: LLM decides next action
   \item \textbf{Act}: call a tool (SQL, Python, fetch data)
-  \item \textbf{Observe}: get the result back
-  \item \textbf{Repeat} until goal is achieved
+  \item \textbf{Observe + Repeat}: get result back, loop until goal achieved
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -181,7 +179,7 @@ answer = response.json()["choices"][0]["message"]["content"]
 \end{shadedbox}
 \end{frame}
 
-\begin{frame}[fragile]{Conversation History}
+\begin{frame}[fragile,shrink=5]{Conversation History}
 \begin{shadedbox}[title=\textbf{Messages Are a List of Dictionaries}]
 \begin{verbatim}
 messages = [
@@ -283,15 +281,12 @@ The system prompt contains 53 rules encoding schema knowledge, business logic, a
 Give an agent a goal: ``Evaluate this acquisition target.'' The agent:
 \vspace{0.3cm}
 \begin{enumerate}
-  \item Reads the customer list with contracts (Excel)
-  \item Extracts detailed terms from the contract document (PDF)
-  \item Applies acquirer's evaluation criteria (Word)
-  \item Computes quality-adjusted revenue and concentration risk
-  \item Benchmarks against industry standards (CSV)
+  \item Ingests data from multiple formats (Excel, PDF, Word, CSV)
+  \item Applies evaluation criteria and computes risk metrics
   \item Produces a summary memo with flagged risks
 \end{enumerate}
 \vspace{0.3cm}
-\alert{This is a single prompt to Claude Code.} The agent plans and executes all six steps autonomously, reading multiple file formats and combining the results.
+\alert{This is a single prompt to Claude Code.} The agent plans and executes all three steps autonomously, reading multiple file formats and combining the results.
 \end{frame}
 
 % ========================================
@@ -304,22 +299,20 @@ An agent doesn't need a web UI --- it can run in a terminal. But a UI makes it a
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Streamlit}]
+\textbf{Streamlit}
 \begin{itemize}\small
   \item Python library for web apps
   \item No HTML/CSS/JavaScript needed
   \item Deploy to Streamlit Cloud (free)
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Gradio}]
+\textbf{Gradio}
 \begin{itemize}\small
   \item Python library for ML demos
   \item Even simpler chat interface
   \item Built-in sharing via public links
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
@@ -332,8 +325,7 @@ An agent doesn't need a web UI --- it can run in a terminal. But a UI makes it a
 \begin{enumerate}
   \item \textbf{Build the agent}: Define tools, system prompt, and agent loop
   \item \textbf{Add a UI} (optional): Wrap with Streamlit or Gradio
-  \item \textbf{Version control}: Push to GitHub with Git
-  \item \textbf{Deploy}: Streamlit Cloud (free), Koyeb, Render, or cloud providers
+  \item \textbf{Deploy}: Push to GitHub and deploy (Streamlit Cloud, Koyeb, or Render)
 \end{enumerate}
 \vspace{0.3cm}
 \begin{center}
@@ -392,8 +384,7 @@ Watch how Claude plans its approach, reads each file, and combines the results i
     \item Lets users ask questions in English
     \item Displays results with charts
   \end{itemize}
-  \item Write a system prompt with schema knowledge
-  \item Test with 5 questions
+  \item Write a system prompt with schema knowledge and test with 5 questions
 \end{enumerate}
 \end{frame}
 
@@ -401,8 +392,7 @@ Watch how Claude plans its approach, reads each file, and combines the results i
 \begin{enumerate}
   \item Push one of your projects to GitHub
   \item Connect your GitHub repo to Streamlit Cloud
-  \item Deploy and test the live URL
-  \item Submit: the live URL
+  \item Deploy, test the live URL, and submit it
 \end{enumerate}
 \vspace{0.3cm}
 \alert{Ask Claude Code to handle every step} --- from creating the Git repo to deploying the app.
