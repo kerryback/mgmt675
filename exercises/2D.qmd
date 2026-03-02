@@ -37,7 +37,7 @@ Management has identified three demand scenarios:
 
 Probabilities are shown in parentheses. Additional assumptions:
 
-- **Variable costs:** 53\% of revenue
+- **Variable costs:** 60\% of revenue
 - **Incremental fixed costs:** \$180,000/year (production staff, maintenance, quality control)
 - **Corporate overhead allocation:** \$110,000/year
 - **Net working capital:** 12\% of revenue, invested at the start of each year and recovered at project end
