@@ -532,14 +532,8 @@ Most finance teams spend hours assembling weekly or monthly reports.  An AI-powe
 \draw[sarrow] (narr) -- (pptx);
 \end{tikzpicture}
 \end{center}
-\vspace{0.3cm}
-\begin{itemize}\small
-  \item \textbf{Database Query}: Pull data via SQL, API, or MCP
-  \item \textbf{Transform}: Calculate KPIs, variances, growth rates
-  \item \textbf{Charts}: Generate visualizations with matplotlib or plotly
-  \item \textbf{Narrative}: AI writes the commentary (``Revenue grew 8\% driven by\ldots'')
-  \item \textbf{PowerPoint}: Assemble slides programmatically
-\end{itemize}
+\vspace{0.5cm}
+From raw data to polished deck --- \alert{no copy-paste, no formatting, no manual writing.}
 \end{frame}
 
 \begin{frame}{Building the Pipeline with Streamlit}
@@ -573,24 +567,20 @@ The user clicks one button and gets a polished deck.  \alert{No analyst needed.}
 \begin{frame}{Example: Monthly Ops Review Pipeline}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{What the Pipeline Produces}]
+\textbf{What the Pipeline Produces}
 \begin{enumerate}\small
-  \item Title slide with date and department
-  \item KPI summary table (revenue, margin, headcount)
-  \item Trend charts (monthly revenue, YoY growth)
+  \item Title slide, KPI summary table, and trend charts
   \item Variance waterfall (budget vs.\ actual)
   \item AI-generated executive summary
 \end{enumerate}
-\end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Time Comparison}]
+\textbf{Time Comparison}
 \begin{itemize}\small
   \item \textbf{Manual}: 6--8 hours per month (data pull, Excel, copy-paste into PowerPoint, write narrative)
   \item \textbf{Pipeline}: \alert{30 seconds} per run
   \item \textbf{ROI}: First month pays for the build time
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}

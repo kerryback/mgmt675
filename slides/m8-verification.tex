@@ -263,8 +263,7 @@ Apply red-teaming protocols to the DCF models built in Module 3.
 \begin{enumerate}\small
   \item Set revenue growth to 0\% --- does the model break?
   \item Use a WACC below the risk-free rate --- does AI flag it?
-  \item Feed a company with negative free cash flow --- is terminal value still positive?
-  \item Compare AI's DCF output to a hand-built Excel model
+  \item Feed a company with negative FCF and compare AI's output to a hand-built Excel model
 \end{enumerate}
 \end{shadedbox}
 \end{column}
@@ -273,8 +272,7 @@ Apply red-teaming protocols to the DCF models built in Module 3.
 \begin{itemize}\small
   \item Where the model silently produces nonsense
   \item Which assumptions the AI accepts without questioning
-  \item How to improve the skill's guardrails
-  \item Whether the verification checklist catches the errors
+  \item How to improve guardrails so the verification checklist catches the errors
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -293,12 +291,9 @@ Every AI interaction in a production system should produce an \alert{audit log e
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{What to Log}]
 \begin{itemize}\small
-  \item \textbf{Timestamp}: when the query ran
-  \item \textbf{User}: who asked
-  \item \textbf{Prompt}: the question
-  \item \textbf{Response}: the AI's answer
-  \item \textbf{Token count}: cost tracking
-  \item \textbf{Model}: which LLM was used
+  \item \textbf{Identity}: timestamp, user, model
+  \item \textbf{Content}: prompt and response
+  \item \textbf{Metadata}: token count, latency, cost
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -307,8 +302,7 @@ Every AI interaction in a production system should produce an \alert{audit log e
 \begin{itemize}\small
   \item \textbf{Compliance}: Regulators can audit what the AI said
   \item \textbf{Debugging}: Trace errors back to the exact prompt
-  \item \textbf{Cost control}: Track token usage by team or project
-  \item \textbf{Improvement}: Identify common failures for skill updates
+  \item \textbf{Cost and quality}: Track token usage and identify common failures for skill updates
 \end{itemize}
 \end{shadedbox}
 \end{column}
