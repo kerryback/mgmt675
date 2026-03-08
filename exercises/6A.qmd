@@ -22,5 +22,5 @@ Calculate Claude's classification accuracy: what fraction of positive-sentiment 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Spreadsheet with headlines, classifications, price movements, and accuracy (`7A-Sentiment.xlsx`)
-- Screenshot of Claude's classification output for at least 5 headlines (`7A-Screenshot.png`)
+- Spreadsheet with headlines, classifications, price movements, and accuracy (`6A-Sentiment.xlsx`)
+- Screenshot of Claude's classification output for at least 5 headlines (`6A-Screenshot.png`)

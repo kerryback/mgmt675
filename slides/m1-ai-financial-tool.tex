@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 1: AI as a Financial Tool}
+\title{Module 1: AI Fundamentals}
 \author{Kerry Back}
 \date{}
 
@@ -145,7 +145,7 @@ Local (Your PC) & Full integration & {\color{accentblue}\textbf{Yes}} & Claude C
 \textbf{Key insight:} Only \alert{local execution} can call external APIs---the Rice Data Portal, Alpha Vantage, Financial Modeling Prep, etc.
 
 \vspace{0.2cm}
-We start with the cloud sandbox today.  Modules 2--3 introduce local execution and data connections.
+We start with the cloud sandbox today.  Modules 3--4 introduce local execution and data connections.
 \end{frame}
 
 % ========================================
@@ -331,180 +331,7 @@ All three let you describe what you want in plain English and get an interactive
 \end{frame}
 
 % ========================================
-% SECTION 4: AI AS A THINKING PARTNER
-% ========================================
-\section{AI as a Thinking Partner}
-
-\begin{frame}{AI as a Thinking Partner}
-The hardest business decisions aren't data problems---they're \alert{thinking} problems.  AI isn't just an analyst.  It's a colleague who will argue with you.
-\vspace{0.3cm}
-\begin{itemize}
-  \item \textbf{No agenda.}  Unlike colleagues, AI isn't protecting turf, managing up, or afraid to disagree with the boss.
-  \item \textbf{Tireless devil's advocate.}  You can say ``argue against my preferred option''---no hurt feelings, no relationship cost.
-  \item \textbf{Forces articulation.}  Explaining your reasoning to AI surfaces assumptions you didn't know you were making.
-\end{itemize}
-\vspace{0.3cm}
-\alert{The conversation is the deliverable.}  You leave with a sharper view of the decision, not a report.
-\end{frame}
-
-\begin{frame}{Conversation Moves for Better Decisions}
-Specific things you can say to AI to sharpen your thinking.
-\vspace{0.3cm}
-\begin{center}\small
-\begin{tabular}{@{}ll@{}}
-\toprule
-\textbf{Move} & \textbf{What you say} \\
-\midrule
-Expand options & ``What options am I not considering?'' \\
-Challenge & ``Argue against my preferred choice.'' \\
-Surface assumptions & ``What would need to be true for Option B to win?'' \\
-Pre-mortem & ``If this fails, what's the most likely reason?'' \\
-Reframe & ``How would a CFO / customer / regulator see this?'' \\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{frame}
-
-\begin{frame}[shrink=15]{Example: Should We Cut Our Price?}
-\begin{shadedbox}[title=\textbf{The Scenario}]\scriptsize
-You're a VP at a SaaS company.  Your product is \$99/month.  A competitor just launched at \$79.  Your CEO wants a recommendation by Friday.
-\end{shadedbox}
-\vspace{0.1cm}
-\small You open a conversation: \textit{``Help me think through whether we should drop our price to match.''}
-\vspace{0.1cm}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{AI expands your options}]
-\begin{itemize}\scriptsize
-  \item New \$79 tier with fewer features, keep \$99
-  \item Add value at \$99 instead of cutting
-  \item Hold price, offer selective retention discounts
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{AI challenges assumptions}]
-\begin{itemize}\scriptsize
-  \item 20\% price cut needs 25\% more customers to break even
-  \item Signals your product wasn't worth \$99
-  \item Competitors can cut again---a race you can't win on price
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\vspace{0.1cm}
-\centering\small Five minutes.  Three options instead of two, risks of each, and a failure scenario to monitor.  \alert{No data was harmed in the making of this decision.}
-\end{frame}
-
-% ========================================
-% SECTION 5: EFFECTIVE PROMPTING
-% ========================================
-\section{Effective Prompting}
-
-\begin{frame}{Start with the Decision, Not the Data}
-\begin{center}
-{\Large\bfseries AI is most useful when you know what you're trying to decide.}
-\end{center}
-
-\vspace{0.5cm}
-
-\begin{columns}[T]
-\begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Weak}]
-\begin{itemize}\small
-  \item ``Show me the data''
-  \item ``Make a chart of sales''
-  \item ``Summarize this spreadsheet''
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Strong}]
-\begin{itemize}\small
-  \item ``Which regions should get more marketing budget?''
-  \item ``Which product lines should we cut?''
-  \item ``Is the discount strategy destroying margin?''
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-
-\vspace{0.3cm}
-Frame questions around the decision.  Follow-up questions cost nothing---just type.
-\end{frame}
-
-\begin{frame}{Prompting = Collaboration, Not Commands}
-\begin{itemize}
-  \item AI is not a search engine---it's a \alert{collaborator}; think of it as a capable colleague
-  \item Do not try to craft the ``perfect prompt''---instead, have a \alert{conversation}
-  \item The goal is \textit{iterative refinement}, not one-shot perfection
-\end{itemize}
-
-\vspace{0.3cm}
-
-\begin{columns}[T]
-\begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Don't Do This}]
-\begin{itemize}\small
-  \item Try to anticipate every edge case
-  \item Give up when the first response is wrong
-  \item Treat AI as a one-shot tool
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Do This Instead}]
-\begin{itemize}\small
-  \item Start with a rough request
-  \item Refine based on the response
-  \item Iterate until you get what you need
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-
-\vspace{0.3cm}
-\textbf{Ask the AI what it needs:} ``What information do you need from me to do this?''
-\end{frame}
-
-\begin{frame}{The Plan-Execute-Evaluate Cycle}
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-  % Nodes
-  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (plan) at (0,2) {\textbf{Plan}};
-  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (execute) at (4,2) {\textbf{Execute}};
-  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (evaluate) at (2,0) {\textbf{Evaluate}};
-
-  % Arrows
-  \draw[->, thick, accentblue] (plan) -- (execute);
-  \draw[->, thick, accentblue] (execute) -- (evaluate);
-  \draw[->, thick, accentblue] (evaluate) -- (plan);
-\end{tikzpicture}
-\end{center}
-
-\begin{itemize}
-  \item \textbf{Plan:} Define the task, gather requirements, outline approach
-  \item \textbf{Execute:} Let AI do the work with your guidance
-  \item \textbf{Evaluate:} Check results, identify gaps, refine---then repeat
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Cross-Evaluation}
-\begin{itemize}
-  \item Start a \alert{new conversation} to evaluate the plan and output---even with the same model, a fresh context can catch errors
-  \item Ask the new conversation to review, critique, or verify; different phrasing may reveal blind spots
-  \item Consider using a \textit{different model} for additional perspective
-\end{itemize}
-
-\vspace{0.3cm}
-\textbf{Example:} \textit{``I received this analysis from another session. Can you review it for errors or questionable assumptions?''}
-
-\vspace{0.3cm}
-This technique becomes critical in Module 5 (Verifying AI-Generated Analysis).
-\end{frame}
-
-% ========================================
-% SECTION 5: COURSE OVERVIEW
+% SECTION 4: COURSE OVERVIEW
 % ========================================
 \section{Course Overview}
 
@@ -520,7 +347,8 @@ This technique becomes critical in Module 5 (Verifying AI-Generated Analysis).
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
 \begin{enumerate}
-  \item AI as a Financial Tool
+  \item AI Fundamentals
+  \item Data Exploration \& Strategic Thinking
   \item Portfolio Optimization and Company Valuation
   \item Connecting AI to Data and Tools
   \item Automating Financial Workflows
@@ -528,10 +356,10 @@ This technique becomes critical in Module 5 (Verifying AI-Generated Analysis).
 \end{column}
 \begin{column}{0.45\textwidth}
 \begin{enumerate}
-  \setcounter{enumi}{4}
-  \item Verifying AI-Generated Analysis
+  \setcounter{enumi}{5}
   \item Working with Financial Documents
   \item Building Financial AI Applications
+  \item Verification and Governance
   \item AI in Trading and Markets
 \end{enumerate}
 \end{column}

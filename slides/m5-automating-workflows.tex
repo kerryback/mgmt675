@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 4: Automating Financial Workflows}
+\title{Module 5: Automating Financial Workflows}
 \author{Kerry Back}
 \date{}
 
@@ -320,7 +320,7 @@ VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/na
 \section{The Consistency Problem}
 
 \begin{frame}{Why Skills Matter for Finance}
-In Module 2, you built DCF models and portfolio optimizations in ad-hoc conversations. What happens when you start a new conversation?
+In Module 3, you built DCF models and portfolio optimizations in ad-hoc conversations. What happens when you start a new conversation?
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -506,7 +506,125 @@ With the finance plugin installed, one command replaces 2--4 hours of FP\&A work
 \end{frame}
 
 % ========================================
-% SECTION 6: PLUGINS AND SAASPOCALYPSE
+% SECTION 6: AUTOMATED REPORTING PIPELINE
+% ========================================
+\section{Automated Reporting Pipelines}
+
+\begin{frame}{The Reporting Pipeline}
+Most finance teams spend hours assembling weekly or monthly reports.  An AI-powered pipeline automates the entire chain.
+\vspace{0.3cm}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.8cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2cm, minimum height=0.8cm, fill=excelinput, text=titlegray, font=\scriptsize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (db) {Database\\Query};
+\node[sbox, right=of db] (transform) {Transform\\\& Compute};
+\node[sbox, right=of transform] (chart) {Charts \&\\Tables};
+\node[sbox, right=of chart] (narr) {AI\\Narrative};
+\node[sbox, right=of narr] (pptx) {PowerPoint\\Output};
+
+\draw[sarrow] (db) -- (transform);
+\draw[sarrow] (transform) -- (chart);
+\draw[sarrow] (chart) -- (narr);
+\draw[sarrow] (narr) -- (pptx);
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+\begin{itemize}\small
+  \item \textbf{Database Query}: Pull data via SQL, API, or MCP
+  \item \textbf{Transform}: Calculate KPIs, variances, growth rates
+  \item \textbf{Charts}: Generate visualizations with matplotlib or plotly
+  \item \textbf{Narrative}: AI writes the commentary (``Revenue grew 8\% driven by\ldots'')
+  \item \textbf{PowerPoint}: Assemble slides programmatically
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Building the Pipeline with Streamlit}
+\textbf{Streamlit} turns a Python script into a web app in minutes.  Combined with an AI pipeline, it becomes a \alert{self-service reporting tool}.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{User Interface}]
+\begin{itemize}\small
+  \item Dropdown: select time period, department, or metric
+  \item Button: ``Generate Report''
+  \item Download: auto-generated \texttt{.pptx} file
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Behind the Scenes}]
+\begin{itemize}\small
+  \item Query database for selected parameters
+  \item Compute metrics and build charts
+  \item Send chart data to LLM for narrative
+  \item Assemble PowerPoint with \texttt{python-pptx}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+The user clicks one button and gets a polished deck.  \alert{No analyst needed.}
+\end{frame}
+
+\begin{frame}{Example: Monthly Ops Review Pipeline}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What the Pipeline Produces}]
+\begin{enumerate}\small
+  \item Title slide with date and department
+  \item KPI summary table (revenue, margin, headcount)
+  \item Trend charts (monthly revenue, YoY growth)
+  \item Variance waterfall (budget vs.\ actual)
+  \item AI-generated executive summary
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Time Comparison}]
+\begin{itemize}\small
+  \item \textbf{Manual}: 6--8 hours per month (data pull, Excel, copy-paste into PowerPoint, write narrative)
+  \item \textbf{Pipeline}: \alert{30 seconds} per run
+  \item \textbf{ROI}: First month pays for the build time
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Automated PowerPoint with python-pptx}
+\texttt{python-pptx} is a Python library for creating and editing PowerPoint files programmatically.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Can Do}]
+\begin{itemize}\small
+  \item Create slides from templates
+  \item Insert charts, tables, and images
+  \item Apply corporate formatting (fonts, colors, logos)
+  \item Populate placeholders with live data
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The AI Advantage}]
+\begin{itemize}\small
+  \item AI writes the \texttt{python-pptx} code for you
+  \item Tell Claude: ``Create a 5-slide deck from this data with a waterfall chart on slide 3''
+  \item AI handles layout, formatting, and data binding
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{You describe the deck; AI builds the automation.}  The pipeline runs unattended after that.
+\end{frame}
+
+% ========================================
+% SECTION 7: PLUGINS AND SAASPOCALYPSE
 % ========================================
 \section{Plugins and the SaaSpocalypse}
 
@@ -568,78 +686,44 @@ Salesforce & $-$7\% \\
 \end{frame}
 
 % ========================================
-% SECTION 7: EXERCISES
+% SECTION 9: SUMMARY
 % ========================================
-\section{Exercises}
-
-\begin{frame}{Exercise 1: Build a Database Skill}
-\begin{enumerate}
-  \item Create \texttt{.claude/skills/database/SKILL.md} for a sample database (Chinook or provided dataset)
-  \item Include: schema descriptions, table relationships, business rules
-  \item Test with 5 decision-relevant queries
-  \item Have a classmate ask 3 untested questions
-\end{enumerate}
-\vspace{0.3cm}
-\alert{The skill should enable anyone to query the database in plain English.}
-\end{frame}
-
-\begin{frame}{Exercise 2: DCF Skill}
-Create a skill that encodes a consistent DCF methodology:
-\begin{itemize}
-  \item Specify how to estimate each assumption (e.g., ``sales growth from trailing 5-year CAGR'')
-  \item Required output tables and sensitivity ranges
-  \item Consistent output format (Excel workbook)
-\end{itemize}
-\vspace{0.3cm}
-\textbf{Test:} Run \texttt{/dcf-valuation} on two different companies in separate conversations. Verify that the \alert{methodology is consistent} across both.
-\end{frame}
-
-\begin{frame}{Exercise 3: Portfolio Optimization Skill}
-Create a skill that specifies:
-\begin{itemize}
-  \item Data source and estimation window (e.g., Rice Data Portal, trailing 60 months)
-  \item Constraint set (no short sales, max 25\% per position)
-  \item Output format (weights table, frontier plot, statistics)
-\end{itemize}
-\vspace{0.3cm}
-\textbf{Test:} Run on two different sets of assets in separate conversations. Verify consistent methodology.
-\end{frame}
-
-\begin{frame}{Exercise 4: Interactive Dashboard Artifact}
-\begin{enumerate}
-  \item Choose a dataset (financial or otherwise)
-  \item Ask Claude to build an interactive artifact with filters and dropdowns
-  \item The artifact should replace a static dashboard
-  \item Compare: how long would the equivalent BI tool take to build?
-\end{enumerate}
-\end{frame}
 
 \begin{frame}{Summary}
 \begin{columns}[T]
-\begin{column}{0.33\textwidth}
+\begin{column}{0.25\textwidth}
 \begin{shadedbox}[title=\textbf{Dashboards}]
-\begin{itemize}\small
-  \item Natural language replaces fixed dashboards
-  \item AI writes queries and charts
+\begin{itemize}\scriptsize
+  \item NL replaces fixed views
+  \item AI writes queries
   \item Follow-ups are instant
 \end{itemize}
 \end{shadedbox}
 \end{column}
-\begin{column}{0.33\textwidth}
+\begin{column}{0.25\textwidth}
 \begin{shadedbox}[title=\textbf{Skills}]
-\begin{itemize}\small
-  \item Encode expertise in text
-  \item Solve the consistency problem
-  \item Create specialized agents
+\begin{itemize}\scriptsize
+  \item Encode expertise
+  \item Consistent methodology
+  \item Specialized agents
 \end{itemize}
 \end{shadedbox}
 \end{column}
-\begin{column}{0.33\textwidth}
+\begin{column}{0.25\textwidth}
+\begin{shadedbox}[title=\textbf{Pipelines}]
+\begin{itemize}\scriptsize
+  \item DB $\rightarrow$ chart $\rightarrow$ narrative $\rightarrow$ deck
+  \item Streamlit interface
+  \item python-pptx output
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.25\textwidth}
 \begin{shadedbox}[title=\textbf{Plugins}]
-\begin{itemize}\small
-  \item Package and share skills
-  \item SaaSpocalypse: \$285B impact
-  \item Finance is ground zero
+\begin{itemize}\scriptsize
+  \item Package skills
+  \item \$285B impact
+  \item Finance ground zero
 \end{itemize}
 \end{shadedbox}
 \end{column}

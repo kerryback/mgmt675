@@ -17,6 +17,8 @@ For each task:
 - Classify it as **"maker" work** (producing output: models, reports, presentations) or **"checker" work** (reviewing, validating, catching errors)
 - Explain how AI would change the task
 
+Then choose one of those tasks and apply the **OAVR framework** (Orient $\rightarrow$ Ask $\rightarrow$ Visualize $\rightarrow$ Recommend) to outline how you would approach it with AI. Describe: (a) what decision you're trying to make, (b) 3 specific questions that would change the decision, (c) what charts or tables you'd need, and (d) the format of your recommendation.
+
 Write a brief argument for which of the five tasks would deliver the most value if automated first.
 
 \bigskip

@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5A: NotebookLM Financial Analysis"
+title: "Exercise 5A: Financial Chatbot"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,21 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Upload at least three financial documents for the same company into Google NotebookLM. Good combinations include:
+Build a custom financial chatbot as a Streamlit app using the OpenRouter API with a free model (e.g., `mistralai/mistral-7b-instruct:free`).
 
-- A 10-K filing
-- An earnings call transcript
-- An analyst report or press release
+The chatbot should:
 
-Ask at least **5 questions** about the company's financial performance, strategy, and risk factors. For each answer:
+1. **Connect to a financial dataset** (a CSV file or small database)
+2. **Include a system prompt** with schema knowledge and domain expertise --- tell the model what columns exist, what the data represents, and how to answer questions
+3. **Let users ask questions in English** and display results
 
-- Note how NotebookLM **cites specific sources** (which document, which section)
-- Evaluate whether the answer is **grounded** in the documents or potentially **hallucinated**
-- Rate the answer quality (accurate / partially accurate / inaccurate)
+You can ask Claude Code to build the entire app for you. Focus on writing a good system prompt --- this is where the skill concepts from Module 5 apply.
+
+Test with at least 5 financial questions and evaluate the quality of the answers.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Q\&A pairs with citations and quality ratings (`5C-QA.pdf`)
-- Brief assessment of NotebookLM's reliability for financial analysis (half page, included in the same PDF)
-- Screenshot of the NotebookLM interface showing sources and a sample answer (`5C-Screenshot.png`)
+- Code (`5A-Code.zip`)
+- Screenshot of the running app showing at least 3 exchanges (`5A-Screenshot.png`)
+- Evaluation of answer quality (`5A-Evaluation.pdf`, half page)

@@ -6,6 +6,7 @@ project:
     - slides.qmd
     - assignments.qmd
     - index-pdf.qmd
+    - exercises/*.qmd
   resources:
     - CNAME
     - .nojekyll
@@ -13,7 +14,7 @@ project:
     - files/*.zip
     - files/*.xlsx
     - index-pdf.pdf
-    - exercises/*.pdf
+  
 
 website:
   title: ""

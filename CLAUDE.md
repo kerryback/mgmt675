@@ -25,10 +25,10 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - `slides/mgmt675-style.tex` — shared style (metropolis theme, custom colors, tcolorbox environments)
 - `slides/images/` — images used in slides
 - `00-intro` — course introduction
-- Module decks: `m1` through `m8`:
-  - m1-ai-financial-tool, m2-portfolio-valuation, m3-data-tools
-  - m4-automating-workflows, m5-verification, m6-financial-documents
-  - m7-financial-applications, m8-trading-markets
+- Module decks: `m1` through `m9`:
+  - m1-ai-financial-tool, m2-data-exploration, m3-portfolio-valuation
+  - m4-data-tools, m5-automating-workflows, m6-financial-documents
+  - m7-financial-applications, m8-verification, m9-trading-markets
 
 ### Other
 - `gamma_pptx_utils.py` — Python utilities for PPTX processing
@@ -50,24 +50,41 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - Font Awesome icons for PDF download links
 
 ## Modules (in order)
-1. AI as a Financial Tool
-2. Portfolio Optimization and Company Valuation
-3. Connecting AI to Data and Tools
-4. Automating Financial Workflows
-5. Verifying AI-Generated Analysis
+1. AI Fundamentals
+2. Data Exploration & Strategic Thinking
+3. Portfolio Optimization and Company Valuation
+4. Connecting AI to Data and Tools
+5. Automating Financial Workflows
 6. Working with Financial Documents
 7. Building Financial AI Applications
-8. AI in Trading and Markets
+8. Verification and Governance
+9. AI in Trading and Markets
+
+## Session Schedule (12 sessions, 6 weeks)
+| Session | Date | Module |
+|---------|------|--------|
+| 1 | Tue 3/17 | M1: AI Fundamentals |
+| 2 | Thu 3/19 | M2: Data Exploration & Strategic Thinking |
+| 3 | Tue 3/24 | M3a: Portfolio Optimization |
+| 4 | Thu 3/26 | M3b: Company Valuation |
+| 5 | Tue 3/31 | M4: Connecting to Data & Tools |
+| 6 | Thu 4/2 | M5a: Automation: Skills & Database Agents |
+| 7 | Tue 4/7 | M5b: Automation: Reporting Pipeline & PowerPoint |
+| 8 | Thu 4/10 | M6: Financial Documents & RAG |
+| 9 | Tue 4/15 | M7: Building AI Applications |
+| 10 | Thu 4/17 | M8: Verification & Governance |
+| 11 | Tue 4/22 | M9a: Trading: Sentiment Models & Research |
+| 12 | Thu 4/24 | M9b: Trading: Implementation & Industry |
 
 ## Assignment Schedule (6 weeks)
 | Week | Due | Modules | Exercises |
 |------|-----|---------|-----------|
-| 1 | 3/24 | M1 | 1A, 1B, 1C |
-| 2 | 3/31 | M2 | 2A, 2B, 2C |
-| 3 | 4/7 | M3 | 3A, 3B, 3C, 3D |
-| 4 | 4/14 | M4 + M5 | 4A, 4B, 4C |
-| 5 | 4/21 | M6 + M7 | 5A, 5B, 5C |
-| 6 | 4/28 | M8 | 6A, 6B |
+| 1 | 3/24 | M1 + M2 | 1A, 1B, 1C |
+| 2 | 3/31 | M3 | 2A, 2B, 2C, 2D |
+| 3 | 4/7 | M4 + M5a | 3A, 3B, 3C, 3D |
+| 4 | 4/14 | M5b + M6 | 4A, 4B, 4C |
+| 5 | 4/21 | M7 + M8 | 5A, 5B, 5C |
+| 6 | 4/28 | M9 | 6A, 6B |
 
 ## Grading
 Six group assignments (15% each) + peer assessments (10%). Due Tuesdays at 11:59pm, March 24 through April 28.

@@ -1,5 +1,5 @@
 ---
-title: "Exercise 1C: Portfolio Consolidation"
+title: "Exercise 1C: AI as a Thinking Partner"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,17 +9,25 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download [portfolio-consolidation.zip](../files/portfolio-consolidation.zip) and extract the files. You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
+Choose a financial decision scenario (e.g., whether to acquire a company, enter a new market, restructure a portfolio, or approve a large capital expenditure). Open a conversation with Claude.ai and use at least **four** of the five conversation moves from Module 2:
 
-Upload all three files to Claude.ai and ask it to:
+1. **Expand options**: "What options am I not considering?"
+2. **Challenge**: "Argue against my preferred choice."
+3. **Surface assumptions**: "What would need to be true for Option B to win?"
+4. **Pre-mortem**: "If this fails, what's the most likely reason?"
+5. **Reframe**: "How would a CFO / customer / regulator see this?"
 
-(a) Merge all equity holdings into a single consolidated view with standardized columns
-(b) Resolve inconsistencies between ticker symbols and full company names
-(c) Sum shares for positions that appear in multiple accounts
-(d) Produce a summary showing total portfolio value, top five holdings by market value, and asset allocation between equities and bonds
+Additionally, ask Claude to **steelman** the opposing position --- construct the strongest possible argument against your preferred option.
+
+After the conversation, write a one-page decision memo that includes:
+
+- The decision and options considered
+- Which conversation moves you used and what they revealed
+- How steelmanning changed (or reinforced) your thinking
+- Your final recommendation with reasoning
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Consolidated output (`1D-Consolidated.xlsx`)
-- Screenshot of the Claude conversation (`1D-Screenshot.png`)
+- Decision memo (`1C-Memo.pdf`, 1 page)
+- Screenshot of Claude conversation showing at least 4 conversation moves (`1C-Screenshot.png`)

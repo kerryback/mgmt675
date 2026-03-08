@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5C: Financial Chatbot"
+title: "Exercise 5C: DCF Cross-Check with Red-Teaming"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,25 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Build a custom financial chatbot as a Streamlit app using the OpenRouter API with a free model (e.g., `mistralai/mistral-7b-instruct:free`).
+Take the DCF model you built in Exercise 2B. Start a **new** Claude conversation (do not continue the original) and upload the workbook. Ask Claude to critique the valuation:
 
-The chatbot should:
+1. **Identify at least 3 questionable assumptions** --- are the growth rates, margins, or discount rate reasonable?
+2. **Check formula consistency** --- does FCF match the pro forma income statement and balance sheet?
+3. **Evaluate the terminal value** --- is the implied terminal growth rate reasonable relative to GDP growth? What fraction of enterprise value comes from the terminal value?
+4. **Suggest specific revisions** with justification
 
-1. **Connect to a financial dataset** (a CSV file or small database)
-2. **Include a system prompt** with schema knowledge and domain expertise --- tell the model what columns exist, what the data represents, and how to answer questions
-3. **Let users ask questions in English** and display results
+Then apply **red-teaming protocols** from Module 8:
 
-You can ask Claude Code to build the entire app for you. Focus on writing a good system prompt --- this is where the skill concepts from Module 4 apply.
+5. Set revenue growth to 0\% --- does the model break or produce nonsense?
+6. Use a WACC below the risk-free rate --- does the model flag this as unreasonable?
+7. Feed a scenario with negative free cash flow in all projection years --- what happens to the valuation?
 
-Test with at least 5 financial questions and evaluate the quality of the answers.
+Revise the model based on the critique and red-teaming results. Compare the original and revised valuations.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Code (`6B-Code.zip`)
-- Screenshot of the running app showing at least 3 exchanges (`6B-Screenshot.png`)
-- Evaluation of answer quality (`6B-Evaluation.pdf`, half page)
+- Original DCF model (`5C-Original.xlsx`)
+- Revised DCF model (`5C-Revised.xlsx`)
+- Summary of critique, red-teaming findings, and revisions (`5C-Summary.pdf`, 1 page)
+- Screenshots of both Claude conversations (`5C-Screenshot1.png`, `5C-Screenshot2.png`)

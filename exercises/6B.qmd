@@ -23,5 +23,5 @@ Compare Claude's assessment to the stock's actual post-earnings move. Did the to
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Claude's analysis of the transcript (`7B-Analysis.pdf`)
-- Comparison to actual stock movement with discussion (`7B-Comparison.pdf`, half page)
+- Claude's analysis of the transcript (`6B-Analysis.pdf`)
+- Comparison to actual stock movement with discussion (`6B-Comparison.pdf`, half page)

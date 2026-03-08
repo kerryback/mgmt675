@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 5: Verifying AI-Generated Analysis}
+\title{Module 8: Verification and Governance}
 \author{Kerry Back}
 \date{}
 
@@ -156,13 +156,13 @@ Every AI output deserves the same scrutiny\\you'd give a new analyst's first del
 \section{Hands-On: Validating Prior Work}
 
 \begin{frame}{Reproducibility Test}
-Take analysis from Modules 1--4 and test whether it reproduces.
+Take analysis from Modules 1--7 and test whether it reproduces.
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The exercise}
 \begin{enumerate}\small
-  \item Pick a financial analysis from Module 2 (DCF or portfolio optimization)
+  \item Pick a financial analysis from Module 3 (DCF or portfolio optimization)
   \item Start a \alert{fresh conversation}
   \item Give the same data and ask the same question
   \item Compare: do the results match?
@@ -178,7 +178,7 @@ Take analysis from Modules 1--4 and test whether it reproduces.
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-If the numbers don't match, that's not a failure --- it's \alert{exactly why we verify}. And it's exactly why \textbf{skills} (Module 4) matter.
+If the numbers don't match, that's not a failure --- it's \alert{exactly why we verify}. And it's exactly why \textbf{skills} (Module 5) matter.
 \end{frame}
 
 \begin{frame}{Auditing a DCF Model}
@@ -230,15 +230,103 @@ This is how production skills get hardened. \alert{Every failure makes the skill
 \end{frame}
 
 % ========================================
-% SECTION 5: THREE LAYERS OF AUDITABILITY
+% SECTION 5: RED-TEAMING PROTOCOLS
+% ========================================
+\section{Red-Teaming Protocols}
+
+\begin{frame}{Systematic Red-Teaming}
+Red-teaming goes beyond ad-hoc testing.  A \alert{protocol} ensures you test every failure mode systematically.
+\vspace{0.3cm}
+\begin{center}\small
+\begin{tabular}{@{} l l @{}}
+\toprule
+\textbf{Test Category} & \textbf{What You Try} \\
+\midrule
+Out-of-scope questions & Ask about data that doesn't exist in the schema \\
+Conflicting documents & Upload docs with contradictory numbers \\
+Edge cases & Zero values, null fields, single-row groups, boundary dates \\
+Hand-written SQL comparison & Write the query yourself and compare to AI's result \\
+Ambiguous language & ``Best customer'' --- by revenue? frequency? margin? \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\alert{A skill that hasn't been red-teamed is a liability, not an asset.}
+\end{frame}
+
+\begin{frame}[shrink=5]{Red-Teaming a DCF Model}
+Apply red-teaming protocols to the DCF models built in Module 3.
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Financial Red-Team Tests}]
+\begin{enumerate}\small
+  \item Set revenue growth to 0\% --- does the model break?
+  \item Use a WACC below the risk-free rate --- does AI flag it?
+  \item Feed a company with negative free cash flow --- is terminal value still positive?
+  \item Compare AI's DCF output to a hand-built Excel model
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What You Learn}]
+\begin{itemize}\small
+  \item Where the model silently produces nonsense
+  \item Which assumptions the AI accepts without questioning
+  \item How to improve the skill's guardrails
+  \item Whether the verification checklist catches the errors
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 6: AUDIT LOGGING
+% ========================================
+\section{Audit Logging}
+
+\begin{frame}{JSONL Audit Logs}
+Every AI interaction in a production system should produce an \alert{audit log entry}. The standard format is JSONL (one JSON object per line).
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What to Log}]
+\begin{itemize}\small
+  \item \textbf{Timestamp}: when the query ran
+  \item \textbf{User}: who asked
+  \item \textbf{Prompt}: the question
+  \item \textbf{Response}: the AI's answer
+  \item \textbf{Token count}: cost tracking
+  \item \textbf{Model}: which LLM was used
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Why It Matters}]
+\begin{itemize}\small
+  \item \textbf{Compliance}: Regulators can audit what the AI said
+  \item \textbf{Debugging}: Trace errors back to the exact prompt
+  \item \textbf{Cost control}: Track token usage by team or project
+  \item \textbf{Improvement}: Identify common failures for skill updates
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Store logs locally or in a cloud database.  \alert{If it's not logged, it didn't happen.}
+\end{frame}
+
+% ========================================
+% SECTION 7: THREE LAYERS OF AUDITABILITY
 % ========================================
 \section{Three Layers of Auditability}
 
 \begin{frame}{Defense in Depth}
 \begin{enumerate}
-  \item \textbf{RAG}: Ground answers in source documents with citations (Module 6 preview). AI answers based on \alert{your content}, not its training data.
-  \item \textbf{Show the code}: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.
-  \item \textbf{Guardrails}: Read-only database access, restricted tables, every query logged for audit. The system \textit{prevents} mistakes, not just detects them.
+  \item \textbf{RAG citations}: Ground answers in source documents with traceable references (Module 6). AI answers based on \alert{your content}, not its training data.
+  \item \textbf{Code transparency}: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.
+  \item \textbf{Audit logs}: Every prompt, response, and token count recorded in JSONL. The system creates a \textit{complete trail} of every AI decision.
 \end{enumerate}
 \vspace{0.5cm}
 The more layers you add, the harder it is for errors to reach your team. \alert{Same principle as cybersecurity.}
@@ -334,8 +422,8 @@ Each adoption stage maps to a trust level.
   \end{itemize}
   \item \textbf{Medium-term} (months) --- \textit{test-before-deploy}:
   \begin{itemize}\small
-    \item Skills for recurring workflows (Module 4)
-    \item MCP integrations and Streamlit apps (Modules 3, 7)
+    \item Skills for recurring workflows (Module 5)
+    \item MCP integrations and Streamlit apps (Modules 4, 7)
   \end{itemize}
   \item \textbf{Strategic} (quarters) --- \textit{full audit trail}:
   \begin{itemize}\small
@@ -350,64 +438,41 @@ Each adoption stage maps to a trust level.
 % ========================================
 \section{Exercises}
 
-\begin{frame}{Exercise 1: DCF Cross-Check}
-\begin{enumerate}
-  \item Start a new conversation and ask Claude to critique your Module 2 DCF model --- identify 3+ questionable assumptions.
-  \item Revise the model based on the critique.
-  \item Submit: original + revised models + summary of what changed and why.
-\end{enumerate}
-\vspace{0.3cm}
-\alert{The most valuable use of AI is often having it check work, not produce it.}
-\end{frame}
-
-\begin{frame}{Exercise 2: Red-Team Your Skill}
-\vfill
-\begin{enumerate}
-  \item Take the database skill from Module 4
-  \item Write 10 adversarial queries designed to produce wrong answers
-  \item Document failures, fix SKILL.md, and submit: original + revised SKILL.md, adversarial queries, and failures found.
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{Exercise 3: AI Usage Policy}
-Review a transcript of an AI analysis session. Then:
-\begin{enumerate}
-  \item Identify potential errors, unsupported assumptions, and missing validations
-  \item Draft a one-page AI usage policy for a hypothetical finance team:
-  \begin{itemize}\small
-    \item What data can/cannot go to AI providers
-    \item Which tools are approved
-    \item When human review is required and how session logs should be archived
-  \end{itemize}
-\end{enumerate}
-\end{frame}
-
 \begin{frame}{Summary}
 \begin{columns}[T]
-\begin{column}{0.33\textwidth}
+\begin{column}{0.25\textwidth}
 \begin{shadedbox}[title=\textbf{Verification}]
-\begin{itemize}\small
-  \item The trust spectrum
+\begin{itemize}\scriptsize
+  \item Trust spectrum
   \item 4-step protocol
-  \item Red-teaming skills
+  \item Silent errors
 \end{itemize}
 \end{shadedbox}
 \end{column}
-\begin{column}{0.33\textwidth}
+\begin{column}{0.25\textwidth}
+\begin{shadedbox}[title=\textbf{Red-Teaming}]
+\begin{itemize}\scriptsize
+  \item Systematic protocols
+  \item Edge cases
+  \item SQL comparison
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.25\textwidth}
+\begin{shadedbox}[title=\textbf{Audit Logs}]
+\begin{itemize}\scriptsize
+  \item JSONL format
+  \item Compliance trail
+  \item Cost tracking
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.25\textwidth}
 \begin{shadedbox}[title=\textbf{Governance}]
-\begin{itemize}\small
+\begin{itemize}\scriptsize
   \item Data policies
-  \item Schema-only pattern
-  \item Session log auditing
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.33\textwidth}
-\begin{shadedbox}[title=\textbf{Adoption}]
-\begin{itemize}\small
-  \item Sandbox-audit-deploy
-  \item Quick wins to strategic
-  \item Trust is a process
+  \item Schema-only
+  \item Adoption roadmap
 \end{itemize}
 \end{shadedbox}
 \end{column}

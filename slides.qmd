@@ -9,11 +9,12 @@ Click on a topic to download the PDF slide deck.
 | # | Module | |
 |--:|--------|:-:|
 | 0 | [Course Introduction](slides/00-intro.pdf) | [{{< fa file-pdf >}}](slides/00-intro.pdf) |
-| 1 | [AI as a Financial Tool](slides/m1-ai-financial-tool.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-financial-tool.pdf) |
-| 2 | [Portfolio Optimization and Company Valuation](slides/m2-portfolio-valuation.pdf) | [{{< fa file-pdf >}}](slides/m2-portfolio-valuation.pdf) |
-| 3 | [Connecting AI to Data and Tools](slides/m3-data-tools.pdf) | [{{< fa file-pdf >}}](slides/m3-data-tools.pdf) |
-| 4 | [Automating Financial Workflows](slides/m4-automating-workflows.pdf) | [{{< fa file-pdf >}}](slides/m4-automating-workflows.pdf) |
-| 5 | [Verifying AI-Generated Analysis](slides/m5-verification.pdf) | [{{< fa file-pdf >}}](slides/m5-verification.pdf) |
+| 1 | [AI Fundamentals](slides/m1-ai-financial-tool.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-financial-tool.pdf) |
+| 2 | [Data Exploration & Strategic Thinking](slides/m2-data-exploration.pdf) | [{{< fa file-pdf >}}](slides/m2-data-exploration.pdf) |
+| 3 | [Portfolio Optimization and Company Valuation](slides/m3-portfolio-valuation.pdf) | [{{< fa file-pdf >}}](slides/m3-portfolio-valuation.pdf) |
+| 4 | [Connecting AI to Data and Tools](slides/m4-data-tools.pdf) | [{{< fa file-pdf >}}](slides/m4-data-tools.pdf) |
+| 5 | [Automating Financial Workflows](slides/m5-automating-workflows.pdf) | [{{< fa file-pdf >}}](slides/m5-automating-workflows.pdf) |
 | 6 | [Working with Financial Documents](slides/m6-financial-documents.pdf) | [{{< fa file-pdf >}}](slides/m6-financial-documents.pdf) |
 | 7 | [Building Financial AI Applications](slides/m7-financial-applications.pdf) | [{{< fa file-pdf >}}](slides/m7-financial-applications.pdf) |
-| 8 | [AI in Trading and Markets](slides/m8-trading-markets.pdf) | [{{< fa file-pdf >}}](slides/m8-trading-markets.pdf) |
+| 8 | [Verification and Governance](slides/m8-verification.pdf) | [{{< fa file-pdf >}}](slides/m8-verification.pdf) |
+| 9 | [AI in Trading and Markets](slides/m9-trading-markets.pdf) | [{{< fa file-pdf >}}](slides/m9-trading-markets.pdf) |

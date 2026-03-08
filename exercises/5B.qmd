@@ -30,5 +30,5 @@ Watch how Claude plans its approach, reads each file, and combines the results.
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Due diligence summary (`6A-DueDiligence.xlsx`)
-- Screenshots showing Claude's intermediate steps (`6A-Screenshot1.png`, `6A-Screenshot2.png`)
+- Due diligence summary (`5B-DueDiligence.xlsx`)
+- Screenshots showing Claude's intermediate steps (`5B-Screenshot1.png`, `5B-Screenshot2.png`)

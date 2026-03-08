@@ -8,13 +8,13 @@ All assignments are group projects (up to five students per group). Each week's 
 
 Click on an exercise to download the PDF.
 
-### Week 1: AI as a Financial Tool (due March 24)
+### Week 1: AI Fundamentals & Data Exploration (due March 24)
 
 | | | |
 |:-:|----------|:-:|
 | 1A | [AI Use Cases in Finance](exercises/1A.pdf) | [{{< fa file-pdf >}}](exercises/1A.pdf) |
 | 1B | [Interactive Bond Pricing App](exercises/1B.pdf) | [{{< fa file-pdf >}}](exercises/1B.pdf) |
-| 1C | [Portfolio Consolidation](exercises/1C.pdf) | [{{< fa file-pdf >}}](exercises/1C.pdf) |
+| 1C | [AI as a Thinking Partner](exercises/1C.pdf) | [{{< fa file-pdf >}}](exercises/1C.pdf) |
 
 ### Week 2: Portfolio Optimization and Company Valuation (due March 31)
 
@@ -25,30 +25,30 @@ Click on an exercise to download the PDF.
 | 2C | [Monte Carlo Valuation](exercises/2C.pdf) | [{{< fa file-pdf >}}](exercises/2C.pdf) |
 | 2D | [Capital Budgeting with Option Value](exercises/2D.pdf) | [{{< fa file-pdf >}}](exercises/2D.pdf) |
 
-### Week 3: Connecting AI to Data and Tools (due April 7)
+### Week 3: Data Tools & Skills (due April 7)
 
 | | | |
 |:-:|----------|:-:|
 | 3A | [Financial Data with MCP](exercises/3A.pdf) | [{{< fa file-pdf >}}](exercises/3A.pdf) |
 | 3B | [Stock Analysis in Colab](exercises/3B.pdf) | [{{< fa file-pdf >}}](exercises/3B.pdf) |
-| 3C | [Loan Amortization in Excel](exercises/3C.pdf) | [{{< fa file-pdf >}}](exercises/3C.pdf) |
-| 3D | [Loan Portfolio Risk Analysis](exercises/3D.pdf) | [{{< fa file-pdf >}}](exercises/3D.pdf) |
+| 3C | [Build a Database Skill](exercises/3C.pdf) | [{{< fa file-pdf >}}](exercises/3C.pdf) |
+| 3D | [Build a Finance Analysis Skill](exercises/3D.pdf) | [{{< fa file-pdf >}}](exercises/3D.pdf) |
 
-### Week 4: Automating Workflows and Verification (due April 14)
-
-| | | |
-|:-:|----------|:-:|
-| 4A | [Build a Database Skill](exercises/4A.pdf) | [{{< fa file-pdf >}}](exercises/4A.pdf) |
-| 4B | [Build a Finance Analysis Skill](exercises/4B.pdf) | [{{< fa file-pdf >}}](exercises/4B.pdf) |
-| 4C | [DCF Cross-Check](exercises/4C.pdf) | [{{< fa file-pdf >}}](exercises/4C.pdf) |
-
-### Week 5: Financial Documents and Applications (due April 21)
+### Week 4: Automation & Financial Documents (due April 14)
 
 | | | |
 |:-:|----------|:-:|
-| 5A | [NotebookLM Financial Analysis](exercises/5A.pdf) | [{{< fa file-pdf >}}](exercises/5A.pdf) |
+| 4A | [Automated Reporting Pipeline](exercises/4A.pdf) | [{{< fa file-pdf >}}](exercises/4A.pdf) |
+| 4B | [Loan Portfolio Risk Analysis](exercises/4B.pdf) | [{{< fa file-pdf >}}](exercises/4B.pdf) |
+| 4C | [NotebookLM Financial Analysis](exercises/4C.pdf) | [{{< fa file-pdf >}}](exercises/4C.pdf) |
+
+### Week 5: Applications & Verification (due April 21)
+
+| | | |
+|:-:|----------|:-:|
+| 5A | [Financial Chatbot](exercises/5A.pdf) | [{{< fa file-pdf >}}](exercises/5A.pdf) |
 | 5B | [M&A Due Diligence](exercises/5B.pdf) | [{{< fa file-pdf >}}](exercises/5B.pdf) |
-| 5C | [Financial Chatbot](exercises/5C.pdf) | [{{< fa file-pdf >}}](exercises/5C.pdf) |
+| 5C | [DCF Cross-Check with Red-Teaming](exercises/5C.pdf) | [{{< fa file-pdf >}}](exercises/5C.pdf) |
 
 ### Week 6: AI in Trading and Markets (due April 28)
 

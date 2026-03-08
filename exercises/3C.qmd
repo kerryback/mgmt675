@@ -1,5 +1,5 @@
 ---
-title: "Exercise 3C: Loan Amortization in Excel"
+title: "Exercise 3C: Build a Database Skill"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,25 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Using the Claude for Excel add-in, build a 30-year fixed-rate mortgage amortization table. Inputs should include the loan amount, annual interest rate, and term in years.
+Create a SKILL.md file for a sample database (the Chinook music retailer database or a dataset of your choice). The skill should include:
 
-The table should compute for each month:
+- **Schema description**: table names, columns, data types, and relationships
+- **Business context**: what the data represents, key metrics, important definitions
+- **Example queries** with expected output format
+- **Guardrails**: common pitfalls, edge cases, things the skill should warn about
 
-- Monthly payment (using PMT or equivalent formula)
-- Interest portion
-- Principal portion
-- Remaining balance
+Test your skill by asking 5 **decision-relevant** questions --- not just data lookups, but questions a manager would ask. For example:
 
-All values should use **live Excel formulas**, not hardcoded numbers. Tell Claude to use formulas rather than pasting values.
+- "Which artist generates the most revenue, and is that revenue concentrated in one album?"
+- "What's the trend in invoice totals by quarter --- is the business growing?"
+- "Which sales rep has the highest average invoice value?"
 
-Create a chart showing the breakdown of principal vs.\ interest over the life of the loan.
+Then have a classmate ask 3 questions they come up with (that you haven't tested). Document any failures and fix the SKILL.md.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Excel workbook with amortization table and chart (`3C-Amortization.xlsx`)
-- Screenshot showing that formulas are live (`3C-Screenshot.png`)
+- SKILL.md file (`3C-SKILL.md`)
+- Output from your 5 test queries (`3C-MyQueries.pdf`)
+- Output from your classmate's 3 queries (`3C-PeerQueries.pdf`)
+- Notes on any failures and fixes made (`3C-Fixes.pdf`, if applicable)
