@@ -17,7 +17,7 @@ Download the installer package for your operating system. Each package includes 
 - Claude Code
 - Koyeb CLI
 
-The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, GitHub Copilot, LaTeX Workshop, Quarto) and pre-configured Claude skills.
+The installer also sets up VS Code extensions (Python, Jupyter, Claude Code, GitHub Copilot, LaTeX Workshop, Quarto) and pre-configured Claude skills (xlsx, docx, pptx, skill-creator).
 
 ## Download
 

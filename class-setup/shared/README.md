@@ -35,6 +35,7 @@ Pre-configured skills for working with:
 - Excel spreadsheets (xlsx)
 - Word documents (docx)
 - PowerPoint presentations (pptx)
+- Building your own skills (skill-creator)
 
 ## Installation Instructions
 

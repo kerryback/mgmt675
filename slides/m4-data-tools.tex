@@ -337,6 +337,36 @@ Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Deskto
 \end{columns}
 \end{frame}
 
+\begin{frame}[fragile]{Claude Code Skills}
+\textbf{Skills} are packaged instructions that teach Claude Code a specific workflow. Our installer pre-configured four:
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Document Skills}]
+\begin{itemize}\small
+  \item \texttt{xlsx} --- read, create, edit Excel with formulas \& charts
+  \item \texttt{docx} --- create \& edit Word documents
+  \item \texttt{pptx} --- create \& edit PowerPoint decks
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Utility Skills}]
+\begin{itemize}\small
+  \item \texttt{skill-creator} --- guide for building your own skills
+  \item Use this later to build database and analysis skills
+\end{itemize}
+\vspace{0.3cm}
+{\footnotesize Install manually:\\ \texttt{claude skill install xlsx}}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}\small
+Type \texttt{/} inside Claude Code to see available skills as slash commands.
+\end{center}
+\end{frame}
+
 \begin{frame}{Which Tool When?}
 \begin{center}
 \small
