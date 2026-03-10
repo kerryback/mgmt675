@@ -1,0 +1,408 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 2: Getting Started with Claude Code}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: CLAUDE DESKTOP OVERVIEW
+% ========================================
+\section{Claude Desktop Overview}
+
+\begin{frame}{Three Tabs: Chat, Cowork, Code}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Chat (Analysis)}]
+\begin{itemize}\footnotesize
+  \item Sandboxed Python in the browser
+  \item No local file access
+  \item Must upload data manually
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Cowork}]
+\begin{itemize}\footnotesize
+  \item Runs in a local VM
+  \item Files synced to/from VM
+  \item \alert{No internet access}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{Code}]
+\begin{itemize}\footnotesize
+  \item Runs on \alert{your machine}
+  \item Full local file access
+  \item Full internet access
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+\alert{Code mode} gives Claude direct access to your machine --- no sandbox, no VM, no upload step.
+\end{center}
+\end{frame}
+
+\begin{frame}{Which Tool When?}
+\begin{itemize}
+  \item \textbf{Chat} for questions and explanations (e.g., ``Explain the WACC formula'')
+  \item \textbf{Artifacts} for interactive tools (e.g., a DCF calculator with sliders)
+  \item \textbf{Code} for anything requiring files, APIs, or local execution (e.g., fetch live data, run regressions, create Excel)
+  \item \textbf{Cowork} for complex multi-file tasks with no internet needed (e.g., organize 50 PDF 10-Ks)
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Rule of thumb:} Start with Chat. If you need a visual, use Artifacts. If you need file I/O, use Code. Save Cowork for complex multi-file tasks.
+\end{frame}
+
+% ========================================
+% SECTION 2: SETTING UP CLAUDE CODE
+% ========================================
+\section{Setting Up Claude Code}
+
+\begin{frame}{Running the Installer}
+The class installer sets up everything you need in one step:
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{Python} --- language Claude Code uses to execute analysis
+  \item \textbf{Git} and \textbf{GitHub CLI} --- version control and collaboration
+  \item \textbf{Claude Code} --- the agent engine that runs on your machine
+  \item \textbf{Skills} --- pre-packaged instructions for Excel, Word, PowerPoint, and more
+\end{itemize}
+\vspace{0.3cm}
+\alert{Follow the class setup guide for your platform (Mac or Windows).}
+\end{frame}
+
+\begin{frame}{Your First Session}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Getting Started}]
+\begin{enumerate}\small
+  \item Open Claude Desktop $\rightarrow$ \textbf{Code} tab
+  \item Select a working folder for your project
+  \item Choose a model: \textbf{Sonnet} (fast) or \textbf{Opus} (thorough)
+  \item Set permission mode to \textbf{auto-accept} (recommended for exercises)
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Try It}]
+\begin{itemize}\small
+  \item ``Create a CSV file with five rows of sample sales data --- store name, date, product, quantity, revenue --- then load it into a pandas DataFrame and plot revenue by store.''
+  \item Claude writes the code, runs it, and shows you the result
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Terminal Alternative}
+The Code tab in Claude Desktop and the terminal command \texttt{claude} use the \alert{same engine}.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Claude Desktop (Code tab)}]
+\begin{itemize}\small
+  \item Visual interface with file browser
+  \item Click to select working folder
+  \item Good for getting started
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Terminal (\texttt{claude})}]
+\begin{itemize}\small
+  \item Type \texttt{claude} in any terminal
+  \item Same skills, same config
+  \item Preferred by power users
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Both approaches share the same skills, MCP servers, and configuration files.
+\end{frame}
+
+% ========================================
+% SECTION 3: CLAUDE.MD AND SKILLS
+% ========================================
+\section{CLAUDE.md and Skills}
+
+\begin{frame}{CLAUDE.md: Global vs.\ Per-Project}
+Claude reads \texttt{CLAUDE.md} files automatically at the start of every session --- no need to repeat instructions.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Global (\textasciitilde/.claude/CLAUDE.md)}]
+\begin{itemize}\small
+  \item Applies to \alert{every} project
+  \item Output style preferences (chart colors, file formats)
+  \item Preferred libraries (e.g., ``use pandas, not polars'')
+  \item Personal conventions
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Per-Project (project root)}]
+\begin{itemize}\small
+  \item Applies only to \alert{this} folder
+  \item Data context (column names, units, sources)
+  \item Domain guidance (industry terms, formulas)
+  \item Project-specific workflows
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Both are plain text files.  Claude reads the global file first, then the project file.  Project instructions can override global ones.
+\end{frame}
+
+\begin{frame}{Pre-Installed Skills: Document Creation}
+\textbf{Skills} are packaged instructions that teach Claude Code a specific workflow.  The class installer pre-configured four.  Invoke any skill by typing \texttt{/} followed by its name.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{/xlsx}]
+\begin{itemize}\footnotesize
+  \item Create and edit Excel workbooks
+  \item Uses \alert{live formulas}, not hardcoded values
+  \item Supports charts, formatting, multiple sheets
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{/docx}]
+\begin{itemize}\footnotesize
+  \item Create and edit Word documents
+  \item Professional formatting, headers, tables
+  \item Supports tracked changes and comments
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{/pptx}]
+\begin{itemize}\footnotesize
+  \item Create and edit PowerPoint decks
+  \item Slide layouts, charts, speaker notes
+  \item Can modify existing presentations
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Example:} \textit{``/xlsx Create a loan amortization table for a \$200K mortgage at 6.5\% with monthly payments and a chart of principal vs.\ interest.''}
+\end{frame}
+
+\begin{frame}{Pre-Installed Skills: Skill Creator}
+The \texttt{/skill-creator} skill is a guide for \alert{building your own skills}.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Does}]
+\begin{itemize}\small
+  \item Walks you through designing a new skill step by step
+  \item Generates the skill definition file
+  \item Installs the skill so it appears as a \texttt{/} command
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{When to Use It}]
+\begin{itemize}\small
+  \item You repeat the same workflow across sessions
+  \item You want Claude to follow a specific multi-step process
+  \item You want to share a workflow with classmates
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+We will use \texttt{/skill-creator} in the exercise below to build a personal task manager skill.
+\end{frame}
+
+\begin{frame}{Exercise: Create a Tasks Skill}
+Use \texttt{/skill-creator} to build a \textbf{tasks} skill that manages personal and school to-do lists.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What the Skill Should Do}]
+\begin{itemize}\small
+  \item Store tasks in markdown files (e.g., \texttt{personal.md}, \texttt{school.md})
+  \item Add new tasks with a category and due date
+  \item List pending tasks when asked
+  \item Mark tasks as complete
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Steps}]
+\begin{enumerate}\small
+  \item Type \texttt{/skill-creator} and describe the task manager you want
+  \item Let Claude generate and install the skill
+  \item Test it: ``/tasks Add: finish DCF exercise, due Tuesday''
+  \item Test it: ``/tasks What's pending?''
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+This exercise teaches skill creation.  The same pattern applies to building skills for data retrieval, report generation, or any repeated workflow.
+\end{frame}
+
+% ========================================
+% SECTION 4: WORKING WITH MULTIPLE FILES
+% ========================================
+\section{Working with Multiple Files}
+
+\begin{frame}{Merging Data from Different Sources}
+Real financial data rarely lives in a single file or format.  Claude Code can read CSV, Excel, PDF, and Word files, then \alert{combine them into a unified dataset}.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Common Scenarios}]
+\begin{itemize}\small
+  \item Holdings from multiple brokerages (xlsx + csv)
+  \item Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)
+  \item Quarterly reports from divisions with different column names
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What Claude Handles}]
+\begin{itemize}\small
+  \item Reads each file format natively
+  \item Reconciles column names and data types
+  \item Flags mismatches and missing values
+  \item Outputs a clean, unified table
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{You describe what should be merged and how.  Claude handles the parsing and code.}
+\end{frame}
+
+\begin{frame}{Filtering and Aggregating}
+Once data is combined, the next step is usually filtering, sorting, or grouping.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Filtering}]
+\begin{itemize}\small
+  \item ``Keep only loans above \$1M''
+  \item ``Filter to stocks with P/E > 0''
+  \item ``Exclude rows with missing revenue''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Aggregating}]
+\begin{itemize}\small
+  \item ``Average revenue by sector and quarter''
+  \item ``Sum holdings by asset class''
+  \item ``Rank funds by Sharpe ratio''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+State your intent in plain English.  Claude writes the pandas code, runs it, and shows you the result.  Always \alert{check the filter logic} --- this is where silent errors happen most often (Module~8).
+\end{frame}
+
+\begin{frame}{Exercise: Portfolio Consolidation}
+Download \href{https://kerryback.com/mgmt675/files/portfolio-consolidation.zip}{portfolio-consolidation.zip} and extract the files into a folder.  You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
+\vspace{0.3cm}
+In Claude Code, ask Claude to:
+\begin{enumerate}
+  \item Merge all equity holdings into a single consolidated view with standardized columns
+  \item Resolve inconsistencies between ticker symbols and full company names
+  \item Sum shares for positions that appear in multiple accounts
+  \item Produce a summary showing total portfolio value, top five holdings by market value, and asset allocation between equities and bonds
+\end{enumerate}
+\vspace{0.2cm}
+Save the result as \texttt{consolidated.xlsx}.
+\end{frame}
+
+\begin{frame}{Exercise: Aggregating Diverse File Types}
+Download \href{https://kerryback.com/mgmt675/files/loans.zip}{loans.zip} and extract the files into a folder.  You will have a loan tape (CSV), a collateral appraisal report (PDF), and a policy exceptions memo (DOCX).
+\vspace{0.3cm}
+Ask Claude Code to read all three files and produce a single Excel workbook that:
+\begin{itemize}
+  \item Lists every loan with its terms from the CSV
+  \item Adds a column with the appraised collateral value from the PDF
+  \item Flags loans that violate the policy limits described in the memo
+\end{itemize}
+\vspace{0.3cm}
+\alert{Notice that Claude reads CSV, PDF, and DOCX natively} --- no file-parsing code, no manual extraction, no copy-paste.
+\end{frame}
+
+\begin{frame}{Exercise: Reconciling Column Names}
+Download \href{https://kerryback.com/mgmt675/files/aggregation.zip}{aggregation.zip} and extract the workbooks into a folder.
+\vspace{0.3cm}
+Each Excel file contains a data table.  Column names vary across files and some columns are missing.  Ask Claude Code to:
+\begin{enumerate}
+  \item Summarize the columns present, row count, and basic statistics for each file
+  \item Combine all files into a single table, reconciling the varying column names
+  \item Save the result as \texttt{combined.xlsx}
+\end{enumerate}
+\vspace{0.3cm}
+This is the same ``divide and conquer'' pattern used in professional data pipelines --- read each source independently, then unify.
+\end{frame}
+
+% ========================================
+% SECTION 5: EFFECTIVE PROMPTING
+% ========================================
+\section{Effective Prompting}
+
+\begin{frame}{The Plan-Execute-Evaluate Cycle}
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+  % Nodes
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (plan) at (0,2) {\textbf{Plan}};
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (execute) at (4,2) {\textbf{Execute}};
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.5cm, minimum height=1cm] (evaluate) at (2,0) {\textbf{Evaluate}};
+
+  % Arrows
+  \draw[->, thick, accentblue] (plan) -- (execute);
+  \draw[->, thick, accentblue] (execute) -- (evaluate);
+  \draw[->, thick, accentblue] (evaluate) -- (plan);
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+  \item \textbf{Plan:} Define the task, gather requirements, outline approach
+  \item \textbf{Execute:} Let AI do the work with your guidance
+  \item \textbf{Evaluate:} Check results, identify gaps, refine---then repeat
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-Evaluation}
+\begin{itemize}
+  \item Start a \alert{new conversation} to evaluate the plan and output---even with the same model, a fresh context can catch errors
+  \item Ask the new conversation to review, critique, or verify; different phrasing may reveal blind spots
+  \item Consider using a \textit{different model} for additional perspective
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:} \textit{``I received this analysis from another session. Can you review it for errors or questionable assumptions?''}
+
+\vspace{0.3cm}
+This technique becomes critical in Module 8 (Verification and Governance).
+\end{frame}
+
+\end{document}

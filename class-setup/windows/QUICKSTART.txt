@@ -32,11 +32,7 @@ WHAT GETS INSTALLED:
 - Python 3.12
 - Git for Windows
 - GitHub CLI
-- Node.js
-- Visual Studio Code
 - Claude Code
-- Koyeb CLI
-- VS Code extensions
 - Claude skills
 
 
@@ -45,7 +41,6 @@ AFTER INSTALLATION:
 1. Close and reopen PowerShell/Command Prompt
 2. Run: gh auth login
 3. Run: claude
-4. Run: koyeb login
 
 
 NEED HELP?

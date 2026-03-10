@@ -225,24 +225,14 @@ while not done:
 \begin{frame}{Example: Database Analytics Agent}
 User: ``Analyze quarterly revenue trends for our top 5 customers.''
 \vspace{0.3cm}
-\begin{shadedbox}[title=\textbf{What the LLM Sees at Report Time}]
-\begin{center}
-\small
-\begin{tabular}{cl}
-\# & \textbf{Message} \\
-\midrule
-1 & system: You are a data analyst with SQL and Python tools... \\
-2 & user: Analyze quarterly revenue for top 5 customers... \\
-3 & assistant: [tool call: SQL for top 5 customers] \\
-4 & tool: [results: ACME, Globex, Initech...] \\
-5 & assistant: [tool call: SQL for quarterly data] \\
-6 & tool: [results: Q1, Q2, Q3...] \\
-7 & assistant: [tool call: Python chart] \\
-8 & tool: [output: chart saved] \\
-9 & assistant: Here is my analysis... (final report)
-\end{tabular}
-\end{center}
-\end{shadedbox}
+\begin{enumerate}\small
+  \item System prompt: ``You are a data analyst with SQL and Python tools\ldots''
+  \item User: ``Analyze quarterly revenue for top 5 customers\ldots''
+  \item Agent calls SQL tool $\rightarrow$ gets top 5 customers (ACME, Globex, Initech\ldots)
+  \item Agent calls SQL tool $\rightarrow$ gets quarterly data (Q1, Q2, Q3\ldots)
+  \item Agent calls Python tool $\rightarrow$ generates chart
+  \item Agent delivers final report combining all results
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Rice Data Portal: A Production Database Agent}
@@ -255,17 +245,13 @@ User: ``Analyze quarterly revenue trends for our top 5 customers.''
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Architecture}]
-\begin{tabular}{ll}
-\textbf{Component} & \textbf{Implementation} \\
-\midrule
-LLM & OpenRouter API \\
-Tool & SQL execution \\
-Agent Loop & Python if/else \\
-UI & Streamlit web app \\
-Database & MotherDuck \\
-\end{tabular}
-\end{shadedbox}
+\textbf{Architecture}
+\begin{itemize}\small
+  \item \textbf{LLM:} OpenRouter API
+  \item \textbf{Tool:} SQL execution against MotherDuck
+  \item \textbf{Agent loop:} Python if/else
+  \item \textbf{UI:} Streamlit web app
+\end{itemize}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
@@ -422,7 +408,7 @@ Watch how Claude plans its approach, reads each file, and combines the results i
 \begin{shadedbox}[title=\textbf{Deployment}]
 \begin{itemize}\small
   \item Streamlit / Gradio UI
-  \item Git + GitHub
+  \item GitHub
   \item Streamlit Cloud (free)
 \end{itemize}
 \end{shadedbox}

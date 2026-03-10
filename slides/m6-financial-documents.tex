@@ -221,13 +221,13 @@ NotebookLM is a practical example of RAG that you can use \alert{today}.
 % ========================================
 \section{Building a RAG Pipeline}
 
-\begin{frame}{Under the Hood: The RAG Notebook}
-For those who want to understand the internals, the \textbf{Agentic RAG for Dummies} Colab notebook walks through building a RAG system step by step.
+\begin{frame}{Under the Hood: Building a RAG Pipeline}
+For those who want to understand the internals, ask Claude Code to build a RAG pipeline step by step.
 \vspace{0.3cm}
 \begin{enumerate}
-  \item Install libraries and upload a PDF
-  \item Chunk, embed, and store in a vector database
-  \item Query via Gradio chat interface
+  \item Install libraries (\texttt{langchain}, \texttt{chromadb}, an embedding model)
+  \item Load and chunk a PDF, embed and store in a vector database
+  \item Query the pipeline with finance-specific questions
 \end{enumerate}
 \end{frame}
 
@@ -259,13 +259,11 @@ Notice how answers are grounded in the actual document --- the key benefit of RA
 
 \begin{frame}{Exercise 2: RAG Pipeline}
 \begin{enumerate}
-  \item Open the Agentic RAG for Dummies Colab notebook
-  \item Upload a corporate annual report (e.g., Apple 10-K)
+  \item Ask Claude Code to build a RAG pipeline that loads a corporate annual report (e.g., Apple 10-K)
+  \item Have it chunk and embed the document into a vector database
   \item Ask 5 finance-specific questions and evaluate whether answers are grounded or hallucinated
-  \item Submit: notebook + evaluation
+  \item Submit: code + evaluation
 \end{enumerate}
-\vspace{0.3cm}
-\small\textbf{Colab notebook}: \url{https://colab.research.google.com/gist/GiovanniPasq/ddfc4a09d16b5b97c5c532b5c49f7789}
 \end{frame}
 
 \begin{frame}{Exercise 3: Document Comparison}

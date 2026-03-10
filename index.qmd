@@ -29,7 +29,7 @@ We will use Anthropic's Claude throughout the course.  Anthropic has made a numb
 ### Learning Objectives
 
 1. How to use AI with code-execution tools to perform financial analysis, handle data, and generate visualizations and reports
-2. How to use AI as a strategic thinking partner using structured frameworks (OAVR, conversation moves, steelmanning)
+2. How to set up and use Claude Code for local code execution, file access, and financial workflows
 3. How to use AI for portfolio optimization and discounted cash flow valuation of companies
 4. How to connect AI to external data sources and tools (MCP servers, Jupyter notebooks, Excel)
 5. How to automate financial workflows with reusable skills and reporting pipelines

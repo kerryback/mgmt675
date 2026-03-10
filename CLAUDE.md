@@ -26,7 +26,8 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - `slides/images/` — images used in slides
 - `00-intro` — course introduction
 - Module decks: `m1` through `m9`:
-  - m1-ai-financial-tool, m2-data-exploration, m3-portfolio-valuation
+  - m1-ai-financial-tool, m2-claude (Getting Started with Claude Code)
+  - m3-portfolio-optimization, m3-dcf-analysis
   - m4-data-tools, m5-automating-workflows, m6-financial-documents
   - m7-financial-applications, m8-verification, m9-trading-markets
 
@@ -51,8 +52,8 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 
 ## Modules (in order)
 1. AI Fundamentals
-2. Data Exploration & Strategic Thinking
-3. Portfolio Optimization and Company Valuation
+2. Getting Started with Claude Code
+3. Portfolio Optimization (3a) and Company Valuation (3b)
 4. Connecting AI to Data and Tools
 5. Automating Financial Workflows
 6. Working with Financial Documents
@@ -64,7 +65,7 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 | Session | Date | Module |
 |---------|------|--------|
 | 1 | Tue 3/17 | M1: AI Fundamentals |
-| 2 | Thu 3/19 | M2: Data Exploration & Strategic Thinking |
+| 2 | Thu 3/19 | M2: Getting Started with Claude Code |
 | 3 | Tue 3/24 | M3a: Portfolio Optimization |
 | 4 | Thu 3/26 | M3b: Company Valuation |
 | 5 | Tue 3/31 | M4: Connecting to Data & Tools |

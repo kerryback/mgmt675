@@ -51,11 +51,7 @@ This installer will install the following software:
 - Python 3.12 (with pip)
 - Git for Windows
 - GitHub CLI
-- Node.js (with npm)
-- Visual Studio Code
-- Claude Code (via npm)
-- Koyeb CLI
-- VS Code extensions (from config/extensions.txt)
+- Claude Code (native installer)
 - Claude skills (to ~/.claude/skills)
 
 ## Requirements
@@ -83,35 +79,12 @@ Close and reopen PowerShell to refresh the PATH environment variable.
 After installation completes:
 
 1. **Close and reopen PowerShell** (to refresh PATH)
-2. **Authenticate with GitHub**:
-   ```powershell
-   gh auth login
-   ```
-3. **Authenticate with Koyeb**:
-   ```powershell
-   koyeb login
-   ```
+2. **Authenticate with GitHub**: Run `gh auth login`
+3. **Start Claude Code**: Run `claude` in the terminal to authenticate
 
 ### Using Claude Code
 
-Claude Code is an AI coding assistant integrated into VS Code.
-
-1. Open VS Code
-2. Click the Claude icon in the sidebar (or press `Ctrl+Shift+P` and type "Claude")
-3. On first launch, you'll be prompted to authenticate with your Anthropic account
-4. Follow the browser prompts to sign in or create an account
-5. Once authenticated, you can chat with Claude in the sidebar panel
-
-### Using GitHub Copilot
-
-GitHub Copilot is an AI coding assistant that provides code completions directly in VS Code.
-
-1. Open VS Code
-2. Click the Copilot icon in the sidebar (or press `Ctrl+Shift+I`)
-3. Sign in with your GitHub account when prompted
-4. GitHub Copilot Free provides 2,000 code completions and 50 chat messages per month
-
-Once signed in, Copilot will automatically suggest code as you type. Press `Tab` to accept a suggestion.
+Run `claude` in your terminal to start Claude Code and authenticate with your Anthropic account.
 
 ## Support
 

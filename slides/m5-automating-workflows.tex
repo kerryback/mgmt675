@@ -68,21 +68,25 @@ These are simple questions. Getting answers shouldn't require a development cycl
 \section{Natural Language as the Query Interface}
 
 \begin{frame}{The Shift: From Dashboards to Conversations}
-\begin{center}
-\begin{tabular}{@{} l l l @{}}
-\toprule
-& \textbf{Traditional Dashboard} & \textbf{Natural Language AI} \\
-\midrule
-Query method & Click filters, select dates & Ask in plain English \\
-Time to answer & Minutes to weeks & Seconds \\
-Follow-up questions & New dashboard request & Next sentence \\
-Visualization & Pre-built charts & Generated on demand \\
-Who can use it & Trained users & Anyone \\
-Cost per question & High (amortized) & Near zero (marginal) \\
-\bottomrule
-\end{tabular}
-\end{center}
-\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Traditional Dashboard}
+\begin{itemize}\small
+  \item Click filters and select dates to query
+  \item Answers take minutes to weeks
+  \item Follow-ups require a new dashboard request
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Natural Language AI}
+\begin{itemize}\small
+  \item Ask in plain English
+  \item Answers in seconds
+  \item Follow-ups are the next sentence
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
 \centering
 The dashboard was a \textit{workaround} for the fact that databases don't speak English. Now they do.
 \end{frame}
@@ -297,21 +301,13 @@ description: "Excel file..."
 \begin{itemize}
   \item \textbf{Project skills}: \texttt{.claude/skills/} in your project folder
   \item \textbf{User skills}: \texttt{\textasciitilde/.claude/skills/} (shared across projects)
-  \item Skills also work in \textbf{Claude.ai} (upload ZIP), \textbf{Cowork} (install as plugin), and \textbf{VS Code}
+  \item Skills also work in \textbf{Claude.ai} (upload ZIP) and \textbf{Cowork} (install as plugin)
 \end{itemize}
 \vspace{0.3cm}
-\begin{center}
-\small
-\begin{tabular}{@{} l l l @{}}
-\toprule
-\textbf{Format} & \textbf{How to Install} & \textbf{How to Invoke} \\
-\midrule
-Claude.ai (web) & Upload ZIP in Settings & Automatic or \texttt{/name} \\
-Code tab / CLI & Place in \texttt{.claude/skills/} & Automatic or \texttt{/name} \\
-VS Code extension & Place in \texttt{.claude/skills/} & Automatic or \texttt{/name} \\
-\bottomrule
-\end{tabular}
-\end{center}
+\begin{itemize}
+  \item \textbf{Claude.ai (web):} upload a ZIP in Settings --- invoke automatically or with \texttt{/name}
+  \item \textbf{Code tab / CLI:} place in \texttt{.claude/skills/} --- invoke automatically or with \texttt{/name}
+\end{itemize}
 \end{frame}
 
 % ========================================
@@ -459,32 +455,15 @@ In Module 1 you queried the Rice Data Portal through its web interface.  Now let
 Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix effect}
 \end{frame}
 
-\begin{frame}[shrink=5]{Variance Analysis: Example Data}
+\begin{frame}{Variance Analysis: Example Data}
 \textbf{Scenario:} You are an FP\&A analyst. Q1 actuals just closed. The CEO wants to know why operating income missed budget by \$300K.
-\vspace{0.2cm}
-\begin{center}
-\scriptsize
-\begin{tabular}{@{} l r r r @{}}
-\toprule
-& \textbf{Budget} & \textbf{Actual} & \textbf{\$ Variance} \\
-\midrule
-\textbf{Revenue} & & & \\
-\quad Units sold & 100,000 & 95,000 & \\
-\quad Avg price & \$50.00 & \$51.00 & \\
-\quad \textit{Total Revenue} & \textit{\$5,000,000} & \textit{\$4,845,000} & \textit{(\$155,000)} \\
-\midrule
-\textbf{COGS} & & & \\
-\quad Unit cost & \$30.00 & \$32.00 & \\
-\quad \textit{Total COGS} & \textit{\$3,000,000} & \textit{\$3,040,000} & \textit{(\$40,000)} \\
-\midrule
-\textit{Gross Profit} & \textit{\$2,000,000} & \textit{\$1,805,000} & \textit{(\$195,000)} \\
-\midrule
-\textit{Total SG\&A} & \textit{\$1,450,000} & \textit{\$1,555,000} & \textit{(\$105,000)} \\
-\midrule
-\textbf{Operating Income} & \textbf{\$550,000} & \textbf{\$250,000} & \textbf{(\$300,000)} \\
-\bottomrule
-\end{tabular}
-\end{center}
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{Revenue:} Budget 100K units at \$50 = \$5M; Actual 95K units at \$51 = \$4.845M \quad \alert{(\$155K) miss}
+  \item \textbf{COGS:} Budget \$30/unit = \$3M; Actual \$32/unit = \$3.04M \quad \alert{(\$40K) miss}
+  \item \textbf{SG\&A:} Budget \$1.45M; Actual \$1.555M \quad \alert{(\$105K) miss}
+  \item \textbf{Operating Income:} Budget \$550K; Actual \$250K \quad \alert{(\$300K) total miss}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[shrink=5]{Using the Finance Plugin}
@@ -648,29 +627,21 @@ On January 30, 2026, Anthropic released 11 open-source plugins for Claude.  With
 \vspace{0.2cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Hardest-Hit Stocks}]
-\scriptsize
-\begin{tabular}{@{} l r @{}}
-\toprule
-\textbf{Company} & \textbf{Drop} \\
-\midrule
-LegalZoom & $-$20\% \\
-Thomson Reuters & $-$16\% \\
-RELX (LexisNexis) & $-$14\% \\
-Intuit & $>-$10\% \\
-Salesforce & $-$7\% \\
-\bottomrule
-\end{tabular}
-\end{shadedbox}
+\textbf{Hardest-Hit Stocks}
+\begin{itemize}\small
+  \item LegalZoom: $-$20\%
+  \item Thomson Reuters: $-$16\%
+  \item RELX (LexisNexis): $-$14\%
+  \item Intuit: $>-$10\%; Salesforce: $-$7\%
+\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Why It Happened}]
-\begin{itemize}\scriptsize
+\textbf{Why It Happened}
+\begin{itemize}\small
   \item Plugins showed AI could replicate \textit{core workflows} of specialized enterprise software
   \item \textbf{No proprietary code} --- just markdown instructions + database connectors
   \item Investors asked: ``Why pay \$50K/yr for software when a plugin does it?''
 \end{itemize}
-\end{shadedbox}
 \end{column}
 \end{columns}
 \end{frame}

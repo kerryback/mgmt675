@@ -10,8 +10,9 @@ Click on a topic to download the PDF slide deck.
 |--:|--------|:-:|
 | 0 | [Course Introduction](slides/00-intro.pdf) | [{{< fa file-pdf >}}](slides/00-intro.pdf) |
 | 1 | [AI Fundamentals](slides/m1-ai-financial-tool.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-financial-tool.pdf) |
-| 2 | [Data Exploration & Strategic Thinking](slides/m2-data-exploration.pdf) | [{{< fa file-pdf >}}](slides/m2-data-exploration.pdf) |
-| 3 | [Portfolio Optimization and Company Valuation](slides/m3-portfolio-valuation.pdf) | [{{< fa file-pdf >}}](slides/m3-portfolio-valuation.pdf) |
+| 2 | [Getting Started with Claude Code](slides/m2-claude.pdf) | [{{< fa file-pdf >}}](slides/m2-claude.pdf) |
+| 3a | [Portfolio Optimization](slides/m3-portfolio-optimization.pdf) | [{{< fa file-pdf >}}](slides/m3-portfolio-optimization.pdf) |
+| 3b | [Company Valuation](slides/m3-dcf-analysis.pdf) | [{{< fa file-pdf >}}](slides/m3-dcf-analysis.pdf) |
 | 4 | [Connecting AI to Data and Tools](slides/m4-data-tools.pdf) | [{{< fa file-pdf >}}](slides/m4-data-tools.pdf) |
 | 5 | [Automating Financial Workflows](slides/m5-automating-workflows.pdf) | [{{< fa file-pdf >}}](slides/m5-automating-workflows.pdf) |
 | 6 | [Working with Financial Documents](slides/m6-financial-documents.pdf) | [{{< fa file-pdf >}}](slides/m6-financial-documents.pdf) |

@@ -1,0 +1,204 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 3: Portfolio Optimization}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Learning Objectives}
+\begin{enumerate}
+  \item Construct optimal portfolios with real-world constraints using AI
+  \item Visualize the opportunity set, efficient frontier, and capital allocation line
+  \item Understand how constraints change the attainable risk-return tradeoff
+\end{enumerate}
+
+\vspace{0.5cm}
+These are core tools of investment management.  AI handles the mathematics and code.  \alert{You focus on the assumptions and the interpretation.}
+\end{frame}
+
+% ============================================================
+% PORTFOLIO OPTIMIZATION
+% ============================================================
+\section{Portfolio Optimization}
+
+\begin{frame}{The Problem}
+Given expected returns, risks (standard deviations), and correlations for multiple assets, plus a risk-free rate:
+
+\begin{itemize}
+  \item What is the \textbf{best portfolio}?
+  \item What does the set of all possible portfolios look like?
+  \item How do real-world constraints change the answer?
+\end{itemize}
+
+\vspace{0.3cm}
+Mean-variance analysis provides the framework.  AI handles the computation.
+\end{frame}
+
+\begin{frame}{Key Concepts}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Portfolios}]
+\begin{itemize}\small
+  \item \textbf{Tangency portfolio:} the risky portfolio with the highest Sharpe ratio (excess return per unit of risk)
+  \item \textbf{Global minimum variance (GMV):} the risky portfolio with the lowest possible risk
+  \item \textbf{Efficient frontier:} the set of risky portfolios with the highest return for each level of risk
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Capital Allocation Line}]
+\begin{itemize}\small
+  \item The straight line from the risk-free rate through the tangency portfolio
+  \item Represents all combinations of the risk-free asset and the tangency portfolio
+  \item The best attainable risk-return tradeoff
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Visualizing the Opportunity Set}
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+  % Axes
+  \draw[->, thick] (0,0) -- (10,0) node[right] {Standard Deviation};
+  \draw[->, thick] (0,0) -- (0,6.5) node[above] {Expected Return};
+
+  % Portfolio cloud (scatter dots)
+  \foreach \i in {1,...,60}{
+    \pgfmathsetmacro{\x}{1.5 + 6*rnd}
+    \pgfmathsetmacro{\y}{0.5 + 5*rnd}
+    \pgfmathsetmacro{\valid}{\y < 0.4*\x + 2.5 ? 1 : 0}
+    \ifnum\valid=1
+      \fill[accentblue!20] (\x,\y) circle (1.5pt);
+    \fi
+  }
+
+  % Efficient frontier (curve)
+  \draw[very thick, alertorange, domain=1.8:8, samples=50]
+    plot (\x, {0.7*sqrt(\x-1) + 1.5});
+
+  % CAL (line from risk-free through tangency)
+  \draw[very thick, accentblue, dashed] (0,1.2) -- (9, 5.7);
+
+  % Risk-free rate
+  \fill[titlegray] (0,1.2) circle (3pt) node[left, font=\small] {$r_f$};
+
+  % Tangency portfolio
+  \fill[alertorange] (4.5,4.0) circle (4pt) node[above right, font=\small\bfseries] {Tangency};
+
+  % GMV
+  \fill[titlegray] (1.8,2.3) circle (4pt) node[below right, font=\small\bfseries] {GMV};
+\end{tikzpicture}
+\end{center}
+
+\small The \textcolor{accentblue!50}{cloud} shows random portfolios.  The \textcolor{alertorange}{orange curve} is the efficient frontier.  The \textcolor{accentblue}{dashed line} is the capital allocation line.
+\end{frame}
+
+\begin{frame}{Adding Real-World Constraints}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Common constraints}
+\begin{itemize}
+  \item No short sales (all weights $\geq 0$)
+  \item Maximum position (e.g., $\leq 40\%$ per asset)
+  \item Minimum position (e.g., $\geq 2\%$ if held)
+  \item Margin requirement (sum of absolute values $\leq 2$)
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{What happens}
+\begin{itemize}
+  \item The efficient frontier shifts \alert{inward} (lower returns and/or higher risk)
+  \item The tangency portfolio changes
+  \item The Sharpe ratio cannot improve with constraints---it can only stay the same or get worse
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{The constrained frontier is still useful: it reflects what you can actually implement.}
+\end{frame}
+
+\begin{frame}{Solution Methods}
+\begin{itemize}
+  \item \textbf{Solver (numerical optimization)}
+    \begin{itemize}
+      \item Maximize Sharpe ratio (tangency portfolio)
+      \item Minimize risk for a target return (efficient frontier)
+      \item Minimize risk (global minimum variance portfolio)
+    \end{itemize}
+  \item \textbf{Analytic/algebraic solution}
+    \begin{itemize}
+      \item Solve systems of linear equations for tangency, GMV, and frontier
+      \item Available only when there are no constraints
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+Python solver options: \texttt{scipy.minimize}, \texttt{cvxopt}, \texttt{cvxpy}---AI chooses and writes the code.
+
+\vfill
+\alert{Ask Claude:} \small Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.
+\end{frame}
+
+\begin{frame}[shrink=15]{Exercise: Portfolio Cloud}
+
+Consider three assets with the following characteristics:
+
+\vspace{0.2cm}
+\begin{itemize}\small
+  \item \textbf{Asset A}: expected return 8\%, standard deviation 14\%
+  \item \textbf{Asset B}: expected return 12\%, standard deviation 20\%
+  \item \textbf{Asset C}: expected return 15\%, standard deviation 26\%
+  \item Correlations: $\rho_{AB} = 0.3$, \quad $\rho_{AC} = 0.1$, \quad $\rho_{BC} = 0.5$
+  \item Risk-free rate: 4\%
+\end{itemize}
+
+\vspace{0.2cm}
+Ask Claude to:
+\begin{enumerate}
+  \item Generate 10{,}000 random portfolios (random weights summing to 1, no short sales) and plot each portfolio's expected return vs.\ standard deviation.
+  \item Overlay the efficient frontier and the capital allocation line on the same plot.
+  \item Mark the tangency portfolio and the global minimum variance portfolio.
+\end{enumerate}
+\end{frame}
+
+% ============================================================
+% EXERCISES
+% ============================================================
+\section{Exercises}
+
+\begin{frame}{Exercise 1: Tangency Portfolio}
+\begin{itemize}
+  \item Download data for 5 ETFs + T-bill rate; compute tangency portfolio weights, return, standard deviation, and Sharpe ratio.
+  \item Plot the efficient frontier and capital allocation line, then add a no-short-sales constraint and compare.
+  \item Submit the data, plots, and a short paragraph on how constraints changed the result.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: Portfolio Cloud Artifact}
+Using the three-asset data from earlier:
+\begin{itemize}\small
+  \item \textbf{Asset A}: expected return 8\%, standard deviation 14\%
+  \item \textbf{Asset B}: expected return 12\%, standard deviation 20\%
+  \item \textbf{Asset C}: expected return 15\%, standard deviation 26\%
+  \item Correlations: $\rho_{AB} = 0.3$, \quad $\rho_{AC} = 0.1$, \quad $\rho_{BC} = 0.5$; \quad $r_f = 4\%$
+\end{itemize}
+\vspace{0.2cm}
+Ask Claude to build an \textbf{interactive artifact} that generates 10{,}000 random portfolios, overlays the efficient frontier, and marks the tangency and GMV portfolios.  Publish and submit the link.
+\end{frame}
+
+\end{document}
