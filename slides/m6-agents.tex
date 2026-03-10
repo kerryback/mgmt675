@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usetheme{metropolis}
 \usepackage{appendixnumberbeamer}
-\usepackage{booktabs, hyperref}
+\usepackage{booktabs, hyperref, graphicx}
 
 \input{mgmt675-style}
 
@@ -162,7 +162,101 @@ The portal is a single-tool agent (SQL only), but it follows exactly the same \a
 \end{frame}
 
 % ========================================
-% SECTION 4: THE DASHBOARD TRAP
+% SECTION 4: THE API
+% ========================================
+\section{The API: Building Agents in Code}
+
+\begin{frame}{The API: Talking to an LLM from Code}
+An \textbf{API} lets your code communicate with an LLM service over the internet.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What You Need}]
+\begin{itemize}\small
+  \item An API key (authentication)
+  \item The \texttt{anthropic} Python package
+  \item A model name (e.g., \texttt{claude-sonnet-4-20250514})
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Getting Your Key}]
+\begin{itemize}\small
+  \item Go to \texttt{console.anthropic.com}
+  \item Create an API key under Settings
+  \item Add credit (\$5 is plenty for the course)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Your Claude Pro subscription covers Claude.ai and Claude Code.  The API is a separate product with pay-per-use pricing.
+\end{frame}
+
+\begin{frame}[fragile]{A Single API Call}
+\begin{shadedbox}[title=\textbf{Calling the Anthropic API}]
+\begin{verbatim}
+import anthropic
+
+client = anthropic.Anthropic(api_key=API_KEY)
+
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": prompt}
+    ]
+)
+answer = response.content[0].text
+\end{verbatim}
+\end{shadedbox}
+\end{frame}
+
+\begin{frame}[fragile,shrink=5]{Conversation History}
+\begin{shadedbox}[title=\textbf{Messages Are a List of Dictionaries}]
+\begin{verbatim}
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    system="You are a finance tutor...",
+    messages=[
+        {"role": "user", "content": "What is a P/E ratio?"},
+        {"role": "assistant", "content": "A P/E ratio is..."},
+        {"role": "user", "content": "How do I interpret it?"}
+    ]
+)
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{itemize}\small
+  \item Each API call is independent --- LLM has no memory
+  \item You must send the \alert{entire conversation history} each time
+  \item The \textbf{system prompt} defines the agent's behavior and available tools
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Agent Loop Pseudocode}
+\begin{shadedbox}[title=\textbf{The Agent's Decision Loop}]
+\begin{verbatim}
+while not done:
+    response = call_llm(messages, system_prompt, tools)
+
+    if response.has_tool_call:
+        result = execute_tool(response.tool_call)
+        messages.append(tool_result)
+    elif response.is_final:
+        done = True
+        return response.content
+\end{verbatim}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{center}
+\alert{The agent is part LLM intelligence, part traditional programming.}
+\end{center}
+\end{frame}
+
+% ========================================
+% SECTION 5: THE DASHBOARD TRAP
 % ========================================
 \section{The Dashboard Trap}
 
@@ -614,7 +708,56 @@ With a database agent connected to your financials, one prompt replaces 2--4 hou
 \end{frame}
 
 % ========================================
-% SECTION 9: EXERCISES
+% FINANCE APPLICATION: M&A DUE DILIGENCE
+% ========================================
+\section{Finance Application: M\&A Due Diligence}
+
+\begin{frame}{M\&A Due Diligence with an Agent}
+Give an agent a goal: ``Evaluate this acquisition target.'' The agent:
+\vspace{0.3cm}
+\begin{enumerate}
+  \item Ingests data from multiple formats (Excel, PDF, Word, CSV)
+  \item Applies evaluation criteria and computes risk metrics
+  \item Produces a summary memo with flagged risks
+\end{enumerate}
+\vspace{0.3cm}
+\alert{This is a single prompt to Claude Code.} The agent plans and executes all three steps autonomously, reading multiple file formats and combining the results.
+\end{frame}
+
+% ========================================
+% THE ORCHESTRATION LAYER
+% ========================================
+\section{Orchestration}
+
+\begin{frame}{The Orchestration Layer}
+The agent's control logic can route different tasks to different models and prompts.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Different Prompts}]
+\begin{itemize}\small
+  \item SQL generation $\rightarrow$ database schema prompt
+  \item Python analysis $\rightarrow$ data science prompt
+  \item Each task gets specialized instructions
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Different Models}]
+\begin{itemize}\small
+  \item Simple classification $\rightarrow$ fast, cheap model
+  \item Complex reasoning $\rightarrow$ powerful model
+  \item Cost and speed optimization
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Sub-agents: dispatch specialized workers for parallel tasks. This is what Cowork does with its parallel VMs.
+\end{frame}
+
+% ========================================
+% EXERCISES
 % ========================================
 \section{Exercises}
 
@@ -638,6 +781,29 @@ Consider the task: \textit{``Prepare the quarterly business review for the CEO.'
   \item For each step, identify what \textbf{tool} the agent would use and what \textbf{data} it would need
   \item Mark which steps need \alert{human approval} before the agent continues
   \item Write a single prompt that describes the full workflow for an agent
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 3: M\&A Due Diligence}
+\begin{enumerate}
+  \item Download the due diligence data pack (Excel + PDF + Word + CSV)
+  \item Ask Claude Code to evaluate the acquisition target end-to-end
+  \item Submit: the summary report + screenshots of intermediate steps
+\end{enumerate}
+\vspace{0.3cm}
+Watch how Claude plans its approach, reads each file, and combines the results into a coherent analysis.
+\end{frame}
+
+\begin{frame}{Exercise 4: Streamlit App with the Anthropic API}
+\begin{enumerate}
+  \item Get an API key from \texttt{console.anthropic.com}
+  \item Ask Claude Code to build a Streamlit app that:
+  \begin{itemize}\small
+    \item Takes a company ticker from the user
+    \item Sends a prompt to the Anthropic API asking for an investment summary
+    \item Displays the AI-generated summary on screen
+  \end{itemize}
+  \item Extend: add a system prompt with specific analysis criteria (valuation, growth, risks)
 \end{enumerate}
 \end{frame}
 

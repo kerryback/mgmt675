@@ -1,5 +1,5 @@
 # MGMT 675 Development Environment Installer for Windows
-# This script installs Python, Git, GitHub CLI, and Claude Code
+# This script installs Python, Claude Desktop, and Claude skills
 # Supports both x64 and ARM64 architectures (auto-detected)
 # Run this script as Administrator
 
@@ -24,9 +24,7 @@ if ($IsArm) {
     $PythonInstaller = "python-3.12.8-amd64.exe"
 }
 
-# Git uses x64 for both (no native ARM build available, runs via emulation)
-$GitUrl = "https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe"
-$GitInstaller = "Git-2.47.1-64-bit.exe"
+$ClaudeDesktopUrl = "https://downloads.claude.ai/releases/win32/ClaudeSetup.exe"
 
 Write-Host "==============================================" -ForegroundColor Cyan
 Write-Host "  MGMT 675 Development Environment Installer" -ForegroundColor Cyan
@@ -83,58 +81,24 @@ if (-not $PythonInstalled) {
     Write-Success "Python 3.12 already installed"
 }
 
-# Step 2: Install Git (x64 for both architectures)
-Write-Status "Installing Git..."
-$GitInstalled = Test-CommandExists "git"
-if (-not $GitInstalled) {
-    $GitPath = "$TempDir\$GitInstaller"
+# Step 2: Install Claude Desktop
+Write-Status "Installing Claude Desktop..."
+$ClaudeDesktopInstalled = Test-Path "$env:LOCALAPPDATA\Programs\claude-desktop\Claude.exe"
+if (-not $ClaudeDesktopInstalled) {
+    $ClaudePath = "$TempDir\ClaudeSetup.exe"
 
-    Write-Status "  Downloading Git..."
-    Invoke-WebRequest -Uri $GitUrl -OutFile $GitPath
+    Write-Status "  Downloading Claude Desktop..."
+    Invoke-WebRequest -Uri $ClaudeDesktopUrl -OutFile $ClaudePath
 
-    Write-Status "  Running Git installer..."
-    Start-Process -Wait -FilePath $GitPath -ArgumentList "/VERYSILENT", "/NORESTART", "/NOCANCEL", "/SP-", "/CLOSEAPPLICATIONS", "/RESTARTAPPLICATIONS"
+    Write-Status "  Running Claude Desktop installer..."
+    Start-Process -Wait -FilePath $ClaudePath -ArgumentList "/S"
 
-    Refresh-Path
-    Write-Success "Git installed"
+    Write-Success "Claude Desktop installed"
 } else {
-    Write-Success "Git already installed"
+    Write-Success "Claude Desktop already installed"
 }
 
-# Step 3: Install GitHub CLI
-Write-Status "Installing GitHub CLI..."
-Refresh-Path
-$GhInstalled = Test-CommandExists "gh"
-if (-not $GhInstalled) {
-    $GhUrl = "https://github.com/cli/cli/releases/download/v2.67.0/gh_2.67.0_windows_amd64.msi"
-    $GhPath = "$TempDir\gh_installer.msi"
-
-    Write-Status "  Downloading GitHub CLI..."
-    Invoke-WebRequest -Uri $GhUrl -OutFile $GhPath
-
-    Write-Status "  Running GitHub CLI installer..."
-    Start-Process -Wait msiexec -ArgumentList "/i", "`"$GhPath`"", "/quiet", "/norestart"
-
-    Refresh-Path
-    Write-Success "GitHub CLI installed"
-} else {
-    Write-Success "GitHub CLI already installed"
-}
-
-# Step 4: Install Claude Code (native installer)
-Write-Status "Installing Claude Code..."
-Refresh-Path
-$ClaudeInstalled = Test-CommandExists "claude"
-if (-not $ClaudeInstalled) {
-    Write-Status "  Running native installer..."
-    Invoke-Expression (Invoke-RestMethod -Uri "https://claude.ai/install.ps1")
-    Refresh-Path
-    Write-Success "Claude Code installed"
-} else {
-    Write-Success "Claude Code already installed"
-}
-
-# Step 5: Install Claude skills
+# Step 3: Install Claude skills
 Write-Status "Installing Claude skills..."
 $SkillsSource = Join-Path $ScriptDir "skills"
 $SkillsDest = "$env:USERPROFILE\.claude\skills"
@@ -172,30 +136,11 @@ try {
     $AllGood = $false
 }
 
-# Check Git
-try {
-    $GitVersion = git --version 2>&1
-    Write-Success "  Git: $GitVersion"
-} catch {
-    Write-Warning "  Git: NOT FOUND"
-    $AllGood = $false
-}
-
-# Check GitHub CLI
-try {
-    $GhVersion = gh --version 2>&1 | Select-Object -First 1
-    Write-Success "  GitHub CLI: $GhVersion"
-} catch {
-    Write-Warning "  GitHub CLI: NOT FOUND"
-    $AllGood = $false
-}
-
-# Check Claude
-try {
-    $ClaudeVersion = claude --version 2>&1
-    Write-Success "  Claude Code: $ClaudeVersion"
-} catch {
-    Write-Warning "  Claude Code: NOT FOUND"
+# Check Claude Desktop
+if (Test-Path "$env:LOCALAPPDATA\Programs\claude-desktop\Claude.exe") {
+    Write-Success "  Claude Desktop: installed"
+} else {
+    Write-Warning "  Claude Desktop: NOT FOUND"
     $AllGood = $false
 }
 
@@ -214,13 +159,12 @@ if ($AllGood) {
 }
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "  1. Close and reopen PowerShell or Command Prompt"
-Write-Host "  2. Run 'gh auth login' to authenticate with GitHub"
-Write-Host "  3. Run 'claude' to start Claude Code and authenticate"
+Write-Host "  1. Open Claude Desktop"
+Write-Host "  2. Sign in with your Anthropic account"
+Write-Host "  3. Click the Code tab to start using Claude Code"
 Write-Host ""
 Write-Host "Installed software:" -ForegroundColor Yellow
 Write-Host "  - Python 3.12 ($ArchLabel)"
-Write-Host "  - Git"
-Write-Host "  - GitHub CLI"
-Write-Host "  - Claude Code"
+Write-Host "  - Claude Desktop"
+Write-Host "  - Claude skills (xlsx, docx, pptx, skill-creator)"
 Write-Host ""

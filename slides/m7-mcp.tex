@@ -1,0 +1,543 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref, graphicx}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 7: Connecting AI to Data and Tools}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{What is MCP?}
+The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI applications connect to external tools through a uniform interface.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Idea}]
+\begin{itemize}\small
+  \item A standard ``plug-in'' protocol for AI
+  \item Each server advertises tools (functions the AI can call)
+  \item Tools appear automatically --- no custom code needed
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Analogy}]
+\begin{itemize}\small
+  \item USB is a standard for peripherals
+  \item Plug in a keyboard, it just works
+  \item MCP is the USB standard for AI tools
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+You can connect multiple servers at once.  The LLM sees all their tools and decides which to use.
+\end{frame}
+
+\begin{frame}{MCP Server = Running Program}
+An \textbf{MCP server} is a small program that stands between the AI and an external tool.
+\vspace{0.3cm}
+\begin{itemize}
+  \item The server \alert{advertises tools} --- functions the AI can call (e.g., ``query stock prices'', ``get income statement'')
+  \item When the AI decides to use a tool, the server \alert{makes the actual API call}, queries the database, or controls the browser
+  \item The server returns structured results back to the AI
+\end{itemize}
+\vspace{0.3cm}
+The AI never contacts the external service directly.  It sends a request to the MCP server; the server does the work and reports back.
+\end{frame}
+
+\begin{frame}{How MCP Works}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.2cm and 2.5cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=3.2cm, minimum height=0.9cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox, minimum width=3.5cm] (app) {Claude Desktop\\(MCP Client)};
+\node[sbox, right=2.5cm of app, yshift=1.5cm] (s1) {Browser\\Server};
+\node[sbox, right=2.5cm of app] (s2) {Financial\\Data Server};
+\node[sbox, right=2.5cm of app, yshift=-1.5cm] (s3) {Terminal\\Server};
+
+\draw[sarrow] (app) -- (s1) node[midway, above, font=\scriptsize\itshape, text=titlegray, sloped] {MCP protocol};
+\draw[sarrow] (app) -- (s2) node[midway, above, font=\scriptsize\itshape, sloped] {MCP protocol};
+\draw[sarrow] (app) -- (s3) node[midway, below, font=\scriptsize\itshape, sloped] {MCP protocol};
+
+\node[right=0.4cm of s1, font=\scriptsize, text=titlegray] {Chrome, Firefox, \ldots};
+\node[right=0.4cm of s2, font=\scriptsize, text=titlegray] {FactSet, S\&P, Bloomberg, \ldots};
+\node[right=0.4cm of s3, font=\scriptsize, text=titlegray] {PowerShell, Bash, \ldots};
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+\begin{itemize}
+  \item Claude Desktop is the \textbf{client}; each external service runs as a \textbf{server}
+  \item Every server speaks the same protocol --- one standard, many tools
+  \item Servers expose \textbf{tools} (functions the AI can call); the LLM picks which to use
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How an Agent Uses MCP}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.8cm and 2cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2.6cm, minimum height=1cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (user) {User};
+\node[sbox, right=2cm of user, fill=accentblue!15] (agent) {Agent};
+\node[sbox, right=2cm of agent] (llm) {LLM};
+\node[sbox, below=1.2cm of agent, fill=alertorange!15] (mcp) {MCP\\Server};
+\node[sbox, right=2cm of mcp] (tool) {External\\Tool};
+
+\draw[sarrow] ([yshift=2pt]user.east) -- ([yshift=2pt]agent.west);
+\draw[sarrow] ([yshift=-2pt]agent.west) -- ([yshift=-2pt]user.east);
+
+\draw[sarrow] ([yshift=2pt]agent.east) -- ([yshift=2pt]llm.west);
+\draw[sarrow] ([yshift=-2pt]llm.west) -- ([yshift=-2pt]agent.east);
+
+\draw[sarrow] ([xshift=2pt]agent.south) -- ([xshift=2pt]mcp.north);
+\draw[sarrow] ([xshift=-2pt]mcp.north) -- ([xshift=-2pt]agent.south);
+
+\draw[sarrow] ([yshift=2pt]mcp.east) -- ([yshift=2pt]tool.west);
+\draw[sarrow] ([yshift=-2pt]tool.west) -- ([yshift=-2pt]mcp.east);
+\end{tikzpicture}
+\end{center}
+\vspace{0.2cm}
+\begin{itemize}
+  \item The \textbf{LLM} decides what to do and formats tool calls
+  \item The \textbf{MCP server} executes the call --- the LLM never touches the API directly
+  \item Results flow back through the agent to the user
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Not Just Call the API Directly?}
+An agent \textit{can} access any API by writing code --- Claude Code does this all the time.  MCP servers are the alternative: a pre-built connector that standardizes the interface.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Direct API Access}]
+\begin{itemize}\small
+  \item Agent writes Python to call the API
+  \item Must handle auth, parsing, errors each time
+  \item Flexible but reinvents the wheel
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{MCP Server}]
+\begin{itemize}\small
+  \item Pre-built connector, tested and shared
+  \item Agent calls a tool; server handles the rest
+  \item Works with any MCP-compatible client
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Like a USB driver: built once, works everywhere.  The agent doesn't need to know how the API works --- just what tools are available.
+\end{frame}
+
+\begin{frame}{What MCP Servers Handle for You}
+\begin{itemize}
+  \item \textbf{Authentication}: API keys, OAuth tokens, and credential refresh --- the LLM never sees secrets
+  \item \textbf{Rate limiting}: manages API quotas and retries failed requests automatically
+  \item \textbf{Data transformation}: cleans raw API responses into structured results the LLM can reason about
+  \item \textbf{Security boundary}: controls exactly which operations are exposed (e.g., read-only database access)
+  \item \textbf{Tool discovery}: advertises available tools with descriptions, so the LLM knows what it can do without being told in the prompt
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Three Ways to Install a Connection to an MCP Server}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Desktop Extensions}]
+\begin{enumerate}\small
+  \item Settings $\rightarrow$ Extensions
+  \item Browse and find the server
+  \item Click \textbf{Install}
+\end{enumerate}
+\vspace{0.2cm}
+One-click. Anthropic-reviewed.
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Manual Config}]
+\begin{enumerate}\small
+  \item Install prerequisites (Node.js or uv)
+  \item Edit JSON config file
+  \item Restart Claude Desktop
+\end{enumerate}
+\vspace{0.2cm}
+More control. Any server.
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Ask Claude Code}]
+\begin{enumerate}\small
+  \item Tell Claude Code which server you want
+  \item It edits the config for you
+  \item Restart Claude Desktop
+\end{enumerate}
+\vspace{0.2cm}
+Easiest for Code users.
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{You May Need to Install uv}
+Some MCP servers are distributed as Python packages and run via \texttt{uvx}.  You may need to install \texttt{uv} first.
+\vspace{0.3cm}
+\begin{shadedbox}[title=\textbf{Manual install}]
+\begin{itemize}\small
+  \item \textbf{Mac}: \texttt{brew install uv}
+  \item \textbf{Windows}: \texttt{winget install astral-sh.uv}
+  \item Verify: \texttt{uv --version}
+\end{itemize}
+\vspace{0.1cm}
+{\scriptsize Used by: Browser-Use, Alpha Vantage, and others}
+\end{shadedbox}
+\vspace{0.3cm}
+If you use Claude Code to install a connection, it will ask permission to install \texttt{uv} automatically if needed.
+\end{frame}
+
+% ========================================
+% SECTION 3: FINANCIAL DATA SERVERS
+% ========================================
+\section{Connecting to Financial Data}
+
+\begin{frame}{Enterprise Financial Data via MCP}
+Major financial data providers now offer official MCP servers, giving AI agents direct, governed access to institutional-grade data.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{FactSet} --- fundamentals, M\&A intelligence, real-time market data; first production-grade financial MCP server (800+ institutional users)
+  \item \textbf{S\&P Capital IQ} --- financial statements, earnings transcripts, company fundamentals (built by Kensho, S\&P's AI subsidiary)
+  \item \textbf{LSEG / Refinitiv} --- financial data via LSEG Workspace APIs
+  \item \textbf{Bloomberg} --- community-built \texttt{blpapi-mcp} server (requires a Bloomberg Terminal); Bloomberg is an MCP governance member but has no official server yet
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Enterprise Financial Data via MCP (cont.)}
+\begin{itemize}
+  \item \textbf{Moody's} --- credit ratings, fundamentals, entity linkages, market indicators
+  \item \textbf{Morningstar} --- ratings, fair value, economic moat, fund data, editorial research
+  \item \textbf{PitchBook} --- private market data (PE, VC, M\&A)
+  \item \textbf{Daloopa} --- financial metrics and KPIs for 5,000+ companies, every datapoint hyperlinked to its source
+\end{itemize}
+\vspace{0.3cm}
+These are subscription services.  Install the server, ask Claude to pull data --- \alert{no code, no API documentation needed}.  The exercise uses free alternatives.
+\end{frame}
+
+\section{Browser Use}
+
+\begin{frame}{Browser-Use: Web Automation via MCP}
+\textbf{Browser-Use} is an MCP server that lets Claude autonomously control a web browser. Describe a task in plain English, and it handles the navigation.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Finance Applications}
+\begin{itemize}\small
+  \item ``Search for AAPL on Yahoo Finance and get the P/E ratio''
+  \item ``Download all linked CSV files from this SEC page''
+  \item ``Fill out this application form with my information''
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Key Features}
+\begin{itemize}\small
+  \item Plain-language task descriptions
+  \item Navigates pages and fills forms
+  \item Extracts data from web pages
+  \item \alert{Recommended}: local (self-hosted) for full privacy
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 4: CONNECTING TO YOUR COMPUTER
+% ========================================
+\section{Terminal Control}
+
+\begin{frame}{DesktopCommander: Terminal Control via MCP}
+\textbf{DesktopCommander} gives Claude Desktop the ability to execute terminal commands, manage files, and control processes --- without switching to Code mode.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Can Do}]
+\begin{itemize}\small
+  \item Run terminal commands (\texttt{pip install}, git, scripts)
+  \item Read, write, and search files
+  \item Manage running processes
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{When to Use It}]
+\begin{itemize}\small
+  \item You want to stay in Claude Desktop Chat
+  \item Quick terminal tasks
+  \item \alert{Always review commands before approving}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 5: PERSONAL PRODUCTIVITY
+% ========================================
+\section{Personal Productivity}
+
+\begin{frame}{Email and Calendar via MCP}
+MCP servers can connect Claude to your personal productivity tools, turning it into an assistant that can \alert{read, search, and act} on your behalf.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Email (Gmail)}]
+\begin{itemize}\small
+  \item Search your inbox by sender, date, or keyword
+  \item Draft and send replies
+  \item Summarize unread messages
+  \item ``Find all emails from our auditor about Q4 adjustments''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Calendar (Google Calendar)}]
+\begin{itemize}\small
+  \item Check availability and schedule meetings
+  \item List upcoming events
+  \item Create, update, or cancel events
+  \item ``What's on my calendar this week?''
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Other Productivity Servers}
+The MCP ecosystem includes servers for many tools you already use:
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{itemize}\small
+  \item \textbf{Google Drive}: search and read documents, spreadsheets, and slides
+  \item \textbf{Slack}: search channels, read messages, post updates
+  \item \textbf{Notion}: query databases, read and update pages
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}\small
+  \item \textbf{GitHub}: manage repos, issues, and pull requests
+  \item \textbf{Todoist / Linear}: manage tasks and projects
+  \item \textbf{Memory}: give Claude persistent memory across conversations
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{One prompt can span multiple tools}: ``Check my calendar for Friday, draft an email to the team with the agenda, and create a shared Google Doc for meeting notes.''
+\end{frame}
+
+% ========================================
+% SECTION 6: COMBINING CONNECTIONS
+% ========================================
+\section{Combining Multiple Connections}
+
+\begin{frame}[fragile,shrink=10]{Multi-Server MCP Configurations}
+You can connect multiple MCP servers at once. Claude sees all their tools and can use them together.
+\vspace{0.2cm}
+\begin{verbatim}
+{
+  "mcpServers": {
+    "browser-use": {
+      "command": "uvx",
+      "args": ["--from", "browser-use[cli]",
+               "browser-use", "--mcp"],
+      "env": {"ANTHROPIC_API_KEY": "sk-ant-..."}
+    },
+    "desktop-commander": {
+      "command": "npx",
+      "args": ["-y", "desktop-commander-mcp"]
+    },
+    "alphavantage": {
+      "command": "uvx",
+      "args": ["av-mcp", "YOUR_AV_KEY"]
+    }
+  }
+}
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Built-In Alternatives to MCP}
+DesktopCommander and Browser-Use add capabilities to Claude's \textbf{Chat} mode. But Code and Cowork modes have some of these built in.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{Chat mode} needs MCP servers for terminal, file access, and browser control --- no internet access
+  \item \textbf{Code tab} has terminal and file access built in, plus full internet --- browser control via Chrome extension
+  \item \textbf{Cowork tab} has terminal and file access built in, but no internet --- browser control via Chrome extension
+\end{itemize}
+\vspace{0.3cm}
+MCP servers for \textbf{financial data} (Alpha Vantage, FMP) and \textbf{personal productivity} (email, calendar, Google Drive) remain valuable in all modes.
+\end{frame}
+
+% ========================================
+% SECTION 6: PLUGINS AND THE SAASPOCALYPSE
+% ========================================
+\section{Plugins and the SaaSpocalypse}
+
+\begin{frame}{What is a Plugin?}
+A \textbf{plugin} is a packaged collection of skills, agents, hooks, and MCP servers that can be shared across teams.  (\textit{Hooks} are shell commands that run automatically before or after specific events --- e.g., running a linter every time Claude edits a file.)
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{A Plugin Can Include}
+\begin{itemize}\small
+  \item Skills (\texttt{SKILL.md} files)
+  \item Agents (\texttt{AGENT.md} files)
+  \item MCP servers (external tools)
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why Use Plugins?}
+\begin{itemize}\small
+  \item Share skills with your team
+  \item Namespace prevents conflicts
+  \item Install from marketplaces
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Practical workflow:} Start with a standalone skill for quick prototyping. When ready to share, wrap it in a plugin by adding a manifest file.
+\end{frame}
+
+\begin{frame}[shrink=10]{The ``SaaSpocalypse'': Market Reaction to Plugins}
+On January 30, 2026, Anthropic released 11 open-source plugins for Claude.  Within days, \alert{\$285 billion} in market cap evaporated from software, legal tech, and financial services stocks.
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Hardest-Hit Stocks}
+\begin{itemize}\small
+  \item LegalZoom: $-$20\%
+  \item Thomson Reuters: $-$16\%
+  \item RELX (LexisNexis): $-$14\%
+  \item Intuit: $>-$10\%; Salesforce: $-$7\%
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why It Happened}
+\begin{itemize}\small
+  \item Plugins showed AI could replicate \textit{core workflows} of specialized enterprise software
+  \item \textbf{No proprietary code} --- just markdown instructions + database connectors
+  \item Investors asked: ``Why pay \$50K/yr for software when a plugin does it?''
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 7: EXERCISES
+% ========================================
+\section{Exercises}
+
+\begin{frame}[fragile,shrink=5]{Example: Install a Financial Data Server}
+Free MCP servers let you try this workflow without a subscription:
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Alpha Vantage}]
+\begin{itemize}\scriptsize
+  \item Stock prices, options, forex, crypto, economic indicators
+  \item Free key at \url{https://www.alphavantage.co} (25 req/day)
+\end{itemize}
+\vspace{0.1cm}
+\begin{verbatim}
+"alphavantage": {
+  "command": "uvx",
+  "args": ["av-mcp", "YOUR_KEY"]
+}
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Financial Modeling Prep}]
+\begin{itemize}\scriptsize
+  \item Financial statements, fundamentals, SEC filings
+  \item Free key at \url{https://financialmodelingprep.com} (250 req/day)
+\end{itemize}
+\vspace{0.1cm}
+\begin{verbatim}
+"financial-modeling-prep": {
+  "command": "npx",
+  "args": ["-y", "@houtini/fmp-mcp"],
+  "env": {"FMP_API_KEY": "YOUR_KEY"}
+}
+\end{verbatim}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\begin{enumerate}\small
+  \item Get a free API key and install the connection in Claude Desktop
+  \item Ask Claude to retrieve financial data, analyze trends, and produce formatted Excel output
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise: Browser Automation}
+Use Browser-Use MCP to navigate a financial website:
+\begin{itemize}
+  \item Extract market cap, P/E ratio, and revenue for a company
+  \item Compile a summary comparison of 3 companies
+  \item Save results to a formatted document
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{MCP}]
+\begin{itemize}\small
+  \item Universal plug-in protocol
+  \item Financial data, browser, terminal
+  \item Works with Claude Desktop
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Code Execution}]
+\begin{itemize}\small
+  \item Chat, Cowork, Code modes
+  \item Match the tool to the task
+  \item Code for APIs and files
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{AI in Apps}]
+\begin{itemize}\small
+  \item Excel, Google Sheets
+  \item Formulas, not hardcodes
+  \item Choose by ecosystem
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{center}
+\alert{AI becomes truly powerful when it can reach your data, your tools, and your files.}
+\end{center}
+\end{frame}
+
+\end{document}

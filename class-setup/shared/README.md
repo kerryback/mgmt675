@@ -13,17 +13,8 @@ Before you begin, ensure you have:
 ## What Gets Installed
 
 - **Python 3.12** - Programming language
-- **Git** - Version control
-- **GitHub CLI** - Command-line interface for GitHub
-- **Claude Code** - AI coding assistant
-
-### Claude Skills
-
-Pre-configured skills for working with:
-- Excel spreadsheets (xlsx)
-- Word documents (docx)
-- PowerPoint presentations (pptx)
-- Building your own skills (skill-creator)
+- **Claude Desktop** - AI assistant with built-in Claude Code
+- **Claude skills** - Pre-configured skills for working with Excel, Word, PowerPoint, and building your own skills
 
 ## Installation Instructions
 
@@ -35,7 +26,7 @@ Pre-configured skills for working with:
    - Press `Win + X` and select "Windows Terminal (Admin)" or "PowerShell (Admin)"
    - Or search for PowerShell, right-click, and select "Run as administrator"
 
-3. **Navigate to the extracted folder** (the folder containing `install.ps1`)
+3. **Navigate to the extracted folder** (the folder containing `run.ps1`)
    ```powershell
    cd "C:\Users\YourName\Downloads\class-setup-windows"
    ```
@@ -48,7 +39,7 @@ Pre-configured skills for working with:
 
 5. **Run the installer**
    ```powershell
-   .\install.ps1
+   .\run.ps1
    ```
 
 6. **Wait for installation to complete** (this may take several minutes)
@@ -81,19 +72,9 @@ Pre-configured skills for working with:
 
 ## Post-Installation Steps
 
-### 1. Authenticate with GitHub
-
-Open a new terminal/PowerShell window and run:
-
-```bash
-gh auth login
-```
-
-Follow the prompts to authenticate with your GitHub account.
-
-### 2. Sign in to Claude Code
-
-Run `claude` in your terminal to start Claude Code and authenticate with your Anthropic account.
+1. **Open Claude Desktop**
+2. **Sign in** with your Anthropic account
+3. **Click the Code tab** to start using Claude Code
 
 ## Troubleshooting
 

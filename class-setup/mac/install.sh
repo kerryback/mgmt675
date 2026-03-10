@@ -1,6 +1,6 @@
 #!/bin/bash
 # MGMT 675 Development Environment Installer for macOS
-# This script installs Python, Git, GitHub CLI, and Claude Code
+# This script installs Python, Claude Desktop, and Claude skills
 
 set -e
 
@@ -61,34 +61,16 @@ else
     print_success "Python 3.12 installed"
 fi
 
-# Step 3: Install Git
-print_status "Installing Git..."
-if brew list git &>/dev/null; then
-    print_success "Git already installed"
+# Step 3: Install Claude Desktop
+print_status "Installing Claude Desktop..."
+if [[ -d "/Applications/Claude.app" ]]; then
+    print_success "Claude Desktop already installed"
 else
-    brew install git
-    print_success "Git installed"
+    brew install --cask claude
+    print_success "Claude Desktop installed"
 fi
 
-# Step 4: Install GitHub CLI
-print_status "Installing GitHub CLI..."
-if brew list gh &>/dev/null; then
-    print_success "GitHub CLI already installed"
-else
-    brew install gh
-    print_success "GitHub CLI installed"
-fi
-
-# Step 5: Install Claude Code (native installer)
-print_status "Installing Claude Code..."
-if command_exists claude; then
-    print_success "Claude Code already installed"
-else
-    curl -fsSL https://claude.ai/install.sh | bash
-    print_success "Claude Code installed"
-fi
-
-# Step 6: Install Claude skills
+# Step 4: Install Claude skills
 print_status "Installing Claude skills..."
 SKILLS_DEST="$HOME/.claude/skills"
 mkdir -p "$SKILLS_DEST"
@@ -118,27 +100,11 @@ else
     ALL_GOOD=false
 fi
 
-# Check Git
-if command_exists git; then
-    print_success "  Git: $(git --version 2>&1)"
+# Check Claude Desktop
+if [[ -d "/Applications/Claude.app" ]]; then
+    print_success "  Claude Desktop: installed"
 else
-    print_warning "  Git: NOT FOUND"
-    ALL_GOOD=false
-fi
-
-# Check GitHub CLI
-if command_exists gh; then
-    print_success "  GitHub CLI: $(gh --version 2>&1 | head -1)"
-else
-    print_warning "  GitHub CLI: NOT FOUND"
-    ALL_GOOD=false
-fi
-
-# Check Claude
-if command_exists claude; then
-    print_success "  Claude Code: $(claude --version 2>&1)"
-else
-    print_warning "  Claude Code: NOT FOUND"
+    print_warning "  Claude Desktop: NOT FOUND"
     ALL_GOOD=false
 fi
 
@@ -157,7 +123,7 @@ else
 fi
 echo ""
 echo "Next steps:"
-echo "  1. Open a new terminal window"
-echo "  2. Run 'gh auth login' to authenticate with GitHub"
-echo "  3. Run 'claude' to start Claude Code and authenticate"
+echo "  1. Open Claude Desktop"
+echo "  2. Sign in with your Anthropic account"
+echo "  3. Click the Code tab to start using Claude Code"
 echo ""

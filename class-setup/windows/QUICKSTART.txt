@@ -30,17 +30,15 @@ Run these commands in PowerShell (as Administrator):
 WHAT GETS INSTALLED:
 -------------------
 - Python 3.12
-- Git for Windows
-- GitHub CLI
-- Claude Code
+- Claude Desktop
 - Claude skills
 
 
 AFTER INSTALLATION:
 ------------------
-1. Close and reopen PowerShell/Command Prompt
-2. Run: gh auth login
-3. Run: claude
+1. Open Claude Desktop
+2. Sign in with your Anthropic account
+3. Click the Code tab to start using Claude Code
 
 
 NEED HELP?

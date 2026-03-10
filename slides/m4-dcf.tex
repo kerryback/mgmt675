@@ -277,6 +277,24 @@ Describing the problem clearly---choosing the right assumptions, interpreting th
 % ============================================================
 \section{Exercises}
 
+\begin{frame}{In-Class Exercise: Pro Forma Skill}
+Create a Claude skill that enforces specific pro forma forecasting rules for PP\&E:
+\vspace{0.3cm}
+\begin{shadedbox}[title=\textbf{Rules to Encode in the Skill}]
+\begin{enumerate}\small
+  \item Forecast \textbf{net PP\&E} as a percentage of sales (e.g., trailing average of net PP\&E / sales)
+  \item Forecast \textbf{depreciation} as a percentage of net PP\&E (e.g., trailing average of depreciation / net PP\&E)
+  \item Compute \textbf{cap ex} as the plug: $\text{cap ex} = \Delta\,\text{net PP\&E} + \text{depreciation}$
+\end{enumerate}
+\end{shadedbox}
+\vspace{0.3cm}
+\begin{enumerate}\small
+  \item Write a \texttt{SKILL.md} that tells Claude to follow these three rules whenever building pro formas
+  \item Test it: ask Claude to build a pro forma for a company using the skill
+  \item Verify: does the balance sheet balance?  Is cap ex the plug?
+\end{enumerate}
+\end{frame}
+
 \begin{frame}{Exercise 3: DCF Model}
 Build a two-stage DCF for a hypothetical company:
 \vspace{0.2cm}
