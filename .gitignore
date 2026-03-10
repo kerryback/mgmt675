@@ -163,3 +163,12 @@ cython_debug/
 
 /.quarto/
 solutions/
+grading-rubrics/
+
+# LaTeX aux files
+*.aux
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
