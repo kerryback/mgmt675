@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 4: Connecting AI to Data and Tools}
+\title{Module 8: Connecting AI to Data and Tools}
 \author{Kerry Back}
 \date{}
 
@@ -19,71 +19,80 @@
 \maketitle
 
 % ========================================
-% SECTION 1: THE CONNECTIVITY PROBLEM
+% SECTION 1: MCP — CONNECTING AI TO TOOLS
 % ========================================
-\section{The Connectivity Problem}
+\section{MCP: Connecting AI to Tools}
 
-\begin{frame}{AI in a Browser Is Powerful but Isolated}
-In Module 1 we used Claude's built-in sandbox to analyze data and build models. But the sandbox has limits:
-\vspace{0.3cm}
-\begin{itemize}
-  \item Cannot access your local files, databases, or APIs
-  \item Must upload data manually; no internet access from the sandbox
-  \item State is lost between conversations
-\end{itemize}
-\vspace{0.3cm}
-\alert{To do real financial work, AI needs to connect to the outside world.}
-\end{frame}
-
-\begin{frame}{Three Ways to Extend AI's Reach}
+\begin{frame}{Skills vs.\ MCP Servers}
 \begin{columns}[T]
-\begin{column}{0.33\textwidth}
-\begin{shadedbox}[title=\textbf{MCP Servers}]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Skill = Text}]
 \begin{itemize}\small
-  \item Plug-in protocol
-  \item Connect to APIs, databases, browsers
-  \item Works with Claude Desktop
+  \item A markdown file with instructions
+  \item Shapes how the LLM \textit{thinks} and \textit{responds}
+  \item No code runs; just prompt text
 \end{itemize}
 \end{shadedbox}
 \end{column}
-\begin{column}{0.33\textwidth}
-\begin{shadedbox}[title=\textbf{Code Execution}]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{MCP Server = Running Program}]
 \begin{itemize}\small
-  \item Claude Code runs on your machine
-  \item Full file and network access
-  \item Claude Desktop or terminal
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.33\textwidth}
-\begin{shadedbox}[title=\textbf{AI in Apps}]
-\begin{itemize}\small
-  \item Excel add-in, Google Sheets
-  \item AI works inside tools you already use
-  \item Platform-specific features
+  \item A small program that stands between the AI and an external tool
+  \item Makes API calls, queries databases, controls browsers
+  \item Returns structured results to the LLM
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-This module covers all three approaches and when to use each.
+Skills tell the LLM \textit{what to say}.  MCP servers let the LLM \textit{take actions} in the outside world.
 \end{frame}
 
-% ========================================
-% SECTION 2: MCP — CONNECTING AI TO TOOLS
-% ========================================
-\section{MCP: The Universal Connector}
+\begin{frame}{How an Agent Uses MCP}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.8cm and 2cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2.6cm, minimum height=1cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (user) {User};
+\node[sbox, right=1.8cm of user, fill=accentblue!15] (agent) {Agent};
+\node[sbox, above right=0.8cm and 2cm of agent] (llm) {LLM};
+\node[sbox, below right=0.8cm and 2cm of agent, fill=alertorange!15] (mcp) {MCP\\Server};
+\node[sbox, right=1.8cm of mcp] (tool) {External\\Tool};
+
+\draw[sarrow] ([yshift=2pt]user.east) -- ([yshift=2pt]agent.west);
+\draw[sarrow] ([yshift=-2pt]agent.west) -- ([yshift=-2pt]user.east);
+
+\draw[sarrow] ([yshift=2pt]agent.east) -- ([yshift=2pt]llm.west);
+\draw[sarrow] ([yshift=-2pt]llm.west) -- ([yshift=-2pt]agent.east);
+
+\draw[sarrow] ([yshift=2pt]agent.east) -- ([yshift=2pt]mcp.west);
+\draw[sarrow] ([yshift=-2pt]mcp.west) -- ([yshift=-2pt]agent.east);
+
+\draw[sarrow] ([yshift=2pt]mcp.east) -- ([yshift=2pt]tool.west);
+\draw[sarrow] ([yshift=-2pt]tool.west) -- ([yshift=-2pt]mcp.east);
+\end{tikzpicture}
+\end{center}
+\vspace{0.2cm}
+\begin{itemize}
+  \item The \textbf{LLM} decides what to do and formats tool calls
+  \item The \textbf{MCP server} executes the call --- the LLM never touches the API directly
+  \item Results flow back through the agent to the user
+\end{itemize}
+\end{frame}
 
 \begin{frame}{What is MCP?}
-The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI applications connect to external tools and data sources through a uniform interface.
+The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI applications connect to external tools through a uniform interface.
 \vspace{0.3cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{The Idea}]
 \begin{itemize}\small
-  \item A standard ``plug-in'' protocol
-  \item AI app connects to servers, each providing specific tools
-  \item Tools appear automatically in the AI
+  \item A standard ``plug-in'' protocol for AI
+  \item Each server advertises tools (functions the AI can call)
+  \item Tools appear automatically --- no custom code needed
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -92,17 +101,19 @@ The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI appli
 \begin{itemize}\small
   \item USB is a standard for peripherals
   \item Plug in a keyboard, it just works
-  \item MCP is the USB standard for AI tools --- connect a server and they appear
+  \item MCP is the USB standard for AI tools
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
+\vspace{0.3cm}
+You can connect multiple servers at once.  The LLM sees all their tools and decides which to use.
 \end{frame}
 
 \begin{frame}{How MCP Works}
 \begin{center}
 \begin{tikzpicture}[
-  node distance=1.2cm and 2cm,
+  node distance=1.2cm and 2.5cm,
   every node/.style={font=\small},
   sbox/.style={draw=titlegray, rounded corners, minimum width=3.2cm, minimum height=0.9cm, fill=excelinput, text=titlegray, font=\small\bfseries, align=center},
   sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
@@ -113,19 +124,19 @@ The \textbf{Model Context Protocol (MCP)} is an open standard that lets AI appli
 \node[sbox, right=2.5cm of app, yshift=-1.5cm] (s3) {Terminal\\Server};
 
 \draw[sarrow] (app) -- (s1) node[midway, above, font=\scriptsize\itshape, text=titlegray, sloped] {MCP protocol};
-\draw[sarrow] (app) -- (s2);
-\draw[sarrow] (app) -- (s3);
+\draw[sarrow] (app) -- (s2) node[midway, above, font=\scriptsize\itshape, sloped] {MCP protocol};
+\draw[sarrow] (app) -- (s3) node[midway, below, font=\scriptsize\itshape, sloped] {MCP protocol};
 
-\node[right=0.5cm of s1, font=\scriptsize, text=titlegray] {Chrome, Firefox, ...};
-\node[right=0.5cm of s2, font=\scriptsize, text=titlegray] {Rice Data Portal, Alpha Vantage, ...};
-\node[right=0.5cm of s3, font=\scriptsize, text=titlegray] {PowerShell, Bash, ...};
+\node[right=0.4cm of s1, font=\scriptsize, text=titlegray] {Chrome, Firefox, \ldots};
+\node[right=0.4cm of s2, font=\scriptsize, text=titlegray] {Alpha Vantage, FMP, \ldots};
+\node[right=0.4cm of s3, font=\scriptsize, text=titlegray] {PowerShell, Bash, \ldots};
 \end{tikzpicture}
 \end{center}
 \vspace{0.3cm}
 \begin{itemize}
   \item Claude Desktop is the \textbf{client}; each external service runs as a \textbf{server}
-  \item Servers expose \textbf{tools} (functions the AI can call) via a standard protocol
-  \item You can connect multiple servers at once
+  \item Every server speaks the same protocol --- one standard, many tools
+  \item Servers expose \textbf{tools} (functions the AI can call); the LLM picks which to use
 \end{itemize}
 \end{frame}
 
@@ -287,75 +298,7 @@ Replace \texttt{YOUR\_API\_KEY} with your actual key. Then restart Claude Deskto
 \end{frame}
 
 % ========================================
-% SECTION 5: AI IN SPREADSHEETS
-% ========================================
-\section{AI in Spreadsheets}
-
-
-\begin{frame}{Formulas vs.\ Hardcoded Values}
-\begin{columns}[T]
-  \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Hardcoded (Bad)}]
-\small
-\texttt{sheet['B10'] = 1500}
-\vspace{0.3cm}
-
-Cell shows 1500, but if inputs change, the total doesn't update.
-\end{shadedbox}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Formula (Good)}]
-\small
-\texttt{sheet['B10'] = '=SUM(B2:B9)'}
-\vspace{0.3cm}
-
-Cell contains a formula that recalculates when inputs change.
-\end{shadedbox}
-\end{column}
-\end{columns}
-\vspace{0.5cm}
-\centerline{\alert{Always instruct AI to use formulas, not hardcoded values.}}
-\end{frame}
-
-\begin{frame}{Claude for Excel Add-in}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{What It Does}]
-\begin{itemize}\small
-  \item AI sidebar that reads and edits your workbook
-  \item Preserves formula dependencies
-  \item Works with local files --- \alert{no OneDrive required}
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Capabilities}]
-\begin{itemize}\small
-  \item Ask questions about workbook content
-  \item Build financial models from scratch
-  \item Trace and fix formula errors
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\vspace{0.3cm}
-\begin{center}\small
-Requires Claude Pro (\$20/mo). Install via \textbf{Insert $\rightarrow$ Get Add-ins $\rightarrow$ ``Claude by Anthropic''}.
-\end{center}
-\end{frame}
-
-\begin{frame}{AI Spreadsheet Tools Compared}
-\begin{itemize}
-  \item \textbf{Claude for Excel} (\$20/mo): formula-preserving edits, no OneDrive required --- best for financial modeling
-  \item \textbf{Microsoft Copilot} (\$30/mo): Agent Mode and \texttt{=COPILOT()} function, Python in Excel --- best for enterprise ecosystems
-  \item \textbf{Google Sheets + Gemini} (\$20/mo): \texttt{=AI()} function, web-only --- best for cloud collaboration
-\end{itemize}
-\vspace{0.3cm}
-All three can produce the same kinds of financial tools --- DCF calculators, amortization tables, scenario analyzers.  Choose based on your ecosystem.
-\end{frame}
-
-% ========================================
-% SECTION 6: COMBINING CONNECTIONS
+% SECTION 5: COMBINING CONNECTIONS
 % ========================================
 \section{Combining Multiple Connections}
 
@@ -394,6 +337,60 @@ DesktopCommander and Browser-Use add capabilities to Claude's \textbf{Chat} mode
 \end{itemize}
 \vspace{0.3cm}
 MCP servers for \textbf{data sources} (Rice Data Portal, Alpha Vantage, FMP) remain valuable on any mode.
+\end{frame}
+
+% ========================================
+% SECTION 6: PLUGINS AND THE SAASPOCALYPSE
+% ========================================
+\section{Plugins and the SaaSpocalypse}
+
+\begin{frame}{What is a Plugin?}
+A \textbf{plugin} is a packaged collection of skills, agents, hooks, and MCP servers that can be shared across teams.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{A Plugin Can Include}
+\begin{itemize}\small
+  \item Skills (\texttt{SKILL.md} files)
+  \item Agents (\texttt{AGENT.md} files)
+  \item MCP servers (external tools)
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why Use Plugins?}
+\begin{itemize}\small
+  \item Share skills with your team
+  \item Namespace prevents conflicts
+  \item Install from marketplaces
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Practical workflow:} Start with a standalone skill for quick prototyping. When ready to share, wrap it in a plugin by adding a manifest file.
+\end{frame}
+
+\begin{frame}[shrink=10]{The ``SaaSpocalypse'': Market Reaction to Plugins}
+On January 30, 2026, Anthropic released 11 open-source plugins for Claude.  Within days, \alert{\$285 billion} in market cap evaporated from software, legal tech, and financial services stocks.
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Hardest-Hit Stocks}
+\begin{itemize}\small
+  \item LegalZoom: $-$20\%
+  \item Thomson Reuters: $-$16\%
+  \item RELX (LexisNexis): $-$14\%
+  \item Intuit: $>-$10\%; Salesforce: $-$7\%
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Why It Happened}
+\begin{itemize}\small
+  \item Plugins showed AI could replicate \textit{core workflows} of specialized enterprise software
+  \item \textbf{No proprietary code} --- just markdown instructions + database connectors
+  \item Investors asked: ``Why pay \$50K/yr for software when a plugin does it?''
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 % ========================================

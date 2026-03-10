@@ -1,0 +1,644 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 6: AI Agents}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% ========================================
+% SECTION 1: WHAT IS AN AGENT?
+% ========================================
+\section{What Is an Agent?}
+
+\begin{frame}{From Chatbot to Agent}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Chatbot}]
+\begin{itemize}\small
+  \item Handles a single turn
+  \item You ask, it answers
+  \item \alert{You} decide what to do next
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Agent}]
+\begin{itemize}\small
+  \item Handles multiple steps
+  \item Breaks the task down autonomously
+  \item Calls tools, checks results, adjusts
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+An \alert{agent} is an AI system that pursues a goal through a loop of planning, executing, observing, and iterating.  The distinction from a chatbot is \textbf{autonomy}.
+\end{frame}
+
+\begin{frame}{You've Already Been Using Agents}
+The coding agents you have been using since Module 1 are agents.
+\vspace{0.3cm}
+\begin{itemize}
+  \item When you asked Claude Code to ``build a DCF model, fetch data, and create an Excel file'' --- it planned the steps, wrote the code, ran it, noticed errors, and fixed them
+  \item That is the agent loop in action
+  \item This module makes the pattern explicit so you can design your own agent workflows
+\end{itemize}
+\end{frame}
+
+% ========================================
+% SECTION 2: THE AGENT LOOP
+% ========================================
+\section{The Agent Loop}
+
+\begin{frame}{Four Steps, Repeated}
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  % Nodes
+  \node[draw, rounded corners, fill=accentblue!20, minimum width=2.8cm, minimum height=1cm] (plan) at (0,2) {\textbf{Plan}};
+  \node[draw, rounded corners, fill=alertorange!15, minimum width=2.8cm, minimum height=1cm] (execute) at (4.5,2) {\textbf{Execute}};
+  \node[draw, rounded corners, fill=accentblue!10, minimum width=2.8cm, minimum height=1cm] (observe) at (4.5,0) {\textbf{Observe}};
+  \node[draw, rounded corners, fill=excelinput, minimum width=2.8cm, minimum height=1cm] (iterate) at (0,0) {\textbf{Iterate}};
+
+  % Arrows
+  \draw[->, thick, accentblue] (plan) -- (execute);
+  \draw[->, thick, accentblue] (execute) -- (observe);
+  \draw[->, thick, accentblue] (observe) -- (iterate);
+  \draw[->, thick, accentblue] (iterate) -- (plan);
+\end{tikzpicture}
+\end{center}
+\vspace{0.2cm}
+\begin{enumerate}
+  \item \textbf{Plan} --- break the task into steps
+  \item \textbf{Execute} --- call tools, run code, write files
+  \item \textbf{Observe} --- check the results of each action
+  \item \textbf{Iterate} --- adjust the plan based on what was observed
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Example: A Reporting Pipeline}
+The loop repeats until the task is complete.  A reporting pipeline is a natural fit:
+\vspace{0.3cm}
+\begin{enumerate}
+  \item Query the database (execute), check the data looks right (observe)
+  \item Generate a chart (execute), verify it matches the data (observe)
+  \item Write an executive summary (execute), review for accuracy (observe)
+  \item Assemble a PowerPoint deck (execute), deliver to the user
+\end{enumerate}
+\vspace{0.3cm}
+\alert{One prompt.  Multiple steps.  The agent orchestrates the entire pipeline.}
+\end{frame}
+
+% ========================================
+% SECTION 3: HOW AGENTS USE TOOLS
+% ========================================
+\section{How Agents Use Tools}
+
+\begin{frame}{LLM + Execution Layer}
+An agent is two things working together:
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{LLM}]
+\begin{itemize}\small
+  \item Plans the next action
+  \item Selects tools and formats calls
+  \item Interprets results
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Execution Layer}]
+\begin{itemize}\small
+  \item Runs tools (SQL, file ops, APIs, code)
+  \item Returns results to LLM
+  \item LLM never touches systems directly
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+The LLM sends a JSON tool call $\rightarrow$ the execution layer runs it $\rightarrow$ the result flows back.  The LLM \alert{never touches your database or file system directly}.
+\end{frame}
+
+\begin{frame}{The Tool-Call Protocol}
+The protocol is the same for every tool:
+\vspace{0.3cm}
+\begin{enumerate}
+  \item LLM receives a goal from the user
+  \item LLM selects the right tool and formats the call as JSON
+  \item Execution layer runs the tool (SQL, file write, API call, Python)
+  \item Result is sent back to the LLM
+  \item LLM interprets the result and decides: call another tool, or respond to the user
+\end{enumerate}
+\vspace{0.3cm}
+Tools can be \textbf{database queries}, \textbf{file operations}, \textbf{API calls}, or \textbf{code execution}.  The cycle repeats until the task is complete.
+\end{frame}
+
+\begin{frame}{Example: The Rice Data Portal}
+The \href{https://data-portal.rice-business.org}{Rice Data Portal} is an agent you have already used.
+\vspace{0.3cm}
+\begin{enumerate}
+  \item You type a natural-language question: \textit{``Show me the closing prices for AAPL in 2024''}
+  \item The LLM (ChatGPT) \textbf{plans}: decides which table to query and writes a SQL statement
+  \item The execution layer \textbf{runs} the SQL against the stock-market database
+  \item The LLM \textbf{observes} the result set and formats it for display
+  \item If the query fails or returns unexpected data, the LLM rewrites the SQL and tries again
+\end{enumerate}
+\vspace{0.3cm}
+The portal is a single-tool agent (SQL only), but it follows exactly the same \alert{plan--execute--observe--iterate} loop as more complex agents.
+\end{frame}
+
+% ========================================
+% SECTION 4: THE DASHBOARD TRAP
+% ========================================
+\section{The Dashboard Trap}
+
+\begin{frame}{Dashboards Answer Yesterday's Questions}
+Organizations spend millions building dashboards. When a new question arises, the cycle restarts: requirements $\rightarrow$ design $\rightarrow$ build $\rightarrow$ deploy.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Typical Dashboard Lifecycle}]
+\begin{enumerate}\small
+  \item Business user requests a report
+  \item Team builds queries, charts, and deploys
+  \item User asks a follow-up --- \alert{back to step 1}
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Cost}]
+\begin{itemize}\small
+  \item \textbf{Time}: Weeks to months per dashboard
+  \item \textbf{Money}: BI licenses, engineering hours, maintenance
+  \item \textbf{Rigidity}: Fixed views of fixed data
+\end{itemize}
+\end{shadedbox}
+\vspace{0.2cm}
+Gartner: only \textbf{20\%} of analytic insights deliver business outcomes.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Fundamental Problem}
+Dashboards answer \textbf{pre-defined questions}. But the most valuable analysis comes from \textbf{ad-hoc questions} that arise in the moment.
+\vspace{0.3cm}
+\begin{itemize}
+  \item ``What happened to margins in the Southeast last quarter?''
+  \item ``Show me our top 10 customers by growth rate, excluding one-time orders''
+  \item ``Compare Q3 headcount vs.\ budget by department, and flag anyone over 110\%''
+\end{itemize}
+\vspace{0.3cm}
+These are simple questions. Getting answers shouldn't require a development cycle.
+\end{frame}
+
+% ========================================
+% SECTION 5: NATURAL LANGUAGE AS INTERFACE
+% ========================================
+\section{Natural Language as the Query Interface}
+
+\begin{frame}{The Shift: From Dashboards to Conversations}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Traditional Dashboard}
+\begin{itemize}\small
+  \item Click filters and select dates to query
+  \item Answers take minutes to weeks
+  \item Follow-ups require a new dashboard request
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Natural Language AI}
+\begin{itemize}\small
+  \item Ask in plain English
+  \item Answers in seconds
+  \item Follow-ups are the next sentence
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\centering
+The dashboard was a \textit{workaround} for the fact that databases don't speak English. Now they do.
+\end{frame}
+
+\begin{frame}{What This Looks Like in Practice}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Conversation}]
+\begin{itemize}\small
+  \item \textit{``Show me monthly revenue by product line for 2025''}
+  \item AI: writes SQL, produces grouped bar chart
+  \item \textit{``Break out Enterprise by region''}
+  \item AI: refines query, updates chart
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{What the User Needed to Know}
+\begin{itemize}\small
+  \item What questions to ask
+  \item Whether the answers make sense
+  \item \alert{Nothing else}
+\end{itemize}
+\vspace{0.1cm}
+\textbf{Behind the Scenes}
+\begin{itemize}\small
+  \item 4 different SQL queries written
+  \item 3 visualizations produced
+  \item Derived metrics calculated
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Database Agent Pattern}
+The most powerful dashboard replacement: an AI agent connected to your database.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{How to Build It}]
+\begin{enumerate}\small
+  \item Connect database via MCP or file upload
+  \item Give AI the schema: table names, columns, relationships
+  \item Describe the business context
+  \item Start asking questions
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What the Agent Can Do}]
+\begin{itemize}\small
+  \item Write and execute SQL queries
+  \item Compute derived metrics (growth rates, ratios)
+  \item Generate charts and export to Excel or PowerPoint
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Replacing Dashboards: FP\&A and Treasury}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{FP\&A}]
+\begin{itemize}\small
+  \item \textit{``Budget vs.\ actual for Q3, decompose the variance into volume, price, and cost drivers''}
+  \item \textit{``Rolling 12-month revenue forecast with confidence bands''}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Treasury \& Risk}]
+\begin{itemize}\small
+  \item \textit{``Cash position over the next 90 days using AR/AP forecasts''}
+  \item \textit{``VaR by desk for the last 30 days, flag breaches''}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Each of these would take a BI team \textbf{days to build}. With a database agent, they take \alert{seconds}.
+\end{frame}
+
+\begin{frame}{Replacing Dashboards: Portfolio and Executive}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Portfolio Management}]
+\begin{itemize}\small
+  \item \textit{``Sector allocation vs.\ benchmark with active weights''}
+  \item \textit{``Performance attribution --- allocation vs.\ selection''}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Executive Reporting}]
+\begin{itemize}\small
+  \item \textit{``One-page executive summary with KPIs and trends''}
+  \item \textit{``Board deck from this quarter's financials --- 5 slides max''}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+The AI doesn't replace the analyst's judgment --- it replaces the \alert{mechanical work} of pulling data and building charts.
+\end{frame}
+
+\begin{frame}{The Weekly Ops Review --- Before and After}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Before: The Dashboard Era}]
+\begin{enumerate}\small
+  \item Data team pulls exports and builds slides (6+ hrs)
+  \item Manager reviews and revises (3 hrs)
+  \item VP asks a question --- ``We'll get back to you next week''
+\end{enumerate}
+\vspace{0.2cm}
+\centering\small\textbf{Total: 9+ hours per week}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{After: Natural Language AI}]
+\begin{enumerate}\small
+  \item AI agent generates ops review (3 min)
+  \item Manager reviews and iterates in chat
+  \item VP asks a question --- \alert{AI answers in 10 seconds}
+\end{enumerate}
+\vspace{0.2cm}
+\centering\small\textbf{Total: 15 minutes + live Q\&A}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ========================================
+% SECTION 6: THE REPORTING PIPELINE
+% ========================================
+\section{The Reporting Pipeline}
+
+\begin{frame}{Five Steps from Query to Report}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.8cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2cm, minimum height=0.8cm, fill=excelinput, text=titlegray, font=\scriptsize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (db) {Database\\Query};
+\node[sbox, right=of db] (transform) {Transform\\\& Compute};
+\node[sbox, right=of transform] (chart) {Charts \&\\Tables};
+\node[sbox, right=of chart] (narr) {AI\\Narrative};
+\node[sbox, right=of narr] (pptx) {PowerPoint\\Output};
+
+\draw[sarrow] (db) -- (transform);
+\draw[sarrow] (transform) -- (chart);
+\draw[sarrow] (chart) -- (narr);
+\draw[sarrow] (narr) -- (pptx);
+\end{tikzpicture}
+\end{center}
+\vspace{0.5cm}
+From raw data to polished deck --- \alert{no copy-paste, no formatting, no manual writing.}
+\end{frame}
+
+\begin{frame}{Building It with Your Coding Agent}
+You do not need to write this by hand.  Give your coding agent a single prompt:
+\vspace{0.3cm}
+\begin{shadedbox}
+\small\textit{``Build an app that connects to a database.  When the user selects a report and clicks Generate, run the SQL query, create a chart, write a three-sentence executive summary, and assemble a three-slide PowerPoint (title, chart, findings).  Show the chart and summary on screen with a download button for the PowerPoint file.''}
+\end{shadedbox}
+\vspace{0.3cm}
+Your job is not to write the code.  Your job is to \alert{test the result, refine the prompt, and iterate} until the output meets your standards.
+\end{frame}
+
+\begin{frame}{Building the Pipeline with Streamlit}
+\textbf{Streamlit} turns a Python script into a web app in minutes.  Combined with an AI pipeline, it becomes a \alert{self-service reporting tool}.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{User Interface}]
+\begin{itemize}\small
+  \item Dropdown: select time period, department, or metric
+  \item Button: ``Generate Report''
+  \item Download: auto-generated \texttt{.pptx} file
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Behind the Scenes}]
+\begin{itemize}\small
+  \item Query database for selected parameters
+  \item Compute metrics and build charts
+  \item Send chart data to LLM for narrative
+  \item Assemble PowerPoint with \texttt{python-pptx}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+The user clicks one button and gets a polished deck.  \alert{No analyst needed.}
+\end{frame}
+
+\begin{frame}{Example: Monthly Ops Review Pipeline}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{What the Pipeline Produces}
+\begin{enumerate}\small
+  \item Title slide, KPI summary table, and trend charts
+  \item Variance waterfall (budget vs.\ actual)
+  \item AI-generated executive summary
+\end{enumerate}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Time Comparison}
+\begin{itemize}\small
+  \item \textbf{Manual}: 6--8 hours per month (data pull, Excel, copy-paste into PowerPoint, write narrative)
+  \item \textbf{Pipeline}: \alert{30 seconds} per run
+  \item \textbf{ROI}: First month pays for the build time
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Automated PowerPoint with python-pptx}
+\texttt{python-pptx} is a Python library for creating and editing PowerPoint files programmatically.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Can Do}]
+\begin{itemize}\small
+  \item Create slides from templates
+  \item Insert charts, tables, and images
+  \item Apply corporate formatting (fonts, colors, logos)
+  \item Populate placeholders with live data
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The AI Advantage}]
+\begin{itemize}\small
+  \item AI writes the \texttt{python-pptx} code for you
+  \item Tell Claude: ``Create a 5-slide deck from this data with a waterfall chart on slide 3''
+  \item AI handles layout, formatting, and data binding
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{You describe the deck; AI builds the automation.}  The pipeline runs unattended after that.
+\end{frame}
+
+% ========================================
+% SECTION 7: SANDBOXED EXECUTION
+% ========================================
+\section{Sandboxed Execution}
+
+\begin{frame}{Development vs.\ Production}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Development (Your Laptop)}]
+\begin{itemize}\small
+  \item Agent runs in your environment
+  \item Full access to your files
+  \item Fine for prototyping
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Production}]
+\begin{itemize}\small
+  \item Agent runs in a \alert{container} (Docker)
+  \item Isolated, disposable environment
+  \item Read-only database access
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+A container is a disposable, isolated computing environment.  A bug in AI-generated code cannot affect your other files, your database, or your network.
+\end{frame}
+
+\begin{frame}{The Sandbox Pattern}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.8cm and 1.5cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2.2cm, minimum height=0.9cm, fill=excelinput, text=titlegray, font=\scriptsize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=2.5mm]}, thick, draw=accentblue}
+]
+\node[sbox] (user) {User};
+\node[sbox, right=1.2cm of user] (ui) {Web UI};
+\node[sbox, right=1.2cm of ui] (agent) {Agent};
+\node[sbox, right=1.2cm of agent, fill=alertorange!15, draw=alertorange] (code) {Sandboxed\\Code};
+\node[sbox, below=0.8cm of code] (db) {Database\\{\tiny read-only}};
+\node[sbox, below=0.8cm of agent] (report) {Report};
+
+\draw[sarrow] (user) -- (ui);
+\draw[sarrow] (ui) -- (agent);
+\draw[sarrow] (agent) -- (code);
+\draw[sarrow] (code) -- (db);
+\draw[sarrow] (db) -- (code);
+\draw[sarrow] (code) -- (report);
+\draw[sarrow] (report) -- (ui);
+\end{tikzpicture}
+\end{center}
+\vspace{0.2cm}
+\begin{itemize}
+  \item User requests a report through the web interface
+  \item Agent plans and orchestrates; code runs in a sandboxed container
+  \item Container queries the database through a \alert{read-only} connection
+  \item Finished report flows back to the user
+\end{itemize}
+\end{frame}
+
+\begin{frame}{From Prototype to Production}
+The reporting app on your laptop is a prototype.  Moving it to production adds \textbf{infrastructure}, not intelligence.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{Authentication}: SSO so only authorized users can generate reports
+  \item \textbf{Scheduling}: weekly reports generated automatically
+  \item \textbf{Logging}: every query and LLM call recorded for compliance
+  \item \textbf{Read-only credentials}: the agent cannot modify data
+\end{itemize}
+\vspace{0.3cm}
+The pipeline you prototyped is the same artifact that powers the production tool.  IT wraps it in infrastructure; \alert{you provide the domain knowledge and the prompt}.
+\end{frame}
+
+% ========================================
+% SECTION 8: VARIANCE ANALYSIS
+% ========================================
+\section{Variance Analysis}
+
+\begin{frame}{What is Variance Analysis?}
+\textbf{Variance analysis} compares \alert{budgeted} figures to \alert{actual} results and decomposes the differences into actionable drivers. It is the core analytical task in FP\&A.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Why It Matters}
+\begin{itemize}\small
+  \item Every public company does it quarterly
+  \item Boards and investors ask ``why did we miss?''
+  \item Drives re-forecasting and capital allocation
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Key Decompositions}
+\begin{itemize}\small
+  \item \textbf{Revenue}: volume vs.\ price vs.\ mix
+  \item \textbf{COGS}: volume vs.\ unit cost
+  \item \textbf{SG\&A}: headcount vs.\ rate vs.\ discretionary
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Revenue variance = \alert{Volume effect} + \alert{Price effect} + \alert{Mix effect}
+\end{frame}
+
+\begin{frame}{Variance Analysis: Example Data}
+\textbf{Scenario:} You are an FP\&A analyst. Q1 actuals just closed. The CEO wants to know why operating income missed budget by \$300K.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{Revenue:} Budget 100K units at \$50 = \$5M; Actual 95K units at \$51 = \$4.845M \quad \alert{(\$155K) miss}
+  \item \textbf{COGS:} Budget \$30/unit = \$3M; Actual \$32/unit = \$3.04M \quad \alert{(\$40K) miss}
+  \item \textbf{SG\&A:} Budget \$1.45M; Actual \$1.555M \quad \alert{(\$105K) miss}
+  \item \textbf{Operating Income:} Budget \$550K; Actual \$250K \quad \alert{(\$300K) total miss}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[shrink=5]{Variance Analysis with an Agent}
+With a database agent connected to your financials, one prompt replaces 2--4 hours of FP\&A work:
+\vspace{0.2cm}
+
+\textbf{Prompt}\\[0.3em]
+\small ``Here is our Q1 budget vs.\ actuals spreadsheet. Decompose the \$300K operating income miss into volume, price, cost, and discretionary spending drivers.  Produce a waterfall chart and a summary memo for the CFO.''
+\normalsize
+\vspace{0.2cm}
+
+\textbf{What the Agent Does}
+\begin{enumerate}\small
+  \item \textbf{Plans}: identifies the variance decomposition formulas needed
+  \item \textbf{Decomposes} revenue into volume + price; COGS into volume + rate
+  \item \textbf{Generates} waterfall chart and writes CFO-ready memo in Word format
+\end{enumerate}
+\end{frame}
+
+% ========================================
+% SECTION 9: EXERCISES
+% ========================================
+\section{Exercises}
+
+\begin{frame}{Exercise 1: Multi-Step Agent Workflow}
+Give Claude Code a single compound instruction that requires at least three steps.
+\vspace{0.3cm}
+\textbf{Example:} \textit{``Fetch Apple's quarterly revenue from the Rice Data Portal.  Create a bar chart of the last 8 quarters.  Write a one-paragraph executive summary.  Save the chart and summary to a reports folder.''}
+\vspace{0.3cm}
+\begin{itemize}
+  \item Observe the agent loop --- how many distinct tool calls does the agent make?
+  \item Does it check its own work?
+  \item If the output is not right, refine your prompt and try again
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: Workflow Decomposition}
+Consider the task: \textit{``Prepare the quarterly business review for the CEO.''}
+\vspace{0.3cm}
+\begin{enumerate}
+  \item List the 5--7 steps a human analyst would take to complete this task
+  \item For each step, identify what \textbf{tool} the agent would use and what \textbf{data} it would need
+  \item Mark which steps need \alert{human approval} before the agent continues
+  \item Write a single prompt that describes the full workflow for an agent
+\end{enumerate}
+\end{frame}
+
+\end{document}

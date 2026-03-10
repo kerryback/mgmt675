@@ -55,7 +55,7 @@ Workers would shift from being creators of reports or software updates, or `make
 \end{frame}
 
 \begin{frame}[shrink=5]{Case Study: HPE's ``Alfred''}
-\centerline{Marie Myers, CFO of Hewlett Packard Enterprise (\#143 on Fortune 500)}
+\centerline{Marie Myers, CFO of Hewlett Packard Enterprise (\#143 on Fortune 500) --- \href{https://fortune.com/2026/02/12/hpe-cfo-used-ai-transform-100-slide-monday-meeting/}{Fortune}, February 12, 2026}
 \vspace{0.2cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -139,97 +139,9 @@ AI can write and run code in three places.  The difference is \alert{where} it r
 \textbf{Key insight:} Only \alert{local execution} can call external APIs---the Rice Data Portal, Alpha Vantage, Financial Modeling Prep, etc.
 
 \vspace{0.2cm}
-We start with the cloud sandbox today.  Modules 3--4 introduce local execution and data connections.
+We start with the cloud sandbox today.  Later modules introduce local execution and data connections.
 \end{frame}
 
-% ========================================
-% RICE DATA PORTAL
-% ========================================
-\section{Rice Data Portal}
-
-\begin{frame}{Rice Data Portal: Stock Market Database}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{What It Is}]
-\begin{itemize}\small
-  \item Stock market database for Rice students
-  \item 59{,}000+ companies, 17M+ stock prices
-  \item Financial statements from SEC filings
-  \item Guide: \url{https://portal-guide.rice-business.org}
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Using the Web Interface}]
-\begin{itemize}\small
-  \item Visit \href{https://data-portal.rice-business.org}{data-portal.rice-business.org} and sign in with Rice credentials
-  \item Ask questions in plain English---the portal uses ChatGPT to generate SQL and query the database
-  \item Download results as CSV
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Database Tables}
-\begin{itemize}
-  \item \textbf{SEP} (daily prices): \texttt{ticker}, \texttt{date}, \texttt{close} (split-adjusted), \texttt{closeadj} (fully adjusted), \texttt{volume}
-  \item \textbf{DAILY} (valuation): \texttt{ticker}, \texttt{date}, \texttt{marketcap}, \texttt{pb}, \texttt{pe}, \texttt{ps}
-  \item \textbf{TICKERS} (company info): \texttt{ticker}, \texttt{name}, \texttt{sector}, \texttt{industry}
-  \item \textbf{SF1} (fundamentals): \texttt{revenue}, \texttt{netinc}, \texttt{assets}, \texttt{equity}, \texttt{debt}, \texttt{roe}, \ldots
-\end{itemize}
-\vfill
-\textbf{How to use it:} Describe the data you need in the portal's web interface.  It generates and runs the SQL query, then lets you download the results.  In Module 4, we'll automate this with Claude Code.
-\end{frame}
-
-\begin{frame}{Computing Returns}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Monthly Returns from \texttt{closeadj}}]
-\begin{itemize}\small
-  \item $r_t = \texttt{closeadj}_t \;/\; \texttt{closeadj}_{t-1} - 1$
-  \item Use \texttt{closeadj}, not \texttt{close}: it accounts for dividends and spinoffs, giving \alert{total return}
-  \item \texttt{close} (split-adjusted only) is useful for charting prices and moving averages
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Important}]
-\begin{itemize}\small
-  \item Always \alert{group by ticker} when computing returns---never mix prices across stocks
-  \item For monthly data, use end-of-month prices
-  \item Example prompt for the portal: ``Get end-of-month closeadj for SPY, AGG, and GLD from 2019 to 2024''
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{What AI Can Build in Minutes}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Analysis}
-\begin{itemize}\small
-  \item Sales trends and forecasting
-  \item Portfolio optimization
-  \item Financial statement analysis
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\textbf{Deliverables}
-\begin{itemize}\small
-  \item Charts and visualizations
-  \item Excel workbooks with live formulas
-  \item Interactive web dashboards
-\end{itemize}
-\end{column}
-\end{columns}
-
-\vspace{0.8cm}
-\begin{center}
-\textbf{Example prompt:} \textit{``Create an Excel file illustrating two-stage DCF analysis with sensitivity tables.''}
-\end{center}
-\end{frame}
 
 % ========================================
 % SECTION 3: CLAUDE.AI AND ARTIFACTS
@@ -312,92 +224,70 @@ We use Claude, but the concepts transfer to any platform.
 \end{frame}
 
 % ========================================
-% SECTION 4: COURSE OVERVIEW
+% SECTION 4: AI IN SPREADSHEETS
 % ========================================
-\section{Course Overview}
+\section{AI in Spreadsheets}
 
-\begin{frame}{Learning Objectives}
-\begin{enumerate}
-\item Use AI with code execution and connected tools to perform financial analysis, build models, and create deliverables
-\item Build reusable workflows (skills) that enforce consistent methodology, and verify AI-generated analysis
-\item Understand retrieval augmented generation, AI agents, and how AI is transforming trading and markets
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{Course Modules}
+\begin{frame}{Formulas vs.\ Hardcoded Values}
 \begin{columns}[T]
-\begin{column}{0.45\textwidth}
-\begin{enumerate}
-  \item AI Fundamentals
-  \item Data Exploration \& Strategic Thinking
-  \item Portfolio Optimization and Company Valuation
-  \item Connecting AI to Data and Tools
-  \item Automating Financial Workflows
-\end{enumerate}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{enumerate}
-  \setcounter{enumi}{5}
-  \item Working with Financial Documents
-  \item Building Financial AI Applications
-  \item Verification and Governance
-  \item AI in Trading and Markets
-\end{enumerate}
-\end{column}
-\end{columns}
-\end{frame}
+  \begin{column}{0.45\textwidth}
+\begin{shadedbox}[title=\textbf{Hardcoded (Bad)}]
+\small
+\texttt{sheet['B10'] = 1500}
+\vspace{0.3cm}
 
-\begin{frame}{Grading}
-  \begin{itemize}
-\item Six group assignments (15\% each), each consisting of exercises
-\item Due Tuesdays 11:59 pm March 24 through April 28 (exam week)
-\item Peer assessments (10\%)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Account Options and Model Access}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Claude}
-\begin{itemize}\small
-  \item \textbf{Free:} Sonnet 4.5 chat, no code execution or coding agent
-  \item \textbf{Pro (\$20/mo):} Sonnet 4.5 + limited Opus 4.6, Cowork (cloud VM), and Claude Code
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\textbf{ChatGPT}
-\begin{itemize}\small
-  \item \textbf{Free:} GPT-5 (limited) with Data Analysis
-  \item \textbf{Plus (\$20/mo):} GPT-5.2 with Data Analysis and Codex (GPT-5.3)
-\end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Claude Pricing}
-\begin{columns}[T]
-\begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Subscription Plans}]
-\begin{itemize}\small
-  \item \textbf{Free:} Limited usage
-  \item \textbf{Pro:} \$20/month --- 5$\times$ free usage, Claude Code, Cowork, memory
-  \item \textbf{Max:} \$100/month (5$\times$ Pro) or \$200/month (20$\times$ Pro)
-\end{itemize}
+Cell shows 1500, but if inputs change, the total doesn't update.
 \end{shadedbox}
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{API (Pay Per Token)}]
+\begin{shadedbox}[title=\textbf{Formula (Good)}]
+\small
+\texttt{sheet['B10'] = '=SUM(B2:B9)'}
+\vspace{0.3cm}
+
+Cell contains a formula that recalculates when inputs change.
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\centerline{\alert{Always instruct AI to use formulas, not hardcoded values.}}
+\end{frame}
+
+\begin{frame}{Claude for Excel Add-in}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Does}]
 \begin{itemize}\small
-  \item \textbf{Sonnet 4.5:} \$3 input / \$15 output per million tokens
-  \item \textbf{Haiku 4.5:} \$1 / \$5 per MTok
-  \item \textbf{Opus 4.6:} \$5 / \$25 per MTok
+  \item AI sidebar that reads and edits your workbook
+  \item Preserves formula dependencies
+  \item Works with local files --- \alert{no OneDrive required}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Capabilities}]
+\begin{itemize}\small
+  \item Ask questions about workbook content
+  \item Build financial models from scratch
+  \item Trace and fix formula errors
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
-\vspace{0.2cm}
-\small \textbf{Example:} A 1-page prompt $\approx$ 500 tokens. A 2-page response $\approx$ 1{,}000 tokens.
-Using Sonnet 4.5: total $\approx$ 1.7 cents per query. You could send $\sim$1{,}200 such queries for \$20.
+\vspace{0.3cm}
+\begin{center}\small
+Requires Claude Pro (\$20/mo). Install via \textbf{Insert $\rightarrow$ Get Add-ins $\rightarrow$ ``Claude by Anthropic''}.
+\end{center}
+\end{frame}
+
+\begin{frame}{AI Spreadsheet Tools Compared}
+\begin{itemize}
+  \item \textbf{Claude for Excel} (\$20/mo): formula-preserving edits, no OneDrive required --- best for financial modeling
+  \item \textbf{Microsoft Copilot} (\$30/mo): Agent Mode and \texttt{=COPILOT()} function, Python in Excel --- best for enterprise ecosystems
+  \item \textbf{Google Sheets + Gemini} (\$20/mo): \texttt{=AI()} function, web-only --- best for cloud collaboration
+\end{itemize}
+\vspace{0.3cm}
+All three can produce the same kinds of financial tools --- DCF calculators, amortization tables, scenario analyzers.  Choose based on your ecosystem.
 \end{frame}
 
 \end{document}

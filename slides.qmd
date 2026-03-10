@@ -9,13 +9,13 @@ Click on a topic to download the PDF slide deck.
 | # | Module | |
 |--:|--------|:-:|
 | 0 | [Course Introduction](slides/00-intro.pdf) | [{{< fa file-pdf >}}](slides/00-intro.pdf) |
-| 1 | [AI Fundamentals](slides/m1-ai-financial-tool.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-financial-tool.pdf) |
+| 1 | [AI Fundamentals](slides/m1-ai-in-finance.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-in-finance.pdf) |
 | 2 | [Getting Started with Claude Code](slides/m3-claude.pdf) | [{{< fa file-pdf >}}](slides/m3-claude.pdf) |
-| 3a | [Portfolio Optimization](slides/m3-portfolio-optimization.pdf) | [{{< fa file-pdf >}}](slides/m3-portfolio-optimization.pdf) |
-| 3b | [Company Valuation](slides/m3-dcf-analysis.pdf) | [{{< fa file-pdf >}}](slides/m3-dcf-analysis.pdf) |
-| 4 | [Connecting AI to Data and Tools](slides/m4-data-tools.pdf) | [{{< fa file-pdf >}}](slides/m4-data-tools.pdf) |
-| 5 | [Automating Financial Workflows](slides/m5-automating-workflows.pdf) | [{{< fa file-pdf >}}](slides/m5-automating-workflows.pdf) |
-| 6 | [Working with Financial Documents](slides/m6-rag.pdf) | [{{< fa file-pdf >}}](slides/m6-rag.pdf) |
-| 7 | [Building Financial AI Applications](slides/m7-apps.pdf) | [{{< fa file-pdf >}}](slides/m7-apps.pdf) |
-| 8 | [Verification and Governance](slides/m8-reliability.pdf) | [{{< fa file-pdf >}}](slides/m8-reliability.pdf) |
-| 9 | [AI in Trading and Markets](slides/m9-trading-markets.pdf) | [{{< fa file-pdf >}}](slides/m9-trading-markets.pdf) |
+| 3a | [Portfolio Optimization](slides/m2-mean-variance.pdf) | [{{< fa file-pdf >}}](slides/m2-mean-variance.pdf) |
+| 3b | [Company Valuation](slides/m4-dcf.pdf) | [{{< fa file-pdf >}}](slides/m4-dcf.pdf) |
+| 4 | [AI Agents](slides/m6-agents.pdf) | [{{< fa file-pdf >}}](slides/m6-agents.pdf) |
+| 5 | [Building Financial AI Applications](slides/m7-apps.pdf) | [{{< fa file-pdf >}}](slides/m7-apps.pdf) |
+| 6 | [Connecting AI to Data and Tools](slides/m8-mcp.pdf) | [{{< fa file-pdf >}}](slides/m8-mcp.pdf) |
+| 7 | [Verification and Governance](slides/m5-reliability.pdf) | [{{< fa file-pdf >}}](slides/m5-reliability.pdf) |
+| 8 | [Working with Financial Documents](slides/m9-rag.pdf) | [{{< fa file-pdf >}}](slides/m9-rag.pdf) |
+| 9 | [AI in Trading and Markets](slides/m10-sentiment.pdf) | [{{< fa file-pdf >}}](slides/m10-sentiment.pdf) |

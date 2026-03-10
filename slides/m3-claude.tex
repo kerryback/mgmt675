@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 2: Getting Started with Claude Code}
+\title{Module 3: Getting Started with Claude Code}
 \author{Kerry Back}
 \date{}
 
@@ -142,6 +142,58 @@ Both approaches share the same skills, MCP servers, and configuration files.
 % SECTION 3: CLAUDE.MD AND SKILLS
 % ========================================
 \section{CLAUDE.md and Skills}
+
+\begin{frame}{Why Skills Matter for Finance}
+When you build DCF models and portfolio optimizations in ad-hoc conversations, what happens when you start a new conversation?
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Problem}]
+\begin{itemize}\small
+  \item One conversation uses 10\% WACC, another uses 8\%
+  \item One assumes 3\% terminal growth, another 2.5\%
+  \item Portfolio optimization: 5-year history vs.\ 3-year
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Fix: Skills}]
+\begin{itemize}\small
+  \item A DCF skill specifies: which assumptions, how to estimate them, what output format
+  \item A portfolio skill specifies: data source, estimation window, constraints
+  \item \alert{Every conversation follows the same playbook}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{No audit trail, no reproducibility --- unless you encode the methodology in a skill.}
+\end{frame}
+
+\begin{frame}{Finance Skill Examples}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{DCF Skill}]
+\begin{itemize}\small
+  \item Sales growth from trailing 5-year CAGR
+  \item Sector median EV/EBITDA for exit multiple
+  \item Two-way sensitivity table (WACC vs.\ growth)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Investment Memo Skill}]
+\begin{itemize}\small
+  \item Standard structure: exec summary, financials, risks, recommendation
+  \item Required data points and formatting
+  \item Every memo follows the same template
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{Every analyst produces comparable, auditable outputs.}
+\end{frame}
 
 \begin{frame}{CLAUDE.md: Global vs.\ Per-Project}
 Claude reads \texttt{CLAUDE.md} files automatically at the start of every session --- no need to repeat instructions.
@@ -321,7 +373,7 @@ Once data is combined, the next step is usually filtering, sorting, or grouping.
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-State your intent in plain English.  Claude writes the pandas code, runs it, and shows you the result.  Always \alert{check the filter logic} --- this is where silent errors happen most often (Module~8).
+State your intent in plain English.  Claude writes the pandas code, runs it, and shows you the result.  Always \alert{check the filter logic} --- this is where silent errors happen most often (Module~5).
 \end{frame}
 
 \begin{frame}{Exercise: Portfolio Consolidation}
@@ -402,7 +454,7 @@ This is the same ``divide and conquer'' pattern used in professional data pipeli
 \textbf{Example:} \textit{``I received this analysis from another session. Can you review it for errors or questionable assumptions?''}
 
 \vspace{0.3cm}
-This technique becomes critical in Module 8 (Verification and Governance).
+This technique becomes critical in Module 5 (Verification and Governance).
 \end{frame}
 
 \end{document}

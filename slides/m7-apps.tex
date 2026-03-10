@@ -141,40 +141,41 @@ An \textbf{API} lets your code communicate with an LLM service over the internet
 \begin{column}{0.5\textwidth}
 \begin{shadedbox}[title=\textbf{What You Need}]
 \begin{itemize}\small
-  \item API endpoint (URL)
-  \item API key (authentication)
-  \item Model name to use
+  \item An API key (authentication)
+  \item The \texttt{anthropic} Python package
+  \item A model name (e.g., \texttt{claude-sonnet-4-20250514})
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{OpenRouter}]
+\begin{shadedbox}[title=\textbf{Getting Your Key}]
 \begin{itemize}\small
-  \item Unified API for 100+ models
-  \item Single API key; some models are free
-  \item \texttt{openrouter.ai}
+  \item Go to \texttt{console.anthropic.com}
+  \item Create an API key under Settings
+  \item Add credit (\$5 is plenty for the course)
 \end{itemize}
 \end{shadedbox}
 \end{column}
 \end{columns}
+\vspace{0.3cm}
+Your Claude Pro subscription covers Claude.ai and Claude Code.  The API is a separate product with pay-per-use pricing.
 \end{frame}
 
 \begin{frame}[fragile]{A Single API Call}
-\begin{shadedbox}[title=\textbf{Basic Structure}]
+\begin{shadedbox}[title=\textbf{Calling the Anthropic API}]
 \begin{verbatim}
-import requests
+import anthropic
 
-response = requests.post(
-    "https://openrouter.ai/api/v1/chat/completions",
-    headers={"Authorization": f"Bearer {API_KEY}"},
-    json={
-        "model": "mistralai/mistral-7b-instruct:free",
-        "messages": [
-            {"role": "user", "content": prompt}
-        ]
-    }
+client = anthropic.Anthropic(api_key=API_KEY)
+
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": prompt}
+    ]
 )
-answer = response.json()["choices"][0]["message"]["content"]
+answer = response.content[0].text
 \end{verbatim}
 \end{shadedbox}
 \end{frame}
@@ -182,16 +183,16 @@ answer = response.json()["choices"][0]["message"]["content"]
 \begin{frame}[fragile,shrink=5]{Conversation History}
 \begin{shadedbox}[title=\textbf{Messages Are a List of Dictionaries}]
 \begin{verbatim}
-messages = [
-    {"role": "system",
-     "content": "You are a finance tutor..."},
-    {"role": "user",
-     "content": "What is a P/E ratio?"},
-    {"role": "assistant",
-     "content": "A P/E ratio is..."},
-    {"role": "user",
-     "content": "How do I interpret it?"}
-]
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    system="You are a finance tutor...",
+    messages=[
+        {"role": "user", "content": "What is a P/E ratio?"},
+        {"role": "assistant", "content": "A P/E ratio is..."},
+        {"role": "user", "content": "How do I interpret it?"}
+    ]
+)
 \end{verbatim}
 \end{shadedbox}
 \vspace{0.3cm}
@@ -247,7 +248,7 @@ User: ``Analyze quarterly revenue trends for our top 5 customers.''
 \begin{column}{0.5\textwidth}
 \textbf{Architecture}
 \begin{itemize}\small
-  \item \textbf{LLM:} OpenRouter API
+  \item \textbf{LLM:} ChatGPT API
   \item \textbf{Tool:} SQL execution against MotherDuck
   \item \textbf{Agent loop:} Python if/else
   \item \textbf{UI:} Streamlit web app
@@ -361,16 +362,16 @@ Sub-agents: dispatch specialized workers for parallel tasks. This is what Cowork
 Watch how Claude plans its approach, reads each file, and combines the results into a coherent analysis.
 \end{frame}
 
-\begin{frame}{Exercise 2: Financial Chatbot}
+\begin{frame}{Exercise 2: Streamlit App with the Anthropic API}
 \begin{enumerate}
-  \item Get a free API key from OpenRouter
+  \item Get an API key from \texttt{console.anthropic.com}
   \item Ask Claude Code to build a Streamlit app that:
   \begin{itemize}\small
-    \item Connects to a financial dataset (CSV or database)
-    \item Lets users ask questions in English
-    \item Displays results with charts
+    \item Takes a company ticker from the user
+    \item Sends a prompt to the Anthropic API asking for an investment summary
+    \item Displays the AI-generated summary on screen
   \end{itemize}
-  \item Write a system prompt with schema knowledge and test with 5 questions
+  \item Extend: add a system prompt with specific analysis criteria (valuation, growth, risks)
 \end{enumerate}
 \end{frame}
 
