@@ -28,7 +28,7 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - Module decks: `m1` through `m9`:
   - m1-ai-financial-tool, m2-claude (Getting Started with Claude Code)
   - m3-portfolio-optimization, m3-dcf-analysis
-  - m4-data-tools, m5-automating-workflows, m6-financial-documents
+  - m4-data-tools, m5-automating-workflows, m6-rag
   - m7-financial-applications, m8-verification, m9-trading-markets
 
 ### Other

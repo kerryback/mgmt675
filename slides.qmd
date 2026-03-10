@@ -15,7 +15,7 @@ Click on a topic to download the PDF slide deck.
 | 3b | [Company Valuation](slides/m3-dcf-analysis.pdf) | [{{< fa file-pdf >}}](slides/m3-dcf-analysis.pdf) |
 | 4 | [Connecting AI to Data and Tools](slides/m4-data-tools.pdf) | [{{< fa file-pdf >}}](slides/m4-data-tools.pdf) |
 | 5 | [Automating Financial Workflows](slides/m5-automating-workflows.pdf) | [{{< fa file-pdf >}}](slides/m5-automating-workflows.pdf) |
-| 6 | [Working with Financial Documents](slides/m6-financial-documents.pdf) | [{{< fa file-pdf >}}](slides/m6-financial-documents.pdf) |
+| 6 | [Working with Financial Documents](slides/m6-rag.pdf) | [{{< fa file-pdf >}}](slides/m6-rag.pdf) |
 | 7 | [Building Financial AI Applications](slides/m7-financial-applications.pdf) | [{{< fa file-pdf >}}](slides/m7-financial-applications.pdf) |
 | 8 | [Verification and Governance](slides/m8-verification.pdf) | [{{< fa file-pdf >}}](slides/m8-verification.pdf) |
 | 9 | [AI in Trading and Markets](slides/m9-trading-markets.pdf) | [{{< fa file-pdf >}}](slides/m9-trading-markets.pdf) |
