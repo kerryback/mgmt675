@@ -23,5 +23,5 @@ Publish the artifact so it has a shareable link.
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Shareable artifact link (`1C-Link.txt`)
-- Screenshot of the published artifact (`1C-Screenshot.png`)
+- Shareable artifact link (`1B-Link.txt`)
+- Screenshot of the published artifact (`1B-Screenshot.png`)

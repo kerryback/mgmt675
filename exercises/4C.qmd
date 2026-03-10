@@ -1,5 +1,5 @@
 ---
-title: "Exercise 4C: NotebookLM Financial Analysis"
+title: "Exercise 4C: DCF Cross-Check with Red-Teaming"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,25 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Upload at least three financial documents for the same company into Google NotebookLM. Good combinations include:
+Take the DCF model you built in Exercise 2B. Start a **new** Claude conversation (do not continue the original) and upload the workbook. Ask Claude to critique the valuation:
 
-- A 10-K filing
-- An earnings call transcript
-- An analyst report or press release
+1. **Identify at least 3 questionable assumptions** --- are the growth rates, margins, or discount rate reasonable?
+2. **Check formula consistency** --- does FCF match the pro forma income statement and balance sheet?
+3. **Evaluate the terminal value** --- is the implied terminal growth rate reasonable relative to GDP growth? What fraction of enterprise value comes from the terminal value?
+4. **Suggest specific revisions** with justification
 
-Ask at least **5 questions** about the company's financial performance, strategy, and risk factors. For each answer:
+Then apply **red-teaming protocols** from Module 5:
 
-- Note how NotebookLM **cites specific sources** (which document, which section)
-- Evaluate whether the answer is **grounded** in the documents or potentially **hallucinated**
-- Rate the answer quality (accurate / partially accurate / inaccurate)
+5. Set revenue growth to 0\% --- does the model break or produce nonsense?
+6. Use a WACC below the risk-free rate --- does the model flag this as unreasonable?
+7. Feed a scenario with negative free cash flow in all projection years --- what happens to the valuation?
+
+Revise the model based on the critique and red-teaming results. Compare the original and revised valuations.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Q&A pairs with citations and quality ratings (`4C-QA.pdf`)
-- Brief assessment of NotebookLM's reliability for financial analysis (half page, included in the same PDF)
-- Screenshot of the NotebookLM interface showing sources and a sample answer (`4C-Screenshot.png`)
+- Original DCF model (`4C-Original.xlsx`)
+- Revised DCF model (`4C-Revised.xlsx`)
+- Summary of critique, red-teaming findings, and revisions (`4C-Summary.pdf`, 1 page)
+- Screenshots of both Claude conversations (`4C-Screenshot1.png`, `4C-Screenshot2.png`)

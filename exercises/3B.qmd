@@ -1,5 +1,5 @@
 ---
-title: "Exercise 3B: Stock Analysis in Colab"
+title: "Exercise 3B: Loan Portfolio Risk Analysis"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,19 +9,23 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-In Google Colab, use Gemini to write code that:
+Download [loan-risk-analysis.zip](../files/loan-risk-analysis.zip) and extract the files into a folder. You will have:
 
-1. Downloads daily price data for three stocks of your choice from Yahoo Finance (at least one year of data)
-2. Computes daily returns
-3. Produces the following outputs:
-    (a) A **boxplot** of daily returns for the three stocks
-    (b) A **summary statistics table**: mean, standard deviation, min, max, skewness, kurtosis
-    (c) A **correlation matrix heatmap**
+- A loan tape with 220 loans (Excel)
+- State banking regulations (PDF)
+- An internal risk policy memo (Word)
 
-Save the notebook to Google Drive.
+In Claude Desktop's Cowork tab (or Code tab), select the folder and ask Claude to:
+
+(a) Extract the state-specific regulatory thresholds from the PDF
+(b) Extract the risk tier classification criteria from the Word doc
+(c) Assign each loan a risk tier and flag state-specific regulatory violations
+(d) Produce a risk report showing tier distribution, flagged loans, and total estimated reserves
+
+Watch how Claude reads each file, combines the rules, and applies them to the loan data.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Colab notebook (`3B-Notebook.ipynb`)
-- Screenshot of the outputs (`3B-Screenshot.png`)
+- Risk report (`3B-RiskReport.xlsx`)
+- Screenshot of the Cowork or Code session (`3B-Screenshot.png`)

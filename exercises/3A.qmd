@@ -1,5 +1,5 @@
 ---
-title: "Exercise 3A: Financial Data with MCP"
+title: "Exercise 3A: Automated Reporting Pipeline"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,18 +9,23 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Install the Alpha Vantage or Financial Modeling Prep MCP server in Claude Desktop. Use it to retrieve financial data for a company of your choice (e.g., income statement, balance sheet, or stock prices for the last 5 years).
+Build an automated reporting pipeline that transforms raw data into a polished PowerPoint deck. Use Claude Code to create the pipeline.
 
-Ask Claude to:
+Your pipeline should include these stages:
 
-(a) Retrieve the data using the MCP server tools
-(b) Analyze trends (e.g., revenue growth, margin changes, debt levels)
-(c) Produce a formatted summary table in Excel
+1. **Data query**: Load a financial dataset (CSV, Excel, or database query)
+2. **Transform**: Compute at least 3 KPIs (e.g., revenue growth, profit margin, variance vs.\ budget)
+3. **Visualize**: Generate at least 2 charts (e.g., trend line, waterfall, bar chart)
+4. **Narrative**: Use an LLM to generate a 2--3 sentence executive summary from the computed metrics
+5. **PowerPoint output**: Assemble a 3--5 slide deck using `python-pptx` with a title slide, KPI summary, charts, and the AI-generated narrative
+
+You may use any financial dataset (the Chinook database, a budget-vs-actual spreadsheet, stock return data from the Rice Data Portal, etc.).
+
+Run the pipeline end-to-end and verify that the PowerPoint file opens correctly and the charts match the underlying data.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Excel summary (`3A-Summary.xlsx`)
-- Screenshot showing the MCP server in your config (`3A-Config.png`)
-- Screenshot showing Claude using the MCP tools (`3A-Tools.png`)
-- Screenshot of the final output (`3A-Output.png`)
+- Python script or notebook that runs the pipeline (`3A-Pipeline.py` or `3A-Pipeline.ipynb`)
+- Generated PowerPoint deck (`3A-Report.pptx`)
+- Screenshot of the pipeline running (`3A-Screenshot.png`)

@@ -9,7 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Choose a financial decision scenario (e.g., whether to acquire a company, enter a new market, restructure a portfolio, or approve a large capital expenditure). Open a conversation with Claude.ai and use at least **four** of the five conversation moves from Module 2:
+Choose a financial decision scenario (e.g., whether to acquire a company, enter a new market, restructure a portfolio, or approve a large capital expenditure). Open a conversation with Claude.ai and use at least **four** of the five conversation moves from Module 1:
 
 1. **Expand options**: "What options am I not considering?"
 2. **Challenge**: "Argue against my preferred choice."

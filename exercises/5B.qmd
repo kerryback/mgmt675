@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5B: M&A Due Diligence"
+title: "Exercise 5B: Stock Analysis in Colab"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,26 +9,19 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download [manda-due-diligence.zip](../files/manda-due-diligence.zip) and extract the files into a project folder. You will have:
+In Google Colab, use Gemini to write code that:
 
-- A customer list with contract details (Excel)
-- Detailed contract terms for top customers (PDF)
-- Acquirer screening criteria (Word)
-- Industry benchmarks (CSV)
+1. Downloads daily price data for three stocks of your choice from Yahoo Finance (at least one year of data)
+2. Computes daily returns
+3. Produces the following outputs:
+    (a) A **boxplot** of daily returns for the three stocks
+    (b) A **summary statistics table**: mean, standard deviation, min, max, skewness, kurtosis
+    (c) A **correlation matrix heatmap**
 
-In Claude Code (or the Code tab in Claude Desktop), ask Claude to evaluate the acquisition target **end-to-end**:
-
-1. Extract contract terms and change-of-control provisions from the PDF
-2. Apply the acquirer's screening criteria to each customer
-3. Calculate quality-adjusted revenue and retention probabilities
-4. Assess customer concentration risk
-5. Benchmark against industry standards
-6. Produce a due diligence summary suitable for an investment committee
-
-Watch how Claude plans its approach, reads each file, and combines the results.
+Save the notebook to Google Drive.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Due diligence summary (`5B-DueDiligence.xlsx`)
-- Screenshots showing Claude's intermediate steps (`5B-Screenshot1.png`, `5B-Screenshot2.png`)
+- Colab notebook (`5B-Notebook.ipynb`)
+- Screenshot of the outputs (`5B-Screenshot.png`)
