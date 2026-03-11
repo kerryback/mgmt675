@@ -28,15 +28,11 @@ We will use Anthropic's Claude throughout the course.  Anthropic has made a numb
 
 ### Learning Objectives
 
-1. How to use AI with code-execution tools to perform financial analysis, handle data, and generate visualizations and reports
-2. How to set up and use Claude Code for local code execution, file access, and financial workflows
-3. How to use AI for portfolio optimization and discounted cash flow valuation of companies
-4. How to connect AI to external data sources and tools (MCP servers, Jupyter notebooks, Excel)
-5. How to automate financial workflows with reusable skills and reporting pipelines
-6. How to use retrieval-augmented generation to ground AI in financial documents
-7. How to build financial AI applications such as chatbots and agents
-8. How to verify and validate AI-generated analysis using red-teaming and audit protocols
-9. How AI can be used to classify the sentiment of news and earnings calls for trading
+1. Use AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports
+2. Apply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals
+3. Connect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation
+4. Automate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents
+5. Verify and govern AI-generated analysis using red-teaming, audit protocols, and structured review
 
 
 ### Grading

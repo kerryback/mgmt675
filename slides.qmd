@@ -8,7 +8,6 @@ Click on a topic to download the PDF slide deck.
 
 | # | Module | |
 |--:|--------|:-:|
-| 0 | [Course Introduction](slides/00-intro.pdf) | [{{< fa file-pdf >}}](slides/00-intro.pdf) |
 | 1 | [AI in Finance](slides/m1-ai-in-finance.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-in-finance.pdf) |
 | 2 | [Mean-Variance Analysis](slides/m2-mean-variance.pdf) | [{{< fa file-pdf >}}](slides/m2-mean-variance.pdf) |
 | 3 | [Claude Desktop and Claude Code](slides/m3-claude.pdf) | [{{< fa file-pdf >}}](slides/m3-claude.pdf) |
