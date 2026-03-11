@@ -85,24 +85,34 @@ Download and run the installer for your platform:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Your First Session}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Getting Started}]
-\begin{enumerate}\small
+\begin{frame}{Getting Started}
+\begin{enumerate}
   \item Open Claude Desktop $\rightarrow$ \textbf{Code} tab
   \item Select a working folder for your project
   \item Choose a model: \textbf{Sonnet} (fast) or \textbf{Opus} (thorough)
   \item Set permission mode to \textbf{auto-accept} (recommended for exercises)
 \end{enumerate}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Try It}]
-\small\textit{``Create an Excel workbook with a loan amortization table for a \$300{,}000 mortgage at 6.5\% annual interest with a 30-year term and monthly payments.  Use formulas so I can change the loan amount, rate, and term.  Include columns for payment number, payment, principal, interest, and remaining balance.''}
-\end{shadedbox}
-\end{column}
-\end{columns}
+\end{frame}
+
+\begin{frame}{CLAUDE.md}
+Claude reads \texttt{CLAUDE.md} files automatically at the start of every session --- no need to repeat instructions.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{Global} (\texttt{\textasciitilde/.claude/CLAUDE.md}): applies to every project --- output preferences, preferred libraries, personal conventions
+  \item \textbf{Per-Project} (project root): applies only to this folder --- data context, domain guidance, project-specific workflows
+\end{itemize}
+\vspace{0.3cm}
+The installer pre-configured \textbf{skills} for Excel, Word, and PowerPoint.  Prompt Claude Code to document them in your global \texttt{CLAUDE.md}:
+\vspace{0.2cm}
+
+\textit{``Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.''}
+\vspace{0.2cm}
+
+Once documented, Claude will \alert{automatically} follow those instructions without needing slash commands.
+\end{frame}
+
+\begin{frame}{Example}
+\textit{``Create an Excel workbook with a loan amortization table for a \$300{,}000 mortgage at 6.5\% annual interest with a 30-year term and monthly payments.  Use formulas so I can change the loan amount, rate, and term.  Include columns for payment number, payment, principal, interest, and remaining balance.''}
 \end{frame}
 
 \section{Claude Code in the Terminal and VS Code}

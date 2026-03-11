@@ -13,9 +13,9 @@ Click on a topic to download the PDF slide deck.
 | 2 | [Mean-Variance Analysis](slides/m2-mean-variance.pdf) | [{{< fa file-pdf >}}](slides/m2-mean-variance.pdf) |
 | 3 | [Claude Desktop and Claude Code](slides/m3-claude.pdf) | [{{< fa file-pdf >}}](slides/m3-claude.pdf) |
 | 4 | [Discounted Cash Flow Analysis](slides/m4-dcf.pdf) | [{{< fa file-pdf >}}](slides/m4-dcf.pdf) |
-| 5 | [CLAUDE.md and Skills](slides/m5-skills.pdf) | [{{< fa file-pdf >}}](slides/m5-skills.pdf) |
-| 6 | [Verification and Governance](slides/m6-reliability.pdf) | [{{< fa file-pdf >}}](slides/m6-reliability.pdf) |
-| 7 | [AI Agents](slides/m7-agents.pdf) | [{{< fa file-pdf >}}](slides/m7-agents.pdf) |
-| 8 | [Connecting AI to Data and Tools](slides/m8-mcp.pdf) | [{{< fa file-pdf >}}](slides/m8-mcp.pdf) |
-| 9 | [Working with Financial Documents](slides/m9-rag.pdf) | [{{< fa file-pdf >}}](slides/m9-rag.pdf) |
-| 10 | [AI in Trading and Markets](slides/m10-sentiment.pdf) | [{{< fa file-pdf >}}](slides/m10-sentiment.pdf) |
+| 5 | [Claude Skills](slides/m5-skills.pdf) | [{{< fa file-pdf >}}](slides/m5-skills.pdf) |
+| 6 | [Verification, Auditing, and Governance](slides/m6-reliability.pdf) | [{{< fa file-pdf >}}](slides/m6-reliability.pdf) |
+| 7 | [More on AI Agents](slides/m7-agents.pdf) | [{{< fa file-pdf >}}](slides/m7-agents.pdf) |
+| 8 | [Model Context Protocol](slides/m8-mcp.pdf) | [{{< fa file-pdf >}}](slides/m8-mcp.pdf) |
+| 9 | [Retrieval Augmented Generation](slides/m9-rag.pdf) | [{{< fa file-pdf >}}](slides/m9-rag.pdf) |
+| 10 | [Sentiment Analysis](slides/m10-sentiment.pdf) | [{{< fa file-pdf >}}](slides/m10-sentiment.pdf) |
