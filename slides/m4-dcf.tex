@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 4: Company Valuation}
+\title{Module 4: Discounted Cash Flow Analysis}
 \author{Kerry Back}
 \date{}
 
@@ -222,9 +222,31 @@ Ask Claude to produce sensitivity tables in Excel (with formulas) or as formatte
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Simulation Setup}
+\begin{frame}[shrink=10]{Simulation Setup}
 Assign a probability distribution to each uncertain assumption, then sample and compute.
 \vspace{0.2cm}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.5cm and 0.7cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=1.8cm, minimum height=0.7cm, fill=excelinput, text=titlegray, font=\scriptsize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=2.5mm]}, thick, draw=accentblue}
+]
+\node[sbox] (dist) {Random\\Assumptions};
+\node[sbox, right=0.6cm of dist] (proforma) {Pro Forma\\Model};
+\node[sbox, right=0.6cm of proforma] (fcf) {FCF};
+\node[sbox, right=0.6cm of fcf] (ev) {Enterprise\\Value};
+\node[sbox, right=0.6cm of ev, fill=alertorange!15] (hist) {Histogram\\of Values};
+
+\draw[sarrow] (dist) -- (proforma);
+\draw[sarrow] (proforma) -- (fcf);
+\draw[sarrow] (fcf) -- (ev);
+\draw[sarrow] (ev) -- (hist);
+
+\draw[->, thick, accentblue, rounded corners] (ev.south) -- ++(0,-0.5) -| (dist.south) node[midway, below, font=\scriptsize\itshape, text=titlegray] {repeat 10{,}000$\times$};
+\end{tikzpicture}
+\end{center}
+\vspace{0.1cm}
 \begin{center}
 \small
 \begin{tabular}{@{} l l l @{}}

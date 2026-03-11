@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 5: Verification and Governance}
+\title{Module 6: Verification and Governance}
 \author{Kerry Back}
 \date{}
 
@@ -316,13 +316,28 @@ Store logs locally or in a cloud database.  \alert{If it's not logged, it didn't
 % ========================================
 \section{Three Layers of Auditability}
 
-\begin{frame}{Defense in Depth}
+\begin{frame}[shrink=5]{Defense in Depth}
+\begin{center}
+\begin{tikzpicture}[
+  every node/.style={font=\small},
+  layer/.style={draw=titlegray, rounded corners, minimum height=0.8cm, fill=#1, text=titlegray, font=\small\bfseries, align=center}
+]
+\node[layer=accentblue!15, minimum width=10cm] (l1) at (0,2) {Layer 1: RAG Citations};
+\node[layer=excelinput, minimum width=8cm] (l2) at (0,1) {Layer 2: Code Transparency};
+\node[layer=alertorange!12, minimum width=6cm] (l3) at (0,0) {Layer 3: Audit Logs};
+
+\node[right=0.3cm of l1, font=\scriptsize, text=titlegray, text width=3cm] {Answers grounded in source documents};
+\node[right=0.3cm of l2, font=\scriptsize, text=titlegray, text width=3cm] {SQL/Python visible for review};
+\node[right=0.3cm of l3, font=\scriptsize, text=titlegray, text width=3cm] {Complete trail in JSONL};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2cm}
 \begin{enumerate}
   \item \textbf{RAG citations}: Ground answers in source documents with traceable references (Module 8). AI answers based on \alert{your content}, not its training data.
   \item \textbf{Code transparency}: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.
   \item \textbf{Audit logs}: Every prompt, response, and token count recorded in JSONL. The system creates a \textit{complete trail} of every AI decision.
 \end{enumerate}
-\vspace{0.5cm}
+\vspace{0.3cm}
 The more layers you add, the harder it is for errors to reach your team. \alert{Same principle as cybersecurity.}
 \end{frame}
 
@@ -354,9 +369,32 @@ Before sending data to any AI provider, know the answers to two questions.
 \end{columns}
 \end{frame}
 
-\begin{frame}{The Schema-Only Pattern}
+\begin{frame}[shrink=5]{The Schema-Only Pattern}
 AI can analyze sensitive data \alert{without ever reading it}. It only needs the table structure.
-\vspace{0.3cm}
+\vspace{0.2cm}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.5cm and 1.2cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2cm, minimum height=0.7cm, fill=excelinput, text=titlegray, font=\scriptsize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=2.5mm]}, thick, draw=accentblue}
+]
+\node[sbox] (schema) {Schema\\{\tiny (table names, columns)}};
+\node[sbox, right=1.2cm of schema, fill=accentblue!15] (ai) {AI};
+\node[sbox, right=1.2cm of ai] (sql) {SQL\\Code};
+\node[sbox, below=0.8cm of sql, fill=alertorange!12] (local) {Runs\\Locally};
+\node[sbox, below=0.8cm of schema] (db) {Your\\Database};
+
+\draw[sarrow] (schema) -- (ai) node[midway, above, font=\scriptsize\itshape, text=titlegray] {safe to share};
+\draw[sarrow] (ai) -- (sql);
+\draw[sarrow] (sql) -- (local);
+\draw[sarrow] (db) -- (local) node[midway, below, font=\scriptsize\itshape, text=titlegray] {data stays here};
+
+\draw[dashed, thick, alertorange] (-1.5,-0.4) -- (2.2,-0.4) node[midway, below=0.1cm, font=\scriptsize, text=alertorange] {};
+\node[font=\scriptsize, text=alertorange] at (0.3, -0.6) {on-premise boundary};
+\end{tikzpicture}
+\end{center}
+\vspace{0.1cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{How it works}

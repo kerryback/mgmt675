@@ -25,11 +25,10 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - `slides/mgmt675-style.tex` — shared style (metropolis theme, custom colors, tcolorbox environments)
 - `slides/images/` — images used in slides
 - `00-intro` — course introduction
-- Module decks: `m1` through `m9`:
-  - m1-ai-in-finance, m3-claude (Getting Started with Claude Code)
-  - m2-mean-variance, m4-dcf
-  - m6-agents, m7-mcp, m5-reliability
-  - m8-rag, m9-sentiment
+- Module decks: `m1` through `m10`:
+  - m1-ai-in-finance, m2-mean-variance, m3-claude, m4-dcf
+  - m5-skills, m6-reliability, m7-agents, m8-mcp
+  - m9-rag, m10-sentiment
 
 ### Other
 - `gamma_pptx_utils.py` — Python utilities for PPTX processing

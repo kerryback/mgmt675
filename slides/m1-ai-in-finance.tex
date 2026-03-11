@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 1: AI Fundamentals}
+\title{Module 1: AI in Finance}
 \author{Kerry Back}
 \date{}
 
@@ -93,60 +93,9 @@ Here's a simple commitment that will put you ahead of almost everyone: spend one
 \end{frame}
 
 % ========================================
-% SECTION 2: CODE EXECUTION
+% SECTION 2: CLAUDE.AI AND ARTIFACTS
 % ========================================
-\section{AI with Code Execution}
-
-\begin{frame}{Why Code Execution Changes Everything}
-Attaching a code execution tool transforms a chatbot into a \alert{computational engine}.
-\vspace{0.3cm}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Without Code Execution}]
-\begin{itemize}\small
-  \item AI can describe how to analyze your data
-  \item AI can outline the steps for a calculation
-  \item \alert{You still do the work}
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{With Code Execution}]
-\begin{itemize}\small
-  \item AI loads your data and computes results
-  \item AI builds a complete analysis with charts
-  \item \alert{AI does the work}
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-
-\vspace{0.3cm}
-Finance examples: portfolio optimization, DCF models, regression analysis, Monte Carlo simulations---all built and executed by AI in seconds.
-\end{frame}
-
-\begin{frame}{Three Execution Environments}
-AI can write and run code in three places.  The difference is \alert{where} it runs and \alert{what} it can access.
-\vspace{0.3cm}
-
-\begin{itemize}
-  \item \textbf{Cloud sandbox} (Claude Chat, ChatGPT): best for quick, ad-hoc analysis --- {\color{alertorange}\textbf{no internet access}}
-  \item \textbf{Virtual machine} (Claude Cowork): best for batch work on files --- {\color{alertorange}\textbf{no internet access}}
-  \item \textbf{Local / your PC} (Claude Code): full integration with your machine --- {\color{accentblue}\textbf{full internet access}}
-\end{itemize}
-
-\vspace{0.3cm}
-\textbf{Key insight:} Only \alert{local execution} can call external APIs---the Rice Data Portal, Alpha Vantage, Financial Modeling Prep, etc.
-
-\vspace{0.2cm}
-We start with the cloud sandbox today.  Later modules introduce local execution and data connections.
-\end{frame}
-
-
-% ========================================
-% SECTION 3: CLAUDE.AI AND ARTIFACTS
-% ========================================
-\section{Claude.ai and Artifacts}
+\section{Exploring Claude.ai}
 
 \begin{frame}{Getting Started: Claude.ai}
 
@@ -195,19 +144,11 @@ It's a chatbot with a code execution tool.  It can answer questions, explain con
 \small\textbf{Limitation:} Artifacts are client-side only---no database, no persistence.  They are \alert{disposable by design}: generate a new one when needs change, rather than maintaining an old one.
 \end{frame}
 
-\begin{frame}{Artifact Examples}
-\textbf{Example 1: Data Visualization}
-
-\textit{``Here is an Excel file with monthly returns for WMT and SPY and the T-bill yield. Create an interactive scatter plot of WMT excess returns vs.\ market excess returns with the regression line, alpha, and beta.''}
-
-\vspace{0.3cm}
-
-\textbf{Example 2: Financial Calculator}
-
+\begin{frame}{Artifact Example: Black-Scholes Calculator}
 \textit{``Create a Black-Scholes option calculator with inputs for stock price, strike, rate, volatility, and expiration, and plot call and put prices as the stock price varies from 50\% to 150\% of the strike.''}
 
 \vspace{0.3cm}
-\textbf{Publish:} Publish the artifacts and share the links.
+\textbf{Publish:} Publish the artifact and share the link.
 \end{frame}
 
 \begin{frame}{Artifacts Across Platforms}
@@ -224,34 +165,9 @@ We use Claude, but the concepts transfer to any platform.
 \end{frame}
 
 % ========================================
-% SECTION 4: AI IN SPREADSHEETS
+% SECTION 3: EXPLORING CLAUDE FOR EXCEL
 % ========================================
-\section{AI in Spreadsheets}
-
-\begin{frame}{Formulas vs.\ Hardcoded Values}
-\begin{columns}[T]
-  \begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Hardcoded (Bad)}]
-\small
-\texttt{sheet['B10'] = 1500}
-\vspace{0.3cm}
-
-Cell shows 1500, but if inputs change, the total doesn't update.
-\end{shadedbox}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{shadedbox}[title=\textbf{Formula (Good)}]
-\small
-\texttt{sheet['B10'] = '=SUM(B2:B9)'}
-\vspace{0.3cm}
-
-Cell contains a formula that recalculates when inputs change.
-\end{shadedbox}
-\end{column}
-\end{columns}
-\vspace{0.5cm}
-\centerline{\alert{Always instruct AI to use formulas, not hardcoded values.}}
-\end{frame}
+\section{Exploring Claude for Excel}
 
 \begin{frame}{Claude for Excel Add-in}
 \begin{columns}[T]
@@ -260,7 +176,7 @@ Cell contains a formula that recalculates when inputs change.
 \begin{itemize}\small
   \item AI sidebar that reads and edits your workbook
   \item Preserves formula dependencies
-  \item Works with local files --- \alert{no OneDrive required}
+  \item Works with local files
 \end{itemize}
 \end{shadedbox}
 \end{column}
@@ -275,9 +191,33 @@ Cell contains a formula that recalculates when inputs change.
 \end{column}
 \end{columns}
 \vspace{0.3cm}
-\begin{center}\small
-Requires Claude Pro (\$20/mo). Install via \textbf{Insert $\rightarrow$ Get Add-ins $\rightarrow$ ``Claude by Anthropic''}.
-\end{center}
+Requires Claude Pro (\$20/mo) or a Claude Team/Enterprise plan.
+\end{frame}
+
+\begin{frame}{Installing the Add-in}
+\begin{enumerate}
+  \item Open \textbf{Excel} (desktop version, not the web app)
+  \item Go to \textbf{Insert} $\rightarrow$ \textbf{Get Add-ins}
+  \item Search for \textbf{``Claude by Anthropic''} and click \textbf{Add}
+  \item Sign in with your Claude account when prompted
+  \item The Claude sidebar appears on the right --- click the Claude icon in the \textbf{Home} ribbon tab to toggle it
+\end{enumerate}
+\vspace{0.3cm}
+The add-in can see your entire workbook: sheet names, cell values, and formulas.  It edits cells directly --- you can undo any change with \texttt{Ctrl+Z}.
+\end{frame}
+
+\begin{frame}{Example: Loan Amortization Table}
+Open a blank workbook with the Claude sidebar visible.  Type:
+\vspace{0.2cm}
+\begin{shadedbox}
+\small\textit{``Create a loan amortization table for a \$300{,}000 mortgage at 6.5\% annual interest with a 30-year term and monthly payments.  Use formulas so I can change the loan amount, rate, and term.  Include columns for payment number, payment, principal, interest, and remaining balance.  Add a summary section showing total interest paid.''}
+\end{shadedbox}
+\vspace{0.2cm}
+\begin{itemize}\small
+  \item Claude builds the table with \alert{live Excel formulas}, not hardcoded values
+  \item Change the rate or loan amount and the entire table recalculates
+  \item Ask follow-ups: \textit{``Add a chart of principal vs.\ interest over time''} or \textit{``What if I make an extra \$200/month payment?''}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{AI Spreadsheet Tools Compared}
@@ -288,6 +228,91 @@ Requires Claude Pro (\$20/mo). Install via \textbf{Insert $\rightarrow$ Get Add-
 \end{itemize}
 \vspace{0.3cm}
 All three can produce the same kinds of financial tools --- DCF calculators, amortization tables, scenario analyzers.  Choose based on your ecosystem.
+\end{frame}
+
+% ========================================
+% SECTION 4: AI AGENTS
+% ========================================
+\section{AI Agents}
+
+\begin{frame}{Chatbot}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm and 3cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2.5cm, minimum height=1.2cm, fill=excelinput, text=titlegray, font=\normalsize\bfseries, align=center},
+  fwd/.style={-{Stealth[length=3mm]}, thick, draw=accentblue},
+  bwd/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (user) {User};
+\node[sbox, right=3cm of user, fill=accentblue!15] (chatbot) {Chatbot};
+\node[sbox, right=3cm of chatbot, fill=alertorange!15] (llm) {LLM};
+
+\draw[fwd] ([yshift=2pt]user.east) -- ([yshift=2pt]chatbot.west);
+\draw[bwd] ([yshift=-2pt]chatbot.west) -- ([yshift=-2pt]user.east);
+\draw[fwd] ([yshift=2pt]chatbot.east) -- ([yshift=2pt]llm.west);
+\draw[bwd] ([yshift=-2pt]llm.west) -- ([yshift=-2pt]chatbot.east);
+\end{tikzpicture}
+\end{center}
+\vspace{0.3cm}
+The chatbot sends three things to the LLM with each request:
+\begin{enumerate}
+  \item \textbf{User prompt} --- what you just typed
+  \item \textbf{System prompt} --- hidden instructions that define the LLM's behavior, e.g., \textit{``You are a helpful assistant \ldots''}
+  \item \textbf{Conversation history} --- all prior messages in the session, so the LLM has context
+\end{enumerate}
+\vspace{0.3cm}
+Anthropic publishes the system prompt for Claude: \href{https://docs.anthropic.com/en/docs/about-claude/soul}{docs.anthropic.com/en/docs/about-claude/soul}
+\end{frame}
+
+\begin{frame}{Agent}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm and 3cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2.5cm, minimum height=1.2cm, fill=excelinput, text=titlegray, font=\normalsize\bfseries, align=center},
+  fwd/.style={-{Stealth[length=3mm]}, thick, draw=accentblue},
+  bwd/.style={-{Stealth[length=3mm]}, thick, draw=accentblue}
+]
+\node[sbox] (user) {User};
+\node[sbox, right=3cm of user, fill=accentblue!15] (agent) {Agent};
+\node[sbox, right=3cm of agent, fill=alertorange!15] (llm) {LLM};
+\node[sbox, below=1.2cm of agent, fill=excelinput] (tool) {Tool};
+
+\draw[fwd] ([yshift=2pt]user.east) -- ([yshift=2pt]agent.west);
+\draw[bwd] ([yshift=-2pt]agent.west) -- ([yshift=-2pt]user.east);
+\draw[fwd] ([yshift=2pt]agent.east) -- ([yshift=2pt]llm.west);
+\draw[bwd] ([yshift=-2pt]llm.west) -- ([yshift=-2pt]agent.east);
+\draw[fwd] ([xshift=2pt]agent.south) -- ([xshift=2pt]tool.north);
+\draw[bwd] ([xshift=-2pt]tool.north) -- ([xshift=-2pt]agent.south);
+\end{tikzpicture}
+\end{center}
+\vspace{0.2cm}
+The agent programmatically controls communication between the LLM and the tool.  The system prompt includes \textit{``You have a tool \ldots''} so the LLM knows what it can call.  Multiple rounds of communication may occur between the LLM, agent, and tool before the agent returns output to the user.
+\end{frame}
+
+\begin{frame}{Examples of Agent Tools}
+\begin{itemize}
+  \item Python environment
+  \item Database server
+  \item Web browser / web search
+  \item File system (read, write, edit)
+  \item API calls (REST endpoints, data providers)
+\end{itemize}
+\vspace{0.5cm}
+An agent may be connected to \alert{multiple tools}.  For example, get data from a database server and send it to a Python environment to return analysis.
+\end{frame}
+
+\begin{frame}{Example: Rice Data Portal}
+The \href{https://data-portal.rice-business.org}{Rice Data Portal} is an agent.
+\vspace{0.3cm}
+\begin{itemize}
+  \item \textbf{LLM:} ChatGPT --- interprets your natural-language question and writes a SQL query
+  \item \textbf{Tool:} A database server in the cloud holding stock-market and financial data
+  \item \textbf{Agent:} An app running elsewhere in the cloud that coordinates communication between ChatGPT and the database
+\end{itemize}
+\vspace{0.3cm}
+You type a question (\textit{``Show me AAPL closing prices for 2024''}).  The agent sends it to ChatGPT, which returns a SQL query.  The agent runs the query against the database, sends the results back to ChatGPT for formatting, and displays the answer.  If the query fails, ChatGPT rewrites it and tries again --- multiple rounds, no human intervention.
 \end{frame}
 
 \end{document}

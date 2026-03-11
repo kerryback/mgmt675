@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 9: AI in Trading and Markets}
+\title{Module 10: AI in Trading and Markets}
 \author{Kerry Back}
 \date{}
 
@@ -270,7 +270,28 @@ Relevance & Is this market-moving? & Routine board meeting $\rightarrow$ low \\
 \end{center}
 \end{frame}
 
-\begin{frame}{The Cascade Architecture}
+\begin{frame}[shrink=10]{The Cascade Architecture}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.5cm and 1cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=2cm, minimum height=0.7cm, fill=excelinput, text=titlegray, font=\scriptsize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=2.5mm]}, thick, draw=accentblue}
+]
+\node[sbox, minimum width=2.2cm] (headlines) {All\\Headlines};
+\node[sbox, right=1cm of headlines, fill=accentblue!15] (finbert) {FinBERT\\{\tiny\normalfont\textasciitilde5ms}};
+
+\node[sbox, right=1.5cm of finbert, yshift=0.8cm, fill=accentblue!8] (fast) {Immediate\\Signal};
+\node[sbox, right=1.5cm of finbert, yshift=-0.8cm, fill=alertorange!15] (gpt) {GPT-4\\{\tiny\normalfont\textasciitilde1--5s}};
+\node[sbox, right=1cm of gpt] (slow) {Enhanced\\Signal};
+
+\draw[sarrow] (headlines) -- (finbert);
+\draw[sarrow] (finbert) -- (fast) node[midway, above, font=\scriptsize\itshape, text=accentblue, sloped] {high conf.};
+\draw[sarrow] (finbert) -- (gpt) node[midway, below, font=\scriptsize\itshape, text=alertorange, sloped] {low conf.};
+\draw[sarrow] (gpt) -- (slow);
+\end{tikzpicture}
+\end{center}
+\vspace{0.1cm}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
 \begin{shadedbox}[title=\textbf{Fine-Tuned Small Model}]
@@ -372,9 +393,35 @@ The \alert{tone of an earnings call} often matters more for stock returns than t
 % ========================================
 \section{Beyond Company Sentiment: Geopolitical Risk}
 
-\begin{frame}{The Propagation Problem}
+\begin{frame}[shrink=5]{The Propagation Problem}
 Most LLM trading research focuses on \alert{company-level} sentiment. The real competitive advantage: understanding how \alert{macro events propagate across sectors}.
-\vspace{0.3cm}
+\vspace{0.2cm}
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.4cm and 1.2cm,
+  every node/.style={font=\small},
+  sbox/.style={draw=titlegray, rounded corners, minimum width=1.6cm, minimum height=0.6cm, fill=excelinput, text=titlegray, font=\scriptsize\bfseries, align=center},
+  sarrow/.style={-{Stealth[length=2.5mm]}, thick, draw=accentblue}
+]
+\node[sbox, fill=alertorange!20] (event) {Conflict};
+\node[sbox, right=1cm of event] (oil) {Oil\\prices $\uparrow$};
+\node[sbox, above right=0.3cm and 1cm of oil] (energy) {Energy\\stocks $\uparrow$};
+\node[sbox, right=1cm of oil] (fert) {Fertilizer\\costs $\uparrow$};
+\node[sbox, right=1cm of fert] (food) {Food\\prices $\uparrow$};
+\node[sbox, below right=0.3cm and 1cm of food] (staples) {Staples\\margins $\downarrow$};
+
+\draw[sarrow] (event) -- (oil);
+\draw[sarrow] (oil) -- (energy);
+\draw[sarrow] (oil) -- (fert);
+\draw[sarrow] (fert) -- (food);
+\draw[sarrow] (food) -- (staples);
+
+\node[below=0.15cm of oil, font=\scriptsize\itshape, text=accentblue] {1st order};
+\node[below=0.15cm of fert, font=\scriptsize\itshape, text=accentblue] {2nd order};
+\node[below=0.15cm of food, font=\scriptsize\itshape, text=accentblue] {3rd order};
+\end{tikzpicture}
+\end{center}
+\vspace{0.1cm}
 \begin{itemize}
   \item ``Russia invades Ukraine'' --- which sectors benefit? Which suffer?
   \item Multi-hop causal reasoning:

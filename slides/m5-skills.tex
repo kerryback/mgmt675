@@ -1,0 +1,194 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs, hyperref}
+
+\input{mgmt675-style}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+% Title info
+\subtitle{MGMT 675: Generative AI for Finance}
+\title{Module 5: CLAUDE.md and Skills}
+\author{Kerry Back}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Why Skills Matter for Finance}
+When you build DCF models and portfolio optimizations in ad-hoc conversations, what happens when you start a new conversation?
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Problem}]
+\begin{itemize}\small
+  \item One conversation uses 10\% WACC, another uses 8\%
+  \item One assumes 3\% terminal growth, another 2.5\%
+  \item Portfolio optimization: 5-year history vs.\ 3-year
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{The Fix: Skills}]
+\begin{itemize}\small
+  \item A DCF skill specifies: which assumptions, how to estimate them, what output format
+  \item A portfolio skill specifies: data source, estimation window, constraints
+  \item \alert{Every conversation follows the same playbook}
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{No audit trail, no reproducibility --- unless you encode the methodology in a skill.}
+\end{frame}
+
+\begin{frame}{Finance Skill Examples}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{DCF Skill}]
+\begin{itemize}\small
+  \item Sales growth from trailing 5-year CAGR
+  \item Sector median EV/EBITDA for exit multiple
+  \item Two-way sensitivity table (WACC vs.\ growth)
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Investment Memo Skill}]
+\begin{itemize}\small
+  \item Standard structure: exec summary, financials, risks, recommendation
+  \item Required data points and formatting
+  \item Every memo follows the same template
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{Every analyst produces comparable, auditable outputs.}
+\end{frame}
+
+\begin{frame}{CLAUDE.md: Global vs.\ Per-Project}
+Claude reads \texttt{CLAUDE.md} files automatically at the start of every session --- no need to repeat instructions.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Global (\textasciitilde/.claude/CLAUDE.md)}]
+\begin{itemize}\small
+  \item Applies to \alert{every} project
+  \item Output style preferences (chart colors, file formats)
+  \item Preferred libraries (e.g., ``use pandas, not polars'')
+  \item Personal conventions
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Per-Project (project root)}]
+\begin{itemize}\small
+  \item Applies only to \alert{this} folder
+  \item Data context (column names, units, sources)
+  \item Domain guidance (industry terms, formulas)
+  \item Project-specific workflows
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Both are plain text files.  Claude reads the global file first, then the project file.  Project instructions can override global ones.
+\end{frame}
+
+\begin{frame}{Pre-Installed Skills: Document Creation}
+\textbf{Skills} are packaged instructions that teach Claude Code a specific workflow.  The class installer pre-configured four.  Invoke any skill by typing \texttt{/} followed by its name.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{/xlsx}]
+\begin{itemize}\footnotesize
+  \item Create and edit Excel workbooks
+  \item Uses \alert{live formulas}, not hardcoded values
+  \item Supports charts, formatting, multiple sheets
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{/docx}]
+\begin{itemize}\footnotesize
+  \item Create and edit Word documents
+  \item Professional formatting, headers, tables
+  \item Supports tracked changes and comments
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{shadedbox}[title=\textbf{/pptx}]
+\begin{itemize}\footnotesize
+  \item Create and edit PowerPoint decks
+  \item Slide layouts, charts, speaker notes
+  \item Can modify existing presentations
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Example:} \textit{``/xlsx Create a loan amortization table for a \$200K mortgage at 6.5\% with monthly payments and a chart of principal vs.\ interest.''}
+\end{frame}
+
+\begin{frame}{Pre-Installed Skills: Skill Creator}
+The \texttt{/skill-creator} skill is a guide for \alert{building your own skills}.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What It Does}]
+\begin{itemize}\small
+  \item Walks you through designing a new skill step by step
+  \item Generates the skill definition file
+  \item Installs the skill so it appears as a \texttt{/} command
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{When to Use It}]
+\begin{itemize}\small
+  \item You repeat the same workflow across sessions
+  \item You want Claude to follow a specific multi-step process
+  \item You want to share a workflow with classmates
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+We will use \texttt{/skill-creator} in the exercise below to build a personal task manager skill.
+\end{frame}
+
+\begin{frame}{Exercise: Create a Tasks Skill}
+Use \texttt{/skill-creator} to build a \textbf{tasks} skill that manages personal and school to-do lists.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{What the Skill Should Do}]
+\begin{itemize}\small
+  \item Store tasks in markdown files (e.g., \texttt{personal.md}, \texttt{school.md})
+  \item Add new tasks with a category and due date
+  \item List pending tasks when asked
+  \item Mark tasks as complete
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{shadedbox}[title=\textbf{Steps}]
+\begin{enumerate}\small
+  \item Type \texttt{/skill-creator} and describe the task manager you want
+  \item Let Claude generate and install the skill
+  \item Test it: ``/tasks Add: finish DCF exercise, due Tuesday''
+  \item Test it: ``/tasks What's pending?''
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+This exercise teaches skill creation.  The same pattern applies to building skills for data retrieval, report generation, or any repeated workflow.
+\end{frame}
+
+\end{document}

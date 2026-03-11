@@ -10,7 +10,7 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 2: Portfolio Optimization}
+\title{Module 2: Mean-Variance Analysis}
 \author{Kerry Back}
 \date{}
 
@@ -18,15 +18,19 @@
 
 \maketitle
 
-\begin{frame}{Learning Objectives}
-\begin{enumerate}
-  \item Construct optimal portfolios with real-world constraints using AI
-  \item Visualize the opportunity set, efficient frontier, and capital allocation line
-  \item Understand how constraints change the attainable risk-return tradeoff
-\end{enumerate}
+\begin{frame}{Claude.ai Is an Agent}
+Claude.ai is an agent connected to a \textbf{Python environment} --- it writes and runs code in a cloud sandbox to answer your questions.
+\vspace{0.3cm}
 
-\vspace{0.5cm}
-These are core tools of investment management.  AI handles the mathematics and code.  \alert{You focus on the assumptions and the interpretation.}
+Claude.ai also has access to other tools:
+\begin{itemize}
+  \item \textbf{Web browser} --- search the web and read pages
+  \item \textbf{File system} --- read and write files you upload or create
+  \item \textbf{Artifacts} --- build interactive apps and charts in a side panel
+  \item \textbf{Document generation} --- produce Excel, Word, and PowerPoint files
+\end{itemize}
+\vspace{0.3cm}
+When you ask Claude.ai to analyze data, it plans the code, executes it in the Python environment, observes the result, and iterates --- the same agent loop from Module~1.
 \end{frame}
 
 % ============================================================
@@ -68,44 +72,6 @@ Mean-variance analysis provides the framework.  AI handles the computation.
 \end{shadedbox}
 \end{column}
 \end{columns}
-\end{frame}
-
-\begin{frame}{Visualizing the Opportunity Set}
-\begin{center}
-\begin{tikzpicture}[scale=0.7]
-  % Axes
-  \draw[->, thick] (0,0) -- (10,0) node[right] {Standard Deviation};
-  \draw[->, thick] (0,0) -- (0,6.5) node[above] {Expected Return};
-
-  % Portfolio cloud (scatter dots)
-  \foreach \i in {1,...,60}{
-    \pgfmathsetmacro{\x}{1.5 + 6*rnd}
-    \pgfmathsetmacro{\y}{0.5 + 5*rnd}
-    \pgfmathsetmacro{\valid}{\y < 0.4*\x + 2.5 ? 1 : 0}
-    \ifnum\valid=1
-      \fill[accentblue!20] (\x,\y) circle (1.5pt);
-    \fi
-  }
-
-  % Efficient frontier (curve)
-  \draw[very thick, alertorange, domain=1.8:8, samples=50]
-    plot (\x, {0.7*sqrt(\x-1) + 1.5});
-
-  % CAL (line from risk-free through tangency)
-  \draw[very thick, accentblue, dashed] (0,1.2) -- (9, 5.7);
-
-  % Risk-free rate
-  \fill[titlegray] (0,1.2) circle (3pt) node[left, font=\small] {$r_f$};
-
-  % Tangency portfolio
-  \fill[alertorange] (4.5,4.0) circle (4pt) node[above right, font=\small\bfseries] {Tangency};
-
-  % GMV
-  \fill[titlegray] (1.8,2.3) circle (4pt) node[below right, font=\small\bfseries] {GMV};
-\end{tikzpicture}
-\end{center}
-
-\small The \textcolor{accentblue!50}{cloud} shows random portfolios.  The \textcolor{alertorange}{orange curve} is the efficient frontier.  The \textcolor{accentblue}{dashed line} is the capital allocation line.
 \end{frame}
 
 \begin{frame}{Adding Real-World Constraints}
@@ -154,51 +120,46 @@ Python solver options: \texttt{scipy.minimize}, \texttt{cvxopt}, \texttt{cvxpy}-
 \alert{Ask Claude:} \small Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.
 \end{frame}
 
-\begin{frame}[shrink=15]{Exercise: Portfolio Cloud}
-
-Consider three assets with the following characteristics:
-
+\begin{frame}{In-Class Exercise: Data}
+We will use monthly returns for five ETFs:
 \vspace{0.2cm}
-\begin{itemize}\small
-  \item \textbf{Asset A}: expected return 8\%, standard deviation 14\%
-  \item \textbf{Asset B}: expected return 12\%, standard deviation 20\%
-  \item \textbf{Asset C}: expected return 15\%, standard deviation 26\%
-  \item Correlations: $\rho_{AB} = 0.3$, \quad $\rho_{AC} = 0.1$, \quad $\rho_{BC} = 0.5$
-  \item Risk-free rate: 4\%
+\begin{itemize}
+  \item \textbf{SPY} --- S\&P 500
+  \item \textbf{GLD} --- Gold
+  \item \textbf{UUP} --- U.S.\ Dollar Index
+  \item \textbf{IEF} --- 7--10 Year Treasuries
+  \item \textbf{EFA} --- International Developed Markets
 \end{itemize}
-
 \vspace{0.2cm}
-Ask Claude to:
+Data: April 2007 -- present (228 months).  Risk-free rate: 3.75\% (current 1-month T-bill).
+\vspace{0.3cm}
+
+Ask Claude to use \texttt{yfinance} to download monthly prices for these five tickers, compute monthly returns, and set $r_f = 3.75\%$ annualized.
+\end{frame}
+
+\begin{frame}{In-Class Exercise: Tangency Portfolio (Unrestricted)}
 \begin{enumerate}
-  \item Generate 10{,}000 random portfolios (random weights summing to 1, no short sales) and plot each portfolio's expected return vs.\ standard deviation.
-  \item Overlay the efficient frontier and the capital allocation line on the same plot.
-  \item Mark the tangency portfolio and the global minimum variance portfolio.
+  \item Ask Claude to compute the \textbf{tangency portfolio} allowing short sales.  Report the weights, expected return, standard deviation, and Sharpe ratio.
+  \item Ask Claude: \textit{``Show me the code you used and explain it step by step.''}
+\end{enumerate}
+\vspace{0.3cm}
+\alert{Understanding the code matters.}  You should be able to verify that the optimization is set up correctly --- what is the objective function?  What are the constraints?
+\end{frame}
+
+\begin{frame}{In-Class Exercise: No Short Sales}
+\begin{enumerate}
+  \item Ask Claude to compute the \textbf{tangency portfolio with no short sales} (all weights $\geq 0$).  Report the weights, expected return, standard deviation, and Sharpe ratio.
+  \item Again ask: \textit{``Show me the code you used and explain it.''}
+  \item Compare with the unrestricted result --- how did the weights and Sharpe ratio change?
 \end{enumerate}
 \end{frame}
 
-% ============================================================
-% EXERCISES
-% ============================================================
-\section{Exercises}
-
-\begin{frame}{Exercise 1: Tangency Portfolio}
-\begin{itemize}
-  \item Download data for 5 ETFs + T-bill rate; compute tangency portfolio weights, return, standard deviation, and Sharpe ratio.
-  \item Plot the efficient frontier and capital allocation line, then add a no-short-sales constraint and compare.
-  \item Submit the data, plots, and a short paragraph on how constraints changed the result.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Exercise 2: Portfolio Cloud Artifact}
-Using the three-asset data from earlier:
-\begin{itemize}\small
-  \item \textbf{Asset A}: expected return 8\%, standard deviation 14\%
-  \item \textbf{Asset B}: expected return 12\%, standard deviation 20\%
-  \item \textbf{Asset C}: expected return 15\%, standard deviation 26\%
-  \item Correlations: $\rho_{AB} = 0.3$, \quad $\rho_{AC} = 0.1$, \quad $\rho_{BC} = 0.5$; \quad $r_f = 4\%$
-\end{itemize}
-\vspace{0.2cm}
-Ask Claude to build an \textbf{interactive artifact} that generates 10{,}000 random portfolios, overlays the efficient frontier, and marks the tangency and GMV portfolios.  Publish and submit the link.
+\begin{frame}{In-Class Exercise: Frontier and CAL}
+Assuming \textbf{no short sales}:
+\begin{enumerate}
+  \item Ask Claude to compute the \textbf{tangency portfolio} and the \textbf{efficient frontier} from the five risky assets.
+  \item Ask Claude to \textbf{plot} the efficient frontier and the \textbf{capital allocation line} (the line from $r_f$ through the tangency portfolio).
+\end{enumerate}
 \end{frame}
 
 \end{document}

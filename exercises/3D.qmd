@@ -1,0 +1,27 @@
+---
+title: "Exercise 3D: Portfolio Consolidation"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Download [portfolio-consolidation.zip](../files/portfolio-consolidation.zip) and extract the files into a folder. You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
+
+In Claude Code, ask Claude to:
+
+1. Merge all equity holdings into a single consolidated view with standardized columns
+2. Resolve inconsistencies between ticker symbols and full company names
+3. Sum shares for positions that appear in multiple accounts
+4. Produce a summary showing total portfolio value, top five holdings by market value, and asset allocation between equities and bonds
+
+Save the result as `consolidated.xlsx`.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Consolidated workbook (`3D-Consolidated.xlsx`)
+- Screenshot of Claude conversation (`3D-Screenshot.png`)
