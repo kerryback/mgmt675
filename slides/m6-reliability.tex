@@ -466,9 +466,66 @@ Each adoption stage maps to a trust level.
 \end{frame}
 
 % ========================================
-% SECTION 8: EXERCISES
+% SECTION 8: SMALL LANGUAGE MODELS
 % ========================================
-\section{Exercises}
+\section{Small Language Models and Fine-Tuning}
+
+\begin{frame}{Improving Reliability: Fine-Tuning and SLMs}
+So far we've verified AI output \textit{after the fact}.  A complementary approach: make the model itself more reliable for your specific tasks.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Fine-tuning an LLM}
+\begin{itemize}\small
+  \item Train a general-purpose model on your domain data (10-K filings, internal memos, deal documents)
+  \item The model learns your terminology, formats, and conventions
+  \item Fewer silent errors on domain-specific tasks
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Small Language Models (SLMs)}
+\begin{itemize}\small
+  \item Models with $\sim$1--8 billion parameters (vs.\ hundreds of billions for LLMs)
+  \item Can be fine-tuned in hours on a single GPU
+  \item Run on-premise or on-device --- \alert{data never leaves your network}
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{A specialized small model can outperform a general-purpose large model on narrow, repetitive tasks.}
+\end{frame}
+
+\begin{frame}{Why SLMs for Agentic Systems?}
+Belcak et al.\ (2025), ``\href{https://arxiv.org/abs/2506.02153}{Small Language Models are the Future of Agentic AI}'':
+\vspace{0.3cm}
+\begin{itemize}
+  \item Most agent subtasks are \alert{repetitive, scoped, and non-conversational} --- classifying documents, extracting fields, formatting outputs
+  \item SLMs fine-tuned on a single task outperform LLMs on format compliance and consistency
+  \item 10--30$\times$ cheaper in latency, energy, and compute vs.\ large models
+  \item On-device deployment enables real-time, offline inference with full data privacy
+  \item Agents can use \alert{multiple models}: an LLM for complex reasoning, SLMs for routine subtasks
+\end{itemize}
+\end{frame}
+
+\begin{frame}{From LLM to SLM: The Conversion Process}
+The paper proposes a six-step migration path:
+\vspace{0.3cm}
+\begin{enumerate}
+  \item \textbf{Log} agent interactions (prompts, responses, tool calls)
+  \item \textbf{Curate} training data --- remove PII, filter for quality
+  \item \textbf{Cluster} requests to identify recurring task patterns
+  \item \textbf{Select} an SLM sized to each task's complexity
+  \item \textbf{Fine-tune} using parameter-efficient methods (LoRA) --- typically 10K--100K examples suffice
+  \item \textbf{Repeat} --- retrain as usage patterns evolve
+\end{enumerate}
+\vspace{0.3cm}
+\alert{The audit logs from earlier in this module are exactly the data you need for step 1.}
+\end{frame}
+
+% ========================================
+% SECTION 9: SUMMARY
+% ========================================
+\section{Summary}
 
 \begin{frame}{Summary}
 \begin{columns}[T]
