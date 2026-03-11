@@ -1,17 +1,17 @@
 [
   {
-    "objectID": "assignments.html",
-    "href": "assignments.html",
-    "title": "Assignments",
+    "objectID": "slides.html",
+    "href": "slides.html",
+    "title": "Slides",
     "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nTwo-Stage DCF Model\n\n\n\n2C\nMonte Carlo Valuation\n\n\n\n2D\nCapital Budgeting with Option Value\n\n\n\n\n\n\n\n\n\n\n3A\nAutomated Reporting Pipeline\n\n\n\n3B\nLoan Portfolio Risk Analysis\n\n\n\n3C\nM&A Due Diligence\n\n\n\n\n\n\n\n\n\n\n4A\nFinancial Data with MCP\n\n\n\n4B\nBuild a Finance Analysis Skill\n\n\n\n4C\nDCF Cross-Check with Red-Teaming\n\n\n\n\n\n\n\n\n\n\n5A\nNotebookLM Financial Analysis\n\n\n\n5B\nStock Analysis in Colab\n\n\n\n5C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nModule\n\n\n\n\n\n0\nCourse Introduction\n\n\n\n1\nAI in Finance\n\n\n\n2\nMean-Variance Analysis\n\n\n\n3\nClaude Desktop and Claude Code\n\n\n\n4\nDiscounted Cash Flow Analysis\n\n\n\n5\nClaude Skills\n\n\n\n6\nVerification, Auditing, and Governance\n\n\n\n7\nMore on AI Agents\n\n\n\n8\nModel Context Protocol\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
   },
   {
-    "objectID": "assignments.html#course-assignments",
-    "href": "assignments.html#course-assignments",
-    "title": "Assignments",
+    "objectID": "slides.html#course-slides",
+    "href": "slides.html#course-slides",
+    "title": "Slides",
     "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nTwo-Stage DCF Model\n\n\n\n2C\nMonte Carlo Valuation\n\n\n\n2D\nCapital Budgeting with Option Value\n\n\n\n\n\n\n\n\n\n\n3A\nAutomated Reporting Pipeline\n\n\n\n3B\nLoan Portfolio Risk Analysis\n\n\n\n3C\nM&A Due Diligence\n\n\n\n\n\n\n\n\n\n\n4A\nFinancial Data with MCP\n\n\n\n4B\nBuild a Finance Analysis Skill\n\n\n\n4C\nDCF Cross-Check with Red-Teaming\n\n\n\n\n\n\n\n\n\n\n5A\nNotebookLM Financial Analysis\n\n\n\n5B\nStock Analysis in Colab\n\n\n\n5C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nModule\n\n\n\n\n\n0\nCourse Introduction\n\n\n\n1\nAI in Finance\n\n\n\n2\nMean-Variance Analysis\n\n\n\n3\nClaude Desktop and Claude Code\n\n\n\n4\nDiscounted Cash Flow Analysis\n\n\n\n5\nClaude Skills\n\n\n\n6\nVerification, Auditing, and Governance\n\n\n\n7\nMore on AI Agents\n\n\n\n8\nModel Context Protocol\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
   },
   {
     "objectID": "index.html",
@@ -28,17 +28,17 @@
     "text": "Kerry Back (kerryback@gmail.com) J. Howard Creekmore Professor of Finance and Professor of Economics\n\n\n\nTTh 12:30 – 2:00 3/17/2026 – 4/23/2026\n\n\n\nSaturday, March 21, 9:00-12:00 - optional Python session\n\nAll sessions will be in McNair 212, including the special session.\n\n\n\n\nThe course is about financial applications of generative AI. We will discuss and use current AI tools but also discuss broader concepts of AI and how they relate to finance. The course will be “hands-on.” We will be working in class on laptops each day.\nWe will use Anthropic’s Claude throughout the course. Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork). Claude has also generally led all other models in coding tasks for the past two years. We will also briefly look at ChatGPT, Gemini, and other large language models.\n\n\n\n\nHow to use AI with code-execution tools to perform financial analysis, handle data, and generate visualizations and reports\nHow to set up and use Claude Code for local code execution, file access, and financial workflows\nHow to use AI for portfolio optimization and discounted cash flow valuation of companies\nHow to connect AI to external data sources and tools (MCP servers, Jupyter notebooks, Excel)\nHow to automate financial workflows with reusable skills and reporting pipelines\nHow to use retrieval-augmented generation to ground AI in financial documents\nHow to build financial AI applications such as chatbots and agents\nHow to verify and validate AI-generated analysis using red-teaming and audit protocols\nHow AI can be used to classify the sentiment of news and earnings calls for trading\n\n\n\n\nGrades will be based on six group assignments (15% each) and peer assessments (10%). Groups can consist of no more than five students. Each assignment consists of multiple exercises and will take a nontrivial amount of time to complete. Do not wait until the last minute to get started.\nThe assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28 (during exam week).\n\n\n\nEach student will be reimbursed for a Claude Pro account ($20 per month). The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.\n\n\n\nThe Rice University honor code applies to all work in this course.\n\n\n\nAny student with a documented disability requiring accommodations in this course is encouraged to contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations regarding assignments or the final exam must be made in advance. Students with disabilities should also contact Disability Support Services in the Allen Center."
   },
   {
-    "objectID": "slides.html",
-    "href": "slides.html",
-    "title": "Slides",
+    "objectID": "assignments.html",
+    "href": "assignments.html",
+    "title": "Assignments",
     "section": "",
-    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nModule\n\n\n\n\n\n0\nCourse Introduction\n\n\n\n1\nAI Fundamentals\n\n\n\n2\nGetting Started with Claude Code\n\n\n\n3a\nPortfolio Optimization\n\n\n\n3b\nCompany Valuation\n\n\n\n4\nAI Agents\n\n\n\n5\nConnecting AI to Data and Tools\n\n\n\n6\nVerification and Governance\n\n\n\n7\nWorking with Financial Documents\n\n\n\n8\nAI in Trading and Markets"
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nTwo-Stage DCF Model\n\n\n\n2C\nMonte Carlo Valuation\n\n\n\n2D\nCapital Budgeting with Option Value\n\n\n\n\n\n\n\n\n\n\n3A\nAutomated Reporting Pipeline\n\n\n\n3B\nLoan Portfolio Risk Analysis\n\n\n\n3C\nM&A Due Diligence\n\n\n\n\n\n\n\n\n\n\n4A\nFinancial Data with MCP\n\n\n\n4B\nBuild a Finance Analysis Skill\n\n\n\n4C\nDCF Cross-Check with Red-Teaming\n\n\n\n\n\n\n\n\n\n\n5A\nNotebookLM Financial Analysis\n\n\n\n5B\nStock Analysis in Colab\n\n\n\n5C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
   },
   {
-    "objectID": "slides.html#course-slides",
-    "href": "slides.html#course-slides",
-    "title": "Slides",
+    "objectID": "assignments.html#course-assignments",
+    "href": "assignments.html#course-assignments",
+    "title": "Assignments",
     "section": "",
-    "text": "Click on a topic to download the PDF slide deck.\n\n\n\n#\nModule\n\n\n\n\n\n0\nCourse Introduction\n\n\n\n1\nAI Fundamentals\n\n\n\n2\nGetting Started with Claude Code\n\n\n\n3a\nPortfolio Optimization\n\n\n\n3b\nCompany Valuation\n\n\n\n4\nAI Agents\n\n\n\n5\nConnecting AI to Data and Tools\n\n\n\n6\nVerification and Governance\n\n\n\n7\nWorking with Financial Documents\n\n\n\n8\nAI in Trading and Markets"
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nTwo-Stage DCF Model\n\n\n\n2C\nMonte Carlo Valuation\n\n\n\n2D\nCapital Budgeting with Option Value\n\n\n\n\n\n\n\n\n\n\n3A\nAutomated Reporting Pipeline\n\n\n\n3B\nLoan Portfolio Risk Analysis\n\n\n\n3C\nM&A Due Diligence\n\n\n\n\n\n\n\n\n\n\n4A\nFinancial Data with MCP\n\n\n\n4B\nBuild a Finance Analysis Skill\n\n\n\n4C\nDCF Cross-Check with Red-Teaming\n\n\n\n\n\n\n\n\n\n\n5A\nNotebookLM Financial Analysis\n\n\n\n5B\nStock Analysis in Colab\n\n\n\n5C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
   }
 ]
