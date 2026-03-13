@@ -416,6 +416,31 @@ AI can analyze sensitive data \alert{without ever reading it}. It only needs the
 \end{columns}
 \end{frame}
 
+\begin{frame}{Improving SQL Quality: Schema + Synthetic Rows}
+Schema alone works, but adding \alert{$\sim$3 synthetic rows per table} makes the generated SQL significantly more accurate.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Why sample rows help}
+\begin{itemize}\small
+  \item Reveal data formats (is status \texttt{'Active'} or \texttt{1}?)
+  \item Disambiguate columns (is \texttt{code} a country code or product code?)
+  \item Help the LLM write correct WHERE clauses with properly formatted literals
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Rules}
+\begin{itemize}\small
+  \item Rows are \alert{synthetic} --- fabricated to match real formats without containing actual records
+  \item Three rows per table is the sweet spot; more tends to distract the model
+  \item Keep synthetic data in sync with schema changes
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Databricks found that $\sim$3 sample rows per table raises SQL accuracy by about \textbf{6 percentage points} over schema alone on standard benchmarks.
+\end{frame}
+
 \begin{frame}{Where Should AI Infrastructure Live?}
 When you connect an AI agent to enterprise data, you face a fundamental question: \alert{where does the computation happen?}
 \vspace{0.3cm}
