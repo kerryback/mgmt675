@@ -416,6 +416,68 @@ AI can analyze sensitive data \alert{without ever reading it}. It only needs the
 \end{columns}
 \end{frame}
 
+\begin{frame}{Where Should AI Infrastructure Live?}
+When you connect an AI agent to enterprise data, you face a fundamental question: \alert{where does the computation happen?}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Public Cloud AI}]
+\begin{itemize}\small
+  \item Data sent to provider (OpenAI, Anthropic, Google)
+  \item Fastest to deploy
+  \item Provider controls infrastructure
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Private / On-Prem AI}]
+\begin{itemize}\small
+  \item Data never leaves your network
+  \item Full control over access
+  \item Higher upfront cost
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{shadedbox}[title=\textbf{Hybrid}]
+\begin{itemize}\small
+  \item Sensitive data stays on-prem
+  \item Non-sensitive tasks use cloud AI
+  \item Most common enterprise pattern
+\end{itemize}
+\end{shadedbox}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Antonio Neri, CEO of HPE: ``In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.''
+\end{frame}
+
+\begin{frame}[shrink=5]{Data Sovereignty}
+\textbf{Data sovereignty} means controlling where your data lives, who can access it, and what jurisdiction governs it.
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Why it matters for AI}
+\begin{itemize}\small
+  \item AI agents connected to databases may transmit query results to external LLMs
+  \item Training data sent to a cloud provider creates IP exposure risk
+  \item Regulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries
+  \item Defense and intelligence agencies require air-gapped environments with no internet connectivity
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Enterprise examples}
+\begin{itemize}\small
+  \item \textbf{DISA} (U.S.\ Dept.\ of Defense): \$931M contract for on-prem private cloud --- data cannot leave government networks
+  \item \textbf{Barclays}: 50{,}000+ workloads migrated to private cloud for regulatory compliance
+  \item \textbf{2degrees} (NZ telecom): built sovereign AI platform ensuring customer data stays under NZ jurisdiction
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\alert{Before connecting an AI agent to your data, ask: where does the data go, who can see it, and what are the regulatory constraints?}
+\end{frame}
+
 % ========================================
 % SECTION 7: ADOPTION ROADMAP
 % ========================================
