@@ -16,7 +16,7 @@ Take the DCF model you built in Exercise 2B. Start a **new** Claude conversation
 3. **Evaluate the terminal value** --- is the implied terminal growth rate reasonable relative to GDP growth? What fraction of enterprise value comes from the terminal value?
 4. **Suggest specific revisions** with justification
 
-Then apply **red-teaming protocols** from Module 5:
+Then apply **red-teaming protocols** from Module 7:
 
 5. Set revenue growth to 0\% --- does the model break or produce nonsense?
 6. Use a WACC below the risk-free rate --- does the model flag this as unreasonable?

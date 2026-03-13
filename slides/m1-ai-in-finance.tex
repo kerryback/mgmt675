@@ -10,18 +10,13 @@
 
 % Title info
 \subtitle{MGMT 675: Generative AI for Finance}
-\title{Module 1: AI in Finance}
+\title{Module 1: Overview}
 \author{Kerry Back}
 \date{}
 
 \begin{document}
 
 \maketitle
-
-% ========================================
-% SECTION 1: WHY AI MATTERS FOR FINANCE
-% ========================================
-\section{Why AI Matters for Finance}
 
 \begin{frame}{From Makers to Checkers}
 \centerline{Derek Waldron, JP Morgan Chief Analytics Officer}
@@ -55,7 +50,7 @@ Workers would shift from being creators of reports or software updates, or `make
 \end{frame}
 
 \begin{frame}[shrink=5]{Case Study: HPE's ``Alfred''}
-\centerline{Marie Myers, CFO of Hewlett Packard Enterprise (\#143 on Fortune 500) --- \href{https://fortune.com/2026/02/12/hpe-cfo-used-ai-transform-100-slide-monday-meeting/}{Fortune}, February 12, 2026}
+\centerline{Marie Myers, CFO of Hewlett Packard Enterprise (\#143 on Fortune 500)}
 \vspace{0.2cm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
@@ -80,6 +75,9 @@ Workers would shift from being creators of reports or software updates, or `make
 \vspace{0.2cm}
 \centering
 ``The goal is for finance professionals to become \alert{masters of their own destiny} rather than casualties of automation.'' --- Marie Myers
+
+\vspace{0.1cm}
+{\scriptsize Sheryl Estrada, ``How HPE's CFO used AI to transform the 100-slide Monday meeting her team spent all week preparing for,'' \textit{Fortune}, Feb.\ 12, 2026.}
 \end{frame}
 
 \begin{frame}{Something Big is Happening}
@@ -93,145 +91,7 @@ Here's a simple commitment that will put you ahead of almost everyone: spend one
 \end{frame}
 
 % ========================================
-% SECTION 2: CLAUDE.AI AND ARTIFACTS
-% ========================================
-\section{Exploring Claude.ai}
-
-\begin{frame}{Getting Started: Claude.ai}
-
-Go to \texttt{claude.ai} in any browser. No installation required.  Icon at top left opens sidebar.
-
-\textbf{What it can do:}
-It's a chatbot with a code execution tool.  It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in.  It can also generate charts, Excel files, Word docs, and PowerPoint decks.  Code runs in a \textbf{sandbox}---can \texttt{pip install} packages but has \alert{no internet access}.
-
-\textbf{Getting started:}
-\begin{enumerate}\small
-  \item Go to \texttt{claude.ai} and sign in (or create an account)
-  \item Type a question or upload a file
-  \item Iterate: refine, ask follow-ups, request changes
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{Artifacts: Interactive Charts and Apps}
-
-\begin{itemize}
-  \item Claude can produce \textbf{interactive charts and apps} that appear in a side panel
-  \item Choose Artifacts $\rightarrow$ Create an Artifact $\rightarrow$ apps or websites
-  \item Click \textbf{Publish} to get a shareable link --- anyone can view and interact, no Claude account needed
-\end{itemize}
-
-\vspace{0.3cm}
-
-\textbf{What Artifacts Can Build}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{itemize}\small
-  \item Interactive charts with hover/zoom
-  \item Financial calculators
-  \item Scenario analysis with sliders
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{itemize}\small
-  \item ROI tools and comparisons
-  \item Dashboards with filters
-  \item Surveys and data collection
-\end{itemize}
-\end{column}
-\end{columns}
-
-\vspace{0.2cm}
-\small\textbf{Limitation:} Artifacts are client-side only---no database, no persistence.  They are \alert{disposable by design}: generate a new one when needs change, rather than maintaining an old one.
-\end{frame}
-
-\begin{frame}{Artifact Example: Black-Scholes Calculator}
-\textit{``Create a Black-Scholes option calculator with inputs for stock price, strike, rate, volatility, and expiration, and plot call and put prices as the stock price varies from 50\% to 150\% of the strike.''}
-
-\vspace{0.3cm}
-\textbf{Publish:} Publish the artifact and share the link.
-\end{frame}
-
-\begin{frame}{Artifacts Across Platforms}
-All three major platforms let you describe what you want in plain English and get an interactive tool.
-
-\begin{itemize}
-  \item \textbf{Claude Artifacts} build React apps you can publish with one click---no account needed to view
-  \item \textbf{ChatGPT Canvas} produces similar React apps with inline editing and shareable links
-  \item \textbf{Gemini Canvas} generates HTML/CSS/JS and exports or copies the result
-\end{itemize}
-
-\vspace{0.3cm}
-We use Claude, but the concepts transfer to any platform.
-\end{frame}
-
-% ========================================
-% SECTION 3: EXPLORING CLAUDE FOR EXCEL
-% ========================================
-\section{Exploring Claude for Excel}
-
-\begin{frame}{Claude for Excel Add-in}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{What It Does}]
-\begin{itemize}\small
-  \item AI sidebar that reads and edits your workbook
-  \item Preserves formula dependencies
-  \item Works with local files
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{shadedbox}[title=\textbf{Capabilities}]
-\begin{itemize}\small
-  \item Ask questions about workbook content
-  \item Build financial models from scratch
-  \item Trace and fix formula errors
-\end{itemize}
-\end{shadedbox}
-\end{column}
-\end{columns}
-\vspace{0.3cm}
-Requires Claude Pro (\$20/mo) or a Claude Team/Enterprise plan.
-\end{frame}
-
-\begin{frame}{Installing the Add-in}
-\begin{enumerate}
-  \item Open \textbf{Excel} (desktop version, not the web app)
-  \item Go to \textbf{Insert} $\rightarrow$ \textbf{Get Add-ins}
-  \item Search for \textbf{``Claude by Anthropic''} and click \textbf{Add}
-  \item Sign in with your Claude account when prompted
-  \item The Claude sidebar appears on the right --- click the Claude icon in the \textbf{Home} ribbon tab to toggle it
-\end{enumerate}
-\vspace{0.3cm}
-The add-in can see your entire workbook: sheet names, cell values, and formulas.  It edits cells directly --- you can undo any change with \texttt{Ctrl+Z}.
-\end{frame}
-
-\begin{frame}{Example: Loan Amortization Table}
-Open a blank workbook with the Claude sidebar visible.  Type:
-\vspace{0.2cm}
-\begin{shadedbox}
-\small\textit{``Create a loan amortization table for a \$300{,}000 mortgage at 6.5\% annual interest with a 30-year term and monthly payments.  Use formulas so I can change the loan amount, rate, and term.  Include columns for payment number, payment, principal, interest, and remaining balance.  Add a summary section showing total interest paid.''}
-\end{shadedbox}
-\vspace{0.2cm}
-\begin{itemize}\small
-  \item Claude builds the table with \alert{live Excel formulas}, not hardcoded values
-  \item Change the rate or loan amount and the entire table recalculates
-  \item Ask follow-ups: \textit{``Add a chart of principal vs.\ interest over time''} or \textit{``What if I make an extra \$200/month payment?''}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{AI Spreadsheet Tools Compared}
-\begin{itemize}
-  \item \textbf{Claude for Excel} (\$20/mo): formula-preserving edits, no OneDrive required --- best for financial modeling
-  \item \textbf{Microsoft Copilot} (\$30/mo): Agent Mode and \texttt{=COPILOT()} function, Python in Excel --- best for enterprise ecosystems
-  \item \textbf{Google Sheets + Gemini} (\$20/mo): \texttt{=AI()} function, web-only --- best for cloud collaboration
-\end{itemize}
-\vspace{0.3cm}
-All three can produce the same kinds of financial tools --- DCF calculators, amortization tables, scenario analyzers.  Choose based on your ecosystem.
-\end{frame}
-
-% ========================================
-% SECTION 4: AI AGENTS
+% SECTION 2: AI AGENTS
 % ========================================
 \section{AI Agents}
 
@@ -301,6 +161,12 @@ The agent programmatically controls communication between the LLM and the tool. 
 \end{itemize}
 \vspace{0.5cm}
 An agent may be connected to \alert{multiple tools}.  For example, get data from a database server and send it to a Python environment to return analysis.
+\end{frame}
+
+\begin{frame}{User Interfaces: Terminal $\rightarrow$ Point and Click $\rightarrow$ Chat}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{images/ui-evolution-monitors.png}
+\end{center}
 \end{frame}
 
 \begin{frame}{Example: Rice Data Portal}

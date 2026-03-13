@@ -8,13 +8,14 @@ Click on a topic to download the PDF slide deck.
 
 | # | Module | |
 |--:|--------|:-:|
-| 1 | [AI in Finance](slides/m1-ai-in-finance.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-in-finance.pdf) |
-| 2 | [Mean-Variance Analysis](slides/m2-mean-variance.pdf) | [{{< fa file-pdf >}}](slides/m2-mean-variance.pdf) |
-| 3 | [Claude Desktop and Claude Code](slides/m3-claude.pdf) | [{{< fa file-pdf >}}](slides/m3-claude.pdf) |
-| 4 | [Discounted Cash Flow Analysis](slides/m4-dcf.pdf) | [{{< fa file-pdf >}}](slides/m4-dcf.pdf) |
-| 5 | [Claude Skills](slides/m5-skills.pdf) | [{{< fa file-pdf >}}](slides/m5-skills.pdf) |
-| 6 | [Verification, Auditing, and Governance](slides/m6-reliability.pdf) | [{{< fa file-pdf >}}](slides/m6-reliability.pdf) |
-| 7 | [More on AI Agents](slides/m7-agents.pdf) | [{{< fa file-pdf >}}](slides/m7-agents.pdf) |
-| 8 | [Model Context Protocol](slides/m8-mcp.pdf) | [{{< fa file-pdf >}}](slides/m8-mcp.pdf) |
-| 9 | [Retrieval Augmented Generation](slides/m9-rag.pdf) | [{{< fa file-pdf >}}](slides/m9-rag.pdf) |
-| 10 | [Sentiment Analysis](slides/m10-sentiment.pdf) | [{{< fa file-pdf >}}](slides/m10-sentiment.pdf) |
+| 1 | [Overview](slides/m1-ai-in-finance.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-in-finance.pdf) |
+| 2 | [Exploring Claude](slides/m2-intro-claude.pdf) | [{{< fa file-pdf >}}](slides/m2-intro-claude.pdf) |
+| 3 | [Mean-Variance Analysis](slides/m3-mean-variance.pdf) | [{{< fa file-pdf >}}](slides/m3-mean-variance.pdf) |
+| 4 | [Claude Desktop and Claude Code](slides/m4-claude.pdf) | [{{< fa file-pdf >}}](slides/m4-claude.pdf) |
+| 5 | [Discounted Cash Flow Analysis](slides/m5-dcf.pdf) | [{{< fa file-pdf >}}](slides/m5-dcf.pdf) |
+| 6 | [Claude Skills](slides/m6-skills.pdf) | [{{< fa file-pdf >}}](slides/m6-skills.pdf) |
+| 7 | [Verification, Auditing, and Governance](slides/m7-reliability.pdf) | [{{< fa file-pdf >}}](slides/m7-reliability.pdf) |
+| 8 | [More on AI Agents](slides/m8-agents.pdf) | [{{< fa file-pdf >}}](slides/m8-agents.pdf) |
+| 9 | [Model Context Protocol](slides/m9-mcp.pdf) | [{{< fa file-pdf >}}](slides/m9-mcp.pdf) |
+| 10 | [Retrieval Augmented Generation](slides/m10-rag.pdf) | [{{< fa file-pdf >}}](slides/m10-rag.pdf) |
+| 11 | [Sentiment Analysis](slides/m11-sentiment.pdf) | [{{< fa file-pdf >}}](slides/m11-sentiment.pdf) |

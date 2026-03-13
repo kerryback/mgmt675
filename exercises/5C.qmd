@@ -17,7 +17,7 @@ The chatbot should:
 2. **Include a system prompt** with schema knowledge and domain expertise --- tell the model what columns exist, what the data represents, and how to answer questions
 3. **Let users ask questions in English** and display results
 
-You can ask Claude Code to build the entire app for you. Focus on writing a good system prompt --- this is where the skill concepts from Module 3 apply.
+You can ask Claude Code to build the entire app for you. Focus on writing a good system prompt --- this is where the skill concepts from Module 6 apply.
 
 Test with at least 5 financial questions and evaluate the quality of the answers.
 

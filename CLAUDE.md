@@ -25,10 +25,10 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - `slides/mgmt675-style.tex` — shared style (metropolis theme, custom colors, tcolorbox environments)
 - `slides/images/` — images used in slides
 - `00-intro` — course introduction
-- Module decks: `m1` through `m10`:
-  - m1-ai-in-finance, m2-mean-variance, m3-claude, m4-dcf
-  - m5-skills, m6-reliability, m7-agents, m8-mcp
-  - m9-rag, m10-sentiment
+- Module decks: `m1` through `m11`:
+  - m1-ai-in-finance, m2-intro-claude, m3-mean-variance, m4-claude
+  - m5-dcf, m6-skills, m7-reliability, m8-agents
+  - m9-mcp, m10-rag, m11-sentiment
 
 ### Other
 - `gamma_pptx_utils.py` — Python utilities for PPTX processing
@@ -51,40 +51,42 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 
 ## Modules (in order, numbers match slide filenames)
 1. AI Fundamentals (m1)
-2. Portfolio Optimization (m2)
-3. Getting Started with Claude Code (m3)
-4. Company Valuation (m4)
-5. Verification and Governance (m5)
-6. AI Agents (m6)
-7. Connecting AI to Data and Tools (m7)
-8. Working with Financial Documents (m8)
-9. AI in Trading and Markets (m9)
+2. Exploring Claude (m2)
+3. Portfolio Optimization (m3)
+4. Getting Started with Claude Code (m4)
+5. Company Valuation (m5)
+6. Claude Skills (m6)
+7. Verification and Governance (m7)
+8. AI Agents (m8)
+9. Connecting AI to Data and Tools (m9)
+10. Working with Financial Documents (m10)
+11. AI in Trading and Markets (m11)
 
 ## Session Schedule (12 sessions, 6 weeks)
 | Session | Date | Module |
 |---------|------|--------|
-| 1 | Tue 3/17 | M1: AI Fundamentals |
-| 2 | Thu 3/19 | M3: Getting Started with Claude Code |
-| 3 | Tue 3/24 | M2: Portfolio Optimization |
-| 4 | Thu 3/26 | M4: Company Valuation |
-| 5 | Tue 3/31 | M6: AI Agents |
-| 6 | Thu 4/2 | M6: AI Agents (cont.) |
-| 7 | Tue 4/7 | M7: Connecting AI to Data & Tools |
-| 8 | Thu 4/10 | M5: Verification & Governance |
-| 9 | Tue 4/15 | M8: Working with Financial Documents |
-| 10 | Thu 4/17 | M8: Financial Documents (cont.) |
-| 11 | Tue 4/22 | M9: Trading: Sentiment Models & Research |
-| 12 | Thu 4/24 | M9: Trading: Implementation & Industry |
+| 1 | Tue 3/17 | M1: AI Fundamentals + M2: Exploring Claude |
+| 2 | Thu 3/19 | M4: Getting Started with Claude Code |
+| 3 | Tue 3/24 | M3: Portfolio Optimization |
+| 4 | Thu 3/26 | M5: Company Valuation |
+| 5 | Tue 3/31 | M8: AI Agents |
+| 6 | Thu 4/2 | M8: AI Agents (cont.) |
+| 7 | Tue 4/7 | M9: Connecting AI to Data & Tools |
+| 8 | Thu 4/10 | M7: Verification & Governance |
+| 9 | Tue 4/15 | M10: Working with Financial Documents |
+| 10 | Thu 4/17 | M10: Financial Documents (cont.) |
+| 11 | Tue 4/22 | M11: Trading: Sentiment Models & Research |
+| 12 | Thu 4/24 | M11: Trading: Implementation & Industry |
 
 ## Assignment Schedule (6 weeks)
 | Week | Due | Modules | Exercises |
 |------|-----|---------|-----------|
-| 1 | 3/24 | M1 + M3 | 1A, 1B, 1C |
-| 2 | 3/31 | M2 + M4 | 2A, 2B, 2C, 2D |
-| 3 | 4/7 | M6 | 3A, 3B, 3C |
-| 4 | 4/14 | M7 + M5 | 4A, 4B, 4C |
-| 5 | 4/21 | M8 | 5A, 5B, 5C |
-| 6 | 4/28 | M9 | 6A, 6B, 6C |
+| 1 | 3/24 | M1 + M2 + M4 | 1A, 1B, 1C |
+| 2 | 3/31 | M3 + M5 | 2A, 2B, 2C, 2D |
+| 3 | 4/7 | M8 | 3A, 3B, 3C |
+| 4 | 4/14 | M9 + M7 | 4A, 4B, 4C |
+| 5 | 4/21 | M10 | 5A, 5B, 5C |
+| 6 | 4/28 | M11 | 6A, 6B, 6C |
 
 ## Grading
 Six group assignments (15% each) + peer assessments (10%). Due Tuesdays at 11:59pm, March 24 through April 28.

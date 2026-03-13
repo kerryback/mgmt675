@@ -30,13 +30,7 @@ TTh 12:30 -- 2:00\
 
 All sessions will be in McNair 212, including the special session.
 
-### Learning Objectives
 
-1. Use AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports
-2. Apply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals
-3. Connect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation
-4. Automate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents
-5. Verify and govern AI-generated analysis using red-teaming, audit protocols, and structured review
 
 ### Course Description
 
@@ -44,18 +38,13 @@ The course is about financial applications of generative AI.  We will discuss an
 
 We will use Anthropic's Claude throughout the course.  Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork).  Claude has also generally led all other models in coding tasks for the past two years.  We will also briefly look at ChatGPT, Gemini, and other large language models.
 
-The course consists of the following 10 modules taught over 12 sessions (6 weeks).
+### Learning Objectives
 
-1. AI in Finance
-2. Mean-Variance Analysis
-3. Claude Desktop and Claude Code
-4. Discounted Cash Flow Analysis
-5. Claude Skills
-6. Verification, Auditing, and Governance
-7. More on AI Agents
-8. Model Context Protocol
-9. Retrieval Augmented Generation
-10. Sentiment Analysis
+1. Use AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports
+2. Apply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals
+3. Connect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation
+4. Automate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents
+5. Verify and govern AI-generated analysis using red-teaming, audit protocols, and structured review
 
 
 ### Grading
