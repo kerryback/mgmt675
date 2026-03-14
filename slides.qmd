@@ -4,18 +4,18 @@ title: Slides
 
 ## Course Slides
 
-Click on a topic to download the PDF slide deck.
+Click on a topic to view the slide deck.
 
 | # | Module | |
 |--:|--------|:-:|
-| 1 | [Overview](slides/m1-ai-in-finance.pdf) | [{{< fa file-pdf >}}](slides/m1-ai-in-finance.pdf) |
-| 2 | [Exploring Claude](slides/m2-intro-claude.pdf) | [{{< fa file-pdf >}}](slides/m2-intro-claude.pdf) |
-| 3 | [Mean-Variance Analysis](slides/m3-mean-variance.pdf) | [{{< fa file-pdf >}}](slides/m3-mean-variance.pdf) |
-| 4 | [Claude Desktop and Claude Code](slides/m4-claude.pdf) | [{{< fa file-pdf >}}](slides/m4-claude.pdf) |
-| 5 | [Discounted Cash Flow Analysis](slides/m5-dcf.pdf) | [{{< fa file-pdf >}}](slides/m5-dcf.pdf) |
-| 6 | [Claude Skills](slides/m6-skills.pdf) | [{{< fa file-pdf >}}](slides/m6-skills.pdf) |
-| 7 | [Verification, Auditing, and Governance](slides/m7-reliability.pdf) | [{{< fa file-pdf >}}](slides/m7-reliability.pdf) |
-| 8 | [More on AI Agents](slides/m8-agents.pdf) | [{{< fa file-pdf >}}](slides/m8-agents.pdf) |
-| 9 | [Model Context Protocol](slides/m9-mcp.pdf) | [{{< fa file-pdf >}}](slides/m9-mcp.pdf) |
-| 10 | [Retrieval Augmented Generation](slides/m10-rag.pdf) | [{{< fa file-pdf >}}](slides/m10-rag.pdf) |
-| 11 | [Sentiment Analysis](slides/m11-sentiment.pdf) | [{{< fa file-pdf >}}](slides/m11-sentiment.pdf) |
+| 1 | [Overview](slides/m1-ai-in-finance.html) | [{{< fa presentation-screen >}}](slides/m1-ai-in-finance.html) |
+| 2 | [Exploring Claude](slides/m2-intro-claude.html) | [{{< fa presentation-screen >}}](slides/m2-intro-claude.html) |
+| 3 | [Mean-Variance Analysis](slides/m3-mean-variance.html) | [{{< fa presentation-screen >}}](slides/m3-mean-variance.html) |
+| 4 | [Claude Desktop and Claude Code](slides/m4-claude.html) | [{{< fa presentation-screen >}}](slides/m4-claude.html) |
+| 5 | [Discounted Cash Flow Analysis](slides/m5-dcf.html) | [{{< fa presentation-screen >}}](slides/m5-dcf.html) |
+| 6 | [Claude Skills](slides/m6-skills.html) | [{{< fa presentation-screen >}}](slides/m6-skills.html) |
+| 7 | [Verification, Auditing, and Governance](slides/m7-reliability.html) | [{{< fa presentation-screen >}}](slides/m7-reliability.html) |
+| 8 | [More on AI Agents](slides/m8-agents.html) | [{{< fa presentation-screen >}}](slides/m8-agents.html) |
+| 9 | [Model Context Protocol](slides/m9-mcp.html) | [{{< fa presentation-screen >}}](slides/m9-mcp.html) |
+| 10 | [Retrieval Augmented Generation](slides/m10-rag.html) | [{{< fa presentation-screen >}}](slides/m10-rag.html) |
+| 11 | [Sentiment Analysis](slides/m11-sentiment.html) | [{{< fa presentation-screen >}}](slides/m11-sentiment.html) |

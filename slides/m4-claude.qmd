@@ -1,0 +1,256 @@
+---
+title: "Module 4: Claude Desktop and Claude Code"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Claude Desktop Overview {.section-divider}
+
+## Three Tabs: Chat, Cowork, Code
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Chat (Analysis)**]{.card-title}
+
+- Sandboxed Python in the browser
+- No local file access
+- Must upload data manually
+:::
+
+:::{.card .card-light}
+[**Cowork**]{.card-title}
+
+- Runs in a local VM
+- Files synced to/from VM
+- [No internet access]{.amber}
+:::
+
+:::{.card .card-light}
+[**Code**]{.card-title}
+
+- Runs on [your machine]{.amber}
+- Full local file access
+- Full internet access
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+[Code mode]{.amber} gives Claude direct access to your machine --- no sandbox, no VM, no upload step.
+:::
+
+## Which Tool When?
+
+- **Chat** for questions, explanations, and brainstorming
+- **Artifacts** for quick interactive tools (e.g., a DCF calculator with sliders)
+- Code can do everything Cowork can do, plus it has [full internet access]{.amber} and direct access to your local files
+- Code can also build and deploy interactive tools (like Artifacts)
+- Cowork's advantage is that it requires **no local software setup** and runs in an isolated sandbox
+
+## Running the Installer
+
+The class installer sets up everything you need in one step:
+
+- **Python** --- language Claude Code uses to execute analysis
+- **Claude Desktop** --- the application with built-in Claude Code
+- **Skills** --- pre-packaged instructions for Excel, Word, PowerPoint, and more
+
+Download and run the installer for your platform:
+
+- **Windows:** [bi-to-ai.kerryback.com/install/windows/INSTALL.bat](https://bi-to-ai.kerryback.com/install/windows/INSTALL.bat)
+- **Mac:** [bi-to-ai.kerryback.com/install/mac/install.sh](https://bi-to-ai.kerryback.com/install/mac/install.sh)
+
+## Getting Started
+
+1. Open Claude Desktop → **Code** tab
+2. Select a working folder for your project
+3. Choose a model: **Sonnet** (fast) or **Opus** (thorough)
+4. Set permission mode to **auto-accept** (recommended for exercises)
+
+## CLAUDE.md
+
+Claude reads `CLAUDE.md` files automatically at the start of every session --- no need to repeat instructions.
+
+- **Global** (`~/.claude/CLAUDE.md`): applies to every project --- output preferences, preferred libraries, personal conventions
+- **Per-Project** (project root): applies only to this folder --- data context, domain guidance, project-specific workflows
+
+The installer pre-configured **skills** for Excel, Word, and PowerPoint. Prompt Claude Code to document them in your global `CLAUDE.md`:
+
+*"Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md."*
+
+Once documented, Claude will [automatically]{.amber} follow those instructions without needing slash commands.
+
+## Example
+
+*"Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance."*
+
+## Claude Code in the Terminal and VS Code {.section-divider}
+
+## Terminal Alternative
+
+The Code tab in Claude Desktop and the terminal command `claude` use the [same engine]{.amber}.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Claude Desktop (Code tab)**]{.card-title}
+
+- Visual interface with file browser
+- Click to select working folder
+- Good for getting started
+:::
+
+:::{.card .card-light}
+[**Terminal (`claude`)**]{.card-title}
+
+- Type `claude` in any terminal
+- Same skills, same config
+- Preferred by power users
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+Both approaches share the same skills, MCP servers, and configuration files.
+:::
+
+## Installing the Terminal and VS Code
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Claude Code (Terminal)**]{.card-title}
+
+- **Mac/Linux:** Open Terminal and run:
+  `curl -fsSL https://claude.ai/install.sh | bash`
+- **Windows:** Open PowerShell and run:
+  `irm https://claude.ai/install.ps1 | iex`
+- Windows also requires [Git for Windows](https://git-scm.com/downloads/win)
+- Verify with `claude --version`
+:::
+
+:::{.card .card-light}
+[**VS Code + Extensions**]{.card-title}
+
+1. Download [VS Code](https://code.visualstudio.com) and install
+2. Open Extensions sidebar (`Ctrl+Shift+X` on Windows, `Cmd+Shift+X` on Mac)
+3. Search **Python** (by Microsoft) → Install
+4. Search **Claude Code** (by Anthropic) → Install
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+Claude Code updates automatically. The VS Code extension uses the same engine as the terminal --- install either or both.
+:::
+
+## Using Claude Code in the Terminal and VS Code
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Terminal**]{.card-title}
+
+- `cd` into your project folder, then type `claude`
+- First launch: sign in with your Anthropic account
+- Chat naturally --- Claude reads and writes files in that folder
+- Type `/help` for commands, `/model` to switch models
+- Press `Esc` to interrupt, `Ctrl+C` twice to exit
+:::
+
+:::{.card .card-light}
+[**VS Code**]{.card-title}
+
+- Open your project folder in VS Code
+- Click the Claude Code icon in the sidebar (or `Ctrl+Shift+P` → "Claude Code: Open")
+- Sign in on first use
+- Claude can see your open files, file explorer, and terminal
+- Code changes appear as inline diffs you can accept or reject
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+[Both share the same skills and configuration.]{.amber} VS Code adds a file explorer and visual diffs; the terminal is lightweight and fast.
+:::
+
+## Working with Multiple Files {.section-divider}
+
+## Merging Data from Different Sources
+
+Real financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then [combine them into a unified dataset]{.amber}.
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
+flowchart LR
+  CSV["<b>CSV</b>"] --> CC["<b>Claude Code</b>"]
+  XLS["<b>Excel</b>"] --> CC
+  PDF["<b>PDF</b>"] --> CC
+  CC --> UT["<b>Unified Table</b>"]
+
+  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+```
+
+**Common scenarios:**
+
+- Holdings from multiple brokerages (xlsx + csv)
+- Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)
+- Quarterly reports from divisions with different column names
+
+## What Claude Handles
+
+- Reads each file format natively
+- Reconciles column names and data types
+- Flags mismatches and missing values
+- Outputs a clean, unified table
+
+[You describe what should be merged and how. Claude handles the parsing and code.]{.amber}
+
+## Filtering and Aggregating
+
+Once data is combined, the next step is usually filtering, sorting, or grouping.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Filtering**]{.card-title}
+
+- "Keep only loans above $1M"
+- "Filter to stocks with P/E > 0"
+- "Exclude rows with missing revenue"
+:::
+
+:::{.card .card-light}
+[**Aggregating**]{.card-title}
+
+- "Average revenue by sector and quarter"
+- "Sum holdings by asset class"
+- "Rank funds by Sharpe ratio"
+:::
+:::
+
+:::{.explainer}
+State your intent in plain English. Claude writes the pandas code, runs it, and shows you the result. Always [check the filter logic]{.amber} --- this is where silent errors happen most often (Module 7).
+:::
+
+## Example
+
+Download [aggregation.zip](https://kerryback.com/mgmt675/files/aggregation.zip) and extract the workbooks into a folder.
+
+Each Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:
+
+1. Summarize the columns present, row count, and basic statistics for each file
+2. Combine all files into a single table, reconciling the varying column names
+3. Save the result as `combined.xlsx`
+
+This is the same "divide and conquer" pattern used in professional data pipelines --- read each source independently, then unify.

@@ -7,6 +7,17 @@ project:
     - assignments.qmd
     - index-pdf.qmd
     - exercises/*.qmd
+    - slides/m1-ai-in-finance.qmd
+    - slides/m2-intro-claude.qmd
+    - slides/m3-mean-variance.qmd
+    - slides/m4-claude.qmd
+    - slides/m5-dcf.qmd
+    - slides/m6-skills.qmd
+    - slides/m7-reliability.qmd
+    - slides/m8-agents.qmd
+    - slides/m9-mcp.qmd
+    - slides/m10-rag.qmd
+    - slides/m11-sentiment.qmd
   resources:
     - CNAME
     - .nojekyll

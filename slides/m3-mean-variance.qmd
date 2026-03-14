@@ -1,0 +1,134 @@
+---
+title: "Module 3: Mean-Variance Analysis"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Claude.ai Is an Agent
+
+Claude.ai is an agent connected to a **Python environment** --- it writes and runs code in a cloud sandbox to answer your questions.
+
+Claude.ai also has access to other tools:
+
+- **Web browser** --- search the web and read pages
+- **File system** --- read and write files you upload or create
+- **Artifacts** --- build interactive apps and charts in a side panel
+- **Document generation** --- produce Excel, Word, and PowerPoint files
+
+When you ask Claude.ai to analyze data, it plans the code, executes it in the Python environment, observes the result, and iterates --- the same agent loop from Module 1.
+
+## Portfolio Optimization {.section-divider}
+
+## The Problem
+
+Given expected returns, risks (standard deviations), and correlations for multiple assets, plus a risk-free rate:
+
+- What is the **best portfolio**?
+- What does the set of all possible portfolios look like?
+- How do real-world constraints change the answer?
+
+Mean-variance analysis provides the framework.  AI handles the computation.
+
+## Key Concepts
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Portfolios**]{.card-title}
+
+- **Tangency portfolio:** the risky portfolio with the highest Sharpe ratio (excess return per unit of risk)
+- **Global minimum variance (GMV):** the risky portfolio with the lowest possible risk
+- **Efficient frontier:** the set of risky portfolios with the highest return for each level of risk
+:::
+
+:::{.card .card-light}
+[**Capital Allocation Line**]{.card-title}
+
+- The straight line from the risk-free rate through the tangency portfolio
+- Represents all combinations of the risk-free asset and the tangency portfolio
+- The best attainable risk-return tradeoff
+:::
+:::
+
+## Adding Real-World Constraints
+
+:::{.two-col}
+:::{.col}
+**Common constraints**
+
+- No short sales (all weights $\geq 0$)
+- Maximum position (e.g., $\leq 40\%$ per asset)
+- Minimum position (e.g., $\geq 2\%$ if held)
+- Margin requirement (sum of absolute values $\leq 2$)
+:::
+
+:::{.col}
+**What happens**
+
+- The efficient frontier shifts [inward]{.amber} (lower returns and/or higher risk)
+- The tangency portfolio changes
+- The Sharpe ratio cannot improve with constraints---it can only stay the same or get worse
+:::
+:::
+
+[The constrained frontier is still useful: it reflects what you can actually implement.]{.amber}
+
+## Solution Methods
+
+- **Solver (numerical optimization)**
+    - Maximize Sharpe ratio (tangency portfolio)
+    - Minimize risk for a target return (efficient frontier)
+    - Minimize risk (global minimum variance portfolio)
+- **Analytic/algebraic solution**
+    - Solve systems of linear equations for tangency, GMV, and frontier
+    - Available only when there are no constraints
+
+Python solver options: `scipy.minimize`, `cvxopt`, `cvxpy`---AI chooses and writes the code.
+
+[Ask Claude:]{.amber} Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.
+
+## In-Class Exercise: Data
+
+We will use monthly returns for five ETFs:
+
+- **SPY** --- S&P 500
+- **GLD** --- Gold
+- **UUP** --- U.S. Dollar Index
+- **IEF** --- 7--10 Year Treasuries
+- **EFA** --- International Developed Markets
+
+Data: April 2007 -- present (228 months).  Risk-free rate: 3.75% (current 1-month T-bill).
+
+Ask Claude to use `yfinance` to download monthly prices for these five tickers, compute monthly returns, and set $r_f = 3.75\%$ annualized.
+
+## In-Class Exercise: Tangency Portfolio (Unrestricted)
+
+1. Ask Claude to compute the **tangency portfolio** allowing short sales.  Report the weights, expected return, standard deviation, and Sharpe ratio.
+2. Ask Claude: *"Show me the code you used and explain it step by step."*
+
+[Understanding the code matters.]{.amber}  You should be able to verify that the optimization is set up correctly --- what is the objective function?  What are the constraints?
+
+## In-Class Exercise: No Short Sales
+
+1. Ask Claude to compute the **tangency portfolio with no short sales** (all weights $\geq 0$).  Report the weights, expected return, standard deviation, and Sharpe ratio.
+2. Again ask: *"Show me the code you used and explain it."*
+3. Compare with the unrestricted result --- how did the weights and Sharpe ratio change?
+
+## In-Class Exercise: Frontier and CAL
+
+Assuming **no short sales**:
+
+1. Ask Claude to compute the **tangency portfolio** and the **efficient frontier** from the five risky assets.
+2. Ask Claude to **plot** the efficient frontier and the **capital allocation line** (the line from $r_f$ through the tangency portfolio).

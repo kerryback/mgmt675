@@ -1,0 +1,87 @@
+---
+title: "Module 6: Claude Skills"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Pre-Installed Skills: Document Creation
+
+**Skills** are packaged instructions that teach Claude Code a specific workflow. The class installer pre-configured four. Invoke any skill by typing `/` followed by its name.
+
+:::{.three-cards}
+:::{.card .card-light}
+[**/xlsx**]{.card-title}
+
+- Create and edit Excel workbooks
+- Uses [live formulas]{.amber}, not hardcoded values
+- Supports charts, formatting, multiple sheets
+:::
+
+:::{.card .card-light}
+[**/docx**]{.card-title}
+
+- Create and edit Word documents
+- Professional formatting, headers, tables
+- Supports tracked changes and comments
+:::
+
+:::{.card .card-light}
+[**/pptx**]{.card-title}
+
+- Create and edit PowerPoint decks
+- Slide layouts, charts, speaker notes
+- Can modify existing presentations
+:::
+:::
+
+## The /xlsx Skill
+
+Skills are plain text files. You can read the full `/xlsx` skill at:
+
+- **GitHub:** [https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md)
+- **On your machine:**
+  - Windows: `C:\Users\yourname\.claude\skills\xlsx\SKILL.md`
+  - Mac: `~/.claude/skills/xlsx/SKILL.md`
+
+It instructs Claude to use [live Excel formulas]{.amber} instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards.
+
+## Pre-Installed Skills: Skill Creator
+
+The `/skill-creator` skill is a guide for [building your own skills]{.amber}.
+
+- Walks you through designing a new skill step by step
+- Generates the skill definition file
+- Installs the skill so it appears as a `/` command
+
+We will use `/skill-creator` in the exercise below to build a personal task manager skill.
+
+## Exercise: Create a Tasks Skill
+
+Use `/skill-creator` to build a **tasks** skill that manages personal and school to-do lists. The skill should:
+
+- Store tasks in markdown files (e.g., `personal.md`, `school.md`)
+- Add new tasks with a category and due date
+- List pending tasks when asked
+- Mark tasks as complete
+
+## Exercise: Steps
+
+1. Describe the task manager you want and ask Claude to create a skill for it
+2. Let Claude generate and install the skill
+3. Test it: *"/tasks Add: finish DCF exercise, due Tuesday"*
+4. Test it: *"/tasks What's pending?"*
+
+This should work fine without typing `/skill-creator` because Claude knows about the skill-creator skill via the `CLAUDE.md`.

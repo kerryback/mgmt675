@@ -1,0 +1,683 @@
+---
+title: "Module 7: Verification, Auditing, and Governance"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## The Trust Spectrum {.section-divider}
+
+## AI with Code Execution: A Fast Junior Analyst
+
+AI with code execution is like a [fast junior analyst]{.amber} --- capable but needs oversight. The level of oversight depends on the stakes.
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Low-Stakes**]{.card-title}
+
+- Exploratory charts
+- Directional trends
+- Internal brainstorming
+
+*Quick sanity check.*
+:::
+
+:::{.card .card-light}
+[**Medium-Stakes**]{.card-title}
+
+- Team tools and skills
+- Recurring reports
+- Internal dashboards
+
+*Test with known answers.*
+:::
+
+:::{.card .card-light}
+[**High-Stakes**]{.card-title}
+
+- Client deliverables
+- Regulatory filings
+- Board presentations
+
+*Full verification protocol.*
+:::
+:::
+
+The more consequential the decision, the more you verify. [Not distrust --- calibrated confidence.]{.amber}
+
+## AI Makes Silent Analytical Errors {.section-divider}
+
+## The Real Risk: Not Hallucination --- Bugs
+
+AI in code-execution mode doesn't invent facts the way a chatbot might. Instead, it makes [silent analytical errors]{.amber}: wrong filters, dropped rows, incorrect joins.
+
+:::{.two-col}
+::::{.column}
+**Common errors**
+
+- Missing data silently dropped
+- Date or currency parsing surprises
+- Filters slightly off; aggregating before vs. after filtering
+::::
+
+::::{.column}
+**Why it's dangerous**
+
+- The output *looks* professional
+- Charts render cleanly and nobody questions a polished result
+- [Confidence without verification is the real risk]{.amber}
+::::
+:::
+
+## Catching a Silent Error
+
+:::{.two-col}
+::::{.column}
+**The prompt**
+
+*"What's the average profit margin by sub-category? Exclude any sub-categories with negative total profit."*
+
+**The trap**
+
+- Does AI filter *before* or *after* aggregating?
+- Does it drop rows with negative profit, or sub-categories with negative *total* profit?
+- The order matters --- and AI often gets it wrong
+::::
+
+::::{.column}
+**How to catch it**
+
+- ["Show me the code"]{.amber} --- inspect the filter logic
+- ["How many rows are in the result?"]{.amber} --- does it match your expectation?
+- ["List the excluded sub-categories"]{.amber} --- are they the right ones?
+
+**Lesson**: The more specific the filter logic, the more likely AI misinterprets it. Always verify multi-step operations.
+::::
+:::
+
+## The Verification Checklist {.section-divider}
+
+## A 4-Step Verification Protocol
+
+Apply this to [any]{.amber} AI-generated analysis.
+
+1. **Sanity-check with known answers**
+   Ask questions where you already know the result: row count, column names, a total you can verify in Excel.
+
+2. **Ask AI to show its methodology**
+   "Show me the code" or "Show me the SQL." Read the logic, not just the output.
+
+3. **Cross-check by rephrasing**
+   Ask the same question differently. Start a fresh conversation and ask again. Do answers agree?
+
+4. **Spot-check edge cases**
+   Test the smallest group, zero values, null fields, boundary dates. Errors hide at the edges.
+
+## {.centered-statement}
+
+**Trust is a process, not a setting.**
+
+Every AI output deserves the same scrutiny you'd give a new analyst's first deliverable.
+
+## Hands-On: Validating Prior Work {.section-divider}
+
+## Reproducibility Test
+
+Take analysis from earlier modules and test whether it reproduces.
+
+:::{.two-col}
+::::{.column}
+**The exercise**
+
+1. Pick a financial analysis from Module 2 (portfolio) or Module 4 (DCF)
+2. Start a [fresh conversation]{.amber}
+3. Give the same data and ask the same question
+4. Compare: do the results match?
+::::
+
+::::{.column}
+**What you're testing**
+
+- **Reproducibility**: Same data, same question --- same answer?
+- **Methodology**: Did AI use the same approach both times?
+- **Stability**: Small rephrasing shouldn't change the result
+::::
+:::
+
+If the numbers don't match, that's not a failure --- it's [exactly why we verify]{.amber}. And it's exactly why **skills** (Module 3) matter.
+
+## Auditing a DCF Model
+
+Take the DCF built in Module 4. Start a fresh conversation. Ask Claude to [critique]{.amber} it.
+
+:::{.two-col}
+::::{.column}
+**What to ask**
+
+- "Identify 3+ questionable assumptions"
+- "Check formula consistency --- does FCF match the pro formas?"
+- "Is the terminal value reasonable? Compare implied terminal growth to GDP growth."
+::::
+
+::::{.column}
+**Why this matters**
+
+- The most valuable use of AI is often having it [check]{.amber} work, not produce it
+- Cross-evaluation: use a second conversation to critique the first
+- Compare original vs. revised valuations
+::::
+:::
+
+## Red-Teaming a Deployed Skill
+
+A database skill is the kind of tool people [stop questioning]{.amber} once deployed. Test it like any tool your team depends on.
+
+:::{.two-col}
+::::{.column}
+**Adversarial queries**
+
+1. Query for nonexistent data ("Sales in 2030")
+2. Request something not in the schema ("Customer satisfaction scores")
+3. Use ambiguous language ("Best employee")
+::::
+
+::::{.column}
+**For each failure**
+
+- **Diagnose**: Bad SQL? Missing context? Wrong assumption?
+- **Fix**: Add clarification, examples, or constraints to SKILL.md
+- **Retest**: Run the query again after the fix
+
+This is how production skills get hardened. [Every failure makes the skill better.]{.amber}
+::::
+:::
+
+## Red-Teaming Protocols {.section-divider}
+
+## Systematic Red-Teaming
+
+Red-teaming goes beyond ad-hoc testing. A [protocol]{.amber} ensures you test every failure mode systematically.
+
+| Test Category | What You Try |
+|---|---|
+| Out-of-scope questions | Ask about data that doesn't exist in the schema |
+| Conflicting documents | Upload docs with contradictory numbers |
+| Edge cases | Zero values, null fields, single-row groups, boundary dates |
+| Hand-written SQL comparison | Write the query yourself and compare to AI's result |
+| Ambiguous language | "Best customer" --- by revenue? frequency? margin? |
+
+[A skill that hasn't been red-teamed is a liability, not an asset.]{.amber}
+
+## Red-Teaming a DCF Model
+
+Apply red-teaming protocols to the DCF models built in Module 4.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Financial Red-Team Tests**]{.card-title}
+
+1. Set revenue growth to 0% --- does the model break?
+2. Use a WACC below the risk-free rate --- does AI flag it?
+3. Feed a company with negative FCF and compare AI's output to a hand-built Excel model
+:::
+
+:::{.card .card-light}
+[**What You Learn**]{.card-title}
+
+- Where the model silently produces nonsense
+- Which assumptions the AI accepts without questioning
+- How to improve guardrails so the verification checklist catches the errors
+:::
+:::
+
+## Audit Logging {.section-divider}
+
+## JSONL Audit Logs
+
+Every AI interaction in a production system should produce an [audit log entry]{.amber}. The standard format is JSONL (one JSON object per line).
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What to Log**]{.card-title}
+
+- **Identity**: timestamp, user, model
+- **Content**: prompt and response
+- **Metadata**: token count, latency, cost
+:::
+
+:::{.card .card-light}
+[**Why It Matters**]{.card-title}
+
+- **Compliance**: Regulators can audit what the AI said
+- **Debugging**: Trace errors back to the exact prompt
+- **Cost and quality**: Track token usage and identify common failures for skill updates
+:::
+:::
+
+Store logs locally or in a cloud database. [If it's not logged, it didn't happen.]{.amber}
+
+## Three Layers of Auditability {.section-divider}
+
+## Defense in Depth
+
+:::{.step-flow}
+:::{.step-card}
+:::{.step-icon}
+📄
+:::
+:::{.step-title}
+Layer 1
+:::
+:::{.step-desc}
+RAG Citations
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+💻
+:::
+:::{.step-title}
+Layer 2
+:::
+:::{.step-desc}
+Code Transparency
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+📋
+:::
+:::{.step-title}
+Layer 3
+:::
+:::{.step-desc}
+Audit Logs
+:::
+:::
+:::
+
+1. **RAG citations**: Ground answers in source documents with traceable references (Module 8). AI answers based on [your content]{.amber}, not its training data.
+
+2. **Code transparency**: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.
+
+3. **Audit logs**: Every prompt, response, and token count recorded in JSONL. The system creates a *complete trail* of every AI decision.
+
+The more layers you add, the harder it is for errors to reach your team. [Same principle as cybersecurity.]{.amber}
+
+## Security and Governance {.section-divider}
+
+## Data Policies: Training and Retention
+
+Before sending data to any AI provider, know the answers to two questions.
+
+:::{.two-col}
+::::{.column}
+**Will they train on your data?**
+
+- [Consumer tiers]{.amber} (free ChatGPT, free Claude) may use your input to improve models
+- [API and enterprise tiers]{.amber} typically do not
+- Check your agreement and settings
+::::
+
+::::{.column}
+**How long do they keep it?**
+
+- Providers retain prompts for a window (often 30 days) for safety monitoring
+- Enterprise contracts may offer zero retention
+- Know the policy [before]{.amber} you send sensitive data
+::::
+:::
+
+## The Schema-Only Pattern
+
+AI can analyze sensitive data [without ever reading it]{.amber}. It only needs the table structure.
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
+flowchart LR
+  S["<b>Schema</b><br/><i>table names, columns</i>"] -->|"safe to share"| AI["<b>AI</b>"]
+  AI --> SQL["<b>SQL Code</b>"]
+  SQL --> L["<b>Runs Locally</b>"]
+  DB["<b>Your Database</b>"] -->|"data stays here"| L
+
+  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
+  style AI fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
+  style SQL fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
+  style DB fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
+```
+
+:::{.two-col}
+::::{.column}
+**How it works**
+
+1. Describe tables in instructions: names, columns, types
+2. Ask AI to write the query
+3. AI writes SQL from the schema alone; the script runs locally and output stays local
+::::
+
+::::{.column}
+**Why it's compliant**
+
+- Table metadata is [not PII]{.amber} --- safe to share
+- Sensitive records stay on your server
+- AI produces the *tool*, not the *output*
+- Works for FERPA, HIPAA, SOX, GDPR
+::::
+:::
+
+## Improving SQL Quality: Schema + Synthetic Rows
+
+Schema alone works, but adding [~3 synthetic rows per table]{.amber} makes the generated SQL significantly more accurate.
+
+:::{.two-col}
+::::{.column}
+**Why sample rows help**
+
+- Reveal data formats (is status `'Active'` or `1`?)
+- Disambiguate columns (is `code` a country code or product code?)
+- Help the LLM write correct WHERE clauses with properly formatted literals
+::::
+
+::::{.column}
+**Rules**
+
+- Rows are [synthetic]{.amber} --- fabricated to match real formats without containing actual records
+- Three rows per table is the sweet spot; more tends to distract the model
+- Keep synthetic data in sync with schema changes
+::::
+:::
+
+Databricks found that ~3 sample rows per table raises SQL accuracy by about **6 percentage points** over schema alone on standard benchmarks.
+
+## Where Should AI Infrastructure Live?
+
+When you connect an AI agent to enterprise data, you face a fundamental question: [where does the computation happen?]{.amber}
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Public Cloud AI**]{.card-title}
+
+- Data sent to provider (OpenAI, Anthropic, Google)
+- Fastest to deploy
+- Provider controls infrastructure
+:::
+
+:::{.card .card-light}
+[**Private / On-Prem AI**]{.card-title}
+
+- Data never leaves your network
+- Full control over access
+- Higher upfront cost
+:::
+
+:::{.card .card-light}
+[**Hybrid**]{.card-title}
+
+- Sensitive data stays on-prem
+- Non-sensitive tasks use cloud AI
+- Most common enterprise pattern
+:::
+:::
+
+Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds."
+
+## Data Sovereignty
+
+**Data sovereignty** means controlling where your data lives, who can access it, and what jurisdiction governs it.
+
+:::{.two-col}
+::::{.column}
+**Why it matters for AI**
+
+- AI agents connected to databases may transmit query results to external LLMs
+- Training data sent to a cloud provider creates IP exposure risk
+- Regulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries
+- Defense and intelligence agencies require air-gapped environments with no internet connectivity
+::::
+
+::::{.column}
+**Enterprise examples**
+
+- **DISA** (U.S. Dept. of Defense): $931M contract for on-prem private cloud --- data cannot leave government networks
+- **Barclays**: 50,000+ workloads migrated to private cloud for regulatory compliance
+- **2degrees** (NZ telecom): built sovereign AI platform ensuring customer data stays under NZ jurisdiction
+::::
+:::
+
+[Before connecting an AI agent to your data, ask: where does the data go, who can see it, and what are the regulatory constraints?]{.amber}
+
+## AI Adoption Roadmap {.section-divider}
+
+## The Sandbox-Audit-Deploy Pattern
+
+Before deploying any AI workflow to your team, follow three phases.
+
+:::{.step-flow}
+:::{.step-card}
+:::{.step-icon}
+🧪
+:::
+:::{.step-title}
+1. Sandbox
+:::
+:::{.step-desc}
+Test with dummy data
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+🔍
+:::
+:::{.step-title}
+2. Audit
+:::
+:::{.step-desc}
+Review logs and logic
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+🚀
+:::
+:::{.step-title}
+3. Deploy
+:::
+:::{.step-desc}
+Roll out with monitoring
+:::
+:::
+:::
+
+Test with synthetic data, review logs and logic, then roll out with weekly monitoring.
+
+## Adoption Timeline: From Quick Wins to Strategic
+
+Each adoption stage maps to a trust level.
+
+1. **Quick wins** (weeks) --- *light verification*:
+   - Chat for research, summarization, drafts
+   - Upload spreadsheets for ad-hoc analysis
+
+2. **Medium-term** (months) --- *test-before-deploy*:
+   - Skills for recurring workflows (Module 3)
+   - MCP integrations and Streamlit apps (Modules 7, 8)
+
+3. **Strategic** (quarters) --- *full audit trail*:
+   - Production apps with authentication
+   - AI usage policy and governance framework
+
+## Small Language Models and Fine-Tuning {.section-divider}
+
+## Improving Reliability: Fine-Tuning and SLMs
+
+So far we've verified AI output *after the fact*. A complementary approach: make the model itself more reliable for your specific tasks.
+
+:::{.two-col}
+::::{.column}
+**Fine-tuning an LLM**
+
+- Train a general-purpose model on your domain data (10-K filings, internal memos, deal documents)
+- The model learns your terminology, formats, and conventions
+- Fewer silent errors on domain-specific tasks
+::::
+
+::::{.column}
+**Small Language Models (SLMs)**
+
+- Models with ~1--8 billion parameters (vs. hundreds of billions for LLMs)
+- Can be fine-tuned in hours on a single GPU
+- Run on-premise or on-device --- [data never leaves your network]{.amber}
+::::
+:::
+
+[A specialized small model can outperform a general-purpose large model on narrow, repetitive tasks.]{.amber}
+
+## Why SLMs for Agentic Systems?
+
+Belcak et al. (2025), "[Small Language Models are the Future of Agentic AI](https://arxiv.org/abs/2506.02153)":
+
+- Most agent subtasks are [repetitive, scoped, and non-conversational]{.amber} --- classifying documents, extracting fields, formatting outputs
+- SLMs fine-tuned on a single task outperform LLMs on format compliance and consistency
+- 10--30x cheaper in latency, energy, and compute vs. large models
+- On-device deployment enables real-time, offline inference with full data privacy
+- Agents can use [multiple models]{.amber}: an LLM for complex reasoning, SLMs for routine subtasks
+
+## From LLM to SLM: The Conversion Process
+
+The paper proposes a six-step migration path:
+
+:::{.step-flow-6}
+:::{.step-card}
+:::{.step-icon}
+📝
+:::
+:::{.step-title}
+1. Log
+:::
+:::{.step-desc}
+Agent interactions (prompts, responses, tool calls)
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+🧹
+:::
+:::{.step-title}
+2. Curate
+:::
+:::{.step-desc}
+Remove PII, filter for quality
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+🔗
+:::
+:::{.step-title}
+3. Cluster
+:::
+:::{.step-desc}
+Identify recurring task patterns
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+📐
+:::
+:::{.step-title}
+4. Select
+:::
+:::{.step-desc}
+SLM sized to each task's complexity
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+⚙️
+:::
+:::{.step-title}
+5. Fine-tune
+:::
+:::{.step-desc}
+LoRA with 10K--100K examples
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+🔄
+:::
+:::{.step-title}
+6. Repeat
+:::
+:::{.step-desc}
+Retrain as usage patterns evolve
+:::
+:::
+:::
+
+[The audit logs from earlier in this module are exactly the data you need for step 1.]{.amber}
+
+## Summary {.section-divider}
+
+## Summary
+
+:::{.four-cards}
+:::{.card .card-light}
+[**Verification**]{.card-title}
+
+- Trust spectrum
+- 4-step protocol
+- Silent errors
+:::
+
+:::{.card .card-light}
+[**Red-Teaming**]{.card-title}
+
+- Systematic protocols
+- Edge cases
+- SQL comparison
+:::
+
+:::{.card .card-light}
+[**Audit Logs**]{.card-title}
+
+- JSONL format
+- Compliance trail
+- Cost tracking
+:::
+
+:::{.card .card-light}
+[**Governance**]{.card-title}
+
+- Data policies
+- Schema-only
+- Adoption roadmap
+:::
+:::
+
+:::{style="text-align:center; margin-top:1em;"}
+[Verify, govern, then deploy.]{.amber}
+:::

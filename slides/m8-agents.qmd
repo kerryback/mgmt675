@@ -1,0 +1,604 @@
+---
+title: "Module 8: More on AI Agents"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## The API: Building Agents in Code {.section-divider}
+
+## The API: Talking to an LLM from Code
+
+An **API** lets your code communicate with an LLM service over the internet.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What You Need**]{.card-title}
+
+- An API key (authentication)
+- The `anthropic` Python package
+- A model name (e.g., `claude-sonnet-4-20250514`)
+:::
+
+:::{.card .card-light}
+[**Getting Your Key**]{.card-title}
+
+- Go to `console.anthropic.com`
+- Create an API key under Settings
+- Add credit ($5 is plenty for the course)
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+Your Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing.
+:::
+
+## A Single API Call
+
+:::{.info-box}
+[**Calling the Anthropic API**]{.box-title}
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(api_key=API_KEY)
+
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": prompt}
+    ]
+)
+answer = response.content[0].text
+```
+:::
+
+## Conversation History
+
+:::{.info-box}
+[**Messages Are a List of Dictionaries**]{.box-title}
+
+```python
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    system="You are a finance tutor...",
+    messages=[
+        {"role": "user", "content": "What is a P/E ratio?"},
+        {"role": "assistant", "content": "A P/E ratio is..."},
+        {"role": "user", "content": "How do I interpret it?"}
+    ]
+)
+```
+:::
+
+- Each API call is independent --- LLM has no memory
+- You must send the [entire conversation history]{.amber} each time
+- The **system prompt** defines the agent's behavior and available tools
+
+## Agent Loop Pseudocode
+
+:::{.info-box}
+[**The Agent's Decision Loop**]{.box-title}
+
+```python
+while not done:
+    response = call_llm(messages, system_prompt, tools)
+
+    if response.has_tool_call:
+        result = execute_tool(response.tool_call)
+        messages.append(tool_result)
+    elif response.is_final:
+        done = True
+        return response.content
+```
+:::
+
+:::{.explainer style="margin-top:0.8em; text-align:center;"}
+[The agent is part LLM intelligence, part traditional programming.]{.amber}
+:::
+
+## The Dashboard Trap {.section-divider}
+
+## Dashboards Answer Yesterday's Questions
+
+Organizations spend millions building dashboards. When a new question arises, the cycle restarts: requirements --> design --> build --> deploy.
+
+:::{.two-cards}
+:::{.card .card-dark}
+[The Typical Dashboard Lifecycle]{.card-title}
+
+1. Business user requests a report
+2. Team builds queries, charts, and deploys
+3. User asks a follow-up --- [back to step 1]{.amber}
+:::
+
+:::{.card .card-light}
+[The Cost]{.card-title}
+
+- **Time**: Weeks to months per dashboard
+- **Money**: BI licenses, engineering hours, maintenance
+- **Rigidity**: Fixed views of fixed data
+
+Gartner: only **20%** of analytic insights deliver business outcomes.
+:::
+:::
+
+## The Fundamental Problem
+
+Dashboards answer **pre-defined questions**. But the most valuable analysis comes from **ad-hoc questions** that arise in the moment.
+
+- "What happened to margins in the Southeast last quarter?"
+- "Show me our top 10 customers by growth rate, excluding one-time orders"
+- "Compare Q3 headcount vs. budget by department, and flag anyone over 110%"
+
+:::{.explainer style="margin-top:0.8em;"}
+These are simple questions. Getting answers shouldn't require a development cycle.
+:::
+
+## Natural Language as the Query Interface {.section-divider}
+
+## The Shift: From Dashboards to Conversations
+
+:::{.two-col}
+::::{.column}
+**Traditional Dashboard**
+
+- Click filters and select dates to query
+- Answers take minutes to weeks
+- Follow-ups require a new dashboard request
+::::
+
+::::{.column}
+**Natural Language AI**
+
+- Ask in plain English
+- Answers in seconds
+- Follow-ups are the next sentence
+::::
+:::
+
+:::{.explainer style="margin-top:1em; text-align:center;"}
+The dashboard was a *workaround* for the fact that databases don't speak English. Now they do.
+:::
+
+## What This Looks Like in Practice
+
+:::{.two-col}
+::::{.column}
+:::{.info-box}
+[**The Conversation**]{.box-title}
+
+- *"Show me monthly revenue by product line for 2025"*
+- AI: writes SQL, produces grouped bar chart
+- *"Break out Enterprise by region"*
+- AI: refines query, updates chart
+:::
+::::
+
+::::{.column}
+**What the User Needed to Know**
+
+- What questions to ask
+- Whether the answers make sense
+- [Nothing else]{.amber}
+
+**Behind the Scenes**
+
+- 4 different SQL queries written
+- 3 visualizations produced
+- Derived metrics calculated
+::::
+:::
+
+## The Database Agent Pattern
+
+The most powerful dashboard replacement: an AI agent connected to your database.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**How to Build It**]{.card-title}
+
+1. Connect database via MCP or file upload
+2. Give AI the schema: table names, columns, relationships
+3. Describe the business context
+4. Start asking questions
+:::
+
+:::{.card .card-light}
+[**What the Agent Can Do**]{.card-title}
+
+- Write and execute SQL queries
+- Compute derived metrics (growth rates, ratios)
+- Generate charts and export to Excel or PowerPoint
+:::
+:::
+
+## Replacing Dashboards: FP&A and Treasury
+
+:::{.two-cards}
+:::{.card .card-light}
+[**FP&A**]{.card-title}
+
+- *"Budget vs. actual for Q3, decompose the variance into volume, price, and cost drivers"*
+- *"Rolling 12-month revenue forecast with confidence bands"*
+:::
+
+:::{.card .card-light}
+[**Treasury & Risk**]{.card-title}
+
+- *"Cash position over the next 90 days using AR/AP forecasts"*
+- *"VaR by desk for the last 30 days, flag breaches"*
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+Each of these would take a BI team **days to build**. With a database agent, they take [seconds]{.amber}.
+:::
+
+## Replacing Dashboards: Portfolio and Executive
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Portfolio Management**]{.card-title}
+
+- *"Sector allocation vs. benchmark with active weights"*
+- *"Performance attribution --- allocation vs. selection"*
+:::
+
+:::{.card .card-light}
+[**Executive Reporting**]{.card-title}
+
+- *"One-page executive summary with KPIs and trends"*
+- *"Board deck from this quarter's financials --- 5 slides max"*
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+The AI doesn't replace the analyst's judgment --- it replaces the [mechanical work]{.amber} of pulling data and building charts.
+:::
+
+## The Weekly Ops Review --- Before and After
+
+:::{.two-cards}
+:::{.card .card-dark}
+[Before: The Dashboard Era]{.card-title}
+
+1. Data team pulls exports and builds slides (6+ hrs)
+2. Manager reviews and revises (3 hrs)
+3. VP asks a question --- "We'll get back to you next week"
+
+**Total: 9+ hours per week**
+:::
+
+:::{.card .card-light}
+[After: Natural Language AI]{.card-title}
+
+1. AI agent generates ops review (3 min)
+2. Manager reviews and iterates in chat
+3. VP asks a question --- [AI answers in 10 seconds]{.amber}
+
+**Total: 15 minutes + live Q&A**
+:::
+:::
+
+## The Reporting Pipeline {.section-divider}
+
+## Five Steps from Query to Report
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+flowchart LR
+  A["<b>Database<br/>Query</b>"] --> B["<b>Transform<br/>& Compute</b>"]
+  B --> C["<b>Charts &<br/>Tables</b>"]
+  C --> D["<b>AI<br/>Narrative</b>"]
+  D --> E["<b>PowerPoint<br/>Output</b>"]
+
+  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style B fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style E fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+```
+
+:::{.explainer style="margin-top:0.8em; text-align:center;"}
+From raw data to polished deck --- [no copy-paste, no formatting, no manual writing.]{.amber}
+:::
+
+## Building It with Your Coding Agent
+
+You do not need to write this by hand. Give your coding agent a single prompt:
+
+:::{.info-box}
+*"Build an app that connects to a database. When the user selects a report and clicks Generate, run the SQL query, create a chart, write a three-sentence executive summary, and assemble a three-slide PowerPoint (title, chart, findings). Show the chart and summary on screen with a download button for the PowerPoint file."*
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+Your job is not to write the code. Your job is to [test the result, refine the prompt, and iterate]{.amber} until the output meets your standards.
+:::
+
+## Building the Pipeline with Streamlit
+
+**Streamlit** turns a Python script into a web app in minutes. Combined with an AI pipeline, it becomes a [self-service reporting tool]{.amber}.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**User Interface**]{.card-title}
+
+- Dropdown: select time period, department, or metric
+- Button: "Generate Report"
+- Download: auto-generated `.pptx` file
+:::
+
+:::{.card .card-light}
+[**Behind the Scenes**]{.card-title}
+
+- Query database for selected parameters
+- Compute metrics and build charts
+- Send chart data to LLM for narrative
+- Assemble PowerPoint with `python-pptx`
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+The user clicks one button and gets a polished deck. [No analyst needed.]{.amber}
+:::
+
+## Example: Monthly Ops Review Pipeline
+
+:::{.two-col}
+::::{.column}
+**What the Pipeline Produces**
+
+1. Title slide, KPI summary table, and trend charts
+2. Variance waterfall (budget vs. actual)
+3. AI-generated executive summary
+::::
+
+::::{.column}
+**Time Comparison**
+
+- **Manual**: 6--8 hours per month (data pull, Excel, copy-paste into PowerPoint, write narrative)
+- **Pipeline**: [30 seconds]{.amber} per run
+- **ROI**: First month pays for the build time
+::::
+:::
+
+## Automated PowerPoint with python-pptx
+
+`python-pptx` is a Python library for creating and editing PowerPoint files programmatically.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What It Can Do**]{.card-title}
+
+- Create slides from templates
+- Insert charts, tables, and images
+- Apply corporate formatting (fonts, colors, logos)
+- Populate placeholders with live data
+:::
+
+:::{.card .card-light}
+[**The AI Advantage**]{.card-title}
+
+- AI writes the `python-pptx` code for you
+- Tell Claude: "Create a 5-slide deck from this data with a waterfall chart on slide 3"
+- AI handles layout, formatting, and data binding
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+[You describe the deck; AI builds the automation.]{.amber} The pipeline runs unattended after that.
+:::
+
+## Sandboxed Execution {.section-divider}
+
+## Development vs. Production
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Development (Your Laptop)**]{.card-title}
+
+- Agent runs in your environment
+- Full access to your files
+- Fine for prototyping
+:::
+
+:::{.card .card-light}
+[**Production**]{.card-title}
+
+- Agent runs in a [container]{.amber} (Docker)
+- Isolated, disposable environment
+- Read-only database access
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+A container is a disposable, isolated computing environment. A bug in AI-generated code cannot affect your other files, your database, or your network.
+:::
+
+## The Sandbox Pattern
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 28, 'useMaxWidth': true}}}%%
+flowchart TD
+  U["<b>User</b>"] --> UI["<b>Web UI</b>"]
+  UI --> A["<b>Agent</b>"]
+  A --> S["<b>Sandboxed Code</b>"]
+  S <--> DB["<b>Database<br/>(read-only)</b>"]
+  S --> R["<b>Report</b>"]
+  R --> UI
+
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style UI fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style R fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+```
+
+- User requests a report through the web interface
+- Agent plans and orchestrates; code runs in a sandboxed container
+- Container queries the database through a [read-only]{.amber} connection
+- Finished report flows back to the user
+
+## From Prototype to Production
+
+The reporting app on your laptop is a prototype. Moving it to production adds **infrastructure**, not intelligence.
+
+- **Authentication**: SSO so only authorized users can generate reports
+- **Scheduling**: weekly reports generated automatically
+- **Logging**: every query and LLM call recorded for compliance
+- **Read-only credentials**: the agent cannot modify data
+
+:::{.explainer style="margin-top:0.8em;"}
+The pipeline you prototyped is the same artifact that powers the production tool. IT wraps it in infrastructure; [you provide the domain knowledge and the prompt]{.amber}.
+:::
+
+## Variance Analysis {.section-divider}
+
+## What is Variance Analysis?
+
+**Variance analysis** compares [budgeted]{.amber} figures to [actual]{.amber} results and decomposes the differences into actionable drivers. It is the core analytical task in FP&A.
+
+:::{.two-col}
+::::{.column}
+**Why It Matters**
+
+- Every public company does it quarterly
+- Boards and investors ask "why did we miss?"
+- Drives re-forecasting and capital allocation
+::::
+
+::::{.column}
+**Key Decompositions**
+
+- **Revenue**: volume vs. price vs. mix
+- **COGS**: volume vs. unit cost
+- **SG&A**: headcount vs. rate vs. discretionary
+::::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+Revenue variance = [Volume effect]{.amber} + [Price effect]{.amber} + [Mix effect]{.amber}
+:::
+
+## Variance Analysis: Example Data
+
+**Scenario:** You are an FP&A analyst. Q1 actuals just closed. The CEO wants to know why operating income missed budget by $300K.
+
+- **Revenue:** Budget 100K units at $50 = $5M; Actual 95K units at $51 = $4.845M --- [($155K) miss]{.amber}
+- **COGS:** Budget $30/unit = $3M; Actual $32/unit = $3.04M --- [($40K) miss]{.amber}
+- **SG&A:** Budget $1.45M; Actual $1.555M --- [($105K) miss]{.amber}
+- **Operating Income:** Budget $550K; Actual $250K --- [($300K) total miss]{.amber}
+
+## Variance Analysis with an Agent
+
+With a database agent connected to your financials, one prompt replaces 2--4 hours of FP&A work:
+
+**Prompt**
+
+*"Here is our Q1 budget vs. actuals spreadsheet. Decompose the $300K operating income miss into volume, price, cost, and discretionary spending drivers. Produce a waterfall chart and a summary memo for the CFO."*
+
+**What the Agent Does**
+
+1. **Plans**: identifies the variance decomposition formulas needed
+2. **Decomposes** revenue into volume + price; COGS into volume + rate
+3. **Generates** waterfall chart and writes CFO-ready memo in Word format
+
+## Finance Application: M&A Due Diligence {.section-divider}
+
+## M&A Due Diligence with an Agent
+
+Give an agent a goal: "Evaluate this acquisition target." The agent:
+
+1. Ingests data from multiple formats (Excel, PDF, Word, CSV)
+2. Applies evaluation criteria and computes risk metrics
+3. Produces a summary memo with flagged risks
+
+:::{.explainer style="margin-top:0.8em;"}
+[This is a single prompt to Claude Code.]{.amber} The agent plans and executes all three steps autonomously, reading multiple file formats and combining the results.
+:::
+
+## Orchestration {.section-divider}
+
+## The Orchestration Layer
+
+The agent's control logic can route different tasks to different models and prompts.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Different Prompts**]{.card-title}
+
+- SQL generation --> database schema prompt
+- Python analysis --> data science prompt
+- Each task gets specialized instructions
+:::
+
+:::{.card .card-light}
+[**Different Models**]{.card-title}
+
+- Simple classification --> fast, cheap model
+- Complex reasoning --> powerful model
+- Cost and speed optimization
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+Sub-agents: dispatch specialized workers for parallel tasks. This is what Cowork does with its parallel VMs.
+:::
+
+## Exercises {.section-divider}
+
+## Exercise 1: Multi-Step Agent Workflow
+
+Give Claude Code a single compound instruction that requires at least three steps.
+
+**Example:** *"Fetch Apple's quarterly revenue from the Rice Data Portal. Create a bar chart of the last 8 quarters. Write a one-paragraph executive summary. Save the chart and summary to a reports folder."*
+
+- Observe the agent loop --- how many distinct tool calls does the agent make?
+- Does it check its own work?
+- If the output is not right, refine your prompt and try again
+
+## Exercise 2: Workflow Decomposition
+
+Consider the task: *"Prepare the quarterly business review for the CEO."*
+
+1. List the 5--7 steps a human analyst would take to complete this task
+2. For each step, identify what **tool** the agent would use and what **data** it would need
+3. Mark which steps need [human approval]{.amber} before the agent continues
+4. Write a single prompt that describes the full workflow for an agent
+
+## Exercise 3: M&A Due Diligence
+
+1. Download the due diligence data pack (Excel + PDF + Word + CSV)
+2. Ask Claude Code to evaluate the acquisition target end-to-end
+3. Submit: the summary report + screenshots of intermediate steps
+
+:::{.explainer style="margin-top:0.8em;"}
+Watch how Claude plans its approach, reads each file, and combines the results into a coherent analysis.
+:::
+
+## Exercise 4: Streamlit App with the Anthropic API
+
+1. Get an API key from `console.anthropic.com`
+2. Ask Claude Code to build a Streamlit app that:
+   - Takes a company ticker from the user
+   - Sends a prompt to the Anthropic API asking for an investment summary
+   - Displays the AI-generated summary on screen
+3. Extend: add a system prompt with specific analysis criteria (valuation, growth, risks)

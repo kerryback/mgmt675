@@ -1,0 +1,135 @@
+---
+title: "Module 2: Exploring Claude"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Exploring Claude.ai {.section-divider}
+
+## Getting Started: Claude.ai
+
+Go to `claude.ai` in any browser. No installation required. Icon at top left opens sidebar.
+
+**What it can do:**
+It's a chatbot with a code execution tool. It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in. It can also generate charts, Excel files, Word docs, and PowerPoint decks. Code runs in a **sandbox** --- can `pip install` packages but has [no internet access]{.amber}.
+
+**Getting started:**
+
+1. Go to `claude.ai` and sign in (or create an account)
+2. Type a question or upload a file
+3. Iterate: refine, ask follow-ups, request changes
+
+## Artifacts: Interactive Charts and Apps
+
+- Claude can produce **interactive charts and apps** that appear in a side panel
+- Choose Artifacts → Create an Artifact → apps or websites
+- Click **Publish** to get a shareable link --- anyone can view and interact, no Claude account needed
+
+**What Artifacts Can Build**
+
+:::{.two-col}
+:::{.col}
+- Interactive charts with hover/zoom
+- Financial calculators
+- Scenario analysis with sliders
+:::
+
+:::{.col}
+- ROI tools and comparisons
+- Dashboards with filters
+- Surveys and data collection
+:::
+:::
+
+:::{.explainer}
+**Limitation:** Artifacts are client-side only --- no database, no persistence. They are [disposable by design]{.amber}: generate a new one when needs change, rather than maintaining an old one.
+:::
+
+## Artifact Example: Black-Scholes Calculator
+
+*"Create a Black-Scholes option calculator with inputs for stock price, strike, rate, volatility, and expiration, and plot call and put prices as the stock price varies from 50% to 150% of the strike."*
+
+**Publish:** Publish the artifact and share the link.
+
+## Artifacts Across Platforms
+
+All three major platforms let you describe what you want in plain English and get an interactive tool.
+
+- **Claude Artifacts** build React apps you can publish with one click --- no account needed to view
+- **ChatGPT Canvas** produces similar React apps with inline editing and shareable links
+- **Gemini Canvas** generates HTML/CSS/JS and exports or copies the result
+
+We use Claude, but the concepts transfer to any platform.
+
+## Exploring Claude for Excel {.section-divider}
+
+## Claude for Excel Add-in
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What It Does**]{.card-title}
+
+- AI sidebar that reads and edits your workbook
+- Preserves formula dependencies
+- Works with local files
+:::
+
+:::{.card .card-light}
+[**Capabilities**]{.card-title}
+
+- Ask questions about workbook content
+- Build financial models from scratch
+- Trace and fix formula errors
+:::
+:::
+
+:::{.explainer}
+Requires Claude Pro ($20/mo) or a Claude Team/Enterprise plan.
+:::
+
+## Installing the Add-in
+
+1. Open **Excel** (desktop version, not the web app)
+2. Go to **Insert** → **Get Add-ins**
+3. Search for **"Claude by Anthropic"** and click **Add**
+4. Sign in with your Claude account when prompted
+5. The Claude sidebar appears on the right --- click the Claude icon in the **Home** ribbon tab to toggle it
+
+:::{.explainer}
+The add-in can see your entire workbook: sheet names, cell values, and formulas. It edits cells directly --- you can undo any change with `Ctrl+Z`.
+:::
+
+## Example: Loan Amortization Table
+
+Open a blank workbook with the Claude sidebar visible. Type:
+
+:::{.info-box}
+*"Create a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance. Add a summary section showing total interest paid."*
+:::
+
+- Claude builds the table with [live Excel formulas]{.amber}, not hardcoded values
+- Change the rate or loan amount and the entire table recalculates
+- Ask follow-ups: *"Add a chart of principal vs. interest over time"* or *"What if I make an extra $200/month payment?"*
+
+## AI Spreadsheet Tools Compared
+
+- **Claude for Excel** ($20/mo): formula-preserving edits, no OneDrive required --- best for financial modeling
+- **Microsoft Copilot** ($30/mo): Agent Mode and `=COPILOT()` function, Python in Excel --- best for enterprise ecosystems
+- **Google Sheets + Gemini** ($20/mo): `=AI()` function, web-only --- best for cloud collaboration
+
+:::{.explainer}
+All three can produce the same kinds of financial tools --- DCF calculators, amortization tables, scenario analyzers. Choose based on your ecosystem.
+:::
