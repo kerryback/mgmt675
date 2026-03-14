@@ -172,3 +172,5 @@ grading-rubrics/
 *.snm
 *.toc
 *.vrb
+# Worktree build artifacts
+docs/.claude/
