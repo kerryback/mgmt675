@@ -25,6 +25,8 @@ project:
     - files/*.zip
     - files/*.xlsx
     - index-pdf.pdf
+    - install/windows/windows-install.zip
+    - install/mac/install.sh
   
 
 website:

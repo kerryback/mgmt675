@@ -69,7 +69,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Running the Installer}
+\begin{frame}{The Class Installer}
 The class installer sets up everything you need in one step:
 \vspace{0.3cm}
 \begin{itemize}
@@ -78,11 +78,39 @@ The class installer sets up everything you need in one step:
   \item \textbf{Skills} --- pre-packaged instructions for Excel, Word, PowerPoint, and more
 \end{itemize}
 \vspace{0.3cm}
-Download and run the installer for your platform:
+Download the installer for your platform:
 \begin{itemize}
-  \item \textbf{Windows:} \href{https://bi-to-ai.kerryback.com/install/windows/INSTALL.bat}{bi-to-ai.kerryback.com/install/windows/INSTALL.bat}
-  \item \textbf{Mac:} \href{https://bi-to-ai.kerryback.com/install/mac/install.sh}{bi-to-ai.kerryback.com/install/mac/install.sh}
+  \item \href{https://mgmt675.kerryback.com/install/windows/windows-install.zip}{Windows Installer}
+  \item \href{https://mgmt675.kerryback.com/install/mac/install.sh}{Mac Installer}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Running the Installer}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Windows}]
+\begin{enumerate}\small
+  \item Download \texttt{windows-install.zip}
+  \item Extract the contents
+  \item Right-click \texttt{INSTALL.bat}\\$\rightarrow$ \textbf{Run as administrator}
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{shadedbox}[title=\textbf{Mac}]
+\begin{enumerate}\small
+  \item Download \texttt{install.sh}
+  \item Open \textbf{Terminal}
+  \item Navigate to your Downloads folder:\\[2pt]
+    \texttt{\footnotesize cd \textasciitilde/Downloads}
+  \item Make it executable:\\[2pt]
+    \texttt{\footnotesize chmod +x install.sh}
+  \item Run it:\\[2pt]
+    \texttt{\footnotesize ./install.sh}
+\end{enumerate}
+\end{shadedbox}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Getting Started}
