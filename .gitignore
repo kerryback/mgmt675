@@ -13,6 +13,7 @@ develop-eggs/
 dist/
 !class-setup/dist/
 !docs/class-setup/dist/
+!docs/site_libs/**/dist/
 downloads/
 eggs/
 .eggs/
