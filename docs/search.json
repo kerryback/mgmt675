@@ -263,7 +263,7 @@
     "href": "slides/m9-mcp.html#how-an-agent-uses-mcp",
     "title": "Module 9: Model Context Protocol",
     "section": "How an Agent Uses MCP",
-    "text": "How an Agent Uses MCP\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;User&lt;/b&gt;\"] &lt;--&gt;|\"request & result\"| A[\"&lt;b&gt;Agent&lt;/b&gt;\"]\n  A &lt;--&gt;|\"API calls\"| L[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n  A &lt;--&gt;|\"tool call\"| M[\"&lt;b&gt;MCP&lt;br&gt;Server&lt;/b&gt;\"]\n  M &lt;--&gt;|\"executes\"| T[\"&lt;b&gt;External&lt;br&gt;Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style M fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nThe LLM decides what to do and formats tool calls\nThe MCP server executes the call — the LLM never touches the API directly\nResults flow back through the agent to the user"
+    "text": "How an Agent Uses MCP\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A ---|\"Protocol\"| M[\"&lt;b&gt;🔌 MCP Server&lt;/b&gt;\"]\n  M ---|\"API Call\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style M fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe MCP server sits between the agent and the tool\nAgent and server communicate via a standard protocol\nThe server makes the actual API call to the external tool"
   },
   {
     "objectID": "slides/m9-mcp.html#why-not-just-call-the-api-directly",
@@ -1230,6 +1230,13 @@
     "title": "Module 6: Claude Skills",
     "section": "Pre-Installed Skills: Skill Creator",
     "text": "Pre-Installed Skills: Skill Creator\nThe /skill-creator skill is a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
+  },
+  {
+    "objectID": "slides/m6-skills.html#skills-in-claude.ai",
+    "href": "slides/m6-skills.html#skills-in-claude.ai",
+    "title": "Module 6: Claude Skills",
+    "section": "Skills in Claude.ai",
+    "text": "Skills in Claude.ai\nSkills also work in the claude.ai web interface — no Claude Code required.\nGo to Settings → Capabilities → Skills, then click the link to the Customize page.\n\n\nAnthropic Skills\n\nExcel, Word, PowerPoint, and PDF creation\nToggle each skill on or off\nClaude automatically invokes the right skill based on your request\n\n\n\nCustom Skills\n\nClick + to upload a ZIP file containing a folder with a SKILL.md file\nSame SKILL.md format as Claude Code skills\nToggle on/off just like the built-in skills\n\n\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific. Custom skills are private to your account."
   },
   {
     "objectID": "slides/m6-skills.html#exercise-create-a-tasks-skill",

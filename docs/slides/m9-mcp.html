@@ -286,18 +286,20 @@ flowchart LR
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
 flowchart LR
-  U["&lt;b&gt;User&lt;/b&gt;"] &lt;--&gt;|"request &amp; result"| A["&lt;b&gt;Agent&lt;/b&gt;"]
-  A &lt;--&gt;|"API calls"| L["&lt;b&gt;LLM&lt;/b&gt;"]
-  A &lt;--&gt;|"tool call"| M["&lt;b&gt;MCP&lt;br&gt;Server&lt;/b&gt;"]
-  M &lt;--&gt;|"executes"| T["&lt;b&gt;External&lt;br&gt;Tool&lt;/b&gt;"]
+  U["&lt;b&gt;👤 User&lt;/b&gt;"] ---|"request &amp; result"| A["&lt;b&gt;🤖 Agent&lt;/b&gt;"]
+  A ---|"API calls"| L["&lt;b&gt;🧠 LLM&lt;/b&gt;"]
+  A ---|"Protocol"| M["&lt;b&gt;🔌 MCP Server&lt;/b&gt;"]
+  M ---|"API Call"| T["&lt;b&gt;🔧 Tool&lt;/b&gt;"]
 
-  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style M fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style M fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:4px
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -305,9 +307,9 @@ flowchart LR
 </div>
 </div>
 <ul>
-<li>The <strong>LLM</strong> decides what to do and formats tool calls</li>
-<li>The <strong>MCP server</strong> executes the call — the LLM never touches the API directly</li>
-<li>Results flow back through the agent to the user</li>
+<li>The <strong>MCP server</strong> sits between the agent and the tool</li>
+<li>Agent and server communicate via a <strong>standard protocol</strong></li>
+<li>The server makes the actual <strong>API call</strong> to the external tool</li>
 </ul>
 </section>
 <section id="why-not-just-call-the-api-directly" class="slide level2 center">

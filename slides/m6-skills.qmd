@@ -68,6 +68,34 @@ The `/skill-creator` skill is a guide for [building your own skills]{.amber}.
 
 We will use `/skill-creator` in the exercise below to build a personal task manager skill.
 
+## Skills in Claude.ai
+
+Skills also work in the **claude.ai** web interface --- no Claude Code required.
+
+Go to **Settings → Capabilities → Skills**, then click the link to the **Customize** page.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Anthropic Skills**]{.card-title}
+
+- Excel, Word, PowerPoint, and PDF creation
+- Toggle each skill on or off
+- Claude automatically invokes the right skill based on your request
+:::
+
+:::{.card .card-light}
+[**Custom Skills**]{.card-title}
+
+- Click **+** to upload a **ZIP file** containing a folder with a `SKILL.md` file
+- Same `SKILL.md` format as Claude Code skills
+- Toggle on/off just like the built-in skills
+:::
+:::
+
+:::{.explainer}
+The description in your `SKILL.md` tells Claude [when to invoke the skill]{.amber}, so make it specific. Custom skills are private to your account.
+:::
+
 ## Exercise: Create a Tasks Skill
 
 Use `/skill-creator` to build a **tasks** skill that manages personal and school to-do lists. The skill should:

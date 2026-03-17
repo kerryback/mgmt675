@@ -79,23 +79,25 @@ flowchart LR
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
 flowchart LR
-  U["<b>User</b>"] <-->|"request & result"| A["<b>Agent</b>"]
-  A <-->|"API calls"| L["<b>LLM</b>"]
-  A <-->|"tool call"| M["<b>MCP<br>Server</b>"]
-  M <-->|"executes"| T["<b>External<br>Tool</b>"]
+  U["<b>👤 User</b>"] ---|"request & result"| A["<b>🤖 Agent</b>"]
+  A ---|"API calls"| L["<b>🧠 LLM</b>"]
+  A ---|"Protocol"| M["<b>🔌 MCP Server</b>"]
+  M ---|"API Call"| T["<b>🔧 Tool</b>"]
 
-  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style M fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style M fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:4px
 ```
 
-- The **LLM** decides what to do and formats tool calls
-- The **MCP server** executes the call --- the LLM never touches the API directly
-- Results flow back through the agent to the user
+- The **MCP server** sits between the agent and the tool
+- Agent and server communicate via a **standard protocol**
+- The server makes the actual **API call** to the external tool
 
 ## Why Not Just Call the API Directly?
 

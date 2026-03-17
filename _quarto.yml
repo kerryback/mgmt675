@@ -6,7 +6,6 @@ project:
     - slides.qmd
     - assignments.qmd
     - index-pdf.qmd
-    - exercises/*.qmd
     - slides/m1-ai-in-finance.qmd
     - slides/m2-intro-claude.qmd
     - slides/m3-mean-variance.qmd
@@ -24,6 +23,7 @@ project:
     - slides/*.pdf
     - files/*.zip
     - files/*.xlsx
+    - exercises/*.pdf
     - index-pdf.pdf
     - install/windows/windows-install.zip
     - install/mac/install.sh
