@@ -8,7 +8,7 @@ All assignments are group projects (up to five students per group). Each week's 
 
 Click on an exercise to download the PDF.
 
-### Week 1: AI Fundamentals & Getting Started (due March 24)
+### Week 1: Introduction (due March 24)
 
 | | | |
 |:-:|----------|:-:|
@@ -32,6 +32,7 @@ Click on an exercise to download the PDF.
 | 3A | [Automated Reporting Pipeline](exercises/3A.pdf) | [{{< fa file-pdf >}}](exercises/3A.pdf) |
 | 3B | [Loan Portfolio Risk Analysis](exercises/3B.pdf) | [{{< fa file-pdf >}}](exercises/3B.pdf) |
 | 3C | [M&A Due Diligence](exercises/3C.pdf) | [{{< fa file-pdf >}}](exercises/3C.pdf) |
+| 3D | [Portfolio Consolidation](exercises/3D.pdf) | [{{< fa file-pdf >}}](exercises/3D.pdf) |
 
 ### Week 4: Data Tools & Verification (due April 14)
 
