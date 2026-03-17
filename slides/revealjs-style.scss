@@ -702,3 +702,31 @@ $body-bg: $off-white;
     .step-desc { font-size: 0.5em; }
   }
 }
+
+// ── Top-aligned slide (image fills below title) ──
+.top-aligned {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-top: 0.5em !important;
+
+  h2 {
+    margin-bottom: 0.3em;
+    font-size: 1.4em;
+  }
+
+  .quarto-figure {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    img {
+      max-height: 78vh;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+}
+

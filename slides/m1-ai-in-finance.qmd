@@ -134,16 +134,16 @@ Matt Shumer, CEO of HyperWrite AI — February 2026
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
 flowchart LR
-  U["<b>👤 User</b>"] <-->|"prompts & replies"| C["<b>💬 Chatbot</b>"]
-  C <-->|"API calls"| L["<b>🧠 LLM</b>"]
+  U["<b>👤 User</b>"] ---|"prompts & replies"| C["<b>💬 Chatbot</b>"]
+  C ---|"API calls"| L["<b>🧠 LLM</b>"]
 
   style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
   style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
   style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
 
-  linkStyle default stroke:#3b82f6,stroke-width:6px
+  linkStyle default stroke:#3b82f6,stroke-width:4px
 ```
 
 :::{.explainer}
@@ -160,18 +160,18 @@ The chatbot sends three things to the LLM with each request:
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
 flowchart LR
-  U["<b>👤 User</b>"] <-->|"request & result"| A["<b>🤖 Agent</b>"]
-  A <-->|"API calls"| L["<b>🧠 LLM</b>"]
-  A <-->|"executes"| T["<b>🔧 Tool</b>"]
+  U["<b>👤 User</b>"] ---|"request & result"| A["<b>🤖 Agent</b>"]
+  A ---|"API calls"| L["<b>🧠 LLM</b>"]
+  A ---|"executes"| T["<b>🔧 Tool</b>"]
 
   style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
   style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
   style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
   style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
 
-  linkStyle default stroke:#3b82f6,stroke-width:6px
+  linkStyle default stroke:#3b82f6,stroke-width:4px
 ```
 
 :::{.explainer}
@@ -304,10 +304,9 @@ API Calls
 An agent may be connected to **multiple tools**. For example, get data from a database server and send it to a Python environment to return analysis.
 :::
 
-## Past, Present, and Future of Personal Computing
+## Past, Present, and Future of Personal Computing {.top-aligned}
 
-
-![](images/ui-evolution-monitors.png){fig-align="center" width="95%" .nostretch}
+![](images/ui-evolution-monitors.png){fig-align="center" width="100%" .nostretch}
 
 ## Example: Rice Data Portal
 
