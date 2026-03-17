@@ -59,7 +59,7 @@ format:
 - Code can also build and deploy interactive tools (like Artifacts)
 - Cowork's advantage is that it requires **no local software setup** and runs in an isolated sandbox
 
-## Running the Installer
+## Class Installers
 
 The class installer sets up everything you need in one step:
 
@@ -67,10 +67,25 @@ The class installer sets up everything you need in one step:
 - **Claude Desktop** --- the application with built-in Claude Code
 - **Skills** --- pre-packaged instructions for Excel, Word, PowerPoint, and more
 
-Download and run the installer for your platform:
+## Running the Installers
 
-- **Windows:** [bi-to-ai.kerryback.com/install/windows/INSTALL.bat](https://bi-to-ai.kerryback.com/install/windows/INSTALL.bat)
-- **Mac:** [bi-to-ai.kerryback.com/install/mac/install.sh](https://bi-to-ai.kerryback.com/install/mac/install.sh)
+:::{.two-cards}
+:::{.card .card-light}
+[**Windows**]{.card-title}
+
+1. Download [Windows Installer](https://mgmt675.kerryback.com/install/windows/windows-install.zip)
+2. Extract the zip file
+3. Right-click **INSTALL.bat** → Run as administrator
+:::
+
+:::{.card .card-light}
+[**Mac**]{.card-title}
+
+1. Download [Mac Installer](https://mgmt675.kerryback.com/install/mac/install.sh) to Downloads
+2. Open Terminal
+3. Run: `cd ~/Downloads && bash install.sh`
+:::
+:::
 
 ## Getting Started
 

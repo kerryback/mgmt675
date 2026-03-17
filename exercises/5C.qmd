@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5C: Financial Chatbot"
+title: "Exercise 5C: Stock Analysis in Colab"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,19 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Build a custom financial chatbot as a Streamlit app using the OpenRouter API with a free model (e.g., `mistralai/mistral-7b-instruct:free`).
+In Google Colab, use Gemini to write code that:
 
-The chatbot should:
+1. Downloads daily price data for three stocks of your choice from Yahoo Finance (at least one year of data)
+2. Computes daily returns
+3. Produces the following outputs:
+    (a) A **boxplot** of daily returns for the three stocks
+    (b) A **summary statistics table**: mean, standard deviation, min, max, skewness, kurtosis
+    (c) A **correlation matrix heatmap**
 
-1. **Connect to a financial dataset** (a CSV file or small database)
-2. **Include a system prompt** with schema knowledge and domain expertise --- tell the model what columns exist, what the data represents, and how to answer questions
-3. **Let users ask questions in English** and display results
-
-You can ask Claude Code to build the entire app for you. Focus on writing a good system prompt --- this is where the skill concepts from Module 6 apply.
-
-Test with at least 5 financial questions and evaluate the quality of the answers.
+Save the notebook to Google Drive.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Code (`5C-Code.zip`)
-- Screenshot of the running app showing at least 3 exchanges (`5C-Screenshot.png`)
-- Evaluation of answer quality (`5C-Evaluation.pdf`, half page)
+- Colab notebook (`5C-Notebook.ipynb`)
+- Screenshot of the outputs (`5C-Screenshot.png`)

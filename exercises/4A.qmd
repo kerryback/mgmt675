@@ -1,5 +1,5 @@
 ---
-title: "Exercise 4A: Financial Data with MCP"
+title: "Exercise 4A: DCF Cross-Check with Red-Teaming"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,18 +9,25 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Install the Alpha Vantage or Financial Modeling Prep MCP server in Claude Desktop. Use it to retrieve financial data for a company of your choice (e.g., income statement, balance sheet, or stock prices for the last 5 years).
+Take the DCF model you built in Exercise 3A. Start a **new** Claude conversation (do not continue the original) and upload the workbook. Ask Claude to critique the valuation:
 
-Ask Claude to:
+1. **Identify at least 3 questionable assumptions** --- are the growth rates, margins, or discount rate reasonable?
+2. **Check formula consistency** --- does FCF match the pro forma income statement and balance sheet?
+3. **Evaluate the terminal value** --- is the implied terminal growth rate reasonable relative to GDP growth? What fraction of enterprise value comes from the terminal value?
+4. **Suggest specific revisions** with justification
 
-(a) Retrieve the data using the MCP server tools
-(b) Analyze trends (e.g., revenue growth, margin changes, debt levels)
-(c) Produce a formatted summary table in Excel
+Then apply **red-teaming protocols** from Module 7:
+
+5. Set revenue growth to 0\% --- does the model break or produce nonsense?
+6. Use a WACC below the risk-free rate --- does the model flag this as unreasonable?
+7. Feed a scenario with negative free cash flow in all projection years --- what happens to the valuation?
+
+Revise the model based on the critique and red-teaming results. Compare the original and revised valuations.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Excel summary (`4A-Summary.xlsx`)
-- Screenshot showing the MCP server in your config (`4A-Config.png`)
-- Screenshot showing Claude using the MCP tools (`4A-Tools.png`)
-- Screenshot of the final output (`4A-Output.png`)
+- Original DCF model (`4A-Original.xlsx`)
+- Revised DCF model (`4A-Revised.xlsx`)
+- Summary of critique, red-teaming findings, and revisions (`4A-Summary.pdf`, 1 page)
+- Screenshots of both Claude conversations (`4A-Screenshot1.png`, `4A-Screenshot2.png`)

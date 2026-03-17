@@ -1,5 +1,5 @@
 ---
-title: "Exercise 3B: Loan Portfolio Risk Analysis"
+title: "Exercise 3B: Monte Carlo Valuation"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,23 +9,23 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download [loan-risk-analysis.zip](../files/loan-risk-analysis.zip) and extract the files into a folder. You will have:
+Take the DCF model from Exercise 3A. Instead of using fixed assumptions, assign probability distributions to four key inputs. For example:
 
-- A loan tape with 220 loans (Excel)
-- State banking regulations (PDF)
-- An internal risk policy memo (Word)
+- Sales growth rate: Normal(8\%, 3\%)
+- COGS as \% of sales: Normal(60\%, 2\%)
+- Terminal growth rate: Uniform(1.5\%, 3.5\%)
+- WACC: Normal(10\%, 1.5\%)
 
-In Claude Desktop's Cowork tab (or Code tab), select the folder and ask Claude to:
+Ask Claude to run 10,000 simulations and produce:
 
-(a) Extract the state-specific regulatory thresholds from the PDF
-(b) Extract the risk tier classification criteria from the Word doc
-(c) Assign each loan a risk tier and flag state-specific regulatory violations
-(d) Produce a risk report showing tier distribution, flagged loans, and total estimated reserves
+1. A **histogram** of enterprise values
+2. **Summary statistics**: mean, median, 10th percentile, 90th percentile
+3. A **tornado chart** showing which assumption drives the most variation in valuation
 
-Watch how Claude reads each file, combines the rules, and applies them to the loan data.
+Write a brief paragraph identifying the key driver of valuation uncertainty and explaining why.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Risk report (`3B-RiskReport.xlsx`)
-- Screenshot of the Cowork or Code session (`3B-Screenshot.png`)
+- Histogram and tornado chart (`2C-Histogram.png`, `2C-Tornado.png`)
+- Summary statistics and key-driver paragraph (`2C-Summary.pdf`, half page)

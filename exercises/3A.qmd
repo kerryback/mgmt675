@@ -1,5 +1,5 @@
 ---
-title: "Exercise 3A: Automated Reporting Pipeline"
+title: "Exercise 3A: Two-Stage DCF Model"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,23 +9,25 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Build an automated reporting pipeline that transforms raw data into a polished PowerPoint deck. Use Claude Code to create the pipeline.
+Build a two-stage discounted cash flow model for a hypothetical or real company. Start by providing Claude with a small set of assumptions:
 
-Your pipeline should include these stages:
+- Sales growth rate, COGS as \% of sales, SG\&A, depreciation, tax rate
+- NWC as \% of sales, PP\&E as \% of sales
+- WACC, terminal growth rate
 
-1. **Data query**: Load a financial dataset (CSV, Excel, or database query)
-2. **Transform**: Compute at least 3 KPIs (e.g., revenue growth, profit margin, variance vs.\ budget)
-3. **Visualize**: Generate at least 2 charts (e.g., trend line, waterfall, bar chart)
-4. **Narrative**: Use an LLM to generate a 2--3 sentence executive summary from the computed metrics
-5. **PowerPoint output**: Assemble a 3--5 slide deck using `python-pptx` with a title slide, KPI summary, charts, and the AI-generated narrative
+The model should include:
 
-You may use any financial dataset (the Chinook database, a budget-vs-actual spreadsheet, stock return data from the Rice Data Portal, etc.).
+1. **Pro forma income statement** (5-year forecast): Sales $\rightarrow$ COGS $\rightarrow$ Gross Profit $\rightarrow$ SG\&A $\rightarrow$ Depreciation $\rightarrow$ EBIT $\rightarrow$ Taxes $\rightarrow$ NOPAT
+2. **Pro forma balance sheet**: NWC and PP\&E as \% of sales, capital expenditure derived from target PP\&E
+3. **Free cash flow**: NOPAT + Depreciation $-$ CapEx $-$ $\Delta$NWC
+4. **Terminal value**: growing perpetuity method ($\text{TV} = \text{FCF}_{T+1} / (\text{WACC} - g)$)
+5. **Enterprise value** and **per-share equity value**
+6. **Two-way sensitivity table**: WACC (rows) vs.\ terminal growth rate (columns)
 
-Run the pipeline end-to-end and verify that the PowerPoint file opens correctly and the charts match the underlying data.
+Produce the output as an Excel workbook with clearly labeled sheets.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Python script or notebook that runs the pipeline (`3A-Pipeline.py` or `3A-Pipeline.ipynb`)
-- Generated PowerPoint deck (`3A-Report.pptx`)
-- Screenshot of the pipeline running (`3A-Screenshot.png`)
+- Excel workbook with DCF model (`3A-DCF.xlsx`)
+- Screenshot of the Claude conversation (`3A-Screenshot.png`)

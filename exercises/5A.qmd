@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5A: NotebookLM Financial Analysis"
+title: "Exercise 5A: Financial Data with MCP"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,18 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Upload at least three financial documents for the same company into Google NotebookLM. Good combinations include:
+Install the Alpha Vantage or Financial Modeling Prep MCP server in Claude Desktop. Use it to retrieve financial data for a company of your choice (e.g., income statement, balance sheet, or stock prices for the last 5 years).
 
-- A 10-K filing
-- An earnings call transcript
-- An analyst report or press release
+Ask Claude to:
 
-Ask at least **5 questions** about the company's financial performance, strategy, and risk factors. For each answer:
-
-- Note how NotebookLM **cites specific sources** (which document, which section)
-- Evaluate whether the answer is **grounded** in the documents or potentially **hallucinated**
-- Rate the answer quality (accurate / partially accurate / inaccurate)
+(a) Retrieve the data using the MCP server tools
+(b) Analyze trends (e.g., revenue growth, margin changes, debt levels)
+(c) Produce a formatted summary table in Excel
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Q&A pairs with citations and quality ratings (`5A-QA.pdf`)
-- Brief assessment of NotebookLM's reliability for financial analysis (half page, included in the same PDF)
-- Screenshot of the NotebookLM interface showing sources and a sample answer (`5A-Screenshot.png`)
+- Excel summary (`5A-Summary.xlsx`)
+- Screenshot showing the MCP server in your config (`5A-Config.png`)
+- Screenshot showing Claude using the MCP tools (`5A-Tools.png`)
+- Screenshot of the final output (`5A-Output.png`)

@@ -81,11 +81,11 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 ## Assignment Schedule (6 weeks)
 | Week | Due | Modules | Exercises |
 |------|-----|---------|-----------|
-| 1 | 3/24 | M1 + M2 + M4 | 1A, 1B, 1C |
-| 2 | 3/31 | M3 + M5 | 2A, 2B, 2C, 2D |
-| 3 | 4/7 | M8 | 3A, 3B, 3C |
-| 4 | 4/14 | M9 + M7 | 4A, 4B, 4C |
-| 5 | 4/21 | M10 | 5A, 5B, 5C |
+| 1 | 3/24 | M1 + M2 | 1A, 1B, 1C |
+| 2 | 3/31 | M3 + M4 | 2A, 2B, 2C, 2D |
+| 3 | 4/7 | M5 + M6 | 3A, 3B, 3C, 3D |
+| 4 | 4/14 | M7 + M8 | 4A, 4B, 4C |
+| 5 | 4/21 | M9 + M10 | 5A, 5B, 5C |
 | 6 | 4/28 | M11 | 6A, 6B, 6C |
 
 ## Grading

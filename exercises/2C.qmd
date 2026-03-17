@@ -1,5 +1,5 @@
 ---
-title: "Exercise 2C: Monte Carlo Valuation"
+title: "Exercise 2C: M&A Due Diligence"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,23 +9,26 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Take the DCF model from Exercise 2B. Instead of using fixed assumptions, assign probability distributions to four key inputs. For example:
+Download [manda-due-diligence.zip](../files/manda-due-diligence.zip) and extract the files into a project folder. You will have:
 
-- Sales growth rate: Normal(8\%, 3\%)
-- COGS as \% of sales: Normal(60\%, 2\%)
-- Terminal growth rate: Uniform(1.5\%, 3.5\%)
-- WACC: Normal(10\%, 1.5\%)
+- A customer list with contract details (Excel)
+- Detailed contract terms for top customers (PDF)
+- Acquirer screening criteria (Word)
+- Industry benchmarks (CSV)
 
-Ask Claude to run 10,000 simulations and produce:
+In Claude Code (or the Code tab in Claude Desktop), ask Claude to evaluate the acquisition target **end-to-end**:
 
-1. A **histogram** of enterprise values
-2. **Summary statistics**: mean, median, 10th percentile, 90th percentile
-3. A **tornado chart** showing which assumption drives the most variation in valuation
+1. Extract contract terms and change-of-control provisions from the PDF
+2. Apply the acquirer's screening criteria to each customer
+3. Calculate quality-adjusted revenue and retention probabilities
+4. Assess customer concentration risk
+5. Benchmark against industry standards
+6. Produce a due diligence summary suitable for an investment committee
 
-Write a brief paragraph identifying the key driver of valuation uncertainty and explaining why.
+Watch how Claude plans its approach, reads each file, and combines the results.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Histogram and tornado chart (`2C-Histogram.png`, `2C-Tornado.png`)
-- Summary statistics and key-driver paragraph (`2C-Summary.pdf`, half page)
+- Due diligence summary (`2C-DueDiligence.xlsx`)
+- Screenshots showing Claude's intermediate steps (`2C-Screenshot1.png`, `2C-Screenshot2.png`)

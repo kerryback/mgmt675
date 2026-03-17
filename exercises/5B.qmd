@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5B: Stock Analysis in Colab"
+title: "Exercise 5B: NotebookLM Financial Analysis"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,19 +9,21 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-In Google Colab, use Gemini to write code that:
+Upload at least three financial documents for the same company into Google NotebookLM. Good combinations include:
 
-1. Downloads daily price data for three stocks of your choice from Yahoo Finance (at least one year of data)
-2. Computes daily returns
-3. Produces the following outputs:
-    (a) A **boxplot** of daily returns for the three stocks
-    (b) A **summary statistics table**: mean, standard deviation, min, max, skewness, kurtosis
-    (c) A **correlation matrix heatmap**
+- A 10-K filing
+- An earnings call transcript
+- An analyst report or press release
 
-Save the notebook to Google Drive.
+Ask at least **5 questions** about the company's financial performance, strategy, and risk factors. For each answer:
+
+- Note how NotebookLM **cites specific sources** (which document, which section)
+- Evaluate whether the answer is **grounded** in the documents or potentially **hallucinated**
+- Rate the answer quality (accurate / partially accurate / inaccurate)
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Colab notebook (`5B-Notebook.ipynb`)
-- Screenshot of the outputs (`5B-Screenshot.png`)
+- Q&A pairs with citations and quality ratings (`5B-QA.pdf`)
+- Brief assessment of NotebookLM's reliability for financial analysis (half page, included in the same PDF)
+- Screenshot of the NotebookLM interface showing sources and a sample answer (`5B-Screenshot.png`)

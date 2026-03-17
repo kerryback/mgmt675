@@ -1,5 +1,5 @@
 ---
-title: "Exercise 4B: Build a Finance Analysis Skill"
+title: "Exercise 4B: Automated Reporting Pipeline"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,28 +9,23 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Create a skill (in `.claude/skills/`) that encodes a consistent methodology for one of the following:
+Build an automated reporting pipeline that transforms raw data into a polished PowerPoint deck. Use Claude Code to create the pipeline.
 
-**(a) DCF valuation skill** --- specify:
+Your pipeline should include these stages:
 
-  - How to estimate each assumption (e.g., "use trailing 5-year revenue CAGR for sales growth," "use sector median EV/EBITDA for exit multiple")
-  - Required output tables (pro forma income statement, FCF, sensitivity table)
-  - Sensitivity ranges to test
-  - Output format and labeling
+1. **Data query**: Load a financial dataset (CSV, Excel, or database query)
+2. **Transform**: Compute at least 3 KPIs (e.g., revenue growth, profit margin, variance vs.\ budget)
+3. **Visualize**: Generate at least 2 charts (e.g., trend line, waterfall, bar chart)
+4. **Narrative**: Use an LLM to generate a 2--3 sentence executive summary from the computed metrics
+5. **PowerPoint output**: Assemble a 3--5 slide deck using `python-pptx` with a title slide, KPI summary, charts, and the AI-generated narrative
 
-**(b) Portfolio optimization skill** --- specify:
+You may use any financial dataset (the Chinook database, a budget-vs-actual spreadsheet, stock return data from the Rice Data Portal, etc.).
 
-  - Data source and estimation window (e.g., "trailing 60 months of monthly returns")
-  - Constraint set (e.g., no short sales, max 25\% per position)
-  - Required outputs (weights table, frontier plot, key statistics)
-  - Benchmark for comparison
-
-Test the skill by running it on **two different inputs** (two different companies for DCF, or two different asset sets for portfolio optimization) in **separate conversations**. Verify that the methodology is consistent across both runs.
+Run the pipeline end-to-end and verify that the PowerPoint file opens correctly and the charts match the underlying data.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- SKILL.md file (`4B-SKILL.md`)
-- Output from first test (`4B-Test1.pdf`)
-- Output from second test (`4B-Test2.pdf`)
-- Brief note confirming methodology consistency or explaining where it differed (`4B-Consistency.pdf`, half page)
+- Python script or notebook that runs the pipeline (`4B-Pipeline.py` or `4B-Pipeline.ipynb`)
+- Generated PowerPoint deck (`4B-Report.pptx`)
+- Screenshot of the pipeline running (`4B-Screenshot.png`)
