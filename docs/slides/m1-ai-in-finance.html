@@ -323,14 +323,16 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%
 flowchart LR
   U["&lt;b&gt;👤 User&lt;/b&gt;"] &lt;--&gt;|"prompts &amp; replies"| C["&lt;b&gt;💬 Chatbot&lt;/b&gt;"]
   C &lt;--&gt;|"API calls"| L["&lt;b&gt;🧠 LLM&lt;/b&gt;"]
 
-  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:6px
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -355,16 +357,18 @@ flowchart LR
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%
 flowchart LR
   U["&lt;b&gt;👤 User&lt;/b&gt;"] &lt;--&gt;|"request &amp; result"| A["&lt;b&gt;🤖 Agent&lt;/b&gt;"]
   A &lt;--&gt;|"API calls"| L["&lt;b&gt;🧠 LLM&lt;/b&gt;"]
   A &lt;--&gt;|"executes"| T["&lt;b&gt;🔧 Tool&lt;/b&gt;"]
 
-  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:6px
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -373,6 +377,18 @@ flowchart LR
 </div>
 <div class="explainer">
 <p>The agent programmatically controls communication between the LLM and the tool. The system prompt includes <em>“You have a tool …”</em> so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user.</p>
+</div>
+</section>
+<section id="how-tool-calls-work" class="slide level2 center">
+<h2>How Tool Calls Work</h2>
+<p>The LLM does not run code directly. When it decides a tool is needed, it returns a structured message:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a></a><span class="fu">{</span></span>
+<span id="cb1-2"><a></a>  <span class="dt">"tool"</span><span class="fu">:</span> <span class="st">"sql_query"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a></a>  <span class="dt">"query"</span><span class="fu">:</span> <span class="st">"SELECT ticker, close FROM prices WHERE date = '2024-12-31'"</span></span>
+<span id="cb1-4"><a></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>The agent’s execution layer reads that message, runs the actual tool, and sends the result back to the LLM. The LLM reads the result and decides what to do next.</p>
+<p>An agent can use <strong>multiple tools in sequence</strong> — query a database, pass results to Python for analysis, generate a chart, and assemble everything into a PowerPoint deck — all from a single instruction.</p>
 </div>
 </section>
 <section id="the-agent-loop" class="slide level2 center">
@@ -425,18 +441,6 @@ flowchart LR
 </div>
 <div class="explainer" style="margin-top:1em;">
 <p>When an agent encounters an error, it doesn’t stop and ask you what to do. It diagnoses the problem, revises its approach, and tries again. This <strong>autonomous problem-solving</strong> is what separates agents from simple automation scripts.</p>
-</div>
-</section>
-<section id="how-tool-calls-work" class="slide level2 center">
-<h2>How Tool Calls Work</h2>
-<p>The LLM does not run code directly. When it decides a tool is needed, it returns a structured message:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a></a><span class="fu">{</span></span>
-<span id="cb1-2"><a></a>  <span class="dt">"tool"</span><span class="fu">:</span> <span class="st">"sql_query"</span><span class="fu">,</span></span>
-<span id="cb1-3"><a></a>  <span class="dt">"query"</span><span class="fu">:</span> <span class="st">"SELECT ticker, close FROM prices WHERE date = '2024-12-31'"</span></span>
-<span id="cb1-4"><a></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p>The agent’s execution layer reads that message, runs the actual tool, and sends the result back to the LLM. The LLM reads the result and decides what to do next.</p>
-<p>An agent can use <strong>multiple tools in sequence</strong> — query a database, pass results to Python for analysis, generate a chart, and assemble everything into a PowerPoint deck — all from a single instruction.</p>
 </div>
 </section>
 <section id="examples-of-agent-tools" class="slide level2 center">

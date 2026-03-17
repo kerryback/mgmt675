@@ -134,14 +134,16 @@ Matt Shumer, CEO of HyperWrite AI — February 2026
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%
 flowchart LR
   U["<b>👤 User</b>"] <-->|"prompts & replies"| C["<b>💬 Chatbot</b>"]
   C <-->|"API calls"| L["<b>🧠 LLM</b>"]
 
-  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:6px
 ```
 
 :::{.explainer}
@@ -158,20 +160,39 @@ The chatbot sends three things to the LLM with each request:
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%
 flowchart LR
   U["<b>👤 User</b>"] <-->|"request & result"| A["<b>🤖 Agent</b>"]
   A <-->|"API calls"| L["<b>🧠 LLM</b>"]
   A <-->|"executes"| T["<b>🔧 Tool</b>"]
 
-  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:6px
 ```
 
 :::{.explainer}
 The agent programmatically controls communication between the LLM and the tool. The system prompt includes *"You have a tool ..."* so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user.
+:::
+
+## How Tool Calls Work
+
+The LLM does not run code directly. When it decides a tool is needed, it returns a structured message:
+
+```json
+{
+  "tool": "sql_query",
+  "query": "SELECT ticker, close FROM prices WHERE date = '2024-12-31'"
+}
+```
+
+:::{.explainer}
+The agent's execution layer reads that message, runs the actual tool, and sends the result back to the LLM. The LLM reads the result and decides what to do next.
+
+An agent can use **multiple tools in sequence** — query a database, pass results to Python for analysis, generate a chart, and assemble everything into a PowerPoint deck — all from a single instruction.
 :::
 
 ## The Agent Loop
@@ -230,23 +251,6 @@ If unsatisfactory, the agent adjusts its plan and tries again
 When an agent encounters an error, it doesn't stop and ask you what to do. It diagnoses the problem, revises its approach, and tries again. This **autonomous problem-solving** is what separates agents from simple automation scripts.
 :::
 
-## How Tool Calls Work
-
-The LLM does not run code directly. When it decides a tool is needed, it returns a structured message:
-
-```json
-{
-  "tool": "sql_query",
-  "query": "SELECT ticker, close FROM prices WHERE date = '2024-12-31'"
-}
-```
-
-:::{.explainer}
-The agent's execution layer reads that message, runs the actual tool, and sends the result back to the LLM. The LLM reads the result and decides what to do next.
-
-An agent can use **multiple tools in sequence** — query a database, pass results to Python for analysis, generate a chart, and assemble everything into a PowerPoint deck — all from a single instruction.
-:::
-
 ## Examples of Agent Tools
 
 :::{.tool-grid}
@@ -300,9 +304,8 @@ API Calls
 An agent may be connected to **multiple tools**. For example, get data from a database server and send it to a Python environment to return analysis.
 :::
 
-## User Interfaces {.image-slide}
+## Past, Present, and Future of Personal Computing
 
-### Terminal → Point and Click → Chat
 
 ![](images/ui-evolution-monitors.png){fig-align="center" width="95%" .nostretch}
 

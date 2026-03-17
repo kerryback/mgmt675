@@ -935,21 +935,14 @@
     "href": "slides/m1-ai-in-finance.html#chatbot",
     "title": "Module 1: Overview",
     "section": "Chatbot",
-    "text": "Chatbot\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] &lt;--&gt;|\"prompts & replies\"| C[\"&lt;b&gt;💬 Chatbot&lt;/b&gt;\"]\n  C &lt;--&gt;|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nThe chatbot sends three things to the LLM with each request:\n\n\nUser prompt — what you just typed\nSystem prompt — hidden instructions that define the LLM’s behavior\nConversation history — all prior messages, so the LLM has context"
+    "text": "Chatbot\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] &lt;--&gt;|\"prompts & replies\"| C[\"&lt;b&gt;💬 Chatbot&lt;/b&gt;\"]\n  C &lt;--&gt;|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:6px\n\n\n\n\n\n\n\nThe chatbot sends three things to the LLM with each request:\n\n\nUser prompt — what you just typed\nSystem prompt — hidden instructions that define the LLM’s behavior\nConversation history — all prior messages, so the LLM has context"
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#agent",
     "href": "slides/m1-ai-in-finance.html#agent",
     "title": "Module 1: Overview",
     "section": "Agent",
-    "text": "Agent\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] &lt;--&gt;|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A &lt;--&gt;|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A &lt;--&gt;|\"executes\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nThe agent programmatically controls communication between the LLM and the tool. The system prompt includes “You have a tool …” so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user."
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#the-agent-loop",
-    "href": "slides/m1-ai-in-finance.html#the-agent-loop",
-    "title": "Module 1: Overview",
-    "section": "The Agent Loop",
-    "text": "The Agent Loop\n\n\n\n🎯\n\n\nPlan\n\n\nThe LLM reads your request and breaks it into steps\n\n\n\n\n⚡\n\n\nExecute\n\n\nThe agent calls a tool — runs code, queries a database, writes a file\n\n\n\n\n👁️\n\n\nObserve\n\n\nThe agent checks the result of the action\n\n\n\n\n🔄\n\n\nIterate\n\n\nIf unsatisfactory, the agent adjusts its plan and tries again\n\n\n\n\nWhen an agent encounters an error, it doesn’t stop and ask you what to do. It diagnoses the problem, revises its approach, and tries again. This autonomous problem-solving is what separates agents from simple automation scripts."
+    "text": "Agent\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] &lt;--&gt;|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A &lt;--&gt;|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A &lt;--&gt;|\"executes\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:6px\n\n\n\n\n\n\n\nThe agent programmatically controls communication between the LLM and the tool. The system prompt includes “You have a tool …” so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user."
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#how-tool-calls-work",
@@ -957,6 +950,13 @@
     "title": "Module 1: Overview",
     "section": "How Tool Calls Work",
     "text": "How Tool Calls Work\nThe LLM does not run code directly. When it decides a tool is needed, it returns a structured message:\n{\n  \"tool\": \"sql_query\",\n  \"query\": \"SELECT ticker, close FROM prices WHERE date = '2024-12-31'\"\n}\n\nThe agent’s execution layer reads that message, runs the actual tool, and sends the result back to the LLM. The LLM reads the result and decides what to do next.\nAn agent can use multiple tools in sequence — query a database, pass results to Python for analysis, generate a chart, and assemble everything into a PowerPoint deck — all from a single instruction."
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#the-agent-loop",
+    "href": "slides/m1-ai-in-finance.html#the-agent-loop",
+    "title": "Module 1: Overview",
+    "section": "The Agent Loop",
+    "text": "The Agent Loop\n\n\n\n🎯\n\n\nPlan\n\n\nThe LLM reads your request and breaks it into steps\n\n\n\n\n⚡\n\n\nExecute\n\n\nThe agent calls a tool — runs code, queries a database, writes a file\n\n\n\n\n👁️\n\n\nObserve\n\n\nThe agent checks the result of the action\n\n\n\n\n🔄\n\n\nIterate\n\n\nIf unsatisfactory, the agent adjusts its plan and tries again\n\n\n\n\nWhen an agent encounters an error, it doesn’t stop and ask you what to do. It diagnoses the problem, revises its approach, and tries again. This autonomous problem-solving is what separates agents from simple automation scripts."
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#examples-of-agent-tools",
