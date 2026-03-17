@@ -935,14 +935,14 @@
     "href": "slides/m1-ai-in-finance.html#chatbot",
     "title": "Module 1: Overview",
     "section": "Chatbot",
-    "text": "Chatbot\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] &lt;--&gt;|\"prompts & replies\"| C[\"&lt;b&gt;💬 Chatbot&lt;/b&gt;\"]\n  C &lt;--&gt;|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:6px\n\n\n\n\n\n\n\nThe chatbot sends three things to the LLM with each request:\n\n\nUser prompt — what you just typed\nSystem prompt — hidden instructions that define the LLM’s behavior\nConversation history — all prior messages, so the LLM has context"
+    "text": "Chatbot\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"prompts & replies\"| C[\"&lt;b&gt;💬 Chatbot&lt;/b&gt;\"]\n  C ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe chatbot sends three things to the LLM with each request:\n\n\nUser prompt — what you just typed\nSystem prompt — hidden instructions that define the LLM’s behavior\nConversation history — all prior messages, so the LLM has context"
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#agent",
     "href": "slides/m1-ai-in-finance.html#agent",
     "title": "Module 1: Overview",
     "section": "Agent",
-    "text": "Agent\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '56px', 'edgeLabelBackground': '#ffffff'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true, 'defaultRenderer': 'elk', 'curve': 'linear', 'diagramPadding': 20}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] &lt;--&gt;|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A &lt;--&gt;|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A &lt;--&gt;|\"executes\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:6px\n\n\n\n\n\n\n\nThe agent programmatically controls communication between the LLM and the tool. The system prompt includes “You have a tool …” so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user."
+    "text": "Agent\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A ---|\"executes\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe agent programmatically controls communication between the LLM and the tool. The system prompt includes “You have a tool …” so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user."
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#how-tool-calls-work",
@@ -966,11 +966,11 @@
     "text": "Examples of Agent Tools\n\n\n\n🐍\n\n\nPython Environment\n\n\n\n\n🗄️\n\n\nDatabase Server\n\n\n\n\n🌐\n\n\nWeb Browser / Search\n\n\n\n\n📁\n\n\nFile System\n\n\n\n\n🔌\n\n\nAPI Calls\n\n\n\n\nAn agent may be connected to multiple tools. For example, get data from a database server and send it to a Python environment to return analysis."
   },
   {
-    "objectID": "slides/m1-ai-in-finance.html#user-interfaces",
-    "href": "slides/m1-ai-in-finance.html#user-interfaces",
+    "objectID": "slides/m1-ai-in-finance.html#past-present-and-future-of-personal-computing",
+    "href": "slides/m1-ai-in-finance.html#past-present-and-future-of-personal-computing",
     "title": "Module 1: Overview",
-    "section": "User Interfaces",
-    "text": "User Interfaces\nTerminal → Point and Click → Chat"
+    "section": "Past, Present, and Future of Personal Computing",
+    "text": "Past, Present, and Future of Personal Computing"
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#example-rice-data-portal",

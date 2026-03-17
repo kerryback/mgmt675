@@ -57,6 +57,27 @@ The assignments are posted on Canvas. An assignment is due each Tuesday at 11:59
 
 Each student will be reimbursed for a Claude Pro account ($20 per month).  The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.
 
+### Slide Decks
+
+:::: {layout-ncol=2}
+::: {}
+1. [Overview](https://mgmt675.kerryback.com/slides/m1-ai-in-finance.html)
+2. [Exploring Claude](https://mgmt675.kerryback.com/slides/m2-intro-claude.html)
+3. [Mean-Variance Analysis](https://mgmt675.kerryback.com/slides/m3-mean-variance.html)
+4. [Claude Desktop and Claude Code](https://mgmt675.kerryback.com/slides/m4-claude.html)
+5. [Discounted Cash Flow Analysis](https://mgmt675.kerryback.com/slides/m5-dcf.html)
+6. [Claude Skills](https://mgmt675.kerryback.com/slides/m6-skills.html)
+:::
+
+::: {}
+7. [Verification, Auditing, and Governance](https://mgmt675.kerryback.com/slides/m7-reliability.html)
+8. [More on AI Agents](https://mgmt675.kerryback.com/slides/m8-agents.html)
+9. [Model Context Protocol](https://mgmt675.kerryback.com/slides/m9-mcp.html)
+10. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m10-rag.html)
+11. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m11-sentiment.html)
+:::
+::::
+
 ### Honor Code
 
 The Rice University honor code applies to all work in this course.
