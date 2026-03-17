@@ -40,8 +40,6 @@ Given expected returns, risks (standard deviations), and correlations for multip
 - What does the set of all possible portfolios look like?
 - How do real-world constraints change the answer?
 
-Mean-variance analysis provides the framework.  AI handles the computation.
-
 ## Key Concepts
 
 :::{.two-cards}
@@ -83,21 +81,35 @@ Mean-variance analysis provides the framework.  AI handles the computation.
 :::
 :::
 
-[The constrained frontier is still useful: it reflects what you can actually implement.]{.amber}
-
-## Solution Methods
+## Solvers
 
 - **Solver (numerical optimization)**
     - Maximize Sharpe ratio (tangency portfolio)
     - Minimize risk for a target return (efficient frontier)
     - Minimize risk (global minimum variance portfolio)
-- **Analytic/algebraic solution**
-    - Solve systems of linear equations for tangency, GMV, and frontier
-    - Available only when there are no constraints
 
 Python solver options: `scipy.minimize`, `cvxopt`, `cvxpy`---AI chooses and writes the code.
 
 [Ask Claude:]{.amber} Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.
+
+## Solving Linear Equations
+
+- **Analytic/algebraic solution**
+    - Solve systems of linear equations for tangency, GMV, and frontier
+    - Available only when there are no constraints
+
+## Example of Linear Equations
+
+$$3x + 2y = 7$$
+$$2x + 5y = 4$$
+
+Rewrite in matrix form:
+
+$$\begin{pmatrix} 3 & 2 \\ 2 & 5 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 7 \\ 4 \end{pmatrix}$$
+
+Call the matrix $\Sigma$, the vector $(x,y)$ as $w$, and the right-hand side $\mu$:
+
+$$\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} x \\ y \end{pmatrix}$$
 
 ## In-Class Exercise: Data
 
@@ -109,16 +121,14 @@ We will use monthly returns for five ETFs:
 - **IEF** --- 7--10 Year Treasuries
 - **EFA** --- International Developed Markets
 
-Data: April 2007 -- present (228 months).  Risk-free rate: 3.75% (current 1-month T-bill).
+Data: monthly returns, May 2007 -- present.  Monthly risk-free rate: $0.0375/12$.
 
-Ask Claude to use `yfinance` to download monthly prices for these five tickers, compute monthly returns, and set $r_f = 3.75\%$ annualized.
+Download the returns file: <a href="../files/returns.csv" target="_blank"><i class="fa-solid fa-file-csv"></i> returns.csv</a>
 
 ## In-Class Exercise: Tangency Portfolio (Unrestricted)
 
 1. Ask Claude to compute the **tangency portfolio** allowing short sales.  Report the weights, expected return, standard deviation, and Sharpe ratio.
 2. Ask Claude: *"Show me the code you used and explain it step by step."*
-
-[Understanding the code matters.]{.amber}  You should be able to verify that the optimization is set up correctly --- what is the objective function?  What are the constraints?
 
 ## In-Class Exercise: No Short Sales
 
@@ -128,7 +138,6 @@ Ask Claude to use `yfinance` to download monthly prices for these five tickers, 
 
 ## In-Class Exercise: Frontier and CAL
 
-Assuming **no short sales**:
-
-1. Ask Claude to compute the **tangency portfolio** and the **efficient frontier** from the five risky assets.
-2. Ask Claude to **plot** the efficient frontier and the **capital allocation line** (the line from $r_f$ through the tangency portfolio).
+1. Ask Claude to compute the **tangency portfolio** and the **efficient frontier** for both cases (with and without short sales).
+2. Ask Claude to **plot** the efficient frontiers and **capital allocation lines** for both cases in the same figure.
+3. Ask Claude to also provide a figure with the two cases as **stacked subplots** with the same scales.

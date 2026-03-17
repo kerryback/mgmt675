@@ -23,6 +23,7 @@ project:
     - slides/*.pdf
     - files/*.zip
     - files/*.xlsx
+    - files/*.csv
     - exercises/*.pdf
     - index-pdf.pdf
     - install/windows/windows-install.zip

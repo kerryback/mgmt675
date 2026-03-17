@@ -844,7 +844,7 @@
     "href": "slides/m3-mean-variance.html#the-problem",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "The Problem",
-    "text": "The Problem\nGiven expected returns, risks (standard deviations), and correlations for multiple assets, plus a risk-free rate:\n\nWhat is the best portfolio?\nWhat does the set of all possible portfolios look like?\nHow do real-world constraints change the answer?\n\nMean-variance analysis provides the framework. AI handles the computation."
+    "text": "The Problem\nGiven expected returns, risks (standard deviations), and correlations for multiple assets, plus a risk-free rate:\n\nWhat is the best portfolio?\nWhat does the set of all possible portfolios look like?\nHow do real-world constraints change the answer?"
   },
   {
     "objectID": "slides/m3-mean-variance.html#key-concepts",
@@ -858,28 +858,42 @@
     "href": "slides/m3-mean-variance.html#adding-real-world-constraints",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "Adding Real-World Constraints",
-    "text": "Adding Real-World Constraints\n\n\nCommon constraints\n\nNo short sales (all weights \\(\\geq 0\\))\nMaximum position (e.g., \\(\\leq 40\\%\\) per asset)\nMinimum position (e.g., \\(\\geq 2\\%\\) if held)\nMargin requirement (sum of absolute values \\(\\leq 2\\))\n\n\n\nWhat happens\n\nThe efficient frontier shifts inward (lower returns and/or higher risk)\nThe tangency portfolio changes\nThe Sharpe ratio cannot improve with constraints—it can only stay the same or get worse\n\n\n\nThe constrained frontier is still useful: it reflects what you can actually implement."
+    "text": "Adding Real-World Constraints\n\n\nCommon constraints\n\nNo short sales (all weights \\(\\geq 0\\))\nMaximum position (e.g., \\(\\leq 40\\%\\) per asset)\nMinimum position (e.g., \\(\\geq 2\\%\\) if held)\nMargin requirement (sum of absolute values \\(\\leq 2\\))\n\n\n\nWhat happens\n\nThe efficient frontier shifts inward (lower returns and/or higher risk)\nThe tangency portfolio changes\nThe Sharpe ratio cannot improve with constraints—it can only stay the same or get worse"
   },
   {
-    "objectID": "slides/m3-mean-variance.html#solution-methods",
-    "href": "slides/m3-mean-variance.html#solution-methods",
+    "objectID": "slides/m3-mean-variance.html#solvers",
+    "href": "slides/m3-mean-variance.html#solvers",
     "title": "Module 3: Mean-Variance Analysis",
-    "section": "Solution Methods",
-    "text": "Solution Methods\n\nSolver (numerical optimization)\n\nMaximize Sharpe ratio (tangency portfolio)\nMinimize risk for a target return (efficient frontier)\nMinimize risk (global minimum variance portfolio)\n\nAnalytic/algebraic solution\n\nSolve systems of linear equations for tangency, GMV, and frontier\nAvailable only when there are no constraints\n\n\nPython solver options: scipy.minimize, cvxopt, cvxpy—AI chooses and writes the code.\nAsk Claude: Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints."
+    "section": "Solvers",
+    "text": "Solvers\n\nSolver (numerical optimization)\n\nMaximize Sharpe ratio (tangency portfolio)\nMinimize risk for a target return (efficient frontier)\nMinimize risk (global minimum variance portfolio)\n\n\nPython solver options: scipy.minimize, cvxopt, cvxpy—AI chooses and writes the code.\nAsk Claude: Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#solving-linear-equations",
+    "href": "slides/m3-mean-variance.html#solving-linear-equations",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Solving Linear Equations",
+    "text": "Solving Linear Equations\n\nAnalytic/algebraic solution\n\nSolve systems of linear equations for tangency, GMV, and frontier\nAvailable only when there are no constraints"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#example-of-linear-equations",
+    "href": "slides/m3-mean-variance.html#example-of-linear-equations",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Example of Linear Equations",
+    "text": "Example of Linear Equations\n\\[3x + 2y = 7\\] \\[2x + 5y = 4\\]\nRewrite in matrix form:\n\\[\\begin{pmatrix} 3 & 2 \\\\ 2 & 5 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}\\]\nCall the matrix \\(\\Sigma\\), the vector \\((x,y)\\) as \\(w\\), and the right-hand side \\(\\mu\\):\n\\[\\Sigma w = \\mu \\implies w = \\Sigma^{-1}\\mu = \\begin{pmatrix} x \\\\ y \\end{pmatrix}\\]"
   },
   {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-data",
     "href": "slides/m3-mean-variance.html#in-class-exercise-data",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "In-Class Exercise: Data",
-    "text": "In-Class Exercise: Data\nWe will use monthly returns for five ETFs:\n\nSPY — S&P 500\nGLD — Gold\nUUP — U.S. Dollar Index\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: April 2007 – present (228 months). Risk-free rate: 3.75% (current 1-month T-bill).\nAsk Claude to use yfinance to download monthly prices for these five tickers, compute monthly returns, and set \\(r_f = 3.75\\%\\) annualized."
+    "text": "In-Class Exercise: Data\nWe will use monthly returns for five ETFs:\n\nSPY — S&P 500\nGLD — Gold\nUUP — U.S. Dollar Index\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: monthly returns, May 2007 – present. Monthly risk-free rate: \\(0.0375/12\\).\nDownload the returns file:  returns.csv"
   },
   {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",
     "href": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "In-Class Exercise: Tangency Portfolio (Unrestricted)",
-    "text": "In-Class Exercise: Tangency Portfolio (Unrestricted)\n\nAsk Claude to compute the tangency portfolio allowing short sales. Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk Claude: “Show me the code you used and explain it step by step.”\n\nUnderstanding the code matters. You should be able to verify that the optimization is set up correctly — what is the objective function? What are the constraints?"
+    "text": "In-Class Exercise: Tangency Portfolio (Unrestricted)\n\nAsk Claude to compute the tangency portfolio allowing short sales. Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk Claude: “Show me the code you used and explain it step by step.”"
   },
   {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
@@ -893,7 +907,7 @@
     "href": "slides/m3-mean-variance.html#in-class-exercise-frontier-and-cal",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "In-Class Exercise: Frontier and CAL",
-    "text": "In-Class Exercise: Frontier and CAL\nAssuming no short sales:\n\nAsk Claude to compute the tangency portfolio and the efficient frontier from the five risky assets.\nAsk Claude to plot the efficient frontier and the capital allocation line (the line from \\(r_f\\) through the tangency portfolio)."
+    "text": "In-Class Exercise: Frontier and CAL\n\nAsk Claude to compute the tangency portfolio and the efficient frontier for both cases (with and without short sales).\nAsk Claude to plot the efficient frontiers and capital allocation lines for both cases in the same figure.\nAsk Claude to also provide a figure with the two cases as stacked subplots with the same scales."
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#from-makers-to-checkers",

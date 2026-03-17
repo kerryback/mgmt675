@@ -168,7 +168,6 @@ Kerry Back, Rice University
 <li>What does the set of all possible portfolios look like?</li>
 <li>How do real-world constraints change the answer?</li>
 </ul>
-<p>Mean-variance analysis provides the framework. AI handles the computation.</p>
 </section>
 <section id="key-concepts" class="slide level2 center">
 <h2>Key Concepts</h2>
@@ -212,10 +211,9 @@ Kerry Back, Rice University
 </ul>
 </div>
 </div>
-<p><span class="amber">The constrained frontier is still useful: it reflects what you can actually implement.</span></p>
 </section>
-<section id="solution-methods" class="slide level2 center">
-<h2>Solution Methods</h2>
+<section id="solvers" class="slide level2 center">
+<h2>Solvers</h2>
 <ul>
 <li><strong>Solver (numerical optimization)</strong>
 <ul>
@@ -223,14 +221,27 @@ Kerry Back, Rice University
 <li>Minimize risk for a target return (efficient frontier)</li>
 <li>Minimize risk (global minimum variance portfolio)</li>
 </ul></li>
+</ul>
+<p>Python solver options: <code>scipy.minimize</code>, <code>cvxopt</code>, <code>cvxpy</code>—AI chooses and writes the code.</p>
+<p><span class="amber">Ask Claude:</span> Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.</p>
+</section>
+<section id="solving-linear-equations" class="slide level2 center">
+<h2>Solving Linear Equations</h2>
+<ul>
 <li><strong>Analytic/algebraic solution</strong>
 <ul>
 <li>Solve systems of linear equations for tangency, GMV, and frontier</li>
 <li>Available only when there are no constraints</li>
 </ul></li>
 </ul>
-<p>Python solver options: <code>scipy.minimize</code>, <code>cvxopt</code>, <code>cvxpy</code>—AI chooses and writes the code.</p>
-<p><span class="amber">Ask Claude:</span> Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.</p>
+</section>
+<section id="example-of-linear-equations" class="slide level2 center">
+<h2>Example of Linear Equations</h2>
+<p><span class="math display">\[3x + 2y = 7\]</span> <span class="math display">\[2x + 5y = 4\]</span></p>
+<p>Rewrite in matrix form:</p>
+<p><span class="math display">\[\begin{pmatrix} 3 &amp; 2 \\ 2 &amp; 5 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 7 \\ 4 \end{pmatrix}\]</span></p>
+<p>Call the matrix <span class="math inline">\(\Sigma\)</span>, the vector <span class="math inline">\((x,y)\)</span> as <span class="math inline">\(w\)</span>, and the right-hand side <span class="math inline">\(\mu\)</span>:</p>
+<p><span class="math display">\[\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} x \\ y \end{pmatrix}\]</span></p>
 </section>
 <section id="in-class-exercise-data" class="slide level2 center">
 <h2>In-Class Exercise: Data</h2>
@@ -242,8 +253,8 @@ Kerry Back, Rice University
 <li><strong>IEF</strong> — 7–10 Year Treasuries</li>
 <li><strong>EFA</strong> — International Developed Markets</li>
 </ul>
-<p>Data: April 2007 – present (228 months). Risk-free rate: 3.75% (current 1-month T-bill).</p>
-<p>Ask Claude to use <code>yfinance</code> to download monthly prices for these five tickers, compute monthly returns, and set <span class="math inline">\(r_f = 3.75\%\)</span> annualized.</p>
+<p>Data: monthly returns, May 2007 – present. Monthly risk-free rate: <span class="math inline">\(0.0375/12\)</span>.</p>
+<p>Download the returns file: <a href="../files/returns.csv" target="_blank"><i class="fa-solid fa-file-csv"></i> returns.csv</a></p>
 </section>
 <section id="in-class-exercise-tangency-portfolio-unrestricted" class="slide level2 center">
 <h2>In-Class Exercise: Tangency Portfolio (Unrestricted)</h2>
@@ -251,7 +262,6 @@ Kerry Back, Rice University
 <li>Ask Claude to compute the <strong>tangency portfolio</strong> allowing short sales. Report the weights, expected return, standard deviation, and Sharpe ratio.</li>
 <li>Ask Claude: <em>“Show me the code you used and explain it step by step.”</em></li>
 </ol>
-<p><span class="amber">Understanding the code matters.</span> You should be able to verify that the optimization is set up correctly — what is the objective function? What are the constraints?</p>
 </section>
 <section id="in-class-exercise-no-short-sales" class="slide level2 center">
 <h2>In-Class Exercise: No Short Sales</h2>
@@ -263,10 +273,10 @@ Kerry Back, Rice University
 </section>
 <section id="in-class-exercise-frontier-and-cal" class="slide level2 center">
 <h2>In-Class Exercise: Frontier and CAL</h2>
-<p>Assuming <strong>no short sales</strong>:</p>
 <ol type="1">
-<li>Ask Claude to compute the <strong>tangency portfolio</strong> and the <strong>efficient frontier</strong> from the five risky assets.</li>
-<li>Ask Claude to <strong>plot</strong> the efficient frontier and the <strong>capital allocation line</strong> (the line from <span class="math inline">\(r_f\)</span> through the tangency portfolio).</li>
+<li>Ask Claude to compute the <strong>tangency portfolio</strong> and the <strong>efficient frontier</strong> for both cases (with and without short sales).</li>
+<li>Ask Claude to <strong>plot</strong> the efficient frontiers and <strong>capital allocation lines</strong> for both cases in the same figure.</li>
+<li>Ask Claude to also provide a figure with the two cases as <strong>stacked subplots</strong> with the same scales.</li>
 </ol>
 
 
