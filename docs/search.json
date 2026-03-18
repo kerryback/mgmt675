@@ -854,11 +854,11 @@
     "text": "Key Concepts\n\n\nPortfolios\n\nTangency portfolio: the risky portfolio with the highest Sharpe ratio (excess return per unit of risk)\nGlobal minimum variance (GMV): the risky portfolio with the lowest possible risk\nEfficient frontier: the set of risky portfolios with the highest return for each level of risk\n\n\n\nCapital Allocation Line\n\nThe straight line from the risk-free rate through the tangency portfolio\nRepresents all combinations of the risk-free asset and the tangency portfolio\nThe best attainable risk-return tradeoff"
   },
   {
-    "objectID": "slides/m3-mean-variance.html#adding-real-world-constraints",
-    "href": "slides/m3-mean-variance.html#adding-real-world-constraints",
+    "objectID": "slides/m3-mean-variance.html#real-world-constraints",
+    "href": "slides/m3-mean-variance.html#real-world-constraints",
     "title": "Module 3: Mean-Variance Analysis",
-    "section": "Adding Real-World Constraints",
-    "text": "Adding Real-World Constraints\n\n\nCommon constraints\n\nNo short sales (all weights \\(\\geq 0\\))\nMaximum position (e.g., \\(\\leq 40\\%\\) per asset)\nMinimum position (e.g., \\(\\geq 2\\%\\) if held)\nMargin requirement (sum of absolute values \\(\\leq 2\\))\n\n\n\nWhat happens\n\nThe efficient frontier shifts inward (lower returns and/or higher risk)\nThe tangency portfolio changes\nThe Sharpe ratio cannot improve with constraints—it can only stay the same or get worse"
+    "section": "Real-World Constraints",
+    "text": "Real-World Constraints\n\n\nCommon constraints\n\nNo short sales (all weights \\(\\geq 0\\))\nMaximum position (e.g., \\(\\leq 40\\%\\) per asset)\nMinimum position (e.g., \\(\\geq 2\\%\\) if held)\nMargin requirement (sum of absolute values \\(\\leq 2\\))\n\n\n\nWhat happens\n\nThe efficient frontier shifts inward (lower returns and/or higher risk)\nThe tangency portfolio changes\nThe Sharpe ratio cannot improve with constraints—it can only stay the same or get worse"
   },
   {
     "objectID": "slides/m3-mean-variance.html#solvers",
@@ -868,25 +868,39 @@
     "text": "Solvers\n\nSolver (numerical optimization)\n\nMaximize Sharpe ratio (tangency portfolio)\nMinimize risk for a target return (efficient frontier)\nMinimize risk (global minimum variance portfolio)\n\n\nPython solver options: scipy.minimize, cvxopt, cvxpy—AI chooses and writes the code.\nAsk Claude: Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints."
   },
   {
-    "objectID": "slides/m3-mean-variance.html#solving-linear-equations",
-    "href": "slides/m3-mean-variance.html#solving-linear-equations",
+    "objectID": "slides/m3-mean-variance.html#in-class-exercise-data",
+    "href": "slides/m3-mean-variance.html#in-class-exercise-data",
     "title": "Module 3: Mean-Variance Analysis",
-    "section": "Solving Linear Equations",
-    "text": "Solving Linear Equations\n\nAnalytic/algebraic solution\n\nSolve systems of linear equations for tangency, GMV, and frontier\nAvailable only when there are no constraints"
+    "section": "In-Class Exercise: Data",
+    "text": "In-Class Exercise: Data\nWe will use monthly returns for five ETFs:\n\nSPY — S&P 500\nGLD — Gold\nUUP — U.S. Dollar Index\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: monthly returns, May 2007 – present. Monthly risk-free rate: \\(0.0375/12\\).\nDownload the returns file:  returns.csv"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
+    "href": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "In-Class Exercise: No Short Sales",
+    "text": "In-Class Exercise: No Short Sales\n\nAsk Claude to compute the tangency portfolio with no short sales (all weights \\(\\geq 0\\)). Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk: “Show me the code you used and explain it.”"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#the-unconstrained-case",
+    "href": "slides/m3-mean-variance.html#the-unconstrained-case",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "The Unconstrained Case",
+    "text": "The Unconstrained Case\n\nIf we tell Claude to find the tangency portfolio allowing short sales, then\n\nthe same solvers would work, but\nClaude will probably take a different route, solving a system of linear equations\n\nA similar system yields the GMV portfolio\nThe entire frontier can also be found by solving linear equations\nSolving linear equations is numerically easier than running a solver. Claude has seen it lots of times in its training data."
   },
   {
     "objectID": "slides/m3-mean-variance.html#example-of-linear-equations",
     "href": "slides/m3-mean-variance.html#example-of-linear-equations",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "Example of Linear Equations",
-    "text": "Example of Linear Equations\n\\[3x + 2y = 7\\] \\[2x + 5y = 4\\]\nRewrite in matrix form:\n\\[\\begin{pmatrix} 3 & 2 \\\\ 2 & 5 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}\\]\nCall the matrix \\(\\Sigma\\), the vector \\((x,y)\\) as \\(w\\), and the right-hand side \\(\\mu\\):\n\\[\\Sigma w = \\mu \\implies w = \\Sigma^{-1}\\mu = \\begin{pmatrix} x \\\\ y \\end{pmatrix}\\]"
+    "text": "Example of Linear Equations\n\\[3x + 2y = 7\\] \\[2x + 5y = 4\\]\nRewrite in matrix form:\n\\[\\begin{pmatrix} 3 & 2 \\\\ 2 & 5 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}\\]\nCall the matrix \\(\\Sigma\\), the vector \\((x,y)\\) as \\(w\\), and the right-hand side \\(\\mu\\):\n\\[\\Sigma w = \\mu \\implies w = \\Sigma^{-1}\\mu = \\begin{pmatrix} 27/11 \\\\ -2/11 \\end{pmatrix}\\]"
   },
   {
-    "objectID": "slides/m3-mean-variance.html#in-class-exercise-data",
-    "href": "slides/m3-mean-variance.html#in-class-exercise-data",
+    "objectID": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
+    "href": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
     "title": "Module 3: Mean-Variance Analysis",
-    "section": "In-Class Exercise: Data",
-    "text": "In-Class Exercise: Data\nWe will use monthly returns for five ETFs:\n\nSPY — S&P 500\nGLD — Gold\nUUP — U.S. Dollar Index\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: monthly returns, May 2007 – present. Monthly risk-free rate: \\(0.0375/12\\).\nDownload the returns file:  returns.csv"
+    "section": "Solving Linear Equations for Optimal Portfolios",
+    "text": "Solving Linear Equations for Optimal Portfolios\n\nTangency portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) risk premia\nGMV portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) constants (ones)\nIn both cases, after solving equations, scale so that weights sum to one (100% invested)"
   },
   {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",
@@ -896,18 +910,18 @@
     "text": "In-Class Exercise: Tangency Portfolio (Unrestricted)\n\nAsk Claude to compute the tangency portfolio allowing short sales. Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk Claude: “Show me the code you used and explain it step by step.”"
   },
   {
-    "objectID": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
-    "href": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "In-Class Exercise: No Short Sales",
-    "text": "In-Class Exercise: No Short Sales\n\nAsk Claude to compute the tangency portfolio with no short sales (all weights \\(\\geq 0\\)). Report the weights, expected return, standard deviation, and Sharpe ratio.\nAgain ask: “Show me the code you used and explain it.”\nCompare with the unrestricted result — how did the weights and Sharpe ratio change?"
-  },
-  {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-frontier-and-cal",
     "href": "slides/m3-mean-variance.html#in-class-exercise-frontier-and-cal",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "In-Class Exercise: Frontier and CAL",
     "text": "In-Class Exercise: Frontier and CAL\n\nAsk Claude to compute the tangency portfolio and the efficient frontier for both cases (with and without short sales).\nAsk Claude to plot the efficient frontiers and capital allocation lines for both cases in the same figure.\nAsk Claude to also provide a figure with the two cases as stacked subplots with the same scales."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#creating-a-reusable-tool",
+    "href": "slides/m3-mean-variance.html#creating-a-reusable-tool",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Creating a Reusable Tool",
+    "text": "Creating a Reusable Tool\nOnce we have code that we’re happy with (we’ve read the code and/or compared results to known results), we can package it as a tool to be reused.\n\nCreate and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or\nPackage it as a Python script and create a skill. The skill would say “use the script.””"
   },
   {
     "objectID": "slides/m1-ai-in-finance.html#from-makers-to-checkers",

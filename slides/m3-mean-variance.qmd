@@ -60,7 +60,7 @@ Given expected returns, risks (standard deviations), and correlations for multip
 :::
 :::
 
-## Adding Real-World Constraints
+## Real-World Constraints
 
 :::{.two-col}
 :::{.col}
@@ -92,24 +92,7 @@ Python solver options: `scipy.minimize`, `cvxopt`, `cvxpy`---AI chooses and writ
 
 [Ask Claude:]{.amber} Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.
 
-## Solving Linear Equations
 
-- **Analytic/algebraic solution**
-    - Solve systems of linear equations for tangency, GMV, and frontier
-    - Available only when there are no constraints
-
-## Example of Linear Equations
-
-$$3x + 2y = 7$$
-$$2x + 5y = 4$$
-
-Rewrite in matrix form:
-
-$$\begin{pmatrix} 3 & 2 \\ 2 & 5 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 7 \\ 4 \end{pmatrix}$$
-
-Call the matrix $\Sigma$, the vector $(x,y)$ as $w$, and the right-hand side $\mu$:
-
-$$\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} x \\ y \end{pmatrix}$$
 
 ## In-Class Exercise: Data
 
@@ -125,19 +108,54 @@ Data: monthly returns, May 2007 -- present.  Monthly risk-free rate: $0.0375/12$
 
 Download the returns file: <a href="../files/returns.csv" target="_blank"><i class="fa-solid fa-file-csv"></i> returns.csv</a>
 
+## In-Class Exercise: No Short Sales
+
+1. Ask Claude to compute the **tangency portfolio with no short sales** (all weights $\geq 0$).  Report the weights, expected return, standard deviation, and Sharpe ratio.
+2. Ask: *"Show me the code you used and explain it."*
+
+## The Unconstrained Case
+
+- If we tell Claude to find the tangency portfolio allowing short sales, then
+  - the same solvers would work, but
+  - Claude will probably take a different route, solving a system of linear equations
+- A similar system yields the GMV portfolio
+- The entire frontier can also be found by solving linear equations
+- Solving linear equations is numerically easier than running a solver.  Claude has seen it lots of times in its training data.
+
+
+## Example of Linear Equations
+
+$$3x + 2y = 7$$
+$$2x + 5y = 4$$
+
+Rewrite in matrix form:
+
+$$\begin{pmatrix} 3 & 2 \\ 2 & 5 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 7 \\ 4 \end{pmatrix}$$
+
+Call the matrix $\Sigma$, the vector $(x,y)$ as $w$, and the right-hand side $\mu$:
+
+$$\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} 27/11 \\ -2/11 \end{pmatrix}$$
+
+## Solving Linear Equations for Optimal Portfolios
+
+- Tangency portfolio: $\Sigma=$ covariance matrix, $\mu=$ risk premia
+- GMV portfolio: $\Sigma=$ covariance matrix, $\mu=$ constants (ones)
+- In both cases, after solving equations, scale so that weights sum to one (100% invested)
+
 ## In-Class Exercise: Tangency Portfolio (Unrestricted)
 
 1. Ask Claude to compute the **tangency portfolio** allowing short sales.  Report the weights, expected return, standard deviation, and Sharpe ratio.
 2. Ask Claude: *"Show me the code you used and explain it step by step."*
-
-## In-Class Exercise: No Short Sales
-
-1. Ask Claude to compute the **tangency portfolio with no short sales** (all weights $\geq 0$).  Report the weights, expected return, standard deviation, and Sharpe ratio.
-2. Again ask: *"Show me the code you used and explain it."*
-3. Compare with the unrestricted result --- how did the weights and Sharpe ratio change?
 
 ## In-Class Exercise: Frontier and CAL
 
 1. Ask Claude to compute the **tangency portfolio** and the **efficient frontier** for both cases (with and without short sales).
 2. Ask Claude to **plot** the efficient frontiers and **capital allocation lines** for both cases in the same figure.
 3. Ask Claude to also provide a figure with the two cases as **stacked subplots** with the same scales.
+
+## Creating a Reusable Tool
+
+Once we have code that we're happy with (we've read the code and/or compared results to known results), we can package it as a tool to be reused.
+
+1.  Create and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or
+2.  Package it as a Python script and create a skill.  The skill would say "use the script.""

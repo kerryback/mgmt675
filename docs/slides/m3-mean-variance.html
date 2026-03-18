@@ -190,8 +190,8 @@ Kerry Back, Rice University
 </div>
 </div>
 </section>
-<section id="adding-real-world-constraints" class="slide level2 center">
-<h2>Adding Real-World Constraints</h2>
+<section id="real-world-constraints" class="slide level2 center">
+<h2>Real-World Constraints</h2>
 <div class="two-col">
 <div class="col">
 <p><strong>Common constraints</strong></p>
@@ -225,24 +225,6 @@ Kerry Back, Rice University
 <p>Python solver options: <code>scipy.minimize</code>, <code>cvxopt</code>, <code>cvxpy</code>—AI chooses and writes the code.</p>
 <p><span class="amber">Ask Claude:</span> Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints.</p>
 </section>
-<section id="solving-linear-equations" class="slide level2 center">
-<h2>Solving Linear Equations</h2>
-<ul>
-<li><strong>Analytic/algebraic solution</strong>
-<ul>
-<li>Solve systems of linear equations for tangency, GMV, and frontier</li>
-<li>Available only when there are no constraints</li>
-</ul></li>
-</ul>
-</section>
-<section id="example-of-linear-equations" class="slide level2 center">
-<h2>Example of Linear Equations</h2>
-<p><span class="math display">\[3x + 2y = 7\]</span> <span class="math display">\[2x + 5y = 4\]</span></p>
-<p>Rewrite in matrix form:</p>
-<p><span class="math display">\[\begin{pmatrix} 3 &amp; 2 \\ 2 &amp; 5 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 7 \\ 4 \end{pmatrix}\]</span></p>
-<p>Call the matrix <span class="math inline">\(\Sigma\)</span>, the vector <span class="math inline">\((x,y)\)</span> as <span class="math inline">\(w\)</span>, and the right-hand side <span class="math inline">\(\mu\)</span>:</p>
-<p><span class="math display">\[\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} x \\ y \end{pmatrix}\]</span></p>
-</section>
 <section id="in-class-exercise-data" class="slide level2 center">
 <h2>In-Class Exercise: Data</h2>
 <p>We will use monthly returns for five ETFs:</p>
@@ -256,19 +238,47 @@ Kerry Back, Rice University
 <p>Data: monthly returns, May 2007 – present. Monthly risk-free rate: <span class="math inline">\(0.0375/12\)</span>.</p>
 <p>Download the returns file: <a href="../files/returns.csv" target="_blank"><i class="fa-solid fa-file-csv"></i> returns.csv</a></p>
 </section>
+<section id="in-class-exercise-no-short-sales" class="slide level2 center">
+<h2>In-Class Exercise: No Short Sales</h2>
+<ol type="1">
+<li>Ask Claude to compute the <strong>tangency portfolio with no short sales</strong> (all weights <span class="math inline">\(\geq 0\)</span>). Report the weights, expected return, standard deviation, and Sharpe ratio.</li>
+<li>Ask: <em>“Show me the code you used and explain it.”</em></li>
+</ol>
+</section>
+<section id="the-unconstrained-case" class="slide level2 center">
+<h2>The Unconstrained Case</h2>
+<ul>
+<li>If we tell Claude to find the tangency portfolio allowing short sales, then
+<ul>
+<li>the same solvers would work, but</li>
+<li>Claude will probably take a different route, solving a system of linear equations</li>
+</ul></li>
+<li>A similar system yields the GMV portfolio</li>
+<li>The entire frontier can also be found by solving linear equations</li>
+<li>Solving linear equations is numerically easier than running a solver. Claude has seen it lots of times in its training data.</li>
+</ul>
+</section>
+<section id="example-of-linear-equations" class="slide level2 center">
+<h2>Example of Linear Equations</h2>
+<p><span class="math display">\[3x + 2y = 7\]</span> <span class="math display">\[2x + 5y = 4\]</span></p>
+<p>Rewrite in matrix form:</p>
+<p><span class="math display">\[\begin{pmatrix} 3 &amp; 2 \\ 2 &amp; 5 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 7 \\ 4 \end{pmatrix}\]</span></p>
+<p>Call the matrix <span class="math inline">\(\Sigma\)</span>, the vector <span class="math inline">\((x,y)\)</span> as <span class="math inline">\(w\)</span>, and the right-hand side <span class="math inline">\(\mu\)</span>:</p>
+<p><span class="math display">\[\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} 27/11 \\ -2/11 \end{pmatrix}\]</span></p>
+</section>
+<section id="solving-linear-equations-for-optimal-portfolios" class="slide level2 center">
+<h2>Solving Linear Equations for Optimal Portfolios</h2>
+<ul>
+<li>Tangency portfolio: <span class="math inline">\(\Sigma=\)</span> covariance matrix, <span class="math inline">\(\mu=\)</span> risk premia</li>
+<li>GMV portfolio: <span class="math inline">\(\Sigma=\)</span> covariance matrix, <span class="math inline">\(\mu=\)</span> constants (ones)</li>
+<li>In both cases, after solving equations, scale so that weights sum to one (100% invested)</li>
+</ul>
+</section>
 <section id="in-class-exercise-tangency-portfolio-unrestricted" class="slide level2 center">
 <h2>In-Class Exercise: Tangency Portfolio (Unrestricted)</h2>
 <ol type="1">
 <li>Ask Claude to compute the <strong>tangency portfolio</strong> allowing short sales. Report the weights, expected return, standard deviation, and Sharpe ratio.</li>
 <li>Ask Claude: <em>“Show me the code you used and explain it step by step.”</em></li>
-</ol>
-</section>
-<section id="in-class-exercise-no-short-sales" class="slide level2 center">
-<h2>In-Class Exercise: No Short Sales</h2>
-<ol type="1">
-<li>Ask Claude to compute the <strong>tangency portfolio with no short sales</strong> (all weights <span class="math inline">\(\geq 0\)</span>). Report the weights, expected return, standard deviation, and Sharpe ratio.</li>
-<li>Again ask: <em>“Show me the code you used and explain it.”</em></li>
-<li>Compare with the unrestricted result — how did the weights and Sharpe ratio change?</li>
 </ol>
 </section>
 <section id="in-class-exercise-frontier-and-cal" class="slide level2 center">
@@ -277,6 +287,14 @@ Kerry Back, Rice University
 <li>Ask Claude to compute the <strong>tangency portfolio</strong> and the <strong>efficient frontier</strong> for both cases (with and without short sales).</li>
 <li>Ask Claude to <strong>plot</strong> the efficient frontiers and <strong>capital allocation lines</strong> for both cases in the same figure.</li>
 <li>Ask Claude to also provide a figure with the two cases as <strong>stacked subplots</strong> with the same scales.</li>
+</ol>
+</section>
+<section id="creating-a-reusable-tool" class="slide level2 center">
+<h2>Creating a Reusable Tool</h2>
+<p>Once we have code that we’re happy with (we’ve read the code and/or compared results to known results), we can package it as a tool to be reused.</p>
+<ol type="1">
+<li>Create and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or</li>
+<li>Package it as a Python script and create a skill. The skill would say “use the script.””</li>
 </ol>
 
 
