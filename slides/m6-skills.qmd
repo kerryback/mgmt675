@@ -96,6 +96,43 @@ Go to **Settings → Capabilities → Skills**, then click the link to the **Cus
 The description in your `SKILL.md` tells Claude [when to invoke the skill]{.amber}, so make it specific. Custom skills are private to your account.
 :::
 
+## Exercise: A Critique Skill
+
+Create a `/critique` skill that reviews work Claude has produced by spawning three parallel reviewer agents:
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Correctness**]{.card-title}
+
+- Factual errors, logic gaps
+- Missing assumptions
+- Math or data mistakes
+:::
+
+:::{.card .card-light}
+[**Clarity**]{.card-title}
+
+- Structure and readability
+- Redundancy or buried points
+- Proposed rewrites
+:::
+
+:::{.card .card-light}
+[**Devil's Advocate**]{.card-title}
+
+- Challenge assumptions
+- Strongest counterarguments
+- Weakest reasoning
+:::
+:::
+
+The skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it.
+
+## Exercise: Critique Loop
+
+1. Copy a document you've created into your working folder (e.g., a memo, report, or exercise solution).
+2. Tell Claude: *"Apply the critique skill in a loop --- critique, make the recommended changes, critique again, and continue until the agents are happy."*
+
 ## Exercise: Create a Tasks Skill
 
 Use `/skill-creator` to build a **tasks** skill that manages personal and school to-do lists. The skill should:

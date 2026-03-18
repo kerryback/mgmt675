@@ -224,6 +224,44 @@ Kerry Back, Rice University
 <p>The description in your <code>SKILL.md</code> tells Claude <span class="amber">when to invoke the skill</span>, so make it specific. Custom skills are private to your account.</p>
 </div>
 </section>
+<section id="exercise-a-critique-skill" class="slide level2 center">
+<h2>Exercise: A Critique Skill</h2>
+<p>Create a <code>/critique</code> skill that reviews work Claude has produced by spawning three parallel reviewer agents:</p>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Correctness</strong></span></p>
+<ul>
+<li>Factual errors, logic gaps</li>
+<li>Missing assumptions</li>
+<li>Math or data mistakes</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Clarity</strong></span></p>
+<ul>
+<li>Structure and readability</li>
+<li>Redundancy or buried points</li>
+<li>Proposed rewrites</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Devil’s Advocate</strong></span></p>
+<ul>
+<li>Challenge assumptions</li>
+<li>Strongest counterarguments</li>
+<li>Weakest reasoning</li>
+</ul>
+</div>
+</div>
+<p>The skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it.</p>
+</section>
+<section id="exercise-critique-loop" class="slide level2 center">
+<h2>Exercise: Critique Loop</h2>
+<ol type="1">
+<li>Copy a document you’ve created into your working folder (e.g., a memo, report, or exercise solution).</li>
+<li>Tell Claude: <em>“Apply the critique skill in a loop — critique, make the recommended changes, critique again, and continue until the agents are happy.”</em></li>
+</ol>
+</section>
 <section id="exercise-create-a-tasks-skill" class="slide level2 center">
 <h2>Exercise: Create a Tasks Skill</h2>
 <p>Use <code>/skill-creator</code> to build a <strong>tasks</strong> skill that manages personal and school to-do lists. The skill should:</p>

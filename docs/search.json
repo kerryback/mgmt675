@@ -1267,6 +1267,20 @@
     "text": "Skills in Claude.ai\nSkills also work in the claude.ai web interface — no Claude Code required.\nGo to Settings → Capabilities → Skills, then click the link to the Customize page.\n\n\nAnthropic Skills\n\nExcel, Word, PowerPoint, and PDF creation\nToggle each skill on or off\nClaude automatically invokes the right skill based on your request\n\n\n\nCustom Skills\n\nClick + to upload a ZIP file containing a folder with a SKILL.md file\nSame SKILL.md format as Claude Code skills\nToggle on/off just like the built-in skills\n\n\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific. Custom skills are private to your account."
   },
   {
+    "objectID": "slides/m6-skills.html#exercise-a-critique-skill",
+    "href": "slides/m6-skills.html#exercise-a-critique-skill",
+    "title": "Module 6: Claude Skills",
+    "section": "Exercise: A Critique Skill",
+    "text": "Exercise: A Critique Skill\nCreate a /critique skill that reviews work Claude has produced by spawning three parallel reviewer agents:\n\n\nCorrectness\n\nFactual errors, logic gaps\nMissing assumptions\nMath or data mistakes\n\n\n\nClarity\n\nStructure and readability\nRedundancy or buried points\nProposed rewrites\n\n\n\nDevil’s Advocate\n\nChallenge assumptions\nStrongest counterarguments\nWeakest reasoning\n\n\n\nThe skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it."
+  },
+  {
+    "objectID": "slides/m6-skills.html#exercise-critique-loop",
+    "href": "slides/m6-skills.html#exercise-critique-loop",
+    "title": "Module 6: Claude Skills",
+    "section": "Exercise: Critique Loop",
+    "text": "Exercise: Critique Loop\n\nCopy a document you’ve created into your working folder (e.g., a memo, report, or exercise solution).\nTell Claude: “Apply the critique skill in a loop — critique, make the recommended changes, critique again, and continue until the agents are happy.”"
+  },
+  {
     "objectID": "slides/m6-skills.html#exercise-create-a-tasks-skill",
     "href": "slides/m6-skills.html#exercise-create-a-tasks-skill",
     "title": "Module 6: Claude Skills",
