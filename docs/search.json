@@ -900,7 +900,7 @@
     "href": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "Solving Linear Equations for Optimal Portfolios",
-    "text": "Solving Linear Equations for Optimal Portfolios\n\nTangency portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) risk premia\nGMV portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) constants (ones)\nIn both cases, after solving equations, scale so that weights sum to one (100% invested)"
+    "text": "Solving Linear Equations for Optimal Portfolios\n\nTangency portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) risk premia\nGMV portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) constants (ones)\nUsual code np.linalg.inv(Sigma) @ mu or np.linalg.solve(Sigma, mu)\nIn both cases, after solving equations, scale so that weights sum to one (100% invested)"
   },
   {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",

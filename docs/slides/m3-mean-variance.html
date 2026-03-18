@@ -271,6 +271,7 @@ Kerry Back, Rice University
 <ul>
 <li>Tangency portfolio: <span class="math inline">\(\Sigma=\)</span> covariance matrix, <span class="math inline">\(\mu=\)</span> risk premia</li>
 <li>GMV portfolio: <span class="math inline">\(\Sigma=\)</span> covariance matrix, <span class="math inline">\(\mu=\)</span> constants (ones)</li>
+<li>Usual code <code>np.linalg.inv(Sigma) @ mu</code> or <code>np.linalg.solve(Sigma, mu)</code></li>
 <li>In both cases, after solving equations, scale so that weights sum to one (100% invested)</li>
 </ul>
 </section>
