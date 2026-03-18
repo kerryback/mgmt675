@@ -159,13 +159,13 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart TD
-  RAG["&lt;b&gt;RAG&lt;/b&gt;"] ~~~ FT["&lt;b&gt;Fine-Tuning&lt;/b&gt;"] ~~~ SLM["&lt;b&gt;Small Language Model&lt;/b&gt;"]
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%
+flowchart LR
+  RAG["&lt;b&gt;RAG&lt;/b&gt;"] ~~~ FT["&lt;b&gt;Fine-Tuning&lt;/b&gt;"] ~~~ SLM["&lt;b&gt;Small Language&lt;br&gt;Model&lt;/b&gt;"]
 
-  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -173,11 +173,10 @@ flowchart TD
 </div>
 </div>
 <ul>
-<li><strong>RAG</strong>: Need up-to-date or proprietary facts; data changes frequently</li>
-<li><strong>Fine-Tuning</strong>: Need a specific tone, format, or domain expertise baked in</li>
-<li><strong>Small Language Model</strong>: Need full control, privacy, or a highly specialized task</li>
+<li><strong>RAG</strong>: Up-to-date or proprietary facts; data changes frequently</li>
+<li><strong>Fine-Tuning</strong>: Specific tone, format, or domain expertise baked in</li>
+<li><strong>Small Language Model</strong>: Full control, privacy, or a highly specialized task</li>
 </ul>
-<p>This module focuses on <strong>RAG</strong> — the most practical approach for working with financial documents.</p>
 </section>
 <section id="how-rag-works" class="slide level2 section-divider center">
 <h2>How RAG Works</h2>
@@ -198,22 +197,22 @@ flowchart TD
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart TD
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
+flowchart LR
   D["&lt;b&gt;Documents&lt;/b&gt;"] --&gt; CE["&lt;b&gt;Chunk &amp;&lt;br&gt;Embed&lt;/b&gt;"]
-  CE --&gt; VDB["&lt;b&gt;Vector&lt;br&gt;Database&lt;/b&gt;"]
-  UQ["&lt;b&gt;User&lt;br&gt;Query&lt;/b&gt;"] --&gt; R["&lt;b&gt;Retrieve&lt;br&gt;Top Matches&lt;/b&gt;"]
+  CE --&gt; VDB["&lt;b&gt;Vector DB&lt;/b&gt;"]
+  UQ["&lt;b&gt;User Query&lt;/b&gt;"] --&gt; R["&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;"]
   VDB --&gt; R
   R --&gt;|"query + context"| LLM["&lt;b&gt;LLM&lt;/b&gt;"]
   LLM --&gt; A["&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;"]
 
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
 </pre>
 </div>
 <p></p></figure><p></p>

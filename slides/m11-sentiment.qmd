@@ -35,8 +35,6 @@ Asset prices reflect expectations. News changes expectations. The trader who [un
 | 2023 | GPT-3.5 / GPT-4 | Zero-shot reasoning about market impact |
 | 2024--26 | Fine-tuned SLMs + agents | Domain-optimized, multi-step analysis |
 
-Loughran & McDonald (2011) showed generic sentiment dictionaries fail on financial text. LLMs resolve this problem.
-
 ## The Models {.section-divider}
 
 ## FinBERT: The First Financial Sentiment Model
@@ -215,18 +213,18 @@ Sentiment is more than positive/negative. A production system classifies along m
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
 flowchart LR
-  A["<b>All<br>Headlines</b>"] --> B["<b>FinBERT</b><br><i>~5ms</i>"]
-  B -->|"high conf."| C["<b>Immediate<br>Signal</b>"]
+  A["<b>All Headlines</b>"] --> B["<b>FinBERT</b><br><i>~5ms</i>"]
+  B -->|"high conf."| C["<b>Immediate Signal</b>"]
   B -->|"low conf."| D["<b>GPT-4</b><br><i>~1-5s</i>"]
-  D --> E["<b>Enhanced<br>Signal</b>"]
+  D --> E["<b>Enhanced Signal</b>"]
 
-  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
 ```
 
 :::{.two-cards}
@@ -247,11 +245,7 @@ flowchart LR
 :::
 :::
 
-**Best Practice: Cascade**
-
-1. **Fast path**: FinBERT processes all headlines (~5ms). High-confidence → immediate signals.
-2. **Slow path**: Low-confidence items routed to GPT-4 (~1--5s).
-3. **Batch path**: End-of-day reprocessing by large model.
+**Best Practice**: Fast path (FinBERT, ~5ms) for high-confidence signals; slow path (GPT-4, ~1--5s) for low-confidence; batch reprocessing end-of-day.
 
 ## Latency and Alpha Decay
 

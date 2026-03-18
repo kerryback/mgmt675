@@ -59,16 +59,16 @@ The AI never contacts the external service directly. It sends a request to the M
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%
 flowchart LR
   C["<b>Claude Desktop<br>(MCP Client)</b>"] -->|"MCP protocol"| S1["<b>Browser<br>Server</b>"]
   C -->|"MCP protocol"| S2["<b>Financial<br>Data Server</b>"]
   C -->|"MCP protocol"| S3["<b>Terminal<br>Server</b>"]
 
-  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
 ```
 
 - Claude Desktop is the **client**; each external service runs as a **server**
@@ -310,13 +310,12 @@ The MCP ecosystem includes servers for many tools you already use:
 
 You can connect multiple MCP servers at once. Claude sees all their tools and can use them together.
 
-```json
+```{.json style="font-size:0.7em;"}
 {
   "mcpServers": {
     "browser-use": {
       "command": "uvx",
-      "args": ["--from", "browser-use[cli]",
-               "browser-use", "--mcp"],
+      "args": ["--from", "browser-use[cli]", "browser-use", "--mcp"],
       "env": {"ANTHROPIC_API_KEY": "sk-ant-..."}
     },
     "desktop-commander": {

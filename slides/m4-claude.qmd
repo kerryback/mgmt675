@@ -1,5 +1,5 @@
 ---
-title: "Module 4: Claude Desktop and Claude Code"
+title: "Module 4: Claude Desktop & Code"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -101,11 +101,9 @@ Claude reads `CLAUDE.md` files automatically at the start of every session --- n
 - **Global** (`~/.claude/CLAUDE.md`): applies to every project --- output preferences, preferred libraries, personal conventions
 - **Per-Project** (project root): applies only to this folder --- data context, domain guidance, project-specific workflows
 
-The installer pre-configured **skills** for Excel, Word, and PowerPoint. Prompt Claude Code to document them in your global `CLAUDE.md`:
+The installer pre-configured **skills** for Excel, Word, and PowerPoint. Prompt Claude Code:
 
 *"Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md."*
-
-Once documented, Claude will [automatically]{.amber} follow those instructions without needing slash commands.
 
 ## Example
 
@@ -145,26 +143,19 @@ Both approaches share the same skills, MCP servers, and configuration files.
 :::{.card .card-light}
 [**Claude Code (Terminal)**]{.card-title}
 
-- **Mac/Linux:** Open Terminal and run:
-  `curl -fsSL https://claude.ai/install.sh | bash`
-- **Windows:** Open PowerShell and run:
-  `irm https://claude.ai/install.ps1 | iex`
+- **Mac/Linux:** `curl -fsSL https://claude.ai/install.sh | bash`
+- **Windows:** `irm https://claude.ai/install.ps1 | iex`
 - Windows also requires [Git for Windows](https://git-scm.com/downloads/win)
-- Verify with `claude --version`
+- Verify: `claude --version`
 :::
 
 :::{.card .card-light}
 [**VS Code + Extensions**]{.card-title}
 
 1. Download [VS Code](https://code.visualstudio.com) and install
-2. Open Extensions sidebar (`Ctrl+Shift+X` on Windows, `Cmd+Shift+X` on Mac)
-3. Search **Python** (by Microsoft) → Install
-4. Search **Claude Code** (by Anthropic) → Install
+2. Open Extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`)
+3. Install **Python** (Microsoft) and **Claude Code** (Anthropic)
 :::
-:::
-
-:::{.explainer style="text-align:center;"}
-Claude Code updates automatically. The VS Code extension uses the same engine as the terminal --- install either or both.
 :::
 
 ## Using Claude Code in the Terminal and VS Code
@@ -217,7 +208,7 @@ flowchart LR
   style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
 ```
 
-**Common scenarios:**
+## Common Data Merging Scenarios
 
 - Holdings from multiple brokerages (xlsx + csv)
 - Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)

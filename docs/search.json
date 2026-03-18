@@ -11,7 +11,7 @@
     "href": "slides/m11-sentiment.html#the-evolution-of-text-based-trading",
     "title": "Module 11: Sentiment Analysis",
     "section": "The Evolution of Text-Based Trading",
-    "text": "The Evolution of Text-Based Trading\n\n\n\n\n\n\n\n\nEra\nMethod\nCapability\n\n\n\n\nPre-2010\nKeyword matching\nCount positive/negative words\n\n\n2011\nLoughran-McDonald dictionary\nFinance-specific word lists\n\n\n2018–19\nBERT / FinBERT\nContextual understanding of sentences\n\n\n2023\nGPT-3.5 / GPT-4\nZero-shot reasoning about market impact\n\n\n2024–26\nFine-tuned SLMs + agents\nDomain-optimized, multi-step analysis\n\n\n\nLoughran & McDonald (2011) showed generic sentiment dictionaries fail on financial text. LLMs resolve this problem."
+    "text": "The Evolution of Text-Based Trading\n\n\n\n\n\n\n\n\nEra\nMethod\nCapability\n\n\n\n\nPre-2010\nKeyword matching\nCount positive/negative words\n\n\n2011\nLoughran-McDonald dictionary\nFinance-specific word lists\n\n\n2018–19\nBERT / FinBERT\nContextual understanding of sentences\n\n\n2023\nGPT-3.5 / GPT-4\nZero-shot reasoning about market impact\n\n\n2024–26\nFine-tuned SLMs + agents\nDomain-optimized, multi-step analysis"
   },
   {
     "objectID": "slides/m11-sentiment.html#the-models",
@@ -109,7 +109,7 @@
     "href": "slides/m11-sentiment.html#the-cascade-architecture",
     "title": "Module 11: Sentiment Analysis",
     "section": "The Cascade Architecture",
-    "text": "The Cascade Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;All&lt;br&gt;Headlines&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;\"]\n  B --&gt;|\"high conf.\"| C[\"&lt;b&gt;Immediate&lt;br&gt;Signal&lt;/b&gt;\"]\n  B --&gt;|\"low conf.\"| D[\"&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Enhanced&lt;br&gt;Signal&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n\nFine-Tuned Small Model\n\nFinBERT, FinLlama, custom BERT\nInference: 5–10ms on GPU\nDeterministic; runs on your infra\n\n\n\nGeneral-Purpose LLM\n\nGPT-4, Claude, Gemini\nInference: 500ms–5s via API\nZero labeled data needed\n\n\n\nBest Practice: Cascade\n\nFast path: FinBERT processes all headlines (~5ms). High-confidence → immediate signals.\nSlow path: Low-confidence items routed to GPT-4 (~1–5s).\nBatch path: End-of-day reprocessing by large model."
+    "text": "The Cascade Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;All Headlines&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;\"]\n  B --&gt;|\"high conf.\"| C[\"&lt;b&gt;Immediate Signal&lt;/b&gt;\"]\n  B --&gt;|\"low conf.\"| D[\"&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Enhanced Signal&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\n\nFine-Tuned Small Model\n\nFinBERT, FinLlama, custom BERT\nInference: 5–10ms on GPU\nDeterministic; runs on your infra\n\n\n\nGeneral-Purpose LLM\n\nGPT-4, Claude, Gemini\nInference: 500ms–5s via API\nZero labeled data needed\n\n\n\nBest Practice: Fast path (FinBERT, ~5ms) for high-confidence signals; slow path (GPT-4, ~1–5s) for low-confidence; batch reprocessing end-of-day."
   },
   {
     "objectID": "slides/m11-sentiment.html#latency-and-alpha-decay",
@@ -256,7 +256,7 @@
     "href": "slides/m9-mcp.html#how-mcp-works",
     "title": "Module 9: Model Context Protocol",
     "section": "How MCP Works",
-    "text": "How MCP Works\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  C[\"&lt;b&gt;Claude Desktop&lt;br&gt;(MCP Client)&lt;/b&gt;\"] --&gt;|\"MCP protocol\"| S1[\"&lt;b&gt;Browser&lt;br&gt;Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S2[\"&lt;b&gt;Financial&lt;br&gt;Data Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S3[\"&lt;b&gt;Terminal&lt;br&gt;Server&lt;/b&gt;\"]\n\n  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nClaude Desktop is the client; each external service runs as a server\nEvery server speaks the same protocol — one standard, many tools\nServers expose tools (functions the AI can call); the LLM picks which to use"
+    "text": "How MCP Works\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  C[\"&lt;b&gt;Claude Desktop&lt;br&gt;(MCP Client)&lt;/b&gt;\"] --&gt;|\"MCP protocol\"| S1[\"&lt;b&gt;Browser&lt;br&gt;Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S2[\"&lt;b&gt;Financial&lt;br&gt;Data Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S3[\"&lt;b&gt;Terminal&lt;br&gt;Server&lt;/b&gt;\"]\n\n  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n\n\n\n\n\n\n\nClaude Desktop is the client; each external service runs as a server\nEvery server speaks the same protocol — one standard, many tools\nServers expose tools (functions the AI can call); the LLM picks which to use"
   },
   {
     "objectID": "slides/m9-mcp.html#how-an-agent-uses-mcp",
@@ -375,7 +375,7 @@
     "href": "slides/m9-mcp.html#multi-server-mcp-configurations",
     "title": "Module 9: Model Context Protocol",
     "section": "Multi-Server MCP Configurations",
-    "text": "Multi-Server MCP Configurations\nYou can connect multiple MCP servers at once. Claude sees all their tools and can use them together.\n{\n  \"mcpServers\": {\n    \"browser-use\": {\n      \"command\": \"uvx\",\n      \"args\": [\"--from\", \"browser-use[cli]\",\n               \"browser-use\", \"--mcp\"],\n      \"env\": {\"ANTHROPIC_API_KEY\": \"sk-ant-...\"}\n    },\n    \"desktop-commander\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"desktop-commander-mcp\"]\n    },\n    \"alphavantage\": {\n      \"command\": \"uvx\",\n      \"args\": [\"av-mcp\", \"YOUR_AV_KEY\"]\n    }\n  }\n}"
+    "text": "Multi-Server MCP Configurations\nYou can connect multiple MCP servers at once. Claude sees all their tools and can use them together.\n{\n  \"mcpServers\": {\n    \"browser-use\": {\n      \"command\": \"uvx\",\n      \"args\": [\"--from\", \"browser-use[cli]\", \"browser-use\", \"--mcp\"],\n      \"env\": {\"ANTHROPIC_API_KEY\": \"sk-ant-...\"}\n    },\n    \"desktop-commander\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"desktop-commander-mcp\"]\n    },\n    \"alphavantage\": {\n      \"command\": \"uvx\",\n      \"args\": [\"av-mcp\", \"YOUR_AV_KEY\"]\n    }\n  }\n}"
   },
   {
     "objectID": "slides/m9-mcp.html#built-in-alternatives-to-mcp",
@@ -564,7 +564,7 @@
     "href": "slides/m7-reliability.html#defense-in-depth",
     "title": "Module 7: Verification, Auditing, and Governance",
     "section": "Defense in Depth",
-    "text": "Defense in Depth\n\n\n\n📄\n\n\nLayer 1\n\n\nRAG Citations\n\n\n\n\n💻\n\n\nLayer 2\n\n\nCode Transparency\n\n\n\n\n📋\n\n\nLayer 3\n\n\nAudit Logs\n\n\n\n\nRAG citations: Ground answers in source documents with traceable references (Module 8). AI answers based on your content, not its training data.\nCode transparency: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.\nAudit logs: Every prompt, response, and token count recorded in JSONL. The system creates a complete trail of every AI decision.\n\nThe more layers you add, the harder it is for errors to reach your team. Same principle as cybersecurity."
+    "text": "Defense in Depth\n\n\n\n📄\n\n\nLayer 1\n\n\nRAG Citations\n\n\n\n\n💻\n\n\nLayer 2\n\n\nCode Transparency\n\n\n\n\n📋\n\n\nLayer 3\n\n\nAudit Logs\n\n\n\n\nRAG citations: Ground answers in source documents with traceable references (Module 8). AI answers based on your content, not its training data.\nCode transparency: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.\nAudit logs: Every prompt, response, and token count recorded in JSONL. Complete trail of every AI decision.\n\nThe more layers, the harder it is for errors to reach your team."
   },
   {
     "objectID": "slides/m7-reliability.html#security-and-governance",
@@ -592,7 +592,7 @@
     "href": "slides/m7-reliability.html#improving-sql-quality-schema-synthetic-rows",
     "title": "Module 7: Verification, Auditing, and Governance",
     "section": "Improving SQL Quality: Schema + Synthetic Rows",
-    "text": "Improving SQL Quality: Schema + Synthetic Rows\nSchema alone works, but adding ~3 synthetic rows per table makes the generated SQL significantly more accurate.\n\n\nWhy sample rows help\n\nReveal data formats (is status 'Active' or 1?)\nDisambiguate columns (is code a country code or product code?)\nHelp the LLM write correct WHERE clauses with properly formatted literals\n\n\nRules\n\nRows are synthetic — fabricated to match real formats without containing actual records\nThree rows per table is the sweet spot; more tends to distract the model\nKeep synthetic data in sync with schema changes\n\n\nDatabricks found that ~3 sample rows per table raises SQL accuracy by about 6 percentage points over schema alone on standard benchmarks."
+    "text": "Improving SQL Quality: Schema + Synthetic Rows\nSchema alone works, but adding ~3 synthetic rows per table makes the generated SQL significantly more accurate.\n\n\nWhy sample rows help\n\nReveal data formats (is status 'Active' or 1?)\nDisambiguate columns (is code a country code or product code?)\nHelp the LLM write correct WHERE clauses with properly formatted literals\n\n\nRules\n\nRows are synthetic — fabricated to match real formats without containing actual records\nThree rows per table is the sweet spot; more tends to distract the model\nDatabricks: ~3 rows per table raises SQL accuracy by ~6 pp"
   },
   {
     "objectID": "slides/m7-reliability.html#where-should-ai-infrastructure-live",
@@ -606,7 +606,7 @@
     "href": "slides/m7-reliability.html#data-sovereignty",
     "title": "Module 7: Verification, Auditing, and Governance",
     "section": "Data Sovereignty",
-    "text": "Data Sovereignty\nData sovereignty means controlling where your data lives, who can access it, and what jurisdiction governs it.\n\n\nWhy it matters for AI\n\nAI agents connected to databases may transmit query results to external LLMs\nTraining data sent to a cloud provider creates IP exposure risk\nRegulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries\nDefense and intelligence agencies require air-gapped environments with no internet connectivity\n\n\nEnterprise examples\n\nDISA (U.S. Dept. of Defense): $931M contract for on-prem private cloud — data cannot leave government networks\nBarclays: 50,000+ workloads migrated to private cloud for regulatory compliance\n2degrees (NZ telecom): built sovereign AI platform ensuring customer data stays under NZ jurisdiction\n\n\nBefore connecting an AI agent to your data, ask: where does the data go, who can see it, and what are the regulatory constraints?"
+    "text": "Data Sovereignty\nData sovereignty means controlling where your data lives, who can access it, and what jurisdiction governs it.\n\n\nWhy it matters for AI\n\nAI agents may transmit query results to external LLMs\nRegulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries\nDefense agencies require air-gapped environments\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M on-prem private cloud\nBarclays: 50K+ workloads migrated to private cloud\n2degrees (NZ): sovereign AI platform for data residency\n\n\nBefore connecting AI to your data: where does it go, who can see it, what are the constraints?"
   },
   {
     "objectID": "slides/m7-reliability.html#ai-adoption-roadmap",
@@ -641,7 +641,7 @@
     "href": "slides/m7-reliability.html#improving-reliability-fine-tuning-and-slms",
     "title": "Module 7: Verification, Auditing, and Governance",
     "section": "Improving Reliability: Fine-Tuning and SLMs",
-    "text": "Improving Reliability: Fine-Tuning and SLMs\nSo far we’ve verified AI output after the fact. A complementary approach: make the model itself more reliable for your specific tasks.\n\n\nFine-tuning an LLM\n\nTrain a general-purpose model on your domain data (10-K filings, internal memos, deal documents)\nThe model learns your terminology, formats, and conventions\nFewer silent errors on domain-specific tasks\n\n\nSmall Language Models (SLMs)\n\nModels with ~1–8 billion parameters (vs. hundreds of billions for LLMs)\nCan be fine-tuned in hours on a single GPU\nRun on-premise or on-device — data never leaves your network\n\n\nA specialized small model can outperform a general-purpose large model on narrow, repetitive tasks."
+    "text": "Improving Reliability: Fine-Tuning and SLMs\nSo far we’ve verified AI output after the fact. A complementary approach: make the model itself more reliable for your specific tasks.\n\n\nFine-tuning an LLM\n\nTrain a general-purpose model on your domain data (10-K filings, internal memos, deal documents)\nThe model learns your terminology, formats, and conventions\nFewer silent errors on domain-specific tasks\n\n\nSmall Language Models (SLMs)\n\nModels with ~1–8 billion parameters (vs. hundreds of billions for LLMs)\nCan be fine-tuned in hours on a single GPU\nRun on-premise or on-device — data never leaves your network\nA specialized small model can outperform a large model on narrow tasks"
   },
   {
     "objectID": "slides/m7-reliability.html#why-slms-for-agentic-systems",
@@ -697,14 +697,14 @@
     "href": "slides/m5-dcf.html#the-assumption-set",
     "title": "Module 5: Discounted Cash Flow Analysis",
     "section": "The Assumption Set",
-    "text": "The Assumption Set\nA pro forma model is driven by a small number of assumptions. Everything else is computed from these.\n\n\n\nAssumption\nDriver\n\n\n\n\nSales growth rate\n% per year\n\n\nCOGS\n% of sales\n\n\nSG&A\nBase amount + % of sales\n\n\nNet working capital (NWC)\n% of sales\n\n\nPP&E\n% of sales\n\n\nNet other operating assets\n% of sales\n\n\nDepreciation\n% of PP&E\n\n\nTax rate\n% of pre-tax income\n\n\n\nCapital expenditures are not assumed directly. Cap ex = target PP&E \\(-\\) prior PP&E + depreciation."
+    "text": "The Assumption Set\nA pro forma model is driven by a small number of assumptions. Everything else is computed from these.\n\n\n\nAssumption\nDriver\n\n\n\n\nSales growth rate\n% per year\n\n\nCOGS\n% of sales\n\n\nSG&A\nBase amount + % of sales\n\n\nNet working capital (NWC)\n% of sales\n\n\nPP&E\n% of sales\n\n\nNet other operating assets\n% of sales\n\n\nDepreciation\n% of PP&E\n\n\nTax rate\n% of pre-tax income\n\n\n\nCapital expenditures are not assumed directly — they are computed from PP&E and depreciation."
   },
   {
     "objectID": "slides/m5-dcf.html#pro-forma-income-statement",
     "href": "slides/m5-dcf.html#pro-forma-income-statement",
     "title": "Module 5: Discounted Cash Flow Analysis",
     "section": "Pro Forma Income Statement",
-    "text": "Pro Forma Income Statement\n\n\n\nLine Item\nHow It’s Computed\n\n\n\n\nSales\nPrior sales \\(\\times\\) (1 + growth rate)\n\n\nCOGS\nCOGS% \\(\\times\\) sales\n\n\nGross profit\nSales \\(-\\) COGS\n\n\nSG&A\nBase + SG&A% \\(\\times\\) sales\n\n\nDepreciation\nDepr% \\(\\times\\) PP&E\n\n\nEBIT\nGross profit \\(-\\) SG&A \\(-\\) depreciation\n\n\nTaxes\nTax rate \\(\\times\\) EBIT\n\n\nNOPAT\nEBIT \\(-\\) taxes\n\n\n\nWe use NOPAT (net operating profit after tax) rather than net income because DCF values the operations of the firm, independent of how they are financed."
+    "text": "Pro Forma Income Statement\n\n\n\nLine Item\nHow It’s Computed\n\n\n\n\nSales\nPrior sales \\(\\times\\) (1 + growth rate)\n\n\nCOGS\nCOGS% \\(\\times\\) sales\n\n\nGross profit\nSales \\(-\\) COGS\n\n\nSG&A\nBase + SG&A% \\(\\times\\) sales\n\n\nDepreciation\nDepr% \\(\\times\\) PP&E\n\n\nEBIT\nGross profit \\(-\\) SG&A \\(-\\) depreciation\n\n\nTaxes\nTax rate \\(\\times\\) EBIT\n\n\nNOPAT\nEBIT \\(-\\) taxes"
   },
   {
     "objectID": "slides/m5-dcf.html#pro-forma-balance-sheet-and-cap-ex",
@@ -725,7 +725,7 @@
     "href": "slides/m5-dcf.html#two-stage-dcf-overview",
     "title": "Module 5: Discounted Cash Flow Analysis",
     "section": "Two-Stage DCF: Overview",
-    "text": "Two-Stage DCF: Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart TD\n  S1[\"&lt;b&gt;Stage 1: Explicit Forecast&lt;/b&gt;&lt;br&gt;(e.g., 5–10 years)\"] --&gt; EV[\"&lt;b&gt;Enterprise Value&lt;/b&gt;&lt;br&gt;= PV(Stage 1) + PV(Stage 2)\"]\n  S2[\"&lt;b&gt;Stage 2: Terminal Value&lt;/b&gt;&lt;br&gt;(perpetuity)\"] --&gt; EV\n\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nStage 1: Project FCF each year from pro forma assumptions\nStage 2: Terminal value = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\)), where \\(g\\) is the long-run growth rate\nEquity value = Enterprise value \\(-\\) net debt (discount at the WACC)"
+    "text": "Two-Stage DCF: Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart TD\n  S1[\"&lt;b&gt;Stage 1: Explicit Forecast&lt;/b&gt;&lt;br&gt;(e.g., 5–10 years)\"] --&gt; EV[\"&lt;b&gt;Enterprise Value&lt;/b&gt;&lt;br&gt;= PV(Stage 1) + PV(Stage 2)\"]\n  S2[\"&lt;b&gt;Stage 2: Terminal Value&lt;/b&gt;&lt;br&gt;(perpetuity)\"] --&gt; EV\n\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nStage 1: Project FCF each year from pro forma assumptions\nStage 2: Terminal value = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\)), where \\(g\\) is the long-run growth rate\n\nEquity value = Enterprise value \\(-\\) net debt. Discount at the WACC."
   },
   {
     "objectID": "slides/m5-dcf.html#terminal-value",
@@ -767,7 +767,14 @@
     "href": "slides/m5-dcf.html#simulation-setup",
     "title": "Module 5: Discounted Cash Flow Analysis",
     "section": "Simulation Setup",
-    "text": "Simulation Setup\nAssign a probability distribution to each uncertain assumption, then sample and compute.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RA[\"&lt;b&gt;Random&lt;br&gt;Assumptions&lt;/b&gt;\"] --&gt; PF[\"&lt;b&gt;Pro Forma&lt;br&gt;Model&lt;/b&gt;\"]\n  PF --&gt; FCF[\"&lt;b&gt;FCF&lt;/b&gt;\"]\n  FCF --&gt; EV[\"&lt;b&gt;Enterprise&lt;br&gt;Value&lt;/b&gt;\"]\n  EV --&gt; H[\"&lt;b&gt;Histogram&lt;br&gt;of Values&lt;/b&gt;\"]\n\n  style RA fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style FCF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style EV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style H fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n\n\nAssumption\nDistribution\nExample\n\n\n\n\nSales growth\nNormal\n\\(\\mu = 8\\%\\), \\(\\sigma = 3\\%\\)\n\n\nCOGS %\nNormal\n\\(\\mu = 60\\%\\), \\(\\sigma = 2\\%\\)\n\n\nTerminal growth\nUniform\n1.5% to 3.5%\n\n\nWACC\nNormal\n\\(\\mu = 10\\%\\), \\(\\sigma = 1\\%\\)\n\n\n\n\nRun 10,000 simulations → 10,000 enterprise values\nReport mean, median, 10th/90th percentiles; plot a histogram\nIdentify which assumptions drive the most variance (tornado chart)"
+    "text": "Simulation Setup\nAssign a probability distribution to each uncertain assumption, then sample and compute.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RA[\"&lt;b&gt;Random&lt;br&gt;Assumptions&lt;/b&gt;\"] --&gt; PF[\"&lt;b&gt;Pro Forma&lt;br&gt;Model&lt;/b&gt;\"]\n  PF --&gt; FCF[\"&lt;b&gt;FCF&lt;/b&gt;\"]\n  FCF --&gt; EV[\"&lt;b&gt;Enterprise&lt;br&gt;Value&lt;/b&gt;\"]\n  EV --&gt; H[\"&lt;b&gt;Histogram&lt;br&gt;of Values&lt;/b&gt;\"]\n\n  style RA fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style FCF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style EV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style H fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n\n\nAssumption\nDistribution\nExample\n\n\n\n\nSales growth\nNormal\n\\(\\mu = 8\\%\\), \\(\\sigma = 3\\%\\)\n\n\nCOGS %\nNormal\n\\(\\mu = 60\\%\\), \\(\\sigma = 2\\%\\)\n\n\nTerminal growth\nUniform\n1.5% to 3.5%\n\n\nWACC\nNormal\n\\(\\mu = 10\\%\\), \\(\\sigma = 1\\%\\)"
+  },
+  {
+    "objectID": "slides/m5-dcf.html#simulation-output",
+    "href": "slides/m5-dcf.html#simulation-output",
+    "title": "Module 5: Discounted Cash Flow Analysis",
+    "section": "Simulation Output",
+    "text": "Simulation Output\n\nRun 10,000 simulations → 10,000 enterprise values\nReport mean, median, 10th/90th percentiles; plot a histogram\nIdentify which assumptions drive the most variance (tornado chart)"
   },
   {
     "objectID": "slides/m5-dcf.html#building-these-analyses-with-ai",
@@ -802,7 +809,7 @@
     "href": "slides/m5-dcf.html#in-class-exercise-pro-forma-skill",
     "title": "Module 5: Discounted Cash Flow Analysis",
     "section": "In-Class Exercise: Pro Forma Skill",
-    "text": "In-Class Exercise: Pro Forma Skill\nCreate a Claude skill that enforces specific pro forma forecasting rules for PP&E:\n\nRules to Encode in the Skill\n\nForecast net PP&E as a percentage of sales (e.g., trailing average of net PP&E / sales)\nForecast depreciation as a percentage of net PP&E (e.g., trailing average of depreciation / net PP&E)\nCompute cap ex as the plug: \\(\\text{cap ex} = \\Delta\\,\\text{net PP\\&E} + \\text{depreciation}\\)\n\n\n\nWrite a SKILL.md that tells Claude to follow these three rules whenever building pro formas\nTest it: ask Claude to build a pro forma for a company using the skill\nVerify: does the balance sheet balance? Is cap ex the plug?"
+    "text": "In-Class Exercise: Pro Forma Skill\nCreate a Claude skill that enforces specific pro forma forecasting rules for PP&E:\n\nRules to Encode in the Skill\n\nForecast net PP&E as a percentage of sales (e.g., trailing average of net PP&E / sales)\nForecast depreciation as a percentage of net PP&E (e.g., trailing average of depreciation / net PP&E)\nCompute cap ex as the plug: cap ex = \\(\\Delta\\) net PP&E + depreciation\n\n\n\nWrite a SKILL.md that tells Claude to follow these three rules whenever building pro formas\nTest it: ask Claude to build a pro forma for a company using the skill\nVerify: does the balance sheet balance? Is cap ex the plug?"
   },
   {
     "objectID": "slides/m5-dcf.html#exercise-3-dcf-model",
@@ -893,7 +900,14 @@
     "href": "slides/m3-mean-variance.html#example-of-linear-equations",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "Example of Linear Equations",
-    "text": "Example of Linear Equations\n\\[3x + 2y = 7\\] \\[2x + 5y = 4\\]\nRewrite in matrix form:\n\\[\\begin{pmatrix} 3 & 2 \\\\ 2 & 5 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}\\]\nCall the matrix \\(\\Sigma\\), the vector \\((x,y)\\) as \\(w\\), and the right-hand side \\(\\mu\\):\n\\[\\Sigma w = \\mu \\implies w = \\Sigma^{-1}\\mu = \\begin{pmatrix} 27/11 \\\\ -2/11 \\end{pmatrix}\\]"
+    "text": "Example of Linear Equations\n\\[3x + 2y = 7\\] \\[2x + 5y = 4\\]\nRewrite in matrix form:\n\\[\\begin{pmatrix} 3 & 2 \\\\ 2 & 5 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}\\]"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#solving-with-matrix-inverse",
+    "href": "slides/m3-mean-variance.html#solving-with-matrix-inverse",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Solving with Matrix Inverse",
+    "text": "Solving with Matrix Inverse\nCall the matrix \\(\\Sigma\\), the vector \\((x,y)\\) as \\(w\\), and the right-hand side \\(\\mu\\):\n\\[\\Sigma w = \\mu \\implies w = \\Sigma^{-1}\\mu = \\begin{pmatrix} 27/11 \\\\ -2/11 \\end{pmatrix}\\]"
   },
   {
     "objectID": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
@@ -1122,119 +1136,126 @@
   {
     "objectID": "slides/m4-claude.html#claude-desktop-overview",
     "href": "slides/m4-claude.html#claude-desktop-overview",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Claude Desktop Overview",
     "text": "Claude Desktop Overview"
   },
   {
     "objectID": "slides/m4-claude.html#three-tabs-chat-cowork-code",
     "href": "slides/m4-claude.html#three-tabs-chat-cowork-code",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Three Tabs: Chat, Cowork, Code",
     "text": "Three Tabs: Chat, Cowork, Code\n\n\nChat (Analysis)\n\nSandboxed Python in the browser\nNo local file access\nMust upload data manually\n\n\n\nCowork\n\nRuns in a local VM\nFiles synced to/from VM\nNo internet access\n\n\n\nCode\n\nRuns on your machine\nFull local file access\nFull internet access\n\n\n\n\nCode mode gives Claude direct access to your machine — no sandbox, no VM, no upload step."
   },
   {
     "objectID": "slides/m4-claude.html#which-tool-when",
     "href": "slides/m4-claude.html#which-tool-when",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Which Tool When?",
     "text": "Which Tool When?\n\nChat for questions, explanations, and brainstorming\nArtifacts for quick interactive tools (e.g., a DCF calculator with sliders)\nCode can do everything Cowork can do, plus it has full internet access and direct access to your local files\nCode can also build and deploy interactive tools (like Artifacts)\nCowork’s advantage is that it requires no local software setup and runs in an isolated sandbox"
   },
   {
     "objectID": "slides/m4-claude.html#class-installers",
     "href": "slides/m4-claude.html#class-installers",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Class Installers",
     "text": "Class Installers\nThe class installer sets up everything you need in one step:\n\nPython — language Claude Code uses to execute analysis\nClaude Desktop — the application with built-in Claude Code\nSkills — pre-packaged instructions for Excel, Word, PowerPoint, and more"
   },
   {
     "objectID": "slides/m4-claude.html#running-the-installers",
     "href": "slides/m4-claude.html#running-the-installers",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Running the Installers",
     "text": "Running the Installers\n\n\nWindows\n\nDownload Windows Installer\nExtract the zip file\nRight-click INSTALL.bat → Run as administrator\n\n\n\nMac\n\nDownload Mac Installer to Downloads\nOpen Terminal\nRun: cd ~/Downloads && bash install.sh"
   },
   {
     "objectID": "slides/m4-claude.html#getting-started",
     "href": "slides/m4-claude.html#getting-started",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Getting Started",
     "text": "Getting Started\n\nOpen Claude Desktop → Code tab\nSelect a working folder for your project\nChoose a model: Sonnet (fast) or Opus (thorough)\nSet permission mode to auto-accept (recommended for exercises)"
   },
   {
     "objectID": "slides/m4-claude.html#claude.md",
     "href": "slides/m4-claude.html#claude.md",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "CLAUDE.md",
-    "text": "CLAUDE.md\nClaude reads CLAUDE.md files automatically at the start of every session — no need to repeat instructions.\n\nGlobal (~/.claude/CLAUDE.md): applies to every project — output preferences, preferred libraries, personal conventions\nPer-Project (project root): applies only to this folder — data context, domain guidance, project-specific workflows\n\nThe installer pre-configured skills for Excel, Word, and PowerPoint. Prompt Claude Code to document them in your global CLAUDE.md:\n“Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.”\nOnce documented, Claude will automatically follow those instructions without needing slash commands."
+    "text": "CLAUDE.md\nClaude reads CLAUDE.md files automatically at the start of every session — no need to repeat instructions.\n\nGlobal (~/.claude/CLAUDE.md): applies to every project — output preferences, preferred libraries, personal conventions\nPer-Project (project root): applies only to this folder — data context, domain guidance, project-specific workflows\n\nThe installer pre-configured skills for Excel, Word, and PowerPoint. Prompt Claude Code:\n“Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.”"
   },
   {
     "objectID": "slides/m4-claude.html#example",
     "href": "slides/m4-claude.html#example",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Example",
     "text": "Example\n“Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.”"
   },
   {
     "objectID": "slides/m4-claude.html#claude-code-in-the-terminal-and-vs-code",
     "href": "slides/m4-claude.html#claude-code-in-the-terminal-and-vs-code",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Claude Code in the Terminal and VS Code",
     "text": "Claude Code in the Terminal and VS Code"
   },
   {
     "objectID": "slides/m4-claude.html#terminal-alternative",
     "href": "slides/m4-claude.html#terminal-alternative",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Terminal Alternative",
     "text": "Terminal Alternative\nThe Code tab in Claude Desktop and the terminal command claude use the same engine.\n\n\nClaude Desktop (Code tab)\n\nVisual interface with file browser\nClick to select working folder\nGood for getting started\n\n\n\nTerminal (claude)\n\nType claude in any terminal\nSame skills, same config\nPreferred by power users\n\n\n\n\nBoth approaches share the same skills, MCP servers, and configuration files."
   },
   {
     "objectID": "slides/m4-claude.html#installing-the-terminal-and-vs-code",
     "href": "slides/m4-claude.html#installing-the-terminal-and-vs-code",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Installing the Terminal and VS Code",
-    "text": "Installing the Terminal and VS Code\n\n\nClaude Code (Terminal)\n\nMac/Linux: Open Terminal and run: curl -fsSL https://claude.ai/install.sh | bash\nWindows: Open PowerShell and run: irm https://claude.ai/install.ps1 | iex\nWindows also requires Git for Windows\nVerify with claude --version\n\n\n\nVS Code + Extensions\n\nDownload VS Code and install\nOpen Extensions sidebar (Ctrl+Shift+X on Windows, Cmd+Shift+X on Mac)\nSearch Python (by Microsoft) → Install\nSearch Claude Code (by Anthropic) → Install\n\n\n\n\nClaude Code updates automatically. The VS Code extension uses the same engine as the terminal — install either or both."
+    "text": "Installing the Terminal and VS Code\n\n\nClaude Code (Terminal)\n\nMac/Linux: curl -fsSL https://claude.ai/install.sh | bash\nWindows: irm https://claude.ai/install.ps1 | iex\nWindows also requires Git for Windows\nVerify: claude --version\n\n\n\nVS Code + Extensions\n\nDownload VS Code and install\nOpen Extensions (Ctrl+Shift+X / Cmd+Shift+X)\nInstall Python (Microsoft) and Claude Code (Anthropic)"
   },
   {
     "objectID": "slides/m4-claude.html#using-claude-code-in-the-terminal-and-vs-code",
     "href": "slides/m4-claude.html#using-claude-code-in-the-terminal-and-vs-code",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Using Claude Code in the Terminal and VS Code",
     "text": "Using Claude Code in the Terminal and VS Code\n\n\nTerminal\n\ncd into your project folder, then type claude\nFirst launch: sign in with your Anthropic account\nChat naturally — Claude reads and writes files in that folder\nType /help for commands, /model to switch models\nPress Esc to interrupt, Ctrl+C twice to exit\n\n\n\nVS Code\n\nOpen your project folder in VS Code\nClick the Claude Code icon in the sidebar (or Ctrl+Shift+P → “Claude Code: Open”)\nSign in on first use\nClaude can see your open files, file explorer, and terminal\nCode changes appear as inline diffs you can accept or reject\n\n\n\n\nBoth share the same skills and configuration. VS Code adds a file explorer and visual diffs; the terminal is lightweight and fast."
   },
   {
     "objectID": "slides/m4-claude.html#working-with-multiple-files",
     "href": "slides/m4-claude.html#working-with-multiple-files",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Working with Multiple Files",
     "text": "Working with Multiple Files"
   },
   {
     "objectID": "slides/m4-claude.html#merging-data-from-different-sources",
     "href": "slides/m4-claude.html#merging-data-from-different-sources",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Merging Data from Different Sources",
-    "text": "Merging Data from Different Sources\nReal financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then combine them into a unified dataset.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  CSV[\"&lt;b&gt;CSV&lt;/b&gt;\"] --&gt; CC[\"&lt;b&gt;Claude Code&lt;/b&gt;\"]\n  XLS[\"&lt;b&gt;Excel&lt;/b&gt;\"] --&gt; CC\n  PDF[\"&lt;b&gt;PDF&lt;/b&gt;\"] --&gt; CC\n  CC --&gt; UT[\"&lt;b&gt;Unified Table&lt;/b&gt;\"]\n\n  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\nCommon scenarios:\n\nHoldings from multiple brokerages (xlsx + csv)\nLoan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)\nQuarterly reports from divisions with different column names"
+    "text": "Merging Data from Different Sources\nReal financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then combine them into a unified dataset.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  CSV[\"&lt;b&gt;CSV&lt;/b&gt;\"] --&gt; CC[\"&lt;b&gt;Claude Code&lt;/b&gt;\"]\n  XLS[\"&lt;b&gt;Excel&lt;/b&gt;\"] --&gt; CC\n  PDF[\"&lt;b&gt;PDF&lt;/b&gt;\"] --&gt; CC\n  CC --&gt; UT[\"&lt;b&gt;Unified Table&lt;/b&gt;\"]\n\n  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px"
+  },
+  {
+    "objectID": "slides/m4-claude.html#common-data-merging-scenarios",
+    "href": "slides/m4-claude.html#common-data-merging-scenarios",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Common Data Merging Scenarios",
+    "text": "Common Data Merging Scenarios\n\nHoldings from multiple brokerages (xlsx + csv)\nLoan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)\nQuarterly reports from divisions with different column names"
   },
   {
     "objectID": "slides/m4-claude.html#what-claude-handles",
     "href": "slides/m4-claude.html#what-claude-handles",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "What Claude Handles",
     "text": "What Claude Handles\n\nReads each file format natively\nReconciles column names and data types\nFlags mismatches and missing values\nOutputs a clean, unified table\n\nYou describe what should be merged and how. Claude handles the parsing and code."
   },
   {
     "objectID": "slides/m4-claude.html#filtering-and-aggregating",
     "href": "slides/m4-claude.html#filtering-and-aggregating",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Filtering and Aggregating",
     "text": "Filtering and Aggregating\nOnce data is combined, the next step is usually filtering, sorting, or grouping.\n\n\nFiltering\n\n“Keep only loans above $1M”\n“Filter to stocks with P/E &gt; 0”\n“Exclude rows with missing revenue”\n\n\n\nAggregating\n\n“Average revenue by sector and quarter”\n“Sum holdings by asset class”\n“Rank funds by Sharpe ratio”\n\n\n\n\nState your intent in plain English. Claude writes the pandas code, runs it, and shows you the result. Always check the filter logic — this is where silent errors happen most often (Module 7)."
   },
   {
     "objectID": "slides/m4-claude.html#example-1",
     "href": "slides/m4-claude.html#example-1",
-    "title": "Module 4: Claude Desktop and Claude Code",
+    "title": "Module 4: Claude Desktop & Code",
     "section": "Example",
     "text": "Example\nDownload aggregation.zip and extract the workbooks into a folder.\nEach Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:\n\nSummarize the columns present, row count, and basic statistics for each file\nCombine all files into a single table, reconciling the varying column names\nSave the result as combined.xlsx\n\nThis is the same “divide and conquer” pattern used in professional data pipelines — read each source independently, then unify."
   },
@@ -1460,7 +1481,7 @@
     "href": "slides/m8-agents.html#the-sandbox-pattern",
     "title": "Module 8: More on AI Agents",
     "section": "The Sandbox Pattern",
-    "text": "The Sandbox Pattern\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart TD\n  U[\"&lt;b&gt;User&lt;/b&gt;\"] --&gt; UI[\"&lt;b&gt;Web UI&lt;/b&gt;\"]\n  UI --&gt; A[\"&lt;b&gt;Agent&lt;/b&gt;\"]\n  A --&gt; S[\"&lt;b&gt;Sandboxed Code&lt;/b&gt;\"]\n  S &lt;--&gt; DB[\"&lt;b&gt;Database&lt;br/&gt;(read-only)&lt;/b&gt;\"]\n  S --&gt; R[\"&lt;b&gt;Report&lt;/b&gt;\"]\n  R --&gt; UI\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style UI fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style R fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nUser requests a report through the web interface\nAgent plans and orchestrates; code runs in a sandboxed container\nContainer queries the database through a read-only connection\nFinished report flows back to the user"
+    "text": "The Sandbox Pattern\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;User&lt;/b&gt;\"] --&gt; A[\"&lt;b&gt;Agent&lt;/b&gt;\"]\n  A --&gt; S[\"&lt;b&gt;Sandboxed&lt;br&gt;Code&lt;/b&gt;\"]\n  S &lt;--&gt; DB[\"&lt;b&gt;Database&lt;br&gt;(read-only)&lt;/b&gt;\"]\n  S --&gt; R[\"&lt;b&gt;Report&lt;/b&gt;\"]\n  R --&gt; U\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style R fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nAgent plans and orchestrates; code runs in a sandboxed container\nContainer queries the database through a read-only connection\nFinished report flows back to the user"
   },
   {
     "objectID": "slides/m8-agents.html#from-prototype-to-production",
@@ -1572,7 +1593,7 @@
     "href": "slides/m10-rag.html#three-ways-to-give-ai-knowledge",
     "title": "Module 10: Retrieval Augmented Generation",
     "section": "Three Ways to Give AI Knowledge",
-    "text": "Three Ways to Give AI Knowledge\nPrompting and skills customize how an LLM responds. But what if you need it to know things it wasn’t trained on?\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart TD\n  RAG[\"&lt;b&gt;RAG&lt;/b&gt;\"] ~~~ FT[\"&lt;b&gt;Fine-Tuning&lt;/b&gt;\"] ~~~ SLM[\"&lt;b&gt;Small Language Model&lt;/b&gt;\"]\n\n  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\nRAG: Need up-to-date or proprietary facts; data changes frequently\nFine-Tuning: Need a specific tone, format, or domain expertise baked in\nSmall Language Model: Need full control, privacy, or a highly specialized task\n\nThis module focuses on RAG — the most practical approach for working with financial documents."
+    "text": "Three Ways to Give AI Knowledge\nPrompting and skills customize how an LLM responds. But what if you need it to know things it wasn’t trained on?\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RAG[\"&lt;b&gt;RAG&lt;/b&gt;\"] ~~~ FT[\"&lt;b&gt;Fine-Tuning&lt;/b&gt;\"] ~~~ SLM[\"&lt;b&gt;Small Language&lt;br&gt;Model&lt;/b&gt;\"]\n\n  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n\n\n\n\n\n\n\nRAG: Up-to-date or proprietary facts; data changes frequently\nFine-Tuning: Specific tone, format, or domain expertise baked in\nSmall Language Model: Full control, privacy, or a highly specialized task"
   },
   {
     "objectID": "slides/m10-rag.html#how-rag-works",
@@ -1593,7 +1614,7 @@
     "href": "slides/m10-rag.html#the-rag-pipeline",
     "title": "Module 10: Retrieval Augmented Generation",
     "section": "The RAG Pipeline",
-    "text": "The RAG Pipeline\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart TD\n  D[\"&lt;b&gt;Documents&lt;/b&gt;\"] --&gt; CE[\"&lt;b&gt;Chunk &&lt;br&gt;Embed&lt;/b&gt;\"]\n  CE --&gt; VDB[\"&lt;b&gt;Vector&lt;br&gt;Database&lt;/b&gt;\"]\n  UQ[\"&lt;b&gt;User&lt;br&gt;Query&lt;/b&gt;\"] --&gt; R[\"&lt;b&gt;Retrieve&lt;br&gt;Top Matches&lt;/b&gt;\"]\n  VDB --&gt; R\n  R --&gt;|\"query + context\"| LLM[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n  LLM --&gt; A[\"&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;\"]\n\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px"
+    "text": "The RAG Pipeline\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  D[\"&lt;b&gt;Documents&lt;/b&gt;\"] --&gt; CE[\"&lt;b&gt;Chunk &&lt;br&gt;Embed&lt;/b&gt;\"]\n  CE --&gt; VDB[\"&lt;b&gt;Vector DB&lt;/b&gt;\"]\n  UQ[\"&lt;b&gt;User Query&lt;/b&gt;\"] --&gt; R[\"&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;\"]\n  VDB --&gt; R\n  R --&gt;|\"query + context\"| LLM[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n  LLM --&gt; A[\"&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;\"]\n\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px"
   },
   {
     "objectID": "slides/m10-rag.html#rag-key-concepts",

@@ -314,9 +314,9 @@ Audit Logs
 
 2. **Code transparency**: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.
 
-3. **Audit logs**: Every prompt, response, and token count recorded in JSONL. The system creates a *complete trail* of every AI decision.
+3. **Audit logs**: Every prompt, response, and token count recorded in JSONL. Complete trail of every AI decision.
 
-The more layers you add, the harder it is for errors to reach your team. [Same principle as cybersecurity.]{.amber}
+[The more layers, the harder it is for errors to reach your team.]{.amber}
 
 ## Security and Governance {.section-divider}
 
@@ -399,11 +399,9 @@ Schema alone works, but adding [~3 synthetic rows per table]{.amber} makes the g
 
 - Rows are [synthetic]{.amber} --- fabricated to match real formats without containing actual records
 - Three rows per table is the sweet spot; more tends to distract the model
-- Keep synthetic data in sync with schema changes
+- Databricks: ~3 rows per table raises SQL accuracy by [~6 pp]{.amber}
 ::::
 :::
-
-Databricks found that ~3 sample rows per table raises SQL accuracy by about **6 percentage points** over schema alone on standard benchmarks.
 
 ## Where Should AI Infrastructure Live?
 
@@ -445,22 +443,21 @@ Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and co
 ::::{.column}
 **Why it matters for AI**
 
-- AI agents connected to databases may transmit query results to external LLMs
-- Training data sent to a cloud provider creates IP exposure risk
+- AI agents may transmit query results to external LLMs
 - Regulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries
-- Defense and intelligence agencies require air-gapped environments with no internet connectivity
+- Defense agencies require air-gapped environments
 ::::
 
 ::::{.column}
 **Enterprise examples**
 
-- **DISA** (U.S. Dept. of Defense): $931M contract for on-prem private cloud --- data cannot leave government networks
-- **Barclays**: 50,000+ workloads migrated to private cloud for regulatory compliance
-- **2degrees** (NZ telecom): built sovereign AI platform ensuring customer data stays under NZ jurisdiction
+- **DISA** (U.S. DoD): $931M on-prem private cloud
+- **Barclays**: 50K+ workloads migrated to private cloud
+- **2degrees** (NZ): sovereign AI platform for data residency
 ::::
 :::
 
-[Before connecting an AI agent to your data, ask: where does the data go, who can see it, and what are the regulatory constraints?]{.amber}
+[Before connecting AI to your data: where does it go, who can see it, what are the constraints?]{.amber}
 
 ## AI Adoption Roadmap {.section-divider}
 
@@ -545,10 +542,9 @@ So far we've verified AI output *after the fact*. A complementary approach: make
 - Models with ~1--8 billion parameters (vs. hundreds of billions for LLMs)
 - Can be fine-tuned in hours on a single GPU
 - Run on-premise or on-device --- [data never leaves your network]{.amber}
+- [A specialized small model can outperform a large model on narrow tasks]{.amber}
 ::::
 :::
-
-[A specialized small model can outperform a general-purpose large model on narrow, repetitive tasks.]{.amber}
 
 ## Why SLMs for Agentic Systems?
 

@@ -257,16 +257,16 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%
 flowchart LR
   C["&lt;b&gt;Claude Desktop&lt;br&gt;(MCP Client)&lt;/b&gt;"] --&gt;|"MCP protocol"| S1["&lt;b&gt;Browser&lt;br&gt;Server&lt;/b&gt;"]
   C --&gt;|"MCP protocol"| S2["&lt;b&gt;Financial&lt;br&gt;Data Server&lt;/b&gt;"]
   C --&gt;|"MCP protocol"| S3["&lt;b&gt;Terminal&lt;br&gt;Server&lt;/b&gt;"]
 
-  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -523,24 +523,23 @@ flowchart LR
 <section id="multi-server-mcp-configurations" class="slide level2 shrink center">
 <h2>Multi-Server MCP Configurations</h2>
 <p>You can connect multiple MCP servers at once. Claude sees all their tools and can use them together.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a></a><span class="fu">{</span></span>
+<div class="sourceCode" id="cb1" style="font-size:0.7em;"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a></a><span class="fu">{</span></span>
 <span id="cb1-2"><a></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb1-3"><a></a>    <span class="dt">"browser-use"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb1-4"><a></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"uvx"</span><span class="fu">,</span></span>
-<span id="cb1-5"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"--from"</span><span class="ot">,</span> <span class="st">"browser-use[cli]"</span><span class="ot">,</span></span>
-<span id="cb1-6"><a></a>               <span class="st">"browser-use"</span><span class="ot">,</span> <span class="st">"--mcp"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-7"><a></a>      <span class="dt">"env"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"ANTHROPIC_API_KEY"</span><span class="fu">:</span> <span class="st">"sk-ant-..."</span><span class="fu">}</span></span>
-<span id="cb1-8"><a></a>    <span class="fu">},</span></span>
-<span id="cb1-9"><a></a>    <span class="dt">"desktop-commander"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-10"><a></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"npx"</span><span class="fu">,</span></span>
-<span id="cb1-11"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-y"</span><span class="ot">,</span> <span class="st">"desktop-commander-mcp"</span><span class="ot">]</span></span>
-<span id="cb1-12"><a></a>    <span class="fu">},</span></span>
-<span id="cb1-13"><a></a>    <span class="dt">"alphavantage"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-14"><a></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"uvx"</span><span class="fu">,</span></span>
-<span id="cb1-15"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"av-mcp"</span><span class="ot">,</span> <span class="st">"YOUR_AV_KEY"</span><span class="ot">]</span></span>
-<span id="cb1-16"><a></a>    <span class="fu">}</span></span>
-<span id="cb1-17"><a></a>  <span class="fu">}</span></span>
-<span id="cb1-18"><a></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"--from"</span><span class="ot">,</span> <span class="st">"browser-use[cli]"</span><span class="ot">,</span> <span class="st">"browser-use"</span><span class="ot">,</span> <span class="st">"--mcp"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-6"><a></a>      <span class="dt">"env"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"ANTHROPIC_API_KEY"</span><span class="fu">:</span> <span class="st">"sk-ant-..."</span><span class="fu">}</span></span>
+<span id="cb1-7"><a></a>    <span class="fu">},</span></span>
+<span id="cb1-8"><a></a>    <span class="dt">"desktop-commander"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-9"><a></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"npx"</span><span class="fu">,</span></span>
+<span id="cb1-10"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-y"</span><span class="ot">,</span> <span class="st">"desktop-commander-mcp"</span><span class="ot">]</span></span>
+<span id="cb1-11"><a></a>    <span class="fu">},</span></span>
+<span id="cb1-12"><a></a>    <span class="dt">"alphavantage"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-13"><a></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"uvx"</span><span class="fu">,</span></span>
+<span id="cb1-14"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"av-mcp"</span><span class="ot">,</span> <span class="st">"YOUR_AV_KEY"</span><span class="ot">]</span></span>
+<span id="cb1-15"><a></a>    <span class="fu">}</span></span>
+<span id="cb1-16"><a></a>  <span class="fu">}</span></span>
+<span id="cb1-17"><a></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="built-in-alternatives-to-mcp" class="slide level2 center">
 <h2>Built-In Alternatives to MCP</h2>

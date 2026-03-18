@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 4: Claude Desktop and Claude Code</title>
+  <title>Module 4: Claude Desktop &amp; Code</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,7 +136,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 4: Claude Desktop and Claude Code</h1>
+  <h1 class="title">Module 4: Claude Desktop &amp; Code</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -239,9 +239,8 @@ Kerry Back, Rice University
 <li><strong>Global</strong> (<code>~/.claude/CLAUDE.md</code>): applies to every project — output preferences, preferred libraries, personal conventions</li>
 <li><strong>Per-Project</strong> (project root): applies only to this folder — data context, domain guidance, project-specific workflows</li>
 </ul>
-<p>The installer pre-configured <strong>skills</strong> for Excel, Word, and PowerPoint. Prompt Claude Code to document them in your global <code>CLAUDE.md</code>:</p>
+<p>The installer pre-configured <strong>skills</strong> for Excel, Word, and PowerPoint. Prompt Claude Code:</p>
 <p><em>“Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.”</em></p>
-<p>Once documented, Claude will <span class="amber">automatically</span> follow those instructions without needing slash commands.</p>
 </section>
 <section id="example" class="slide level2 center">
 <h2>Example</h2>
@@ -281,24 +280,20 @@ Kerry Back, Rice University
 <div class="card card-light">
 <p><span class="card-title"><strong>Claude Code (Terminal)</strong></span></p>
 <ul>
-<li><strong>Mac/Linux:</strong> Open Terminal and run: <code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
-<li><strong>Windows:</strong> Open PowerShell and run: <code>irm https://claude.ai/install.ps1 | iex</code></li>
+<li><strong>Mac/Linux:</strong> <code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
+<li><strong>Windows:</strong> <code>irm https://claude.ai/install.ps1 | iex</code></li>
 <li>Windows also requires <a href="https://git-scm.com/downloads/win">Git for Windows</a></li>
-<li>Verify with <code>claude --version</code></li>
+<li>Verify: <code>claude --version</code></li>
 </ul>
 </div>
 <div class="card card-light">
 <p><span class="card-title"><strong>VS Code + Extensions</strong></span></p>
 <ol type="1">
 <li>Download <a href="https://code.visualstudio.com">VS Code</a> and install</li>
-<li>Open Extensions sidebar (<code>Ctrl+Shift+X</code> on Windows, <code>Cmd+Shift+X</code> on Mac)</li>
-<li>Search <strong>Python</strong> (by Microsoft) → Install</li>
-<li>Search <strong>Claude Code</strong> (by Anthropic) → Install</li>
+<li>Open Extensions (<code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code>)</li>
+<li>Install <strong>Python</strong> (Microsoft) and <strong>Claude Code</strong> (Anthropic)</li>
 </ol>
 </div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Claude Code updates automatically. The VS Code extension uses the same engine as the terminal — install either or both.</p>
 </div>
 </section>
 <section id="using-claude-code-in-the-terminal-and-vs-code" class="slide level2 center">
@@ -358,7 +353,9 @@ flowchart LR
 </div>
 </div>
 </div>
-<p><strong>Common scenarios:</strong></p>
+</section>
+<section id="common-data-merging-scenarios" class="slide level2 center">
+<h2>Common Data Merging Scenarios</h2>
 <ul>
 <li>Holdings from multiple brokerages (xlsx + csv)</li>
 <li>Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)</li>

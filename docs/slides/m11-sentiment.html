@@ -200,7 +200,6 @@ Kerry Back, Rice University
 </tr>
 </tbody>
 </table>
-<p>Loughran &amp; McDonald (2011) showed generic sentiment dictionaries fail on financial text. LLMs resolve this problem.</p>
 </section>
 <section id="the-models" class="slide level2 section-divider center">
 <h2>The Models</h2>
@@ -441,18 +440,18 @@ flowchart LR
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
 flowchart LR
-  A["&lt;b&gt;All&lt;br&gt;Headlines&lt;/b&gt;"] --&gt; B["&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;"]
-  B --&gt;|"high conf."| C["&lt;b&gt;Immediate&lt;br&gt;Signal&lt;/b&gt;"]
+  A["&lt;b&gt;All Headlines&lt;/b&gt;"] --&gt; B["&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;"]
+  B --&gt;|"high conf."| C["&lt;b&gt;Immediate Signal&lt;/b&gt;"]
   B --&gt;|"low conf."| D["&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;"]
-  D --&gt; E["&lt;b&gt;Enhanced&lt;br&gt;Signal&lt;/b&gt;"]
+  D --&gt; E["&lt;b&gt;Enhanced Signal&lt;/b&gt;"]
 
-  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -477,12 +476,7 @@ flowchart LR
 </ul>
 </div>
 </div>
-<p><strong>Best Practice: Cascade</strong></p>
-<ol type="1">
-<li><strong>Fast path</strong>: FinBERT processes all headlines (~5ms). High-confidence → immediate signals.</li>
-<li><strong>Slow path</strong>: Low-confidence items routed to GPT-4 (~1–5s).</li>
-<li><strong>Batch path</strong>: End-of-day reprocessing by large model.</li>
-</ol>
+<p><strong>Best Practice</strong>: Fast path (FinBERT, ~5ms) for high-confidence signals; slow path (GPT-4, ~1–5s) for low-confidence; batch reprocessing end-of-day.</p>
 </section>
 <section id="latency-and-alpha-decay" class="slide level2 center">
 <h2>Latency and Alpha Decay</h2>

@@ -50,7 +50,7 @@ A pro forma model is driven by a small number of assumptions. Everything else is
 | Depreciation | % of PP&E |
 | Tax rate | % of pre-tax income |
 
-Capital expenditures are not assumed directly. [Cap ex = target PP&E $-$ prior PP&E + depreciation]{.amber}.
+Capital expenditures are not assumed directly --- they are computed from PP&E and depreciation.
 
 ## Pro Forma Income Statement
 
@@ -64,8 +64,6 @@ Capital expenditures are not assumed directly. [Cap ex = target PP&E $-$ prior P
 | **EBIT** | Gross profit $-$ SG&A $-$ depreciation |
 | Taxes | Tax rate $\times$ EBIT |
 | **NOPAT** | EBIT $-$ taxes |
-
-We use **NOPAT** (net operating profit after tax) rather than net income because DCF values the *operations* of the firm, independent of how they are financed.
 
 ## Pro Forma Balance Sheet and Cap Ex
 
@@ -110,7 +108,8 @@ flowchart TD
 
 - **Stage 1**: Project FCF each year from pro forma assumptions
 - **Stage 2**: Terminal value = FCF$_{T+1}$ / (WACC $-$ $g$), where $g$ is the long-run growth rate
-- **Equity value** = Enterprise value $-$ net debt (discount at the WACC)
+
+**Equity value** = Enterprise value $-$ net debt. Discount at the WACC.
 
 ## Terminal Value
 
@@ -199,6 +198,8 @@ flowchart LR
 | Terminal growth | Uniform | 1.5% to 3.5% |
 | WACC | Normal | $\mu = 10\%$, $\sigma = 1\%$ |
 
+## Simulation Output
+
 - Run 10,000 simulations → 10,000 enterprise values
 - Report mean, median, 10th/90th percentiles; plot a histogram
 - Identify which assumptions drive the most variance (tornado chart)
@@ -233,7 +234,7 @@ Create a Claude skill that enforces specific pro forma forecasting rules for PP&
 
 1. Forecast **net PP&E** as a percentage of sales (e.g., trailing average of net PP&E / sales)
 2. Forecast **depreciation** as a percentage of net PP&E (e.g., trailing average of depreciation / net PP&E)
-3. Compute **cap ex** as the plug: $\text{cap ex} = \Delta\,\text{net PP\&E} + \text{depreciation}$
+3. Compute **cap ex** as the plug: cap ex = $\Delta$ net PP&E + depreciation
 :::
 
 1. Write a `SKILL.md` that tells Claude to follow these three rules whenever building pro formas

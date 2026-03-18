@@ -626,17 +626,15 @@ flowchart LR
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 28, 'useMaxWidth': true}}}%%
-flowchart TD
-  U["&lt;b&gt;User&lt;/b&gt;"] --&gt; UI["&lt;b&gt;Web UI&lt;/b&gt;"]
-  UI --&gt; A["&lt;b&gt;Agent&lt;/b&gt;"]
-  A --&gt; S["&lt;b&gt;Sandboxed Code&lt;/b&gt;"]
-  S &lt;--&gt; DB["&lt;b&gt;Database&lt;br/&gt;(read-only)&lt;/b&gt;"]
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
+flowchart LR
+  U["&lt;b&gt;User&lt;/b&gt;"] --&gt; A["&lt;b&gt;Agent&lt;/b&gt;"]
+  A --&gt; S["&lt;b&gt;Sandboxed&lt;br&gt;Code&lt;/b&gt;"]
+  S &lt;--&gt; DB["&lt;b&gt;Database&lt;br&gt;(read-only)&lt;/b&gt;"]
   S --&gt; R["&lt;b&gt;Report&lt;/b&gt;"]
-  R --&gt; UI
+  R --&gt; U
 
   style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style UI fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
   style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
   style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
   style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
@@ -648,9 +646,8 @@ flowchart TD
 </div>
 </div>
 <ul>
-<li>User requests a report through the web interface</li>
-<li>Agent plans and orchestrates; code runs in a sandboxed container</li>
-<li>Container queries the database through a <span class="amber">read-only</span> connection</li>
+<li>Agent plans and orchestrates; code runs in a <span class="amber">sandboxed container</span></li>
+<li>Container queries the database through a read-only connection</li>
 <li>Finished report flows back to the user</li>
 </ul>
 </section>

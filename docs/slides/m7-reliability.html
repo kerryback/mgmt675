@@ -447,9 +447,9 @@ Kerry Back, Rice University
 <ol type="1">
 <li><p><strong>RAG citations</strong>: Ground answers in source documents with traceable references (Module 8). AI answers based on <span class="amber">your content</span>, not its training data.</p></li>
 <li><p><strong>Code transparency</strong>: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.</p></li>
-<li><p><strong>Audit logs</strong>: Every prompt, response, and token count recorded in JSONL. The system creates a <em>complete trail</em> of every AI decision.</p></li>
+<li><p><strong>Audit logs</strong>: Every prompt, response, and token count recorded in JSONL. Complete trail of every AI decision.</p></li>
 </ol>
-<p>The more layers you add, the harder it is for errors to reach your team. <span class="amber">Same principle as cybersecurity.</span></p>
+<p><span class="amber">The more layers, the harder it is for errors to reach your team.</span></p>
 </section>
 <section id="security-and-governance" class="slide level2 section-divider center">
 <h2>Security and Governance</h2>
@@ -534,10 +534,9 @@ flowchart LR
 <ul>
 <li>Rows are <span class="amber">synthetic</span> — fabricated to match real formats without containing actual records</li>
 <li>Three rows per table is the sweet spot; more tends to distract the model</li>
-<li>Keep synthetic data in sync with schema changes</li>
+<li>Databricks: ~3 rows per table raises SQL accuracy by <span class="amber">~6 pp</span></li>
 </ul>
 </div></div>
-<p>Databricks found that ~3 sample rows per table raises SQL accuracy by about <strong>6 percentage points</strong> over schema alone on standard benchmarks.</p>
 </section>
 <section id="where-should-ai-infrastructure-live" class="slide level2 center">
 <h2>Where Should AI Infrastructure Live?</h2>
@@ -577,20 +576,19 @@ flowchart LR
 <div class="column">
 <p><strong>Why it matters for AI</strong></p>
 <ul>
-<li>AI agents connected to databases may transmit query results to external LLMs</li>
-<li>Training data sent to a cloud provider creates IP exposure risk</li>
+<li>AI agents may transmit query results to external LLMs</li>
 <li>Regulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries</li>
-<li>Defense and intelligence agencies require air-gapped environments with no internet connectivity</li>
+<li>Defense agencies require air-gapped environments</li>
 </ul>
 </div><div class="column">
 <p><strong>Enterprise examples</strong></p>
 <ul>
-<li><strong>DISA</strong> (U.S. Dept. of Defense): $931M contract for on-prem private cloud — data cannot leave government networks</li>
-<li><strong>Barclays</strong>: 50,000+ workloads migrated to private cloud for regulatory compliance</li>
-<li><strong>2degrees</strong> (NZ telecom): built sovereign AI platform ensuring customer data stays under NZ jurisdiction</li>
+<li><strong>DISA</strong> (U.S. DoD): $931M on-prem private cloud</li>
+<li><strong>Barclays</strong>: 50K+ workloads migrated to private cloud</li>
+<li><strong>2degrees</strong> (NZ): sovereign AI platform for data residency</li>
 </ul>
 </div></div>
-<p><span class="amber">Before connecting an AI agent to your data, ask: where does the data go, who can see it, and what are the regulatory constraints?</span></p>
+<p><span class="amber">Before connecting AI to your data: where does it go, who can see it, what are the constraints?</span></p>
 </section>
 <section id="ai-adoption-roadmap" class="slide level2 section-divider center">
 <h2>AI Adoption Roadmap</h2>
@@ -682,9 +680,9 @@ flowchart LR
 <li>Models with ~1–8 billion parameters (vs.&nbsp;hundreds of billions for LLMs)</li>
 <li>Can be fine-tuned in hours on a single GPU</li>
 <li>Run on-premise or on-device — <span class="amber">data never leaves your network</span></li>
+<li><span class="amber">A specialized small model can outperform a large model on narrow tasks</span></li>
 </ul>
 </div></div>
-<p><span class="amber">A specialized small model can outperform a general-purpose large model on narrow, repetitive tasks.</span></p>
 </section>
 <section id="why-slms-for-agentic-systems" class="slide level2 center">
 <h2>Why SLMs for Agentic Systems?</h2>

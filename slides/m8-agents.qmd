@@ -435,26 +435,23 @@ A container is a disposable, isolated computing environment. A bug in AI-generat
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 28, 'useMaxWidth': true}}}%%
-flowchart TD
-  U["<b>User</b>"] --> UI["<b>Web UI</b>"]
-  UI --> A["<b>Agent</b>"]
-  A --> S["<b>Sandboxed Code</b>"]
-  S <--> DB["<b>Database<br/>(read-only)</b>"]
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
+flowchart LR
+  U["<b>User</b>"] --> A["<b>Agent</b>"]
+  A --> S["<b>Sandboxed<br>Code</b>"]
+  S <--> DB["<b>Database<br>(read-only)</b>"]
   S --> R["<b>Report</b>"]
-  R --> UI
+  R --> U
 
   style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style UI fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
   style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
   style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
   style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
   style R fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
 ```
 
-- User requests a report through the web interface
-- Agent plans and orchestrates; code runs in a sandboxed container
-- Container queries the database through a [read-only]{.amber} connection
+- Agent plans and orchestrates; code runs in a [sandboxed container]{.amber}
+- Container queries the database through a read-only connection
 - Finished report flows back to the user
 
 ## From Prototype to Production

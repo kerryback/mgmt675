@@ -214,7 +214,7 @@ Kerry Back, Rice University
 </tr>
 </tbody>
 </table>
-<p>Capital expenditures are not assumed directly. <span class="amber">Cap ex = target PP&amp;E <span class="math inline">\(-\)</span> prior PP&amp;E + depreciation</span>.</p>
+<p>Capital expenditures are not assumed directly — they are computed from PP&amp;E and depreciation.</p>
 </section>
 <section id="pro-forma-income-statement" class="slide level2 center">
 <h2>Pro Forma Income Statement</h2>
@@ -260,7 +260,6 @@ Kerry Back, Rice University
 </tr>
 </tbody>
 </table>
-<p>We use <strong>NOPAT</strong> (net operating profit after tax) rather than net income because DCF values the <em>operations</em> of the firm, independent of how they are financed.</p>
 </section>
 <section id="pro-forma-balance-sheet-and-cap-ex" class="slide level2 center">
 <h2>Pro Forma Balance Sheet and Cap Ex</h2>
@@ -314,8 +313,8 @@ flowchart TD
 <ul>
 <li><strong>Stage 1</strong>: Project FCF each year from pro forma assumptions</li>
 <li><strong>Stage 2</strong>: Terminal value = FCF<span class="math inline">\(_{T+1}\)</span> / (WACC <span class="math inline">\(-\)</span> <span class="math inline">\(g\)</span>), where <span class="math inline">\(g\)</span> is the long-run growth rate</li>
-<li><strong>Equity value</strong> = Enterprise value <span class="math inline">\(-\)</span> net debt (discount at the WACC)</li>
 </ul>
+<p><strong>Equity value</strong> = Enterprise value <span class="math inline">\(-\)</span> net debt. Discount at the WACC.</p>
 </section>
 <section id="terminal-value" class="slide level2 center">
 <h2>Terminal Value</h2>
@@ -437,6 +436,9 @@ flowchart LR
 </tr>
 </tbody>
 </table>
+</section>
+<section id="simulation-output" class="slide level2 center">
+<h2>Simulation Output</h2>
 <ul>
 <li>Run 10,000 simulations → 10,000 enterprise values</li>
 <li>Report mean, median, 10th/90th percentiles; plot a histogram</li>
@@ -474,7 +476,7 @@ flowchart LR
 <ol type="1">
 <li>Forecast <strong>net PP&amp;E</strong> as a percentage of sales (e.g., trailing average of net PP&amp;E / sales)</li>
 <li>Forecast <strong>depreciation</strong> as a percentage of net PP&amp;E (e.g., trailing average of depreciation / net PP&amp;E)</li>
-<li>Compute <strong>cap ex</strong> as the plug: <span class="math inline">\(\text{cap ex} = \Delta\,\text{net PP\&amp;E} + \text{depreciation}\)</span></li>
+<li>Compute <strong>cap ex</strong> as the plug: cap ex = <span class="math inline">\(\Delta\)</span> net PP&amp;E + depreciation</li>
 </ol>
 </div>
 <ol type="1">

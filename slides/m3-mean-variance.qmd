@@ -132,6 +132,8 @@ Rewrite in matrix form:
 
 $$\begin{pmatrix} 3 & 2 \\ 2 & 5 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 7 \\ 4 \end{pmatrix}$$
 
+## Solving with Matrix Inverse
+
 Call the matrix $\Sigma$, the vector $(x,y)$ as $w$, and the right-hand side $\mu$:
 
 $$\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} 27/11 \\ -2/11 \end{pmatrix}$$
