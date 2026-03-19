@@ -112,7 +112,7 @@ We will use monthly returns for five ETFs:
 
 Data: monthly returns, May 2007 -- present.  Monthly risk-free rate: $0.0375/12$.
 
-Download [data](../files/ETF-returns.xlsx)
+Download [data](../files/ETF-returns.xlsx).  Then upload to Claude.
 
 ## In-Class Exercise: No Short Sales
 
