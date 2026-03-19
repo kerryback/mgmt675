@@ -60,6 +60,11 @@ Given expected returns, risks (standard deviations), and correlations for multip
 :::
 :::
 
+## Solution in Excel
+
+[MGMT 648 Example](
+PortfolioOptimizationExample.xlsx)
+
 ## Real-World Constraints
 
 :::{.two-col}
@@ -80,6 +85,7 @@ Given expected returns, risks (standard deviations), and correlations for multip
 - The Sharpe ratio cannot improve with constraints---it can only stay the same or get worse
 :::
 :::
+
 
 ## Solvers
 
@@ -106,7 +112,7 @@ We will use monthly returns for five ETFs:
 
 Data: monthly returns, May 2007 -- present.  Monthly risk-free rate: $0.0375/12$.
 
-Download the returns file: <a href="../files/returns.csv" target="_blank"><i class="fa-solid fa-file-csv"></i> returns.csv</a>
+Download [data](ETF-returns.xlsx)
 
 ## In-Class Exercise: No Short Sales
 
@@ -142,7 +148,7 @@ $$\Sigma w = \mu \implies w = \Sigma^{-1}\mu = \begin{pmatrix} 27/11 \\ -2/11 \e
 
 - Tangency portfolio: $\Sigma=$ covariance matrix, $\mu=$ risk premia
 - GMV portfolio: $\Sigma=$ covariance matrix, $\mu=$ constants (ones)
-- Usual code `np.linalg.inv(Sigma) @ mu` or `np.linalg.solve(Sigma, mu)`
+- Usual code `np.linalg.inv(Sigma) @ mu` or `np.linalg.solve(Sigma, mu)` or `np.linalg.inv(Sigma).dot(mu)`
 - In both cases, after solving equations, scale so that weights sum to one (100% invested)
 
 ## In-Class Exercise: Tangency Portfolio (Unrestricted)

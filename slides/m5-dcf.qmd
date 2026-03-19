@@ -37,20 +37,18 @@ Discounted cash flow (DCF) valuation estimates the value of a company's operatio
 
 ## The Assumption Set
 
-A pro forma model is driven by a small number of assumptions. Everything else is computed from these.
+A pro forma model is driven by a small number of assumptions. Everything else is computed.
 
 | **Assumption** | **Driver** |
 |----------------|------------|
 | Sales growth rate | % per year |
 | COGS | % of sales |
 | SG&A | Base amount + % of sales |
-| Net working capital (NWC) | % of sales |
-| PP&E | % of sales |
-| Net other operating assets | % of sales |
+| NWC, PP&E, net other OA | % of sales |
 | Depreciation | % of PP&E |
 | Tax rate | % of pre-tax income |
 
-Capital expenditures are not assumed directly --- they are computed from PP&E and depreciation.
+Cap ex is not assumed directly --- it is computed from PP&E and depreciation.
 
 ## Pro Forma Income Statement
 
@@ -96,20 +94,19 @@ Capital expenditures are not assumed directly --- they are computed from PP&E an
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart TD
-  S1["<b>Stage 1: Explicit Forecast</b><br>(e.g., 5–10 years)"] --> EV["<b>Enterprise Value</b><br>= PV(Stage 1) + PV(Stage 2)"]
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
+flowchart LR
+  S1["<b>Stage 1: Explicit Forecast</b><br>(5–10 years)"] --> EV["<b>Enterprise Value</b><br>= PV(Stage 1) + PV(Stage 2)"]
   S2["<b>Stage 2: Terminal Value</b><br>(perpetuity)"] --> EV
 
-  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
 ```
 
 - **Stage 1**: Project FCF each year from pro forma assumptions
 - **Stage 2**: Terminal value = FCF$_{T+1}$ / (WACC $-$ $g$), where $g$ is the long-run growth rate
-
-**Equity value** = Enterprise value $-$ net debt. Discount at the WACC.
+- **Equity value** = Enterprise value $-$ net debt. Discount at the WACC.
 
 ## Terminal Value
 

@@ -59,20 +59,19 @@ The AI never contacts the external service directly. It sends a request to the M
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 12, 'useMaxWidth': true}}}%%
 flowchart LR
-  C["<b>Claude Desktop<br>(MCP Client)</b>"] -->|"MCP protocol"| S1["<b>Browser<br>Server</b>"]
-  C -->|"MCP protocol"| S2["<b>Financial<br>Data Server</b>"]
-  C -->|"MCP protocol"| S3["<b>Terminal<br>Server</b>"]
+  C["<b>Claude Desktop<br>(MCP Client)</b>"] -->|"MCP protocol"| S1["<b>Browser Server</b>"]
+  C -->|"MCP protocol"| S2["<b>Financial Data Server</b>"]
+  C -->|"MCP protocol"| S3["<b>Terminal Server</b>"]
 
-  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
 ```
 
 - Claude Desktop is the **client**; each external service runs as a **server**
-- Every server speaks the same protocol --- one standard, many tools
 - Servers expose **tools** (functions the AI can call); the LLM picks which to use
 
 ## How an Agent Uses MCP

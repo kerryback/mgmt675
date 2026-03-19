@@ -79,7 +79,7 @@ Asset prices reflect expectations. News changes expectations. The trader who [un
 :::
 :::
 
-:::{style="text-align:center; margin-top:0.5em;"}
+:::{style="text-align:center;"}
 [BloombergGPT proved the concept; FinGPT democratized it.]{.amber}
 :::
 
@@ -205,7 +205,7 @@ Sentiment is more than positive/negative. A production system classifies along m
 | Magnitude | How strong? | "Slight miss" vs. "catastrophic failure" |
 | Relevance | Is this market-moving? | Routine board meeting → low |
 
-:::{style="text-align:center; margin-top:0.5em;"}
+:::{style="text-align:center;"}
 [LLMs handle all dimensions in a single prompt; traditional methods handle only polarity.]{.amber}
 :::
 
@@ -245,7 +245,7 @@ flowchart LR
 :::
 :::
 
-**Best Practice**: Fast path (FinBERT, ~5ms) for high-confidence signals; slow path (GPT-4, ~1--5s) for low-confidence; batch reprocessing end-of-day.
+**Best Practice**: Fast path (~5ms) for high-confidence; slow path (~1--5s) for low-confidence; batch reprocessing end-of-day.
 
 ## Latency and Alpha Decay
 
@@ -283,7 +283,7 @@ You don't need to be the fastest --- you need to be [fast enough for the alpha y
 :::
 :::
 
-The [tone of an earnings call]{.amber} often matters more for stock returns than the reported numbers. LLMs excel at tone analysis.
+[The tone of an earnings call often matters more for returns than the reported numbers.]{.amber}
 
 ## Earnings Call Analysis
 
@@ -295,7 +295,7 @@ The [tone of an earnings call]{.amber} often matters more for stock returns than
 - Detects hedging: "We're *pleased* with results but *expect headwinds* in Q4" → net negative
 - Traditional keyword methods would flag "pleased" as positive
 
-:::{style="text-align:center; margin-top:0.5em;"}
+:::{style="text-align:center;"}
 [This is where LLMs provide the greatest edge over traditional NLP.]{.amber}
 :::
 
@@ -403,7 +403,7 @@ A **knowledge graph** maps entities (firms, sectors, commodities) and their rela
 | Alpha Arena | ChatGPT trading competition | 63% loss |
 | IMF Warning | AI trading increases volatility | Regulatory scrutiny |
 
-:::{style="text-align:center; margin-top:0.5em;"}
+:::{style="text-align:center;"}
 [The competitive edge is real, but so are the risks.]{.amber}
 :::
 

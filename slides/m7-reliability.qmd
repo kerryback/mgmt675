@@ -444,7 +444,7 @@ Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and co
 **Why it matters for AI**
 
 - AI agents may transmit query results to external LLMs
-- Regulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries
+- Regulations (GDPR, HIPAA, SOX) may restrict where data can go
 - Defense agencies require air-gapped environments
 ::::
 
@@ -452,12 +452,10 @@ Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and co
 **Enterprise examples**
 
 - **DISA** (U.S. DoD): $931M on-prem private cloud
-- **Barclays**: 50K+ workloads migrated to private cloud
-- **2degrees** (NZ): sovereign AI platform for data residency
+- **Barclays**: 50K+ workloads to private cloud
+- **2degrees** (NZ): sovereign AI for data residency
 ::::
 :::
-
-[Before connecting AI to your data: where does it go, who can see it, what are the constraints?]{.amber}
 
 ## AI Adoption Roadmap {.section-divider}
 
@@ -525,24 +523,24 @@ Each adoption stage maps to a trust level.
 
 ## Improving Reliability: Fine-Tuning and SLMs
 
-So far we've verified AI output *after the fact*. A complementary approach: make the model itself more reliable for your specific tasks.
+A complementary approach to verification: make the model itself more reliable for your tasks.
 
 :::{.two-col}
 ::::{.column}
 **Fine-tuning an LLM**
 
-- Train a general-purpose model on your domain data (10-K filings, internal memos, deal documents)
-- The model learns your terminology, formats, and conventions
+- Train on your domain data (10-Ks, memos, deal docs)
+- Model learns your terminology and conventions
 - Fewer silent errors on domain-specific tasks
 ::::
 
 ::::{.column}
 **Small Language Models (SLMs)**
 
-- Models with ~1--8 billion parameters (vs. hundreds of billions for LLMs)
-- Can be fine-tuned in hours on a single GPU
-- Run on-premise or on-device --- [data never leaves your network]{.amber}
-- [A specialized small model can outperform a large model on narrow tasks]{.amber}
+- ~1--8B parameters (vs. hundreds of billions)
+- Fine-tuned in hours on a single GPU
+- Run on-premise --- [data never leaves your network]{.amber}
+- [Specialized small models can outperform large models on narrow tasks]{.amber}
 ::::
 :::
 
