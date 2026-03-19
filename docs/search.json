@@ -886,7 +886,7 @@
     "href": "slides/m3-mean-variance.html#in-class-exercise-data",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "In-Class Exercise: Data",
-    "text": "In-Class Exercise: Data\nWe will use monthly returns for five ETFs:\n\nSPY — S&P 500\nGLD — Gold\nUUP — U.S. Dollar Index\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: monthly returns, May 2007 – present. Monthly risk-free rate: \\(0.0375/12\\).\nDownload the returns file:  returns.csv"
+    "text": "In-Class Exercise: Data\nWe will use monthly returns for five ETFs:\n\nSPY — S&P 500\nGLD — Gold\nUUP — U.S. Dollar Index\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: monthly returns, May 2007 – present. Monthly risk-free rate: \\(0.0375/12\\).\nDownload data"
   },
   {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",

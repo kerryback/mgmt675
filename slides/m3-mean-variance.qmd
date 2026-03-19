@@ -63,7 +63,7 @@ Given expected returns, risks (standard deviations), and correlations for multip
 ## Solution in Excel
 
 [MGMT 648 Example](
-PortfolioOptimizationExample.xlsx)
+../files/PortfolioOptimizationExample.xlsx)
 
 ## Real-World Constraints
 
@@ -112,7 +112,7 @@ We will use monthly returns for five ETFs:
 
 Data: monthly returns, May 2007 -- present.  Monthly risk-free rate: $0.0375/12$.
 
-Download [data](ETF-returns.xlsx)
+Download [data](../files/ETF-returns.xlsx)
 
 ## In-Class Exercise: No Short Sales
 
