@@ -109,7 +109,7 @@
     "href": "slides/m11-sentiment.html#the-cascade-architecture",
     "title": "Module 11: Sentiment Analysis",
     "section": "The Cascade Architecture",
-    "text": "The Cascade Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;All Headlines&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;\"]\n  B --&gt;|\"high conf.\"| C[\"&lt;b&gt;Immediate Signal&lt;/b&gt;\"]\n  B --&gt;|\"low conf.\"| D[\"&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Enhanced Signal&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\n\nFine-Tuned Small Model\n\nFinBERT, FinLlama, custom BERT\nInference: 5–10ms on GPU\nDeterministic; runs on your infra\n\n\n\nGeneral-Purpose LLM\n\nGPT-4, Claude, Gemini\nInference: 500ms–5s via API\nZero labeled data needed\n\n\n\nBest Practice: Fast path (FinBERT, ~5ms) for high-confidence signals; slow path (GPT-4, ~1–5s) for low-confidence; batch reprocessing end-of-day."
+    "text": "The Cascade Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;All Headlines&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;\"]\n  B --&gt;|\"high conf.\"| C[\"&lt;b&gt;Immediate Signal&lt;/b&gt;\"]\n  B --&gt;|\"low conf.\"| D[\"&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Enhanced Signal&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\n\nFine-Tuned Small Model\n\nFinBERT, FinLlama, custom BERT\nInference: 5–10ms on GPU\nDeterministic; runs on your infra\n\n\n\nGeneral-Purpose LLM\n\nGPT-4, Claude, Gemini\nInference: 500ms–5s via API\nZero labeled data needed\n\n\n\nBest Practice: Fast path (~5ms) for high-confidence; slow path (~1–5s) for low-confidence; batch reprocessing end-of-day."
   },
   {
     "objectID": "slides/m11-sentiment.html#latency-and-alpha-decay",
@@ -130,7 +130,7 @@
     "href": "slides/m11-sentiment.html#types-of-news-events",
     "title": "Module 11: Sentiment Analysis",
     "section": "Types of News Events",
-    "text": "Types of News Events\n\n\nScheduled Events\n\nEarnings: Compare actuals to consensus; analyze management tone\nFed / central bank: Single word changes carry enormous implications\nEconomic data: CPI, jobs reports, PMI\n\n\n\nUnscheduled Events\n\nM&A: Assess deal likelihood and regulatory risk\nFDA decisions: Binary, high-impact\nGeopolitical: Sanctions, trade policy, elections\n\n\n\nThe tone of an earnings call often matters more for stock returns than the reported numbers. LLMs excel at tone analysis."
+    "text": "Types of News Events\n\n\nScheduled Events\n\nEarnings: Compare actuals to consensus; analyze management tone\nFed / central bank: Single word changes carry enormous implications\nEconomic data: CPI, jobs reports, PMI\n\n\n\nUnscheduled Events\n\nM&A: Assess deal likelihood and regulatory risk\nFDA decisions: Binary, high-impact\nGeopolitical: Sanctions, trade policy, elections\n\n\n\nThe tone of an earnings call often matters more for returns than the reported numbers."
   },
   {
     "objectID": "slides/m11-sentiment.html#earnings-call-analysis",
@@ -256,7 +256,7 @@
     "href": "slides/m9-mcp.html#how-mcp-works",
     "title": "Module 9: Model Context Protocol",
     "section": "How MCP Works",
-    "text": "How MCP Works\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  C[\"&lt;b&gt;Claude Desktop&lt;br&gt;(MCP Client)&lt;/b&gt;\"] --&gt;|\"MCP protocol\"| S1[\"&lt;b&gt;Browser&lt;br&gt;Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S2[\"&lt;b&gt;Financial&lt;br&gt;Data Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S3[\"&lt;b&gt;Terminal&lt;br&gt;Server&lt;/b&gt;\"]\n\n  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n\n\n\n\n\n\n\nClaude Desktop is the client; each external service runs as a server\nEvery server speaks the same protocol — one standard, many tools\nServers expose tools (functions the AI can call); the LLM picks which to use"
+    "text": "How MCP Works\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 12, 'useMaxWidth': true}}}%%\nflowchart LR\n  C[\"&lt;b&gt;Claude Desktop&lt;br&gt;(MCP Client)&lt;/b&gt;\"] --&gt;|\"MCP protocol\"| S1[\"&lt;b&gt;Browser Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S2[\"&lt;b&gt;Financial Data Server&lt;/b&gt;\"]\n  C --&gt;|\"MCP protocol\"| S3[\"&lt;b&gt;Terminal Server&lt;/b&gt;\"]\n\n  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n\n\n\n\n\n\n\nClaude Desktop is the client; each external service runs as a server\nServers expose tools (functions the AI can call); the LLM picks which to use"
   },
   {
     "objectID": "slides/m9-mcp.html#how-an-agent-uses-mcp",
@@ -606,7 +606,7 @@
     "href": "slides/m7-reliability.html#data-sovereignty",
     "title": "Module 7: Verification, Auditing, and Governance",
     "section": "Data Sovereignty",
-    "text": "Data Sovereignty\nData sovereignty means controlling where your data lives, who can access it, and what jurisdiction governs it.\n\n\nWhy it matters for AI\n\nAI agents may transmit query results to external LLMs\nRegulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries\nDefense agencies require air-gapped environments\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M on-prem private cloud\nBarclays: 50K+ workloads migrated to private cloud\n2degrees (NZ): sovereign AI platform for data residency\n\n\nBefore connecting AI to your data: where does it go, who can see it, what are the constraints?"
+    "text": "Data Sovereignty\nData sovereignty means controlling where your data lives, who can access it, and what jurisdiction governs it.\n\n\nWhy it matters for AI\n\nAI agents may transmit query results to external LLMs\nRegulations (GDPR, HIPAA, SOX) may restrict where data can go\nDefense agencies require air-gapped environments\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M on-prem private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency"
   },
   {
     "objectID": "slides/m7-reliability.html#ai-adoption-roadmap",
@@ -641,7 +641,7 @@
     "href": "slides/m7-reliability.html#improving-reliability-fine-tuning-and-slms",
     "title": "Module 7: Verification, Auditing, and Governance",
     "section": "Improving Reliability: Fine-Tuning and SLMs",
-    "text": "Improving Reliability: Fine-Tuning and SLMs\nSo far we’ve verified AI output after the fact. A complementary approach: make the model itself more reliable for your specific tasks.\n\n\nFine-tuning an LLM\n\nTrain a general-purpose model on your domain data (10-K filings, internal memos, deal documents)\nThe model learns your terminology, formats, and conventions\nFewer silent errors on domain-specific tasks\n\n\nSmall Language Models (SLMs)\n\nModels with ~1–8 billion parameters (vs. hundreds of billions for LLMs)\nCan be fine-tuned in hours on a single GPU\nRun on-premise or on-device — data never leaves your network\nA specialized small model can outperform a large model on narrow tasks"
+    "text": "Improving Reliability: Fine-Tuning and SLMs\nA complementary approach to verification: make the model itself more reliable for your tasks.\n\n\nFine-tuning an LLM\n\nTrain on your domain data (10-Ks, memos, deal docs)\nModel learns your terminology and conventions\nFewer silent errors on domain-specific tasks\n\n\nSmall Language Models (SLMs)\n\n~1–8B parameters (vs. hundreds of billions)\nFine-tuned in hours on a single GPU\nRun on-premise — data never leaves your network\nSpecialized small models can outperform large models on narrow tasks"
   },
   {
     "objectID": "slides/m7-reliability.html#why-slms-for-agentic-systems",
@@ -697,7 +697,7 @@
     "href": "slides/m5-dcf.html#the-assumption-set",
     "title": "Module 5: Discounted Cash Flow Analysis",
     "section": "The Assumption Set",
-    "text": "The Assumption Set\nA pro forma model is driven by a small number of assumptions. Everything else is computed from these.\n\n\n\nAssumption\nDriver\n\n\n\n\nSales growth rate\n% per year\n\n\nCOGS\n% of sales\n\n\nSG&A\nBase amount + % of sales\n\n\nNet working capital (NWC)\n% of sales\n\n\nPP&E\n% of sales\n\n\nNet other operating assets\n% of sales\n\n\nDepreciation\n% of PP&E\n\n\nTax rate\n% of pre-tax income\n\n\n\nCapital expenditures are not assumed directly — they are computed from PP&E and depreciation."
+    "text": "The Assumption Set\nA pro forma model is driven by a small number of assumptions. Everything else is computed.\n\n\n\nAssumption\nDriver\n\n\n\n\nSales growth rate\n% per year\n\n\nCOGS\n% of sales\n\n\nSG&A\nBase amount + % of sales\n\n\nNWC, PP&E, net other OA\n% of sales\n\n\nDepreciation\n% of PP&E\n\n\nTax rate\n% of pre-tax income\n\n\n\nCap ex is not assumed directly — it is computed from PP&E and depreciation."
   },
   {
     "objectID": "slides/m5-dcf.html#pro-forma-income-statement",
@@ -725,7 +725,7 @@
     "href": "slides/m5-dcf.html#two-stage-dcf-overview",
     "title": "Module 5: Discounted Cash Flow Analysis",
     "section": "Two-Stage DCF: Overview",
-    "text": "Two-Stage DCF: Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart TD\n  S1[\"&lt;b&gt;Stage 1: Explicit Forecast&lt;/b&gt;&lt;br&gt;(e.g., 5–10 years)\"] --&gt; EV[\"&lt;b&gt;Enterprise Value&lt;/b&gt;&lt;br&gt;= PV(Stage 1) + PV(Stage 2)\"]\n  S2[\"&lt;b&gt;Stage 2: Terminal Value&lt;/b&gt;&lt;br&gt;(perpetuity)\"] --&gt; EV\n\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nStage 1: Project FCF each year from pro forma assumptions\nStage 2: Terminal value = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\)), where \\(g\\) is the long-run growth rate\n\nEquity value = Enterprise value \\(-\\) net debt. Discount at the WACC."
+    "text": "Two-Stage DCF: Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  S1[\"&lt;b&gt;Stage 1: Explicit Forecast&lt;/b&gt;&lt;br&gt;(5–10 years)\"] --&gt; EV[\"&lt;b&gt;Enterprise Value&lt;/b&gt;&lt;br&gt;= PV(Stage 1) + PV(Stage 2)\"]\n  S2[\"&lt;b&gt;Stage 2: Terminal Value&lt;/b&gt;&lt;br&gt;(perpetuity)\"] --&gt; EV\n\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\nStage 1: Project FCF each year from pro forma assumptions\nStage 2: Terminal value = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\)), where \\(g\\) is the long-run growth rate\nEquity value = Enterprise value \\(-\\) net debt. Discount at the WACC."
   },
   {
     "objectID": "slides/m5-dcf.html#terminal-value",
@@ -861,6 +861,13 @@
     "text": "Key Concepts\n\n\nPortfolios\n\nTangency portfolio: the risky portfolio with the highest Sharpe ratio (excess return per unit of risk)\nGlobal minimum variance (GMV): the risky portfolio with the lowest possible risk\nEfficient frontier: the set of risky portfolios with the highest return for each level of risk\n\n\n\nCapital Allocation Line\n\nThe straight line from the risk-free rate through the tangency portfolio\nRepresents all combinations of the risk-free asset and the tangency portfolio\nThe best attainable risk-return tradeoff"
   },
   {
+    "objectID": "slides/m3-mean-variance.html#solution-in-excel",
+    "href": "slides/m3-mean-variance.html#solution-in-excel",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Solution in Excel",
+    "text": "Solution in Excel\nMGMT 648 Example"
+  },
+  {
     "objectID": "slides/m3-mean-variance.html#real-world-constraints",
     "href": "slides/m3-mean-variance.html#real-world-constraints",
     "title": "Module 3: Mean-Variance Analysis",
@@ -914,7 +921,7 @@
     "href": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
     "title": "Module 3: Mean-Variance Analysis",
     "section": "Solving Linear Equations for Optimal Portfolios",
-    "text": "Solving Linear Equations for Optimal Portfolios\n\nTangency portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) risk premia\nGMV portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) constants (ones)\nUsual code np.linalg.inv(Sigma) @ mu or np.linalg.solve(Sigma, mu)\nIn both cases, after solving equations, scale so that weights sum to one (100% invested)"
+    "text": "Solving Linear Equations for Optimal Portfolios\n\nTangency portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) risk premia\nGMV portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) constants (ones)\nUsual code np.linalg.inv(Sigma) @ mu or np.linalg.solve(Sigma, mu) or np.linalg.inv(Sigma).dot(mu)\nIn both cases, after solving equations, scale so that weights sum to one (100% invested)"
   },
   {
     "objectID": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",

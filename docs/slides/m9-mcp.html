@@ -257,16 +257,16 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 12, 'useMaxWidth': true}}}%%
 flowchart LR
-  C["&lt;b&gt;Claude Desktop&lt;br&gt;(MCP Client)&lt;/b&gt;"] --&gt;|"MCP protocol"| S1["&lt;b&gt;Browser&lt;br&gt;Server&lt;/b&gt;"]
-  C --&gt;|"MCP protocol"| S2["&lt;b&gt;Financial&lt;br&gt;Data Server&lt;/b&gt;"]
-  C --&gt;|"MCP protocol"| S3["&lt;b&gt;Terminal&lt;br&gt;Server&lt;/b&gt;"]
+  C["&lt;b&gt;Claude Desktop&lt;br&gt;(MCP Client)&lt;/b&gt;"] --&gt;|"MCP protocol"| S1["&lt;b&gt;Browser Server&lt;/b&gt;"]
+  C --&gt;|"MCP protocol"| S2["&lt;b&gt;Financial Data Server&lt;/b&gt;"]
+  C --&gt;|"MCP protocol"| S3["&lt;b&gt;Terminal Server&lt;/b&gt;"]
 
-  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -275,7 +275,6 @@ flowchart LR
 </div>
 <ul>
 <li>Claude Desktop is the <strong>client</strong>; each external service runs as a <strong>server</strong></li>
-<li>Every server speaks the same protocol — one standard, many tools</li>
 <li>Servers expose <strong>tools</strong> (functions the AI can call); the LLM picks which to use</li>
 </ul>
 </section>

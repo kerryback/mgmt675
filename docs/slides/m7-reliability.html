@@ -577,18 +577,17 @@ flowchart LR
 <p><strong>Why it matters for AI</strong></p>
 <ul>
 <li>AI agents may transmit query results to external LLMs</li>
-<li>Regulations (GDPR, HIPAA, SOX) may require data to stay within organizational or national boundaries</li>
+<li>Regulations (GDPR, HIPAA, SOX) may restrict where data can go</li>
 <li>Defense agencies require air-gapped environments</li>
 </ul>
 </div><div class="column">
 <p><strong>Enterprise examples</strong></p>
 <ul>
 <li><strong>DISA</strong> (U.S. DoD): $931M on-prem private cloud</li>
-<li><strong>Barclays</strong>: 50K+ workloads migrated to private cloud</li>
-<li><strong>2degrees</strong> (NZ): sovereign AI platform for data residency</li>
+<li><strong>Barclays</strong>: 50K+ workloads to private cloud</li>
+<li><strong>2degrees</strong> (NZ): sovereign AI for data residency</li>
 </ul>
 </div></div>
-<p><span class="amber">Before connecting AI to your data: where does it go, who can see it, what are the constraints?</span></p>
 </section>
 <section id="ai-adoption-roadmap" class="slide level2 section-divider center">
 <h2>AI Adoption Roadmap</h2>
@@ -665,22 +664,22 @@ flowchart LR
 </section>
 <section id="improving-reliability-fine-tuning-and-slms" class="slide level2 center">
 <h2>Improving Reliability: Fine-Tuning and SLMs</h2>
-<p>So far we’ve verified AI output <em>after the fact</em>. A complementary approach: make the model itself more reliable for your specific tasks.</p>
+<p>A complementary approach to verification: make the model itself more reliable for your tasks.</p>
 <div class="two-col">
 <div class="column">
 <p><strong>Fine-tuning an LLM</strong></p>
 <ul>
-<li>Train a general-purpose model on your domain data (10-K filings, internal memos, deal documents)</li>
-<li>The model learns your terminology, formats, and conventions</li>
+<li>Train on your domain data (10-Ks, memos, deal docs)</li>
+<li>Model learns your terminology and conventions</li>
 <li>Fewer silent errors on domain-specific tasks</li>
 </ul>
 </div><div class="column">
 <p><strong>Small Language Models (SLMs)</strong></p>
 <ul>
-<li>Models with ~1–8 billion parameters (vs.&nbsp;hundreds of billions for LLMs)</li>
-<li>Can be fine-tuned in hours on a single GPU</li>
-<li>Run on-premise or on-device — <span class="amber">data never leaves your network</span></li>
-<li><span class="amber">A specialized small model can outperform a large model on narrow tasks</span></li>
+<li>~1–8B parameters (vs.&nbsp;hundreds of billions)</li>
+<li>Fine-tuned in hours on a single GPU</li>
+<li>Run on-premise — <span class="amber">data never leaves your network</span></li>
+<li><span class="amber">Specialized small models can outperform large models on narrow tasks</span></li>
 </ul>
 </div></div>
 </section>
