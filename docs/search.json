@@ -945,6 +945,13 @@
     "text": "Creating a Reusable Tool\nOnce we have code that we’re happy with (we’ve read the code and/or compared results to known results), we can package it as a tool to be reused.\n\nCreate and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or\nPackage it as a Python script and create a skill. The skill would say “use the script.””"
   },
   {
+    "objectID": "slides/m3-mean-variance.html#ai-in-excel",
+    "href": "slides/m3-mean-variance.html#ai-in-excel",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "AI in Excel",
+    "text": "AI in Excel\n\nOpen ETF-returns.xlsx\nClick the Claude icon to open Claude in a sidebar\nAsk Claude to compute the sample means and sample covariance matrix and to compute the tangency portfolio assuming a risk-free rate of 0.0375/12\nRepeat using Microsoft Copilot in Excel"
+  },
+  {
     "objectID": "slides/m1-ai-in-finance.html#from-makers-to-checkers",
     "href": "slides/m1-ai-in-finance.html#from-makers-to-checkers",
     "title": "Module 1: Overview",

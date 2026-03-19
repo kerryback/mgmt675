@@ -168,4 +168,9 @@ Once we have code that we're happy with (we've read the code and/or compared res
 1.  Create and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or
 2.  Package it as a Python script and create a skill.  The skill would say "use the script.""
 
-## 
+## AI in Excel
+
+- Open ETF-returns.xlsx
+- Click the Claude icon to open Claude in a sidebar
+- Ask Claude to compute the sample means and sample covariance matrix and to compute the tangency portfolio assuming a risk-free rate of 0.0375/12 
+- Repeat using Microsoft Copilot in Excel
