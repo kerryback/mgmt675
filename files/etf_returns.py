@@ -1,7 +1,7 @@
 import yfinance as yf
 import pandas as pd
 
-tickers = ["SPY", "GLD", "UUP", "IEF", "EFA"]
+tickers = ["SPY", "GLD", "IEF", "EFA"]
 
 prices = yf.download(tickers, start="1990-01-01", auto_adjust=True)["Close"]
 

@@ -102,11 +102,10 @@ Python solver options: `scipy.minimize`, `cvxopt`, `cvxpy`---AI chooses and writ
 
 ## In-Class Exercise: Data
 
-We will use monthly returns for five ETFs:
+We will use monthly returns for four ETFs:
 
 - **SPY** --- S&P 500
 - **GLD** --- Gold
-- **UUP** --- U.S. Dollar Index
 - **IEF** --- 7--10 Year Treasuries
 - **EFA** --- International Developed Markets
 
@@ -168,3 +167,5 @@ Once we have code that we're happy with (we've read the code and/or compared res
 
 1.  Create and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or
 2.  Package it as a Python script and create a skill.  The skill would say "use the script.""
+
+## 

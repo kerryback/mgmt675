@@ -175,3 +175,11 @@ grading-rubrics/
 *.vrb
 # Worktree build artifacts
 docs/.claude/
+
+# Screenshot directories
+.claude/screenshots/
+.slide-review/
+.slide-screenshots/
+
+# Temp Excel files
+files/~$*.xlsx
