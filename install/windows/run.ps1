@@ -143,7 +143,7 @@ if (Test-Path $SkillsSource) {
     Copy-Item -Recurse -Force "$SkillsSource\*" $SkillsDest
     Write-Success "Claude skills installed to $SkillsDest"
 } else {
-    Write-Warning "Skills folder not found — skipping"
+    Write-Warning "Skills folder not found - skipping"
 }
 
 # Step 6: Install Claude Code (terminal)
