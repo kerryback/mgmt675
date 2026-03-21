@@ -10,8 +10,8 @@ project:
     - slides/m2-intro-claude.qmd
     - slides/m3-mean-variance.qmd
     - slides/m4-claude.qmd
-    - slides/m5-dcf.qmd
-    - slides/m6-skills.qmd
+    - slides/m5-skills.qmd
+    - slides/m6-dcf.qmd
     - slides/m7-reliability.qmd
     - slides/m8-agents.qmd
     - slides/m9-mcp.qmd
@@ -21,6 +21,8 @@ project:
     - CNAME
     - .nojekyll
     - slides/*.pdf
+    - slides/m6-skills.html
+    - slides/m5-dcf.html
     - files/*.zip
     - files/*.xlsx
     - files/*.csv

@@ -1,7 +1,6 @@
 # MGMT 675 Development Environment Installer for Windows
-# This script installs Python, Claude Desktop, and Claude skills
+# Installs Python, Git for Windows, Claude Desktop, Claude Code, and Claude skills
 # Supports both x64 and ARM64 architectures (auto-detected)
-# Run this script as Administrator
 
 #Requires -RunAsAdministrator
 
@@ -89,7 +88,36 @@ python -m pip install --no-warn-script-location -q `
     pandas-datareader yfinance requests cvxpy 2>$null
 Write-Success "Python packages installed"
 
-# Step 3: Install Claude Desktop
+# Step 3: Install Git for Windows
+Write-Status "Installing Git for Windows..."
+if (-not (Test-CommandExists "git")) {
+    Write-Status "  Downloading Git for Windows..."
+    try {
+        # Fetch latest release from GitHub API
+        $GitRelease = Invoke-WebRequest -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest" -UseBasicParsing | ConvertFrom-Json
+        $GitAsset = $GitRelease.assets | Where-Object { $_.name -match "Git-.*-64-bit\.exe$" } | Select-Object -First 1
+        $GitUrl = $GitAsset.browser_download_url
+    } catch {
+        # Fallback to a known stable version
+        $GitUrl = "https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe"
+    }
+    $GitPath = "$TempDir\GitSetup.exe"
+    Invoke-WebRequest -Uri $GitUrl -OutFile $GitPath
+
+    Write-Status "  Running Git installer..."
+    Start-Process -Wait -FilePath $GitPath -ArgumentList "/SILENT", "/NORESTART", "/COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh"
+
+    Refresh-Path
+    if (Test-CommandExists "git") {
+        Write-Success "Git for Windows installed: $(git --version 2>&1)"
+    } else {
+        Write-Success "Git for Windows installed (restart PowerShell to use)"
+    }
+} else {
+    Write-Success "Git already installed: $(git --version 2>&1)"
+}
+
+# Step 4: Install Claude Desktop
 Write-Status "Installing Claude Desktop..."
 $ClaudeDesktopInstalled = Test-Path "$env:LOCALAPPDATA\Programs\claude-desktop\Claude.exe"
 if (-not $ClaudeDesktopInstalled) {
@@ -106,7 +134,7 @@ if (-not $ClaudeDesktopInstalled) {
     Write-Success "Claude Desktop already installed"
 }
 
-# Step 4: Install Claude skills
+# Step 5: Install Claude skills
 Write-Status "Installing Claude skills..."
 $SkillsSource = Join-Path $ScriptDir "skills"
 $SkillsDest = "$env:USERPROFILE\.claude\skills"
@@ -115,7 +143,22 @@ if (Test-Path $SkillsSource) {
     Copy-Item -Recurse -Force "$SkillsSource\*" $SkillsDest
     Write-Success "Claude skills installed to $SkillsDest"
 } else {
-    Write-Warning "Skills folder not found"
+    Write-Warning "Skills folder not found — skipping"
+}
+
+# Step 6: Install Claude Code (terminal)
+Write-Status "Installing Claude Code (terminal)..."
+if (-not (Test-CommandExists "claude")) {
+    Write-Status "  Running Claude Code installer..."
+    Invoke-Expression (Invoke-WebRequest -Uri "https://claude.ai/install.ps1" -UseBasicParsing).Content
+    Refresh-Path
+    if (Test-CommandExists "claude") {
+        Write-Success "Claude Code installed: $(claude --version 2>&1)"
+    } else {
+        Write-Success "Claude Code installed (restart PowerShell to use 'claude' command)"
+    }
+} else {
+    Write-Success "Claude Code already installed: $(claude --version 2>&1)"
 }
 
 # Cleanup
@@ -144,12 +187,27 @@ try {
     $AllGood = $false
 }
 
+# Check Git
+if (Test-CommandExists "git") {
+    Write-Success "  Git: $(git --version 2>&1)"
+} else {
+    Write-Warning "  Git: NOT FOUND (may need to restart PowerShell)"
+    $AllGood = $false
+}
+
 # Check Claude Desktop
 if (Test-Path "$env:LOCALAPPDATA\Programs\claude-desktop\Claude.exe") {
     Write-Success "  Claude Desktop: installed"
 } else {
     Write-Warning "  Claude Desktop: NOT FOUND"
     $AllGood = $false
+}
+
+# Check Claude Code CLI
+if (Test-CommandExists "claude") {
+    Write-Success "  Claude Code (terminal): $(claude --version 2>&1)"
+} else {
+    Write-Warning "  Claude Code (terminal): not yet in PATH (restart PowerShell)"
 }
 
 Write-Host ""
@@ -167,12 +225,13 @@ if ($AllGood) {
 }
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "  1. Open Claude Desktop"
-Write-Host "  2. Sign in with your Anthropic account"
-Write-Host "  3. Click the Code tab to start using Claude Code"
+Write-Host "  1. Open Claude Desktop and sign in with your Anthropic account"
+Write-Host "  2. Click the Code tab to start using Claude Code"
+Write-Host "  3. Or open a terminal and type 'claude' to use Claude Code in the terminal"
 Write-Host ""
 Write-Host "Installed software:" -ForegroundColor Yellow
 Write-Host "  - Python 3.12 ($ArchLabel)"
+Write-Host "  - Git for Windows"
 Write-Host "  - Claude Desktop"
-Write-Host "  - Claude skills (xlsx, docx, pptx, skill-creator)"
+Write-Host "  - Claude Code (terminal)"
 Write-Host ""

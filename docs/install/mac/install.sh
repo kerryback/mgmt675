@@ -1,6 +1,6 @@
 #!/bin/bash
 # MGMT 675 Development Environment Installer for macOS
-# This script installs Python, Claude Desktop, and Claude skills
+# Installs Python, Claude Desktop, Claude Code, and Claude skills
 
 set -e
 
@@ -17,7 +17,6 @@ command_exists() {
     command -v "$1" &> /dev/null
 }
 
-# Function to print status
 print_status() {
     echo "[*] $1"
 }
@@ -85,7 +84,22 @@ if [[ -d "$SCRIPT_DIR/skills" ]]; then
     cp -r "$SCRIPT_DIR/skills/"* "$SKILLS_DEST/" 2>/dev/null || true
     print_success "Claude skills installed to $SKILLS_DEST"
 else
-    print_warning "Skills folder not found"
+    print_warning "Skills folder not found — skipping"
+fi
+
+# Step 6: Install Claude Code (terminal)
+print_status "Installing Claude Code (terminal)..."
+if command_exists claude; then
+    print_success "Claude Code already installed: $(claude --version 2>&1)"
+else
+    curl -fsSL https://claude.ai/install.sh | bash
+    # Reload PATH
+    export PATH="$HOME/.local/bin:$PATH"
+    if command_exists claude; then
+        print_success "Claude Code installed: $(claude --version 2>&1)"
+    else
+        print_success "Claude Code installed (open a new terminal to use 'claude' command)"
+    fi
 fi
 
 # Verification
@@ -115,6 +129,13 @@ else
     ALL_GOOD=false
 fi
 
+# Check Claude Code CLI
+if command_exists claude; then
+    print_success "  Claude Code (terminal): $(claude --version 2>&1)"
+else
+    print_warning "  Claude Code (terminal): not yet in PATH (open a new terminal)"
+fi
+
 echo ""
 if [ "$ALL_GOOD" = true ]; then
     echo "=============================================="
@@ -130,7 +151,12 @@ else
 fi
 echo ""
 echo "Next steps:"
-echo "  1. Open Claude Desktop"
-echo "  2. Sign in with your Anthropic account"
-echo "  3. Click the Code tab to start using Claude Code"
+echo "  1. Open Claude Desktop and sign in with your Anthropic account"
+echo "  2. Click the Code tab to start using Claude Code"
+echo "  3. Or open a terminal and type 'claude' to use Claude Code in the terminal"
+echo ""
+echo "Installed software:"
+echo "  - Python 3.12"
+echo "  - Claude Desktop"
+echo "  - Claude Code (terminal)"
 echo ""

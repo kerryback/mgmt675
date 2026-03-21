@@ -672,165 +672,109 @@
     "text": "Summary\n\n\nVerification\n\nTrust spectrum\n4-step protocol\nSilent errors\n\n\n\nRed-Teaming\n\nSystematic protocols\nEdge cases\nSQL comparison\n\n\n\nAudit Logs\n\nJSONL format\nCompliance trail\nCost tracking\n\n\n\nGovernance\n\nData policies\nSchema-only\nAdoption roadmap\n\n\n\n\nVerify, govern, then deploy."
   },
   {
-    "objectID": "slides/m5-dcf.html#learning-objectives",
-    "href": "slides/m5-dcf.html#learning-objectives",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\n\nBuild two-stage DCF models driven by a small set of assumptions\nPerform sensitivity analysis and Monte Carlo simulation to quantify valuation uncertainty\nUse AI to build, extend, and stress-test valuation models\n\nThese are core tools of corporate finance. AI handles the mathematics and code. You focus on the assumptions and the interpretation."
+    "objectID": "slides/m5-skills.html#sub-agents",
+    "href": "slides/m5-skills.html#sub-agents",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Sub-Agents",
+    "text": "Sub-Agents"
   },
   {
-    "objectID": "slides/m5-dcf.html#company-valuation-dcf",
-    "href": "slides/m5-dcf.html#company-valuation-dcf",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Company Valuation: DCF",
-    "text": "Company Valuation: DCF"
+    "objectID": "slides/m5-skills.html#what-is-a-sub-agent",
+    "href": "slides/m5-skills.html#what-is-a-sub-agent",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "What Is a Sub-Agent?",
+    "text": "What Is a Sub-Agent?\nWhen Claude Code handles a complex task, it can spin up sub-agents — separate Claude instances that work on subtasks in parallel or in sequence, then report back.\n\n\nOrchestrator\n\nThe main Claude session you are talking to\nBreaks the task into pieces\nDelegates to sub-agents and synthesizes results\n\n\n\nSub-Agent\n\nA fresh Claude instance with its own context\nReceives a specific subtask and tools\nReturns its result to the orchestrator\n\n\n\n\nSub-agents allow Claude to work in parallel and to keep each subtask focused — the orchestrator stays high-level while sub-agents do the detailed work."
   },
   {
-    "objectID": "slides/m5-dcf.html#the-big-picture",
-    "href": "slides/m5-dcf.html#the-big-picture",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "The Big Picture",
-    "text": "The Big Picture\nDiscounted cash flow (DCF) valuation estimates the value of a company’s operations by forecasting future free cash flows and discounting them to the present.\n\nA small set of assumptions drives the entire model\nAI builds the pro forma financial statements and computes free cash flow\nYou focus on choosing the right assumptions and interpreting the output"
+    "objectID": "slides/m5-skills.html#spontaneous-sub-agents",
+    "href": "slides/m5-skills.html#spontaneous-sub-agents",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Spontaneous Sub-Agents",
+    "text": "Spontaneous Sub-Agents\nClaude Code decides on its own when a task warrants sub-agents. You do not have to ask.\n\nParallel research: fetching data from multiple sources simultaneously\nMulti-file analysis: reviewing several documents at once and comparing findings\nIterative workflows: one agent drafts, another critiques, another revises\nLong computations: splitting a large dataset across agents to stay within context limits\n\n\nYou will see a notice when Claude spawns a sub-agent. Each sub-agent has its own tool permissions and context window, so it starts fresh — it does not inherit your conversation history."
   },
   {
-    "objectID": "slides/m5-dcf.html#the-assumption-set",
-    "href": "slides/m5-dcf.html#the-assumption-set",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "The Assumption Set",
-    "text": "The Assumption Set\nA pro forma model is driven by a small number of assumptions. Everything else is computed.\n\n\n\nAssumption\nDriver\n\n\n\n\nSales growth rate\n% per year\n\n\nCOGS\n% of sales\n\n\nSG&A\nBase amount + % of sales\n\n\nNWC, PP&E, net other OA\n% of sales\n\n\nDepreciation\n% of PP&E\n\n\nTax rate\n% of pre-tax income\n\n\n\nCap ex is not assumed directly — it is computed from PP&E and depreciation."
+    "objectID": "slides/m5-skills.html#requesting-a-sub-agent",
+    "href": "slides/m5-skills.html#requesting-a-sub-agent",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Requesting a Sub-Agent",
+    "text": "Requesting a Sub-Agent\nYou can explicitly ask Claude to use a sub-agent for any task:\n\n“Use a sub-agent to research competitor pricing and report back.”\n“Spawn a sub-agent to review this code for bugs while you work on the next feature.”\n“Use three parallel sub-agents to analyze each of these three reports, then summarize.”\n\nThis is especially useful when you want a task isolated from the main context — for example, a long web search or a large file analysis that would otherwise fill the context window.\n\nThe /critique skill in the exercise below is a worked example: it spawns three parallel sub-agents (correctness, clarity, devil’s advocate) and has the orchestrator synthesize their findings."
   },
   {
-    "objectID": "slides/m5-dcf.html#pro-forma-income-statement",
-    "href": "slides/m5-dcf.html#pro-forma-income-statement",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Pro Forma Income Statement",
-    "text": "Pro Forma Income Statement\n\n\n\nLine Item\nHow It’s Computed\n\n\n\n\nSales\nPrior sales \\(\\times\\) (1 + growth rate)\n\n\nCOGS\nCOGS% \\(\\times\\) sales\n\n\nGross profit\nSales \\(-\\) COGS\n\n\nSG&A\nBase + SG&A% \\(\\times\\) sales\n\n\nDepreciation\nDepr% \\(\\times\\) PP&E\n\n\nEBIT\nGross profit \\(-\\) SG&A \\(-\\) depreciation\n\n\nTaxes\nTax rate \\(\\times\\) EBIT\n\n\nNOPAT\nEBIT \\(-\\) taxes"
+    "objectID": "slides/m5-skills.html#claude-skills",
+    "href": "slides/m5-skills.html#claude-skills",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Claude Skills",
+    "text": "Claude Skills"
   },
   {
-    "objectID": "slides/m5-dcf.html#pro-forma-balance-sheet-and-cap-ex",
-    "href": "slides/m5-dcf.html#pro-forma-balance-sheet-and-cap-ex",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Pro Forma Balance Sheet and Cap Ex",
-    "text": "Pro Forma Balance Sheet and Cap Ex\n\n\nBalance Sheet Items\n\nNWC = NWC% \\(\\times\\) sales\nPP&E = PP&E% \\(\\times\\) sales\nNet other OA = Net other OA% \\(\\times\\) sales\nChange in each = current \\(-\\) prior year\n\n\n\nCapital Expenditures\n\nTarget PP&E\\(_t\\) = PP&E% \\(\\times\\) sales\\(_t\\)\nDepreciation\\(_t\\) = depr% \\(\\times\\) PP&E\\(_{t-1}\\)\nCap ex\\(_t\\) = PP&E\\(_t\\) \\(-\\) PP&E\\(_{t-1}\\) + depr\\(_t\\)\n\n\n\n\nFree Cash Flow to the Firm: FCF = NOPAT + Depreciation \\(-\\) Cap Ex \\(-\\) \\(\\Delta\\)NWC \\(-\\) \\(\\Delta\\)Net Other OA"
+    "objectID": "slides/m5-skills.html#claude-desktop-vs.-terminal-claude-code",
+    "href": "slides/m5-skills.html#claude-desktop-vs.-terminal-claude-code",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Claude Desktop vs. Terminal Claude Code",
+    "text": "Claude Desktop vs. Terminal Claude Code\n\n\nClaude Desktop — Chat tab\n\nEquivalent to claude.ai in a browser\nConversational interface, no filesystem access\nBuilt-in document skills auto-activate\nCustom skills uploaded as ZIP files\n\n\n\nClaude Desktop — Code tab\n\nEquivalent to the Claude Code CLI in a terminal\nFull filesystem and tool access\nReads ~/.claude/skills/ for custom skills\nInvoke skills with /skill-name\n\n\n\n\nThe Code tab and the terminal CLI are the same engine. Everything covered in this module applies equally to both."
   },
   {
-    "objectID": "slides/m5-dcf.html#two-stage-dcf",
-    "href": "slides/m5-dcf.html#two-stage-dcf",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Two-Stage DCF",
-    "text": "Two-Stage DCF"
+    "objectID": "slides/m5-skills.html#installing-claude-code-terminal",
+    "href": "slides/m5-skills.html#installing-claude-code-terminal",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Installing Claude Code (Terminal)",
+    "text": "Installing Claude Code (Terminal)\nUse the native installer — npm is deprecated as of 2026.\n\n\nmacOS / Linux / WSL\ncurl -fsSL https://claude.ai/install.sh | bash\n\n\nWindows (PowerShell)\nirm https://claude.ai/install.ps1 | iex\nRequires Git for Windows installed first.\n\n\nThen launch from any project folder:\ncd my-project\nclaude\n\nThe native installer auto-updates in the background and requires no Node.js. After installing, run claude doctor to verify everything is working."
   },
   {
-    "objectID": "slides/m5-dcf.html#two-stage-dcf-overview",
-    "href": "slides/m5-dcf.html#two-stage-dcf-overview",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Two-Stage DCF: Overview",
-    "text": "Two-Stage DCF: Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  S1[\"&lt;b&gt;Stage 1: Explicit Forecast&lt;/b&gt;&lt;br&gt;(5–10 years)\"] --&gt; EV[\"&lt;b&gt;Enterprise Value&lt;/b&gt;&lt;br&gt;= PV(Stage 1) + PV(Stage 2)\"]\n  S2[\"&lt;b&gt;Stage 2: Terminal Value&lt;/b&gt;&lt;br&gt;(perpetuity)\"] --&gt; EV\n\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\nStage 1: Project FCF each year from pro forma assumptions\nStage 2: Terminal value = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\)), where \\(g\\) is the long-run growth rate\nEquity value = Enterprise value \\(-\\) net debt. Discount at the WACC."
+    "objectID": "slides/m5-skills.html#built-in-document-skills",
+    "href": "slides/m5-skills.html#built-in-document-skills",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Built-In Document Skills",
+    "text": "Built-In Document Skills\nAnthropic ships four document skills with every Claude product. No setup required.\n\n\nExcel\n\nCreate and edit Excel workbooks\nUses live formulas, not hardcoded values\nSupports charts, formatting, multiple sheets\n\n\n\nWord\n\nCreate and edit Word documents\nProfessional formatting, headers, tables\nSupports tracked changes and comments\n\n\n\nPowerPoint\n\nCreate and edit PowerPoint decks\nSlide layouts, charts, speaker notes\nCan modify existing presentations\n\n\n\n\n\nDesktop chat / claude.ai\n\nSkills activate automatically based on your request\nNo / command needed\n\n\n\nClaude Code (CLI or Desktop Code tab)\n\nInvoke explicitly: /xlsx, /docx, /pptx\nOr just ask — Claude invokes the right skill\n\n\n\nBoth surfaces\n\nSame skill logic and output quality\nCode tab reads ~/.claude/skills/ like the CLI"
   },
   {
-    "objectID": "slides/m5-dcf.html#terminal-value",
-    "href": "slides/m5-dcf.html#terminal-value",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Terminal Value",
-    "text": "Terminal Value\nThe terminal value typically accounts for 60–80% of total enterprise value. Getting it right matters more than the explicit forecast.\n\n\nGrowing Perpetuity\n\nTV = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\))\nFCF\\(_{T+1}\\) = year \\(T\\) FCF \\(\\times\\) (1 + \\(g\\))\n\\(g\\) = long-run nominal growth (typically 2–3%)\nRequires \\(g &lt;\\) WACC\n\n\n\nExit Multiple\n\nTV = EBITDA\\(_T\\) \\(\\times\\) exit multiple\nMultiple from comparable firms\nCommon in practice (M&A, PE)\nCross-check against perpetuity method"
+    "objectID": "slides/m5-skills.html#the-xlsx-skill",
+    "href": "slides/m5-skills.html#the-xlsx-skill",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "The /xlsx Skill",
+    "text": "The /xlsx Skill\nIn Claude Code, skills are plain text files stored in ~/.claude/skills/. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nIn Claude Code on your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards.\n\nClaude Desktop and claude.ai use the same skill logic, but the files are managed by Anthropic — you cannot browse them on your machine."
   },
   {
-    "objectID": "slides/m5-dcf.html#sensitivity-analysis",
-    "href": "slides/m5-dcf.html#sensitivity-analysis",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Sensitivity Analysis",
-    "text": "Sensitivity Analysis"
+    "objectID": "slides/m5-skills.html#pre-installed-skills-skill-creator",
+    "href": "slides/m5-skills.html#pre-installed-skills-skill-creator",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Pre-Installed Skills: Skill Creator",
+    "text": "Pre-Installed Skills: Skill Creator\nThe /skill-creator skill is a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
   },
   {
-    "objectID": "slides/m5-dcf.html#sensitivity-tables",
-    "href": "slides/m5-dcf.html#sensitivity-tables",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Sensitivity Tables",
-    "text": "Sensitivity Tables\nA sensitivity table shows how the output (e.g., equity value per share) changes as you vary one or two key inputs.\n\n\nOne-Way Table\n\nVary a single input (e.g., WACC from 8% to 12%)\nHold everything else constant\nShows which inputs matter most\n\n\n\nTwo-Way Table\n\nVary two inputs simultaneously\nClassic: WACC vs. terminal growth rate\nAlso useful for sales growth vs. COGS margin; reveals interaction effects\n\n\n\n\nAsk Claude to produce sensitivity tables in Excel (with formulas) or as formatted output. In Excel, the Data Table feature automates two-way tables."
+    "objectID": "slides/m5-skills.html#custom-skills-in-claude-desktop-and-claude.ai",
+    "href": "slides/m5-skills.html#custom-skills-in-claude-desktop-and-claude.ai",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Custom Skills in Claude Desktop and claude.ai",
+    "text": "Custom Skills in Claude Desktop and claude.ai\nThe built-in document skills are always on. You can also add your own custom skills.\n\n\nDesktop chat / claude.ai\n\nGo to Settings → Customize → Skills\nClick + to upload a ZIP file containing a folder with a SKILL.md file\nToggle custom skills on or off\nClaude auto-invokes based on the skill’s description\n\n\n\nClaude Code (CLI or Desktop Code tab)\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name or let Claude load it from context\nProject-level skills go in .claude/skills/ inside your repo\n\n\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific. Custom skills are private to your account."
   },
   {
-    "objectID": "slides/m5-dcf.html#monte-carlo-simulation",
-    "href": "slides/m5-dcf.html#monte-carlo-simulation",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Monte Carlo Simulation",
-    "text": "Monte Carlo Simulation"
+    "objectID": "slides/m5-skills.html#exercise-a-critique-skill",
+    "href": "slides/m5-skills.html#exercise-a-critique-skill",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Exercise: A Critique Skill",
+    "text": "Exercise: A Critique Skill\nCreate a /critique skill that reviews work Claude has produced by spawning three parallel reviewer agents:\n\n\nCorrectness\n\nFactual errors, logic gaps\nMissing assumptions\nMath or data mistakes\n\n\n\nClarity\n\nStructure and readability\nRedundancy or buried points\nProposed rewrites\n\n\n\nDevil’s Advocate\n\nChallenge assumptions\nStrongest counterarguments\nWeakest reasoning\n\n\n\nThe skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it."
   },
   {
-    "objectID": "slides/m5-dcf.html#why-simulate",
-    "href": "slides/m5-dcf.html#why-simulate",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Why Simulate?",
-    "text": "Why Simulate?\n\nSensitivity tables vary one or two inputs; in reality, all assumptions are uncertain simultaneously\nMonte Carlo simulation draws random values for each assumption, computes FCF and enterprise value, and repeats thousands of times\nThe result: a distribution of enterprise values, not a single point estimate"
+    "objectID": "slides/m5-skills.html#exercise-critique-loop",
+    "href": "slides/m5-skills.html#exercise-critique-loop",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Exercise: Critique Loop",
+    "text": "Exercise: Critique Loop\n\nCopy a document you’ve created into your working folder (e.g., a memo, report, or exercise solution).\nTell Claude: “Apply the critique skill in a loop — critique, make the recommended changes, critique again, and continue until the agents are happy.”"
   },
   {
-    "objectID": "slides/m5-dcf.html#simulation-setup",
-    "href": "slides/m5-dcf.html#simulation-setup",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Simulation Setup",
-    "text": "Simulation Setup\nAssign a probability distribution to each uncertain assumption, then sample and compute.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RA[\"&lt;b&gt;Random&lt;br&gt;Assumptions&lt;/b&gt;\"] --&gt; PF[\"&lt;b&gt;Pro Forma&lt;br&gt;Model&lt;/b&gt;\"]\n  PF --&gt; FCF[\"&lt;b&gt;FCF&lt;/b&gt;\"]\n  FCF --&gt; EV[\"&lt;b&gt;Enterprise&lt;br&gt;Value&lt;/b&gt;\"]\n  EV --&gt; H[\"&lt;b&gt;Histogram&lt;br&gt;of Values&lt;/b&gt;\"]\n\n  style RA fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style FCF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style EV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style H fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n\n\nAssumption\nDistribution\nExample\n\n\n\n\nSales growth\nNormal\n\\(\\mu = 8\\%\\), \\(\\sigma = 3\\%\\)\n\n\nCOGS %\nNormal\n\\(\\mu = 60\\%\\), \\(\\sigma = 2\\%\\)\n\n\nTerminal growth\nUniform\n1.5% to 3.5%\n\n\nWACC\nNormal\n\\(\\mu = 10\\%\\), \\(\\sigma = 1\\%\\)"
+    "objectID": "slides/m5-skills.html#exercise-create-a-tasks-skill",
+    "href": "slides/m5-skills.html#exercise-create-a-tasks-skill",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Exercise: Create a Tasks Skill",
+    "text": "Exercise: Create a Tasks Skill\nUse /skill-creator to build a tasks skill that manages personal and school to-do lists. The skill should:\n\nStore tasks in markdown files (e.g., personal.md, school.md)\nAdd new tasks with a category and due date\nList pending tasks when asked\nMark tasks as complete"
   },
   {
-    "objectID": "slides/m5-dcf.html#simulation-output",
-    "href": "slides/m5-dcf.html#simulation-output",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Simulation Output",
-    "text": "Simulation Output\n\nRun 10,000 simulations → 10,000 enterprise values\nReport mean, median, 10th/90th percentiles; plot a histogram\nIdentify which assumptions drive the most variance (tornado chart)"
-  },
-  {
-    "objectID": "slides/m5-dcf.html#building-these-analyses-with-ai",
-    "href": "slides/m5-dcf.html#building-these-analyses-with-ai",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Building These Analyses with AI",
-    "text": "Building These Analyses with AI"
-  },
-  {
-    "objectID": "slides/m5-dcf.html#multiple-ways-to-build-with-ai",
-    "href": "slides/m5-dcf.html#multiple-ways-to-build-with-ai",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Multiple Ways to Build with AI",
-    "text": "Multiple Ways to Build with AI\n\nChat: “Build a two-stage DCF model for a company with these assumptions … Generate an Excel file with pro formas, FCF, and a sensitivity table.”\nCowork: Point Claude at a folder with data files. “Read the financial data, build pro formas, run a DCF, and save the results to Excel.”\nCode: “Build a DCF model in Python. Fetch Apple’s financials from FMP, estimate assumptions from historical data, and run a Monte Carlo simulation.”\nExcel add-in: Open a blank workbook. “Build a two-stage DCF with pro forma statements, a sensitivity table for WACC vs. terminal growth, and a tornado chart.”\n\nKey difference: Chat and Cowork generate spreadsheets via Python (no internet). Code mode can fetch live data from APIs before building the model."
-  },
-  {
-    "objectID": "slides/m5-dcf.html#section",
-    "href": "slides/m5-dcf.html#section",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "",
-    "text": "The same analysis that takes hours with traditional tools takes minutes with AI.\nDescribing the problem clearly — choosing the right assumptions, interpreting the output — is the hard part. The computation is delegated entirely."
-  },
-  {
-    "objectID": "slides/m5-dcf.html#exercises",
-    "href": "slides/m5-dcf.html#exercises",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Exercises",
-    "text": "Exercises"
-  },
-  {
-    "objectID": "slides/m5-dcf.html#in-class-exercise-pro-forma-skill",
-    "href": "slides/m5-dcf.html#in-class-exercise-pro-forma-skill",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "In-Class Exercise: Pro Forma Skill",
-    "text": "In-Class Exercise: Pro Forma Skill\nCreate a Claude skill that enforces specific pro forma forecasting rules for PP&E:\n\nRules to Encode in the Skill\n\nForecast net PP&E as a percentage of sales (e.g., trailing average of net PP&E / sales)\nForecast depreciation as a percentage of net PP&E (e.g., trailing average of depreciation / net PP&E)\nCompute cap ex as the plug: cap ex = \\(\\Delta\\) net PP&E + depreciation\n\n\n\nWrite a SKILL.md that tells Claude to follow these three rules whenever building pro formas\nTest it: ask Claude to build a pro forma for a company using the skill\nVerify: does the balance sheet balance? Is cap ex the plug?"
-  },
-  {
-    "objectID": "slides/m5-dcf.html#exercise-3-dcf-model",
-    "href": "slides/m5-dcf.html#exercise-3-dcf-model",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Exercise 3: DCF Model",
-    "text": "Exercise 3: DCF Model\nBuild a two-stage DCF for a hypothetical company:\n\nCurrent sales: $500M; sales growth (yrs 1–5): 10%; terminal growth: 3%\nCOGS: 58% of sales; SG&A: $20M + 12% of sales\nNWC: 15% of sales; PP&E: 40% of sales; net other OA: 5% of sales\nDepreciation: 10% of PP&E; tax rate: 25%\nWACC: 9%; net debt: $200M; shares outstanding: 50M\n\nProduce an Excel workbook with pro forma income statement, balance sheet items, FCF calculation, enterprise value, per-share value, and a two-way sensitivity table (WACC vs. terminal growth rate)."
-  },
-  {
-    "objectID": "slides/m5-dcf.html#exercise-4-dcf-with-live-data",
-    "href": "slides/m5-dcf.html#exercise-4-dcf-with-live-data",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Exercise 4: DCF with Live Data",
-    "text": "Exercise 4: DCF with Live Data\n\nIn Claude Code, fetch a real company’s financials from the Rice Data Portal (SF1 table) and estimate assumptions from trailing averages.\nBuild a 5-year pro forma, run a two-stage DCF, and compare to the current market cap.\nSubmit the code output + a short memo explaining the comparison.\n\nNote: This exercise requires Claude Code (internet access for the database query)."
-  },
-  {
-    "objectID": "slides/m5-dcf.html#exercise-5-monte-carlo-simulation",
-    "href": "slides/m5-dcf.html#exercise-5-monte-carlo-simulation",
-    "title": "Module 5: Discounted Cash Flow Analysis",
-    "section": "Exercise 5: Monte Carlo Simulation",
-    "text": "Exercise 5: Monte Carlo Simulation\n\nTake your DCF model and assign distributions to sales growth, COGS %, terminal growth, and WACC.\nRun 10,000 simulations; report mean, median, 10th/90th percentiles.\nPlot a histogram + tornado chart; discuss which assumption drives the most variation."
+    "objectID": "slides/m5-skills.html#exercise-steps",
+    "href": "slides/m5-skills.html#exercise-steps",
+    "title": "Module 5: Claude Sub-Agents and Skills",
+    "section": "Exercise: Steps",
+    "text": "Exercise: Steps\n\nDescribe the task manager you want and ask Claude to create a skill for it\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”\n\nThis should work fine without typing /skill-creator because Claude knows about the skill-creator skill via the CLAUDE.md."
   },
   {
     "objectID": "slides/m3-mean-variance.html#claude.ai-is-an-agent",
@@ -1068,14 +1012,14 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nDiscounted Cash Flow Analysis\n\n\n\n6\nClaude Skills\n\n\n\n7\nVerification, Auditing, and Governance\n\n\n\n8\nMore on AI Agents\n\n\n\n9\nModel Context Protocol\n\n\n\n10\nRetrieval Augmented Generation\n\n\n\n11\nSentiment Analysis"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nClaude Sub-Agents and Skills\n\n\n\n6\nDiscounted Cash Flow Analysis\n\n\n\n7\nVerification, Auditing, and Governance\n\n\n\n8\nMore on AI Agents\n\n\n\n9\nModel Context Protocol\n\n\n\n10\nRetrieval Augmented Generation\n\n\n\n11\nSentiment Analysis"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nDiscounted Cash Flow Analysis\n\n\n\n6\nClaude Skills\n\n\n\n7\nVerification, Auditing, and Governance\n\n\n\n8\nMore on AI Agents\n\n\n\n9\nModel Context Protocol\n\n\n\n10\nRetrieval Augmented Generation\n\n\n\n11\nSentiment Analysis"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nClaude Sub-Agents and Skills\n\n\n\n6\nDiscounted Cash Flow Analysis\n\n\n\n7\nVerification, Auditing, and Governance\n\n\n\n8\nMore on AI Agents\n\n\n\n9\nModel Context Protocol\n\n\n\n10\nRetrieval Augmented Generation\n\n\n\n11\nSentiment Analysis"
   },
   {
     "objectID": "slides/m2-intro-claude.html#exploring-claude.ai",
@@ -1173,14 +1117,14 @@
     "href": "slides/m4-claude.html#class-installers",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Class Installers",
-    "text": "Class Installers\nThe class installer sets up everything you need in one step:\n\nPython — language Claude Code uses to execute analysis\nClaude Desktop — the application with built-in Claude Code\nSkills — pre-packaged instructions for Excel, Word, PowerPoint, and more"
+    "text": "Class Installers\nThe class installer sets up everything you need in one step:\n\nPython — language Claude Code uses to execute analysis\nGit for Windows (Windows only) — required by the terminal Claude Code\nClaude Desktop — the application with built-in Claude Code\nClaude Code (terminal) — run claude from any terminal or VS Code"
   },
   {
     "objectID": "slides/m4-claude.html#running-the-installers",
     "href": "slides/m4-claude.html#running-the-installers",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Running the Installers",
-    "text": "Running the Installers\n\n\nWindows\n\nDownload Windows Installer\nExtract the zip file\nRight-click INSTALL.bat → Run as administrator\n\n\n\nMac\n\nDownload Mac Installer to Downloads\nOpen Terminal\nRun: cd ~/Downloads && bash install.sh"
+    "text": "Running the Installers\n\n\nWindows\n\nDownload Windows Installer\nExtract the zip file\nDouble-click INSTALL.bat\nClick Yes when the permission prompt appears\n\n\n\nMac\n\nDownload Mac Installer to Downloads\nOpen Terminal\nRun: cd ~/Downloads && bash install.sh"
   },
   {
     "objectID": "slides/m4-claude.html#getting-started",
@@ -1222,7 +1166,7 @@
     "href": "slides/m4-claude.html#installing-the-terminal-and-vs-code",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Installing the Terminal and VS Code",
-    "text": "Installing the Terminal and VS Code\n\n\nClaude Code (Terminal)\n\nMac/Linux: curl -fsSL https://claude.ai/install.sh | bash\nWindows: irm https://claude.ai/install.ps1 | iex\nWindows also requires Git for Windows\nVerify: claude --version\n\n\n\nVS Code + Extensions\n\nDownload VS Code and install\nOpen Extensions (Ctrl+Shift+X / Cmd+Shift+X)\nInstall Python (Microsoft) and Claude Code (Anthropic)"
+    "text": "Installing the Terminal and VS Code\n\n\nClaude Code (Terminal)\n\nMac/Linux: curl -fsSL https://claude.ai/install.sh | bash\nWindows (PowerShell): irm https://claude.ai/install.ps1 | iex\nThe class installer handles this automatically\nVerify: claude --version\n\n\n\nVS Code + Extensions\n\nDownload VS Code and install\nOpen Extensions (Ctrl+Shift+X / Cmd+Shift+X)\nInstall Python (Microsoft) and Claude Code (Anthropic)"
   },
   {
     "objectID": "slides/m4-claude.html#using-claude-code-in-the-terminal-and-vs-code",
@@ -1274,60 +1218,165 @@
     "text": "Example\nDownload aggregation.zip and extract the workbooks into a folder.\nEach Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:\n\nSummarize the columns present, row count, and basic statistics for each file\nCombine all files into a single table, reconciling the varying column names\nSave the result as combined.xlsx\n\nThis is the same “divide and conquer” pattern used in professional data pipelines — read each source independently, then unify."
   },
   {
-    "objectID": "slides/m6-skills.html#pre-installed-skills-document-creation",
-    "href": "slides/m6-skills.html#pre-installed-skills-document-creation",
-    "title": "Module 6: Claude Skills",
-    "section": "Pre-Installed Skills: Document Creation",
-    "text": "Pre-Installed Skills: Document Creation\nSkills are packaged instructions that teach Claude Code a specific workflow. The class installer pre-configured four. Invoke any skill by typing / followed by its name.\n\n\n/xlsx\n\nCreate and edit Excel workbooks\nUses live formulas, not hardcoded values\nSupports charts, formatting, multiple sheets\n\n\n\n/docx\n\nCreate and edit Word documents\nProfessional formatting, headers, tables\nSupports tracked changes and comments\n\n\n\n/pptx\n\nCreate and edit PowerPoint decks\nSlide layouts, charts, speaker notes\nCan modify existing presentations"
+    "objectID": "slides/m6-dcf.html#learning-objectives",
+    "href": "slides/m6-dcf.html#learning-objectives",
+    "title": "Module 6: DCF Analysis",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\n\nBuild two-stage DCF models driven by a small set of assumptions\nPerform sensitivity analysis and Monte Carlo simulation to quantify valuation uncertainty\nUse AI to build, extend, and stress-test valuation models\n\nThese are core tools of corporate finance. AI handles the mathematics and code. You focus on the assumptions and the interpretation."
   },
   {
-    "objectID": "slides/m6-skills.html#the-xlsx-skill",
-    "href": "slides/m6-skills.html#the-xlsx-skill",
-    "title": "Module 6: Claude Skills",
-    "section": "The /xlsx Skill",
-    "text": "The /xlsx Skill\nSkills are plain text files. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nOn your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards."
+    "objectID": "slides/m6-dcf.html#company-valuation-dcf",
+    "href": "slides/m6-dcf.html#company-valuation-dcf",
+    "title": "Module 6: DCF Analysis",
+    "section": "Company Valuation: DCF",
+    "text": "Company Valuation: DCF"
   },
   {
-    "objectID": "slides/m6-skills.html#pre-installed-skills-skill-creator",
-    "href": "slides/m6-skills.html#pre-installed-skills-skill-creator",
-    "title": "Module 6: Claude Skills",
-    "section": "Pre-Installed Skills: Skill Creator",
-    "text": "Pre-Installed Skills: Skill Creator\nThe /skill-creator skill is a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
+    "objectID": "slides/m6-dcf.html#the-big-picture",
+    "href": "slides/m6-dcf.html#the-big-picture",
+    "title": "Module 6: DCF Analysis",
+    "section": "The Big Picture",
+    "text": "The Big Picture\nDiscounted cash flow (DCF) valuation estimates the value of a company’s operations by forecasting future free cash flows and discounting them to the present.\n\nA small set of assumptions drives the entire model\nAI builds the pro forma financial statements and computes free cash flow\nYou focus on choosing the right assumptions and interpreting the output"
   },
   {
-    "objectID": "slides/m6-skills.html#skills-in-claude.ai",
-    "href": "slides/m6-skills.html#skills-in-claude.ai",
-    "title": "Module 6: Claude Skills",
-    "section": "Skills in Claude.ai",
-    "text": "Skills in Claude.ai\nSkills also work in the claude.ai web interface — no Claude Code required.\nGo to Settings → Capabilities → Skills, then click the link to the Customize page.\n\n\nAnthropic Skills\n\nExcel, Word, PowerPoint, and PDF creation\nToggle each skill on or off\nClaude automatically invokes the right skill based on your request\n\n\n\nCustom Skills\n\nClick + to upload a ZIP file containing a folder with a SKILL.md file\nSame SKILL.md format as Claude Code skills\nToggle on/off just like the built-in skills\n\n\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific. Custom skills are private to your account."
+    "objectID": "slides/m6-dcf.html#the-assumption-set",
+    "href": "slides/m6-dcf.html#the-assumption-set",
+    "title": "Module 6: DCF Analysis",
+    "section": "The Assumption Set",
+    "text": "The Assumption Set\nA pro forma model is driven by a small number of assumptions. Everything else is computed.\n\n\n\nAssumption\nDriver\n\n\n\n\nSales growth rate\n% per year\n\n\nCOGS\n% of sales\n\n\nSG&A\nBase amount + % of sales\n\n\nNWC, PP&E, net other OA\n% of sales\n\n\nDepreciation\n% of PP&E\n\n\nTax rate\n% of pre-tax income\n\n\n\nCap ex is not assumed directly — it is computed from PP&E and depreciation."
   },
   {
-    "objectID": "slides/m6-skills.html#exercise-a-critique-skill",
-    "href": "slides/m6-skills.html#exercise-a-critique-skill",
-    "title": "Module 6: Claude Skills",
-    "section": "Exercise: A Critique Skill",
-    "text": "Exercise: A Critique Skill\nCreate a /critique skill that reviews work Claude has produced by spawning three parallel reviewer agents:\n\n\nCorrectness\n\nFactual errors, logic gaps\nMissing assumptions\nMath or data mistakes\n\n\n\nClarity\n\nStructure and readability\nRedundancy or buried points\nProposed rewrites\n\n\n\nDevil’s Advocate\n\nChallenge assumptions\nStrongest counterarguments\nWeakest reasoning\n\n\n\nThe skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it."
+    "objectID": "slides/m6-dcf.html#pro-forma-income-statement",
+    "href": "slides/m6-dcf.html#pro-forma-income-statement",
+    "title": "Module 6: DCF Analysis",
+    "section": "Pro Forma Income Statement",
+    "text": "Pro Forma Income Statement\n\n\n\nLine Item\nHow It’s Computed\n\n\n\n\nSales\nPrior sales \\(\\times\\) (1 + growth rate)\n\n\nCOGS\nCOGS% \\(\\times\\) sales\n\n\nGross profit\nSales \\(-\\) COGS\n\n\nSG&A\nBase + SG&A% \\(\\times\\) sales\n\n\nDepreciation\nDepr% \\(\\times\\) PP&E\n\n\nEBIT\nGross profit \\(-\\) SG&A \\(-\\) depreciation\n\n\nTaxes\nTax rate \\(\\times\\) EBIT\n\n\nNOPAT\nEBIT \\(-\\) taxes"
   },
   {
-    "objectID": "slides/m6-skills.html#exercise-critique-loop",
-    "href": "slides/m6-skills.html#exercise-critique-loop",
-    "title": "Module 6: Claude Skills",
-    "section": "Exercise: Critique Loop",
-    "text": "Exercise: Critique Loop\n\nCopy a document you’ve created into your working folder (e.g., a memo, report, or exercise solution).\nTell Claude: “Apply the critique skill in a loop — critique, make the recommended changes, critique again, and continue until the agents are happy.”"
+    "objectID": "slides/m6-dcf.html#pro-forma-balance-sheet-and-cap-ex",
+    "href": "slides/m6-dcf.html#pro-forma-balance-sheet-and-cap-ex",
+    "title": "Module 6: DCF Analysis",
+    "section": "Pro Forma Balance Sheet and Cap Ex",
+    "text": "Pro Forma Balance Sheet and Cap Ex\n\n\nBalance Sheet Items\n\nNWC = NWC% \\(\\times\\) sales\nPP&E = PP&E% \\(\\times\\) sales\nNet other OA = Net other OA% \\(\\times\\) sales\nChange in each = current \\(-\\) prior year\n\n\n\nCapital Expenditures\n\nTarget PP&E\\(_t\\) = PP&E% \\(\\times\\) sales\\(_t\\)\nDepreciation\\(_t\\) = depr% \\(\\times\\) PP&E\\(_{t-1}\\)\nCap ex\\(_t\\) = PP&E\\(_t\\) \\(-\\) PP&E\\(_{t-1}\\) + depr\\(_t\\)\n\n\n\n\nFree Cash Flow to the Firm: FCF = NOPAT + Depreciation \\(-\\) Cap Ex \\(-\\) \\(\\Delta\\)NWC \\(-\\) \\(\\Delta\\)Net Other OA"
   },
   {
-    "objectID": "slides/m6-skills.html#exercise-create-a-tasks-skill",
-    "href": "slides/m6-skills.html#exercise-create-a-tasks-skill",
-    "title": "Module 6: Claude Skills",
-    "section": "Exercise: Create a Tasks Skill",
-    "text": "Exercise: Create a Tasks Skill\nUse /skill-creator to build a tasks skill that manages personal and school to-do lists. The skill should:\n\nStore tasks in markdown files (e.g., personal.md, school.md)\nAdd new tasks with a category and due date\nList pending tasks when asked\nMark tasks as complete"
+    "objectID": "slides/m6-dcf.html#two-stage-dcf",
+    "href": "slides/m6-dcf.html#two-stage-dcf",
+    "title": "Module 6: DCF Analysis",
+    "section": "Two-Stage DCF",
+    "text": "Two-Stage DCF"
   },
   {
-    "objectID": "slides/m6-skills.html#exercise-steps",
-    "href": "slides/m6-skills.html#exercise-steps",
-    "title": "Module 6: Claude Skills",
-    "section": "Exercise: Steps",
-    "text": "Exercise: Steps\n\nDescribe the task manager you want and ask Claude to create a skill for it\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”\n\nThis should work fine without typing /skill-creator because Claude knows about the skill-creator skill via the CLAUDE.md."
+    "objectID": "slides/m6-dcf.html#two-stage-dcf-overview",
+    "href": "slides/m6-dcf.html#two-stage-dcf-overview",
+    "title": "Module 6: DCF Analysis",
+    "section": "Two-Stage DCF: Overview",
+    "text": "Two-Stage DCF: Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  S1[\"&lt;b&gt;Stage 1: Explicit Forecast&lt;/b&gt;&lt;br&gt;(5–10 years)\"] --&gt; EV[\"&lt;b&gt;Enterprise Value&lt;/b&gt;&lt;br&gt;= PV(Stage 1) + PV(Stage 2)\"]\n  S2[\"&lt;b&gt;Stage 2: Terminal Value&lt;/b&gt;&lt;br&gt;(perpetuity)\"] --&gt; EV\n\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\nStage 1: Project FCF each year from pro forma assumptions\nStage 2: Terminal value = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\)), where \\(g\\) is the long-run growth rate\nEquity value = Enterprise value \\(-\\) net debt. Discount at the WACC."
+  },
+  {
+    "objectID": "slides/m6-dcf.html#terminal-value",
+    "href": "slides/m6-dcf.html#terminal-value",
+    "title": "Module 6: DCF Analysis",
+    "section": "Terminal Value",
+    "text": "Terminal Value\nThe terminal value typically accounts for 60–80% of total enterprise value. Getting it right matters more than the explicit forecast.\n\n\nGrowing Perpetuity\n\nTV = FCF\\(_{T+1}\\) / (WACC \\(-\\) \\(g\\))\nFCF\\(_{T+1}\\) = year \\(T\\) FCF \\(\\times\\) (1 + \\(g\\))\n\\(g\\) = long-run nominal growth (typically 2–3%)\nRequires \\(g &lt;\\) WACC\n\n\n\nExit Multiple\n\nTV = EBITDA\\(_T\\) \\(\\times\\) exit multiple\nMultiple from comparable firms\nCommon in practice (M&A, PE)\nCross-check against perpetuity method"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#sensitivity-analysis",
+    "href": "slides/m6-dcf.html#sensitivity-analysis",
+    "title": "Module 6: DCF Analysis",
+    "section": "Sensitivity Analysis",
+    "text": "Sensitivity Analysis"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#sensitivity-tables",
+    "href": "slides/m6-dcf.html#sensitivity-tables",
+    "title": "Module 6: DCF Analysis",
+    "section": "Sensitivity Tables",
+    "text": "Sensitivity Tables\nA sensitivity table shows how the output (e.g., equity value per share) changes as you vary one or two key inputs.\n\n\nOne-Way Table\n\nVary a single input (e.g., WACC from 8% to 12%)\nHold everything else constant\nShows which inputs matter most\n\n\n\nTwo-Way Table\n\nVary two inputs simultaneously\nClassic: WACC vs. terminal growth rate\nAlso useful for sales growth vs. COGS margin; reveals interaction effects\n\n\n\n\nAsk Claude to produce sensitivity tables in Excel (with formulas) or as formatted output. In Excel, the Data Table feature automates two-way tables."
+  },
+  {
+    "objectID": "slides/m6-dcf.html#monte-carlo-simulation",
+    "href": "slides/m6-dcf.html#monte-carlo-simulation",
+    "title": "Module 6: DCF Analysis",
+    "section": "Monte Carlo Simulation",
+    "text": "Monte Carlo Simulation"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#why-simulate",
+    "href": "slides/m6-dcf.html#why-simulate",
+    "title": "Module 6: DCF Analysis",
+    "section": "Why Simulate?",
+    "text": "Why Simulate?\n\nSensitivity tables vary one or two inputs; in reality, all assumptions are uncertain simultaneously\nMonte Carlo simulation draws random values for each assumption, computes FCF and enterprise value, and repeats thousands of times\nThe result: a distribution of enterprise values, not a single point estimate"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#simulation-setup",
+    "href": "slides/m6-dcf.html#simulation-setup",
+    "title": "Module 6: DCF Analysis",
+    "section": "Simulation Setup",
+    "text": "Simulation Setup\nAssign a probability distribution to each uncertain assumption, then sample and compute.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RA[\"&lt;b&gt;Random&lt;br&gt;Assumptions&lt;/b&gt;\"] --&gt; PF[\"&lt;b&gt;Pro Forma&lt;br&gt;Model&lt;/b&gt;\"]\n  PF --&gt; FCF[\"&lt;b&gt;FCF&lt;/b&gt;\"]\n  FCF --&gt; EV[\"&lt;b&gt;Enterprise&lt;br&gt;Value&lt;/b&gt;\"]\n  EV --&gt; H[\"&lt;b&gt;Histogram&lt;br&gt;of Values&lt;/b&gt;\"]\n\n  style RA fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style FCF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style EV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style H fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n\n\nAssumption\nDistribution\nExample\n\n\n\n\nSales growth\nNormal\n\\(\\mu = 8\\%\\), \\(\\sigma = 3\\%\\)\n\n\nCOGS %\nNormal\n\\(\\mu = 60\\%\\), \\(\\sigma = 2\\%\\)\n\n\nTerminal growth\nUniform\n1.5% to 3.5%\n\n\nWACC\nNormal\n\\(\\mu = 10\\%\\), \\(\\sigma = 1\\%\\)"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#simulation-output",
+    "href": "slides/m6-dcf.html#simulation-output",
+    "title": "Module 6: DCF Analysis",
+    "section": "Simulation Output",
+    "text": "Simulation Output\n\nRun 10,000 simulations → 10,000 enterprise values\nReport mean, median, 10th/90th percentiles; plot a histogram\nIdentify which assumptions drive the most variance (tornado chart)"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#building-these-analyses-with-ai",
+    "href": "slides/m6-dcf.html#building-these-analyses-with-ai",
+    "title": "Module 6: DCF Analysis",
+    "section": "Building These Analyses with AI",
+    "text": "Building These Analyses with AI"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#multiple-ways-to-build-with-ai",
+    "href": "slides/m6-dcf.html#multiple-ways-to-build-with-ai",
+    "title": "Module 6: DCF Analysis",
+    "section": "Multiple Ways to Build with AI",
+    "text": "Multiple Ways to Build with AI\n\nChat: “Build a two-stage DCF model for a company with these assumptions … Generate an Excel file with pro formas, FCF, and a sensitivity table.”\nCowork: Point Claude at a folder with data files. “Read the financial data, build pro formas, run a DCF, and save the results to Excel.”\nCode: “Build a DCF model in Python. Fetch Apple’s financials from FMP, estimate assumptions from historical data, and run a Monte Carlo simulation.”\nExcel add-in: Open a blank workbook. “Build a two-stage DCF with pro forma statements, a sensitivity table for WACC vs. terminal growth, and a tornado chart.”\n\nKey difference: Chat and Cowork generate spreadsheets via Python (no internet). Code mode can fetch live data from APIs before building the model."
+  },
+  {
+    "objectID": "slides/m6-dcf.html#section",
+    "href": "slides/m6-dcf.html#section",
+    "title": "Module 6: DCF Analysis",
+    "section": "",
+    "text": "The same analysis that takes hours with traditional tools takes minutes with AI.\nDescribing the problem clearly — choosing the right assumptions, interpreting the output — is the hard part. The computation is delegated entirely."
+  },
+  {
+    "objectID": "slides/m6-dcf.html#exercises",
+    "href": "slides/m6-dcf.html#exercises",
+    "title": "Module 6: DCF Analysis",
+    "section": "Exercises",
+    "text": "Exercises"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#in-class-exercise-pro-forma-skill",
+    "href": "slides/m6-dcf.html#in-class-exercise-pro-forma-skill",
+    "title": "Module 6: DCF Analysis",
+    "section": "In-Class Exercise: Pro Forma Skill",
+    "text": "In-Class Exercise: Pro Forma Skill\nCreate a Claude skill that enforces specific pro forma forecasting rules for PP&E:\n\nRules to Encode in the Skill\n\nForecast net PP&E as a percentage of sales (e.g., trailing average of net PP&E / sales)\nForecast depreciation as a percentage of net PP&E (e.g., trailing average of depreciation / net PP&E)\nCompute cap ex as the plug: cap ex = \\(\\Delta\\) net PP&E + depreciation\n\n\n\nWrite a SKILL.md that tells Claude to follow these three rules whenever building pro formas\nTest it: ask Claude to build a pro forma for a company using the skill\nVerify: does the balance sheet balance? Is cap ex the plug?"
+  },
+  {
+    "objectID": "slides/m6-dcf.html#exercise-3-dcf-model",
+    "href": "slides/m6-dcf.html#exercise-3-dcf-model",
+    "title": "Module 6: DCF Analysis",
+    "section": "Exercise 3: DCF Model",
+    "text": "Exercise 3: DCF Model\nBuild a two-stage DCF for a hypothetical company:\n\nCurrent sales: $500M; sales growth (yrs 1–5): 10%; terminal growth: 3%\nCOGS: 58% of sales; SG&A: $20M + 12% of sales\nNWC: 15% of sales; PP&E: 40% of sales; net other OA: 5% of sales\nDepreciation: 10% of PP&E; tax rate: 25%\nWACC: 9%; net debt: $200M; shares outstanding: 50M\n\nProduce an Excel workbook with pro forma income statement, balance sheet items, FCF calculation, enterprise value, per-share value, and a two-way sensitivity table (WACC vs. terminal growth rate)."
+  },
+  {
+    "objectID": "slides/m6-dcf.html#exercise-4-dcf-with-live-data",
+    "href": "slides/m6-dcf.html#exercise-4-dcf-with-live-data",
+    "title": "Module 6: DCF Analysis",
+    "section": "Exercise 4: DCF with Live Data",
+    "text": "Exercise 4: DCF with Live Data\n\nIn Claude Code, fetch a real company’s financials from the Rice Data Portal (SF1 table) and estimate assumptions from trailing averages.\nBuild a 5-year pro forma, run a two-stage DCF, and compare to the current market cap.\nSubmit the code output + a short memo explaining the comparison.\n\nNote: This exercise requires Claude Code (internet access for the database query)."
+  },
+  {
+    "objectID": "slides/m6-dcf.html#exercise-5-monte-carlo-simulation",
+    "href": "slides/m6-dcf.html#exercise-5-monte-carlo-simulation",
+    "title": "Module 6: DCF Analysis",
+    "section": "Exercise 5: Monte Carlo Simulation",
+    "text": "Exercise 5: Monte Carlo Simulation\n\nTake your DCF model and assign distributions to sales growth, COGS %, terminal growth, and WACC.\nRun 10,000 simulations; report mean, median, 10th/90th percentiles.\nPlot a histogram + tornado chart; discuss which assumption drives the most variation."
   },
   {
     "objectID": "slides/m8-agents.html#the-api-building-agents-in-code",

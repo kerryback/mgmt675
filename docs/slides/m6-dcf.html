@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 4: Claude Desktop &amp; Code</title>
+  <title>Module 6: DCF Analysis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,7 +136,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 4: Claude Desktop &amp; Code</h1>
+  <h1 class="title">Module 6: DCF Analysis</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -148,267 +148,363 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="claude-desktop-overview" class="slide level2 section-divider center">
-<h2>Claude Desktop Overview</h2>
+<section id="learning-objectives" class="slide level2 center">
+<h2>Learning Objectives</h2>
+<ol type="1">
+<li>Build two-stage DCF models driven by a small set of assumptions</li>
+<li>Perform sensitivity analysis and Monte Carlo simulation to quantify valuation uncertainty</li>
+<li>Use AI to build, extend, and stress-test valuation models</li>
+</ol>
+<p>These are core tools of corporate finance. AI handles the mathematics and code. <span class="amber">You focus on the assumptions and the interpretation.</span></p>
 </section>
-<section id="three-tabs-chat-cowork-code" class="slide level2 center">
-<h2>Three Tabs: Chat, Cowork, Code</h2>
-<div class="three-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Chat (Analysis)</strong></span></p>
+<section id="company-valuation-dcf" class="slide level2 section-divider center">
+<h2>Company Valuation: DCF</h2>
+</section>
+<section id="the-big-picture" class="slide level2 center">
+<h2>The Big Picture</h2>
+<p>Discounted cash flow (DCF) valuation estimates the value of a company’s operations by forecasting future free cash flows and discounting them to the present.</p>
 <ul>
-<li>Sandboxed Python in the browser</li>
-<li>No local file access</li>
-<li>Must upload data manually</li>
+<li>A small set of <strong>assumptions</strong> drives the entire model</li>
+<li>AI builds the pro forma financial statements and computes free cash flow</li>
+<li>You focus on <span class="amber">choosing the right assumptions</span> and <span class="amber">interpreting the output</span></li>
+</ul>
+</section>
+<section id="the-assumption-set" class="slide level2 center">
+<h2>The Assumption Set</h2>
+<p>A pro forma model is driven by a small number of assumptions. Everything else is computed.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><strong>Assumption</strong></th>
+<th><strong>Driver</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sales growth rate</td>
+<td>% per year</td>
+</tr>
+<tr class="even">
+<td>COGS</td>
+<td>% of sales</td>
+</tr>
+<tr class="odd">
+<td>SG&amp;A</td>
+<td>Base amount + % of sales</td>
+</tr>
+<tr class="even">
+<td>NWC, PP&amp;E, net other OA</td>
+<td>% of sales</td>
+</tr>
+<tr class="odd">
+<td>Depreciation</td>
+<td>% of PP&amp;E</td>
+</tr>
+<tr class="even">
+<td>Tax rate</td>
+<td>% of pre-tax income</td>
+</tr>
+</tbody>
+</table>
+<p>Cap ex is not assumed directly — it is computed from PP&amp;E and depreciation.</p>
+</section>
+<section id="pro-forma-income-statement" class="slide level2 center">
+<h2>Pro Forma Income Statement</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><strong>Line Item</strong></th>
+<th><strong>How It’s Computed</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sales</td>
+<td>Prior sales <span class="math inline">\(\times\)</span> (1 + growth rate)</td>
+</tr>
+<tr class="even">
+<td>COGS</td>
+<td>COGS% <span class="math inline">\(\times\)</span> sales</td>
+</tr>
+<tr class="odd">
+<td><strong>Gross profit</strong></td>
+<td>Sales <span class="math inline">\(-\)</span> COGS</td>
+</tr>
+<tr class="even">
+<td>SG&amp;A</td>
+<td>Base + SG&amp;A% <span class="math inline">\(\times\)</span> sales</td>
+</tr>
+<tr class="odd">
+<td>Depreciation</td>
+<td>Depr% <span class="math inline">\(\times\)</span> PP&amp;E</td>
+</tr>
+<tr class="even">
+<td><strong>EBIT</strong></td>
+<td>Gross profit <span class="math inline">\(-\)</span> SG&amp;A <span class="math inline">\(-\)</span> depreciation</td>
+</tr>
+<tr class="odd">
+<td>Taxes</td>
+<td>Tax rate <span class="math inline">\(\times\)</span> EBIT</td>
+</tr>
+<tr class="even">
+<td><strong>NOPAT</strong></td>
+<td>EBIT <span class="math inline">\(-\)</span> taxes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pro-forma-balance-sheet-and-cap-ex" class="slide level2 center">
+<h2>Pro Forma Balance Sheet and Cap Ex</h2>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Balance Sheet Items</strong></span></p>
+<ul>
+<li><strong>NWC</strong> = NWC% <span class="math inline">\(\times\)</span> sales</li>
+<li><strong>PP&amp;E</strong> = PP&amp;E% <span class="math inline">\(\times\)</span> sales</li>
+<li><strong>Net other OA</strong> = Net other OA% <span class="math inline">\(\times\)</span> sales</li>
+<li>Change in each = current <span class="math inline">\(-\)</span> prior year</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>Cowork</strong></span></p>
+<p><span class="card-title"><strong>Capital Expenditures</strong></span></p>
 <ul>
-<li>Runs in a local VM</li>
-<li>Files synced to/from VM</li>
-<li><span class="amber">No internet access</span></li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Code</strong></span></p>
-<ul>
-<li>Runs on <span class="amber">your machine</span></li>
-<li>Full local file access</li>
-<li>Full internet access</li>
+<li>Target PP&amp;E<span class="math inline">\(_t\)</span> = PP&amp;E% <span class="math inline">\(\times\)</span> sales<span class="math inline">\(_t\)</span></li>
+<li>Depreciation<span class="math inline">\(_t\)</span> = depr% <span class="math inline">\(\times\)</span> PP&amp;E<span class="math inline">\(_{t-1}\)</span></li>
+<li><span class="amber">Cap ex<span class="math inline">\(_t\)</span> = PP&amp;E<span class="math inline">\(_t\)</span> <span class="math inline">\(-\)</span> PP&amp;E<span class="math inline">\(_{t-1}\)</span> + depr<span class="math inline">\(_t\)</span></span></li>
 </ul>
 </div>
 </div>
 <div class="explainer" style="text-align:center;">
-<p><span class="amber">Code mode</span> gives Claude direct access to your machine — no sandbox, no VM, no upload step.</p>
+<p><strong>Free Cash Flow to the Firm:</strong> FCF = NOPAT + Depreciation <span class="math inline">\(-\)</span> Cap Ex <span class="math inline">\(-\)</span> <span class="math inline">\(\Delta\)</span>NWC <span class="math inline">\(-\)</span> <span class="math inline">\(\Delta\)</span>Net Other OA</p>
 </div>
 </section>
-<section id="which-tool-when" class="slide level2 center">
-<h2>Which Tool When?</h2>
-<ul>
-<li><strong>Chat</strong> for questions, explanations, and brainstorming</li>
-<li><strong>Artifacts</strong> for quick interactive tools (e.g., a DCF calculator with sliders)</li>
-<li>Code can do everything Cowork can do, plus it has <span class="amber">full internet access</span> and direct access to your local files</li>
-<li>Code can also build and deploy interactive tools (like Artifacts)</li>
-<li>Cowork’s advantage is that it requires <strong>no local software setup</strong> and runs in an isolated sandbox</li>
-</ul>
+<section id="two-stage-dcf" class="slide level2 section-divider center">
+<h2>Two-Stage DCF</h2>
 </section>
-<section id="class-installers" class="slide level2 center">
-<h2>Class Installers</h2>
-<p>The class installer sets up everything you need in one step:</p>
-<ul>
-<li><strong>Python</strong> — language Claude Code uses to execute analysis</li>
-<li><strong>Git for Windows</strong> <em>(Windows only)</em> — required by the terminal Claude Code</li>
-<li><strong>Claude Desktop</strong> — the application with built-in Claude Code</li>
-<li><strong>Claude Code (terminal)</strong> — run <code>claude</code> from any terminal or VS Code</li>
-</ul>
-</section>
-<section id="running-the-installers" class="slide level2 center">
-<h2>Running the Installers</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Windows</strong></span></p>
-<ol type="1">
-<li>Download <a href="https://mgmt675.kerryback.com/install/windows/windows-install.zip">Windows Installer</a></li>
-<li>Extract the zip file</li>
-<li>Double-click <strong>INSTALL.bat</strong></li>
-<li>Click <strong>Yes</strong> when the permission prompt appears</li>
-</ol>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Mac</strong></span></p>
-<ol type="1">
-<li>Download <a href="https://mgmt675.kerryback.com/install/mac/install.sh">Mac Installer</a> to Downloads</li>
-<li>Open Terminal</li>
-<li>Run: <code>cd ~/Downloads &amp;&amp; bash install.sh</code></li>
-</ol>
-</div>
-</div>
-</section>
-<section id="getting-started" class="slide level2 center">
-<h2>Getting Started</h2>
-<ol type="1">
-<li>Open Claude Desktop → <strong>Code</strong> tab</li>
-<li>Select a working folder for your project</li>
-<li>Choose a model: <strong>Sonnet</strong> (fast) or <strong>Opus</strong> (thorough)</li>
-<li>Set permission mode to <strong>auto-accept</strong> (recommended for exercises)</li>
-</ol>
-</section>
-<section id="claude.md" class="slide level2 center">
-<h2>CLAUDE.md</h2>
-<p>Claude reads <code>CLAUDE.md</code> files automatically at the start of every session — no need to repeat instructions.</p>
-<ul>
-<li><strong>Global</strong> (<code>~/.claude/CLAUDE.md</code>): applies to every project — output preferences, preferred libraries, personal conventions</li>
-<li><strong>Per-Project</strong> (project root): applies only to this folder — data context, domain guidance, project-specific workflows</li>
-</ul>
-<p>The installer pre-configured <strong>skills</strong> for Excel, Word, and PowerPoint. Prompt Claude Code:</p>
-<p><em>“Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.”</em></p>
-</section>
-<section id="example" class="slide level2 center">
-<h2>Example</h2>
-<p><em>“Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.”</em></p>
-</section>
-<section id="claude-code-in-the-terminal-and-vs-code" class="slide level2 section-divider center">
-<h2>Claude Code in the Terminal and VS Code</h2>
-</section>
-<section id="terminal-alternative" class="slide level2 center">
-<h2>Terminal Alternative</h2>
-<p>The Code tab in Claude Desktop and the terminal command <code>claude</code> use the <span class="amber">same engine</span>.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Desktop (Code tab)</strong></span></p>
-<ul>
-<li>Visual interface with file browser</li>
-<li>Click to select working folder</li>
-<li>Good for getting started</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Terminal (<code>claude</code>)</strong></span></p>
-<ul>
-<li>Type <code>claude</code> in any terminal</li>
-<li>Same skills, same config</li>
-<li>Preferred by power users</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Both approaches share the same skills, MCP servers, and configuration files.</p>
-</div>
-</section>
-<section id="installing-the-terminal-and-vs-code" class="slide level2 center">
-<h2>Installing the Terminal and VS Code</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Code (Terminal)</strong></span></p>
-<ul>
-<li><strong>Mac/Linux:</strong> <code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
-<li><strong>Windows (PowerShell):</strong> <code>irm https://claude.ai/install.ps1 | iex</code></li>
-<li><span class="amber">The class installer handles this automatically</span></li>
-<li>Verify: <code>claude --version</code></li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>VS Code + Extensions</strong></span></p>
-<ol type="1">
-<li>Download <a href="https://code.visualstudio.com">VS Code</a> and install</li>
-<li>Open Extensions (<code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code>)</li>
-<li>Install <strong>Python</strong> (Microsoft) and <strong>Claude Code</strong> (Anthropic)</li>
-</ol>
-</div>
-</div>
-</section>
-<section id="using-claude-code-in-the-terminal-and-vs-code" class="slide level2 center">
-<h2>Using Claude Code in the Terminal and VS Code</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Terminal</strong></span></p>
-<ul>
-<li><code>cd</code> into your project folder, then type <code>claude</code></li>
-<li>First launch: sign in with your Anthropic account</li>
-<li>Chat naturally — Claude reads and writes files in that folder</li>
-<li>Type <code>/help</code> for commands, <code>/model</code> to switch models</li>
-<li>Press <code>Esc</code> to interrupt, <code>Ctrl+C</code> twice to exit</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>VS Code</strong></span></p>
-<ul>
-<li>Open your project folder in VS Code</li>
-<li>Click the Claude Code icon in the sidebar (or <code>Ctrl+Shift+P</code> → “Claude Code: Open”)</li>
-<li>Sign in on first use</li>
-<li>Claude can see your open files, file explorer, and terminal</li>
-<li>Code changes appear as inline diffs you can accept or reject</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p><span class="amber">Both share the same skills and configuration.</span> VS Code adds a file explorer and visual diffs; the terminal is lightweight and fast.</p>
-</div>
-</section>
-<section id="working-with-multiple-files" class="slide level2 section-divider center">
-<h2>Working with Multiple Files</h2>
-</section>
-<section id="merging-data-from-different-sources" class="slide level2 center">
-<h2>Merging Data from Different Sources</h2>
-<p>Real financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then <span class="amber">combine them into a unified dataset</span>.</p>
+<section id="two-stage-dcf-overview" class="slide level2 center">
+<h2>Two-Stage DCF: Overview</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
 flowchart LR
-  CSV["&lt;b&gt;CSV&lt;/b&gt;"] --&gt; CC["&lt;b&gt;Claude Code&lt;/b&gt;"]
-  XLS["&lt;b&gt;Excel&lt;/b&gt;"] --&gt; CC
-  PDF["&lt;b&gt;PDF&lt;/b&gt;"] --&gt; CC
-  CC --&gt; UT["&lt;b&gt;Unified Table&lt;/b&gt;"]
+  S1["&lt;b&gt;Stage 1: Explicit Forecast&lt;/b&gt;&lt;br&gt;(5–10 years)"] --&gt; EV["&lt;b&gt;Enterprise Value&lt;/b&gt;&lt;br&gt;= PV(Stage 1) + PV(Stage 2)"]
+  S2["&lt;b&gt;Stage 2: Terminal Value&lt;/b&gt;&lt;br&gt;(perpetuity)"] --&gt; EV
 
-  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-</section>
-<section id="common-data-merging-scenarios" class="slide level2 center">
-<h2>Common Data Merging Scenarios</h2>
 <ul>
-<li>Holdings from multiple brokerages (xlsx + csv)</li>
-<li>Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)</li>
-<li>Quarterly reports from divisions with different column names</li>
+<li><strong>Stage 1</strong>: Project FCF each year from pro forma assumptions</li>
+<li><strong>Stage 2</strong>: Terminal value = FCF<span class="math inline">\(_{T+1}\)</span> / (WACC <span class="math inline">\(-\)</span> <span class="math inline">\(g\)</span>), where <span class="math inline">\(g\)</span> is the long-run growth rate</li>
+<li><strong>Equity value</strong> = Enterprise value <span class="math inline">\(-\)</span> net debt. Discount at the WACC.</li>
 </ul>
 </section>
-<section id="what-claude-handles" class="slide level2 center">
-<h2>What Claude Handles</h2>
-<ul>
-<li>Reads each file format natively</li>
-<li>Reconciles column names and data types</li>
-<li>Flags mismatches and missing values</li>
-<li>Outputs a clean, unified table</li>
-</ul>
-<p><span class="amber">You describe what should be merged and how. Claude handles the parsing and code.</span></p>
-</section>
-<section id="filtering-and-aggregating" class="slide level2 center">
-<h2>Filtering and Aggregating</h2>
-<p>Once data is combined, the next step is usually filtering, sorting, or grouping.</p>
+<section id="terminal-value" class="slide level2 center">
+<h2>Terminal Value</h2>
+<p>The terminal value typically accounts for <span class="amber">60–80%</span> of total enterprise value. Getting it right matters more than the explicit forecast.</p>
 <div class="two-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>Filtering</strong></span></p>
+<p><span class="card-title"><strong>Growing Perpetuity</strong></span></p>
 <ul>
-<li>“Keep only loans above $1M”</li>
-<li>“Filter to stocks with P/E &gt; 0”</li>
-<li>“Exclude rows with missing revenue”</li>
+<li>TV = FCF<span class="math inline">\(_{T+1}\)</span> / (WACC <span class="math inline">\(-\)</span> <span class="math inline">\(g\)</span>)</li>
+<li>FCF<span class="math inline">\(_{T+1}\)</span> = year <span class="math inline">\(T\)</span> FCF <span class="math inline">\(\times\)</span> (1 + <span class="math inline">\(g\)</span>)</li>
+<li><span class="math inline">\(g\)</span> = long-run nominal growth (typically 2–3%)</li>
+<li>Requires <span class="math inline">\(g &lt;\)</span> WACC</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>Aggregating</strong></span></p>
+<p><span class="card-title"><strong>Exit Multiple</strong></span></p>
 <ul>
-<li>“Average revenue by sector and quarter”</li>
-<li>“Sum holdings by asset class”</li>
-<li>“Rank funds by Sharpe ratio”</li>
+<li>TV = EBITDA<span class="math inline">\(_T\)</span> <span class="math inline">\(\times\)</span> exit multiple</li>
+<li>Multiple from comparable firms</li>
+<li>Common in practice (M&amp;A, PE)</li>
+<li>Cross-check against perpetuity method</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="sensitivity-analysis" class="slide level2 section-divider center">
+<h2>Sensitivity Analysis</h2>
+</section>
+<section id="sensitivity-tables" class="slide level2 center">
+<h2>Sensitivity Tables</h2>
+<p>A sensitivity table shows how the output (e.g., equity value per share) changes as you vary one or two key inputs.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>One-Way Table</strong></span></p>
+<ul>
+<li>Vary a single input (e.g., WACC from 8% to 12%)</li>
+<li>Hold everything else constant</li>
+<li>Shows which inputs matter most</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Two-Way Table</strong></span></p>
+<ul>
+<li>Vary two inputs simultaneously</li>
+<li>Classic: WACC vs.&nbsp;terminal growth rate</li>
+<li>Also useful for sales growth vs.&nbsp;COGS margin; reveals interaction effects</li>
 </ul>
 </div>
 </div>
 <div class="explainer">
-<p>State your intent in plain English. Claude writes the pandas code, runs it, and shows you the result. Always <span class="amber">check the filter logic</span> — this is where silent errors happen most often (Module 7).</p>
+<p>Ask Claude to produce sensitivity tables in Excel (with formulas) or as formatted output. In Excel, the Data Table feature automates two-way tables.</p>
 </div>
 </section>
-<section id="example-1" class="slide level2 center">
-<h2>Example</h2>
-<p>Download <a href="https://kerryback.com/mgmt675/files/aggregation.zip">aggregation.zip</a> and extract the workbooks into a folder.</p>
-<p>Each Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:</p>
+<section id="monte-carlo-simulation" class="slide level2 section-divider center">
+<h2>Monte Carlo Simulation</h2>
+</section>
+<section id="why-simulate" class="slide level2 center">
+<h2>Why Simulate?</h2>
+<ul>
+<li>Sensitivity tables vary one or two inputs; in reality, <span class="amber">all assumptions are uncertain simultaneously</span></li>
+<li>Monte Carlo simulation draws random values for each assumption, computes FCF and enterprise value, and repeats thousands of times</li>
+<li>The result: a <strong>distribution</strong> of enterprise values, not a single point estimate</li>
+</ul>
+</section>
+<section id="simulation-setup" class="slide level2 center">
+<h2>Simulation Setup</h2>
+<p>Assign a probability distribution to each uncertain assumption, then sample and compute.</p>
+<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%
+flowchart LR
+  RA["&lt;b&gt;Random&lt;br&gt;Assumptions&lt;/b&gt;"] --&gt; PF["&lt;b&gt;Pro Forma&lt;br&gt;Model&lt;/b&gt;"]
+  PF --&gt; FCF["&lt;b&gt;FCF&lt;/b&gt;"]
+  FCF --&gt; EV["&lt;b&gt;Enterprise&lt;br&gt;Value&lt;/b&gt;"]
+  EV --&gt; H["&lt;b&gt;Histogram&lt;br&gt;of Values&lt;/b&gt;"]
+
+  style RA fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style PF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style FCF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style EV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style H fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><strong>Assumption</strong></th>
+<th><strong>Distribution</strong></th>
+<th><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sales growth</td>
+<td>Normal</td>
+<td><span class="math inline">\(\mu = 8\%\)</span>, <span class="math inline">\(\sigma = 3\%\)</span></td>
+</tr>
+<tr class="even">
+<td>COGS %</td>
+<td>Normal</td>
+<td><span class="math inline">\(\mu = 60\%\)</span>, <span class="math inline">\(\sigma = 2\%\)</span></td>
+</tr>
+<tr class="odd">
+<td>Terminal growth</td>
+<td>Uniform</td>
+<td>1.5% to 3.5%</td>
+</tr>
+<tr class="even">
+<td>WACC</td>
+<td>Normal</td>
+<td><span class="math inline">\(\mu = 10\%\)</span>, <span class="math inline">\(\sigma = 1\%\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="simulation-output" class="slide level2 center">
+<h2>Simulation Output</h2>
+<ul>
+<li>Run 10,000 simulations → 10,000 enterprise values</li>
+<li>Report mean, median, 10th/90th percentiles; plot a histogram</li>
+<li>Identify which assumptions drive the most variance (tornado chart)</li>
+</ul>
+</section>
+<section id="building-these-analyses-with-ai" class="slide level2 section-divider center">
+<h2>Building These Analyses with AI</h2>
+</section>
+<section id="multiple-ways-to-build-with-ai" class="slide level2 center">
+<h2>Multiple Ways to Build with AI</h2>
+<ul>
+<li><strong>Chat</strong>: “Build a two-stage DCF model for a company with these assumptions … Generate an Excel file with pro formas, FCF, and a sensitivity table.”</li>
+<li><strong>Cowork</strong>: Point Claude at a folder with data files. “Read the financial data, build pro formas, run a DCF, and save the results to Excel.”</li>
+<li><strong>Code</strong>: “Build a DCF model in Python. Fetch Apple’s financials from FMP, estimate assumptions from historical data, and run a Monte Carlo simulation.”</li>
+<li><strong>Excel add-in</strong>: Open a blank workbook. “Build a two-stage DCF with pro forma statements, a sensitivity table for WACC vs.&nbsp;terminal growth, and a tornado chart.”</li>
+</ul>
+<p><span class="amber">Key difference:</span> Chat and Cowork generate spreadsheets via Python (no internet). Code mode can <span class="amber">fetch live data</span> from APIs before building the model.</p>
+</section>
+<section id="section" class="slide level2 centered-statement center">
+<h2></h2>
+<div style="text-align:center;">
+<p><strong>The same analysis that takes hours with traditional tools takes minutes with AI.</strong></p>
+<p>Describing the problem clearly — choosing the right assumptions, interpreting the output — is the hard part. The computation is delegated entirely.</p>
+</div>
+</section>
+<section id="exercises" class="slide level2 section-divider center">
+<h2>Exercises</h2>
+</section>
+<section id="in-class-exercise-pro-forma-skill" class="slide level2 center">
+<h2>In-Class Exercise: Pro Forma Skill</h2>
+<p>Create a Claude skill that enforces specific pro forma forecasting rules for PP&amp;E:</p>
+<div class="info-box">
+<p><span class="box-title"><strong>Rules to Encode in the Skill</strong></span></p>
 <ol type="1">
-<li>Summarize the columns present, row count, and basic statistics for each file</li>
-<li>Combine all files into a single table, reconciling the varying column names</li>
-<li>Save the result as <code>combined.xlsx</code></li>
+<li>Forecast <strong>net PP&amp;E</strong> as a percentage of sales (e.g., trailing average of net PP&amp;E / sales)</li>
+<li>Forecast <strong>depreciation</strong> as a percentage of net PP&amp;E (e.g., trailing average of depreciation / net PP&amp;E)</li>
+<li>Compute <strong>cap ex</strong> as the plug: cap ex = <span class="math inline">\(\Delta\)</span> net PP&amp;E + depreciation</li>
 </ol>
-<p>This is the same “divide and conquer” pattern used in professional data pipelines — read each source independently, then unify.</p>
+</div>
+<ol type="1">
+<li>Write a <code>SKILL.md</code> that tells Claude to follow these three rules whenever building pro formas</li>
+<li>Test it: ask Claude to build a pro forma for a company using the skill</li>
+<li>Verify: does the balance sheet balance? Is cap ex the plug?</li>
+</ol>
+</section>
+<section id="exercise-3-dcf-model" class="slide level2 center">
+<h2>Exercise 3: DCF Model</h2>
+<p>Build a two-stage DCF for a hypothetical company:</p>
+<ul>
+<li>Current sales: $500M; sales growth (yrs 1–5): 10%; terminal growth: 3%</li>
+<li>COGS: 58% of sales; SG&amp;A: $20M + 12% of sales</li>
+<li>NWC: 15% of sales; PP&amp;E: 40% of sales; net other OA: 5% of sales</li>
+<li>Depreciation: 10% of PP&amp;E; tax rate: 25%</li>
+<li>WACC: 9%; net debt: $200M; shares outstanding: 50M</li>
+</ul>
+<p>Produce an Excel workbook with pro forma income statement, balance sheet items, FCF calculation, enterprise value, per-share value, and a two-way sensitivity table (WACC vs.&nbsp;terminal growth rate).</p>
+</section>
+<section id="exercise-4-dcf-with-live-data" class="slide level2 center">
+<h2>Exercise 4: DCF with Live Data</h2>
+<ul>
+<li>In Claude Code, fetch a real company’s financials from the Rice Data Portal (SF1 table) and estimate assumptions from trailing averages.</li>
+<li>Build a 5-year pro forma, run a two-stage DCF, and compare to the current market cap.</li>
+<li>Submit the code output + a short memo explaining the comparison.</li>
+</ul>
+<p><strong>Note:</strong> This exercise requires Claude Code (internet access for the database query).</p>
+</section>
+<section id="exercise-5-monte-carlo-simulation" class="slide level2 center">
+<h2>Exercise 5: Monte Carlo Simulation</h2>
+<ul>
+<li>Take your DCF model and assign distributions to sales growth, COGS %, terminal growth, and WACC.</li>
+<li>Run 10,000 simulations; report mean, median, 10th/90th percentiles.</li>
+<li>Plot a histogram + tornado chart; discuss which assumption drives the most variation.</li>
+</ul>
 
 
 </section>

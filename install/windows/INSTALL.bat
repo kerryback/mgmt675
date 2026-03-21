@@ -1,29 +1,26 @@
 @echo off
-REM MGMT 675 Development Environment Installer Launcher
-REM Right-click this file and select "Run as Administrator"
+REM MGMT 675 Development Environment Installer
+REM Double-click to run. A permission prompt will appear -- click Yes.
 
 echo ================================================
 echo   MGMT 675 Development Environment Installer
 echo ================================================
 echo.
 
-REM Check for Administrator privileges
+REM Self-elevate: if not already admin, re-launch with UAC prompt
 net session >nul 2>&1
 if %errorLevel% neq 0 (
-    echo ERROR: This installer must be run as Administrator.
+    echo Requesting administrator privileges...
+    echo A User Account Control prompt will appear. Click Yes to continue.
     echo.
-    echo Please:
-    echo   1. Right-click on INSTALL.bat
-    echo   2. Select "Run as administrator"
-    echo.
-    pause
-    exit /b 1
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    exit /b
 )
 
 echo Starting installer...
 echo.
 
-REM Run the PowerShell installer script with Bypass execution policy
+REM Run the PowerShell installer script
 powershell.exe -ExecutionPolicy Bypass -NoProfile -File "%~dp0run.ps1"
 
 if %errorLevel% neq 0 (
@@ -33,7 +30,6 @@ if %errorLevel% neq 0 (
     echo ================================================
     echo.
     echo Please check the error messages above.
-    echo See README.md for alternative installation methods.
     echo.
     pause
     exit /b 1

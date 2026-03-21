@@ -64,8 +64,9 @@ format:
 The class installer sets up everything you need in one step:
 
 - **Python** --- language Claude Code uses to execute analysis
+- **Git for Windows** *(Windows only)* --- required by the terminal Claude Code
 - **Claude Desktop** --- the application with built-in Claude Code
-- **Skills** --- pre-packaged instructions for Excel, Word, PowerPoint, and more
+- **Claude Code (terminal)** --- run `claude` from any terminal or VS Code
 
 ## Running the Installers
 
@@ -75,7 +76,8 @@ The class installer sets up everything you need in one step:
 
 1. Download [Windows Installer](https://mgmt675.kerryback.com/install/windows/windows-install.zip)
 2. Extract the zip file
-3. Right-click **INSTALL.bat** → Run as administrator
+3. Double-click **INSTALL.bat**
+4. Click **Yes** when the permission prompt appears
 :::
 
 :::{.card .card-light}
@@ -144,8 +146,8 @@ Both approaches share the same skills, MCP servers, and configuration files.
 [**Claude Code (Terminal)**]{.card-title}
 
 - **Mac/Linux:** `curl -fsSL https://claude.ai/install.sh | bash`
-- **Windows:** `irm https://claude.ai/install.ps1 | iex`
-- Windows also requires [Git for Windows](https://git-scm.com/downloads/win)
+- **Windows (PowerShell):** `irm https://claude.ai/install.ps1 | iex`
+- [The class installer handles this automatically]{.amber}
 - Verify: `claude --version`
 :::
 

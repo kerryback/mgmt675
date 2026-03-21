@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 4: Claude Desktop &amp; Code</title>
+  <title>Module 5: Claude Sub-Agents and Skills</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,6 +28,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-93f5f68c340f58c0c400e6a72356cc74.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -127,16 +192,13 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 4: Claude Desktop &amp; Code</h1>
+  <h1 class="title">Module 5: Claude Sub-Agents and Skills</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -148,267 +210,272 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="claude-desktop-overview" class="slide level2 section-divider center">
-<h2>Claude Desktop Overview</h2>
+<section id="sub-agents" class="slide level2 section-divider center">
+<h2>Sub-Agents</h2>
 </section>
-<section id="three-tabs-chat-cowork-code" class="slide level2 center">
-<h2>Three Tabs: Chat, Cowork, Code</h2>
-<div class="three-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Chat (Analysis)</strong></span></p>
-<ul>
-<li>Sandboxed Python in the browser</li>
-<li>No local file access</li>
-<li>Must upload data manually</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Cowork</strong></span></p>
-<ul>
-<li>Runs in a local VM</li>
-<li>Files synced to/from VM</li>
-<li><span class="amber">No internet access</span></li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Code</strong></span></p>
-<ul>
-<li>Runs on <span class="amber">your machine</span></li>
-<li>Full local file access</li>
-<li>Full internet access</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p><span class="amber">Code mode</span> gives Claude direct access to your machine — no sandbox, no VM, no upload step.</p>
-</div>
-</section>
-<section id="which-tool-when" class="slide level2 center">
-<h2>Which Tool When?</h2>
-<ul>
-<li><strong>Chat</strong> for questions, explanations, and brainstorming</li>
-<li><strong>Artifacts</strong> for quick interactive tools (e.g., a DCF calculator with sliders)</li>
-<li>Code can do everything Cowork can do, plus it has <span class="amber">full internet access</span> and direct access to your local files</li>
-<li>Code can also build and deploy interactive tools (like Artifacts)</li>
-<li>Cowork’s advantage is that it requires <strong>no local software setup</strong> and runs in an isolated sandbox</li>
-</ul>
-</section>
-<section id="class-installers" class="slide level2 center">
-<h2>Class Installers</h2>
-<p>The class installer sets up everything you need in one step:</p>
-<ul>
-<li><strong>Python</strong> — language Claude Code uses to execute analysis</li>
-<li><strong>Git for Windows</strong> <em>(Windows only)</em> — required by the terminal Claude Code</li>
-<li><strong>Claude Desktop</strong> — the application with built-in Claude Code</li>
-<li><strong>Claude Code (terminal)</strong> — run <code>claude</code> from any terminal or VS Code</li>
-</ul>
-</section>
-<section id="running-the-installers" class="slide level2 center">
-<h2>Running the Installers</h2>
+<section id="what-is-a-sub-agent" class="slide level2 center">
+<h2>What Is a Sub-Agent?</h2>
+<p>When Claude Code handles a complex task, it can spin up <strong>sub-agents</strong> — separate Claude instances that work on subtasks in parallel or in sequence, then report back.</p>
 <div class="two-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>Windows</strong></span></p>
-<ol type="1">
-<li>Download <a href="https://mgmt675.kerryback.com/install/windows/windows-install.zip">Windows Installer</a></li>
-<li>Extract the zip file</li>
-<li>Double-click <strong>INSTALL.bat</strong></li>
-<li>Click <strong>Yes</strong> when the permission prompt appears</li>
-</ol>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Mac</strong></span></p>
-<ol type="1">
-<li>Download <a href="https://mgmt675.kerryback.com/install/mac/install.sh">Mac Installer</a> to Downloads</li>
-<li>Open Terminal</li>
-<li>Run: <code>cd ~/Downloads &amp;&amp; bash install.sh</code></li>
-</ol>
-</div>
-</div>
-</section>
-<section id="getting-started" class="slide level2 center">
-<h2>Getting Started</h2>
-<ol type="1">
-<li>Open Claude Desktop → <strong>Code</strong> tab</li>
-<li>Select a working folder for your project</li>
-<li>Choose a model: <strong>Sonnet</strong> (fast) or <strong>Opus</strong> (thorough)</li>
-<li>Set permission mode to <strong>auto-accept</strong> (recommended for exercises)</li>
-</ol>
-</section>
-<section id="claude.md" class="slide level2 center">
-<h2>CLAUDE.md</h2>
-<p>Claude reads <code>CLAUDE.md</code> files automatically at the start of every session — no need to repeat instructions.</p>
+<p><span class="card-title"><strong>Orchestrator</strong></span></p>
 <ul>
-<li><strong>Global</strong> (<code>~/.claude/CLAUDE.md</code>): applies to every project — output preferences, preferred libraries, personal conventions</li>
-<li><strong>Per-Project</strong> (project root): applies only to this folder — data context, domain guidance, project-specific workflows</li>
-</ul>
-<p>The installer pre-configured <strong>skills</strong> for Excel, Word, and PowerPoint. Prompt Claude Code:</p>
-<p><em>“Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.”</em></p>
-</section>
-<section id="example" class="slide level2 center">
-<h2>Example</h2>
-<p><em>“Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.”</em></p>
-</section>
-<section id="claude-code-in-the-terminal-and-vs-code" class="slide level2 section-divider center">
-<h2>Claude Code in the Terminal and VS Code</h2>
-</section>
-<section id="terminal-alternative" class="slide level2 center">
-<h2>Terminal Alternative</h2>
-<p>The Code tab in Claude Desktop and the terminal command <code>claude</code> use the <span class="amber">same engine</span>.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Desktop (Code tab)</strong></span></p>
-<ul>
-<li>Visual interface with file browser</li>
-<li>Click to select working folder</li>
-<li>Good for getting started</li>
+<li>The main Claude session you are talking to</li>
+<li>Breaks the task into pieces</li>
+<li>Delegates to sub-agents and synthesizes results</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>Terminal (<code>claude</code>)</strong></span></p>
+<p><span class="card-title"><strong>Sub-Agent</strong></span></p>
 <ul>
-<li>Type <code>claude</code> in any terminal</li>
-<li>Same skills, same config</li>
-<li>Preferred by power users</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Both approaches share the same skills, MCP servers, and configuration files.</p>
-</div>
-</section>
-<section id="installing-the-terminal-and-vs-code" class="slide level2 center">
-<h2>Installing the Terminal and VS Code</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Code (Terminal)</strong></span></p>
-<ul>
-<li><strong>Mac/Linux:</strong> <code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
-<li><strong>Windows (PowerShell):</strong> <code>irm https://claude.ai/install.ps1 | iex</code></li>
-<li><span class="amber">The class installer handles this automatically</span></li>
-<li>Verify: <code>claude --version</code></li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>VS Code + Extensions</strong></span></p>
-<ol type="1">
-<li>Download <a href="https://code.visualstudio.com">VS Code</a> and install</li>
-<li>Open Extensions (<code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code>)</li>
-<li>Install <strong>Python</strong> (Microsoft) and <strong>Claude Code</strong> (Anthropic)</li>
-</ol>
-</div>
-</div>
-</section>
-<section id="using-claude-code-in-the-terminal-and-vs-code" class="slide level2 center">
-<h2>Using Claude Code in the Terminal and VS Code</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Terminal</strong></span></p>
-<ul>
-<li><code>cd</code> into your project folder, then type <code>claude</code></li>
-<li>First launch: sign in with your Anthropic account</li>
-<li>Chat naturally — Claude reads and writes files in that folder</li>
-<li>Type <code>/help</code> for commands, <code>/model</code> to switch models</li>
-<li>Press <code>Esc</code> to interrupt, <code>Ctrl+C</code> twice to exit</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>VS Code</strong></span></p>
-<ul>
-<li>Open your project folder in VS Code</li>
-<li>Click the Claude Code icon in the sidebar (or <code>Ctrl+Shift+P</code> → “Claude Code: Open”)</li>
-<li>Sign in on first use</li>
-<li>Claude can see your open files, file explorer, and terminal</li>
-<li>Code changes appear as inline diffs you can accept or reject</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p><span class="amber">Both share the same skills and configuration.</span> VS Code adds a file explorer and visual diffs; the terminal is lightweight and fast.</p>
-</div>
-</section>
-<section id="working-with-multiple-files" class="slide level2 section-divider center">
-<h2>Working with Multiple Files</h2>
-</section>
-<section id="merging-data-from-different-sources" class="slide level2 center">
-<h2>Merging Data from Different Sources</h2>
-<p>Real financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then <span class="amber">combine them into a unified dataset</span>.</p>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  CSV["&lt;b&gt;CSV&lt;/b&gt;"] --&gt; CC["&lt;b&gt;Claude Code&lt;/b&gt;"]
-  XLS["&lt;b&gt;Excel&lt;/b&gt;"] --&gt; CC
-  PDF["&lt;b&gt;PDF&lt;/b&gt;"] --&gt; CC
-  CC --&gt; UT["&lt;b&gt;Unified Table&lt;/b&gt;"]
-
-  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="common-data-merging-scenarios" class="slide level2 center">
-<h2>Common Data Merging Scenarios</h2>
-<ul>
-<li>Holdings from multiple brokerages (xlsx + csv)</li>
-<li>Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)</li>
-<li>Quarterly reports from divisions with different column names</li>
-</ul>
-</section>
-<section id="what-claude-handles" class="slide level2 center">
-<h2>What Claude Handles</h2>
-<ul>
-<li>Reads each file format natively</li>
-<li>Reconciles column names and data types</li>
-<li>Flags mismatches and missing values</li>
-<li>Outputs a clean, unified table</li>
-</ul>
-<p><span class="amber">You describe what should be merged and how. Claude handles the parsing and code.</span></p>
-</section>
-<section id="filtering-and-aggregating" class="slide level2 center">
-<h2>Filtering and Aggregating</h2>
-<p>Once data is combined, the next step is usually filtering, sorting, or grouping.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Filtering</strong></span></p>
-<ul>
-<li>“Keep only loans above $1M”</li>
-<li>“Filter to stocks with P/E &gt; 0”</li>
-<li>“Exclude rows with missing revenue”</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Aggregating</strong></span></p>
-<ul>
-<li>“Average revenue by sector and quarter”</li>
-<li>“Sum holdings by asset class”</li>
-<li>“Rank funds by Sharpe ratio”</li>
+<li>A fresh Claude instance with its own context</li>
+<li>Receives a specific subtask and tools</li>
+<li>Returns its result to the orchestrator</li>
 </ul>
 </div>
 </div>
 <div class="explainer">
-<p>State your intent in plain English. Claude writes the pandas code, runs it, and shows you the result. Always <span class="amber">check the filter logic</span> — this is where silent errors happen most often (Module 7).</p>
+<p>Sub-agents allow Claude to <span class="amber">work in parallel</span> and to keep each subtask focused — the orchestrator stays high-level while sub-agents do the detailed work.</p>
 </div>
 </section>
-<section id="example-1" class="slide level2 center">
-<h2>Example</h2>
-<p>Download <a href="https://kerryback.com/mgmt675/files/aggregation.zip">aggregation.zip</a> and extract the workbooks into a folder.</p>
-<p>Each Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:</p>
+<section id="spontaneous-sub-agents" class="slide level2 center">
+<h2>Spontaneous Sub-Agents</h2>
+<p>Claude Code <span class="amber">decides on its own</span> when a task warrants sub-agents. You do not have to ask.</p>
+<ul>
+<li><strong>Parallel research</strong>: fetching data from multiple sources simultaneously</li>
+<li><strong>Multi-file analysis</strong>: reviewing several documents at once and comparing findings</li>
+<li><strong>Iterative workflows</strong>: one agent drafts, another critiques, another revises</li>
+<li><strong>Long computations</strong>: splitting a large dataset across agents to stay within context limits</li>
+</ul>
+<div class="explainer">
+<p>You will see a notice when Claude spawns a sub-agent. Each sub-agent has its own tool permissions and context window, so it starts fresh — it does not inherit your conversation history.</p>
+</div>
+</section>
+<section id="requesting-a-sub-agent" class="slide level2 center">
+<h2>Requesting a Sub-Agent</h2>
+<p>You can <span class="amber">explicitly ask</span> Claude to use a sub-agent for any task:</p>
+<ul>
+<li><em>“Use a sub-agent to research competitor pricing and report back.”</em></li>
+<li><em>“Spawn a sub-agent to review this code for bugs while you work on the next feature.”</em></li>
+<li><em>“Use three parallel sub-agents to analyze each of these three reports, then summarize.”</em></li>
+</ul>
+<p>This is especially useful when you want a task isolated from the main context — for example, a long web search or a large file analysis that would otherwise fill the context window.</p>
+<div class="explainer">
+<p>The <code>/critique</code> skill in the exercise below is a worked example: it spawns three parallel sub-agents (correctness, clarity, devil’s advocate) and has the orchestrator synthesize their findings.</p>
+</div>
+</section>
+<section id="claude-skills" class="slide level2 section-divider center">
+<h2>Claude Skills</h2>
+</section>
+<section id="claude-desktop-vs.-terminal-claude-code" class="slide level2 center">
+<h2>Claude Desktop vs.&nbsp;Terminal Claude Code</h2>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Desktop — Chat tab</strong></span></p>
+<ul>
+<li>Equivalent to <strong>claude.ai</strong> in a browser</li>
+<li>Conversational interface, no filesystem access</li>
+<li>Built-in document skills auto-activate</li>
+<li>Custom skills uploaded as ZIP files</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Desktop — Code tab</strong></span></p>
+<ul>
+<li>Equivalent to the <strong>Claude Code CLI</strong> in a terminal</li>
+<li>Full filesystem and tool access</li>
+<li>Reads <code>~/.claude/skills/</code> for custom skills</li>
+<li>Invoke skills with <code>/skill-name</code></li>
+</ul>
+</div>
+</div>
+<div class="explainer">
+<p>The Code tab and the terminal CLI are the same engine. Everything covered in this module applies equally to both.</p>
+</div>
+</section>
+<section id="installing-claude-code-terminal" class="slide level2 center">
+<h2>Installing Claude Code (Terminal)</h2>
+<p>Use the <span class="amber">native installer</span> — npm is deprecated as of 2026.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>macOS / Linux / WSL</strong></span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://claude.ai/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Windows (PowerShell)</strong></span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a></a><span class="fu">irm</span> https<span class="op">://</span>claude<span class="op">.</span><span class="fu">ai</span><span class="op">/</span>install<span class="op">.</span><span class="fu">ps1</span> <span class="op">|</span> <span class="fu">iex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Requires <strong>Git for Windows</strong> installed first.</p>
+</div>
+</div>
+<p>Then launch from any project folder:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="bu">cd</span> my-project</span>
+<span id="cb3-2"><a></a><span class="ex">claude</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>The native installer auto-updates in the background and requires no Node.js. After installing, run <code>claude doctor</code> to verify everything is working.</p>
+</div>
+</section>
+<section id="built-in-document-skills" class="slide level2 center">
+<h2>Built-In Document Skills</h2>
+<p>Anthropic ships four document skills with every Claude product. <span class="amber">No setup required.</span></p>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Excel</strong></span></p>
+<ul>
+<li>Create and edit Excel workbooks</li>
+<li>Uses <span class="amber">live formulas</span>, not hardcoded values</li>
+<li>Supports charts, formatting, multiple sheets</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Word</strong></span></p>
+<ul>
+<li>Create and edit Word documents</li>
+<li>Professional formatting, headers, tables</li>
+<li>Supports tracked changes and comments</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>PowerPoint</strong></span></p>
+<ul>
+<li>Create and edit PowerPoint decks</li>
+<li>Slide layouts, charts, speaker notes</li>
+<li>Can modify existing presentations</li>
+</ul>
+</div>
+</div>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Desktop chat / claude.ai</strong></span></p>
+<ul>
+<li>Skills activate <span class="amber">automatically</span> based on your request</li>
+<li>No <code>/</code> command needed</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Code (CLI or Desktop Code tab)</strong></span></p>
+<ul>
+<li>Invoke explicitly: <code>/xlsx</code>, <code>/docx</code>, <code>/pptx</code></li>
+<li>Or just ask — Claude invokes the right skill</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Both surfaces</strong></span></p>
+<ul>
+<li>Same skill logic and output quality</li>
+<li>Code tab reads <code>~/.claude/skills/</code> like the CLI</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="the-xlsx-skill" class="slide level2 center">
+<h2>The /xlsx Skill</h2>
+<p>In Claude Code, skills are plain text files stored in <code>~/.claude/skills/</code>. You can read the full <code>/xlsx</code> skill at:</p>
+<ul>
+<li><strong>GitHub:</strong> <a href="https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md">https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md</a></li>
+<li><strong>In Claude Code on your machine:</strong>
+<ul>
+<li>Windows: <code>C:\Users\yourname\.claude\skills\xlsx\SKILL.md</code></li>
+<li>Mac: <code>~/.claude/skills/xlsx/SKILL.md</code></li>
+</ul></li>
+</ul>
+<p>It instructs Claude to use <span class="amber">live Excel formulas</span> instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards.</p>
+<div class="explainer">
+<p>Claude Desktop and claude.ai use the same skill logic, but the files are managed by Anthropic — you cannot browse them on your machine.</p>
+</div>
+</section>
+<section id="pre-installed-skills-skill-creator" class="slide level2 center">
+<h2>Pre-Installed Skills: Skill Creator</h2>
+<p>The <code>/skill-creator</code> skill is a guide for <span class="amber">building your own skills</span>.</p>
+<ul>
+<li>Walks you through designing a new skill step by step</li>
+<li>Generates the skill definition file</li>
+<li>Installs the skill so it appears as a <code>/</code> command</li>
+</ul>
+<p>We will use <code>/skill-creator</code> in the exercise below to build a personal task manager skill.</p>
+</section>
+<section id="custom-skills-in-claude-desktop-and-claude.ai" class="slide level2 center">
+<h2>Custom Skills in Claude Desktop and claude.ai</h2>
+<p>The built-in document skills are always on. You can also add <span class="amber">your own custom skills</span>.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Desktop chat / claude.ai</strong></span></p>
+<ul>
+<li>Go to <strong>Settings → Customize → Skills</strong></li>
+<li>Click <strong>+</strong> to upload a <strong>ZIP file</strong> containing a folder with a <code>SKILL.md</code> file</li>
+<li>Toggle custom skills on or off</li>
+<li>Claude auto-invokes based on the skill’s description</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Code (CLI or Desktop Code tab)</strong></span></p>
+<ul>
+<li>Drop a folder with a <code>SKILL.md</code> into <code>~/.claude/skills/</code></li>
+<li>Invoke with <code>/skill-name</code> or let Claude load it from context</li>
+<li>Project-level skills go in <code>.claude/skills/</code> inside your repo</li>
+</ul>
+</div>
+</div>
+<div class="explainer">
+<p>The description in your <code>SKILL.md</code> tells Claude <span class="amber">when to invoke the skill</span>, so make it specific. Custom skills are private to your account.</p>
+</div>
+</section>
+<section id="exercise-a-critique-skill" class="slide level2 center">
+<h2>Exercise: A Critique Skill</h2>
+<p>Create a <code>/critique</code> skill that reviews work Claude has produced by spawning three parallel reviewer agents:</p>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Correctness</strong></span></p>
+<ul>
+<li>Factual errors, logic gaps</li>
+<li>Missing assumptions</li>
+<li>Math or data mistakes</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Clarity</strong></span></p>
+<ul>
+<li>Structure and readability</li>
+<li>Redundancy or buried points</li>
+<li>Proposed rewrites</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Devil’s Advocate</strong></span></p>
+<ul>
+<li>Challenge assumptions</li>
+<li>Strongest counterarguments</li>
+<li>Weakest reasoning</li>
+</ul>
+</div>
+</div>
+<p>The skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it.</p>
+</section>
+<section id="exercise-critique-loop" class="slide level2 center">
+<h2>Exercise: Critique Loop</h2>
 <ol type="1">
-<li>Summarize the columns present, row count, and basic statistics for each file</li>
-<li>Combine all files into a single table, reconciling the varying column names</li>
-<li>Save the result as <code>combined.xlsx</code></li>
+<li>Copy a document you’ve created into your working folder (e.g., a memo, report, or exercise solution).</li>
+<li>Tell Claude: <em>“Apply the critique skill in a loop — critique, make the recommended changes, critique again, and continue until the agents are happy.”</em></li>
 </ol>
-<p>This is the same “divide and conquer” pattern used in professional data pipelines — read each source independently, then unify.</p>
+</section>
+<section id="exercise-create-a-tasks-skill" class="slide level2 center">
+<h2>Exercise: Create a Tasks Skill</h2>
+<p>Use <code>/skill-creator</code> to build a <strong>tasks</strong> skill that manages personal and school to-do lists. The skill should:</p>
+<ul>
+<li>Store tasks in markdown files (e.g., <code>personal.md</code>, <code>school.md</code>)</li>
+<li>Add new tasks with a category and due date</li>
+<li>List pending tasks when asked</li>
+<li>Mark tasks as complete</li>
+</ul>
+</section>
+<section id="exercise-steps" class="slide level2 center">
+<h2>Exercise: Steps</h2>
+<ol type="1">
+<li>Describe the task manager you want and ask Claude to create a skill for it</li>
+<li>Let Claude generate and install the skill</li>
+<li>Test it: <em>“/tasks Add: finish DCF exercise, due Tuesday”</em></li>
+<li>Test it: <em>“/tasks What’s pending?”</em></li>
+</ol>
+<p>This should work fine without typing <code>/skill-creator</code> because Claude knows about the skill-creator skill via the <code>CLAUDE.md</code>.</p>
 
 
 </section>

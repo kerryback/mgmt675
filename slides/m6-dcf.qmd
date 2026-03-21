@@ -1,5 +1,5 @@
 ---
-title: "Module 5: Discounted Cash Flow Analysis"
+title: "Module 6: DCF Analysis"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:

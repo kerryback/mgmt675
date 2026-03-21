@@ -65,8 +65,8 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 2. [Exploring Claude](https://mgmt675.kerryback.com/slides/m2-intro-claude.html)
 3. [Mean-Variance Analysis](https://mgmt675.kerryback.com/slides/m3-mean-variance.html)
 4. [Claude Desktop and Claude Code](https://mgmt675.kerryback.com/slides/m4-claude.html)
-5. [Discounted Cash Flow Analysis](https://mgmt675.kerryback.com/slides/m5-dcf.html)
-6. [Claude Skills](https://mgmt675.kerryback.com/slides/m6-skills.html)
+5. [Claude Sub-Agents and Skills](https://mgmt675.kerryback.com/slides/m5-skills.html)
+6. [Discounted Cash Flow Analysis](https://mgmt675.kerryback.com/slides/m6-dcf.html)
 :::
 
 ::: {}
