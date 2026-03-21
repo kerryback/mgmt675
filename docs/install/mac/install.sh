@@ -76,18 +76,7 @@ else
     print_success "Claude Desktop installed"
 fi
 
-# Step 5: Install Claude skills
-print_status "Installing Claude skills..."
-SKILLS_DEST="$HOME/.claude/skills"
-mkdir -p "$SKILLS_DEST"
-if [[ -d "$SCRIPT_DIR/skills" ]]; then
-    cp -r "$SCRIPT_DIR/skills/"* "$SKILLS_DEST/" 2>/dev/null || true
-    print_success "Claude skills installed to $SKILLS_DEST"
-else
-    print_warning "Skills folder not found — skipping"
-fi
-
-# Step 6: Install Claude Code (terminal)
+# Step 5: Install Claude Code (terminal)
 print_status "Installing Claude Code (terminal)..."
 if command_exists claude; then
     print_success "Claude Code already installed: $(claude --version 2>&1)"
