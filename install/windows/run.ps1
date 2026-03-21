@@ -134,23 +134,11 @@ if (-not $ClaudeDesktopInstalled) {
     Write-Success "Claude Desktop already installed"
 }
 
-# Step 5: Install Claude skills
-Write-Status "Installing Claude skills..."
-$SkillsSource = Join-Path $ScriptDir "skills"
-$SkillsDest = "$env:USERPROFILE\.claude\skills"
-if (Test-Path $SkillsSource) {
-    New-Item -ItemType Directory -Force -Path $SkillsDest | Out-Null
-    Copy-Item -Recurse -Force "$SkillsSource\*" $SkillsDest
-    Write-Success "Claude skills installed to $SkillsDest"
-} else {
-    Write-Warning "Skills folder not found - skipping"
-}
-
-# Step 6: Install Claude Code (terminal)
+# Step 5: Install Claude Code (terminal)
 Write-Status "Installing Claude Code (terminal)..."
 if (-not (Test-CommandExists "claude")) {
     Write-Status "  Running Claude Code installer..."
-    Invoke-Expression (Invoke-WebRequest -Uri "https://claude.ai/install.ps1" -UseBasicParsing).Content
+    Invoke-RestMethod -Uri "https://claude.ai/install.ps1" | Invoke-Expression
     Refresh-Path
     if (Test-CommandExists "claude") {
         Write-Success "Claude Code installed: $(claude --version 2>&1)"
@@ -233,5 +221,5 @@ Write-Host "Installed software:" -ForegroundColor Yellow
 Write-Host "  - Python 3.12 ($ArchLabel)"
 Write-Host "  - Git for Windows"
 Write-Host "  - Claude Desktop"
-Write-Host "  - Claude Code (terminal)"
+Write-Host "  - Claude Code (terminal: 'claude' command)"
 Write-Host ""
