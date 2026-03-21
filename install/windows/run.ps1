@@ -119,7 +119,10 @@ if (-not (Test-CommandExists "git")) {
 
 # Step 4: Install Claude Desktop
 Write-Status "Installing Claude Desktop..."
-$ClaudeDesktopInstalled = Test-Path "$env:LOCALAPPDATA\Programs\claude-desktop\Claude.exe"
+$ClaudeDesktopInstalled = $null -ne (
+    Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" -ErrorAction SilentlyContinue |
+    Where-Object { $_.DisplayName -like "*Claude*" -and $_.DisplayName -notlike "*Claude Code*" }
+)
 if (-not $ClaudeDesktopInstalled) {
     $ClaudePath = "$TempDir\ClaudeSetup.exe"
 
@@ -184,7 +187,11 @@ if (Test-CommandExists "git") {
 }
 
 # Check Claude Desktop
-if (Test-Path "$env:LOCALAPPDATA\Programs\claude-desktop\Claude.exe") {
+$ClaudeVerified = $null -ne (
+    Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" -ErrorAction SilentlyContinue |
+    Where-Object { $_.DisplayName -like "*Claude*" -and $_.DisplayName -notlike "*Claude Code*" }
+)
+if ($ClaudeVerified) {
     Write-Success "  Claude Desktop: installed"
 } else {
     Write-Warning "  Claude Desktop: NOT FOUND"
