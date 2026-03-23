@@ -111,6 +111,217 @@ while not done:
 [The agent is part LLM intelligence, part traditional programming.]{.amber}
 :::
 
+## Claude Code as an Agent Harness {.section-divider}
+
+## What a Harness Provides
+
+The pseudocode shows the logic. A **harness** is the infrastructure that actually runs that loop --- and controls what the agent is allowed to do.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Runtime Infrastructure**]{.card-title}
+
+- Maintains conversation state across turns
+- Executes tool calls and captures results
+- Handles errors so the agent can recover
+- Enforces iteration and cost limits
+:::
+
+:::{.card .card-light}
+[**Control and Safety**]{.card-title}
+
+- Permission system: which tools are allowed
+- Human-in-the-loop approval gates
+- Hooks: custom checks before/after actions
+- Audit log of every action taken
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+Claude Code is a complete harness --- you supply the task; it handles the loop, tools, and guardrails.
+:::
+
+## The Real Agent Loop
+
+:::{.info-box}
+[**A Production-Grade Loop**]{.box-title}
+
+```python
+iteration = 0
+while iteration < max_turns:
+    response = call_llm(messages, system_prompt, tools)
+    messages.append(response)             # Maintain full history
+
+    if response.stop_reason == "end_turn":
+        return response.text              # Task complete
+
+    for tool_call in response.tool_uses:
+        if needs_approval(tool_call):     # Human-in-the-loop
+            if not ask_user(tool_call):
+                break                     # User blocked the action
+        try:
+            result = execute(tool_call)
+        except Exception as e:
+            result = f"Error: {e}"        # Agent sees error and recovers
+        messages.append(tool_result(result))
+
+    iteration += 1
+raise MaxIterationsError("Did not complete")
+```
+:::
+
+## Claude Code's Four Harness Layers
+
+:::{.two-cards}
+:::{.card .card-light}
+[**CLAUDE.md**]{.card-title}
+
+Injected as the system prompt. Defines the agent's persona, project context, and behavioral rules before any user message is sent.
+:::
+
+:::{.card .card-light}
+[**Permissions**]{.card-title}
+
+Controls which tools and file paths the agent can access. Separate allow/deny lists for bash commands, file writes, and network calls.
+:::
+:::
+
+:::{.two-cards style="margin-top:0.8em;"}
+:::{.card .card-light}
+[**Hooks**]{.card-title}
+
+Shell commands that fire automatically at agent lifecycle events: before a tool runs, after it completes, or when the agent stops.
+:::
+
+:::{.card .card-light}
+[**Iteration Limits**]{.card-title}
+
+`--max-turns` caps how many steps the agent takes. Prevents runaway loops and controls API spend.
+:::
+:::
+
+## Guardrails and Constraints {.section-divider}
+
+## Why Guardrails?
+
+Without constraints, an autonomous agent can cause real damage --- even with good intentions.
+
+:::{.two-cards}
+:::{.card .card-dark}
+[**What Can Go Wrong**]{.card-title}
+
+- *"Clean up the repo"* → deletes files you need
+- A loop bug triggers hundreds of API calls
+- Write access to the database → unintended edits
+- A misread instruction → wrong files overwritten
+:::
+
+:::{.card .card-light}
+[**The Principle**]{.card-title}
+
+Grant the agent the [minimum access]{.amber} it needs to complete the task --- and no more.
+
+- Read-only unless writes are required
+- Specific directories, not the whole filesystem
+- No network unless the task requires it
+:::
+:::
+
+## Permission Modes in Claude Code
+
+Claude Code pauses and asks before taking consequential actions --- unless you explicitly allow them.
+
+:::{.two-col}
+::::{.column}
+**Default: Human in the Loop**
+
+- Agent stops before running bash commands, writing files, or calling the network
+- You approve or deny each action
+- Safe for unfamiliar tasks or new codebases
+::::
+
+::::{.column}
+**Allow Lists**
+
+- Approve a specific command once --- or always
+- Approve an entire tool (e.g., all file reads)
+- Approve a path prefix (e.g., `./reports/`)
+- Stored in `settings.json`
+::::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+[Human approval is the default.]{.amber} You choose how much autonomy to grant, task by task.
+:::
+
+## CLAUDE.md as a Behavioral Guardrail
+
+CLAUDE.md is not just documentation --- it is the agent's system prompt. Use it to enforce rules.
+
+:::{.info-box}
+[**Examples of Constraint Instructions**]{.box-title}
+
+```markdown
+- Never modify files outside the src/ directory
+- Always ask before running git push or git commit
+- Use read-only database connections unless told otherwise
+- If a task would delete more than 3 files, pause and confirm
+```
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+The system prompt is the [first line of defense]{.amber}. Clear written rules reduce the chance of unintended actions.
+:::
+
+## Hooks: Programmatic Checks
+
+Hooks run shell commands automatically at agent lifecycle events.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Event Types**]{.card-title}
+
+- **PreToolUse** --- runs before a tool fires; can block the action
+- **PostToolUse** --- runs after a tool completes; can log or validate
+- **Stop** --- runs when the agent finishes
+:::
+
+:::{.card .card-light}
+[**Example Uses**]{.card-title}
+
+- Block any bash command containing `rm -rf`
+- Log every file write to an audit trail
+- Send an alert when the agent finishes
+- Run tests automatically after every code edit
+:::
+:::
+
+:::{.explainer style="margin-top:0.8em;"}
+Hooks enforce rules [programmatically]{.amber} --- the check runs whether or not the agent remembers the instruction.
+:::
+
+## Layered Guardrails
+
+No single guardrail is sufficient. Defense in depth combines all layers.
+
+:::{.two-col}
+::::{.column}
+1. **CLAUDE.md** --- behavioral rules in the system prompt
+2. **Permissions** --- tool and path access control
+3. **Hooks** --- programmatic checks at runtime
+::::
+
+::::{.column}
+4. **Sandboxing** --- isolated execution environment
+5. **Human approval** --- pause before high-stakes actions
+6. **Iteration limits** --- prevent runaway loops and cost overruns
+::::
+:::
+
+:::{.explainer style="margin-top:1em; text-align:center;"}
+Each layer catches what the previous one misses. [Together they make autonomous agents safe to deploy.]{.amber}
+:::
+
 ## The Dashboard Trap {.section-divider}
 
 ## Dashboards Answer Yesterday's Questions

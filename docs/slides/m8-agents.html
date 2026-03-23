@@ -298,6 +298,197 @@ Kerry Back, Rice University
 <p><span class="amber">The agent is part LLM intelligence, part traditional programming.</span></p>
 </div>
 </section>
+<section id="claude-code-as-an-agent-harness" class="slide level2 section-divider center">
+<h2>Claude Code as an Agent Harness</h2>
+</section>
+<section id="what-a-harness-provides" class="slide level2 center">
+<h2>What a Harness Provides</h2>
+<p>The pseudocode shows the logic. A <strong>harness</strong> is the infrastructure that actually runs that loop — and controls what the agent is allowed to do.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Runtime Infrastructure</strong></span></p>
+<ul>
+<li>Maintains conversation state across turns</li>
+<li>Executes tool calls and captures results</li>
+<li>Handles errors so the agent can recover</li>
+<li>Enforces iteration and cost limits</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Control and Safety</strong></span></p>
+<ul>
+<li>Permission system: which tools are allowed</li>
+<li>Human-in-the-loop approval gates</li>
+<li>Hooks: custom checks before/after actions</li>
+<li>Audit log of every action taken</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="margin-top:0.8em;">
+<p>Claude Code is a complete harness — you supply the task; it handles the loop, tools, and guardrails.</p>
+</div>
+</section>
+<section id="the-real-agent-loop" class="slide level2 center">
+<h2>The Real Agent Loop</h2>
+<div class="info-box">
+<p><span class="box-title"><strong>A Production-Grade Loop</strong></span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>iteration <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-2"><a></a><span class="cf">while</span> iteration <span class="op">&lt;</span> max_turns:</span>
+<span id="cb4-3"><a></a>    response <span class="op">=</span> call_llm(messages, system_prompt, tools)</span>
+<span id="cb4-4"><a></a>    messages.append(response)             <span class="co"># Maintain full history</span></span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a>    <span class="cf">if</span> response.stop_reason <span class="op">==</span> <span class="st">"end_turn"</span>:</span>
+<span id="cb4-7"><a></a>        <span class="cf">return</span> response.text              <span class="co"># Task complete</span></span>
+<span id="cb4-8"><a></a></span>
+<span id="cb4-9"><a></a>    <span class="cf">for</span> tool_call <span class="kw">in</span> response.tool_uses:</span>
+<span id="cb4-10"><a></a>        <span class="cf">if</span> needs_approval(tool_call):     <span class="co"># Human-in-the-loop</span></span>
+<span id="cb4-11"><a></a>            <span class="cf">if</span> <span class="kw">not</span> ask_user(tool_call):</span>
+<span id="cb4-12"><a></a>                <span class="cf">break</span>                     <span class="co"># User blocked the action</span></span>
+<span id="cb4-13"><a></a>        <span class="cf">try</span>:</span>
+<span id="cb4-14"><a></a>            result <span class="op">=</span> execute(tool_call)</span>
+<span id="cb4-15"><a></a>        <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb4-16"><a></a>            result <span class="op">=</span> <span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>        <span class="co"># Agent sees error and recovers</span></span>
+<span id="cb4-17"><a></a>        messages.append(tool_result(result))</span>
+<span id="cb4-18"><a></a></span>
+<span id="cb4-19"><a></a>    iteration <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb4-20"><a></a><span class="cf">raise</span> MaxIterationsError(<span class="st">"Did not complete"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="claude-codes-four-harness-layers" class="slide level2 center">
+<h2>Claude Code’s Four Harness Layers</h2>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>CLAUDE.md</strong></span></p>
+<p>Injected as the system prompt. Defines the agent’s persona, project context, and behavioral rules before any user message is sent.</p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Permissions</strong></span></p>
+<p>Controls which tools and file paths the agent can access. Separate allow/deny lists for bash commands, file writes, and network calls.</p>
+</div>
+</div>
+<div class="two-cards" style="margin-top:0.8em;">
+<div class="card card-light">
+<p><span class="card-title"><strong>Hooks</strong></span></p>
+<p>Shell commands that fire automatically at agent lifecycle events: before a tool runs, after it completes, or when the agent stops.</p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Iteration Limits</strong></span></p>
+<p><code>--max-turns</code> caps how many steps the agent takes. Prevents runaway loops and controls API spend.</p>
+</div>
+</div>
+</section>
+<section id="guardrails-and-constraints" class="slide level2 section-divider center">
+<h2>Guardrails and Constraints</h2>
+</section>
+<section id="why-guardrails" class="slide level2 center">
+<h2>Why Guardrails?</h2>
+<p>Without constraints, an autonomous agent can cause real damage — even with good intentions.</p>
+<div class="two-cards">
+<div class="card card-dark">
+<p><span class="card-title"><strong>What Can Go Wrong</strong></span></p>
+<ul>
+<li><em>“Clean up the repo”</em> → deletes files you need</li>
+<li>A loop bug triggers hundreds of API calls</li>
+<li>Write access to the database → unintended edits</li>
+<li>A misread instruction → wrong files overwritten</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>The Principle</strong></span></p>
+<p>Grant the agent the <span class="amber">minimum access</span> it needs to complete the task — and no more.</p>
+<ul>
+<li>Read-only unless writes are required</li>
+<li>Specific directories, not the whole filesystem</li>
+<li>No network unless the task requires it</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="permission-modes-in-claude-code" class="slide level2 center">
+<h2>Permission Modes in Claude Code</h2>
+<p>Claude Code pauses and asks before taking consequential actions — unless you explicitly allow them.</p>
+<div class="two-col">
+<div class="column">
+<p><strong>Default: Human in the Loop</strong></p>
+<ul>
+<li>Agent stops before running bash commands, writing files, or calling the network</li>
+<li>You approve or deny each action</li>
+<li>Safe for unfamiliar tasks or new codebases</li>
+</ul>
+</div><div class="column">
+<p><strong>Allow Lists</strong></p>
+<ul>
+<li>Approve a specific command once — or always</li>
+<li>Approve an entire tool (e.g., all file reads)</li>
+<li>Approve a path prefix (e.g., <code>./reports/</code>)</li>
+<li>Stored in <code>settings.json</code></li>
+</ul>
+</div></div>
+<div class="explainer" style="margin-top:0.8em;">
+<p><span class="amber">Human approval is the default.</span> You choose how much autonomy to grant, task by task.</p>
+</div>
+</section>
+<section id="claude.md-as-a-behavioral-guardrail" class="slide level2 center">
+<h2>CLAUDE.md as a Behavioral Guardrail</h2>
+<p>CLAUDE.md is not just documentation — it is the agent’s system prompt. Use it to enforce rules.</p>
+<div class="info-box">
+<p><span class="box-title"><strong>Examples of Constraint Instructions</strong></span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a></a><span class="ss">- </span>Never modify files outside the src/ directory</span>
+<span id="cb5-2"><a></a><span class="ss">- </span>Always ask before running git push or git commit</span>
+<span id="cb5-3"><a></a><span class="ss">- </span>Use read-only database connections unless told otherwise</span>
+<span id="cb5-4"><a></a><span class="ss">- </span>If a task would delete more than 3 files, pause and confirm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="explainer" style="margin-top:0.8em;">
+<p>The system prompt is the <span class="amber">first line of defense</span>. Clear written rules reduce the chance of unintended actions.</p>
+</div>
+</section>
+<section id="hooks-programmatic-checks" class="slide level2 center">
+<h2>Hooks: Programmatic Checks</h2>
+<p>Hooks run shell commands automatically at agent lifecycle events.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Event Types</strong></span></p>
+<ul>
+<li><strong>PreToolUse</strong> — runs before a tool fires; can block the action</li>
+<li><strong>PostToolUse</strong> — runs after a tool completes; can log or validate</li>
+<li><strong>Stop</strong> — runs when the agent finishes</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Example Uses</strong></span></p>
+<ul>
+<li>Block any bash command containing <code>rm -rf</code></li>
+<li>Log every file write to an audit trail</li>
+<li>Send an alert when the agent finishes</li>
+<li>Run tests automatically after every code edit</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="margin-top:0.8em;">
+<p>Hooks enforce rules <span class="amber">programmatically</span> — the check runs whether or not the agent remembers the instruction.</p>
+</div>
+</section>
+<section id="layered-guardrails" class="slide level2 center">
+<h2>Layered Guardrails</h2>
+<p>No single guardrail is sufficient. Defense in depth combines all layers.</p>
+<div class="two-col">
+<div class="column">
+<ol type="1">
+<li><strong>CLAUDE.md</strong> — behavioral rules in the system prompt</li>
+<li><strong>Permissions</strong> — tool and path access control</li>
+<li><strong>Hooks</strong> — programmatic checks at runtime</li>
+</ol>
+</div><div class="column">
+<ol start="4" type="1">
+<li><strong>Sandboxing</strong> — isolated execution environment</li>
+<li><strong>Human approval</strong> — pause before high-stakes actions</li>
+<li><strong>Iteration limits</strong> — prevent runaway loops and cost overruns</li>
+</ol>
+</div></div>
+<div class="explainer" style="margin-top:1em; text-align:center;">
+<p>Each layer catches what the previous one misses. <span class="amber">Together they make autonomous agents safe to deploy.</span></p>
+</div>
+</section>
 <section id="the-dashboard-trap" class="slide level2 section-divider center">
 <h2>The Dashboard Trap</h2>
 </section>

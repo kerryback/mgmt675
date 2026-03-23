@@ -609,6 +609,41 @@
     "text": "Data Sovereignty\nData sovereignty means controlling where your data lives, who can access it, and what jurisdiction governs it.\n\n\nWhy it matters for AI\n\nAI agents may transmit query results to external LLMs\nRegulations (GDPR, HIPAA, SOX) may restrict where data can go\nDefense agencies require air-gapped environments\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M on-prem private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency"
   },
   {
+    "objectID": "slides/m7-reliability.html#data-security-running-ai-locally",
+    "href": "slides/m7-reliability.html#data-security-running-ai-locally",
+    "title": "Module 7: Verification, Auditing, and Governance",
+    "section": "Data Security: Running AI Locally",
+    "text": "Data Security: Running AI Locally"
+  },
+  {
+    "objectID": "slides/m7-reliability.html#the-case-for-local-ai",
+    "href": "slides/m7-reliability.html#the-case-for-local-ai",
+    "title": "Module 7: Verification, Auditing, and Governance",
+    "section": "The Case for Local AI",
+    "text": "The Case for Local AI\nCloud AI is convenient, but local models keep data inside your machine — no transmission, no retention policy, no provider to trust.\n\n\nWhen local AI makes sense\n\nClient data under NDA\nHIPAA, GDPR, or FERPA-covered records\nProprietary deal models and memos\nRegulated industries (banking, defense, healthcare)\n\n\nThe trade-off\n\n\n\n\nCloud AI\nLocal AI\n\n\n\n\nModel quality\n★★★★★\n★★★☆☆\n\n\nData privacy\nProvider policy\n100% local\n\n\nSetup cost\nNone\nMinutes\n\n\nCompute\nUnlimited\nYour hardware\n\n\n\n\nFor narrow, sensitive tasks, a smaller local model is often the right call."
+  },
+  {
+    "objectID": "slides/m7-reliability.html#ollama-local-llms-in-one-installer",
+    "href": "slides/m7-reliability.html#ollama-local-llms-in-one-installer",
+    "title": "Module 7: Verification, Auditing, and Governance",
+    "section": "Ollama: Local LLMs in One Installer",
+    "text": "Ollama: Local LLMs in One Installer\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.\n\n\nHow it works\n\nDownload and run the Ollama installer\nPull a model (e.g., llama3.2)\nChat locally via a browser UI or the terminal\nAll inference runs on your CPU/GPU\n\n\nAvailable models\n\nLlama 3.1 (Meta, 8B) — strong reasoning\nLlama 3.2 (Meta, 3B) — faster, lighter\nMistral, Gemma, Phi — many options\nModels download once and run offline"
+  },
+  {
+    "objectID": "slides/m7-reliability.html#exercise-install-ollama-and-try-local-llms",
+    "href": "slides/m7-reliability.html#exercise-install-ollama-and-try-local-llms",
+    "title": "Module 7: Verification, Auditing, and Governance",
+    "section": "Exercise: Install Ollama and Try Local LLMs",
+    "text": "Exercise: Install Ollama and Try Local LLMs"
+  },
+  {
+    "objectID": "slides/m7-reliability.html#exercise-running-a-local-model",
+    "href": "slides/m7-reliability.html#exercise-running-a-local-model",
+    "title": "Module 7: Verification, Auditing, and Governance",
+    "section": "Exercise: Running a Local Model",
+    "text": "Exercise: Running a Local Model\n\n\nSetup\n\nGo to ollama.com and download the installer for your OS\nRun the installer (no terminal needed)\nOnce installed, open a terminal and run:\nollama run llama3.2\nThen try:\nollama run llama3.1\n\n\nThe prompt\nGive each model this prompt and compare their responses:\n\n“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”\n\nWhat to notice: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.\n\nBoth models run entirely on your machine. No data is sent anywhere."
+  },
+  {
     "objectID": "slides/m7-reliability.html#ai-adoption-roadmap",
     "href": "slides/m7-reliability.html#ai-adoption-roadmap",
     "title": "Module 7: Verification, Auditing, and Governance",
@@ -1131,7 +1166,7 @@
     "href": "slides/m4-claude.html#getting-started",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Getting Started",
-    "text": "Getting Started\n\nOpen Claude Desktop → Code tab\nSelect a working folder for your project\nChoose a model: Sonnet (fast) or Opus (thorough)\nSet permission mode to auto-accept (recommended for exercises)"
+    "text": "Getting Started\n\nOpen Claude Desktop → Code tab\nSelect a working folder for your project\nChoose a model: use Sonnet to conserve tokens; Opus is more thorough but uses tokens much faster\nSet permission mode to auto-accept (recommended for exercises)"
   },
   {
     "objectID": "slides/m4-claude.html#claude.md",
@@ -1412,6 +1447,76 @@
     "title": "Module 8: More on AI Agents",
     "section": "Agent Loop Pseudocode",
     "text": "Agent Loop Pseudocode\n\nThe Agent’s Decision Loop\nwhile not done:\n    response = call_llm(messages, system_prompt, tools)\n\n    if response.has_tool_call:\n        result = execute_tool(response.tool_call)\n        messages.append(tool_result)\n    elif response.is_final:\n        done = True\n        return response.content\n\n\nThe agent is part LLM intelligence, part traditional programming."
+  },
+  {
+    "objectID": "slides/m8-agents.html#claude-code-as-an-agent-harness",
+    "href": "slides/m8-agents.html#claude-code-as-an-agent-harness",
+    "title": "Module 8: More on AI Agents",
+    "section": "Claude Code as an Agent Harness",
+    "text": "Claude Code as an Agent Harness"
+  },
+  {
+    "objectID": "slides/m8-agents.html#what-a-harness-provides",
+    "href": "slides/m8-agents.html#what-a-harness-provides",
+    "title": "Module 8: More on AI Agents",
+    "section": "What a Harness Provides",
+    "text": "What a Harness Provides\nThe pseudocode shows the logic. A harness is the infrastructure that actually runs that loop — and controls what the agent is allowed to do.\n\n\nRuntime Infrastructure\n\nMaintains conversation state across turns\nExecutes tool calls and captures results\nHandles errors so the agent can recover\nEnforces iteration and cost limits\n\n\n\nControl and Safety\n\nPermission system: which tools are allowed\nHuman-in-the-loop approval gates\nHooks: custom checks before/after actions\nAudit log of every action taken\n\n\n\n\nClaude Code is a complete harness — you supply the task; it handles the loop, tools, and guardrails."
+  },
+  {
+    "objectID": "slides/m8-agents.html#the-real-agent-loop",
+    "href": "slides/m8-agents.html#the-real-agent-loop",
+    "title": "Module 8: More on AI Agents",
+    "section": "The Real Agent Loop",
+    "text": "The Real Agent Loop\n\nA Production-Grade Loop\niteration = 0\nwhile iteration &lt; max_turns:\n    response = call_llm(messages, system_prompt, tools)\n    messages.append(response)             # Maintain full history\n\n    if response.stop_reason == \"end_turn\":\n        return response.text              # Task complete\n\n    for tool_call in response.tool_uses:\n        if needs_approval(tool_call):     # Human-in-the-loop\n            if not ask_user(tool_call):\n                break                     # User blocked the action\n        try:\n            result = execute(tool_call)\n        except Exception as e:\n            result = f\"Error: {e}\"        # Agent sees error and recovers\n        messages.append(tool_result(result))\n\n    iteration += 1\nraise MaxIterationsError(\"Did not complete\")"
+  },
+  {
+    "objectID": "slides/m8-agents.html#claude-codes-four-harness-layers",
+    "href": "slides/m8-agents.html#claude-codes-four-harness-layers",
+    "title": "Module 8: More on AI Agents",
+    "section": "Claude Code’s Four Harness Layers",
+    "text": "Claude Code’s Four Harness Layers\n\n\nCLAUDE.md\nInjected as the system prompt. Defines the agent’s persona, project context, and behavioral rules before any user message is sent.\n\n\nPermissions\nControls which tools and file paths the agent can access. Separate allow/deny lists for bash commands, file writes, and network calls.\n\n\n\n\nHooks\nShell commands that fire automatically at agent lifecycle events: before a tool runs, after it completes, or when the agent stops.\n\n\nIteration Limits\n--max-turns caps how many steps the agent takes. Prevents runaway loops and controls API spend."
+  },
+  {
+    "objectID": "slides/m8-agents.html#guardrails-and-constraints",
+    "href": "slides/m8-agents.html#guardrails-and-constraints",
+    "title": "Module 8: More on AI Agents",
+    "section": "Guardrails and Constraints",
+    "text": "Guardrails and Constraints"
+  },
+  {
+    "objectID": "slides/m8-agents.html#why-guardrails",
+    "href": "slides/m8-agents.html#why-guardrails",
+    "title": "Module 8: More on AI Agents",
+    "section": "Why Guardrails?",
+    "text": "Why Guardrails?\nWithout constraints, an autonomous agent can cause real damage — even with good intentions.\n\n\nWhat Can Go Wrong\n\n“Clean up the repo” → deletes files you need\nA loop bug triggers hundreds of API calls\nWrite access to the database → unintended edits\nA misread instruction → wrong files overwritten\n\n\n\nThe Principle\nGrant the agent the minimum access it needs to complete the task — and no more.\n\nRead-only unless writes are required\nSpecific directories, not the whole filesystem\nNo network unless the task requires it"
+  },
+  {
+    "objectID": "slides/m8-agents.html#permission-modes-in-claude-code",
+    "href": "slides/m8-agents.html#permission-modes-in-claude-code",
+    "title": "Module 8: More on AI Agents",
+    "section": "Permission Modes in Claude Code",
+    "text": "Permission Modes in Claude Code\nClaude Code pauses and asks before taking consequential actions — unless you explicitly allow them.\n\n\nDefault: Human in the Loop\n\nAgent stops before running bash commands, writing files, or calling the network\nYou approve or deny each action\nSafe for unfamiliar tasks or new codebases\n\n\nAllow Lists\n\nApprove a specific command once — or always\nApprove an entire tool (e.g., all file reads)\nApprove a path prefix (e.g., ./reports/)\nStored in settings.json\n\n\n\nHuman approval is the default. You choose how much autonomy to grant, task by task."
+  },
+  {
+    "objectID": "slides/m8-agents.html#claude.md-as-a-behavioral-guardrail",
+    "href": "slides/m8-agents.html#claude.md-as-a-behavioral-guardrail",
+    "title": "Module 8: More on AI Agents",
+    "section": "CLAUDE.md as a Behavioral Guardrail",
+    "text": "CLAUDE.md as a Behavioral Guardrail\nCLAUDE.md is not just documentation — it is the agent’s system prompt. Use it to enforce rules.\n\nExamples of Constraint Instructions\n- Never modify files outside the src/ directory\n- Always ask before running git push or git commit\n- Use read-only database connections unless told otherwise\n- If a task would delete more than 3 files, pause and confirm\n\n\nThe system prompt is the first line of defense. Clear written rules reduce the chance of unintended actions."
+  },
+  {
+    "objectID": "slides/m8-agents.html#hooks-programmatic-checks",
+    "href": "slides/m8-agents.html#hooks-programmatic-checks",
+    "title": "Module 8: More on AI Agents",
+    "section": "Hooks: Programmatic Checks",
+    "text": "Hooks: Programmatic Checks\nHooks run shell commands automatically at agent lifecycle events.\n\n\nEvent Types\n\nPreToolUse — runs before a tool fires; can block the action\nPostToolUse — runs after a tool completes; can log or validate\nStop — runs when the agent finishes\n\n\n\nExample Uses\n\nBlock any bash command containing rm -rf\nLog every file write to an audit trail\nSend an alert when the agent finishes\nRun tests automatically after every code edit\n\n\n\n\nHooks enforce rules programmatically — the check runs whether or not the agent remembers the instruction."
+  },
+  {
+    "objectID": "slides/m8-agents.html#layered-guardrails",
+    "href": "slides/m8-agents.html#layered-guardrails",
+    "title": "Module 8: More on AI Agents",
+    "section": "Layered Guardrails",
+    "text": "Layered Guardrails\nNo single guardrail is sufficient. Defense in depth combines all layers.\n\n\n\nCLAUDE.md — behavioral rules in the system prompt\nPermissions — tool and path access control\nHooks — programmatic checks at runtime\n\n\n\nSandboxing — isolated execution environment\nHuman approval — pause before high-stakes actions\nIteration limits — prevent runaway loops and cost overruns\n\n\n\nEach layer catches what the previous one misses. Together they make autonomous agents safe to deploy."
   },
   {
     "objectID": "slides/m8-agents.html#the-dashboard-trap",

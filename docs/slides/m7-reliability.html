@@ -589,6 +589,105 @@ flowchart LR
 </ul>
 </div></div>
 </section>
+<section id="data-security-running-ai-locally" class="slide level2 section-divider center">
+<h2>Data Security: Running AI Locally</h2>
+</section>
+<section id="the-case-for-local-ai" class="slide level2 center">
+<h2>The Case for Local AI</h2>
+<p>Cloud AI is convenient, but <span class="amber">local models</span> keep data inside your machine — no transmission, no retention policy, no provider to trust.</p>
+<div class="two-col">
+<div class="column">
+<p><strong>When local AI makes sense</strong></p>
+<ul>
+<li>Client data under NDA</li>
+<li>HIPAA, GDPR, or FERPA-covered records</li>
+<li>Proprietary deal models and memos</li>
+<li>Regulated industries (banking, defense, healthcare)</li>
+</ul>
+</div><div class="column">
+<p><strong>The trade-off</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Cloud AI</th>
+<th>Local AI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Model quality</td>
+<td>★★★★★</td>
+<td>★★★☆☆</td>
+</tr>
+<tr class="even">
+<td>Data privacy</td>
+<td>Provider policy</td>
+<td>100% local</td>
+</tr>
+<tr class="odd">
+<td>Setup cost</td>
+<td>None</td>
+<td>Minutes</td>
+</tr>
+<tr class="even">
+<td>Compute</td>
+<td>Unlimited</td>
+<td>Your hardware</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<p><span class="amber">For narrow, sensitive tasks, a smaller local model is often the right call.</span></p>
+</section>
+<section id="ollama-local-llms-in-one-installer" class="slide level2 center">
+<h2>Ollama: Local LLMs in One Installer</h2>
+<p><a href="https://ollama.com">Ollama</a> lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.</p>
+<div class="two-col">
+<div class="column">
+<p><strong>How it works</strong></p>
+<ol type="1">
+<li>Download and run the Ollama installer</li>
+<li>Pull a model (e.g., <code>llama3.2</code>)</li>
+<li>Chat locally via a browser UI or the terminal</li>
+<li>All inference runs on your CPU/GPU</li>
+</ol>
+</div><div class="column">
+<p><strong>Available models</strong></p>
+<ul>
+<li><strong>Llama 3.1</strong> (Meta, 8B) — strong reasoning</li>
+<li><strong>Llama 3.2</strong> (Meta, 3B) — faster, lighter</li>
+<li><strong>Mistral</strong>, <strong>Gemma</strong>, <strong>Phi</strong> — many options</li>
+<li>Models download once and run offline</li>
+</ul>
+</div></div>
+</section>
+<section id="exercise-install-ollama-and-try-local-llms" class="slide level2 section-divider center">
+<h2>Exercise: Install Ollama and Try Local LLMs</h2>
+</section>
+<section id="exercise-running-a-local-model" class="slide level2 center">
+<h2>Exercise: Running a Local Model</h2>
+<div class="two-col">
+<div class="column">
+<p><strong>Setup</strong></p>
+<ol type="1">
+<li><p>Go to <a href="https://ollama.com">ollama.com</a> and download the installer for your OS</p></li>
+<li><p>Run the installer (no terminal needed)</p></li>
+<li><p>Once installed, open a terminal and run:</p>
+<pre><code>ollama run llama3.2</code></pre></li>
+<li><p>Then try:</p>
+<pre><code>ollama run llama3.1</code></pre></li>
+</ol>
+</div><div class="column">
+<p><strong>The prompt</strong></p>
+<p>Give each model this prompt and compare their responses:</p>
+<blockquote>
+<p><em>“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”</em></p>
+</blockquote>
+<p><strong>What to notice</strong>: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.</p>
+</div></div>
+<p><span class="amber">Both models run entirely on your machine. No data is sent anywhere.</span></p>
+</section>
 <section id="ai-adoption-roadmap" class="slide level2 section-divider center">
 <h2>AI Adoption Roadmap</h2>
 </section>
