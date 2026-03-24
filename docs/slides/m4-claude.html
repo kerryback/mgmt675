@@ -231,22 +231,91 @@ Kerry Back, Rice University
 <li>Open Claude Desktop → <strong>Code</strong> tab</li>
 <li>Select a working folder for your project</li>
 <li>Choose a model: <span class="amber"><strong>use Sonnet</strong></span> to conserve tokens; Opus is more thorough but uses tokens much faster</li>
-<li>Set permission mode to <strong>auto-accept</strong> (recommended for exercises)</li>
+<li>I would set permission mode to <strong>auto-accept,</strong> but do what you feel comfortable with.</li>
 </ol>
-</section>
-<section id="claude.md" class="slide level2 center">
-<h2>CLAUDE.md</h2>
-<p>Claude reads <code>CLAUDE.md</code> files automatically at the start of every session — no need to repeat instructions.</p>
-<ul>
-<li><strong>Global</strong> (<code>~/.claude/CLAUDE.md</code>): applies to every project — output preferences, preferred libraries, personal conventions</li>
-<li><strong>Per-Project</strong> (project root): applies only to this folder — data context, domain guidance, project-specific workflows</li>
-</ul>
-<p>The installer pre-configured <strong>skills</strong> for Excel, Word, and PowerPoint. Prompt Claude Code:</p>
-<p><em>“Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.”</em></p>
 </section>
 <section id="example" class="slide level2 center">
 <h2>Example</h2>
 <p><em>“Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.”</em></p>
+</section>
+<section id="artifacts-and-pyodide" class="slide level2 section-divider center">
+<h2>Artifacts and Pyodide</h2>
+</section>
+<section id="what-is-a-claude-artifact" class="slide level2 center">
+<h2>What Is a Claude Artifact?</h2>
+<p>An artifact is a <span class="amber">self-contained web page</span> — HTML, CSS, and JavaScript — that Claude generates on the fly and renders in a sandboxed panel next to the chat.</p>
+<ul>
+<li>No server, no backend, no deployment step</li>
+<li>Runs entirely in your browser</li>
+<li>Common uses: calculators, charts, data tables, interactive dashboards</li>
+</ul>
+<div class="explainer" style="text-align:center;">
+<p>If you can build it with HTML + JavaScript, Claude can generate it as an artifact.</p>
+</div>
+</section>
+<section id="running-python-in-the-browser" class="slide level2 center">
+<h2>Running Python in the Browser</h2>
+<p><span class="amber">Pyodide</span> is a full Python runtime compiled to WebAssembly. It runs inside a browser tab — no server, no installation.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>What Pyodide Provides</strong></span></p>
+<ul>
+<li>Full CPython interpreter in the browser</li>
+<li>NumPy, pandas, and other scientific packages</li>
+<li>Bidirectional JavaScript ↔︎ Python interop</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Why It Matters</strong></span></p>
+<ul>
+<li>Claude artifacts can include a <code>&lt;script&gt;</code> tag that loads Pyodide from a CDN</li>
+<li>Python code runs client-side, inside the page</li>
+<li>Results appear immediately — no round-trips to a server</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>A Claude artifact running Python is just a web page with Pyodide embedded in it.</p>
+</div>
+</section>
+<section id="artifacts-vs.-standalone-html-files" class="slide level2 center">
+<h2>Artifacts vs.&nbsp;Standalone HTML Files</h2>
+<p>Claude <strong>Code</strong> can produce the same thing as a file you own and share.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Artifact (Chat)</strong></span></p>
+<ul>
+<li>Rendered inside Claude’s interface</li>
+<li>Temporary — lives in the conversation</li>
+<li>Quick to generate, hard to share</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>HTML File (Claude Code)</strong></span></p>
+<ul>
+<li>Saved to disk as <code>something.html</code></li>
+<li><span class="amber">Double-click to open</span> in any browser</li>
+<li>Share it, email it, post it — no Claude required</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>Same technology, different packaging. Claude Code gives you a file you keep.</p>
+</div>
+</section>
+<section id="exercise-generate-a-pyodide-html-file" class="slide level2 center">
+<h2>Exercise: Generate a Pyodide HTML File</h2>
+<p>Ask Claude Code:</p>
+<p><em>“Create an HTML file called <code>npv.html</code> that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button. Load Pyodide from the CDN.”</em></p>
+<p>Then:</p>
+<ol type="1">
+<li>Find <code>npv.html</code> in your project folder</li>
+<li>Double-click it — it opens in your browser</li>
+<li>Enter cash flows and a discount rate, click the button, and see the NPV</li>
+</ol>
+<div class="explainer" style="text-align:center;">
+<p>The HTML file is <span class="amber">self-contained</span>. Anyone can open it — no Python installation needed.</p>
+</div>
 </section>
 <section id="claude-code-in-the-terminal-and-vs-code" class="slide level2 section-divider center">
 <h2>Claude Code in the Terminal and VS Code</h2>

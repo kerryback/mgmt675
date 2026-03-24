@@ -93,23 +93,95 @@ The class installer sets up everything you need in one step:
 
 1. Open Claude Desktop → **Code** tab
 2. Select a working folder for your project
-3. Choose a model: **Sonnet** (fast) or **Opus** (thorough)
-4. Set permission mode to **auto-accept** (recommended for exercises)
+3. Choose a model: [**use Sonnet**]{.amber} to conserve tokens; Opus is more thorough but uses tokens much faster
+4. I would set permission mode to **auto-accept,** but do what you feel comfortable with.
 
-## CLAUDE.md
-
-Claude reads `CLAUDE.md` files automatically at the start of every session --- no need to repeat instructions.
-
-- **Global** (`~/.claude/CLAUDE.md`): applies to every project --- output preferences, preferred libraries, personal conventions
-- **Per-Project** (project root): applies only to this folder --- data context, domain guidance, project-specific workflows
-
-The installer pre-configured **skills** for Excel, Word, and PowerPoint. Prompt Claude Code:
-
-*"Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md."*
 
 ## Example
 
 *"Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance."*
+
+## Artifacts and Pyodide {.section-divider}
+
+## What Is a Claude Artifact?
+
+An artifact is a [self-contained web page]{.amber} --- HTML, CSS, and JavaScript --- that Claude generates on the fly and renders in a sandboxed panel next to the chat.
+
+- No server, no backend, no deployment step
+- Runs entirely in your browser
+- Common uses: calculators, charts, data tables, interactive dashboards
+
+:::{.explainer style="text-align:center;"}
+If you can build it with HTML + JavaScript, Claude can generate it as an artifact.
+:::
+
+## Running Python in the Browser
+
+[Pyodide]{.amber} is a full Python runtime compiled to WebAssembly. It runs inside a browser tab --- no server, no installation.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What Pyodide Provides**]{.card-title}
+
+- Full CPython interpreter in the browser
+- NumPy, pandas, and other scientific packages
+- Bidirectional JavaScript ↔ Python interop
+:::
+
+:::{.card .card-light}
+[**Why It Matters**]{.card-title}
+
+- Claude artifacts can include a `<script>` tag that loads Pyodide from a CDN
+- Python code runs client-side, inside the page
+- Results appear immediately --- no round-trips to a server
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+A Claude artifact running Python is just a web page with Pyodide embedded in it.
+:::
+
+## Artifacts vs. Standalone HTML Files
+
+Claude **Code** can produce the same thing as a file you own and share.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Claude Artifact (Chat)**]{.card-title}
+
+- Rendered inside Claude's interface
+- Temporary --- lives in the conversation
+- Quick to generate, hard to share
+:::
+
+:::{.card .card-light}
+[**HTML File (Claude Code)**]{.card-title}
+
+- Saved to disk as `something.html`
+- [Double-click to open]{.amber} in any browser
+- Share it, email it, post it --- no Claude required
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+Same technology, different packaging. Claude Code gives you a file you keep.
+:::
+
+## Exercise: Generate a Pyodide HTML File
+
+Ask Claude Code:
+
+*"Create an HTML file called `npv.html` that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button. Load Pyodide from the CDN."*
+
+Then:
+
+1. Find `npv.html` in your project folder
+2. Double-click it --- it opens in your browser
+3. Enter cash flows and a discount rate, click the button, and see the NPV
+
+:::{.explainer style="text-align:center;"}
+The HTML file is [self-contained]{.amber}. Anyone can open it --- no Python installation needed.
+:::
 
 ## Claude Code in the Terminal and VS Code {.section-divider}
 

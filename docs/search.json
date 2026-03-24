@@ -1166,14 +1166,7 @@
     "href": "slides/m4-claude.html#getting-started",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Getting Started",
-    "text": "Getting Started\n\nOpen Claude Desktop → Code tab\nSelect a working folder for your project\nChoose a model: use Sonnet to conserve tokens; Opus is more thorough but uses tokens much faster\nSet permission mode to auto-accept (recommended for exercises)"
-  },
-  {
-    "objectID": "slides/m4-claude.html#claude.md",
-    "href": "slides/m4-claude.html#claude.md",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "CLAUDE.md",
-    "text": "CLAUDE.md\nClaude reads CLAUDE.md files automatically at the start of every session — no need to repeat instructions.\n\nGlobal (~/.claude/CLAUDE.md): applies to every project — output preferences, preferred libraries, personal conventions\nPer-Project (project root): applies only to this folder — data context, domain guidance, project-specific workflows\n\nThe installer pre-configured skills for Excel, Word, and PowerPoint. Prompt Claude Code:\n“Read the skills in my .claude/skills folder and add a summary of each to my global CLAUDE.md.”"
+    "text": "Getting Started\n\nOpen Claude Desktop → Code tab\nSelect a working folder for your project\nChoose a model: use Sonnet to conserve tokens; Opus is more thorough but uses tokens much faster\nI would set permission mode to auto-accept, but do what you feel comfortable with."
   },
   {
     "objectID": "slides/m4-claude.html#example",
@@ -1181,6 +1174,41 @@
     "title": "Module 4: Claude Desktop & Code",
     "section": "Example",
     "text": "Example\n“Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.”"
+  },
+  {
+    "objectID": "slides/m4-claude.html#artifacts-and-pyodide",
+    "href": "slides/m4-claude.html#artifacts-and-pyodide",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Artifacts and Pyodide",
+    "text": "Artifacts and Pyodide"
+  },
+  {
+    "objectID": "slides/m4-claude.html#what-is-a-claude-artifact",
+    "href": "slides/m4-claude.html#what-is-a-claude-artifact",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "What Is a Claude Artifact?",
+    "text": "What Is a Claude Artifact?\nAn artifact is a self-contained web page — HTML, CSS, and JavaScript — that Claude generates on the fly and renders in a sandboxed panel next to the chat.\n\nNo server, no backend, no deployment step\nRuns entirely in your browser\nCommon uses: calculators, charts, data tables, interactive dashboards\n\n\nIf you can build it with HTML + JavaScript, Claude can generate it as an artifact."
+  },
+  {
+    "objectID": "slides/m4-claude.html#running-python-in-the-browser",
+    "href": "slides/m4-claude.html#running-python-in-the-browser",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Running Python in the Browser",
+    "text": "Running Python in the Browser\nPyodide is a full Python runtime compiled to WebAssembly. It runs inside a browser tab — no server, no installation.\n\n\nWhat Pyodide Provides\n\nFull CPython interpreter in the browser\nNumPy, pandas, and other scientific packages\nBidirectional JavaScript ↔︎ Python interop\n\n\n\nWhy It Matters\n\nClaude artifacts can include a &lt;script&gt; tag that loads Pyodide from a CDN\nPython code runs client-side, inside the page\nResults appear immediately — no round-trips to a server\n\n\n\n\nA Claude artifact running Python is just a web page with Pyodide embedded in it."
+  },
+  {
+    "objectID": "slides/m4-claude.html#artifacts-vs.-standalone-html-files",
+    "href": "slides/m4-claude.html#artifacts-vs.-standalone-html-files",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Artifacts vs. Standalone HTML Files",
+    "text": "Artifacts vs. Standalone HTML Files\nClaude Code can produce the same thing as a file you own and share.\n\n\nClaude Artifact (Chat)\n\nRendered inside Claude’s interface\nTemporary — lives in the conversation\nQuick to generate, hard to share\n\n\n\nHTML File (Claude Code)\n\nSaved to disk as something.html\nDouble-click to open in any browser\nShare it, email it, post it — no Claude required\n\n\n\n\nSame technology, different packaging. Claude Code gives you a file you keep."
+  },
+  {
+    "objectID": "slides/m4-claude.html#exercise-generate-a-pyodide-html-file",
+    "href": "slides/m4-claude.html#exercise-generate-a-pyodide-html-file",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Exercise: Generate a Pyodide HTML File",
+    "text": "Exercise: Generate a Pyodide HTML File\nAsk Claude Code:\n“Create an HTML file called npv.html that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button. Load Pyodide from the CDN.”\nThen:\n\nFind npv.html in your project folder\nDouble-click it — it opens in your browser\nEnter cash flows and a discount rate, click the button, and see the NPV\n\n\nThe HTML file is self-contained. Anyone can open it — no Python installation needed."
   },
   {
     "objectID": "slides/m4-claude.html#claude-code-in-the-terminal-and-vs-code",
