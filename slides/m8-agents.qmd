@@ -45,6 +45,18 @@ An **API** lets your code communicate with an LLM service over the internet.
 Your Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing.
 :::
 
+## The Model Landscape: OpenRouter
+
+[OpenRouter](https://openrouter.ai/models) is a marketplace that routes API calls to hundreds of models from dozens of providers --- a single place to see what exists and compare pricing.
+
+- **One API, many models** --- same code, swap the model name to use GPT-4o, Gemini, Llama, Mistral, Grok, and more
+- **Pricing transparency** --- cost per million input/output tokens shown for every model
+- **Good for exploration** --- browse capabilities and benchmarks before committing to a provider
+
+:::{.explainer style="text-align:center;"}
+Visit [openrouter.ai/models](https://openrouter.ai/models) to see the full landscape of available models.
+:::
+
 ## A Single API Call
 
 :::{.info-box}

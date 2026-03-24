@@ -1456,6 +1456,13 @@
     "text": "The API: Talking to an LLM from Code\nAn API lets your code communicate with an LLM service over the internet.\n\n\nWhat You Need\n\nAn API key (authentication)\nThe anthropic Python package\nA model name (e.g., claude-sonnet-4-20250514)\n\n\n\nGetting Your Key\n\nGo to console.anthropic.com\nCreate an API key under Settings\nAdd credit ($5 is plenty for the course)\n\n\n\n\nYour Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing."
   },
   {
+    "objectID": "slides/m8-agents.html#the-model-landscape-openrouter",
+    "href": "slides/m8-agents.html#the-model-landscape-openrouter",
+    "title": "Module 8: More on AI Agents",
+    "section": "The Model Landscape: OpenRouter",
+    "text": "The Model Landscape: OpenRouter\nOpenRouter is a marketplace that routes API calls to hundreds of models from dozens of providers — a single place to see what exists and compare pricing.\n\nOne API, many models — same code, swap the model name to use GPT-4o, Gemini, Llama, Mistral, Grok, and more\nPricing transparency — cost per million input/output tokens shown for every model\nGood for exploration — browse capabilities and benchmarks before committing to a provider\n\n\nVisit openrouter.ai/models to see the full landscape of available models."
+  },
+  {
     "objectID": "slides/m8-agents.html#a-single-api-call",
     "href": "slides/m8-agents.html#a-single-api-call",
     "title": "Module 8: More on AI Agents",
