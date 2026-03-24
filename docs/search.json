@@ -1173,7 +1173,7 @@
     "href": "slides/m4-claude.html#example",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Example",
-    "text": "Example\n“Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.”"
+    "text": "Example\nDownload aggregation.zip and extract the workbooks into a folder.\nEach Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:\n\nSummarize the columns present, row count, and basic statistics for each file\nCombine all files into a single table, reconciling the varying column names\nSave the result as combined.xlsx\n\nThis is the same “divide and conquer” pattern used in professional data pipelines — read each source independently, then unify."
   },
   {
     "objectID": "slides/m4-claude.html#artifacts-and-pyodide",
@@ -1194,7 +1194,7 @@
     "href": "slides/m4-claude.html#running-python-in-the-browser",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Running Python in the Browser",
-    "text": "Running Python in the Browser\nPyodide is a full Python runtime compiled to WebAssembly. It runs inside a browser tab — no server, no installation.\n\n\nWhat Pyodide Provides\n\nFull CPython interpreter in the browser\nNumPy, pandas, and other scientific packages\nBidirectional JavaScript ↔︎ Python interop\n\n\n\nWhy It Matters\n\nClaude artifacts can include a &lt;script&gt; tag that loads Pyodide from a CDN\nPython code runs client-side, inside the page\nResults appear immediately — no round-trips to a server\n\n\n\n\nA Claude artifact running Python is just a web page with Pyodide embedded in it."
+    "text": "Running Python in the Browser\nPyodide is a full Python runtime compiled to WebAssembly. It runs inside a browser tab — no server, no installation.\n\n\nWhat Pyodide Provides\n\nFull CPython interpreter in the browser\nNumPy, pandas, and other scientific packages\nBidirectional JavaScript ↔︎ Python interop\n\n\n\nWhat You Can Build\n\nCalculators and financial models\nInteractive charts and dashboards\nAny tool that runs entirely in the browser\n\n\n\n\nThis is the same technology Claude uses under the hood for artifacts — a self-contained HTML file with Pyodide embedded in it."
   },
   {
     "objectID": "slides/m4-claude.html#artifacts-vs.-standalone-html-files",
@@ -1229,7 +1229,7 @@
     "href": "slides/m4-claude.html#terminal-alternative",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Terminal Alternative",
-    "text": "Terminal Alternative\nThe Code tab in Claude Desktop and the terminal command claude use the same engine.\n\n\nClaude Desktop (Code tab)\n\nVisual interface with file browser\nClick to select working folder\nGood for getting started\n\n\n\nTerminal (claude)\n\nType claude in any terminal\nSame skills, same config\nPreferred by power users\n\n\n\n\nBoth approaches share the same skills, MCP servers, and configuration files."
+    "text": "Terminal Alternative\nThe Code tab in Claude Desktop and the terminal command claude use the same engine.\n\n\nClaude Desktop (Code tab)\n\nVisual interface with file browser\nClick to select working folder\nGood for getting started\n\n\n\nTerminal (claude)\n\nType claude in any terminal\nSame skills, same config\nIntegrates with VS Code\n\n\n\n\nBoth approaches share the same skills, MCP servers, and configuration files."
   },
   {
     "objectID": "slides/m4-claude.html#installing-the-terminal-and-vs-code",
@@ -1257,7 +1257,7 @@
     "href": "slides/m4-claude.html#merging-data-from-different-sources",
     "title": "Module 4: Claude Desktop & Code",
     "section": "Merging Data from Different Sources",
-    "text": "Merging Data from Different Sources\nReal financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then combine them into a unified dataset.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  CSV[\"&lt;b&gt;CSV&lt;/b&gt;\"] --&gt; CC[\"&lt;b&gt;Claude Code&lt;/b&gt;\"]\n  XLS[\"&lt;b&gt;Excel&lt;/b&gt;\"] --&gt; CC\n  PDF[\"&lt;b&gt;PDF&lt;/b&gt;\"] --&gt; CC\n  CC --&gt; UT[\"&lt;b&gt;Unified Table&lt;/b&gt;\"]\n\n  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px"
+    "text": "Merging Data from Different Sources\nReal financial data rarely lives in a single file or format. Claude Code can read Excel, PDF, and Word files, then combine, filter, and aggregate.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  WRD[\"&lt;b&gt;Word&lt;/b&gt;\"] --&gt; CC[\"&lt;b&gt;Claude Code&lt;/b&gt;&lt;br&gt;Merge, Filter, Aggregate\"]\n  XLS[\"&lt;b&gt;Excel&lt;/b&gt;\"] --&gt; CC\n  PDF[\"&lt;b&gt;PDF&lt;/b&gt;\"] --&gt; CC\n  CC --&gt; UT[\"&lt;b&gt;Unified Table&lt;/b&gt;\"]\n\n  style WRD fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px"
   },
   {
     "objectID": "slides/m4-claude.html#common-data-merging-scenarios",
@@ -1937,5 +1937,89 @@
     "title": "Module 10: Retrieval Augmented Generation",
     "section": "Summary",
     "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo training required\n\n\n\nNotebookLM\n\nFree RAG without code\nInline citations\nAudio overviews\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence\n\n\n\n\nRAG gives AI knowledge it doesn’t have — grounded in your documents, with citations."
+  },
+  {
+    "objectID": "slides/m4-claude.html#copy-and-paste-into-claude-code",
+    "href": "slides/m4-claude.html#copy-and-paste-into-claude-code",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Copy and Paste into Claude Code",
+    "text": "Copy and Paste into Claude Code\nCreate an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance."
+  },
+  {
+    "objectID": "slides/m4-claude.html#working-with-files",
+    "href": "slides/m4-claude.html#working-with-files",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Working with Files",
+    "text": "Working with Files"
+  },
+  {
+    "objectID": "slides/m4-claude.html#copy-and-paste-into-claude-code-1",
+    "href": "slides/m4-claude.html#copy-and-paste-into-claude-code-1",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Copy and Paste into Claude Code",
+    "text": "Copy and Paste into Claude Code\nRead the file Example1/portfolio.xlsx, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called summary.xlsx."
+  },
+  {
+    "objectID": "slides/m4-claude.html#copy-and-paste-into-claude-code-2",
+    "href": "slides/m4-claude.html#copy-and-paste-into-claude-code-2",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Copy and Paste into Claude Code",
+    "text": "Copy and Paste into Claude Code\nThe file Example2/loan_terms.docx contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file Example2/payments.xlsx contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to summary.xlsx."
+  },
+  {
+    "objectID": "slides/m4-claude.html#download-the-example-files",
+    "href": "slides/m4-claude.html#download-the-example-files",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Download the Example Files",
+    "text": "Download the Example Files\nDownload module4.zip and extract it to a folder on your computer.\nPoint Claude Code to that folder. It contains three subfolders:\n\nExample1/ — portfolio holdings spreadsheet\nExample2/ — loan terms document and payment history spreadsheet\nExample3/ — earnings PDF report and stock prices spreadsheet"
+  },
+  {
+    "objectID": "slides/m4-claude.html#copy-and-paste-into-claude-code-3",
+    "href": "slides/m4-claude.html#copy-and-paste-into-claude-code-3",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Copy and Paste into Claude Code",
+    "text": "Copy and Paste into Claude Code\nThe file Example3/earnings.pdf contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file Example3/prices.xlsx contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to pe_analysis.xlsx."
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-npv-artifact",
+    "href": "slides/m4-claude.html#example-npv-artifact",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example: NPV Artifact",
+    "text": "Example: NPV Artifact\nAsk Claude Code:\n“Create an HTML file called npv.html that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button.”\nThen:\n\nFind npv.html in your project folder\nDouble-click it — it opens in your browser\nEnter cash flows and a discount rate, click the button, and see the NPV\n\n\nThe HTML file is self-contained. Anyone can open it — no Python installation needed."
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-bar-chart-race",
+    "href": "slides/m4-claude.html#example-bar-chart-race",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example: Bar Chart Race",
+    "text": "Example: Bar Chart Race\nDownload marketcap.xlsx — end-of-year market cap by sector, 2000–2025.\nUpload it to Claude and ask:\n“Build a web app with a bar chart race to show how the sizes of different sectors have changed over time.”\n\nClaude reads the data and writes the Plotly code — you get an interactive animated chart without writing a line of code."
+  },
+  {
+    "objectID": "slides/m4-claude.html#outline",
+    "href": "slides/m4-claude.html#outline",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Outline",
+    "text": "Outline\n\nClaude Desktop Install\nBuilding Small Web Apps\nWorking with Files"
+  },
+  {
+    "objectID": "slides/m4-claude.html#artifacts-with-pyodide",
+    "href": "slides/m4-claude.html#artifacts-with-pyodide",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Artifacts with Pyodide",
+    "text": "Artifacts with Pyodide"
+  },
+  {
+    "objectID": "slides/m4-claude.html#building-small-web-apps",
+    "href": "slides/m4-claude.html#building-small-web-apps",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Building Small Web Apps",
+    "text": "Building Small Web Apps"
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-npv-web-app",
+    "href": "slides/m4-claude.html#example-npv-web-app",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example: NPV Web App",
+    "text": "Example: NPV Web App\nAsk Claude Code:\n“Create an HTML file called npv.html that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button.”\nThen:\n\nFind npv.html in your project folder\nDouble-click it — it opens in your browser\nEnter cash flows and a discount rate, click the button, and see the NPV\n\n\nThe HTML file is self-contained. Anyone can open it — no Python installation needed."
   }
 ]
