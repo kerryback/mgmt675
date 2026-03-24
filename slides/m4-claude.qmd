@@ -193,11 +193,11 @@ Claude **Code** can produce the same thing as a file you own and share.
 Same technology, different packaging. Claude Code gives you a file you keep.
 :::
 
-## Exercise: Generate a Pyodide HTML File
+## Example: NPV Artifact
 
 Ask Claude Code:
 
-*"Create an HTML file called `npv.html` that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button. Load Pyodide from the CDN."*
+*"Create an HTML file called `npv.html` that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button."*
 
 Then:
 
@@ -209,7 +209,7 @@ Then:
 The HTML file is [self-contained]{.amber}. Anyone can open it --- no Python installation needed.
 :::
 
-## Exercise: Bar Chart Race Artifact
+## Example: Bar Chart Race
 
 Download [marketcap.xlsx](../files/marketcap.xlsx) --- end-of-year market cap by sector, 2000--2025.
 
