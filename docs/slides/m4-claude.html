@@ -351,12 +351,16 @@ Kerry Back, Rice University
 <p>Claude reads the data and writes the Plotly code — you get an interactive animated chart without writing a line of code.</p>
 </div>
 </section>
-<section id="working-with-multiple-files" class="slide level2 section-divider center">
-<h2>Working with Multiple Files</h2>
+<section id="working-with-files" class="slide level2 section-divider center">
+<h2>Working with Files</h2>
+</section>
+<section id="copy-and-paste-into-claude-code-1" class="slide level2 center">
+<h2>Copy and Paste into Claude Code</h2>
+<p>Read the file <code>portfolio.xlsx</code>, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called <code>summary.xlsx</code>.</p>
 </section>
 <section id="merging-data-from-different-sources" class="slide level2 center">
 <h2>Merging Data from Different Sources</h2>
-<p>Real financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then <span class="amber">combine them into a unified dataset</span>.</p>
+<p>Real financial data rarely lives in a single file or format. Claude Code can read Excel, PDF, and Word files, then <span class="amber">combine, filter, and aggregate</span>.</p>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -364,12 +368,12 @@ Kerry Back, Rice University
 <div>
 <pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
-  CSV["&lt;b&gt;CSV&lt;/b&gt;"] --&gt; CC["&lt;b&gt;Claude Code&lt;/b&gt;"]
+  WRD["&lt;b&gt;Word&lt;/b&gt;"] --&gt; CC["&lt;b&gt;Claude Code&lt;/b&gt;&lt;br&gt;Merge, Filter, Aggregate"]
   XLS["&lt;b&gt;Excel&lt;/b&gt;"] --&gt; CC
   PDF["&lt;b&gt;PDF&lt;/b&gt;"] --&gt; CC
   CC --&gt; UT["&lt;b&gt;Unified Table&lt;/b&gt;"]
 
-  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style WRD fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
   style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
   style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
   style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
@@ -381,59 +385,9 @@ flowchart LR
 </div>
 </div>
 </section>
-<section id="common-data-merging-scenarios" class="slide level2 center">
-<h2>Common Data Merging Scenarios</h2>
-<ul>
-<li>Holdings from multiple brokerages (xlsx + csv)</li>
-<li>Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)</li>
-<li>Quarterly reports from divisions with different column names</li>
-</ul>
-</section>
-<section id="what-claude-handles" class="slide level2 center">
-<h2>What Claude Handles</h2>
-<ul>
-<li>Reads each file format natively</li>
-<li>Reconciles column names and data types</li>
-<li>Flags mismatches and missing values</li>
-<li>Outputs a clean, unified table</li>
-</ul>
-<p><span class="amber">You describe what should be merged and how. Claude handles the parsing and code.</span></p>
-</section>
-<section id="filtering-and-aggregating" class="slide level2 center">
-<h2>Filtering and Aggregating</h2>
-<p>Once data is combined, the next step is usually filtering, sorting, or grouping.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Filtering</strong></span></p>
-<ul>
-<li>“Keep only loans above $1M”</li>
-<li>“Filter to stocks with P/E &gt; 0”</li>
-<li>“Exclude rows with missing revenue”</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Aggregating</strong></span></p>
-<ul>
-<li>“Average revenue by sector and quarter”</li>
-<li>“Sum holdings by asset class”</li>
-<li>“Rank funds by Sharpe ratio”</li>
-</ul>
-</div>
-</div>
-<div class="explainer">
-<p>State your intent in plain English. Claude writes the pandas code, runs it, and shows you the result. Always <span class="amber">check the filter logic</span> — this is where silent errors happen most often (Module 7).</p>
-</div>
-</section>
-<section id="example" class="slide level2 center">
-<h2>Example</h2>
-<p>Download <a href="https://kerryback.com/mgmt675/files/aggregation.zip">aggregation.zip</a> and extract the workbooks into a folder.</p>
-<p>Each Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:</p>
-<ol type="1">
-<li>Summarize the columns present, row count, and basic statistics for each file</li>
-<li>Combine all files into a single table, reconciling the varying column names</li>
-<li>Save the result as <code>combined.xlsx</code></li>
-</ol>
-<p>This is the same “divide and conquer” pattern used in professional data pipelines — read each source independently, then unify.</p>
+<section id="copy-and-paste-into-claude-code-2" class="slide level2 center">
+<h2>Copy and Paste into Claude Code</h2>
+<p>The file <code>loan_terms.docx</code> contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file <code>payments.xlsx</code> contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to <code>summary.xlsx</code>.</p>
 
 
 </section>

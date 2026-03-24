@@ -221,77 +221,32 @@ Upload it to Claude and ask:
 Claude reads the data and writes the Plotly code --- you get an interactive animated chart without writing a line of code.
 :::
 
-## Working with Multiple Files {.section-divider}
+## Working with Files {.section-divider}
+
+## Copy and Paste into Claude Code
+
+Read the file `portfolio.xlsx`, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called `summary.xlsx`.
 
 ## Merging Data from Different Sources
 
-Real financial data rarely lives in a single file or format. Claude Code can read CSV, Excel, PDF, and Word files, then [combine them into a unified dataset]{.amber}.
+Real financial data rarely lives in a single file or format. Claude Code can read Excel, PDF, and Word files, then [combine, filter, and aggregate]{.amber}.
 
 ```{mermaid}
 %%| fig-width: 16
 %%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
-  CSV["<b>CSV</b>"] --> CC["<b>Claude Code</b>"]
+  WRD["<b>Word</b>"] --> CC["<b>Claude Code</b><br>Merge, Filter, Aggregate"]
   XLS["<b>Excel</b>"] --> CC
   PDF["<b>PDF</b>"] --> CC
   CC --> UT["<b>Unified Table</b>"]
 
-  style CSV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
+  style WRD fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
   style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
   style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
   style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
   style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
 ```
 
-## Common Data Merging Scenarios
+## Copy and Paste into Claude Code
 
-- Holdings from multiple brokerages (xlsx + csv)
-- Loan tape (CSV) + appraisal report (PDF) + policy memo (DOCX)
-- Quarterly reports from divisions with different column names
-
-## What Claude Handles
-
-- Reads each file format natively
-- Reconciles column names and data types
-- Flags mismatches and missing values
-- Outputs a clean, unified table
-
-[You describe what should be merged and how. Claude handles the parsing and code.]{.amber}
-
-## Filtering and Aggregating
-
-Once data is combined, the next step is usually filtering, sorting, or grouping.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Filtering**]{.card-title}
-
-- "Keep only loans above $1M"
-- "Filter to stocks with P/E > 0"
-- "Exclude rows with missing revenue"
-:::
-
-:::{.card .card-light}
-[**Aggregating**]{.card-title}
-
-- "Average revenue by sector and quarter"
-- "Sum holdings by asset class"
-- "Rank funds by Sharpe ratio"
-:::
-:::
-
-:::{.explainer}
-State your intent in plain English. Claude writes the pandas code, runs it, and shows you the result. Always [check the filter logic]{.amber} --- this is where silent errors happen most often (Module 7).
-:::
-
-## Example
-
-Download [aggregation.zip](https://kerryback.com/mgmt675/files/aggregation.zip) and extract the workbooks into a folder.
-
-Each Excel file contains a data table. Column names vary across files and some columns are missing. Ask Claude Code to:
-
-1. Summarize the columns present, row count, and basic statistics for each file
-2. Combine all files into a single table, reconciling the varying column names
-3. Save the result as `combined.xlsx`
-
-This is the same "divide and conquer" pattern used in professional data pipelines --- read each source independently, then unify.
+The file `loan_terms.docx` contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file `payments.xlsx` contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to `summary.xlsx`.
