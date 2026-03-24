@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>U.S. Stock Market Cap by Sector</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body { margin: 0; padding: 16px; font-family: sans-serif; background: #f8f9fa; }
+    h2 { text-align: center; color: #2c3e50; margin-bottom: 4px; }
+    p.subtitle { text-align: center; color: #666; margin-top: 0; font-size: 0.9em; }
+    #chart { width: 100%; height: 560px; }
+  </style>
+</head>
+<body>
+  <h2>U.S. Stock Market — Market Cap by Sector</h2>
+  <p class="subtitle">End-of-year values, 2000–2025 &nbsp;|&nbsp; % of total market cap</p>
+  <div id="chart"></div>
+
+<script>
+const raw = [{"year": 2000, "sector": "Basic Materials", "marketcap_billions": 0.4}, {"year": 2000, "sector": "Communication Services", "marketcap_billions": 1.67}, {"year": 2000, "sector": "Consumer Cyclical", "marketcap_billions": 0.85}, {"year": 2000, "sector": "Consumer Defensive", "marketcap_billions": 1.36}, {"year": 2000, "sector": "Energy", "marketcap_billions": 0.9}, {"year": 2000, "sector": "Financial Services", "marketcap_billions": 2.73}, {"year": 2000, "sector": "Healthcare", "marketcap_billions": 2.31}, {"year": 2000, "sector": "Industrials", "marketcap_billions": 1.57}, {"year": 2000, "sector": "Real Estate", "marketcap_billions": 0.2}, {"year": 2000, "sector": "Technology", "marketcap_billions": 3.44}, {"year": 2000, "sector": "Utilities", "marketcap_billions": 0.49}, {"year": 2001, "sector": "Basic Materials", "marketcap_billions": 0.37}, {"year": 2001, "sector": "Communication Services", "marketcap_billions": 1.42}, {"year": 2001, "sector": "Consumer Cyclical", "marketcap_billions": 0.95}, {"year": 2001, "sector": "Consumer Defensive", "marketcap_billions": 1.34}, {"year": 2001, "sector": "Energy", "marketcap_billions": 0.78}, {"year": 2001, "sector": "Financial Services", "marketcap_billions": 2.54}, {"year": 2001, "sector": "Healthcare", "marketcap_billions": 1.93}, {"year": 2001, "sector": "Industrials", "marketcap_billions": 1.47}, {"year": 2001, "sector": "Real Estate", "marketcap_billions": 0.21}, {"year": 2001, "sector": "Technology", "marketcap_billions": 2.44}, {"year": 2001, "sector": "Utilities", "marketcap_billions": 0.38}, {"year": 2002, "sector": "Basic Materials", "marketcap_billions": 0.34}, {"year": 2002, "sector": "Communication Services", "marketcap_billions": 0.86}, {"year": 2002, "sector": "Consumer Cyclical", "marketcap_billions": 0.78}, {"year": 2002, "sector": "Consumer Defensive", "marketcap_billions": 1.2}, {"year": 2002, "sector": "Energy", "marketcap_billions": 0.67}, {"year": 2002, "sector": "Financial Services", "marketcap_billions": 2.08}, {"year": 2002, "sector": "Healthcare", "marketcap_billions": 1.48}, {"year": 2002, "sector": "Industrials", "marketcap_billions": 1.14}, {"year": 2002, "sector": "Real Estate", "marketcap_billions": 0.21}, {"year": 2002, "sector": "Technology", "marketcap_billions": 1.53}, {"year": 2002, "sector": "Utilities", "marketcap_billions": 0.3}, {"year": 2003, "sector": "Basic Materials", "marketcap_billions": 0.44}, {"year": 2003, "sector": "Communication Services", "marketcap_billions": 1.16}, {"year": 2003, "sector": "Consumer Cyclical", "marketcap_billions": 1.08}, {"year": 2003, "sector": "Consumer Defensive", "marketcap_billions": 1.38}, {"year": 2003, "sector": "Energy", "marketcap_billions": 0.83}, {"year": 2003, "sector": "Financial Services", "marketcap_billions": 2.71}, {"year": 2003, "sector": "Healthcare", "marketcap_billions": 1.88}, {"year": 2003, "sector": "Industrials", "marketcap_billions": 1.53}, {"year": 2003, "sector": "Real Estate", "marketcap_billions": 0.28}, {"year": 2003, "sector": "Technology", "marketcap_billions": 2.3}, {"year": 2003, "sector": "Utilities", "marketcap_billions": 0.36}, {"year": 2004, "sector": "Basic Materials", "marketcap_billions": 0.49}, {"year": 2004, "sector": "Communication Services", "marketcap_billions": 1.29}, {"year": 2004, "sector": "Consumer Cyclical", "marketcap_billions": 1.29}, {"year": 2004, "sector": "Consumer Defensive", "marketcap_billions": 1.49}, {"year": 2004, "sector": "Energy", "marketcap_billions": 1.11}, {"year": 2004, "sector": "Financial Services", "marketcap_billions": 3.14}, {"year": 2004, "sector": "Healthcare", "marketcap_billions": 1.94}, {"year": 2004, "sector": "Industrials", "marketcap_billions": 1.85}, {"year": 2004, "sector": "Real Estate", "marketcap_billions": 0.38}, {"year": 2004, "sector": "Technology", "marketcap_billions": 2.34}, {"year": 2004, "sector": "Utilities", "marketcap_billions": 0.44}, {"year": 2005, "sector": "Basic Materials", "marketcap_billions": 0.53}, {"year": 2005, "sector": "Communication Services", "marketcap_billions": 1.21}, {"year": 2005, "sector": "Consumer Cyclical", "marketcap_billions": 1.29}, {"year": 2005, "sector": "Consumer Defensive", "marketcap_billions": 1.46}, {"year": 2005, "sector": "Energy", "marketcap_billions": 1.5}, {"year": 2005, "sector": "Financial Services", "marketcap_billions": 3.1}, {"year": 2005, "sector": "Healthcare", "marketcap_billions": 2.1}, {"year": 2005, "sector": "Industrials", "marketcap_billions": 1.92}, {"year": 2005, "sector": "Real Estate", "marketcap_billions": 0.42}, {"year": 2005, "sector": "Technology", "marketcap_billions": 2.34}, {"year": 2005, "sector": "Utilities", "marketcap_billions": 0.5}, {"year": 2006, "sector": "Basic Materials", "marketcap_billions": 0.61}, {"year": 2006, "sector": "Communication Services", "marketcap_billions": 1.4}, {"year": 2006, "sector": "Consumer Cyclical", "marketcap_billions": 1.39}, {"year": 2006, "sector": "Consumer Defensive", "marketcap_billions": 1.65}, {"year": 2006, "sector": "Energy", "marketcap_billions": 1.74}, {"year": 2006, "sector": "Financial Services", "marketcap_billions": 3.65}, {"year": 2006, "sector": "Healthcare", "marketcap_billions": 5.93}, {"year": 2006, "sector": "Industrials", "marketcap_billions": 2.1}, {"year": 2006, "sector": "Real Estate", "marketcap_billions": 0.56}, {"year": 2006, "sector": "Technology", "marketcap_billions": 2.47}, {"year": 2006, "sector": "Utilities", "marketcap_billions": 0.63}, {"year": 2007, "sector": "Basic Materials", "marketcap_billions": 0.81}, {"year": 2007, "sector": "Communication Services", "marketcap_billions": 1.38}, {"year": 2007, "sector": "Consumer Cyclical", "marketcap_billions": 1.19}, {"year": 2007, "sector": "Consumer Defensive", "marketcap_billions": 1.7}, {"year": 2007, "sector": "Energy", "marketcap_billions": 2.2}, {"year": 2007, "sector": "Financial Services", "marketcap_billions": 3.1}, {"year": 2007, "sector": "Healthcare", "marketcap_billions": 6.42}, {"year": 2007, "sector": "Industrials", "marketcap_billions": 2.25}, {"year": 2007, "sector": "Real Estate", "marketcap_billions": 0.47}, {"year": 2007, "sector": "Technology", "marketcap_billions": 2.75}, {"year": 2007, "sector": "Utilities", "marketcap_billions": 0.68}, {"year": 2008, "sector": "Basic Materials", "marketcap_billions": 0.41}, {"year": 2008, "sector": "Communication Services", "marketcap_billions": 0.79}, {"year": 2008, "sector": "Consumer Cyclical", "marketcap_billions": 0.64}, {"year": 2008, "sector": "Consumer Defensive", "marketcap_billions": 1.36}, {"year": 2008, "sector": "Energy", "marketcap_billions": 1.33}, {"year": 2008, "sector": "Financial Services", "marketcap_billions": 1.65}, {"year": 2008, "sector": "Healthcare", "marketcap_billions": 1.65}, {"year": 2008, "sector": "Industrials", "marketcap_billions": 1.23}, {"year": 2008, "sector": "Real Estate", "marketcap_billions": 0.24}, {"year": 2008, "sector": "Technology", "marketcap_billions": 1.47}, {"year": 2008, "sector": "Utilities", "marketcap_billions": 0.44}, {"year": 2009, "sector": "Basic Materials", "marketcap_billions": 0.62}, {"year": 2009, "sector": "Communication Services", "marketcap_billions": 0.95}, {"year": 2009, "sector": "Consumer Cyclical", "marketcap_billions": 0.96}, {"year": 2009, "sector": "Consumer Defensive", "marketcap_billions": 1.45}, {"year": 2009, "sector": "Energy", "marketcap_billions": 1.58}, {"year": 2009, "sector": "Financial Services", "marketcap_billions": 2.0}, {"year": 2009, "sector": "Healthcare", "marketcap_billions": 1.91}, {"year": 2009, "sector": "Industrials", "marketcap_billions": 1.5}, {"year": 2009, "sector": "Real Estate", "marketcap_billions": 0.35}, {"year": 2009, "sector": "Technology", "marketcap_billions": 2.26}, {"year": 2009, "sector": "Utilities", "marketcap_billions": 0.48}, {"year": 2010, "sector": "Basic Materials", "marketcap_billions": 0.84}, {"year": 2010, "sector": "Communication Services", "marketcap_billions": 1.08}, {"year": 2010, "sector": "Consumer Cyclical", "marketcap_billions": 1.32}, {"year": 2010, "sector": "Consumer Defensive", "marketcap_billions": 1.57}, {"year": 2010, "sector": "Energy", "marketcap_billions": 1.95}, {"year": 2010, "sector": "Financial Services", "marketcap_billions": 2.35}, {"year": 2010, "sector": "Healthcare", "marketcap_billions": 1.79}, {"year": 2010, "sector": "Industrials", "marketcap_billions": 1.88}, {"year": 2010, "sector": "Real Estate", "marketcap_billions": 0.46}, {"year": 2010, "sector": "Technology", "marketcap_billions": 2.59}, {"year": 2010, "sector": "Utilities", "marketcap_billions": 0.49}, {"year": 2011, "sector": "Basic Materials", "marketcap_billions": 0.72}, {"year": 2011, "sector": "Communication Services", "marketcap_billions": 1.12}, {"year": 2011, "sector": "Consumer Cyclical", "marketcap_billions": 1.3}, {"year": 2011, "sector": "Consumer Defensive", "marketcap_billions": 1.66}, {"year": 2011, "sector": "Energy", "marketcap_billions": 1.99}, {"year": 2011, "sector": "Financial Services", "marketcap_billions": 2.03}, {"year": 2011, "sector": "Healthcare", "marketcap_billions": 1.88}, {"year": 2011, "sector": "Industrials", "marketcap_billions": 1.75}, {"year": 2011, "sector": "Real Estate", "marketcap_billions": 0.54}, {"year": 2011, "sector": "Technology", "marketcap_billions": 2.43}, {"year": 2011, "sector": "Utilities", "marketcap_billions": 0.57}, {"year": 2012, "sector": "Basic Materials", "marketcap_billions": 0.78}, {"year": 2012, "sector": "Communication Services", "marketcap_billions": 1.35}, {"year": 2012, "sector": "Consumer Cyclical", "marketcap_billions": 1.57}, {"year": 2012, "sector": "Consumer Defensive", "marketcap_billions": 1.74}, {"year": 2012, "sector": "Energy", "marketcap_billions": 2.04}, {"year": 2012, "sector": "Financial Services", "marketcap_billions": 2.55}, {"year": 2012, "sector": "Healthcare", "marketcap_billions": 2.12}, {"year": 2012, "sector": "Industrials", "marketcap_billions": 1.94}, {"year": 2012, "sector": "Real Estate", "marketcap_billions": 0.69}, {"year": 2012, "sector": "Technology", "marketcap_billions": 2.68}, {"year": 2012, "sector": "Utilities", "marketcap_billions": 0.59}, {"year": 2013, "sector": "Basic Materials", "marketcap_billions": 0.92}, {"year": 2013, "sector": "Communication Services", "marketcap_billions": 2.0}, {"year": 2013, "sector": "Consumer Cyclical", "marketcap_billions": 2.18}, {"year": 2013, "sector": "Consumer Defensive", "marketcap_billions": 2.09}, {"year": 2013, "sector": "Energy", "marketcap_billions": 2.52}, {"year": 2013, "sector": "Financial Services", "marketcap_billions": 3.58}, {"year": 2013, "sector": "Healthcare", "marketcap_billions": 2.97}, {"year": 2013, "sector": "Industrials", "marketcap_billions": 2.72}, {"year": 2013, "sector": "Real Estate", "marketcap_billions": 0.78}, {"year": 2013, "sector": "Technology", "marketcap_billions": 3.25}, {"year": 2013, "sector": "Utilities", "marketcap_billions": 0.63}, {"year": 2014, "sector": "Basic Materials", "marketcap_billions": 0.92}, {"year": 2014, "sector": "Communication Services", "marketcap_billions": 2.13}, {"year": 2014, "sector": "Consumer Cyclical", "marketcap_billions": 2.29}, {"year": 2014, "sector": "Consumer Defensive", "marketcap_billions": 2.27}, {"year": 2014, "sector": "Energy", "marketcap_billions": 2.34}, {"year": 2014, "sector": "Financial Services", "marketcap_billions": 3.95}, {"year": 2014, "sector": "Healthcare", "marketcap_billions": 3.72}, {"year": 2014, "sector": "Industrials", "marketcap_billions": 2.86}, {"year": 2014, "sector": "Real Estate", "marketcap_billions": 1.0}, {"year": 2014, "sector": "Technology", "marketcap_billions": 3.72}, {"year": 2014, "sector": "Utilities", "marketcap_billions": 0.77}, {"year": 2015, "sector": "Basic Materials", "marketcap_billions": 0.79}, {"year": 2015, "sector": "Communication Services", "marketcap_billions": 2.38}, {"year": 2015, "sector": "Consumer Cyclical", "marketcap_billions": 2.35}, {"year": 2015, "sector": "Consumer Defensive", "marketcap_billions": 2.38}, {"year": 2015, "sector": "Energy", "marketcap_billions": 1.75}, {"year": 2015, "sector": "Financial Services", "marketcap_billions": 3.84}, {"year": 2015, "sector": "Healthcare", "marketcap_billions": 3.99}, {"year": 2015, "sector": "Industrials", "marketcap_billions": 2.66}, {"year": 2015, "sector": "Real Estate", "marketcap_billions": 1.03}, {"year": 2015, "sector": "Technology", "marketcap_billions": 3.55}, {"year": 2015, "sector": "Utilities", "marketcap_billions": 0.72}, {"year": 2016, "sector": "Basic Materials", "marketcap_billions": 0.91}, {"year": 2016, "sector": "Communication Services", "marketcap_billions": 2.61}, {"year": 2016, "sector": "Consumer Cyclical", "marketcap_billions": 2.37}, {"year": 2016, "sector": "Consumer Defensive", "marketcap_billions": 2.39}, {"year": 2016, "sector": "Energy", "marketcap_billions": 2.19}, {"year": 2016, "sector": "Financial Services", "marketcap_billions": 4.39}, {"year": 2016, "sector": "Healthcare", "marketcap_billions": 3.5}, {"year": 2016, "sector": "Industrials", "marketcap_billions": 2.94}, {"year": 2016, "sector": "Real Estate", "marketcap_billions": 1.1}, {"year": 2016, "sector": "Technology", "marketcap_billions": 3.98}, {"year": 2016, "sector": "Utilities", "marketcap_billions": 0.84}, {"year": 2017, "sector": "Basic Materials", "marketcap_billions": 1.19}, {"year": 2017, "sector": "Communication Services", "marketcap_billions": 3.0}, {"year": 2017, "sector": "Consumer Cyclical", "marketcap_billions": 2.95}, {"year": 2017, "sector": "Consumer Defensive", "marketcap_billions": 2.57}, {"year": 2017, "sector": "Energy", "marketcap_billions": 2.24}, {"year": 2017, "sector": "Financial Services", "marketcap_billions": 5.18}, {"year": 2017, "sector": "Healthcare", "marketcap_billions": 4.11}, {"year": 2017, "sector": "Industrials", "marketcap_billions": 3.4}, {"year": 2017, "sector": "Real Estate", "marketcap_billions": 1.23}, {"year": 2017, "sector": "Technology", "marketcap_billions": 5.07}, {"year": 2017, "sector": "Utilities", "marketcap_billions": 0.87}, {"year": 2018, "sector": "Basic Materials", "marketcap_billions": 0.97}, {"year": 2018, "sector": "Communication Services", "marketcap_billions": 2.78}, {"year": 2018, "sector": "Consumer Cyclical", "marketcap_billions": 2.79}, {"year": 2018, "sector": "Consumer Defensive", "marketcap_billions": 2.16}, {"year": 2018, "sector": "Energy", "marketcap_billions": 1.8}, {"year": 2018, "sector": "Financial Services", "marketcap_billions": 4.51}, {"year": 2018, "sector": "Healthcare", "marketcap_billions": 4.24}, {"year": 2018, "sector": "Industrials", "marketcap_billions": 2.85}, {"year": 2018, "sector": "Real Estate", "marketcap_billions": 1.15}, {"year": 2018, "sector": "Technology", "marketcap_billions": 4.92}, {"year": 2018, "sector": "Utilities", "marketcap_billions": 0.88}, {"year": 2019, "sector": "Basic Materials", "marketcap_billions": 1.05}, {"year": 2019, "sector": "Communication Services", "marketcap_billions": 3.57}, {"year": 2019, "sector": "Consumer Cyclical", "marketcap_billions": 3.49}, {"year": 2019, "sector": "Consumer Defensive", "marketcap_billions": 2.63}, {"year": 2019, "sector": "Energy", "marketcap_billions": 1.76}, {"year": 2019, "sector": "Financial Services", "marketcap_billions": 5.64}, {"year": 2019, "sector": "Healthcare", "marketcap_billions": 4.96}, {"year": 2019, "sector": "Industrials", "marketcap_billions": 3.54}, {"year": 2019, "sector": "Real Estate", "marketcap_billions": 1.42}, {"year": 2019, "sector": "Technology", "marketcap_billions": 7.13}, {"year": 2019, "sector": "Utilities", "marketcap_billions": 1.06}, {"year": 2020, "sector": "Basic Materials", "marketcap_billions": 1.26}, {"year": 2020, "sector": "Communication Services", "marketcap_billions": 4.54}, {"year": 2020, "sector": "Consumer Cyclical", "marketcap_billions": 5.45}, {"year": 2020, "sector": "Consumer Defensive", "marketcap_billions": 2.91}, {"year": 2020, "sector": "Energy", "marketcap_billions": 1.09}, {"year": 2020, "sector": "Financial Services", "marketcap_billions": 5.75}, {"year": 2020, "sector": "Healthcare", "marketcap_billions": 6.1}, {"year": 2020, "sector": "Industrials", "marketcap_billions": 3.94}, {"year": 2020, "sector": "Real Estate", "marketcap_billions": 1.38}, {"year": 2020, "sector": "Technology", "marketcap_billions": 10.51}, {"year": 2020, "sector": "Utilities", "marketcap_billions": 1.05}, {"year": 2021, "sector": "Basic Materials", "marketcap_billions": 1.64}, {"year": 2021, "sector": "Communication Services", "marketcap_billions": 5.28}, {"year": 2021, "sector": "Consumer Cyclical", "marketcap_billions": 6.83}, {"year": 2021, "sector": "Consumer Defensive", "marketcap_billions": 3.31}, {"year": 2021, "sector": "Energy", "marketcap_billions": 1.65}, {"year": 2021, "sector": "Financial Services", "marketcap_billions": 7.16}, {"year": 2021, "sector": "Healthcare", "marketcap_billions": 7.14}, {"year": 2021, "sector": "Industrials", "marketcap_billions": 4.87}, {"year": 2021, "sector": "Real Estate", "marketcap_billions": 1.92}, {"year": 2021, "sector": "Technology", "marketcap_billions": 14.19}, {"year": 2021, "sector": "Utilities", "marketcap_billions": 1.21}, {"year": 2022, "sector": "Basic Materials", "marketcap_billions": 1.35}, {"year": 2022, "sector": "Communication Services", "marketcap_billions": 3.02}, {"year": 2022, "sector": "Consumer Cyclical", "marketcap_billions": 4.14}, {"year": 2022, "sector": "Consumer Defensive", "marketcap_billions": 3.09}, {"year": 2022, "sector": "Energy", "marketcap_billions": 2.4}, {"year": 2022, "sector": "Financial Services", "marketcap_billions": 6.07}, {"year": 2022, "sector": "Healthcare", "marketcap_billions": 6.36}, {"year": 2022, "sector": "Industrials", "marketcap_billions": 4.24}, {"year": 2022, "sector": "Real Estate", "marketcap_billions": 1.42}, {"year": 2022, "sector": "Technology", "marketcap_billions": 9.45}, {"year": 2022, "sector": "Utilities", "marketcap_billions": 1.2}, {"year": 2023, "sector": "Basic Materials", "marketcap_billions": 1.56}, {"year": 2023, "sector": "Communication Services", "marketcap_billions": 4.39}, {"year": 2023, "sector": "Consumer Cyclical", "marketcap_billions": 5.63}, {"year": 2023, "sector": "Consumer Defensive", "marketcap_billions": 3.09}, {"year": 2023, "sector": "Energy", "marketcap_billions": 2.25}, {"year": 2023, "sector": "Financial Services", "marketcap_billions": 6.83}, {"year": 2023, "sector": "Healthcare", "marketcap_billions": 6.36}, {"year": 2023, "sector": "Industrials", "marketcap_billions": 4.85}, {"year": 2023, "sector": "Real Estate", "marketcap_billions": 1.51}, {"year": 2023, "sector": "Technology", "marketcap_billions": 14.33}, {"year": 2023, "sector": "Utilities", "marketcap_billions": 1.09}, {"year": 2024, "sector": "Basic Materials", "marketcap_billions": 1.58}, {"year": 2024, "sector": "Communication Services", "marketcap_billions": 5.81}, {"year": 2024, "sector": "Consumer Cyclical", "marketcap_billions": 7.1}, {"year": 2024, "sector": "Consumer Defensive", "marketcap_billions": 3.51}, {"year": 2024, "sector": "Energy", "marketcap_billions": 2.4}, {"year": 2024, "sector": "Financial Services", "marketcap_billions": 8.62}, {"year": 2024, "sector": "Healthcare", "marketcap_billions": 6.39}, {"year": 2024, "sector": "Industrials", "marketcap_billions": 5.38}, {"year": 2024, "sector": "Real Estate", "marketcap_billions": 1.56}, {"year": 2024, "sector": "Technology", "marketcap_billions": 19.03}, {"year": 2024, "sector": "Utilities", "marketcap_billions": 1.4}, {"year": 2025, "sector": "Basic Materials", "marketcap_billions": 1.75}, {"year": 2025, "sector": "Communication Services", "marketcap_billions": 7.58}, {"year": 2025, "sector": "Consumer Cyclical", "marketcap_billions": 7.45}, {"year": 2025, "sector": "Consumer Defensive", "marketcap_billions": 3.57}, {"year": 2025, "sector": "Energy", "marketcap_billions": 2.42}, {"year": 2025, "sector": "Financial Services", "marketcap_billions": 9.85}, {"year": 2025, "sector": "Healthcare", "marketcap_billions": 7.34}, {"year": 2025, "sector": "Industrials", "marketcap_billions": 6.26}, {"year": 2025, "sector": "Real Estate", "marketcap_billions": 1.58}, {"year": 2025, "sector": "Technology", "marketcap_billions": 23.04}, {"year": 2025, "sector": "Utilities", "marketcap_billions": 1.66}];
+
+// Fixed order bottom-to-top (so Technology appears at the top)
+const sectorOrder = [
+  "Utilities",
+  "Real Estate",
+  "Basic Materials",
+  "Energy",
+  "Consumer Defensive",
+  "Communication Services",
+  "Industrials",
+  "Consumer Cyclical",
+  "Healthcare",
+  "Financial Services",
+  "Technology"
+];
+
+const sectorColors = {
+  "Technology":             "#636EFA",
+  "Financial Services":     "#EF553B",
+  "Healthcare":             "#00CC96",
+  "Consumer Cyclical":      "#AB63FA",
+  "Industrials":            "#FFA15A",
+  "Communication Services": "#19D3F3",
+  "Consumer Defensive":     "#FF6692",
+  "Energy":                 "#B6E880",
+  "Real Estate":            "#FF97FF",
+  "Basic Materials":        "#FECB52",
+  "Utilities":              "#7F7F7F"
+};
+
+const years = [...new Set(raw.map(d => d.year))].sort((a,b) => a - b);
+const maxVal = 55; // percent, fixed axis
+
+function frameData(year) {
+  const yearRows = raw.filter(d => d.year === year);
+  const total = yearRows.reduce((s, d) => s + d.marketcap_billions, 0);
+  const lookup = {};
+  yearRows.forEach(d => lookup[d.sector] = d.marketcap_billions / total * 100);
+  const rows = sectorOrder.map(s => ({ sector: s, val: lookup[s] || 0 }));
+  return {
+    x: rows.map(d => d.val),
+    y: rows.map(d => d.sector),
+    text: rows.map(d => `${d.val.toFixed(1)}%`),
+    marker: { color: rows.map(d => sectorColors[d.sector] || '#888') }
+  };
+}
+
+const initYear = years[0];
+const init = frameData(initYear);
+
+const trace = {
+  type: 'bar',
+  orientation: 'h',
+  x: init.x,
+  y: init.y,
+  text: init.text,
+  textposition: 'outside',
+  cliponaxis: false,
+  marker: { color: init.marker.color },
+  hovertemplate: '<b>%{y}</b><br>$%{x:.2f}T<extra></extra>'
+};
+
+const layout = {
+  xaxis: {
+    range: [0, maxVal],
+    title: '% of Total Market Cap',
+    tickformat: '.0f',
+    ticksuffix: '%'
+  },
+  yaxis: { automargin: true },
+  margin: { l: 160, r: 80, t: 60, b: 60 },
+  paper_bgcolor: '#f8f9fa',
+  plot_bgcolor: '#ffffff',
+  font: { family: 'sans-serif', size: 13 },
+  annotations: [{
+    x: maxVal * 0.97,
+    y: 0.05,
+    xref: 'x', yref: 'paper',
+    text: String(initYear),
+    showarrow: false,
+    font: { size: 52, color: '#dee2e6', family: 'sans-serif' },
+    xanchor: 'right'
+  }],
+  updatemenus: [{
+    type: 'buttons',
+    showactive: false,
+    x: 0.05, y: -0.12,
+    xanchor: 'left',
+    buttons: [
+      {
+        label: '▶  Play',
+        method: 'animate',
+        args: [null, { frame: { duration: 900, redraw: true }, transition: { duration: 600, easing: 'cubic-in-out' }, fromcurrent: true, mode: 'immediate' }]
+      },
+      {
+        label: '⏸  Pause',
+        method: 'animate',
+        args: [[null], { mode: 'immediate', frame: { duration: 0 }, transition: { duration: 0 } }]
+      }
+    ]
+  }],
+  sliders: [{
+    active: 0,
+    steps: years.map(y => ({
+      method: 'animate',
+      label: String(y),
+      args: [[String(y)], { mode: 'immediate', frame: { duration: 300, redraw: true }, transition: { duration: 300 } }]
+    })),
+    x: 0.05, y: -0.05,
+    len: 0.95,
+    currentvalue: { prefix: 'Year: ', font: { size: 14 }, xanchor: 'center' },
+    pad: { t: 10 }
+  }]
+};
+
+const frames = years.map(year => {
+  const fd = frameData(year);
+  return {
+    name: String(year),
+    data: [{ x: fd.x, y: fd.y, text: fd.text, marker: fd.marker }],
+    layout: {
+      annotations: [{
+        x: maxVal * 0.97, y: 0.05,
+        xref: 'x', yref: 'paper',
+        text: String(year),
+        showarrow: false,
+        font: { size: 52, color: '#dee2e6', family: 'sans-serif' },
+        xanchor: 'right'
+      }]
+    }
+  };
+});
+
+Plotly.newPlot('chart', [trace], layout, { responsive: true })
+  .then(() => Plotly.addFrames('chart', frames));
+</script>
+</body>
+</html>
