@@ -78,6 +78,12 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 :::
 ::::
 
+```{=latex}
+\begin{center}
+\href{https://workshop.kerryback.com/slides/python-overview.html}{\includegraphics[width=0.15\textwidth]{workshop.png}}
+\end{center}
+```
+
 ### Honor Code
 
 The Rice University honor code applies to all work in this course.

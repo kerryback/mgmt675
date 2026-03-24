@@ -457,6 +457,94 @@ Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and co
 ::::
 :::
 
+## Data Security: Running AI Locally {.section-divider}
+
+## The Case for Local AI
+
+Cloud AI is convenient, but [local models]{.amber} keep data inside your machine --- no transmission, no retention policy, no provider to trust.
+
+:::{.two-col}
+::::{.column}
+**When local AI makes sense**
+
+- Client data under NDA
+- HIPAA, GDPR, or FERPA-covered records
+- Proprietary deal models and memos
+- Regulated industries (banking, defense, healthcare)
+::::
+
+::::{.column}
+**The trade-off**
+
+| | Cloud AI | Local AI |
+|---|---|---|
+| Model quality | ★★★★★ | ★★★☆☆ |
+| Data privacy | Provider policy | 100% local |
+| Setup cost | None | Minutes |
+| Compute | Unlimited | Your hardware |
+
+::::
+:::
+
+[For narrow, sensitive tasks, a smaller local model is often the right call.]{.amber}
+
+## Ollama: Local LLMs in One Installer
+
+[Ollama](https://ollama.com) lets you run open-source models on your laptop --- no cloud, no API key, no data leaving your machine.
+
+:::{.two-col}
+::::{.column}
+**How it works**
+
+1. Download and run the Ollama installer
+2. Pull a model (e.g., `llama3.2`)
+3. Chat locally via a browser UI or the terminal
+4. All inference runs on your CPU/GPU
+::::
+
+::::{.column}
+**Available models**
+
+- **Llama 3.1** (Meta, 8B) --- strong reasoning
+- **Llama 3.2** (Meta, 3B) --- faster, lighter
+- **Mistral**, **Gemma**, **Phi** --- many options
+- Models download once and run offline
+::::
+:::
+
+## Exercise: Install Ollama and Try Local LLMs {.section-divider}
+
+## Exercise: Running a Local Model
+
+:::{.two-col}
+::::{.column}
+**Setup**
+
+1. Go to [ollama.com](https://ollama.com) and download the installer for your OS
+2. Run the installer (no terminal needed)
+3. Once installed, open a terminal and run:
+   ```
+   ollama run llama3.2
+   ```
+4. Then try:
+   ```
+   ollama run llama3.1
+   ```
+::::
+
+::::{.column}
+**The prompt**
+
+Give each model this prompt and compare their responses:
+
+> *"A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7--9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?"*
+
+**What to notice**: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.
+::::
+:::
+
+[Both models run entirely on your machine. No data is sent anywhere.]{.amber}
+
 ## AI Adoption Roadmap {.section-divider}
 
 ## The Sandbox-Audit-Deploy Pattern

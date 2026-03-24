@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NPV Calculator</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 2.2rem 2.5rem;
+      width: 420px;
+    }
+    h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.4rem;
+      color: #1a2e44;
+    }
+    p.subtitle {
+      margin: 0 0 1.6rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 1.2rem;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem 0.7rem;
+      border: 1.5px solid #d0d7e0;
+      border-radius: 7px;
+      font-size: 0.95rem;
+      color: #1a2e44;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input[type="number"]:focus {
+      border-color: #003c71;
+    }
+    .rate-row {
+      margin-bottom: 1.4rem;
+    }
+    .rate-row input {
+      width: 50%;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background: #003c71;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #00508f; }
+    button:disabled { background: #aab; cursor: default; }
+    #result {
+      margin-top: 1.2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #003c71;
+      min-height: 2rem;
+    }
+    #status {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 0.4rem;
+      min-height: 1.2rem;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 1.2rem 0 1rem;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h2>NPV Calculator</h2>
+  <p class="subtitle">Enter cash flows and a discount rate, then click Calculate.</p>
+
+  <div class="grid">
+    <div>
+      <label>Cash Flow — Year 0</label>
+      <input type="number" id="cf0" value="-1000" step="any">
+    </div>
+    <div>
+      <label>Cash Flow — Year 1</label>
+      <input type="number" id="cf1" value="300" step="any">
+    </div>
+    <div>
+      <label>Cash Flow — Year 2</label>
+      <input type="number" id="cf2" value="300" step="any">
+    </div>
+    <div>
+      <label>Cash Flow — Year 3</label>
+      <input type="number" id="cf3" value="300" step="any">
+    </div>
+    <div>
+      <label>Cash Flow — Year 4</label>
+      <input type="number" id="cf4" value="300" step="any">
+    </div>
+    <div>
+      <label>Cash Flow — Year 5</label>
+      <input type="number" id="cf5" value="300" step="any">
+    </div>
+  </div>
+
+  <div class="rate-row">
+    <label>Discount Rate (e.g. 0.10 for 10%)</label>
+    <input type="number" id="rate" value="0.10" step="0.01">
+  </div>
+
+  <button id="calcBtn" onclick="calculate()" disabled>Loading Python...</button>
+
+  <hr class="divider">
+  <div id="result"></div>
+  <div id="status">Initializing Pyodide...</div>
+</div>
+
+<script>
+let pyodideReady = false;
+
+async function initPyodide() {
+  const pyodide = await loadPyodide();
+  window._pyodide = pyodide;
+  pyodideReady = true;
+  document.getElementById('calcBtn').disabled = false;
+  document.getElementById('calcBtn').textContent = 'Calculate NPV';
+  document.getElementById('status').textContent = 'Python ready.';
+}
+
+async function calculate() {
+  if (!pyodideReady) return;
+
+  const cfs = [0,1,2,3,4,5].map(i => parseFloat(document.getElementById(`cf${i}`).value) || 0);
+  const rate = parseFloat(document.getElementById('rate').value);
+
+  if (isNaN(rate) || rate <= -1) {
+    document.getElementById('result').textContent = 'Invalid rate';
+    return;
+  }
+
+  document.getElementById('status').textContent = 'Calculating...';
+
+  window._pyodide.globals.set('cash_flows', window._pyodide.toPy(cfs));
+  window._pyodide.globals.set('discount_rate', rate);
+
+  const npv = await window._pyodide.runPythonAsync(`
+cash_flows = list(cash_flows)
+npv = sum(cf / (1 + discount_rate) ** t for t, cf in enumerate(cash_flows))
+round(npv, 2)
+`);
+
+  const formatted = new Intl.NumberFormat('en-US', {
+    style: 'currency', currency: 'USD', minimumFractionDigits: 2
+  }).format(npv);
+
+  const color = npv >= 0 ? '#00875a' : '#c0392b';
+  document.getElementById('result').innerHTML =
+    `NPV = <span style="color:${color}">${formatted}</span>`;
+  document.getElementById('status').textContent =
+    npv >= 0 ? 'Positive NPV — project adds value.' : 'Negative NPV — project destroys value.';
+}
+
+initPyodide();
+</script>
+</body>
+</html>

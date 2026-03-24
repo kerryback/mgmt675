@@ -1187,7 +1187,7 @@
     "href": "slides/m4-claude.html#what-is-a-claude-artifact",
     "title": "Module 4: Claude Desktop & Code",
     "section": "What Is a Claude Artifact?",
-    "text": "What Is a Claude Artifact?\nAn artifact is a self-contained web page — HTML, CSS, and JavaScript — that Claude generates on the fly and renders in a sandboxed panel next to the chat.\n\nNo server, no backend, no deployment step\nRuns entirely in your browser\nCommon uses: calculators, charts, data tables, interactive dashboards\n\n\nIf you can build it with HTML + JavaScript, Claude can generate it as an artifact."
+    "text": "What Is a Claude Artifact?\nAn artifact is a self-contained web page — HTML, CSS, and JavaScript — that Claude generates on the fly and renders in a sandboxed panel next to the chat.\n\nNo server, no backend, no deployment step\nRuns entirely in your browser\nCommon uses: calculators, charts, data tables, interactive dashboards\n\n\nIf you can build it with HTML + JavaScript, Claude can generate it as an artifact — and that includes Python, since Pyodide runs Python inside the browser as a JavaScript library."
   },
   {
     "objectID": "slides/m4-claude.html#running-python-in-the-browser",
@@ -1209,6 +1209,13 @@
     "title": "Module 4: Claude Desktop & Code",
     "section": "Exercise: Generate a Pyodide HTML File",
     "text": "Exercise: Generate a Pyodide HTML File\nAsk Claude Code:\n“Create an HTML file called npv.html that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button. Load Pyodide from the CDN.”\nThen:\n\nFind npv.html in your project folder\nDouble-click it — it opens in your browser\nEnter cash flows and a discount rate, click the button, and see the NPV\n\n\nThe HTML file is self-contained. Anyone can open it — no Python installation needed."
+  },
+  {
+    "objectID": "slides/m4-claude.html#exercise-bar-chart-race-artifact",
+    "href": "slides/m4-claude.html#exercise-bar-chart-race-artifact",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Exercise: Bar Chart Race Artifact",
+    "text": "Exercise: Bar Chart Race Artifact\nDownload marketcap.xlsx — end-of-year market cap by sector, 2000–2025.\nUpload it to Claude and ask:\n“Create an artifact with a bar chart race to show how the sizes of different sectors have changed over time.”\n\nClaude reads the data and writes the Plotly code — you get an interactive animated chart without writing a line of code."
   },
   {
     "objectID": "slides/m4-claude.html#claude-code-in-the-terminal-and-vs-code",
