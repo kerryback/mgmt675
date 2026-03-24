@@ -101,6 +101,32 @@ The class installer sets up everything you need in one step:
 
 *"Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance."*
 
+## Terminal Alternative
+
+The Code tab in Claude Desktop and the terminal command `claude` use the [same engine]{.amber}.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Claude Desktop (Code tab)**]{.card-title}
+
+- Visual interface with file browser
+- Click to select working folder
+- Good for getting started
+:::
+
+:::{.card .card-light}
+[**Terminal (`claude`)**]{.card-title}
+
+- Type `claude` in any terminal
+- Same skills, same config
+- Integrates with VS Code
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+Both approaches share the same skills, MCP servers, and configuration files.
+:::
+
 ## Artifacts and Pyodide {.section-divider}
 
 ## What Is a Claude Artifact?
@@ -193,83 +219,6 @@ Upload it to Claude and ask:
 
 :::{.explainer style="text-align:center;"}
 Claude reads the data and writes the Plotly code --- you get an interactive animated chart without writing a line of code.
-:::
-
-## Claude Code in the Terminal and VS Code {.section-divider}
-
-## Terminal Alternative
-
-The Code tab in Claude Desktop and the terminal command `claude` use the [same engine]{.amber}.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Claude Desktop (Code tab)**]{.card-title}
-
-- Visual interface with file browser
-- Click to select working folder
-- Good for getting started
-:::
-
-:::{.card .card-light}
-[**Terminal (`claude`)**]{.card-title}
-
-- Type `claude` in any terminal
-- Same skills, same config
-- Preferred by power users
-:::
-:::
-
-:::{.explainer style="text-align:center;"}
-Both approaches share the same skills, MCP servers, and configuration files.
-:::
-
-## Installing the Terminal and VS Code
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Claude Code (Terminal)**]{.card-title}
-
-- **Mac/Linux:** `curl -fsSL https://claude.ai/install.sh | bash`
-- **Windows (PowerShell):** `irm https://claude.ai/install.ps1 | iex`
-- [The class installer handles this automatically]{.amber}
-- Verify: `claude --version`
-:::
-
-:::{.card .card-light}
-[**VS Code + Extensions**]{.card-title}
-
-1. Download [VS Code](https://code.visualstudio.com) and install
-2. Open Extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`)
-3. Install **Python** (Microsoft) and **Claude Code** (Anthropic)
-:::
-:::
-
-## Using Claude Code in the Terminal and VS Code
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Terminal**]{.card-title}
-
-- `cd` into your project folder, then type `claude`
-- First launch: sign in with your Anthropic account
-- Chat naturally --- Claude reads and writes files in that folder
-- Type `/help` for commands, `/model` to switch models
-- Press `Esc` to interrupt, `Ctrl+C` twice to exit
-:::
-
-:::{.card .card-light}
-[**VS Code**]{.card-title}
-
-- Open your project folder in VS Code
-- Click the Claude Code icon in the sidebar (or `Ctrl+Shift+P` → "Claude Code: Open")
-- Sign in on first use
-- Claude can see your open files, file explorer, and terminal
-- Code changes appear as inline diffs you can accept or reject
-:::
-:::
-
-:::{.explainer style="text-align:center;"}
-[Both share the same skills and configuration.]{.amber} VS Code adds a file explorer and visual diffs; the terminal is lightweight and fast.
 :::
 
 ## Working with Multiple Files {.section-divider}

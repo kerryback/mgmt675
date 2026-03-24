@@ -238,6 +238,31 @@ Kerry Back, Rice University
 <h2>Example</h2>
 <p><em>“Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.”</em></p>
 </section>
+<section id="terminal-alternative" class="slide level2 center">
+<h2>Terminal Alternative</h2>
+<p>The Code tab in Claude Desktop and the terminal command <code>claude</code> use the <span class="amber">same engine</span>.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Desktop (Code tab)</strong></span></p>
+<ul>
+<li>Visual interface with file browser</li>
+<li>Click to select working folder</li>
+<li>Good for getting started</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Terminal (<code>claude</code>)</strong></span></p>
+<ul>
+<li>Type <code>claude</code> in any terminal</li>
+<li>Same skills, same config</li>
+<li>Integrates with VS Code</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>Both approaches share the same skills, MCP servers, and configuration files.</p>
+</div>
+</section>
 <section id="artifacts-and-pyodide" class="slide level2 section-divider center">
 <h2>Artifacts and Pyodide</h2>
 </section>
@@ -324,84 +349,6 @@ Kerry Back, Rice University
 <p><em>“Create an artifact with a bar chart race to show how the sizes of different sectors have changed over time.”</em></p>
 <div class="explainer" style="text-align:center;">
 <p>Claude reads the data and writes the Plotly code — you get an interactive animated chart without writing a line of code.</p>
-</div>
-</section>
-<section id="claude-code-in-the-terminal-and-vs-code" class="slide level2 section-divider center">
-<h2>Claude Code in the Terminal and VS Code</h2>
-</section>
-<section id="terminal-alternative" class="slide level2 center">
-<h2>Terminal Alternative</h2>
-<p>The Code tab in Claude Desktop and the terminal command <code>claude</code> use the <span class="amber">same engine</span>.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Desktop (Code tab)</strong></span></p>
-<ul>
-<li>Visual interface with file browser</li>
-<li>Click to select working folder</li>
-<li>Good for getting started</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Terminal (<code>claude</code>)</strong></span></p>
-<ul>
-<li>Type <code>claude</code> in any terminal</li>
-<li>Same skills, same config</li>
-<li>Preferred by power users</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Both approaches share the same skills, MCP servers, and configuration files.</p>
-</div>
-</section>
-<section id="installing-the-terminal-and-vs-code" class="slide level2 center">
-<h2>Installing the Terminal and VS Code</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Code (Terminal)</strong></span></p>
-<ul>
-<li><strong>Mac/Linux:</strong> <code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
-<li><strong>Windows (PowerShell):</strong> <code>irm https://claude.ai/install.ps1 | iex</code></li>
-<li><span class="amber">The class installer handles this automatically</span></li>
-<li>Verify: <code>claude --version</code></li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>VS Code + Extensions</strong></span></p>
-<ol type="1">
-<li>Download <a href="https://code.visualstudio.com">VS Code</a> and install</li>
-<li>Open Extensions (<code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code>)</li>
-<li>Install <strong>Python</strong> (Microsoft) and <strong>Claude Code</strong> (Anthropic)</li>
-</ol>
-</div>
-</div>
-</section>
-<section id="using-claude-code-in-the-terminal-and-vs-code" class="slide level2 center">
-<h2>Using Claude Code in the Terminal and VS Code</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Terminal</strong></span></p>
-<ul>
-<li><code>cd</code> into your project folder, then type <code>claude</code></li>
-<li>First launch: sign in with your Anthropic account</li>
-<li>Chat naturally — Claude reads and writes files in that folder</li>
-<li>Type <code>/help</code> for commands, <code>/model</code> to switch models</li>
-<li>Press <code>Esc</code> to interrupt, <code>Ctrl+C</code> twice to exit</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>VS Code</strong></span></p>
-<ul>
-<li>Open your project folder in VS Code</li>
-<li>Click the Claude Code icon in the sidebar (or <code>Ctrl+Shift+P</code> → “Claude Code: Open”)</li>
-<li>Sign in on first use</li>
-<li>Claude can see your open files, file explorer, and terminal</li>
-<li>Code changes appear as inline diffs you can accept or reject</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p><span class="amber">Both share the same skills and configuration.</span> VS Code adds a file explorer and visual diffs; the terminal is lightweight and fast.</p>
 </div>
 </section>
 <section id="working-with-multiple-files" class="slide level2 section-divider center">
