@@ -112,7 +112,7 @@ An artifact is a [self-contained web page]{.amber} --- HTML, CSS, and JavaScript
 - Common uses: calculators, charts, data tables, interactive dashboards
 
 :::{.explainer style="text-align:center;"}
-If you can build it with HTML + JavaScript, Claude can generate it as an artifact.
+If you can build it with HTML + JavaScript, Claude can generate it as an artifact --- and that includes Python, since Pyodide runs Python inside the browser as a JavaScript library.
 :::
 
 ## Running Python in the Browser
@@ -181,6 +181,18 @@ Then:
 
 :::{.explainer style="text-align:center;"}
 The HTML file is [self-contained]{.amber}. Anyone can open it --- no Python installation needed.
+:::
+
+## Exercise: Bar Chart Race Artifact
+
+Download [marketcap.xlsx](../files/marketcap.xlsx) --- end-of-year market cap by sector, 2000--2025.
+
+Upload it to Claude and ask:
+
+*"Create an artifact with a bar chart race to show how the sizes of different sectors have changed over time."*
+
+:::{.explainer style="text-align:center;"}
+Claude reads the data and writes the Plotly code --- you get an interactive animated chart without writing a line of code.
 :::
 
 ## Claude Code in the Terminal and VS Code {.section-divider}
