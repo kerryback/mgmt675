@@ -17,6 +17,12 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
+## Outline
+
+1. Claude Desktop Install
+2. Artifacts with Pyodide
+3. Working with Files
+
 ## Claude Desktop Overview {.section-divider}
 
 ## Three Tabs: Chat, Cowork, Code
@@ -127,7 +133,7 @@ The Code tab in Claude Desktop and the terminal command `claude` use the [same e
 Both approaches share the same skills, MCP servers, and configuration files.
 :::
 
-## Artifacts and Pyodide {.section-divider}
+## Artifacts with Pyodide {.section-divider}
 
 ## What Is a Claude Artifact?
 
