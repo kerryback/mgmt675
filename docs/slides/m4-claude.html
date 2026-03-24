@@ -152,7 +152,7 @@ Kerry Back, Rice University
 <h2>Outline</h2>
 <ol type="1">
 <li>Claude Desktop Install</li>
-<li>Artifacts with Pyodide</li>
+<li>Building Small Web Apps</li>
 <li>Working with Files</li>
 </ol>
 </section>
@@ -271,20 +271,8 @@ Kerry Back, Rice University
 <p>Both approaches share the same skills, MCP servers, and configuration files.</p>
 </div>
 </section>
-<section id="artifacts-with-pyodide" class="slide level2 section-divider center">
-<h2>Artifacts with Pyodide</h2>
-</section>
-<section id="what-is-a-claude-artifact" class="slide level2 center">
-<h2>What Is a Claude Artifact?</h2>
-<p>An artifact is a <span class="amber">self-contained web page</span> — HTML, CSS, and JavaScript — that Claude generates on the fly and renders in a sandboxed panel next to the chat.</p>
-<ul>
-<li>No server, no backend, no deployment step</li>
-<li>Runs entirely in your browser</li>
-<li>Common uses: calculators, charts, data tables, interactive dashboards</li>
-</ul>
-<div class="explainer" style="text-align:center;">
-<p>If you can build it with HTML + JavaScript, Claude can generate it as an artifact — and that includes Python, since Pyodide runs Python inside the browser as a JavaScript library.</p>
-</div>
+<section id="building-small-web-apps" class="slide level2 section-divider center">
+<h2>Building Small Web Apps</h2>
 </section>
 <section id="running-python-in-the-browser" class="slide level2 center">
 <h2>Running Python in the Browser</h2>
@@ -299,45 +287,20 @@ Kerry Back, Rice University
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>Why It Matters</strong></span></p>
+<p><span class="card-title"><strong>What You Can Build</strong></span></p>
 <ul>
-<li>Claude artifacts can include a <code>&lt;script&gt;</code> tag that loads Pyodide from a CDN</li>
-<li>Python code runs client-side, inside the page</li>
-<li>Results appear immediately — no round-trips to a server</li>
+<li>Calculators and financial models</li>
+<li>Interactive charts and dashboards</li>
+<li>Any tool that runs entirely in the browser</li>
 </ul>
 </div>
 </div>
 <div class="explainer" style="text-align:center;">
-<p>A Claude artifact running Python is just a web page with Pyodide embedded in it.</p>
+<p>This is the same technology Claude uses under the hood for artifacts — a self-contained HTML file with Pyodide embedded in it.</p>
 </div>
 </section>
-<section id="artifacts-vs.-standalone-html-files" class="slide level2 center">
-<h2>Artifacts vs.&nbsp;Standalone HTML Files</h2>
-<p>Claude <strong>Code</strong> can produce the same thing as a file you own and share.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Artifact (Chat)</strong></span></p>
-<ul>
-<li>Rendered inside Claude’s interface</li>
-<li>Temporary — lives in the conversation</li>
-<li>Quick to generate, hard to share</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>HTML File (Claude Code)</strong></span></p>
-<ul>
-<li>Saved to disk as <code>something.html</code></li>
-<li><span class="amber">Double-click to open</span> in any browser</li>
-<li>Share it, email it, post it — no Claude required</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Same technology, different packaging. Claude Code gives you a file you keep.</p>
-</div>
-</section>
-<section id="example-npv-artifact" class="slide level2 center">
-<h2>Example: NPV Artifact</h2>
+<section id="example-npv-web-app" class="slide level2 center">
+<h2>Example: NPV Web App</h2>
 <p>Ask Claude Code:</p>
 <p><em>“Create an HTML file called <code>npv.html</code> that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button.”</em></p>
 <p>Then:</p>
@@ -354,7 +317,7 @@ Kerry Back, Rice University
 <h2>Example: Bar Chart Race</h2>
 <p>Download <a href="../files/marketcap.xlsx">marketcap.xlsx</a> — end-of-year market cap by sector, 2000–2025.</p>
 <p>Upload it to Claude and ask:</p>
-<p><em>“Create an artifact with a bar chart race to show how the sizes of different sectors have changed over time.”</em></p>
+<p><em>“Build a web app with a bar chart race to show how the sizes of different sectors have changed over time.”</em></p>
 <div class="explainer" style="text-align:center;">
 <p>Claude reads the data and writes the Plotly code — you get an interactive animated chart without writing a line of code.</p>
 </div>
