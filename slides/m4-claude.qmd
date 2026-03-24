@@ -97,9 +97,9 @@ The class installer sets up everything you need in one step:
 4. I would set permission mode to **auto-accept,** but do what you feel comfortable with.
 
 
-## Example
+## Copy and Paste into Claude Code
 
-*"Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance."*
+Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.
 
 ## Terminal Alternative
 
