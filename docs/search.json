@@ -1239,11 +1239,11 @@
     "text": "Download the Example Files\nDownload module4.zip and extract it to a folder on your computer.\nPoint Claude Code to that folder. It contains three subfolders:\n\nExample1/ — portfolio holdings spreadsheet\nExample2/ — loan terms document and payment history spreadsheet\nExample3/ — earnings PDF report and stock prices spreadsheet"
   },
   {
-    "objectID": "slides/m4-claude.html#copy-and-paste-into-claude-code",
-    "href": "slides/m4-claude.html#copy-and-paste-into-claude-code",
+    "objectID": "slides/m4-claude.html#example-1",
+    "href": "slides/m4-claude.html#example-1",
     "title": "Module 4: Claude Desktop & Code",
-    "section": "Copy and Paste into Claude Code",
-    "text": "Copy and Paste into Claude Code\nRead the file Example1/portfolio.xlsx, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called summary.xlsx."
+    "section": "Example 1",
+    "text": "Example 1\nCopy and paste the following into the Code tab of Claude Desktop:\nRead the file Example1/portfolio.xlsx, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called summary.xlsx."
   },
   {
     "objectID": "slides/m4-claude.html#merging-data-from-different-sources",
@@ -1253,18 +1253,18 @@
     "text": "Merging Data from Different Sources\nReal financial data rarely lives in a single file or format. Claude Code can read Excel, PDF, and Word files, then combine, filter, and aggregate.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  WRD[\"&lt;b&gt;Word&lt;/b&gt;\"] --&gt; CC[\"&lt;b&gt;Claude Code&lt;/b&gt;&lt;br&gt;Merge, Filter, Aggregate\"]\n  XLS[\"&lt;b&gt;Excel&lt;/b&gt;\"] --&gt; CC\n  PDF[\"&lt;b&gt;PDF&lt;/b&gt;\"] --&gt; CC\n  CC --&gt; UT[\"&lt;b&gt;Unified Table&lt;/b&gt;\"]\n\n  style WRD fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px"
   },
   {
-    "objectID": "slides/m4-claude.html#copy-and-paste-into-claude-code-1",
-    "href": "slides/m4-claude.html#copy-and-paste-into-claude-code-1",
+    "objectID": "slides/m4-claude.html#example-2",
+    "href": "slides/m4-claude.html#example-2",
     "title": "Module 4: Claude Desktop & Code",
-    "section": "Copy and Paste into Claude Code",
-    "text": "Copy and Paste into Claude Code\nThe file Example2/loan_terms.docx contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file Example2/payments.xlsx contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to summary.xlsx."
+    "section": "Example 2",
+    "text": "Example 2\nCopy and paste the following into the Code tab of Claude desktop:\nThe file Example2/loan_terms.docx contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file Example2/payments.xlsx contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to summary.xlsx."
   },
   {
-    "objectID": "slides/m4-claude.html#copy-and-paste-into-claude-code-2",
-    "href": "slides/m4-claude.html#copy-and-paste-into-claude-code-2",
+    "objectID": "slides/m4-claude.html#example-3",
+    "href": "slides/m4-claude.html#example-3",
     "title": "Module 4: Claude Desktop & Code",
-    "section": "Copy and Paste into Claude Code",
-    "text": "Copy and Paste into Claude Code\nThe file Example3/earnings.pdf contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file Example3/prices.xlsx contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to pe_analysis.xlsx."
+    "section": "Example 3",
+    "text": "Example 3\nCopy and paste the following into the Code tab of Claude Desktop:\nThe file Example3/earnings.pdf contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file Example3/prices.xlsx contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to pe_analysis.xlsx."
   },
   {
     "objectID": "slides/m6-dcf.html#learning-objectives",

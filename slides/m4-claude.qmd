@@ -217,9 +217,11 @@ Point Claude Code to that folder. It contains three subfolders:
 - `Example2/` --- loan terms document and payment history spreadsheet
 - `Example3/` --- earnings PDF report and stock prices spreadsheet
 
-## Copy and Paste into Claude Code
+## Example 1
 
-Read the file `Example1/portfolio.xlsx`, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called `summary.xlsx`.
+Copy and paste the following into the **Code tab** of Claude Desktop:
+
+*Read the file `Example1/portfolio.xlsx`, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called `summary.xlsx`.*
 
 ## Merging Data from Different Sources
 
@@ -241,10 +243,14 @@ flowchart LR
   style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
 ```
 
-## Copy and Paste into Claude Code
+## Example 2
 
-The file `Example2/loan_terms.docx` contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file `Example2/payments.xlsx` contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to `summary.xlsx`.
+Copy and paste the following into the **Code tab** of Claude desktop:
 
-## Copy and Paste into Claude Code
+*The file `Example2/loan_terms.docx` contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file `Example2/payments.xlsx` contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to `summary.xlsx`.*
 
-The file `Example3/earnings.pdf` contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file `Example3/prices.xlsx` contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to `pe_analysis.xlsx`.
+## Example 3
+
+Copy and paste the following into the **Code tab** of Claude Desktop:
+
+*The file `Example3/earnings.pdf` contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file `Example3/prices.xlsx` contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to `pe_analysis.xlsx`.*
