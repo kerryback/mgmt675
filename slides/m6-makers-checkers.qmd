@@ -254,3 +254,29 @@ Year 4 should be the terminal year of the 1st stage.
 *"Forecast balance sheet items as ratios to sales. Outside of constant growth, compute balance sheet changes from the ratios --- do not forecast changes directly as a proportion of sales. For cap ex, forecast net PP&E/sales and depreciation/net PP&E, then calculate cap ex as the plug. Add one extra year of constant sales growth at the end of Stage 1 and make that year the terminal year, so that Stage 2 begins with the first year of constant cash flow growth."*
 :::
 
+## Valuing Walmart 2010 {.section-divider}
+
+## Outline
+
+:::{style="text-align:center;margin-bottom:1em;"}
+[Case Exhibits](files/Walmart.xlsx)
+:::
+
+1. Provide baseline assumptions to Claude
+2. Ask Claude for 2-stage DCF analysis
+3. Ask Claude for sensitivity analysis
+4. Ask Claude for a Word doc with tables and analysis
+5. Ask Claude for a PowerPoint deck
+
+## Income Statement
+
+1. Sales growth?
+2. COGS % of sales?
+3. SG&A % of sales?
+4. Income tax % of income?
+5. What to do about other income, discontinued operations, minority interest?
+
+:::{style="text-align:center;margin-top:1.5em;"}
+Start by computing historical growth and percentages (or ask Claude to do it).
+:::
+
