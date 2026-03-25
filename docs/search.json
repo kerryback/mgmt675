@@ -595,11 +595,25 @@
     "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates\nExample: forecast sales growth, then derive everything else in relation to salesca\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
   },
   {
+    "objectID": "slides/m6-makers-checkers.html#gotcha-1",
+    "href": "slides/m6-makers-checkers.html#gotcha-1",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Gotcha 1",
+    "text": "Gotcha 1\n\nIt is reasonable to forecast balance sheet items in proportion to sales: receivables/sales, inventory/sales, net PP&E/sales, …\nThe change in a balance sheet item depends on the ratios in two successive years\nOutside of constant growth, compute the change — don’t forecast it as a proportion of sales\nFor cap ex: forecast net PP&E as a proportion of sales, forecast depreciation as a percent of net PP&E, calculate cap ex as the plug"
+  },
+  {
     "objectID": "slides/m6-makers-checkers.html#try-it-the-ratio-approach",
     "href": "slides/m6-makers-checkers.html#try-it-the-ratio-approach",
     "title": "Module 6: Makers and Checkers",
     "section": "Try It: The Ratio Approach",
     "text": "Try It: The Ratio Approach\nChange the inputs and re-run. Notice how ΔX / Sales converges to the sales growth rate once growth stabilizes.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#gotcha-2",
+    "href": "slides/m6-makers-checkers.html#gotcha-2",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Gotcha 2",
+    "text": "Gotcha 2\nBecause changes in balance sheet items depend on sales growth in two successive years, first year of constant cash flow growth is second year of constant sales growth.\nAdd one year of constant sales growth to Stage 1. Make that year the terminal year."
   },
   {
     "objectID": "slides/m6-makers-checkers.html#getting-started",

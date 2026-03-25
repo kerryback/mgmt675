@@ -214,6 +214,13 @@ Discount projected cash flows back to the present. Two stages handle near-term u
 :::
 :::
 
+## Gotcha 1
+
+- It is reasonable to forecast balance sheet items in proportion to sales: receivables/sales, inventory/sales, net PP&E/sales, ...
+- The change in a balance sheet item depends on the ratios in two successive years
+- Outside of constant growth, [compute the change]{.amber} --- don't forecast it as a proportion of sales
+- For cap ex: forecast net PP&E as a proportion of sales, forecast depreciation as a percent of net PP&E, [calculate cap ex as the plug]{.amber}
+
 ## Try It: The Ratio Approach
 
 Change the inputs and re-run. Notice how **ΔX / Sales** converges to the sales growth rate once growth stabilizes.
@@ -270,6 +277,12 @@ styled = (df.style
 )
 display(styled)
 ```
+
+## Gotcha 2
+
+Because changes in balance sheet items depend on sales growth in two successive years, [first year of constant cash flow growth is second year of constant sales growth]{.amber}.
+
+Add one year of constant sales growth to Stage 1. Make that year the terminal year.
 
 ## Getting Started
 
