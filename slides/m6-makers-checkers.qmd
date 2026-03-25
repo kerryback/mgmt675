@@ -228,6 +228,8 @@ Ask Claude Code:
 
 ## Gotcha 1 Example
 
+X = any balance sheet item: receivables, payables, net PP&E, ...
+
 <div style="display:flex;justify-content:center;align-items:center;flex:1;"><img src="images/gotcha1.png" style="max-height:75vh;width:auto;"></div>
 
 ## Gotcha 2
