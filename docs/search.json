@@ -511,64 +511,64 @@
     "text": "Summary\n\n\nVerification\n\nTrust spectrum\n4-step protocol\nSilent errors\n\n\n\nRed-Teaming\n\nSystematic protocols\nEdge cases\nSQL comparison\n\n\n\nAudit Logs\n\nJSONL format\nCompliance trail\nCost tracking\n\n\n\nGovernance\n\nData policies\nSchema-only\nAdoption roadmap\n\n\n\n\nVerify, govern, then deploy."
   },
   {
-    "objectID": "slides/m6-dcf.html#from-makers-to-checkers",
-    "href": "slides/m6-dcf.html#from-makers-to-checkers",
+    "objectID": "slides/m6-makers-checkers.html#from-makers-to-checkers",
+    "href": "slides/m6-makers-checkers.html#from-makers-to-checkers",
     "title": "Module 6: Makers and Checkers",
     "section": "From Makers to Checkers",
     "text": "From Makers to Checkers\n\nWhat we’re working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.\nWorkers would shift from being creators of reports or software updates, or ‘makers’ … to ‘“checkers” or managers of AI agents’ doing that work.\n\n\nDerek Waldron, JP Morgan Chief Analytics Officer — CNBC interview, September 30, 2025"
   },
   {
-    "objectID": "slides/m6-dcf.html#the-maker",
-    "href": "slides/m6-dcf.html#the-maker",
+    "objectID": "slides/m6-makers-checkers.html#the-maker",
+    "href": "slides/m6-makers-checkers.html#the-maker",
     "title": "Module 6: Makers and Checkers",
     "section": "The Maker",
     "text": "The Maker\nAI as maker is a fast, tireless junior analyst that handles the mechanical work.\n\n\nWhat AI Does Well\n\nDrafts reports, memos, and summaries\nWrangles and merges data from multiple sources\nBuilds spreadsheets with live formulas\nRuns calculations and generates charts\nFormats output to a professional standard\n\n\n\nThe Speed Advantage\n\nTasks that take hours become minutes\nNo fatigue, no context-switching cost\nRuns the same workflow identically every time\nFrees you for judgment, relationships, and strategy"
   },
   {
-    "objectID": "slides/m6-dcf.html#the-checker",
-    "href": "slides/m6-dcf.html#the-checker",
+    "objectID": "slides/m6-makers-checkers.html#the-checker",
+    "href": "slides/m6-makers-checkers.html#the-checker",
     "title": "Module 6: Makers and Checkers",
     "section": "The Checker",
     "text": "The Checker\nYour role shifts from doing the work to directing and verifying it.\n\n\nDirecting\n\nSpecify the task clearly\nProvide the right inputs and context\nDefine what “good output” looks like\nDecide when to iterate vs. accept\n\n\n\nVerifying\n\nSpot-check key numbers against known sources\nConfirm the logic matches the business question\nReview edge cases and assumptions\nSign off before the output goes anywhere consequential\n\n\n\n\nThe checker adds the judgment the maker lacks. Neither alone is enough."
   },
   {
-    "objectID": "slides/m6-dcf.html#where-ai-can-silently-fail",
-    "href": "slides/m6-dcf.html#where-ai-can-silently-fail",
+    "objectID": "slides/m6-makers-checkers.html#where-ai-can-silently-fail",
+    "href": "slides/m6-makers-checkers.html#where-ai-can-silently-fail",
     "title": "Module 6: Makers and Checkers",
     "section": "Where AI Can Silently Fail",
     "text": "Where AI Can Silently Fail"
   },
   {
-    "objectID": "slides/m6-dcf.html#silent-analytical-errors",
-    "href": "slides/m6-dcf.html#silent-analytical-errors",
+    "objectID": "slides/m6-makers-checkers.html#silent-analytical-errors",
+    "href": "slides/m6-makers-checkers.html#silent-analytical-errors",
     "title": "Module 6: Makers and Checkers",
     "section": "Silent Analytical Errors",
     "text": "Silent Analytical Errors\nAI in code-execution mode rarely invents facts outright. Instead it makes silent analytical errors — mistakes that look fine on the surface.\n\n\nCommon Failure Modes\n\nFilters slightly off (wrong date range, wrong column)\nMissing data dropped without warning\nAggregation in the wrong order\nMisread assumptions from an ambiguous prompt\nMade-up citations or statistics in prose\n\n\n\nWhy They’re Dangerous\n\nOutput looks polished and professional\nCharts render cleanly — nobody questions a clean chart\nErrors compound silently in multi-step workflows\nConfidence without verification is the real risk"
   },
   {
-    "objectID": "slides/m6-dcf.html#the-checkers-toolkit",
-    "href": "slides/m6-dcf.html#the-checkers-toolkit",
+    "objectID": "slides/m6-makers-checkers.html#the-checkers-toolkit",
+    "href": "slides/m6-makers-checkers.html#the-checkers-toolkit",
     "title": "Module 6: Makers and Checkers",
     "section": "The Checker’s Toolkit",
     "text": "The Checker’s Toolkit\nYou don’t need to re-do the work. You need targeted verification.\n\nSpot-check with known answers — run a simplified version of the calculation by hand on one or two rows\nAsk Claude to explain its logic — “Walk me through how you computed this number”\nReview the code — ask Claude to show the key filter and aggregation steps\nTest edge cases — what happens with zeros, negatives, or missing values?\nSanity-check the magnitude — does the answer make sense given what you know?\n\n\nPick the checks that match the stakes. A quick directional analysis needs less verification than a client deliverable."
   },
   {
-    "objectID": "slides/m6-dcf.html#packaging-the-maker-as-a-skill",
-    "href": "slides/m6-dcf.html#packaging-the-maker-as-a-skill",
+    "objectID": "slides/m6-makers-checkers.html#packaging-the-maker-as-a-skill",
+    "href": "slides/m6-makers-checkers.html#packaging-the-maker-as-a-skill",
     "title": "Module 6: Makers and Checkers",
     "section": "Packaging the Maker as a Skill",
     "text": "Packaging the Maker as a Skill"
   },
   {
-    "objectID": "slides/m6-dcf.html#why-build-a-skill",
-    "href": "slides/m6-dcf.html#why-build-a-skill",
+    "objectID": "slides/m6-makers-checkers.html#why-build-a-skill",
+    "href": "slides/m6-makers-checkers.html#why-build-a-skill",
     "title": "Module 6: Makers and Checkers",
     "section": "Why Build a Skill?",
     "text": "Why Build a Skill?\nOnce you have a workflow that works and passes your checks, turn it into a skill — a reusable, one-command process.\n\n\nWithout a Skill\n\nRe-type or copy-paste the same prompt each time\nRisk of drift — slightly different wording, slightly different output\nOthers on your team can’t easily reuse your work\n\n\n\nWith a Skill\n\nOne /command runs the full workflow\nSame logic, same checks, same output format every time\nShareable — drop it in a shared skills/ folder\n\n\n\n\nA skill is how a one-time workflow becomes a team asset."
   },
   {
-    "objectID": "slides/m6-dcf.html#building-a-skill-with-skill-creator",
-    "href": "slides/m6-dcf.html#building-a-skill-with-skill-creator",
+    "objectID": "slides/m6-makers-checkers.html#building-a-skill-with-skill-creator",
+    "href": "slides/m6-makers-checkers.html#building-a-skill-with-skill-creator",
     "title": "Module 6: Makers and Checkers",
     "section": "Building a Skill with /skill-creator",
     "text": "Building a Skill with /skill-creator\n\nType /skill-creator to start the skill builder\nDescribe the workflow: inputs, steps, outputs, and any checks to include\nClaude generates a SKILL.md and installs it in ~/.claude/skills/\nInvoke it anytime with /skill-name\n\n\nYou can embed checker steps directly in the skill — for example, “after computing the result, show the row count and the min/max values so the user can sanity-check the data.”"

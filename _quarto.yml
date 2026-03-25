@@ -11,7 +11,7 @@ project:
     - slides/m3-mean-variance.qmd
     - slides/m4-claude.qmd
     - slides/m5-skills.qmd
-    - slides/m6-dcf.qmd
+    - slides/m6-makers-checkers.qmd
     - slides/m7-agents.qmd
     - slides/m8-data-security.qmd
     - slides/m9-rag.qmd
