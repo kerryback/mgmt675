@@ -29,6 +29,7 @@ project:
     - exercises/*.pdf
     - index-pdf.pdf
     - install/windows/windows-install.zip
+    - install/windows/windows-install2.zip
     - install/mac/install.sh
   
 
