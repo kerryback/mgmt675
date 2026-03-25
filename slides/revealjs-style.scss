@@ -401,6 +401,22 @@ $body-bg: $off-white;
   }
 }
 
+// ── Fix images in flex-column slide layout ──
+.reveal .slides section img {
+  flex-shrink: 0;
+  max-height: 75vh;
+  width: auto;
+  max-width: 90%;
+  display: block;
+  margin: auto;
+}
+
+.reveal .slides section img.r-stretch {
+  max-height: 75vh !important;
+  width: auto !important;
+  max-width: 90% !important;
+}
+
 // ── Inline text classes ──
 .amber {
   color: $amber;
