@@ -228,7 +228,7 @@ Ask Claude Code:
 
 ## Gotcha 1 Example
 
-<img src="images/gotcha1.png" style="width:80%;">
+<div style="display:flex;justify-content:center;align-items:center;flex:1;"><img src="images/gotcha1.png" style="max-height:75vh;width:auto;"></div>
 
 ## Gotcha 2
 
@@ -238,7 +238,7 @@ Add one year of constant sales growth to Stage 1. Make that year the terminal ye
 
 ## Gotcha 2 Example
 
-<img src="images/gotcha2.png" style="width:80%;">
+<div style="display:flex;justify-content:center;align-items:center;flex:1;"><img src="images/gotcha2.png" style="max-height:75vh;width:auto;"></div>
 
 
 
