@@ -217,7 +217,7 @@ Discount projected cash flows back to the present. Two stages handle near-term u
 
 Ask Claude Code:
 
-*Build an example of a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates.*
+*Create an Excel workbook illustrating a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates.*
 
 ## Gotcha 1
 
