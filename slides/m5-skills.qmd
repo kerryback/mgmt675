@@ -68,72 +68,9 @@ You can [explicitly ask]{.amber} Claude to use a sub-agent for any task:
 
 This is especially useful when you want a task isolated from the main context --- for example, a long web search or a large file analysis that would otherwise fill the context window.
 
-:::{.explainer}
-The `/critique` skill in the exercise below is a worked example: it spawns three parallel sub-agents (correctness, clarity, devil's advocate) and has the orchestrator synthesize their findings.
-:::
 
 ## Claude Skills {.section-divider}
 
-## Claude Desktop vs. Terminal Claude Code
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Claude Desktop — Chat tab**]{.card-title}
-
-- Equivalent to **claude.ai** in a browser
-- Conversational interface, no filesystem access
-- Built-in document skills auto-activate
-- Custom skills uploaded as ZIP files
-:::
-
-:::{.card .card-light}
-[**Claude Desktop — Code tab**]{.card-title}
-
-- Equivalent to the **Claude Code CLI** in a terminal
-- Full filesystem and tool access
-- Reads `~/.claude/skills/` for custom skills
-- Invoke skills with `/skill-name`
-:::
-:::
-
-:::{.explainer}
-The Code tab and the terminal CLI are the same engine. Everything covered in this module applies equally to both.
-:::
-
-## Installing Claude Code (Terminal)
-
-Use the [native installer]{.amber} --- npm is deprecated as of 2026.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**macOS / Linux / WSL**]{.card-title}
-
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-:::
-
-:::{.card .card-light}
-[**Windows (PowerShell)**]{.card-title}
-
-```powershell
-irm https://claude.ai/install.ps1 | iex
-```
-
-Requires **Git for Windows** installed first.
-:::
-:::
-
-Then launch from any project folder:
-
-```bash
-cd my-project
-claude
-```
-
-:::{.explainer}
-The native installer auto-updates in the background and requires no Node.js. After installing, run `claude doctor` to verify everything is working.
-:::
 
 ## Built-In Document Skills
 
@@ -165,27 +102,8 @@ Anthropic ships four document skills with every Claude product. [No setup requir
 :::
 :::
 
-:::{.three-cards}
-:::{.card .card-light}
-[**Desktop chat / claude.ai**]{.card-title}
-
-- Skills activate [automatically]{.amber} based on your request
-- No `/` command needed
-:::
-
-:::{.card .card-light}
-[**Claude Code (CLI or Desktop Code tab)**]{.card-title}
-
-- Invoke explicitly: `/xlsx`, `/docx`, `/pptx`
-- Or just ask --- Claude invokes the right skill
-:::
-
-:::{.card .card-light}
-[**Both surfaces**]{.card-title}
-
-- Same skill logic and output quality
-- Code tab reads `~/.claude/skills/` like the CLI
-:::
+:::{.explainer style="text-align:center;"}
+In Claude Code (CLI or Desktop Code tab), invoke skills explicitly: `/xlsx`, `/docx`, `/pptx`
 :::
 
 ## The /xlsx Skill
@@ -199,13 +117,10 @@ In Claude Code, skills are plain text files stored in `~/.claude/skills/`. You c
 
 It instructs Claude to use [live Excel formulas]{.amber} instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards.
 
-:::{.explainer}
-Claude Desktop and claude.ai use the same skill logic, but the files are managed by Anthropic --- you cannot browse them on your machine.
-:::
 
 ## Pre-Installed Skills: Skill Creator
 
-The `/skill-creator` skill is a guide for [building your own skills]{.amber}.
+The class installer also installs `/skill-creator` --- a guide for [building your own skills]{.amber}.
 
 - Walks you through designing a new skill step by step
 - Generates the skill definition file
@@ -213,84 +128,22 @@ The `/skill-creator` skill is a guide for [building your own skills]{.amber}.
 
 We will use `/skill-creator` in the exercise below to build a personal task manager skill.
 
-## Custom Skills in Claude Desktop and claude.ai
+## Adding Your Own Skills
 
-The built-in document skills are always on. You can also add [your own custom skills]{.amber}.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Desktop chat / claude.ai**]{.card-title}
-
-- Go to **Settings → Customize → Skills**
-- Click **+** to upload a **ZIP file** containing a folder with a `SKILL.md` file
-- Toggle custom skills on or off
-- Claude auto-invokes based on the skill's description
-:::
-
-:::{.card .card-light}
-[**Claude Code (CLI or Desktop Code tab)**]{.card-title}
+You can add [custom skills]{.amber} to Claude Code at any time.
 
 - Drop a folder with a `SKILL.md` into `~/.claude/skills/`
-- Invoke with `/skill-name` or let Claude load it from context
+- Invoke with `/skill-name`
 - Project-level skills go in `.claude/skills/` inside your repo
-:::
-:::
 
 :::{.explainer}
-The description in your `SKILL.md` tells Claude [when to invoke the skill]{.amber}, so make it specific. Custom skills are private to your account.
+The description in your `SKILL.md` tells Claude [when to invoke the skill]{.amber}, so make it specific.
 :::
 
-## Exercise: A Critique Skill
+## Example: Create a Tasks Skill
 
-Create a `/critique` skill that reviews work Claude has produced by spawning three parallel reviewer agents:
-
-:::{.three-cards}
-:::{.card .card-light}
-[**Correctness**]{.card-title}
-
-- Factual errors, logic gaps
-- Missing assumptions
-- Math or data mistakes
-:::
-
-:::{.card .card-light}
-[**Clarity**]{.card-title}
-
-- Structure and readability
-- Redundancy or buried points
-- Proposed rewrites
-:::
-
-:::{.card .card-light}
-[**Devil's Advocate**]{.card-title}
-
-- Challenge assumptions
-- Strongest counterarguments
-- Weakest reasoning
-:::
-:::
-
-The skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it.
-
-## Exercise: Critique Loop
-
-1. Copy a document you've created into your working folder (e.g., a memo, report, or exercise solution).
-2. Tell Claude: *"Apply the critique skill in a loop --- critique, make the recommended changes, critique again, and continue until the agents are happy."*
-
-## Exercise: Create a Tasks Skill
-
-Use `/skill-creator` to build a **tasks** skill that manages personal and school to-do lists. The skill should:
-
-- Store tasks in markdown files (e.g., `personal.md`, `school.md`)
-- Add new tasks with a category and due date
-- List pending tasks when asked
-- Mark tasks as complete
-
-## Exercise: Steps
-
-1. Describe the task manager you want and ask Claude to create a skill for it
-2. Let Claude generate and install the skill
-3. Test it: *"/tasks Add: finish DCF exercise, due Tuesday"*
-4. Test it: *"/tasks What's pending?"*
-
-This should work fine without typing `/skill-creator` because Claude knows about the skill-creator skill via the `CLAUDE.md`.
+1. Type `/skill-creator` to start the skill builder
+2. Describe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete
+3. Let Claude generate and install the skill
+4. Test it: *"/tasks Add: finish DCF exercise, due Tuesday"*
+5. Test it: *"/tasks What's pending?"*

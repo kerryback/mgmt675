@@ -732,7 +732,7 @@
     "href": "slides/m5-skills.html#requesting-a-sub-agent",
     "title": "Module 5: Claude Sub-Agents and Skills",
     "section": "Requesting a Sub-Agent",
-    "text": "Requesting a Sub-Agent\nYou can explicitly ask Claude to use a sub-agent for any task:\n\n“Use a sub-agent to research competitor pricing and report back.”\n“Spawn a sub-agent to review this code for bugs while you work on the next feature.”\n“Use three parallel sub-agents to analyze each of these three reports, then summarize.”\n\nThis is especially useful when you want a task isolated from the main context — for example, a long web search or a large file analysis that would otherwise fill the context window.\n\nThe /critique skill in the exercise below is a worked example: it spawns three parallel sub-agents (correctness, clarity, devil’s advocate) and has the orchestrator synthesize their findings."
+    "text": "Requesting a Sub-Agent\nYou can explicitly ask Claude to use a sub-agent for any task:\n\n“Use a sub-agent to research competitor pricing and report back.”\n“Spawn a sub-agent to review this code for bugs while you work on the next feature.”\n“Use three parallel sub-agents to analyze each of these three reports, then summarize.”\n\nThis is especially useful when you want a task isolated from the main context — for example, a long web search or a large file analysis that would otherwise fill the context window."
   },
   {
     "objectID": "slides/m5-skills.html#claude-skills",
@@ -742,74 +742,39 @@
     "text": "Claude Skills"
   },
   {
-    "objectID": "slides/m5-skills.html#claude-desktop-vs.-terminal-claude-code",
-    "href": "slides/m5-skills.html#claude-desktop-vs.-terminal-claude-code",
-    "title": "Module 5: Claude Sub-Agents and Skills",
-    "section": "Claude Desktop vs. Terminal Claude Code",
-    "text": "Claude Desktop vs. Terminal Claude Code\n\n\nClaude Desktop — Chat tab\n\nEquivalent to claude.ai in a browser\nConversational interface, no filesystem access\nBuilt-in document skills auto-activate\nCustom skills uploaded as ZIP files\n\n\n\nClaude Desktop — Code tab\n\nEquivalent to the Claude Code CLI in a terminal\nFull filesystem and tool access\nReads ~/.claude/skills/ for custom skills\nInvoke skills with /skill-name\n\n\n\n\nThe Code tab and the terminal CLI are the same engine. Everything covered in this module applies equally to both."
-  },
-  {
-    "objectID": "slides/m5-skills.html#installing-claude-code-terminal",
-    "href": "slides/m5-skills.html#installing-claude-code-terminal",
-    "title": "Module 5: Claude Sub-Agents and Skills",
-    "section": "Installing Claude Code (Terminal)",
-    "text": "Installing Claude Code (Terminal)\nUse the native installer — npm is deprecated as of 2026.\n\n\nmacOS / Linux / WSL\ncurl -fsSL https://claude.ai/install.sh | bash\n\n\nWindows (PowerShell)\nirm https://claude.ai/install.ps1 | iex\nRequires Git for Windows installed first.\n\n\nThen launch from any project folder:\ncd my-project\nclaude\n\nThe native installer auto-updates in the background and requires no Node.js. After installing, run claude doctor to verify everything is working."
-  },
-  {
     "objectID": "slides/m5-skills.html#built-in-document-skills",
     "href": "slides/m5-skills.html#built-in-document-skills",
     "title": "Module 5: Claude Sub-Agents and Skills",
     "section": "Built-In Document Skills",
-    "text": "Built-In Document Skills\nAnthropic ships four document skills with every Claude product. No setup required.\n\n\nExcel\n\nCreate and edit Excel workbooks\nUses live formulas, not hardcoded values\nSupports charts, formatting, multiple sheets\n\n\n\nWord\n\nCreate and edit Word documents\nProfessional formatting, headers, tables\nSupports tracked changes and comments\n\n\n\nPowerPoint\n\nCreate and edit PowerPoint decks\nSlide layouts, charts, speaker notes\nCan modify existing presentations\n\n\n\n\n\nDesktop chat / claude.ai\n\nSkills activate automatically based on your request\nNo / command needed\n\n\n\nClaude Code (CLI or Desktop Code tab)\n\nInvoke explicitly: /xlsx, /docx, /pptx\nOr just ask — Claude invokes the right skill\n\n\n\nBoth surfaces\n\nSame skill logic and output quality\nCode tab reads ~/.claude/skills/ like the CLI"
+    "text": "Built-In Document Skills\nAnthropic ships four document skills with every Claude product. No setup required.\n\n\nExcel\n\nCreate and edit Excel workbooks\nUses live formulas, not hardcoded values\nSupports charts, formatting, multiple sheets\n\n\n\nWord\n\nCreate and edit Word documents\nProfessional formatting, headers, tables\nSupports tracked changes and comments\n\n\n\nPowerPoint\n\nCreate and edit PowerPoint decks\nSlide layouts, charts, speaker notes\nCan modify existing presentations\n\n\n\n\nIn Claude Code (CLI or Desktop Code tab), invoke skills explicitly: /xlsx, /docx, /pptx"
   },
   {
     "objectID": "slides/m5-skills.html#the-xlsx-skill",
     "href": "slides/m5-skills.html#the-xlsx-skill",
     "title": "Module 5: Claude Sub-Agents and Skills",
     "section": "The /xlsx Skill",
-    "text": "The /xlsx Skill\nIn Claude Code, skills are plain text files stored in ~/.claude/skills/. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nIn Claude Code on your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards.\n\nClaude Desktop and claude.ai use the same skill logic, but the files are managed by Anthropic — you cannot browse them on your machine."
+    "text": "The /xlsx Skill\nIn Claude Code, skills are plain text files stored in ~/.claude/skills/. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nIn Claude Code on your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards."
   },
   {
     "objectID": "slides/m5-skills.html#pre-installed-skills-skill-creator",
     "href": "slides/m5-skills.html#pre-installed-skills-skill-creator",
     "title": "Module 5: Claude Sub-Agents and Skills",
     "section": "Pre-Installed Skills: Skill Creator",
-    "text": "Pre-Installed Skills: Skill Creator\nThe /skill-creator skill is a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
+    "text": "Pre-Installed Skills: Skill Creator\nThe class installer also installs /skill-creator — a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
   },
   {
-    "objectID": "slides/m5-skills.html#custom-skills-in-claude-desktop-and-claude.ai",
-    "href": "slides/m5-skills.html#custom-skills-in-claude-desktop-and-claude.ai",
+    "objectID": "slides/m5-skills.html#adding-your-own-skills",
+    "href": "slides/m5-skills.html#adding-your-own-skills",
     "title": "Module 5: Claude Sub-Agents and Skills",
-    "section": "Custom Skills in Claude Desktop and claude.ai",
-    "text": "Custom Skills in Claude Desktop and claude.ai\nThe built-in document skills are always on. You can also add your own custom skills.\n\n\nDesktop chat / claude.ai\n\nGo to Settings → Customize → Skills\nClick + to upload a ZIP file containing a folder with a SKILL.md file\nToggle custom skills on or off\nClaude auto-invokes based on the skill’s description\n\n\n\nClaude Code (CLI or Desktop Code tab)\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name or let Claude load it from context\nProject-level skills go in .claude/skills/ inside your repo\n\n\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific. Custom skills are private to your account."
+    "section": "Adding Your Own Skills",
+    "text": "Adding Your Own Skills\nYou can add custom skills to Claude Code at any time.\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name\nProject-level skills go in .claude/skills/ inside your repo\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific."
   },
   {
-    "objectID": "slides/m5-skills.html#exercise-a-critique-skill",
-    "href": "slides/m5-skills.html#exercise-a-critique-skill",
+    "objectID": "slides/m5-skills.html#example-create-a-tasks-skill",
+    "href": "slides/m5-skills.html#example-create-a-tasks-skill",
     "title": "Module 5: Claude Sub-Agents and Skills",
-    "section": "Exercise: A Critique Skill",
-    "text": "Exercise: A Critique Skill\nCreate a /critique skill that reviews work Claude has produced by spawning three parallel reviewer agents:\n\n\nCorrectness\n\nFactual errors, logic gaps\nMissing assumptions\nMath or data mistakes\n\n\n\nClarity\n\nStructure and readability\nRedundancy or buried points\nProposed rewrites\n\n\n\nDevil’s Advocate\n\nChallenge assumptions\nStrongest counterarguments\nWeakest reasoning\n\n\n\nThe skill should synthesize findings, present them ranked by severity, and offer to apply revisions. Ask Claude to create it."
-  },
-  {
-    "objectID": "slides/m5-skills.html#exercise-critique-loop",
-    "href": "slides/m5-skills.html#exercise-critique-loop",
-    "title": "Module 5: Claude Sub-Agents and Skills",
-    "section": "Exercise: Critique Loop",
-    "text": "Exercise: Critique Loop\n\nCopy a document you’ve created into your working folder (e.g., a memo, report, or exercise solution).\nTell Claude: “Apply the critique skill in a loop — critique, make the recommended changes, critique again, and continue until the agents are happy.”"
-  },
-  {
-    "objectID": "slides/m5-skills.html#exercise-create-a-tasks-skill",
-    "href": "slides/m5-skills.html#exercise-create-a-tasks-skill",
-    "title": "Module 5: Claude Sub-Agents and Skills",
-    "section": "Exercise: Create a Tasks Skill",
-    "text": "Exercise: Create a Tasks Skill\nUse /skill-creator to build a tasks skill that manages personal and school to-do lists. The skill should:\n\nStore tasks in markdown files (e.g., personal.md, school.md)\nAdd new tasks with a category and due date\nList pending tasks when asked\nMark tasks as complete"
-  },
-  {
-    "objectID": "slides/m5-skills.html#exercise-steps",
-    "href": "slides/m5-skills.html#exercise-steps",
-    "title": "Module 5: Claude Sub-Agents and Skills",
-    "section": "Exercise: Steps",
-    "text": "Exercise: Steps\n\nDescribe the task manager you want and ask Claude to create a skill for it\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”\n\nThis should work fine without typing /skill-creator because Claude knows about the skill-creator skill via the CLAUDE.md."
+    "section": "Example: Create a Tasks Skill",
+    "text": "Example: Create a Tasks Skill\n\nType /skill-creator to start the skill builder\nDescribe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”"
   },
   {
     "objectID": "slides/m3-mean-variance.html#claude.ai-is-an-agent",
