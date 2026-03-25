@@ -307,3 +307,7 @@ Tell Claude what you've chosen as baseline assumptions (including WACC) and ask 
 
 Tell Claude to read Walmart.xlsx, formulate assumptions, prepare a 2-stage DCF analysis, and prepare a Word doc containing results and discussion.
 
+## Start Another New Chat
+
+Tell Claude to read Walmart.xlsx. Tell Claude that you need to create a 2-stage DCF analysis. Ask Claude for advice on how it can assist you in building it.
+
