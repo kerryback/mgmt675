@@ -240,7 +240,9 @@ Bottom line: Add the first year of constant sales growth to Stage 1. Make that y
 
 ## Gotcha 2 Example
 
-Year 5 should be the terminal year of the 1st stage.
+Constant cash-flow growth begins in year 5 (the second year of constant income growth). 
+
+So year 4 (the first year of constant income growth) should be the terminal year of the 1st stage.  Or later
 
 <div style="display:flex;justify-content:center;align-items:center;flex:1;"><img src="images/gotcha2.png" style="max-height:75vh;width:auto;"></div>
 
