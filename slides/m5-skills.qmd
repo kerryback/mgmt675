@@ -97,31 +97,23 @@ This is a feature, not a bug --- sub-agents stay focused on their subtask and do
 
 ## Built-In Document Skills
 
-Anthropic ships four document skills with every Claude product. [No setup required.]{.amber}
+Anthropic provides three document skills: Excel, Word, and PowerPoint.
 
-:::{.three-cards}
+:::{.two-cards}
 :::{.card .card-light}
-[**Excel**]{.card-title}
+[**Claude Desktop (Chat, Cowork, and Code)**]{.card-title}
 
-- Create and edit Excel workbooks
-- Uses [live formulas]{.amber}, not hardcoded values
-- Supports charts, formatting, multiple sheets
+- Skills are stored in the cloud by Anthropic
+- [No setup required]{.amber} --- available automatically
+- Invoke with `/xlsx`, `/docx`, `/pptx`
 :::
 
 :::{.card .card-light}
-[**Word**]{.card-title}
+[**Claude Code Terminal**]{.card-title}
 
-- Create and edit Word documents
-- Professional formatting, headers, tables
-- Supports tracked changes and comments
-:::
-
-:::{.card .card-light}
-[**PowerPoint**]{.card-title}
-
-- Create and edit PowerPoint decks
-- Slide layouts, charts, speaker notes
-- Can modify existing presentations
+- Skills must be installed locally into `~/.claude/skills/`
+- The [class installer]{.amber} handles this automatically
+- Invoke with `/xlsx`, `/docx`, `/pptx`
 :::
 :::
 
@@ -161,6 +153,20 @@ You can add [custom skills]{.amber} to Claude Code at any time.
 
 :::{.explainer}
 The description in your `SKILL.md` tells Claude [when to invoke the skill]{.amber}, so make it specific.
+:::
+
+## Customizing a Built-In Skill
+
+You cannot edit Anthropic's document skills directly --- but you can create a [custom skill that extends one]{.amber}.
+
+Your `SKILL.md` would say something like:
+
+*"Follow the `/xlsx` skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas."*
+
+Then invoke your custom version with `/myxlsx` instead of `/xlsx`.
+
+:::{.explainer}
+This works in [Claude Desktop and Claude Code]{.amber}. The custom skill's instructions sit on top of the built-in skill's behavior --- you only need to specify what's different.
 :::
 
 ## Example: Create a Tasks Skill

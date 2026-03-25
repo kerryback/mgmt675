@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-93f5f68c340f58c0c400e6a72356cc74.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-13bff4a92a3aef8a8a5a47fd02e9ca09.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -225,30 +225,22 @@ Kerry Back, Rice University
 </section>
 <section id="built-in-document-skills" class="slide level2 center">
 <h2>Built-In Document Skills</h2>
-<p>Anthropic ships four document skills with every Claude product. <span class="amber">No setup required.</span></p>
-<div class="three-cards">
+<p>Anthropic provides three document skills: Excel, Word, and PowerPoint.</p>
+<div class="two-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>Excel</strong></span></p>
+<p><span class="card-title"><strong>Claude Desktop (Chat, Cowork, and Code)</strong></span></p>
 <ul>
-<li>Create and edit Excel workbooks</li>
-<li>Uses <span class="amber">live formulas</span>, not hardcoded values</li>
-<li>Supports charts, formatting, multiple sheets</li>
+<li>Skills are stored in the cloud by Anthropic</li>
+<li><span class="amber">No setup required</span> — available automatically</li>
+<li>Invoke with <code>/xlsx</code>, <code>/docx</code>, <code>/pptx</code></li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>Word</strong></span></p>
+<p><span class="card-title"><strong>Claude Code Terminal</strong></span></p>
 <ul>
-<li>Create and edit Word documents</li>
-<li>Professional formatting, headers, tables</li>
-<li>Supports tracked changes and comments</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>PowerPoint</strong></span></p>
-<ul>
-<li>Create and edit PowerPoint decks</li>
-<li>Slide layouts, charts, speaker notes</li>
-<li>Can modify existing presentations</li>
+<li>Skills must be installed locally into <code>~/.claude/skills/</code></li>
+<li>The <span class="amber">class installer</span> handles this automatically</li>
+<li>Invoke with <code>/xlsx</code>, <code>/docx</code>, <code>/pptx</code></li>
 </ul>
 </div>
 </div>
@@ -289,6 +281,16 @@ Kerry Back, Rice University
 </ul>
 <div class="explainer">
 <p>The description in your <code>SKILL.md</code> tells Claude <span class="amber">when to invoke the skill</span>, so make it specific.</p>
+</div>
+</section>
+<section id="customizing-a-built-in-skill" class="slide level2 center">
+<h2>Customizing a Built-In Skill</h2>
+<p>You cannot edit Anthropic’s document skills directly — but you can create a <span class="amber">custom skill that extends one</span>.</p>
+<p>Your <code>SKILL.md</code> would say something like:</p>
+<p><em>“Follow the <code>/xlsx</code> skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas.”</em></p>
+<p>Then invoke your custom version with <code>/myxlsx</code> instead of <code>/xlsx</code>.</p>
+<div class="explainer">
+<p>This works in <span class="amber">Claude Desktop and Claude Code</span>. The custom skill’s instructions sit on top of the built-in skill’s behavior — you only need to specify what’s different.</p>
 </div>
 </section>
 <section id="example-create-a-tasks-skill" class="slide level2 center">

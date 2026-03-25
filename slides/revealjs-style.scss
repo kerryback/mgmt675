@@ -357,6 +357,11 @@ $body-bg: $off-white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.reveal pre code {
+  color: #e2e8f0;
+  background: transparent;
+}
+
 // ── Explainer text ──
 .explainer {
   font-size: 0.82em;

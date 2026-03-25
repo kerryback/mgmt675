@@ -14,7 +14,7 @@ Click on a topic to view the slide deck.
 | 4 | <a href="slides/m4-claude.html" target="_blank">Claude Desktop and Claude Code</a> | <a href="slides/m4-claude.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 5 | <a href="slides/m5-skills.html" target="_blank">Sub-Agents and Skills</a> | <a href="slides/m5-skills.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 6 | <a href="slides/m6-makers-checkers.html" target="_blank">Makers and Checkers</a> | <a href="slides/m6-makers-checkers.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 7 | <a href="slides/m7-agents.html" target="_blank">Custom Chatbots and Agents</a> | <a href="slides/m7-agents.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 7 | <a href="slides/m7-agents.html" target="_blank">Chatbots and Agents</a> | <a href="slides/m7-agents.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 8 | <a href="slides/m8-data-security.html" target="_blank">Data Security and Governance</a> | <a href="slides/m8-data-security.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 9 | <a href="slides/m9-rag.html" target="_blank">Retrieval Augmented Generation</a> | <a href="slides/m9-rag.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 10 | <a href="slides/m10-sentiment.html" target="_blank">Sentiment Analysis</a> | <a href="slides/m10-sentiment.html" target="_blank">{{< fa presentation-screen >}}</a> |

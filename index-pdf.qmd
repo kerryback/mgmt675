@@ -70,7 +70,7 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 :::
 
 ::: {}
-7. [Custom Chatbots and Agents](https://mgmt675.kerryback.com/slides/m7-agents.html)
+7. [Chatbots and Agents](https://mgmt675.kerryback.com/slides/m7-agents.html)
 8. [Data Security and Governance](https://mgmt675.kerryback.com/slides/m8-data-security.html)
 9. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m9-rag.html)
 10. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m10-sentiment.html)

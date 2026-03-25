@@ -788,14 +788,14 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nCustom Chatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nChatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nCustom Chatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nChatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
   },
   {
     "objectID": "index.html",
@@ -1075,7 +1075,7 @@
     "href": "slides/m5-skills.html#built-in-document-skills",
     "title": "Module 5: Sub-Agents and Skills",
     "section": "Built-In Document Skills",
-    "text": "Built-In Document Skills\nAnthropic ships four document skills with every Claude product. No setup required.\n\n\nExcel\n\nCreate and edit Excel workbooks\nUses live formulas, not hardcoded values\nSupports charts, formatting, multiple sheets\n\n\n\nWord\n\nCreate and edit Word documents\nProfessional formatting, headers, tables\nSupports tracked changes and comments\n\n\n\nPowerPoint\n\nCreate and edit PowerPoint decks\nSlide layouts, charts, speaker notes\nCan modify existing presentations\n\n\n\n\nIn Claude Code (CLI or Desktop Code tab), invoke skills explicitly: /xlsx, /docx, /pptx"
+    "text": "Built-In Document Skills\nAnthropic provides three document skills: Excel, Word, and PowerPoint.\n\n\nClaude Desktop (Chat, Cowork, and Code)\n\nSkills are stored in the cloud by Anthropic\nNo setup required — available automatically\nInvoke with /xlsx, /docx, /pptx\n\n\n\nClaude Code Terminal\n\nSkills must be installed locally into ~/.claude/skills/\nThe class installer handles this automatically\nInvoke with /xlsx, /docx, /pptx\n\n\n\n\nIn Claude Code (CLI or Desktop Code tab), invoke skills explicitly: /xlsx, /docx, /pptx"
   },
   {
     "objectID": "slides/m5-skills.html#the-xlsx-skill",
@@ -1099,6 +1099,13 @@
     "text": "Adding Your Own Skills\nYou can add custom skills to Claude Code at any time.\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name\nProject-level skills go in .claude/skills/ inside your repo\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific."
   },
   {
+    "objectID": "slides/m5-skills.html#customizing-a-built-in-skill",
+    "href": "slides/m5-skills.html#customizing-a-built-in-skill",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Customizing a Built-In Skill",
+    "text": "Customizing a Built-In Skill\nYou cannot edit Anthropic’s document skills directly — but you can create a custom skill that extends one.\nYour SKILL.md would say something like:\n“Follow the /xlsx skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas.”\nThen invoke your custom version with /myxlsx instead of /xlsx.\n\nThis works in Claude Desktop and Claude Code. The custom skill’s instructions sit on top of the built-in skill’s behavior — you only need to specify what’s different."
+  },
+  {
     "objectID": "slides/m5-skills.html#example-create-a-tasks-skill",
     "href": "slides/m5-skills.html#example-create-a-tasks-skill",
     "title": "Module 5: Sub-Agents and Skills",
@@ -1106,345 +1113,345 @@
     "text": "Example: Create a Tasks Skill\n\nType /skill-creator to start the skill builder\nDescribe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”"
   },
   {
-    "objectID": "slides/m7-agents.html#the-api-building-agents-in-code",
-    "href": "slides/m7-agents.html#the-api-building-agents-in-code",
-    "title": "Module 7: Custom Chatbots and Agents",
-    "section": "The API: Building Agents in Code",
-    "text": "The API: Building Agents in Code"
+    "objectID": "slides/m7-agents.html#the-api-building-custom-chatbots",
+    "href": "slides/m7-agents.html#the-api-building-custom-chatbots",
+    "title": "Module 7: Chatbots and Agents",
+    "section": "The API: Building Custom Chatbots",
+    "text": "The API: Building Custom Chatbots"
   },
   {
     "objectID": "slides/m7-agents.html#the-api-talking-to-an-llm-from-code",
     "href": "slides/m7-agents.html#the-api-talking-to-an-llm-from-code",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The API: Talking to an LLM from Code",
     "text": "The API: Talking to an LLM from Code\nAn API lets your code communicate with an LLM service over the internet.\n\n\nWhat You Need\n\nAn API key (authentication)\nThe anthropic Python package\nA model name (e.g., claude-sonnet-4-20250514)\n\n\n\nGetting Your Key\n\nGo to console.anthropic.com\nCreate an API key under Settings\nAdd credit ($5 is plenty for the course)\n\n\n\n\nYour Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing."
   },
   {
     "objectID": "slides/m7-agents.html#the-model-landscape-openrouter",
     "href": "slides/m7-agents.html#the-model-landscape-openrouter",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Model Landscape: OpenRouter",
     "text": "The Model Landscape: OpenRouter\nOpenRouter is a marketplace that routes API calls to hundreds of models from dozens of providers — a single place to see what exists and compare pricing.\n\nOne API, many models — same code, swap the model name to use GPT-4o, Gemini, Llama, Mistral, Grok, and more\nPricing transparency — cost per million input/output tokens shown for every model\nGood for exploration — browse capabilities and benchmarks before committing to a provider\n\n\nVisit openrouter.ai/models to see the full landscape of available models."
   },
   {
     "objectID": "slides/m7-agents.html#a-single-api-call",
     "href": "slides/m7-agents.html#a-single-api-call",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "A Single API Call",
     "text": "A Single API Call\n\nCalling the Anthropic API\nimport anthropic\n\nclient = anthropic.Anthropic(api_key=API_KEY)\n\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    messages=[\n        {\"role\": \"user\", \"content\": prompt}\n    ]\n)\nanswer = response.content[0].text"
   },
   {
     "objectID": "slides/m7-agents.html#conversation-history",
     "href": "slides/m7-agents.html#conversation-history",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Conversation History",
     "text": "Conversation History\n\nMessages Are a List of Dictionaries\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    system=\"You are a finance tutor...\",\n    messages=[\n        {\"role\": \"user\", \"content\": \"What is a P/E ratio?\"},\n        {\"role\": \"assistant\", \"content\": \"A P/E ratio is...\"},\n        {\"role\": \"user\", \"content\": \"How do I interpret it?\"}\n    ]\n)\n\n\nEach API call is independent — LLM has no memory\nYou must send the entire conversation history each time\nThe system prompt defines the agent’s behavior and available tools"
   },
   {
     "objectID": "slides/m7-agents.html#agent-loop-pseudocode",
     "href": "slides/m7-agents.html#agent-loop-pseudocode",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Agent Loop Pseudocode",
     "text": "Agent Loop Pseudocode\n\nThe Agent’s Decision Loop\nwhile not done:\n    response = call_llm(messages, system_prompt, tools)\n\n    if response.has_tool_call:\n        result = execute_tool(response.tool_call)\n        messages.append(tool_result)\n    elif response.is_final:\n        done = True\n        return response.content\n\n\nThe agent is part LLM intelligence, part traditional programming."
   },
   {
     "objectID": "slides/m7-agents.html#claude-code-as-an-agent-harness",
     "href": "slides/m7-agents.html#claude-code-as-an-agent-harness",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Claude Code as an Agent Harness",
     "text": "Claude Code as an Agent Harness"
   },
   {
     "objectID": "slides/m7-agents.html#what-a-harness-provides",
     "href": "slides/m7-agents.html#what-a-harness-provides",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "What a Harness Provides",
     "text": "What a Harness Provides\nThe pseudocode shows the logic. A harness is the infrastructure that actually runs that loop — and controls what the agent is allowed to do.\n\n\nRuntime Infrastructure\n\nMaintains conversation state across turns\nExecutes tool calls and captures results\nHandles errors so the agent can recover\nEnforces iteration and cost limits\n\n\n\nControl and Safety\n\nPermission system: which tools are allowed\nHuman-in-the-loop approval gates\nHooks: custom checks before/after actions\nAudit log of every action taken\n\n\n\n\nClaude Code is a complete harness — you supply the task; it handles the loop, tools, and guardrails."
   },
   {
     "objectID": "slides/m7-agents.html#the-real-agent-loop",
     "href": "slides/m7-agents.html#the-real-agent-loop",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Real Agent Loop",
     "text": "The Real Agent Loop\n\nA Production-Grade Loop\niteration = 0\nwhile iteration &lt; max_turns:\n    response = call_llm(messages, system_prompt, tools)\n    messages.append(response)             # Maintain full history\n\n    if response.stop_reason == \"end_turn\":\n        return response.text              # Task complete\n\n    for tool_call in response.tool_uses:\n        if needs_approval(tool_call):     # Human-in-the-loop\n            if not ask_user(tool_call):\n                break                     # User blocked the action\n        try:\n            result = execute(tool_call)\n        except Exception as e:\n            result = f\"Error: {e}\"        # Agent sees error and recovers\n        messages.append(tool_result(result))\n\n    iteration += 1\nraise MaxIterationsError(\"Did not complete\")"
   },
   {
     "objectID": "slides/m7-agents.html#claude-codes-four-harness-layers",
     "href": "slides/m7-agents.html#claude-codes-four-harness-layers",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Claude Code’s Four Harness Layers",
     "text": "Claude Code’s Four Harness Layers\n\n\nCLAUDE.md\nInjected as the system prompt. Defines the agent’s persona, project context, and behavioral rules before any user message is sent.\n\n\nPermissions\nControls which tools and file paths the agent can access. Separate allow/deny lists for bash commands, file writes, and network calls.\n\n\n\n\nHooks\nShell commands that fire automatically at agent lifecycle events: before a tool runs, after it completes, or when the agent stops.\n\n\nIteration Limits\n--max-turns caps how many steps the agent takes. Prevents runaway loops and controls API spend."
   },
   {
     "objectID": "slides/m7-agents.html#guardrails-and-constraints",
     "href": "slides/m7-agents.html#guardrails-and-constraints",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Guardrails and Constraints",
     "text": "Guardrails and Constraints"
   },
   {
     "objectID": "slides/m7-agents.html#why-guardrails",
     "href": "slides/m7-agents.html#why-guardrails",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Why Guardrails?",
     "text": "Why Guardrails?\nWithout constraints, an autonomous agent can cause real damage — even with good intentions.\n\n\nWhat Can Go Wrong\n\n“Clean up the repo” → deletes files you need\nA loop bug triggers hundreds of API calls\nWrite access to the database → unintended edits\nA misread instruction → wrong files overwritten\n\n\n\nThe Principle\nGrant the agent the minimum access it needs to complete the task — and no more.\n\nRead-only unless writes are required\nSpecific directories, not the whole filesystem\nNo network unless the task requires it"
   },
   {
     "objectID": "slides/m7-agents.html#permission-modes-in-claude-code",
     "href": "slides/m7-agents.html#permission-modes-in-claude-code",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Permission Modes in Claude Code",
     "text": "Permission Modes in Claude Code\nClaude Code pauses and asks before taking consequential actions — unless you explicitly allow them.\n\n\nDefault: Human in the Loop\n\nAgent stops before running bash commands, writing files, or calling the network\nYou approve or deny each action\nSafe for unfamiliar tasks or new codebases\n\n\nAllow Lists\n\nApprove a specific command once — or always\nApprove an entire tool (e.g., all file reads)\nApprove a path prefix (e.g., ./reports/)\nStored in settings.json\n\n\n\nHuman approval is the default. You choose how much autonomy to grant, task by task."
   },
   {
     "objectID": "slides/m7-agents.html#claude.md-as-a-behavioral-guardrail",
     "href": "slides/m7-agents.html#claude.md-as-a-behavioral-guardrail",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "CLAUDE.md as a Behavioral Guardrail",
     "text": "CLAUDE.md as a Behavioral Guardrail\nCLAUDE.md is not just documentation — it is the agent’s system prompt. Use it to enforce rules.\n\nExamples of Constraint Instructions\n- Never modify files outside the src/ directory\n- Always ask before running git push or git commit\n- Use read-only database connections unless told otherwise\n- If a task would delete more than 3 files, pause and confirm\n\n\nThe system prompt is the first line of defense. Clear written rules reduce the chance of unintended actions."
   },
   {
     "objectID": "slides/m7-agents.html#hooks-programmatic-checks",
     "href": "slides/m7-agents.html#hooks-programmatic-checks",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Hooks: Programmatic Checks",
     "text": "Hooks: Programmatic Checks\nHooks run shell commands automatically at agent lifecycle events.\n\n\nEvent Types\n\nPreToolUse — runs before a tool fires; can block the action\nPostToolUse — runs after a tool completes; can log or validate\nStop — runs when the agent finishes\n\n\n\nExample Uses\n\nBlock any bash command containing rm -rf\nLog every file write to an audit trail\nSend an alert when the agent finishes\nRun tests automatically after every code edit\n\n\n\n\nHooks enforce rules programmatically — the check runs whether or not the agent remembers the instruction."
   },
   {
     "objectID": "slides/m7-agents.html#layered-guardrails",
     "href": "slides/m7-agents.html#layered-guardrails",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Layered Guardrails",
     "text": "Layered Guardrails\nNo single guardrail is sufficient. Defense in depth combines all layers.\n\n\n\nCLAUDE.md — behavioral rules in the system prompt\nPermissions — tool and path access control\nHooks — programmatic checks at runtime\n\n\n\nSandboxing — isolated execution environment\nHuman approval — pause before high-stakes actions\nIteration limits — prevent runaway loops and cost overruns\n\n\n\nEach layer catches what the previous one misses. Together they make autonomous agents safe to deploy."
   },
   {
     "objectID": "slides/m7-agents.html#the-dashboard-trap",
     "href": "slides/m7-agents.html#the-dashboard-trap",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Dashboard Trap",
     "text": "The Dashboard Trap"
   },
   {
     "objectID": "slides/m7-agents.html#dashboards-answer-yesterdays-questions",
     "href": "slides/m7-agents.html#dashboards-answer-yesterdays-questions",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Dashboards Answer Yesterday’s Questions",
     "text": "Dashboards Answer Yesterday’s Questions\nOrganizations spend millions building dashboards. When a new question arises, the cycle restarts: requirements –&gt; design –&gt; build –&gt; deploy.\n\n\nThe Typical Dashboard Lifecycle\n\nBusiness user requests a report\nTeam builds queries, charts, and deploys\nUser asks a follow-up — back to step 1\n\n\n\nThe Cost\n\nTime: Weeks to months per dashboard\nMoney: BI licenses, engineering hours, maintenance\nRigidity: Fixed views of fixed data\n\nGartner: only 20% of analytic insights deliver business outcomes."
   },
   {
     "objectID": "slides/m7-agents.html#the-fundamental-problem",
     "href": "slides/m7-agents.html#the-fundamental-problem",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Fundamental Problem",
     "text": "The Fundamental Problem\nDashboards answer pre-defined questions. But the most valuable analysis comes from ad-hoc questions that arise in the moment.\n\n“What happened to margins in the Southeast last quarter?”\n“Show me our top 10 customers by growth rate, excluding one-time orders”\n“Compare Q3 headcount vs. budget by department, and flag anyone over 110%”\n\n\nThese are simple questions. Getting answers shouldn’t require a development cycle."
   },
   {
     "objectID": "slides/m7-agents.html#natural-language-as-the-query-interface",
     "href": "slides/m7-agents.html#natural-language-as-the-query-interface",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Natural Language as the Query Interface",
     "text": "Natural Language as the Query Interface"
   },
   {
     "objectID": "slides/m7-agents.html#the-shift-from-dashboards-to-conversations",
     "href": "slides/m7-agents.html#the-shift-from-dashboards-to-conversations",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Shift: From Dashboards to Conversations",
     "text": "The Shift: From Dashboards to Conversations\n\n\nTraditional Dashboard\n\nClick filters and select dates to query\nAnswers take minutes to weeks\nFollow-ups require a new dashboard request\n\n\nNatural Language AI\n\nAsk in plain English\nAnswers in seconds\nFollow-ups are the next sentence\n\n\n\nThe dashboard was a workaround for the fact that databases don’t speak English. Now they do."
   },
   {
     "objectID": "slides/m7-agents.html#what-this-looks-like-in-practice",
     "href": "slides/m7-agents.html#what-this-looks-like-in-practice",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "What This Looks Like in Practice",
     "text": "What This Looks Like in Practice\n\n\n\nThe Conversation\n\n“Show me monthly revenue by product line for 2025”\nAI: writes SQL, produces grouped bar chart\n“Break out Enterprise by region”\nAI: refines query, updates chart\n\n\n\nWhat the User Needed to Know\n\nWhat questions to ask\nWhether the answers make sense\nNothing else\n\nBehind the Scenes\n\n4 different SQL queries written\n3 visualizations produced\nDerived metrics calculated"
   },
   {
     "objectID": "slides/m7-agents.html#the-database-agent-pattern",
     "href": "slides/m7-agents.html#the-database-agent-pattern",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Database Agent Pattern",
     "text": "The Database Agent Pattern\nThe most powerful dashboard replacement: an AI agent connected to your database.\n\n\nHow to Build It\n\nConnect database via MCP or file upload\nGive AI the schema: table names, columns, relationships\nDescribe the business context\nStart asking questions\n\n\n\nWhat the Agent Can Do\n\nWrite and execute SQL queries\nCompute derived metrics (growth rates, ratios)\nGenerate charts and export to Excel or PowerPoint"
   },
   {
     "objectID": "slides/m7-agents.html#replacing-dashboards-fpa-and-treasury",
     "href": "slides/m7-agents.html#replacing-dashboards-fpa-and-treasury",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Replacing Dashboards: FP&A and Treasury",
     "text": "Replacing Dashboards: FP&A and Treasury\n\n\nFP&A\n\n“Budget vs. actual for Q3, decompose the variance into volume, price, and cost drivers”\n“Rolling 12-month revenue forecast with confidence bands”\n\n\n\nTreasury & Risk\n\n“Cash position over the next 90 days using AR/AP forecasts”\n“VaR by desk for the last 30 days, flag breaches”\n\n\n\n\nEach of these would take a BI team days to build. With a database agent, they take seconds."
   },
   {
     "objectID": "slides/m7-agents.html#replacing-dashboards-portfolio-and-executive",
     "href": "slides/m7-agents.html#replacing-dashboards-portfolio-and-executive",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Replacing Dashboards: Portfolio and Executive",
     "text": "Replacing Dashboards: Portfolio and Executive\n\n\nPortfolio Management\n\n“Sector allocation vs. benchmark with active weights”\n“Performance attribution — allocation vs. selection”\n\n\n\nExecutive Reporting\n\n“One-page executive summary with KPIs and trends”\n“Board deck from this quarter’s financials — 5 slides max”\n\n\n\n\nThe AI doesn’t replace the analyst’s judgment — it replaces the mechanical work of pulling data and building charts."
   },
   {
     "objectID": "slides/m7-agents.html#the-weekly-ops-review-before-and-after",
     "href": "slides/m7-agents.html#the-weekly-ops-review-before-and-after",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Weekly Ops Review — Before and After",
     "text": "The Weekly Ops Review — Before and After\n\n\nBefore: The Dashboard Era\n\nData team pulls exports and builds slides (6+ hrs)\nManager reviews and revises (3 hrs)\nVP asks a question — “We’ll get back to you next week”\n\nTotal: 9+ hours per week\n\n\nAfter: Natural Language AI\n\nAI agent generates ops review (3 min)\nManager reviews and iterates in chat\nVP asks a question — AI answers in 10 seconds\n\nTotal: 15 minutes + live Q&A"
   },
   {
     "objectID": "slides/m7-agents.html#the-reporting-pipeline",
     "href": "slides/m7-agents.html#the-reporting-pipeline",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Reporting Pipeline",
     "text": "The Reporting Pipeline"
   },
   {
     "objectID": "slides/m7-agents.html#five-steps-from-query-to-report",
     "href": "slides/m7-agents.html#five-steps-from-query-to-report",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Five Steps from Query to Report",
     "text": "Five Steps from Query to Report\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;Database&lt;br/&gt;Query&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;Transform&lt;br/&gt;& Compute&lt;/b&gt;\"]\n  B --&gt; C[\"&lt;b&gt;Charts &&lt;br/&gt;Tables&lt;/b&gt;\"]\n  C --&gt; D[\"&lt;b&gt;AI&lt;br/&gt;Narrative&lt;/b&gt;\"]\n  D --&gt; E[\"&lt;b&gt;PowerPoint&lt;br/&gt;Output&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style B fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style E fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nFrom raw data to polished deck — no copy-paste, no formatting, no manual writing."
   },
   {
     "objectID": "slides/m7-agents.html#building-it-with-your-coding-agent",
     "href": "slides/m7-agents.html#building-it-with-your-coding-agent",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Building It with Your Coding Agent",
     "text": "Building It with Your Coding Agent\nYou do not need to write this by hand. Give your coding agent a single prompt:\n\n“Build an app that connects to a database. When the user selects a report and clicks Generate, run the SQL query, create a chart, write a three-sentence executive summary, and assemble a three-slide PowerPoint (title, chart, findings). Show the chart and summary on screen with a download button for the PowerPoint file.”\n\n\nYour job is not to write the code. Your job is to test the result, refine the prompt, and iterate until the output meets your standards."
   },
   {
     "objectID": "slides/m7-agents.html#building-the-pipeline-with-streamlit",
     "href": "slides/m7-agents.html#building-the-pipeline-with-streamlit",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Building the Pipeline with Streamlit",
     "text": "Building the Pipeline with Streamlit\nStreamlit turns a Python script into a web app in minutes. Combined with an AI pipeline, it becomes a self-service reporting tool.\n\n\nUser Interface\n\nDropdown: select time period, department, or metric\nButton: “Generate Report”\nDownload: auto-generated .pptx file\n\n\n\nBehind the Scenes\n\nQuery database for selected parameters\nCompute metrics and build charts\nSend chart data to LLM for narrative\nAssemble PowerPoint with python-pptx\n\n\n\n\nThe user clicks one button and gets a polished deck. No analyst needed."
   },
   {
     "objectID": "slides/m7-agents.html#example-monthly-ops-review-pipeline",
     "href": "slides/m7-agents.html#example-monthly-ops-review-pipeline",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Example: Monthly Ops Review Pipeline",
     "text": "Example: Monthly Ops Review Pipeline\n\n\nWhat the Pipeline Produces\n\nTitle slide, KPI summary table, and trend charts\nVariance waterfall (budget vs. actual)\nAI-generated executive summary\n\n\nTime Comparison\n\nManual: 6–8 hours per month (data pull, Excel, copy-paste into PowerPoint, write narrative)\nPipeline: 30 seconds per run\nROI: First month pays for the build time"
   },
   {
     "objectID": "slides/m7-agents.html#automated-powerpoint-with-python-pptx",
     "href": "slides/m7-agents.html#automated-powerpoint-with-python-pptx",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Automated PowerPoint with python-pptx",
     "text": "Automated PowerPoint with python-pptx\npython-pptx is a Python library for creating and editing PowerPoint files programmatically.\n\n\nWhat It Can Do\n\nCreate slides from templates\nInsert charts, tables, and images\nApply corporate formatting (fonts, colors, logos)\nPopulate placeholders with live data\n\n\n\nThe AI Advantage\n\nAI writes the python-pptx code for you\nTell Claude: “Create a 5-slide deck from this data with a waterfall chart on slide 3”\nAI handles layout, formatting, and data binding\n\n\n\n\nYou describe the deck; AI builds the automation. The pipeline runs unattended after that."
   },
   {
     "objectID": "slides/m7-agents.html#sandboxed-execution",
     "href": "slides/m7-agents.html#sandboxed-execution",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Sandboxed Execution",
     "text": "Sandboxed Execution"
   },
   {
     "objectID": "slides/m7-agents.html#development-vs.-production",
     "href": "slides/m7-agents.html#development-vs.-production",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Development vs. Production",
     "text": "Development vs. Production\n\n\nDevelopment (Your Laptop)\n\nAgent runs in your environment\nFull access to your files\nFine for prototyping\n\n\n\nProduction\n\nAgent runs in a container (Docker)\nIsolated, disposable environment\nRead-only database access\n\n\n\n\nA container is a disposable, isolated computing environment. A bug in AI-generated code cannot affect your other files, your database, or your network."
   },
   {
     "objectID": "slides/m7-agents.html#the-sandbox-pattern",
     "href": "slides/m7-agents.html#the-sandbox-pattern",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Sandbox Pattern",
     "text": "The Sandbox Pattern\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;User&lt;/b&gt;\"] --&gt; A[\"&lt;b&gt;Agent&lt;/b&gt;\"]\n  A --&gt; S[\"&lt;b&gt;Sandboxed&lt;br&gt;Code&lt;/b&gt;\"]\n  S &lt;--&gt; DB[\"&lt;b&gt;Database&lt;br&gt;(read-only)&lt;/b&gt;\"]\n  S --&gt; R[\"&lt;b&gt;Report&lt;/b&gt;\"]\n  R --&gt; U\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style R fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nAgent plans and orchestrates; code runs in a sandboxed container\nContainer queries the database through a read-only connection\nFinished report flows back to the user"
   },
   {
     "objectID": "slides/m7-agents.html#from-prototype-to-production",
     "href": "slides/m7-agents.html#from-prototype-to-production",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "From Prototype to Production",
     "text": "From Prototype to Production\nThe reporting app on your laptop is a prototype. Moving it to production adds infrastructure, not intelligence.\n\nAuthentication: SSO so only authorized users can generate reports\nScheduling: weekly reports generated automatically\nLogging: every query and LLM call recorded for compliance\nRead-only credentials: the agent cannot modify data\n\n\nThe pipeline you prototyped is the same artifact that powers the production tool. IT wraps it in infrastructure; you provide the domain knowledge and the prompt."
   },
   {
     "objectID": "slides/m7-agents.html#variance-analysis",
     "href": "slides/m7-agents.html#variance-analysis",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Variance Analysis",
     "text": "Variance Analysis"
   },
   {
     "objectID": "slides/m7-agents.html#what-is-variance-analysis",
     "href": "slides/m7-agents.html#what-is-variance-analysis",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "What is Variance Analysis?",
     "text": "What is Variance Analysis?\nVariance analysis compares budgeted figures to actual results and decomposes the differences into actionable drivers. It is the core analytical task in FP&A.\n\n\nWhy It Matters\n\nEvery public company does it quarterly\nBoards and investors ask “why did we miss?”\nDrives re-forecasting and capital allocation\n\n\nKey Decompositions\n\nRevenue: volume vs. price vs. mix\nCOGS: volume vs. unit cost\nSG&A: headcount vs. rate vs. discretionary\n\n\n\nRevenue variance = Volume effect + Price effect + Mix effect"
   },
   {
     "objectID": "slides/m7-agents.html#variance-analysis-example-data",
     "href": "slides/m7-agents.html#variance-analysis-example-data",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Variance Analysis: Example Data",
     "text": "Variance Analysis: Example Data\nScenario: You are an FP&A analyst. Q1 actuals just closed. The CEO wants to know why operating income missed budget by $300K.\n\nRevenue: Budget 100K units at $50 = $5M; Actual 95K units at $51 = $4.845M — ($155K) miss\nCOGS: Budget $30/unit = $3M; Actual $32/unit = $3.04M — ($40K) miss\nSG&A: Budget $1.45M; Actual $1.555M — ($105K) miss\nOperating Income: Budget $550K; Actual $250K — ($300K) total miss"
   },
   {
     "objectID": "slides/m7-agents.html#variance-analysis-with-an-agent",
     "href": "slides/m7-agents.html#variance-analysis-with-an-agent",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Variance Analysis with an Agent",
     "text": "Variance Analysis with an Agent\nWith a database agent connected to your financials, one prompt replaces 2–4 hours of FP&A work:\nPrompt\n“Here is our Q1 budget vs. actuals spreadsheet. Decompose the $300K operating income miss into volume, price, cost, and discretionary spending drivers. Produce a waterfall chart and a summary memo for the CFO.”\nWhat the Agent Does\n\nPlans: identifies the variance decomposition formulas needed\nDecomposes revenue into volume + price; COGS into volume + rate\nGenerates waterfall chart and writes CFO-ready memo in Word format"
   },
   {
     "objectID": "slides/m7-agents.html#finance-application-ma-due-diligence",
     "href": "slides/m7-agents.html#finance-application-ma-due-diligence",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Finance Application: M&A Due Diligence",
     "text": "Finance Application: M&A Due Diligence"
   },
   {
     "objectID": "slides/m7-agents.html#ma-due-diligence-with-an-agent",
     "href": "slides/m7-agents.html#ma-due-diligence-with-an-agent",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "M&A Due Diligence with an Agent",
     "text": "M&A Due Diligence with an Agent\nGive an agent a goal: “Evaluate this acquisition target.” The agent:\n\nIngests data from multiple formats (Excel, PDF, Word, CSV)\nApplies evaluation criteria and computes risk metrics\nProduces a summary memo with flagged risks\n\n\nThis is a single prompt to Claude Code. The agent plans and executes all three steps autonomously, reading multiple file formats and combining the results."
   },
   {
     "objectID": "slides/m7-agents.html#orchestration",
     "href": "slides/m7-agents.html#orchestration",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Orchestration",
     "text": "Orchestration"
   },
   {
     "objectID": "slides/m7-agents.html#the-orchestration-layer",
     "href": "slides/m7-agents.html#the-orchestration-layer",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "The Orchestration Layer",
     "text": "The Orchestration Layer\nThe agent’s control logic can route different tasks to different models and prompts.\n\n\nDifferent Prompts\n\nSQL generation –&gt; database schema prompt\nPython analysis –&gt; data science prompt\nEach task gets specialized instructions\n\n\n\nDifferent Models\n\nSimple classification –&gt; fast, cheap model\nComplex reasoning –&gt; powerful model\nCost and speed optimization\n\n\n\n\nSub-agents: dispatch specialized workers for parallel tasks. This is what Cowork does with its parallel VMs."
   },
   {
     "objectID": "slides/m7-agents.html#exercises",
     "href": "slides/m7-agents.html#exercises",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Exercises",
     "text": "Exercises"
   },
   {
     "objectID": "slides/m7-agents.html#exercise-1-multi-step-agent-workflow",
     "href": "slides/m7-agents.html#exercise-1-multi-step-agent-workflow",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Exercise 1: Multi-Step Agent Workflow",
     "text": "Exercise 1: Multi-Step Agent Workflow\nGive Claude Code a single compound instruction that requires at least three steps.\nExample: “Fetch Apple’s quarterly revenue from the Rice Data Portal. Create a bar chart of the last 8 quarters. Write a one-paragraph executive summary. Save the chart and summary to a reports folder.”\n\nObserve the agent loop — how many distinct tool calls does the agent make?\nDoes it check its own work?\nIf the output is not right, refine your prompt and try again"
   },
   {
     "objectID": "slides/m7-agents.html#exercise-2-workflow-decomposition",
     "href": "slides/m7-agents.html#exercise-2-workflow-decomposition",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Exercise 2: Workflow Decomposition",
     "text": "Exercise 2: Workflow Decomposition\nConsider the task: “Prepare the quarterly business review for the CEO.”\n\nList the 5–7 steps a human analyst would take to complete this task\nFor each step, identify what tool the agent would use and what data it would need\nMark which steps need human approval before the agent continues\nWrite a single prompt that describes the full workflow for an agent"
   },
   {
     "objectID": "slides/m7-agents.html#exercise-3-ma-due-diligence",
     "href": "slides/m7-agents.html#exercise-3-ma-due-diligence",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Exercise 3: M&A Due Diligence",
     "text": "Exercise 3: M&A Due Diligence\n\nDownload the due diligence data pack (Excel + PDF + Word + CSV)\nAsk Claude Code to evaluate the acquisition target end-to-end\nSubmit: the summary report + screenshots of intermediate steps\n\n\nWatch how Claude plans its approach, reads each file, and combines the results into a coherent analysis."
   },
   {
     "objectID": "slides/m7-agents.html#exercise-4-streamlit-app-with-the-anthropic-api",
     "href": "slides/m7-agents.html#exercise-4-streamlit-app-with-the-anthropic-api",
-    "title": "Module 7: Custom Chatbots and Agents",
+    "title": "Module 7: Chatbots and Agents",
     "section": "Exercise 4: Streamlit App with the Anthropic API",
     "text": "Exercise 4: Streamlit App with the Anthropic API\n\nGet an API key from console.anthropic.com\nAsk Claude Code to build a Streamlit app that:\n\nTakes a company ticker from the user\nSends a prompt to the Anthropic API asking for an investment summary\nDisplays the AI-generated summary on screen\n\nExtend: add a system prompt with specific analysis criteria (valuation, growth, risks)"
   },

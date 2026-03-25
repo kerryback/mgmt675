@@ -1,5 +1,5 @@
 ---
-title: "Module 7: Custom Chatbots and Agents"
+title: "Module 7: Chatbots and Agents"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -17,7 +17,7 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## The API: Building Agents in Code {.section-divider}
+## The API: Building Custom Chatbots {.section-divider}
 
 ## The API: Talking to an LLM from Code
 
