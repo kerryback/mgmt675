@@ -248,11 +248,8 @@ Year 4 should be the terminal year of the 1st stage.
 
 1. Type `/skill-creator` to start the skill builder
 2. Ask Claude to create a `2-stage-dcf` skill
-3. Include the gotcha rules in your prompt --- copy and paste or type them in:
+3. Include the gotcha rules in your prompt --- copy and paste or type them in.
 
-:::{.explainer}
-*"Forecast balance sheet items as ratios to sales. Outside of constant growth, compute balance sheet changes from the ratios --- do not forecast changes directly as a proportion of sales. For cap ex, forecast net PP&E/sales and depreciation/net PP&E, then calculate cap ex as the plug. Add one extra year of constant sales growth at the end of Stage 1 and make that year the terminal year, so that Stage 2 begins with the first year of constant cash flow growth."*
-:::
 
 ## Valuing Walmart 2010 {.section-divider}
 
@@ -295,7 +292,7 @@ Start by computing historical growth and percentages (or ask Claude to do it).
 
 ## Use Claude
 
-Tell Claude what you've chosen as baseline assumptions (including WACC) and ask for two-stage DCF analysis.
+Tell Claude what you've chosen as baseline assumptions (including WACC) and ask for a two-stage DCF analysis.
 
 ## Subsequent Steps
 
@@ -303,11 +300,15 @@ Tell Claude what you've chosen as baseline assumptions (including WACC) and ask 
 2. Word doc
 3. PowerPoint deck
 
-## Start a New Chat
+## Claude on its Own
 
-Tell Claude to read Walmart.xlsx, formulate assumptions, prepare a 2-stage DCF analysis, and prepare a Word doc containing results and discussion.
+Start a new Code session.  Tell Claude: 
 
-## Start Another New Chat
+*Read Walmart.xlsx, which contains historical statements.  Formulate assumptions and prepare a 2-stage DCF analysis to value Walmart at the end of 2010.  Create a Word doc containing results and discussion.*
 
-Tell Claude to read Walmart.xlsx. Tell Claude that you need to create a 2-stage DCF analysis. Ask Claude for advice on how it can assist you in building it.
+## Collaborating with Claude
+
+Start another new Code session.  Tell Claude:
+
+*Read Walmart.xlsx, which contains historical statements. I need to create a 2-stage DCF analysis to value Walmart at the end of 2010, and I want  your help.  How should we get started?*
 
