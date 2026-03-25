@@ -574,6 +574,34 @@
     "text": "Building a Skill with /skill-creator\n\nType /skill-creator to start the skill builder\nDescribe the workflow: inputs, steps, outputs, and any checks to include\nClaude generates a SKILL.md and installs it in ~/.claude/skills/\nInvoke it anytime with /skill-name\n\n\nYou can embed checker steps directly in the skill — for example, “after computing the result, show the row count and the min/max values so the user can sanity-check the data.”"
   },
   {
+    "objectID": "slides/m6-makers-checkers.html#valuing-companies",
+    "href": "slides/m6-makers-checkers.html#valuing-companies",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Valuing Companies",
+    "text": "Valuing Companies"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#valuation-by-multiples",
+    "href": "slides/m6-makers-checkers.html#valuation-by-multiples",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Valuation by Multiples",
+    "text": "Valuation by Multiples\nCompare the target company to similar public companies on industry and size, then apply their valuation multiples.\n\n\nFinding Comparables\n\nMatch on industry (same SIC code or GICS sector)\nMatch on size (revenue, market cap, or total assets)\nThe closer the match, the more reliable the multiple\n\n\n\nCommon Multiples\n\nP/E — price to earnings; most widely used\nP/S — price to sales; useful when earnings are negative\nP/B — price to book; common in financial firms\n\n\n\n\nFor full automation, connect the agent to a database of public company financials — it can pull comparables, compute medians, and apply multiples in one step."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
+    "href": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Two-Stage DCF Analysis",
+    "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates rather than individual line items\nExample: forecast sales growth, then derive everything else as a fraction of sales — gross margin, operating margin, capex, working capital\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#exercise-two-stage-dcf",
+    "href": "slides/m6-makers-checkers.html#exercise-two-stage-dcf",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Exercise: Two-Stage DCF",
+    "text": "Exercise: Two-Stage DCF\nAsk Claude Code:\n“Build a two-stage DCF model for a company. Forecast free cash flows for 10 years by projecting sales growth and key ratios (gross margin, EBIT margin, tax rate, capex as % of sales, change in working capital as % of sales). Use a terminal growth rate and WACC to compute terminal value and enterprise value. Use realistic assumptions for a mid-size US technology company. Show all assumptions explicitly.”\n\nReview the output as a checker: Are the growth rates reasonable? Does the terminal value dominate? Do the margins make sense for the industry?"
+  },
+  {
     "objectID": "slides/m4-claude.html#outline",
     "href": "slides/m4-claude.html#outline",
     "title": "Module 4: Claude Desktop & Code",

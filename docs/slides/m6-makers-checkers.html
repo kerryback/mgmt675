@@ -288,6 +288,64 @@ Kerry Back, Rice University
 <div class="explainer" style="text-align:center;">
 <p>You can embed checker steps directly in the skill — for example, <em>“after computing the result, show the row count and the min/max values so the user can sanity-check the data.”</em></p>
 </div>
+</section>
+<section id="valuing-companies" class="slide level2 section-divider center">
+<h2>Valuing Companies</h2>
+</section>
+<section id="valuation-by-multiples" class="slide level2 center">
+<h2>Valuation by Multiples</h2>
+<p>Compare the target company to <span class="amber">similar public companies</span> on industry and size, then apply their valuation multiples.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Finding Comparables</strong></span></p>
+<ul>
+<li>Match on <strong>industry</strong> (same SIC code or GICS sector)</li>
+<li>Match on <strong>size</strong> (revenue, market cap, or total assets)</li>
+<li>The closer the match, the more reliable the multiple</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Common Multiples</strong></span></p>
+<ul>
+<li><strong>P/E</strong> — price to earnings; most widely used</li>
+<li><strong>P/S</strong> — price to sales; useful when earnings are negative</li>
+<li><strong>P/B</strong> — price to book; common in financial firms</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>For full automation, <span class="amber">connect the agent to a database</span> of public company financials — it can pull comparables, compute medians, and apply multiples in one step.</p>
+</div>
+</section>
+<section id="two-stage-dcf-analysis" class="slide level2 center">
+<h2>Two-Stage DCF Analysis</h2>
+<p>Discount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Stage 1: Year-by-Year Forecasts</strong></span></p>
+<ul>
+<li>Explicitly forecast each year (typically 5–10 years)</li>
+<li>Forecast <span class="amber">key financial ratios and growth rates</span> rather than individual line items</li>
+<li>Example: forecast sales growth, then derive everything else as a fraction of sales — gross margin, operating margin, capex, working capital</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Stage 2: Terminal Value</strong></span></p>
+<ul>
+<li>After the explicit forecast period, assume <span class="amber">constant growth</span> forever</li>
+<li>Terminal value = final year cash flow × (1 + g) / (r − g)</li>
+<li>Often represents 60–80% of total value — <span class="amber">the checker’s most important number to scrutinize</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="exercise-two-stage-dcf" class="slide level2 center">
+<h2>Exercise: Two-Stage DCF</h2>
+<p>Ask Claude Code:</p>
+<p><em>“Build a two-stage DCF model for a company. Forecast free cash flows for 10 years by projecting sales growth and key ratios (gross margin, EBIT margin, tax rate, capex as % of sales, change in working capital as % of sales). Use a terminal growth rate and WACC to compute terminal value and enterprise value. Use realistic assumptions for a mid-size US technology company. Show all assumptions explicitly.”</em></p>
+<div class="explainer" style="text-align:center;">
+<p>Review the output as a <span class="amber">checker</span>: Are the growth rates reasonable? Does the terminal value dominate? Do the margins make sense for the industry?</p>
+</div>
 
 
 </section>

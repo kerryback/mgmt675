@@ -161,3 +161,63 @@ A skill is how a [one-time workflow]{.amber} becomes a [team asset]{.amber}.
 :::{.explainer style="text-align:center;"}
 You can embed checker steps directly in the skill --- for example, *"after computing the result, show the row count and the min/max values so the user can sanity-check the data."*
 :::
+
+## Valuing Companies {.section-divider}
+
+## Valuation by Multiples
+
+Compare the target company to [similar public companies]{.amber} on industry and size, then apply their valuation multiples.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Finding Comparables**]{.card-title}
+
+- Match on **industry** (same SIC code or GICS sector)
+- Match on **size** (revenue, market cap, or total assets)
+- The closer the match, the more reliable the multiple
+:::
+
+:::{.card .card-light}
+[**Common Multiples**]{.card-title}
+
+- **P/E** --- price to earnings; most widely used
+- **P/S** --- price to sales; useful when earnings are negative
+- **P/B** --- price to book; common in financial firms
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+For full automation, [connect the agent to a database]{.amber} of public company financials --- it can pull comparables, compute medians, and apply multiples in one step.
+:::
+
+## Two-Stage DCF Analysis
+
+Discount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Stage 1: Year-by-Year Forecasts**]{.card-title}
+
+- Explicitly forecast each year (typically 5--10 years)
+- Forecast [key financial ratios and growth rates]{.amber} rather than individual line items
+- Example: forecast sales growth, then derive everything else as a fraction of sales --- gross margin, operating margin, capex, working capital
+:::
+
+:::{.card .card-light}
+[**Stage 2: Terminal Value**]{.card-title}
+
+- After the explicit forecast period, assume [constant growth]{.amber} forever
+- Terminal value = final year cash flow × (1 + g) / (r − g)
+- Often represents 60--80% of total value --- [the checker's most important number to scrutinize]{.amber}
+:::
+:::
+
+## Exercise: Two-Stage DCF
+
+Ask Claude Code:
+
+*"Build a two-stage DCF model for a company. Forecast free cash flows for 10 years by projecting sales growth and key ratios (gross margin, EBIT margin, tax rate, capex as % of sales, change in working capital as % of sales). Use a terminal growth rate and WACC to compute terminal value and enterprise value. Use realistic assumptions for a mid-size US technology company. Show all assumptions explicitly."*
+
+:::{.explainer style="text-align:center;"}
+Review the output as a [checker]{.amber}: Are the growth rates reasonable? Does the terminal value dominate? Do the margins make sense for the industry?
+:::
