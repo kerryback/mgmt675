@@ -1124,7 +1124,7 @@
     "href": "slides/m7-agents.html#the-api-talking-to-an-llm-from-code",
     "title": "Module 7: Chatbots and Agents",
     "section": "The API: Talking to an LLM from Code",
-    "text": "The API: Talking to an LLM from Code\nAn API lets your code communicate with an LLM service over the internet.\n\n\nWhat You Need\n\nAn API key (authentication)\nThe anthropic Python package\nA model name (e.g., claude-sonnet-4-20250514)\n\n\n\nGetting Your Key\n\nGo to console.anthropic.com\nCreate an API key under Settings\nAdd credit ($5 is plenty for the course)\n\n\n\n\nYour Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing."
+    "text": "The API: Talking to an LLM from Code\nAn API lets your code communicate with an LLM service over the internet.\n\n\nWhat You Need\n\nAn API key (authentication)\nThe anthropic Python package for Claude\nThe openai Python package for OpenAI and many other models\nA model name (e.g., claude-sonnet-4-20250514)\n\n\n\nGetting Your Key\n\nGo to console.anthropic.com\nCreate an API key under Settings\nAdd credit ($5 is plenty for the course)\n\n\n\n\nYour Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing."
   },
   {
     "objectID": "slides/m7-agents.html#the-model-landscape-openrouter",
@@ -1146,6 +1146,34 @@
     "title": "Module 7: Chatbots and Agents",
     "section": "Conversation History",
     "text": "Conversation History\n\nMessages Are a List of Dictionaries\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    system=\"You are a finance tutor...\",\n    messages=[\n        {\"role\": \"user\", \"content\": \"What is a P/E ratio?\"},\n        {\"role\": \"assistant\", \"content\": \"A P/E ratio is...\"},\n        {\"role\": \"user\", \"content\": \"How do I interpret it?\"}\n    ]\n)\n\n\nEach API call is independent — LLM has no memory\nYou must send the entire conversation history each time\nThe system prompt defines the agent’s behavior and available tools"
+  },
+  {
+    "objectID": "slides/m7-agents.html#how-a-web-app-works",
+    "href": "slides/m7-agents.html#how-a-web-app-works",
+    "title": "Module 7: Chatbots and Agents",
+    "section": "How a Web App Works",
+    "text": "How a Web App Works\nEvery web app has two parts that communicate over the internet.\n\n\nFrontend\n\nRuns in the user’s browser\nHTML, CSS, and JavaScript\nSends requests to the backend and displays results\nCannot safely hold API keys — source is visible to anyone\n\n\n\nBackend\n\nRuns on a server (your laptop counts during development)\nPython, Node.js, or any language\nHolds secrets (API keys, database credentials)\nReceives requests from the frontend, does the work, returns results\n\n\n\n\nFor a chatbot: browser sends the user’s message → backend calls the LLM API → backend returns the reply → browser displays it."
+  },
+  {
+    "objectID": "slides/m7-agents.html#fastapi",
+    "href": "slides/m7-agents.html#fastapi",
+    "title": "Module 7: Chatbots and Agents",
+    "section": "FastAPI",
+    "text": "FastAPI\nFastAPI is a modern Python framework for building web backends.\n\n\nWhy FastAPI\n\nAsync-native — handles many requests concurrently\nMinimal boilerplate — a working API in under 20 lines\nAuto-generated interactive docs at /docs\nIndustry standard for Python APIs\n\n\n\nFor a Chatbot Backend\n\nOne endpoint receives the user’s message and conversation history\nBackend calls the Anthropic API with your server-side API key\nReturns the assistant’s reply to the browser\nKey never touches the frontend\n\n\n\n\nFastAPI is what sits between your chat interface and the LLM — it keeps credentials secure and handles the API calls."
+  },
+  {
+    "objectID": "slides/m7-agents.html#exercise-build-a-fastapi-chatbot",
+    "href": "slides/m7-agents.html#exercise-build-a-fastapi-chatbot",
+    "title": "Module 7: Chatbots and Agents",
+    "section": "Exercise: Build a FastAPI Chatbot",
+    "text": "Exercise: Build a FastAPI Chatbot\nAsk Claude Code:\n“Build a chatbot web app using FastAPI and the Anthropic API. The frontend should be a simple HTML page with a text input and a chat window. The backend should call Claude and maintain conversation history. Store the API key in a .env file.”\nThen:\n\nClaude Code creates the backend (main.py) and frontend (index.html)\nRun the server: uvicorn main:app --reload\nOpen http://localhost:8000 in your browser and chat\n\n\nThis is the same architecture used by every production chatbot. Claude Code writes all the code — your job is to test and refine it."
+  },
+  {
+    "objectID": "slides/m7-agents.html#try-these-system-prompts",
+    "href": "slides/m7-agents.html#try-these-system-prompts",
+    "title": "Module 7: Chatbots and Agents",
+    "section": "Try These System Prompts",
+    "text": "Try These System Prompts\nEdit the system prompt in your chatbot and ask the same question each time. See how the response changes.\n\n\nHaiku only\n“Respond to every message as a haiku (5-7-5 syllables), no matter how complex the question.”\n\n\nPirate\n“You are a pirate. Respond to every message in pirate dialect.”\n\n\n\n\nMedieval knight\n“You are a medieval knight. Respond to every message as if explaining it to a peasant in the 14th century.”\n\n\nSports announcer\n“You are a sports announcer. Describe everything the user says as if it’s the most exciting play in history.”\n\n\n\nThen try a finance-relevant system prompt: “You are a CFO. Answer every question in terms of its impact on cash flow and shareholder value.”"
   },
   {
     "objectID": "slides/m7-agents.html#agent-loop-pseudocode",

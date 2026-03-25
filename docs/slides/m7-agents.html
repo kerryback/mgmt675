@@ -224,7 +224,8 @@ Kerry Back, Rice University
 <p><span class="card-title"><strong>What You Need</strong></span></p>
 <ul>
 <li>An API key (authentication)</li>
-<li>The <code>anthropic</code> Python package</li>
+<li>The <code>anthropic</code> Python package for Claude</li>
+<li>The <code>openai</code> Python package for OpenAI and many other models</li>
 <li>A model name (e.g., <code>claude-sonnet-4-20250514</code>)</li>
 </ul>
 </div>
@@ -291,6 +292,101 @@ Kerry Back, Rice University
 <li>You must send the <span class="amber">entire conversation history</span> each time</li>
 <li>The <strong>system prompt</strong> defines the agent’s behavior and available tools</li>
 </ul>
+</section>
+<section id="how-a-web-app-works" class="slide level2 center">
+<h2>How a Web App Works</h2>
+<p>Every web app has two parts that communicate over the internet.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Frontend</strong></span></p>
+<ul>
+<li>Runs in the <span class="amber">user’s browser</span></li>
+<li>HTML, CSS, and JavaScript</li>
+<li>Sends requests to the backend and displays results</li>
+<li>Cannot safely hold API keys — source is visible to anyone</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Backend</strong></span></p>
+<ul>
+<li>Runs on <span class="amber">a server</span> (your laptop counts during development)</li>
+<li>Python, Node.js, or any language</li>
+<li>Holds secrets (API keys, database credentials)</li>
+<li>Receives requests from the frontend, does the work, returns results</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>For a chatbot: browser sends the user’s message → backend calls the LLM API → backend returns the reply → browser displays it.</p>
+</div>
+</section>
+<section id="fastapi" class="slide level2 center">
+<h2>FastAPI</h2>
+<p><a href="https://fastapi.tiangolo.com">FastAPI</a> is a modern Python framework for building web backends.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Why FastAPI</strong></span></p>
+<ul>
+<li>Async-native — handles many requests concurrently</li>
+<li>Minimal boilerplate — a working API in under 20 lines</li>
+<li>Auto-generated interactive docs at <code>/docs</code></li>
+<li>Industry standard for Python APIs</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>For a Chatbot Backend</strong></span></p>
+<ul>
+<li>One endpoint receives the user’s message and conversation history</li>
+<li>Backend calls the Anthropic API with your <span class="amber">server-side API key</span></li>
+<li>Returns the assistant’s reply to the browser</li>
+<li>Key never touches the frontend</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>FastAPI is what sits between your chat interface and the LLM — it keeps credentials secure and handles the API calls.</p>
+</div>
+</section>
+<section id="exercise-build-a-fastapi-chatbot" class="slide level2 center">
+<h2>Exercise: Build a FastAPI Chatbot</h2>
+<p>Ask Claude Code:</p>
+<p><em>“Build a chatbot web app using FastAPI and the Anthropic API. The frontend should be a simple HTML page with a text input and a chat window. The backend should call Claude and maintain conversation history. Store the API key in a <code>.env</code> file.”</em></p>
+<p>Then:</p>
+<ol type="1">
+<li>Claude Code creates the backend (<code>main.py</code>) and frontend (<code>index.html</code>)</li>
+<li>Run the server: <code>uvicorn main:app --reload</code></li>
+<li>Open <code>http://localhost:8000</code> in your browser and chat</li>
+</ol>
+<div class="explainer" style="text-align:center;">
+<p>This is the same architecture used by every production chatbot. <span class="amber">Claude Code writes all the code</span> — your job is to test and refine it.</p>
+</div>
+</section>
+<section id="try-these-system-prompts" class="slide level2 center">
+<h2>Try These System Prompts</h2>
+<p>Edit the system prompt in your chatbot and ask the same question each time. See how the response changes.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Haiku only</strong></span></p>
+<p><em>“Respond to every message as a haiku (5-7-5 syllables), no matter how complex the question.”</em></p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Pirate</strong></span></p>
+<p><em>“You are a pirate. Respond to every message in pirate dialect.”</em></p>
+</div>
+</div>
+<div class="two-cards" style="margin-top:0.8em;">
+<div class="card card-light">
+<p><span class="card-title"><strong>Medieval knight</strong></span></p>
+<p><em>“You are a medieval knight. Respond to every message as if explaining it to a peasant in the 14th century.”</em></p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Sports announcer</strong></span></p>
+<p><em>“You are a sports announcer. Describe everything the user says as if it’s the most exciting play in history.”</em></p>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>Then try a <span class="amber">finance-relevant system prompt</span>: <em>“You are a CFO. Answer every question in terms of its impact on cash flow and shareholder value.”</em></p>
+</div>
 </section>
 <section id="agent-loop-pseudocode" class="slide level2 center">
 <h2>Agent Loop Pseudocode</h2>

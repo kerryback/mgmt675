@@ -28,7 +28,8 @@ An **API** lets your code communicate with an LLM service over the internet.
 [**What You Need**]{.card-title}
 
 - An API key (authentication)
-- The `anthropic` Python package
+- The `anthropic` Python package for Claude
+- The `openai` Python package for OpenAI and many other models
 - A model name (e.g., `claude-sonnet-4-20250514`)
 :::
 
@@ -100,6 +101,114 @@ response = client.messages.create(
 - Each API call is independent --- LLM has no memory
 - You must send the [entire conversation history]{.amber} each time
 - The **system prompt** defines the agent's behavior and available tools
+
+## How a Web App Works
+
+Every web app has two parts that communicate over the internet.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Frontend**]{.card-title}
+
+- Runs in the [user's browser]{.amber}
+- HTML, CSS, and JavaScript
+- Sends requests to the backend and displays results
+- Cannot safely hold API keys --- source is visible to anyone
+:::
+
+:::{.card .card-light}
+[**Backend**]{.card-title}
+
+- Runs on [a server]{.amber} (your laptop counts during development)
+- Python, Node.js, or any language
+- Holds secrets (API keys, database credentials)
+- Receives requests from the frontend, does the work, returns results
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+For a chatbot: browser sends the user's message → backend calls the LLM API → backend returns the reply → browser displays it.
+:::
+
+## FastAPI
+
+[FastAPI](https://fastapi.tiangolo.com) is a modern Python framework for building web backends.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Why FastAPI**]{.card-title}
+
+- Async-native --- handles many requests concurrently
+- Minimal boilerplate --- a working API in under 20 lines
+- Auto-generated interactive docs at `/docs`
+- Industry standard for Python APIs
+:::
+
+:::{.card .card-light}
+[**For a Chatbot Backend**]{.card-title}
+
+- One endpoint receives the user's message and conversation history
+- Backend calls the Anthropic API with your [server-side API key]{.amber}
+- Returns the assistant's reply to the browser
+- Key never touches the frontend
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+FastAPI is what sits between your chat interface and the LLM --- it keeps credentials secure and handles the API calls.
+:::
+
+## Exercise: Build a FastAPI Chatbot
+
+Ask Claude Code:
+
+*"Build a chatbot web app using FastAPI and the Anthropic API. The frontend should be a simple HTML page with a text input and a chat window. The backend should call Claude and maintain conversation history. Store the API key in a `.env` file."*
+
+Then:
+
+1. Claude Code creates the backend (`main.py`) and frontend (`index.html`)
+2. Run the server: `uvicorn main:app --reload`
+3. Open `http://localhost:8000` in your browser and chat
+
+:::{.explainer style="text-align:center;"}
+This is the same architecture used by every production chatbot. [Claude Code writes all the code]{.amber} --- your job is to test and refine it.
+:::
+
+## Try These System Prompts
+
+Edit the system prompt in your chatbot and ask the same question each time. See how the response changes.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Haiku only**]{.card-title}
+
+*"Respond to every message as a haiku (5-7-5 syllables), no matter how complex the question."*
+:::
+
+:::{.card .card-light}
+[**Pirate**]{.card-title}
+
+*"You are a pirate. Respond to every message in pirate dialect."*
+:::
+:::
+
+:::{.two-cards style="margin-top:0.8em;"}
+:::{.card .card-light}
+[**Medieval knight**]{.card-title}
+
+*"You are a medieval knight. Respond to every message as if explaining it to a peasant in the 14th century."*
+:::
+
+:::{.card .card-light}
+[**Sports announcer**]{.card-title}
+
+*"You are a sports announcer. Describe everything the user says as if it's the most exciting play in history."*
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+Then try a [finance-relevant system prompt]{.amber}: *"You are a CFO. Answer every question in terms of its impact on cash flow and shareholder value."*
+:::
 
 ## Agent Loop Pseudocode
 
