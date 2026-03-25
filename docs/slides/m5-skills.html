@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 5: Claude Sub-Agents and Skills</title>
+  <title>Module 5: Sub-Agents and Skills</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -133,7 +133,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 5: Claude Sub-Agents and Skills</h1>
+  <h1 class="title">Module 5: Sub-Agents and Skills</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -183,7 +183,7 @@ Kerry Back, Rice University
 <li><strong>Long computations</strong>: splitting a large dataset across agents to stay within context limits</li>
 </ul>
 <div class="explainer">
-<p>You will see a notice when Claude spawns a sub-agent. Each sub-agent has its own tool permissions and context window, so it starts fresh — it does not inherit your conversation history.</p>
+<p>You will see a notice when Claude spawns a sub-agent.</p>
 </div>
 </section>
 <section id="requesting-a-sub-agent" class="slide level2 center">
@@ -194,7 +194,31 @@ Kerry Back, Rice University
 <li><em>“Spawn a sub-agent to review this code for bugs while you work on the next feature.”</em></li>
 <li><em>“Use three parallel sub-agents to analyze each of these three reports, then summarize.”</em></li>
 </ul>
-<p>This is especially useful when you want a task isolated from the main context — for example, a long web search or a large file analysis that would otherwise fill the context window.</p>
+</section>
+<section id="context-windows" class="slide level2 center">
+<h2>Context Windows</h2>
+<p>An LLM can only “see” a finite amount of text at once — this limit is called its <span class="amber">context window</span>.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Your Conversation</strong></span></p>
+<ul>
+<li>Every message you send includes the <span class="amber">full conversation history</span> — all prior prompts and replies</li>
+<li>This is how the LLM remembers what you said earlier</li>
+<li>Long conversations gradually consume the context window</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Sub-Agent Conversations</strong></span></p>
+<ul>
+<li>Each sub-agent starts with a <span class="amber">fresh context window</span></li>
+<li>It only receives what the orchestrating agent decides to pass — a task description, relevant files, or specific data</li>
+<li>It does not see your full conversation history</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>This is a feature, not a bug — sub-agents stay focused on their subtask and don’t waste context on irrelevant history.</p>
+</div>
 </section>
 <section id="claude-skills" class="slide level2 section-divider center">
 <h2>Claude Skills</h2>

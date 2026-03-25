@@ -1,5 +1,5 @@
 ---
-title: "Module 5: Claude Sub-Agents and Skills"
+title: "Module 5: Sub-Agents and Skills"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -55,7 +55,7 @@ Claude Code [decides on its own]{.amber} when a task warrants sub-agents. You do
 - **Long computations**: splitting a large dataset across agents to stay within context limits
 
 :::{.explainer}
-You will see a notice when Claude spawns a sub-agent. Each sub-agent has its own tool permissions and context window, so it starts fresh --- it does not inherit your conversation history.
+You will see a notice when Claude spawns a sub-agent.
 :::
 
 ## Requesting a Sub-Agent
@@ -66,8 +66,31 @@ You can [explicitly ask]{.amber} Claude to use a sub-agent for any task:
 - *"Spawn a sub-agent to review this code for bugs while you work on the next feature."*
 - *"Use three parallel sub-agents to analyze each of these three reports, then summarize."*
 
-This is especially useful when you want a task isolated from the main context --- for example, a long web search or a large file analysis that would otherwise fill the context window.
+## Context Windows
 
+An LLM can only "see" a finite amount of text at once --- this limit is called its [context window]{.amber}.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Your Conversation**]{.card-title}
+
+- Every message you send includes the [full conversation history]{.amber} — all prior prompts and replies
+- This is how the LLM remembers what you said earlier
+- Long conversations gradually consume the context window
+:::
+
+:::{.card .card-light}
+[**Sub-Agent Conversations**]{.card-title}
+
+- Each sub-agent starts with a [fresh context window]{.amber}
+- It only receives what the orchestrating agent decides to pass — a task description, relevant files, or specific data
+- It does not see your full conversation history
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+This is a feature, not a bug --- sub-agents stay focused on their subtask and don't waste context on irrelevant history.
+:::
 
 ## Claude Skills {.section-divider}
 

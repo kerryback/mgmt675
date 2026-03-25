@@ -788,14 +788,14 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nClaude Sub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nCustom Chatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nCustom Chatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nClaude Sub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nCustom Chatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nCustom Chatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
   },
   {
     "objectID": "index.html",
@@ -1031,70 +1031,77 @@
   {
     "objectID": "slides/m5-skills.html#sub-agents",
     "href": "slides/m5-skills.html#sub-agents",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Sub-Agents",
     "text": "Sub-Agents"
   },
   {
     "objectID": "slides/m5-skills.html#what-is-a-sub-agent",
     "href": "slides/m5-skills.html#what-is-a-sub-agent",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "What Is a Sub-Agent?",
     "text": "What Is a Sub-Agent?\nWhen Claude Code handles a complex task, it can spin up sub-agents — separate Claude instances that work on subtasks in parallel or in sequence, then report back.\n\n\nOrchestrator\n\nThe main Claude session you are talking to\nBreaks the task into pieces\nDelegates to sub-agents and synthesizes results\n\n\n\nSub-Agent\n\nA fresh Claude instance with its own context\nReceives a specific subtask and tools\nReturns its result to the orchestrator\n\n\n\n\nSub-agents allow Claude to work in parallel and to keep each subtask focused — the orchestrator stays high-level while sub-agents do the detailed work."
   },
   {
     "objectID": "slides/m5-skills.html#spontaneous-sub-agents",
     "href": "slides/m5-skills.html#spontaneous-sub-agents",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Spontaneous Sub-Agents",
-    "text": "Spontaneous Sub-Agents\nClaude Code decides on its own when a task warrants sub-agents. You do not have to ask.\n\nParallel research: fetching data from multiple sources simultaneously\nMulti-file analysis: reviewing several documents at once and comparing findings\nIterative workflows: one agent drafts, another critiques, another revises\nLong computations: splitting a large dataset across agents to stay within context limits\n\n\nYou will see a notice when Claude spawns a sub-agent. Each sub-agent has its own tool permissions and context window, so it starts fresh — it does not inherit your conversation history."
+    "text": "Spontaneous Sub-Agents\nClaude Code decides on its own when a task warrants sub-agents. You do not have to ask.\n\nParallel research: fetching data from multiple sources simultaneously\nMulti-file analysis: reviewing several documents at once and comparing findings\nIterative workflows: one agent drafts, another critiques, another revises\nLong computations: splitting a large dataset across agents to stay within context limits\n\n\nYou will see a notice when Claude spawns a sub-agent."
   },
   {
     "objectID": "slides/m5-skills.html#requesting-a-sub-agent",
     "href": "slides/m5-skills.html#requesting-a-sub-agent",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Requesting a Sub-Agent",
-    "text": "Requesting a Sub-Agent\nYou can explicitly ask Claude to use a sub-agent for any task:\n\n“Use a sub-agent to research competitor pricing and report back.”\n“Spawn a sub-agent to review this code for bugs while you work on the next feature.”\n“Use three parallel sub-agents to analyze each of these three reports, then summarize.”\n\nThis is especially useful when you want a task isolated from the main context — for example, a long web search or a large file analysis that would otherwise fill the context window."
+    "text": "Requesting a Sub-Agent\nYou can explicitly ask Claude to use a sub-agent for any task:\n\n“Use a sub-agent to research competitor pricing and report back.”\n“Spawn a sub-agent to review this code for bugs while you work on the next feature.”\n“Use three parallel sub-agents to analyze each of these three reports, then summarize.”"
+  },
+  {
+    "objectID": "slides/m5-skills.html#context-windows",
+    "href": "slides/m5-skills.html#context-windows",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Context Windows",
+    "text": "Context Windows\nAn LLM can only “see” a finite amount of text at once — this limit is called its context window.\n\n\nYour Conversation\n\nEvery message you send includes the full conversation history — all prior prompts and replies\nThis is how the LLM remembers what you said earlier\nLong conversations gradually consume the context window\n\n\n\nSub-Agent Conversations\n\nEach sub-agent starts with a fresh context window\nIt only receives what the orchestrating agent decides to pass — a task description, relevant files, or specific data\nIt does not see your full conversation history\n\n\n\n\nThis is a feature, not a bug — sub-agents stay focused on their subtask and don’t waste context on irrelevant history."
   },
   {
     "objectID": "slides/m5-skills.html#claude-skills",
     "href": "slides/m5-skills.html#claude-skills",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Claude Skills",
     "text": "Claude Skills"
   },
   {
     "objectID": "slides/m5-skills.html#built-in-document-skills",
     "href": "slides/m5-skills.html#built-in-document-skills",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Built-In Document Skills",
     "text": "Built-In Document Skills\nAnthropic ships four document skills with every Claude product. No setup required.\n\n\nExcel\n\nCreate and edit Excel workbooks\nUses live formulas, not hardcoded values\nSupports charts, formatting, multiple sheets\n\n\n\nWord\n\nCreate and edit Word documents\nProfessional formatting, headers, tables\nSupports tracked changes and comments\n\n\n\nPowerPoint\n\nCreate and edit PowerPoint decks\nSlide layouts, charts, speaker notes\nCan modify existing presentations\n\n\n\n\nIn Claude Code (CLI or Desktop Code tab), invoke skills explicitly: /xlsx, /docx, /pptx"
   },
   {
     "objectID": "slides/m5-skills.html#the-xlsx-skill",
     "href": "slides/m5-skills.html#the-xlsx-skill",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "The /xlsx Skill",
     "text": "The /xlsx Skill\nIn Claude Code, skills are plain text files stored in ~/.claude/skills/. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nIn Claude Code on your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards."
   },
   {
     "objectID": "slides/m5-skills.html#pre-installed-skills-skill-creator",
     "href": "slides/m5-skills.html#pre-installed-skills-skill-creator",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Pre-Installed Skills: Skill Creator",
     "text": "Pre-Installed Skills: Skill Creator\nThe class installer also installs /skill-creator — a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
   },
   {
     "objectID": "slides/m5-skills.html#adding-your-own-skills",
     "href": "slides/m5-skills.html#adding-your-own-skills",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Adding Your Own Skills",
     "text": "Adding Your Own Skills\nYou can add custom skills to Claude Code at any time.\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name\nProject-level skills go in .claude/skills/ inside your repo\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific."
   },
   {
     "objectID": "slides/m5-skills.html#example-create-a-tasks-skill",
     "href": "slides/m5-skills.html#example-create-a-tasks-skill",
-    "title": "Module 5: Claude Sub-Agents and Skills",
+    "title": "Module 5: Sub-Agents and Skills",
     "section": "Example: Create a Tasks Skill",
     "text": "Example: Create a Tasks Skill\n\nType /skill-creator to start the skill builder\nDescribe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”"
   },
