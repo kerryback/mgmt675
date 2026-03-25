@@ -201,6 +201,31 @@ Kerry Back, Rice University
 <li>Cowork’s advantage is that it requires <strong>no local software setup</strong> and runs in an isolated sandbox</li>
 </ul>
 </section>
+<section id="terminal-alternative" class="slide level2 center">
+<h2>Terminal Alternative</h2>
+<p>The Code tab in Claude Desktop and the terminal command <code>claude</code> use the <span class="amber">same engine</span>.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Desktop (Code tab)</strong></span></p>
+<ul>
+<li>Visual interface with file browser</li>
+<li>Click to select working folder</li>
+<li>Good for getting started</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Terminal (<code>claude</code>)</strong></span></p>
+<ul>
+<li>Type <code>claude</code> in any terminal</li>
+<li>Same skills, same config</li>
+<li>Integrates with VS Code</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>Both approaches share the same skills, MCP servers, and configuration files.</p>
+</div>
+</section>
 <section id="class-installers" class="slide level2 center">
 <h2>Class Installers</h2>
 <p>The class installer sets up everything you need in one step:</p>
@@ -242,37 +267,24 @@ Kerry Back, Rice University
 <li>I would set permission mode to <strong>auto-accept,</strong> but do what you feel comfortable with.</li>
 </ol>
 </section>
-<section id="copy-and-paste-into-claude-code" class="slide level2 center">
-<h2>Copy and Paste into Claude Code</h2>
-<p>Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.</p>
-</section>
-<section id="terminal-alternative" class="slide level2 center">
-<h2>Terminal Alternative</h2>
-<p>The Code tab in Claude Desktop and the terminal command <code>claude</code> use the <span class="amber">same engine</span>.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Desktop (Code tab)</strong></span></p>
-<ul>
-<li>Visual interface with file browser</li>
-<li>Click to select working folder</li>
-<li>Good for getting started</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Terminal (<code>claude</code>)</strong></span></p>
-<ul>
-<li>Type <code>claude</code> in any terminal</li>
-<li>Same skills, same config</li>
-<li>Integrates with VS Code</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Both approaches share the same skills, MCP servers, and configuration files.</p>
-</div>
+<section id="example" class="slide level2 center">
+<h2>Example</h2>
+<p>Copy and past the following into the <strong>Code tab</strong> of Claude Desktop:</p>
+<p><em>Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.</em></p>
 </section>
 <section id="building-small-web-apps" class="slide level2 section-divider center">
 <h2>Building Small Web Apps</h2>
+</section>
+<section id="how-web-browsers-work" class="slide level2 center">
+<h2>How Web Browsers Work</h2>
+<p>A web browser is a program that <span class="amber">downloads and runs code</span> — HTML, CSS, and JavaScript — delivered by a server when you visit a URL.</p>
+<ul>
+<li><strong>HTML</strong> defines the content and structure</li>
+<li><strong>CSS</strong> controls the visual styling</li>
+<li><strong>JavaScript</strong> adds interactivity and computation</li>
+</ul>
+<p>Right-click any webpage and choose <strong>View Page Source</strong> to see the code your browser is running.</p>
+<p><span class="amber">Pyodide</span> is a JavaScript library that compiles Python to WebAssembly so it runs natively inside the browser. The result: Python code executing inside JavaScript, inside your browser — no server, no installation.</p>
 </section>
 <section id="running-python-in-the-browser" class="slide level2 center">
 <h2>Running Python in the Browser</h2>
@@ -335,7 +347,7 @@ Kerry Back, Rice University
 <li><code>Example3/</code> — earnings PDF report and stock prices spreadsheet</li>
 </ul>
 </section>
-<section id="copy-and-paste-into-claude-code-1" class="slide level2 center">
+<section id="copy-and-paste-into-claude-code" class="slide level2 center">
 <h2>Copy and Paste into Claude Code</h2>
 <p>Read the file <code>Example1/portfolio.xlsx</code>, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called <code>summary.xlsx</code>.</p>
 </section>
@@ -366,11 +378,11 @@ flowchart LR
 </div>
 </div>
 </section>
-<section id="copy-and-paste-into-claude-code-2" class="slide level2 center">
+<section id="copy-and-paste-into-claude-code-1" class="slide level2 center">
 <h2>Copy and Paste into Claude Code</h2>
 <p>The file <code>Example2/loan_terms.docx</code> contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file <code>Example2/payments.xlsx</code> contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to <code>summary.xlsx</code>.</p>
 </section>
-<section id="copy-and-paste-into-claude-code-3" class="slide level2 center">
+<section id="copy-and-paste-into-claude-code-2" class="slide level2 center">
 <h2>Copy and Paste into Claude Code</h2>
 <p>The file <code>Example3/earnings.pdf</code> contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file <code>Example3/prices.xlsx</code> contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to <code>pe_analysis.xlsx</code>.</p>
 

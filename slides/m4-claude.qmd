@@ -65,6 +65,32 @@ format:
 - Code can also build and deploy interactive tools (like Artifacts)
 - Cowork's advantage is that it requires **no local software setup** and runs in an isolated sandbox
 
+## Terminal Alternative
+
+The Code tab in Claude Desktop and the terminal command `claude` use the [same engine]{.amber}.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Claude Desktop (Code tab)**]{.card-title}
+
+- Visual interface with file browser
+- Click to select working folder
+- Good for getting started
+:::
+
+:::{.card .card-light}
+[**Terminal (`claude`)**]{.card-title}
+
+- Type `claude` in any terminal
+- Same skills, same config
+- Integrates with VS Code
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+Both approaches share the same skills, MCP servers, and configuration files.
+:::
+
 ## Class Installers
 
 The class installer sets up everything you need in one step:
@@ -103,37 +129,27 @@ The class installer sets up everything you need in one step:
 4. I would set permission mode to **auto-accept,** but do what you feel comfortable with.
 
 
-## Copy and Paste into Claude Code
+## Example
 
-Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.
+Copy and past the following into the **Code tab** of Claude Desktop:
 
-## Terminal Alternative
+*Create an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance.*
 
-The Code tab in Claude Desktop and the terminal command `claude` use the [same engine]{.amber}.
 
-:::{.two-cards}
-:::{.card .card-light}
-[**Claude Desktop (Code tab)**]{.card-title}
-
-- Visual interface with file browser
-- Click to select working folder
-- Good for getting started
-:::
-
-:::{.card .card-light}
-[**Terminal (`claude`)**]{.card-title}
-
-- Type `claude` in any terminal
-- Same skills, same config
-- Integrates with VS Code
-:::
-:::
-
-:::{.explainer style="text-align:center;"}
-Both approaches share the same skills, MCP servers, and configuration files.
-:::
 
 ## Building Small Web Apps {.section-divider}
+
+## How Web Browsers Work
+
+A web browser is a program that [downloads and runs code]{.amber} --- HTML, CSS, and JavaScript --- delivered by a server when you visit a URL.
+
+- **HTML** defines the content and structure
+- **CSS** controls the visual styling
+- **JavaScript** adds interactivity and computation
+
+Right-click any webpage and choose **View Page Source** to see the code your browser is running.
+
+[Pyodide]{.amber} is a JavaScript library that compiles Python to WebAssembly so it runs natively inside the browser. The result: Python code executing inside JavaScript, inside your browser --- no server, no installation.
 
 ## Running Python in the Browser
 
