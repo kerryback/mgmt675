@@ -238,6 +238,937 @@
     "text": "Key References\n\n\nLopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? Journal of Finance.\nKirtac & Germano (2024). Sentiment Trading with Large Language Models. Finance Research Letters.\nKim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.\nAraci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.\nWu et al. (2023). BloombergGPT: A Large Language Model for Finance.\nYang et al. (2023). FinGPT: Open-Source Financial Large Language Models.\nFinLlama (2024). Financial Sentiment Analysis for Algorithmic Trading. ICAIF ’24.\nCaldara & Iacoviello (2022). Measuring Geopolitical Risk. AER, 112(4).\nLi et al. (2024). FinDKG: Dynamic Knowledge Graphs with LLMs. ICAIF ’24."
   },
   {
+    "objectID": "slides/m8-data-security.html#the-trust-spectrum",
+    "href": "slides/m8-data-security.html#the-trust-spectrum",
+    "title": "Module 8: Data Security and Governance",
+    "section": "The Trust Spectrum",
+    "text": "The Trust Spectrum"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#ai-with-code-execution-a-fast-junior-analyst",
+    "href": "slides/m8-data-security.html#ai-with-code-execution-a-fast-junior-analyst",
+    "title": "Module 8: Data Security and Governance",
+    "section": "AI with Code Execution: A Fast Junior Analyst",
+    "text": "AI with Code Execution: A Fast Junior Analyst\nAI with code execution is like a fast junior analyst — capable but needs oversight. The level of oversight depends on the stakes.\n\n\nLow-Stakes\n\nExploratory charts\nDirectional trends\nInternal brainstorming\n\nQuick sanity check.\n\n\nMedium-Stakes\n\nTeam tools and skills\nRecurring reports\nInternal dashboards\n\nTest with known answers.\n\n\nHigh-Stakes\n\nClient deliverables\nRegulatory filings\nBoard presentations\n\nFull verification protocol.\n\n\nThe more consequential the decision, the more you verify. Not distrust — calibrated confidence."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#ai-makes-silent-analytical-errors",
+    "href": "slides/m8-data-security.html#ai-makes-silent-analytical-errors",
+    "title": "Module 8: Data Security and Governance",
+    "section": "AI Makes Silent Analytical Errors",
+    "text": "AI Makes Silent Analytical Errors"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#the-real-risk-not-hallucination-bugs",
+    "href": "slides/m8-data-security.html#the-real-risk-not-hallucination-bugs",
+    "title": "Module 8: Data Security and Governance",
+    "section": "The Real Risk: Not Hallucination — Bugs",
+    "text": "The Real Risk: Not Hallucination — Bugs\nAI in code-execution mode doesn’t invent facts the way a chatbot might. Instead, it makes silent analytical errors: wrong filters, dropped rows, incorrect joins.\n\n\nCommon errors\n\nMissing data silently dropped\nDate or currency parsing surprises\nFilters slightly off; aggregating before vs. after filtering\n\n\nWhy it’s dangerous\n\nThe output looks professional\nCharts render cleanly and nobody questions a polished result\nConfidence without verification is the real risk"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#catching-a-silent-error",
+    "href": "slides/m8-data-security.html#catching-a-silent-error",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Catching a Silent Error",
+    "text": "Catching a Silent Error\n\n\nThe prompt\n“What’s the average profit margin by sub-category? Exclude any sub-categories with negative total profit.”\nThe trap\n\nDoes AI filter before or after aggregating?\nDoes it drop rows with negative profit, or sub-categories with negative total profit?\nThe order matters — and AI often gets it wrong\n\n\nHow to catch it\n\n“Show me the code” — inspect the filter logic\n“How many rows are in the result?” — does it match your expectation?\n“List the excluded sub-categories” — are they the right ones?\n\nLesson: The more specific the filter logic, the more likely AI misinterprets it. Always verify multi-step operations."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#the-verification-checklist",
+    "href": "slides/m8-data-security.html#the-verification-checklist",
+    "title": "Module 8: Data Security and Governance",
+    "section": "The Verification Checklist",
+    "text": "The Verification Checklist"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#a-4-step-verification-protocol",
+    "href": "slides/m8-data-security.html#a-4-step-verification-protocol",
+    "title": "Module 8: Data Security and Governance",
+    "section": "A 4-Step Verification Protocol",
+    "text": "A 4-Step Verification Protocol\nApply this to any AI-generated analysis.\n\nSanity-check with known answers Ask questions where you already know the result: row count, column names, a total you can verify in Excel.\nAsk AI to show its methodology “Show me the code” or “Show me the SQL.” Read the logic, not just the output.\nCross-check by rephrasing Ask the same question differently. Start a fresh conversation and ask again. Do answers agree?\nSpot-check edge cases Test the smallest group, zero values, null fields, boundary dates. Errors hide at the edges."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#section",
+    "href": "slides/m8-data-security.html#section",
+    "title": "Module 8: Data Security and Governance",
+    "section": "",
+    "text": "Trust is a process, not a setting.\nEvery AI output deserves the same scrutiny you’d give a new analyst’s first deliverable."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#hands-on-validating-prior-work",
+    "href": "slides/m8-data-security.html#hands-on-validating-prior-work",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Hands-On: Validating Prior Work",
+    "text": "Hands-On: Validating Prior Work"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#reproducibility-test",
+    "href": "slides/m8-data-security.html#reproducibility-test",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Reproducibility Test",
+    "text": "Reproducibility Test\nTake analysis from earlier modules and test whether it reproduces.\n\n\nThe exercise\n\nPick a financial analysis from Module 2 (portfolio) or Module 4 (DCF)\nStart a fresh conversation\nGive the same data and ask the same question\nCompare: do the results match?\n\n\nWhat you’re testing\n\nReproducibility: Same data, same question — same answer?\nMethodology: Did AI use the same approach both times?\nStability: Small rephrasing shouldn’t change the result\n\n\nIf the numbers don’t match, that’s not a failure — it’s exactly why we verify. And it’s exactly why skills (Module 3) matter."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#auditing-a-dcf-model",
+    "href": "slides/m8-data-security.html#auditing-a-dcf-model",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Auditing a DCF Model",
+    "text": "Auditing a DCF Model\nTake the DCF built in Module 4. Start a fresh conversation. Ask Claude to critique it.\n\n\nWhat to ask\n\n“Identify 3+ questionable assumptions”\n“Check formula consistency — does FCF match the pro formas?”\n“Is the terminal value reasonable? Compare implied terminal growth to GDP growth.”\n\n\nWhy this matters\n\nThe most valuable use of AI is often having it check work, not produce it\nCross-evaluation: use a second conversation to critique the first\nCompare original vs. revised valuations"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#red-teaming-a-deployed-skill",
+    "href": "slides/m8-data-security.html#red-teaming-a-deployed-skill",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Red-Teaming a Deployed Skill",
+    "text": "Red-Teaming a Deployed Skill\nA database skill is the kind of tool people stop questioning once deployed. Test it like any tool your team depends on.\n\n\nAdversarial queries\n\nQuery for nonexistent data (“Sales in 2030”)\nRequest something not in the schema (“Customer satisfaction scores”)\nUse ambiguous language (“Best employee”)\n\n\nFor each failure\n\nDiagnose: Bad SQL? Missing context? Wrong assumption?\nFix: Add clarification, examples, or constraints to SKILL.md\nRetest: Run the query again after the fix\n\nThis is how production skills get hardened. Every failure makes the skill better."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#red-teaming-protocols",
+    "href": "slides/m8-data-security.html#red-teaming-protocols",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Red-Teaming Protocols",
+    "text": "Red-Teaming Protocols"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#systematic-red-teaming",
+    "href": "slides/m8-data-security.html#systematic-red-teaming",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Systematic Red-Teaming",
+    "text": "Systematic Red-Teaming\nRed-teaming goes beyond ad-hoc testing. A protocol ensures you test every failure mode systematically.\n\n\n\n\n\n\n\nTest Category\nWhat You Try\n\n\n\n\nOut-of-scope questions\nAsk about data that doesn’t exist in the schema\n\n\nConflicting documents\nUpload docs with contradictory numbers\n\n\nEdge cases\nZero values, null fields, single-row groups, boundary dates\n\n\nHand-written SQL comparison\nWrite the query yourself and compare to AI’s result\n\n\nAmbiguous language\n“Best customer” — by revenue? frequency? margin?\n\n\n\nA skill that hasn’t been red-teamed is a liability, not an asset."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#red-teaming-a-dcf-model",
+    "href": "slides/m8-data-security.html#red-teaming-a-dcf-model",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Red-Teaming a DCF Model",
+    "text": "Red-Teaming a DCF Model\nApply red-teaming protocols to the DCF models built in Module 4.\n\n\nFinancial Red-Team Tests\n\nSet revenue growth to 0% — does the model break?\nUse a WACC below the risk-free rate — does AI flag it?\nFeed a company with negative FCF and compare AI’s output to a hand-built Excel model\n\n\n\nWhat You Learn\n\nWhere the model silently produces nonsense\nWhich assumptions the AI accepts without questioning\nHow to improve guardrails so the verification checklist catches the errors"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#audit-logging",
+    "href": "slides/m8-data-security.html#audit-logging",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Audit Logging",
+    "text": "Audit Logging"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#jsonl-audit-logs",
+    "href": "slides/m8-data-security.html#jsonl-audit-logs",
+    "title": "Module 8: Data Security and Governance",
+    "section": "JSONL Audit Logs",
+    "text": "JSONL Audit Logs\nEvery AI interaction in a production system should produce an audit log entry. The standard format is JSONL (one JSON object per line).\n\n\nWhat to Log\n\nIdentity: timestamp, user, model\nContent: prompt and response\nMetadata: token count, latency, cost\n\n\n\nWhy It Matters\n\nCompliance: Regulators can audit what the AI said\nDebugging: Trace errors back to the exact prompt\nCost and quality: Track token usage and identify common failures for skill updates\n\n\n\nStore logs locally or in a cloud database. If it’s not logged, it didn’t happen."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#three-layers-of-auditability",
+    "href": "slides/m8-data-security.html#three-layers-of-auditability",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Three Layers of Auditability",
+    "text": "Three Layers of Auditability"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#defense-in-depth",
+    "href": "slides/m8-data-security.html#defense-in-depth",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Defense in Depth",
+    "text": "Defense in Depth\n\n\n\n📄\n\n\nLayer 1\n\n\nRAG Citations\n\n\n\n\n💻\n\n\nLayer 2\n\n\nCode Transparency\n\n\n\n\n📋\n\n\nLayer 3\n\n\nAudit Logs\n\n\n\n\nRAG citations: Ground answers in source documents with traceable references (Module 8). AI answers based on your content, not its training data.\nCode transparency: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.\nAudit logs: Every prompt, response, and token count recorded in JSONL. Complete trail of every AI decision.\n\nThe more layers, the harder it is for errors to reach your team."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#security-and-governance",
+    "href": "slides/m8-data-security.html#security-and-governance",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Security and Governance",
+    "text": "Security and Governance"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#data-policies-training-and-retention",
+    "href": "slides/m8-data-security.html#data-policies-training-and-retention",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Data Policies: Training and Retention",
+    "text": "Data Policies: Training and Retention\nBefore sending data to any AI provider, know the answers to two questions.\n\n\nWill they train on your data?\n\nConsumer tiers (free ChatGPT, free Claude) may use your input to improve models\nAPI and enterprise tiers typically do not\nCheck your agreement and settings\n\n\nHow long do they keep it?\n\nProviders retain prompts for a window (often 30 days) for safety monitoring\nEnterprise contracts may offer zero retention\nKnow the policy before you send sensitive data"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#the-schema-only-pattern",
+    "href": "slides/m8-data-security.html#the-schema-only-pattern",
+    "title": "Module 8: Data Security and Governance",
+    "section": "The Schema-Only Pattern",
+    "text": "The Schema-Only Pattern\nAI can analyze sensitive data without ever reading it. It only needs the table structure.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  S[\"&lt;b&gt;Schema&lt;/b&gt;&lt;br/&gt;&lt;i&gt;table names, columns&lt;/i&gt;\"] --&gt;|\"safe to share\"| AI[\"&lt;b&gt;AI&lt;/b&gt;\"]\n  AI --&gt; SQL[\"&lt;b&gt;SQL Code&lt;/b&gt;\"]\n  SQL --&gt; L[\"&lt;b&gt;Runs Locally&lt;/b&gt;\"]\n  DB[\"&lt;b&gt;Your Database&lt;/b&gt;\"] --&gt;|\"data stays here\"| L\n\n  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style AI fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style SQL fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style DB fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n\n\n\n\n\n\n\n\nHow it works\n\nDescribe tables in instructions: names, columns, types\nAsk AI to write the query\nAI writes SQL from the schema alone; the script runs locally and output stays local\n\n\nWhy it’s compliant\n\nTable metadata is not PII — safe to share\nSensitive records stay on your server\nAI produces the tool, not the output\nWorks for FERPA, HIPAA, SOX, GDPR"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#improving-sql-quality-schema-synthetic-rows",
+    "href": "slides/m8-data-security.html#improving-sql-quality-schema-synthetic-rows",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Improving SQL Quality: Schema + Synthetic Rows",
+    "text": "Improving SQL Quality: Schema + Synthetic Rows\nSchema alone works, but adding ~3 synthetic rows per table makes the generated SQL significantly more accurate.\n\n\nWhy sample rows help\n\nReveal data formats (is status 'Active' or 1?)\nDisambiguate columns (is code a country code or product code?)\nHelp the LLM write correct WHERE clauses with properly formatted literals\n\n\nRules\n\nRows are synthetic — fabricated to match real formats without containing actual records\nThree rows per table is the sweet spot; more tends to distract the model\nDatabricks: ~3 rows per table raises SQL accuracy by ~6 pp"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#where-should-ai-infrastructure-live",
+    "href": "slides/m8-data-security.html#where-should-ai-infrastructure-live",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Where Should AI Infrastructure Live?",
+    "text": "Where Should AI Infrastructure Live?\nWhen you connect an AI agent to enterprise data, you face a fundamental question: where does the computation happen?\n\n\nPublic Cloud AI\n\nData sent to provider (OpenAI, Anthropic, Google)\nFastest to deploy\nProvider controls infrastructure\n\n\n\nPrivate / On-Prem AI\n\nData never leaves your network\nFull control over access\nHigher upfront cost\n\n\n\nHybrid\n\nSensitive data stays on-prem\nNon-sensitive tasks use cloud AI\nMost common enterprise pattern\n\n\n\nAntonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.”"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#data-sovereignty",
+    "href": "slides/m8-data-security.html#data-sovereignty",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Data Sovereignty",
+    "text": "Data Sovereignty\nData sovereignty means controlling where your data lives, who can access it, and what jurisdiction governs it.\n\n\nWhy it matters for AI\n\nAI agents may transmit query results to external LLMs\nRegulations (GDPR, HIPAA, SOX) may restrict where data can go\nDefense agencies require air-gapped environments\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M on-prem private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#data-security-running-ai-locally",
+    "href": "slides/m8-data-security.html#data-security-running-ai-locally",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Data Security: Running AI Locally",
+    "text": "Data Security: Running AI Locally"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#the-case-for-local-ai",
+    "href": "slides/m8-data-security.html#the-case-for-local-ai",
+    "title": "Module 8: Data Security and Governance",
+    "section": "The Case for Local AI",
+    "text": "The Case for Local AI\nCloud AI is convenient, but local models keep data inside your machine — no transmission, no retention policy, no provider to trust.\n\n\nWhen local AI makes sense\n\nClient data under NDA\nHIPAA, GDPR, or FERPA-covered records\nProprietary deal models and memos\nRegulated industries (banking, defense, healthcare)\n\n\nThe trade-off\n\n\n\n\nCloud AI\nLocal AI\n\n\n\n\nModel quality\n★★★★★\n★★★☆☆\n\n\nData privacy\nProvider policy\n100% local\n\n\nSetup cost\nNone\nMinutes\n\n\nCompute\nUnlimited\nYour hardware\n\n\n\n\nFor narrow, sensitive tasks, a smaller local model is often the right call."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#ollama-local-llms-in-one-installer",
+    "href": "slides/m8-data-security.html#ollama-local-llms-in-one-installer",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Ollama: Local LLMs in One Installer",
+    "text": "Ollama: Local LLMs in One Installer\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.\n\n\nHow it works\n\nDownload and run the Ollama installer\nPull a model (e.g., llama3.2)\nChat locally via a browser UI or the terminal\nAll inference runs on your CPU/GPU\n\n\nAvailable models\n\nLlama 3.1 (Meta, 8B) — strong reasoning\nLlama 3.2 (Meta, 3B) — faster, lighter\nMistral, Gemma, Phi — many options\nModels download once and run offline"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#exercise-install-ollama-and-try-local-llms",
+    "href": "slides/m8-data-security.html#exercise-install-ollama-and-try-local-llms",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Exercise: Install Ollama and Try Local LLMs",
+    "text": "Exercise: Install Ollama and Try Local LLMs"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#exercise-running-a-local-model",
+    "href": "slides/m8-data-security.html#exercise-running-a-local-model",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Exercise: Running a Local Model",
+    "text": "Exercise: Running a Local Model\n\n\nSetup\n\nGo to ollama.com and download the installer for your OS\nRun the installer (no terminal needed)\nOnce installed, open a terminal and run:\nollama run llama3.2\nThen try:\nollama run llama3.1\n\n\nThe prompt\nGive each model this prompt and compare their responses:\n\n“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”\n\nWhat to notice: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.\n\nBoth models run entirely on your machine. No data is sent anywhere."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#ai-adoption-roadmap",
+    "href": "slides/m8-data-security.html#ai-adoption-roadmap",
+    "title": "Module 8: Data Security and Governance",
+    "section": "AI Adoption Roadmap",
+    "text": "AI Adoption Roadmap"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#the-sandbox-audit-deploy-pattern",
+    "href": "slides/m8-data-security.html#the-sandbox-audit-deploy-pattern",
+    "title": "Module 8: Data Security and Governance",
+    "section": "The Sandbox-Audit-Deploy Pattern",
+    "text": "The Sandbox-Audit-Deploy Pattern\nBefore deploying any AI workflow to your team, follow three phases.\n\n\n\n🧪\n\n\n\nSandbox\n\n\n\nTest with dummy data\n\n\n\n\n🔍\n\n\n\nAudit\n\n\n\nReview logs and logic\n\n\n\n\n🚀\n\n\n\nDeploy\n\n\n\nRoll out with monitoring\n\n\n\nTest with synthetic data, review logs and logic, then roll out with weekly monitoring."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#adoption-timeline-from-quick-wins-to-strategic",
+    "href": "slides/m8-data-security.html#adoption-timeline-from-quick-wins-to-strategic",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Adoption Timeline: From Quick Wins to Strategic",
+    "text": "Adoption Timeline: From Quick Wins to Strategic\nEach adoption stage maps to a trust level.\n\nQuick wins (weeks) — light verification:\n\nChat for research, summarization, drafts\nUpload spreadsheets for ad-hoc analysis\n\nMedium-term (months) — test-before-deploy:\n\nSkills for recurring workflows (Module 3)\nMCP integrations and Streamlit apps (Modules 7, 8)\n\nStrategic (quarters) — full audit trail:\n\nProduction apps with authentication\nAI usage policy and governance framework"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#small-language-models-and-fine-tuning",
+    "href": "slides/m8-data-security.html#small-language-models-and-fine-tuning",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Small Language Models and Fine-Tuning",
+    "text": "Small Language Models and Fine-Tuning"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#improving-reliability-fine-tuning-and-slms",
+    "href": "slides/m8-data-security.html#improving-reliability-fine-tuning-and-slms",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Improving Reliability: Fine-Tuning and SLMs",
+    "text": "Improving Reliability: Fine-Tuning and SLMs\nA complementary approach to verification: make the model itself more reliable for your tasks.\n\n\nFine-tuning an LLM\n\nTrain on your domain data (10-Ks, memos, deal docs)\nModel learns your terminology and conventions\nFewer silent errors on domain-specific tasks\n\n\nSmall Language Models (SLMs)\n\n~1–8B parameters (vs. hundreds of billions)\nFine-tuned in hours on a single GPU\nRun on-premise — data never leaves your network\nSpecialized small models can outperform large models on narrow tasks"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#why-slms-for-agentic-systems",
+    "href": "slides/m8-data-security.html#why-slms-for-agentic-systems",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Why SLMs for Agentic Systems?",
+    "text": "Why SLMs for Agentic Systems?\nBelcak et al. (2025), “Small Language Models are the Future of Agentic AI”:\n\nMost agent subtasks are repetitive, scoped, and non-conversational — classifying documents, extracting fields, formatting outputs\nSLMs fine-tuned on a single task outperform LLMs on format compliance and consistency\n10–30x cheaper in latency, energy, and compute vs. large models\nOn-device deployment enables real-time, offline inference with full data privacy\nAgents can use multiple models: an LLM for complex reasoning, SLMs for routine subtasks"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#from-llm-to-slm-the-conversion-process",
+    "href": "slides/m8-data-security.html#from-llm-to-slm-the-conversion-process",
+    "title": "Module 8: Data Security and Governance",
+    "section": "From LLM to SLM: The Conversion Process",
+    "text": "From LLM to SLM: The Conversion Process\nThe paper proposes a six-step migration path:\n\n\n\n📝\n\n\n\nLog\n\n\n\nAgent interactions (prompts, responses, tool calls)\n\n\n\n\n🧹\n\n\n\nCurate\n\n\n\nRemove PII, filter for quality\n\n\n\n\n🔗\n\n\n\nCluster\n\n\n\nIdentify recurring task patterns\n\n\n\n\n📐\n\n\n\nSelect\n\n\n\nSLM sized to each task’s complexity\n\n\n\n\n⚙️\n\n\n\nFine-tune\n\n\n\nLoRA with 10K–100K examples\n\n\n\n\n🔄\n\n\n\nRepeat\n\n\n\nRetrain as usage patterns evolve\n\n\n\nThe audit logs from earlier in this module are exactly the data you need for step 1."
+  },
+  {
+    "objectID": "slides/m8-data-security.html#summary",
+    "href": "slides/m8-data-security.html#summary",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Summary",
+    "text": "Summary"
+  },
+  {
+    "objectID": "slides/m8-data-security.html#summary-1",
+    "href": "slides/m8-data-security.html#summary-1",
+    "title": "Module 8: Data Security and Governance",
+    "section": "Summary",
+    "text": "Summary\n\n\nVerification\n\nTrust spectrum\n4-step protocol\nSilent errors\n\n\n\nRed-Teaming\n\nSystematic protocols\nEdge cases\nSQL comparison\n\n\n\nAudit Logs\n\nJSONL format\nCompliance trail\nCost tracking\n\n\n\nGovernance\n\nData policies\nSchema-only\nAdoption roadmap\n\n\n\n\nVerify, govern, then deploy."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#from-makers-to-checkers",
+    "href": "slides/m6-makers-checkers.html#from-makers-to-checkers",
+    "title": "Module 6: Makers and Checkers",
+    "section": "From Makers to Checkers",
+    "text": "From Makers to Checkers\n\nWhat we’re working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.\nWorkers would shift from being creators of reports or software updates, or ‘makers’ … to ‘“checkers” or managers of AI agents’ doing that work.\n\n\nDerek Waldron, JP Morgan Chief Analytics Officer — CNBC interview, September 30, 2025"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#the-maker",
+    "href": "slides/m6-makers-checkers.html#the-maker",
+    "title": "Module 6: Makers and Checkers",
+    "section": "The Maker",
+    "text": "The Maker\nAI as maker is a fast, tireless junior analyst that handles the mechanical work.\n\n\nWhat AI Does Well\n\nDrafts reports, memos, and summaries\nWrangles and merges data from multiple sources\nBuilds spreadsheets with live formulas\nRuns calculations and generates charts\nFormats output to a professional standard\n\n\n\nThe Speed Advantage\n\nTasks that take hours become minutes\nNo fatigue, no context-switching cost\nRuns the same workflow identically every time\nFrees you for judgment, relationships, and strategy"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#the-checker",
+    "href": "slides/m6-makers-checkers.html#the-checker",
+    "title": "Module 6: Makers and Checkers",
+    "section": "The Checker",
+    "text": "The Checker\nYour role shifts from doing the work to directing and verifying it.\n\n\nDirecting\n\nSpecify the task clearly\nProvide the right inputs and context\nDefine what “good output” looks like\nDecide when to iterate vs. accept\n\n\n\nVerifying\n\nSpot-check key numbers against known sources\nConfirm the logic matches the business question\nReview edge cases and assumptions\nSign off before the output goes anywhere consequential\n\n\n\n\nThe checker adds the judgment the maker lacks. Neither alone is enough."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#where-ai-can-silently-fail",
+    "href": "slides/m6-makers-checkers.html#where-ai-can-silently-fail",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Where AI Can Silently Fail",
+    "text": "Where AI Can Silently Fail"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#silent-analytical-errors",
+    "href": "slides/m6-makers-checkers.html#silent-analytical-errors",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Silent Analytical Errors",
+    "text": "Silent Analytical Errors\nAI in code-execution mode rarely invents facts outright. Instead it makes silent analytical errors — mistakes that look fine on the surface.\n\n\nCommon Failure Modes\n\nFilters slightly off (wrong date range, wrong column)\nMissing data dropped without warning\nAggregation in the wrong order\nMisread assumptions from an ambiguous prompt\nMade-up citations or statistics in prose\n\n\n\nWhy They’re Dangerous\n\nOutput looks polished and professional\nCharts render cleanly — nobody questions a clean chart\nErrors compound silently in multi-step workflows\nConfidence without verification is the real risk"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#the-checkers-toolkit",
+    "href": "slides/m6-makers-checkers.html#the-checkers-toolkit",
+    "title": "Module 6: Makers and Checkers",
+    "section": "The Checker’s Toolkit",
+    "text": "The Checker’s Toolkit\nYou don’t need to re-do the work. You need targeted verification.\n\nSpot-check with known answers — run a simplified version of the calculation by hand on one or two rows\nAsk Claude to explain its logic — “Walk me through how you computed this number”\nReview the code — ask Claude to show the key filter and aggregation steps\nTest edge cases — what happens with zeros, negatives, or missing values?\nSanity-check the magnitude — does the answer make sense given what you know?\n\n\nPick the checks that match the stakes. A quick directional analysis needs less verification than a client deliverable."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#packaging-the-maker-as-a-skill",
+    "href": "slides/m6-makers-checkers.html#packaging-the-maker-as-a-skill",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Packaging the Maker as a Skill",
+    "text": "Packaging the Maker as a Skill"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#why-build-a-skill",
+    "href": "slides/m6-makers-checkers.html#why-build-a-skill",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Why Build a Skill?",
+    "text": "Why Build a Skill?\nOnce you have a workflow that works and passes your checks, turn it into a skill — a reusable, one-command process.\n\n\nWithout a Skill\n\nRe-type or copy-paste the same prompt each time\nRisk of drift — slightly different wording, slightly different output\nOthers on your team can’t easily reuse your work\n\n\n\nWith a Skill\n\nOne /command runs the full workflow\nSame logic, same checks, same output format every time\nShareable — drop it in a shared skills/ folder\n\n\n\n\nA skill is how a one-time workflow becomes a team asset."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#building-a-skill-with-skill-creator",
+    "href": "slides/m6-makers-checkers.html#building-a-skill-with-skill-creator",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Building a Skill with /skill-creator",
+    "text": "Building a Skill with /skill-creator\n\nType /skill-creator to start the skill builder\nDescribe the workflow: inputs, steps, outputs, and any checks to include\nClaude generates a SKILL.md and installs it in ~/.claude/skills/\nInvoke it anytime with /skill-name\n\n\nYou can embed checker steps directly in the skill — for example, “after computing the result, show the row count and the min/max values so the user can sanity-check the data.”"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#valuing-companies",
+    "href": "slides/m6-makers-checkers.html#valuing-companies",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Valuing Companies",
+    "text": "Valuing Companies"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#valuation-by-multiples",
+    "href": "slides/m6-makers-checkers.html#valuation-by-multiples",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Valuation by Multiples",
+    "text": "Valuation by Multiples\nCompare the target company to similar public companies on industry and size, then apply their valuation multiples.\n\n\nFinding Comparables\n\nMatch on industry (same SIC code or GICS sector)\nMatch on size (revenue, market cap, or total assets)\nThe closer the match, the more reliable the multiple\n\n\n\nCommon Multiples\n\nP/E — price to earnings; most widely used\nP/S — price to sales; useful when earnings are negative\nP/B — price to book; common in financial firms\n\n\n\n\nFor full automation, connect the agent to a database of public company financials — it can pull comparables, compute medians, and apply multiples in one step."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
+    "href": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Two-Stage DCF Analysis",
+    "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates\nExample: forecast sales growth, then derive everything else in relation to sales\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#gotcha-1",
+    "href": "slides/m6-makers-checkers.html#gotcha-1",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Gotcha 1",
+    "text": "Gotcha 1\n\nIt is reasonable to forecast balance sheet items in proportion to sales: receivables/sales, inventory/sales, net PP&E/sales, …\nThe change in a balance sheet item depends on the ratios in two successive years\nOutside of constant growth, compute the change — don’t forecast it as a proportion of sales\nFor cap ex: forecast net PP&E as a proportion of sales, forecast depreciation as a percent of net PP&E, calculate cap ex as the plug"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#gotcha-1-example",
+    "href": "slides/m6-makers-checkers.html#gotcha-1-example",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Gotcha 1 Example",
+    "text": "Gotcha 1 Example"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#gotcha-2",
+    "href": "slides/m6-makers-checkers.html#gotcha-2",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Gotcha 2",
+    "text": "Gotcha 2\nBecause changes in balance sheet items depend on sales growth in two successive years, first year of constant cash flow growth is second year of constant sales growth.\nAdd one year of constant sales growth to Stage 1. Make that year the terminal year."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#gotcha-2-continued",
+    "href": "slides/m6-makers-checkers.html#gotcha-2-continued",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Gotcha 2 (continued)",
+    "text": "Gotcha 2 (continued)"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#getting-started",
+    "href": "slides/m6-makers-checkers.html#getting-started",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Getting Started",
+    "text": "Getting Started\nAsk Claude Code:\nBuild an example of a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates."
+  },
+  {
+    "objectID": "slides/m4-claude.html#outline",
+    "href": "slides/m4-claude.html#outline",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Outline",
+    "text": "Outline\n\nClaude Desktop Install\nBuilding Small Web Apps\nWorking with Files"
+  },
+  {
+    "objectID": "slides/m4-claude.html#claude-desktop-overview",
+    "href": "slides/m4-claude.html#claude-desktop-overview",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Claude Desktop Overview",
+    "text": "Claude Desktop Overview"
+  },
+  {
+    "objectID": "slides/m4-claude.html#three-tabs-chat-cowork-code",
+    "href": "slides/m4-claude.html#three-tabs-chat-cowork-code",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Three Tabs: Chat, Cowork, Code",
+    "text": "Three Tabs: Chat, Cowork, Code\n\n\nChat (Analysis)\n\nSandboxed Python in the browser\nNo local file access\nMust upload data manually\n\n\n\nCowork\n\nRuns in a local VM\nFiles synced to/from VM\nNo internet access\n\n\n\nCode\n\nRuns on your machine\nFull local file access\nFull internet access\n\n\n\n\nCode mode gives Claude direct access to your machine — no sandbox, no VM, no upload step."
+  },
+  {
+    "objectID": "slides/m4-claude.html#which-tool-when",
+    "href": "slides/m4-claude.html#which-tool-when",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Which Tool When?",
+    "text": "Which Tool When?\n\nChat for questions, explanations, and brainstorming\nArtifacts for quick interactive tools (e.g., a DCF calculator with sliders)\nCode can do everything Cowork can do, plus it has full internet access and direct access to your local files\nCode can also build and deploy interactive tools (like Artifacts)\nCowork’s advantage is that it requires no local software setup and runs in an isolated sandbox"
+  },
+  {
+    "objectID": "slides/m4-claude.html#terminal-alternative",
+    "href": "slides/m4-claude.html#terminal-alternative",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Terminal Alternative",
+    "text": "Terminal Alternative\nThe Code tab in Claude Desktop and the terminal command claude use the same engine.\n\n\nClaude Desktop (Code tab)\n\nVisual interface with file browser\nClick to select working folder\nGood for getting started\n\n\n\nTerminal (claude)\n\nType claude in any terminal\nSame skills, same config\nIntegrates with VS Code\n\n\n\n\nBoth approaches share the same skills, MCP servers, and configuration files."
+  },
+  {
+    "objectID": "slides/m4-claude.html#class-installers",
+    "href": "slides/m4-claude.html#class-installers",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Class Installers",
+    "text": "Class Installers\nThe class installer sets up everything you need in one step:\n\nPython — language Claude Code uses to execute analysis\nGit for Windows (Windows only) — required by the terminal Claude Code\nClaude Desktop — the application with built-in Claude Code\nClaude Code (terminal) — run claude from any terminal or VS Code"
+  },
+  {
+    "objectID": "slides/m4-claude.html#running-the-installers",
+    "href": "slides/m4-claude.html#running-the-installers",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Running the Installers",
+    "text": "Running the Installers\n\n\nWindows\n\nDownload Windows Installer\nExtract the zip file\nDouble-click INSTALL.bat\nClick Yes when the permission prompt appears\n\n\n\nMac\n\nDownload Mac Installer to Downloads\nOpen Terminal\nRun: cd ~/Downloads && bash install.sh"
+  },
+  {
+    "objectID": "slides/m4-claude.html#getting-started",
+    "href": "slides/m4-claude.html#getting-started",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Getting Started",
+    "text": "Getting Started\n\nOpen Claude Desktop → Code tab\nSelect a working folder for your project\nChoose a model: use Sonnet to conserve tokens; Opus is more thorough but uses tokens much faster\nI would set permission mode to auto-accept, but do what you feel comfortable with."
+  },
+  {
+    "objectID": "slides/m4-claude.html#example",
+    "href": "slides/m4-claude.html#example",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example",
+    "text": "Example\nCopy and past the following into the Code tab of Claude Desktop:\nCreate an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance."
+  },
+  {
+    "objectID": "slides/m4-claude.html#building-small-web-apps",
+    "href": "slides/m4-claude.html#building-small-web-apps",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Building Small Web Apps",
+    "text": "Building Small Web Apps"
+  },
+  {
+    "objectID": "slides/m4-claude.html#how-web-browsers-work",
+    "href": "slides/m4-claude.html#how-web-browsers-work",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "How Web Browsers Work",
+    "text": "How Web Browsers Work\nA web browser is a program that downloads and runs code — HTML, CSS, and JavaScript — delivered by a server when you visit a URL.\n\nHTML defines the content and structure\nCSS controls the visual styling\nJavaScript adds interactivity and computation\n\nRight-click any webpage and choose View Page Source to see the code your browser is running.\nPyodide is a JavaScript library that compiles Python to WebAssembly so it runs natively inside the browser. The result: Python code executing inside JavaScript, inside your browser — no server, no installation."
+  },
+  {
+    "objectID": "slides/m4-claude.html#running-python-in-the-browser",
+    "href": "slides/m4-claude.html#running-python-in-the-browser",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Running Python in the Browser",
+    "text": "Running Python in the Browser\nPyodide is a full Python runtime compiled to WebAssembly. It runs inside a browser tab — no server, no installation.\n\n\nWhat Pyodide Provides\n\nFull CPython interpreter in the browser\nNumPy, pandas, and other scientific packages\nBidirectional JavaScript ↔︎ Python interop\n\n\n\nWhat You Can Build\n\nCalculators and financial models\nInteractive charts and dashboards\nAny tool that runs entirely in the browser\n\n\n\n\nThis is the same technology Claude uses under the hood for artifacts — a self-contained HTML file with Pyodide embedded in it."
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-npv-web-app",
+    "href": "slides/m4-claude.html#example-npv-web-app",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example: NPV Web App",
+    "text": "Example: NPV Web App\nAsk Claude Code:\n“Create an HTML file called npv.html that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button.”\nThen:\n\nFind npv.html in your project folder\nDouble-click it — it opens in your browser\nEnter cash flows and a discount rate, click the button, and see the NPV\n\n\nThe HTML file is self-contained. Anyone can open it — no Python installation needed."
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-bar-chart-race",
+    "href": "slides/m4-claude.html#example-bar-chart-race",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example: Bar Chart Race",
+    "text": "Example: Bar Chart Race\nDownload marketcap.xlsx — end-of-year market cap by sector, 2000–2025.\nUpload it to Claude and ask:\n“Build a web app with a bar chart race to show how the sizes of different sectors have changed over time.”\n\nClaude reads the data and writes the Plotly code — you get an interactive animated chart without writing a line of code."
+  },
+  {
+    "objectID": "slides/m4-claude.html#working-with-files",
+    "href": "slides/m4-claude.html#working-with-files",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Working with Files",
+    "text": "Working with Files"
+  },
+  {
+    "objectID": "slides/m4-claude.html#download-the-example-files",
+    "href": "slides/m4-claude.html#download-the-example-files",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Download the Example Files",
+    "text": "Download the Example Files\nDownload module4.zip and extract it to a folder on your computer.\nPoint Claude Code to that folder. It contains three subfolders:\n\nExample1/ — portfolio holdings spreadsheet\nExample2/ — loan terms document and payment history spreadsheet\nExample3/ — earnings PDF report and stock prices spreadsheet"
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-1",
+    "href": "slides/m4-claude.html#example-1",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example 1",
+    "text": "Example 1\nCopy and paste the following into the Code tab of Claude Desktop:\nRead the file Example1/portfolio.xlsx, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called summary.xlsx."
+  },
+  {
+    "objectID": "slides/m4-claude.html#merging-data-from-different-sources",
+    "href": "slides/m4-claude.html#merging-data-from-different-sources",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Merging Data from Different Sources",
+    "text": "Merging Data from Different Sources\nReal financial data rarely lives in a single file or format. Claude Code can read Excel, PDF, and Word files, then combine, filter, and aggregate.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  WRD[\"&lt;b&gt;Word&lt;/b&gt;\"] --&gt; CC[\"&lt;b&gt;Claude Code&lt;/b&gt;&lt;br&gt;Merge, Filter, Aggregate\"]\n  XLS[\"&lt;b&gt;Excel&lt;/b&gt;\"] --&gt; CC\n  PDF[\"&lt;b&gt;PDF&lt;/b&gt;\"] --&gt; CC\n  CC --&gt; UT[\"&lt;b&gt;Unified Table&lt;/b&gt;\"]\n\n  style WRD fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px"
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-2",
+    "href": "slides/m4-claude.html#example-2",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example 2",
+    "text": "Example 2\nCopy and paste the following into the Code tab of Claude desktop:\nThe file Example2/loan_terms.docx contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file Example2/payments.xlsx contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to summary.xlsx."
+  },
+  {
+    "objectID": "slides/m4-claude.html#example-3",
+    "href": "slides/m4-claude.html#example-3",
+    "title": "Module 4: Claude Desktop & Code",
+    "section": "Example 3",
+    "text": "Example 3\nCopy and paste the following into the Code tab of Claude Desktop:\nThe file Example3/earnings.pdf contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file Example3/prices.xlsx contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to pe_analysis.xlsx."
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#exploring-claude.ai",
+    "href": "slides/m2-intro-claude.html#exploring-claude.ai",
+    "title": "Module 2: Exploring Claude",
+    "section": "Exploring Claude.ai",
+    "text": "Exploring Claude.ai"
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#getting-started-claude.ai",
+    "href": "slides/m2-intro-claude.html#getting-started-claude.ai",
+    "title": "Module 2: Exploring Claude",
+    "section": "Getting Started: Claude.ai",
+    "text": "Getting Started: Claude.ai\nGo to claude.ai in any browser. No installation required. Icon at top left opens sidebar.\nWhat it can do: It’s a chatbot with a code execution tool. It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in. It can also generate charts, Excel files, Word docs, and PowerPoint decks. Code runs in a sandbox — can pip install packages but has no internet access.\nGetting started:\n\nGo to claude.ai and sign in (or create an account)\nType a question or upload a file\nIterate: refine, ask follow-ups, request changes"
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#artifacts-interactive-charts-and-apps",
+    "href": "slides/m2-intro-claude.html#artifacts-interactive-charts-and-apps",
+    "title": "Module 2: Exploring Claude",
+    "section": "Artifacts: Interactive Charts and Apps",
+    "text": "Artifacts: Interactive Charts and Apps\n\nClaude can produce interactive charts and apps that appear in a side panel\nChoose Artifacts → Create an Artifact → apps or websites\nClick Publish to get a shareable link — anyone can view and interact, no Claude account needed\n\nWhat Artifacts Can Build\n\n\n\nInteractive charts with hover/zoom\nFinancial calculators\nScenario analysis with sliders\n\n\n\n\nROI tools and comparisons\nDashboards with filters\nSurveys and data collection\n\n\n\n\nLimitation: Artifacts are client-side only — no database, no persistence. They are disposable by design: generate a new one when needs change, rather than maintaining an old one."
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#artifact-example-black-scholes-calculator",
+    "href": "slides/m2-intro-claude.html#artifact-example-black-scholes-calculator",
+    "title": "Module 2: Exploring Claude",
+    "section": "Artifact Example: Black-Scholes Calculator",
+    "text": "Artifact Example: Black-Scholes Calculator\n“Create a Black-Scholes option calculator with inputs for stock price, strike, rate, volatility, and expiration, and plot call and put prices as the stock price varies from 50% to 150% of the strike.”\nPublish: Publish the artifact and share the link."
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#artifacts-across-platforms",
+    "href": "slides/m2-intro-claude.html#artifacts-across-platforms",
+    "title": "Module 2: Exploring Claude",
+    "section": "Artifacts Across Platforms",
+    "text": "Artifacts Across Platforms\nAll three major platforms let you describe what you want in plain English and get an interactive tool.\n\nClaude Artifacts build React apps you can publish with one click — no account needed to view\nChatGPT Canvas produces similar React apps with inline editing and shareable links\nGemini Canvas generates HTML/CSS/JS and exports or copies the result\n\nWe use Claude, but the concepts transfer to any platform."
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#exploring-claude-for-excel",
+    "href": "slides/m2-intro-claude.html#exploring-claude-for-excel",
+    "title": "Module 2: Exploring Claude",
+    "section": "Exploring Claude for Excel",
+    "text": "Exploring Claude for Excel"
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#claude-for-excel-add-in",
+    "href": "slides/m2-intro-claude.html#claude-for-excel-add-in",
+    "title": "Module 2: Exploring Claude",
+    "section": "Claude for Excel Add-in",
+    "text": "Claude for Excel Add-in\n\n\nWhat It Does\n\nAI sidebar that reads and edits your workbook\nPreserves formula dependencies\nWorks with local files\n\n\n\nCapabilities\n\nAsk questions about workbook content\nBuild financial models from scratch\nTrace and fix formula errors\n\n\n\n\nRequires Claude Pro ($20/mo) or a Claude Team/Enterprise plan."
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#installing-the-add-in",
+    "href": "slides/m2-intro-claude.html#installing-the-add-in",
+    "title": "Module 2: Exploring Claude",
+    "section": "Installing the Add-in",
+    "text": "Installing the Add-in\n\nOpen Excel (desktop version, not the web app)\nGo to Insert → Get Add-ins\nSearch for “Claude by Anthropic” and click Add\nSign in with your Claude account when prompted\nThe Claude sidebar appears on the right — click the Claude icon in the Home ribbon tab to toggle it\n\n\nThe add-in can see your entire workbook: sheet names, cell values, and formulas. It edits cells directly — you can undo any change with Ctrl+Z."
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#example-loan-amortization-table",
+    "href": "slides/m2-intro-claude.html#example-loan-amortization-table",
+    "title": "Module 2: Exploring Claude",
+    "section": "Example: Loan Amortization Table",
+    "text": "Example: Loan Amortization Table\nOpen a blank workbook with the Claude sidebar visible. Type:\n\n“Create a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance. Add a summary section showing total interest paid.”\n\n\nClaude builds the table with live Excel formulas, not hardcoded values\nChange the rate or loan amount and the entire table recalculates\nAsk follow-ups: “Add a chart of principal vs. interest over time” or “What if I make an extra $200/month payment?”"
+  },
+  {
+    "objectID": "slides/m2-intro-claude.html#ai-spreadsheet-tools-compared",
+    "href": "slides/m2-intro-claude.html#ai-spreadsheet-tools-compared",
+    "title": "Module 2: Exploring Claude",
+    "section": "AI Spreadsheet Tools Compared",
+    "text": "AI Spreadsheet Tools Compared\n\nClaude for Excel ($20/mo): formula-preserving edits, no OneDrive required — best for financial modeling\nMicrosoft Copilot ($30/mo): Agent Mode and =COPILOT() function, Python in Excel — best for enterprise ecosystems\nGoogle Sheets + Gemini ($20/mo): =AI() function, web-only — best for cloud collaboration\n\n\nAll three can produce the same kinds of financial tools — DCF calculators, amortization tables, scenario analyzers. Choose based on your ecosystem."
+  },
+  {
+    "objectID": "slides.html",
+    "href": "slides.html",
+    "title": "Slides",
+    "section": "",
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nChatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
+  },
+  {
+    "objectID": "slides.html#course-slides",
+    "href": "slides.html#course-slides",
+    "title": "Slides",
+    "section": "",
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nChatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "",
+    "section": "",
+    "text": "Kerry Back (kerryback@gmail.com) J. Howard Creekmore Professor of Finance and Professor of Economics\n\n\n\nTTh 12:30 – 2:00 3/17/2026 – 4/23/2026\n\n\n\nSaturday, March 21, 9:00-12:00 - optional Python session\n\nAll sessions will be in McNair 212, including the special session.\n\n\n\n\nThe course is about financial applications of generative AI. We will discuss and use current AI tools but also discuss broader concepts of AI and how they relate to finance. The course will be “hands-on.” We will be working in class on laptops each day.\nWe will use Anthropic’s Claude throughout the course. Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork). Claude has also generally led all other models in coding tasks for the past two years. We will also briefly look at ChatGPT, Gemini, and other large language models.\n\n\n\n\nUse AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports\nApply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals\nConnect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation\nAutomate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents\nVerify and govern AI-generated analysis using red-teaming, audit protocols, and structured review\n\n\n\n\nGrades will be based on six group assignments (15% each) and peer assessments (10%). Groups can consist of no more than five students. Each assignment consists of multiple exercises and will take a nontrivial amount of time to complete. Do not wait until the last minute to get started.\nThe assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28 (during exam week).\n\n\n\nEach student will be reimbursed for a Claude Pro account ($20 per month). The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.\n\n\n\nThe Rice University honor code applies to all work in this course.\n\n\n\nAny student with a documented disability requiring accommodations in this course is encouraged to contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations regarding assignments or the final exam must be made in advance. Students with disabilities should also contact Disability Support Services in the Allen Center."
+  },
+  {
+    "objectID": "index.html#generative-ai-for-finance-spring-2026",
+    "href": "index.html#generative-ai-for-finance-spring-2026",
+    "title": "",
+    "section": "",
+    "text": "Kerry Back (kerryback@gmail.com) J. Howard Creekmore Professor of Finance and Professor of Economics\n\n\n\nTTh 12:30 – 2:00 3/17/2026 – 4/23/2026\n\n\n\nSaturday, March 21, 9:00-12:00 - optional Python session\n\nAll sessions will be in McNair 212, including the special session.\n\n\n\n\nThe course is about financial applications of generative AI. We will discuss and use current AI tools but also discuss broader concepts of AI and how they relate to finance. The course will be “hands-on.” We will be working in class on laptops each day.\nWe will use Anthropic’s Claude throughout the course. Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork). Claude has also generally led all other models in coding tasks for the past two years. We will also briefly look at ChatGPT, Gemini, and other large language models.\n\n\n\n\nUse AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports\nApply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals\nConnect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation\nAutomate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents\nVerify and govern AI-generated analysis using red-teaming, audit protocols, and structured review\n\n\n\n\nGrades will be based on six group assignments (15% each) and peer assessments (10%). Groups can consist of no more than five students. Each assignment consists of multiple exercises and will take a nontrivial amount of time to complete. Do not wait until the last minute to get started.\nThe assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28 (during exam week).\n\n\n\nEach student will be reimbursed for a Claude Pro account ($20 per month). The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.\n\n\n\nThe Rice University honor code applies to all work in this course.\n\n\n\nAny student with a documented disability requiring accommodations in this course is encouraged to contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations regarding assignments or the final exam must be made in advance. Students with disabilities should also contact Disability Support Services in the Allen Center."
+  },
+  {
+    "objectID": "assignments.html",
+    "href": "assignments.html",
+    "title": "Assignments",
+    "section": "",
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nDCF Cross-Check with Red-Teaming\n\n\n\n4B\nAutomated Reporting Pipeline\n\n\n\n4C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+  },
+  {
+    "objectID": "assignments.html#course-assignments",
+    "href": "assignments.html#course-assignments",
+    "title": "Assignments",
+    "section": "",
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nDCF Cross-Check with Red-Teaming\n\n\n\n4B\nAutomated Reporting Pipeline\n\n\n\n4C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#from-makers-to-checkers",
+    "href": "slides/m1-ai-in-finance.html#from-makers-to-checkers",
+    "title": "Module 1: Overview",
+    "section": "From Makers to Checkers",
+    "text": "From Makers to Checkers\n\nWhat we’re working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.\nWorkers would shift from being creators of reports or software updates, or ‘makers’ … to ‘“checkers” or managers of AI agents’ doing that work.\n\n\nDerek Waldron, JP Morgan Chief Analytics Officer — CNBC interview, September 30, 2025"
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#cfos-are-going-all-in-on-ai",
+    "href": "slides/m1-ai-in-finance.html#cfos-are-going-all-in-on-ai",
+    "title": "Module 1: Overview",
+    "section": "CFOs Are Going All In on AI",
+    "text": "CFOs Are Going All In on AI\n\nDeloitte Q4 2025 CFO Signals Survey — 200 CFOs at $1B+ companies\n\n\n\n\n87%\n\n\nsay AI will be extremely or very important to finance operations\n\n\n\n\n54%\n\n\nprioritize integrating AI agents in finance\n\n\n\n\n50%\n\n\ncite digital transformation as #1 priority\n\n\n\n\n\n49%\n\n\nprioritize automating processes for higher-value work\n\n\n\n\n2%\n\n\nsay AI won’t be important"
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#case-study-hpes-alfred",
+    "href": "slides/m1-ai-in-finance.html#case-study-hpes-alfred",
+    "title": "Module 1: Overview",
+    "section": "Case Study: HPE’s “Alfred”",
+    "text": "Case Study: HPE’s “Alfred”\n\nMarie Myers, CFO of Hewlett Packard Enterprise (#143 on Fortune 500)\n\n\n\nThe Problem\n\nWeekly 90-minute operational review required 100+ slides\nHundreds of hours of preparation across business units\nNo time left for forward-looking analysis\n\n\n\nThe AI Solution\n\nBuilt “Alfred” — AI agents that pull, reconcile, and analyze data automatically\n90% of manual prep eliminated; cycle time reduced 40%, costs down 25%\n3,000+ finance employees being reskilled to build their own agents\n\n\n\n\n“The goal is for finance professionals to become masters of their own destiny rather than casualties of automation.” — Marie Myers\n\n\n“How HPE’s CFO used AI to transform the 100-slide Monday meeting,” Fortune, Feb. 12, 2026."
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#something-big-is-happening",
+    "href": "slides/m1-ai-in-finance.html#something-big-is-happening",
+    "title": "Module 1: Overview",
+    "section": "Something Big is Happening",
+    "text": "Something Big is Happening\n\nThe person who walks into a meeting and says “I used AI to do this analysis in an hour instead of three days” is going to be the most valuable person in the room. Not eventually. Right now.\nSpend one hour a day experimenting with AI … If you do this for the next six months, you will understand what’s coming better than 99% of the people around you.\n\n\nMatt Shumer, CEO of HyperWrite AI — February 2026"
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#ai-agents",
+    "href": "slides/m1-ai-in-finance.html#ai-agents",
+    "title": "Module 1: Overview",
+    "section": "AI Agents",
+    "text": "AI Agents"
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#chatbot",
+    "href": "slides/m1-ai-in-finance.html#chatbot",
+    "title": "Module 1: Overview",
+    "section": "Chatbot",
+    "text": "Chatbot\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"prompts & replies\"| C[\"&lt;b&gt;💬 Chatbot&lt;/b&gt;\"]\n  C ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe chatbot sends three things to the LLM with each request:\n\n\nUser prompt — what you just typed\nSystem prompt — hidden instructions that define the LLM’s behavior\nConversation history — all prior messages, so the LLM has context"
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#agent",
+    "href": "slides/m1-ai-in-finance.html#agent",
+    "title": "Module 1: Overview",
+    "section": "Agent",
+    "text": "Agent\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A ---|\"executes\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe agent programmatically controls communication between the LLM and the tool. The system prompt includes “You have a tool …” so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user."
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#how-tool-calls-work",
+    "href": "slides/m1-ai-in-finance.html#how-tool-calls-work",
+    "title": "Module 1: Overview",
+    "section": "How Tool Calls Work",
+    "text": "How Tool Calls Work\nThe LLM does not run code directly. When it decides a tool is needed, it returns a structured message:\n{\n  \"tool\": \"sql_query\",\n  \"query\": \"SELECT ticker, close FROM prices WHERE date = '2024-12-31'\"\n}\n\nThe agent’s execution layer reads that message, runs the actual tool, and sends the result back to the LLM. The LLM reads the result and decides what to do next.\nAn agent can use multiple tools in sequence — query a database, pass results to Python for analysis, generate a chart, and assemble everything into a PowerPoint deck — all from a single instruction."
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#the-agent-loop",
+    "href": "slides/m1-ai-in-finance.html#the-agent-loop",
+    "title": "Module 1: Overview",
+    "section": "The Agent Loop",
+    "text": "The Agent Loop\n\n\n\n🎯\n\n\nPlan\n\n\nThe LLM reads your request and breaks it into steps\n\n\n\n\n⚡\n\n\nExecute\n\n\nThe agent calls a tool — runs code, queries a database, writes a file\n\n\n\n\n👁️\n\n\nObserve\n\n\nThe agent checks the result of the action\n\n\n\n\n🔄\n\n\nIterate\n\n\nIf unsatisfactory, the agent adjusts its plan and tries again\n\n\n\n\nWhen an agent encounters an error, it doesn’t stop and ask you what to do. It diagnoses the problem, revises its approach, and tries again. This autonomous problem-solving is what separates agents from simple automation scripts."
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#examples-of-agent-tools",
+    "href": "slides/m1-ai-in-finance.html#examples-of-agent-tools",
+    "title": "Module 1: Overview",
+    "section": "Examples of Agent Tools",
+    "text": "Examples of Agent Tools\n\n\n\n🐍\n\n\nPython Environment\n\n\n\n\n🗄️\n\n\nDatabase Server\n\n\n\n\n🌐\n\n\nWeb Browser / Search\n\n\n\n\n📁\n\n\nFile System\n\n\n\n\n🔌\n\n\nAPI Calls\n\n\n\n\nAn agent may be connected to multiple tools. For example, get data from a database server and send it to a Python environment to return analysis."
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#past-present-and-future-of-personal-computing",
+    "href": "slides/m1-ai-in-finance.html#past-present-and-future-of-personal-computing",
+    "title": "Module 1: Overview",
+    "section": "Past, Present, and Future of Personal Computing",
+    "text": "Past, Present, and Future of Personal Computing"
+  },
+  {
+    "objectID": "slides/m1-ai-in-finance.html#example-rice-data-portal",
+    "href": "slides/m1-ai-in-finance.html#example-rice-data-portal",
+    "title": "Module 1: Overview",
+    "section": "Example: Rice Data Portal",
+    "text": "Example: Rice Data Portal\nThe Rice Data Portal is an agent.\n\n\nLLM: ChatGPT — interprets your natural-language question and writes a SQL query\nTool: A database server in the cloud holding stock-market and financial data\nAgent: An app running elsewhere in the cloud that coordinates communication between ChatGPT and the database\n\n\n\nYou type a question (“Show me AAPL closing prices for 2024”). The agent sends it to ChatGPT, which returns a SQL query. The agent runs the query against the database and displays the answer. If the query fails, ChatGPT rewrites it and tries again — multiple rounds, no human intervention."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#claude.ai-is-an-agent",
+    "href": "slides/m3-mean-variance.html#claude.ai-is-an-agent",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Claude.ai Is an Agent",
+    "text": "Claude.ai Is an Agent\nClaude.ai is an agent connected to a Python environment — it writes and runs code in a cloud sandbox to answer your questions.\nClaude.ai also has access to other tools:\n\nWeb browser — search the web and read pages\nFile system — read and write files you upload or create\nArtifacts — build interactive apps and charts in a side panel\nDocument generation — produce Excel, Word, and PowerPoint files\n\nWhen you ask Claude.ai to analyze data, it plans the code, executes it in the Python environment, observes the result, and iterates — the same agent loop from Module 1."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#portfolio-optimization",
+    "href": "slides/m3-mean-variance.html#portfolio-optimization",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Portfolio Optimization",
+    "text": "Portfolio Optimization"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#the-problem",
+    "href": "slides/m3-mean-variance.html#the-problem",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "The Problem",
+    "text": "The Problem\nGiven expected returns, risks (standard deviations), and correlations for multiple assets, plus a risk-free rate:\n\nWhat is the best portfolio?\nWhat does the set of all possible portfolios look like?\nHow do real-world constraints change the answer?"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#key-concepts",
+    "href": "slides/m3-mean-variance.html#key-concepts",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Key Concepts",
+    "text": "Key Concepts\n\n\nPortfolios\n\nTangency portfolio: the risky portfolio with the highest Sharpe ratio (excess return per unit of risk)\nGlobal minimum variance (GMV): the risky portfolio with the lowest possible risk\nEfficient frontier: the set of risky portfolios with the highest return for each level of risk\n\n\n\nCapital Allocation Line\n\nThe straight line from the risk-free rate through the tangency portfolio\nRepresents all combinations of the risk-free asset and the tangency portfolio\nThe best attainable risk-return tradeoff"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#solution-in-excel",
+    "href": "slides/m3-mean-variance.html#solution-in-excel",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Solution in Excel",
+    "text": "Solution in Excel\nMGMT 648 Example"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#real-world-constraints",
+    "href": "slides/m3-mean-variance.html#real-world-constraints",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Real-World Constraints",
+    "text": "Real-World Constraints\n\n\nCommon constraints\n\nNo short sales (all weights \\(\\geq 0\\))\nMaximum position (e.g., \\(\\leq 40\\%\\) per asset)\nMinimum position (e.g., \\(\\geq 2\\%\\) if held)\nMargin requirement (sum of absolute values \\(\\leq 2\\))\n\n\n\nWhat happens\n\nThe efficient frontier shifts inward (lower returns and/or higher risk)\nThe tangency portfolio changes\nThe Sharpe ratio cannot improve with constraints—it can only stay the same or get worse"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#solvers",
+    "href": "slides/m3-mean-variance.html#solvers",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Solvers",
+    "text": "Solvers\n\nSolver (numerical optimization)\n\nMaximize Sharpe ratio (tangency portfolio)\nMinimize risk for a target return (efficient frontier)\nMinimize risk (global minimum variance portfolio)\n\n\nPython solver options: scipy.minimize, cvxopt, cvxpy—AI chooses and writes the code.\nAsk Claude: Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#in-class-exercise-data",
+    "href": "slides/m3-mean-variance.html#in-class-exercise-data",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "In-Class Exercise: Data",
+    "text": "In-Class Exercise: Data\nWe will use monthly returns for four ETFs:\n\nSPY — S&P 500\nGLD — Gold\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: monthly returns, May 2007 – present. Monthly risk-free rate: \\(0.0375/12\\).\nDownload data. Then upload to Claude. Tell Claude the risk-free rate."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
+    "href": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "In-Class Exercise: No Short Sales",
+    "text": "In-Class Exercise: No Short Sales\n\nAsk Claude to compute the tangency portfolio with no short sales (all weights \\(\\geq 0\\)). Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk: “Show me the code you used and explain it.”"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#the-unconstrained-case",
+    "href": "slides/m3-mean-variance.html#the-unconstrained-case",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "The Unconstrained Case",
+    "text": "The Unconstrained Case\n\nIf we tell Claude to find the tangency portfolio allowing short sales, then\n\nthe same solvers would work, but\nClaude will probably take a different route, solving a system of linear equations\n\nA similar system yields the GMV portfolio\nThe entire frontier can also be found by solving linear equations\nSolving linear equations is numerically easier than running a solver. Claude has seen it lots of times in its training data."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#example-of-linear-equations",
+    "href": "slides/m3-mean-variance.html#example-of-linear-equations",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Example of Linear Equations",
+    "text": "Example of Linear Equations\n\\[3x + 2y = 7\\] \\[2x + 5y = 4\\]\nRewrite in matrix form:\n\\[\\begin{pmatrix} 3 & 2 \\\\ 2 & 5 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}\\]"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#solving-with-matrix-inverse",
+    "href": "slides/m3-mean-variance.html#solving-with-matrix-inverse",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Solving with Matrix Inverse",
+    "text": "Solving with Matrix Inverse\nCall the matrix \\(\\Sigma\\), the vector \\((x,y)\\) as \\(w\\), and the right-hand side \\(\\mu\\):\n\\[\\Sigma w = \\mu \\implies w = \\Sigma^{-1}\\mu = \\begin{pmatrix} 27/11 \\\\ -2/11 \\end{pmatrix}\\]"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
+    "href": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Solving Linear Equations for Optimal Portfolios",
+    "text": "Solving Linear Equations for Optimal Portfolios\n\nTangency portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) risk premia\nGMV portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) constants (ones)\nUsual code np.linalg.inv(Sigma) @ mu or np.linalg.solve(Sigma, mu) or np.linalg.inv(Sigma).dot(mu)\nIn both cases, after solving equations, scale so that weights sum to one (100% invested)"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",
+    "href": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "In-Class Exercise: Tangency Portfolio (Unrestricted)",
+    "text": "In-Class Exercise: Tangency Portfolio (Unrestricted)\n\nAsk Claude to compute the tangency portfolio allowing short sales. Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk Claude: “Show me the code you used and explain it step by step.”"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#in-class-exercise-frontier-and-cal",
+    "href": "slides/m3-mean-variance.html#in-class-exercise-frontier-and-cal",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "In-Class Exercise: Frontier and CAL",
+    "text": "In-Class Exercise: Frontier and CAL\n\nAsk Claude to compute the tangency portfolio and the efficient frontier for both cases (with and without short sales).\nAsk Claude to plot the efficient frontiers and capital allocation lines for both cases in the same figure.\nAsk Claude to also provide a figure with the two cases as stacked subplots with the same scales."
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#creating-a-reusable-tool",
+    "href": "slides/m3-mean-variance.html#creating-a-reusable-tool",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "Creating a Reusable Tool",
+    "text": "Creating a Reusable Tool\nOnce we have code that we’re happy with (we’ve read the code and/or compared results to known results), we can package it as a tool to be reused.\n\nCreate and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or\nPackage it as a Python script and create a skill. The skill would say “use the script.””"
+  },
+  {
+    "objectID": "slides/m3-mean-variance.html#ai-in-excel",
+    "href": "slides/m3-mean-variance.html#ai-in-excel",
+    "title": "Module 3: Mean-Variance Analysis",
+    "section": "AI in Excel",
+    "text": "AI in Excel\n\nOpen ETF-returns.xlsx\nClick the Claude icon to open Claude in a sidebar\nAsk Claude to compute the sample means and sample covariance matrix and to compute the tangency portfolio assuming a risk-free rate of 0.0375/12\nRepeat using Microsoft Copilot in Excel"
+  },
+  {
+    "objectID": "slides/m5-skills.html#sub-agents",
+    "href": "slides/m5-skills.html#sub-agents",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Sub-Agents",
+    "text": "Sub-Agents"
+  },
+  {
+    "objectID": "slides/m5-skills.html#what-is-a-sub-agent",
+    "href": "slides/m5-skills.html#what-is-a-sub-agent",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "What Is a Sub-Agent?",
+    "text": "What Is a Sub-Agent?\nWhen Claude Code handles a complex task, it can spin up sub-agents — separate Claude instances that work on subtasks in parallel or in sequence, then report back.\n\n\nOrchestrator\n\nThe main Claude session you are talking to\nBreaks the task into pieces\nDelegates to sub-agents and synthesizes results\n\n\n\nSub-Agent\n\nA fresh Claude instance with its own context\nReceives a specific subtask and tools\nReturns its result to the orchestrator\n\n\n\n\nSub-agents allow Claude to work in parallel and to keep each subtask focused — the orchestrator stays high-level while sub-agents do the detailed work."
+  },
+  {
+    "objectID": "slides/m5-skills.html#spontaneous-sub-agents",
+    "href": "slides/m5-skills.html#spontaneous-sub-agents",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Spontaneous Sub-Agents",
+    "text": "Spontaneous Sub-Agents\nClaude Code decides on its own when a task warrants sub-agents. You do not have to ask.\n\nParallel research: fetching data from multiple sources simultaneously\nMulti-file analysis: reviewing several documents at once and comparing findings\nIterative workflows: one agent drafts, another critiques, another revises\nLong computations: splitting a large dataset across agents to stay within context limits\n\n\nYou will see a notice when Claude spawns a sub-agent."
+  },
+  {
+    "objectID": "slides/m5-skills.html#requesting-a-sub-agent",
+    "href": "slides/m5-skills.html#requesting-a-sub-agent",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Requesting a Sub-Agent",
+    "text": "Requesting a Sub-Agent\nYou can explicitly ask Claude to use a sub-agent for any task:\n\n“Use a sub-agent to research competitor pricing and report back.”\n“Spawn a sub-agent to review this code for bugs while you work on the next feature.”\n“Use three parallel sub-agents to analyze each of these three reports, then summarize.”"
+  },
+  {
+    "objectID": "slides/m5-skills.html#context-windows",
+    "href": "slides/m5-skills.html#context-windows",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Context Windows",
+    "text": "Context Windows\nAn LLM can only “see” a finite amount of text at once — this limit is called its context window.\n\n\nYour Conversation\n\nEvery message you send includes the full conversation history — all prior prompts and replies\nThis is how the LLM remembers what you said earlier\nLong conversations gradually consume the context window\n\n\n\nSub-Agent Conversations\n\nEach sub-agent starts with a fresh context window\nIt only receives what the orchestrating agent decides to pass — a task description, relevant files, or specific data\nIt does not see your full conversation history\n\n\n\n\nThis is a feature, not a bug — sub-agents stay focused on their subtask and don’t waste context on irrelevant history."
+  },
+  {
+    "objectID": "slides/m5-skills.html#claude-skills",
+    "href": "slides/m5-skills.html#claude-skills",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Claude Skills",
+    "text": "Claude Skills"
+  },
+  {
+    "objectID": "slides/m5-skills.html#built-in-document-skills",
+    "href": "slides/m5-skills.html#built-in-document-skills",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Built-In Document Skills",
+    "text": "Built-In Document Skills\nAnthropic provides three document skills: Excel, Word, and PowerPoint.\n\n\nClaude Desktop (Chat, Cowork, and Code)\n\nSkills are stored in the cloud by Anthropic\nNo setup required — available automatically\nInvoke with /xlsx, /docx, /pptx\n\n\n\nClaude Code Terminal\n\nSkills must be installed locally into ~/.claude/skills/\nThe class installer handles this automatically\nInvoke with /xlsx, /docx, /pptx\n\n\n\n\nIn Claude Code (CLI or Desktop Code tab), invoke skills explicitly: /xlsx, /docx, /pptx"
+  },
+  {
+    "objectID": "slides/m5-skills.html#the-xlsx-skill",
+    "href": "slides/m5-skills.html#the-xlsx-skill",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "The /xlsx Skill",
+    "text": "The /xlsx Skill\nIn Claude Code, skills are plain text files stored in ~/.claude/skills/. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nIn Claude Code on your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards."
+  },
+  {
+    "objectID": "slides/m5-skills.html#pre-installed-skills-skill-creator",
+    "href": "slides/m5-skills.html#pre-installed-skills-skill-creator",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Pre-Installed Skills: Skill Creator",
+    "text": "Pre-Installed Skills: Skill Creator\nThe class installer also installs /skill-creator — a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
+  },
+  {
+    "objectID": "slides/m5-skills.html#adding-your-own-skills",
+    "href": "slides/m5-skills.html#adding-your-own-skills",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Adding Your Own Skills",
+    "text": "Adding Your Own Skills\nYou can add custom skills to Claude Code at any time.\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name\nProject-level skills go in .claude/skills/ inside your repo\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific."
+  },
+  {
+    "objectID": "slides/m5-skills.html#customizing-a-built-in-skill",
+    "href": "slides/m5-skills.html#customizing-a-built-in-skill",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Customizing a Built-In Skill",
+    "text": "Customizing a Built-In Skill\nYou cannot edit Anthropic’s document skills directly — but you can create a custom skill that extends one.\nYour SKILL.md would say something like:\n“Follow the /xlsx skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas.”\nThen invoke your custom version with /myxlsx instead of /xlsx.\n\nThis works in Claude Desktop and Claude Code. The custom skill’s instructions sit on top of the built-in skill’s behavior — you only need to specify what’s different."
+  },
+  {
+    "objectID": "slides/m5-skills.html#example-create-a-tasks-skill",
+    "href": "slides/m5-skills.html#example-create-a-tasks-skill",
+    "title": "Module 5: Sub-Agents and Skills",
+    "section": "Example: Create a Tasks Skill",
+    "text": "Example: Create a Tasks Skill\n\nType /skill-creator to start the skill builder\nDescribe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”"
+  },
+  {
     "objectID": "slides/m7-agents.html#the-api-building-custom-chatbots",
     "href": "slides/m7-agents.html#the-api-building-custom-chatbots",
     "title": "Module 7: Chatbots and Agents",
@@ -607,664 +1538,6 @@
     "title": "Module 7: Chatbots and Agents",
     "section": "Exercise 4: Streamlit App with the Anthropic API",
     "text": "Exercise 4: Streamlit App with the Anthropic API\n\nGet an API key from console.anthropic.com\nAsk Claude Code to build a Streamlit app that:\n\nTakes a company ticker from the user\nSends a prompt to the Anthropic API asking for an investment summary\nDisplays the AI-generated summary on screen\n\nExtend: add a system prompt with specific analysis criteria (valuation, growth, risks)"
-  },
-  {
-    "objectID": "slides/m5-skills.html#sub-agents",
-    "href": "slides/m5-skills.html#sub-agents",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Sub-Agents",
-    "text": "Sub-Agents"
-  },
-  {
-    "objectID": "slides/m5-skills.html#what-is-a-sub-agent",
-    "href": "slides/m5-skills.html#what-is-a-sub-agent",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "What Is a Sub-Agent?",
-    "text": "What Is a Sub-Agent?\nWhen Claude Code handles a complex task, it can spin up sub-agents — separate Claude instances that work on subtasks in parallel or in sequence, then report back.\n\n\nOrchestrator\n\nThe main Claude session you are talking to\nBreaks the task into pieces\nDelegates to sub-agents and synthesizes results\n\n\n\nSub-Agent\n\nA fresh Claude instance with its own context\nReceives a specific subtask and tools\nReturns its result to the orchestrator\n\n\n\n\nSub-agents allow Claude to work in parallel and to keep each subtask focused — the orchestrator stays high-level while sub-agents do the detailed work."
-  },
-  {
-    "objectID": "slides/m5-skills.html#spontaneous-sub-agents",
-    "href": "slides/m5-skills.html#spontaneous-sub-agents",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Spontaneous Sub-Agents",
-    "text": "Spontaneous Sub-Agents\nClaude Code decides on its own when a task warrants sub-agents. You do not have to ask.\n\nParallel research: fetching data from multiple sources simultaneously\nMulti-file analysis: reviewing several documents at once and comparing findings\nIterative workflows: one agent drafts, another critiques, another revises\nLong computations: splitting a large dataset across agents to stay within context limits\n\n\nYou will see a notice when Claude spawns a sub-agent."
-  },
-  {
-    "objectID": "slides/m5-skills.html#requesting-a-sub-agent",
-    "href": "slides/m5-skills.html#requesting-a-sub-agent",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Requesting a Sub-Agent",
-    "text": "Requesting a Sub-Agent\nYou can explicitly ask Claude to use a sub-agent for any task:\n\n“Use a sub-agent to research competitor pricing and report back.”\n“Spawn a sub-agent to review this code for bugs while you work on the next feature.”\n“Use three parallel sub-agents to analyze each of these three reports, then summarize.”"
-  },
-  {
-    "objectID": "slides/m5-skills.html#context-windows",
-    "href": "slides/m5-skills.html#context-windows",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Context Windows",
-    "text": "Context Windows\nAn LLM can only “see” a finite amount of text at once — this limit is called its context window.\n\n\nYour Conversation\n\nEvery message you send includes the full conversation history — all prior prompts and replies\nThis is how the LLM remembers what you said earlier\nLong conversations gradually consume the context window\n\n\n\nSub-Agent Conversations\n\nEach sub-agent starts with a fresh context window\nIt only receives what the orchestrating agent decides to pass — a task description, relevant files, or specific data\nIt does not see your full conversation history\n\n\n\n\nThis is a feature, not a bug — sub-agents stay focused on their subtask and don’t waste context on irrelevant history."
-  },
-  {
-    "objectID": "slides/m5-skills.html#claude-skills",
-    "href": "slides/m5-skills.html#claude-skills",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Claude Skills",
-    "text": "Claude Skills"
-  },
-  {
-    "objectID": "slides/m5-skills.html#built-in-document-skills",
-    "href": "slides/m5-skills.html#built-in-document-skills",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Built-In Document Skills",
-    "text": "Built-In Document Skills\nAnthropic provides three document skills: Excel, Word, and PowerPoint.\n\n\nClaude Desktop (Chat, Cowork, and Code)\n\nSkills are stored in the cloud by Anthropic\nNo setup required — available automatically\nInvoke with /xlsx, /docx, /pptx\n\n\n\nClaude Code Terminal\n\nSkills must be installed locally into ~/.claude/skills/\nThe class installer handles this automatically\nInvoke with /xlsx, /docx, /pptx\n\n\n\n\nIn Claude Code (CLI or Desktop Code tab), invoke skills explicitly: /xlsx, /docx, /pptx"
-  },
-  {
-    "objectID": "slides/m5-skills.html#the-xlsx-skill",
-    "href": "slides/m5-skills.html#the-xlsx-skill",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "The /xlsx Skill",
-    "text": "The /xlsx Skill\nIn Claude Code, skills are plain text files stored in ~/.claude/skills/. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nIn Claude Code on your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards."
-  },
-  {
-    "objectID": "slides/m5-skills.html#pre-installed-skills-skill-creator",
-    "href": "slides/m5-skills.html#pre-installed-skills-skill-creator",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Pre-Installed Skills: Skill Creator",
-    "text": "Pre-Installed Skills: Skill Creator\nThe class installer also installs /skill-creator — a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
-  },
-  {
-    "objectID": "slides/m5-skills.html#adding-your-own-skills",
-    "href": "slides/m5-skills.html#adding-your-own-skills",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Adding Your Own Skills",
-    "text": "Adding Your Own Skills\nYou can add custom skills to Claude Code at any time.\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name\nProject-level skills go in .claude/skills/ inside your repo\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific."
-  },
-  {
-    "objectID": "slides/m5-skills.html#customizing-a-built-in-skill",
-    "href": "slides/m5-skills.html#customizing-a-built-in-skill",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Customizing a Built-In Skill",
-    "text": "Customizing a Built-In Skill\nYou cannot edit Anthropic’s document skills directly — but you can create a custom skill that extends one.\nYour SKILL.md would say something like:\n“Follow the /xlsx skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas.”\nThen invoke your custom version with /myxlsx instead of /xlsx.\n\nThis works in Claude Desktop and Claude Code. The custom skill’s instructions sit on top of the built-in skill’s behavior — you only need to specify what’s different."
-  },
-  {
-    "objectID": "slides/m5-skills.html#example-create-a-tasks-skill",
-    "href": "slides/m5-skills.html#example-create-a-tasks-skill",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Example: Create a Tasks Skill",
-    "text": "Example: Create a Tasks Skill\n\nType /skill-creator to start the skill builder\nDescribe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#claude.ai-is-an-agent",
-    "href": "slides/m3-mean-variance.html#claude.ai-is-an-agent",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Claude.ai Is an Agent",
-    "text": "Claude.ai Is an Agent\nClaude.ai is an agent connected to a Python environment — it writes and runs code in a cloud sandbox to answer your questions.\nClaude.ai also has access to other tools:\n\nWeb browser — search the web and read pages\nFile system — read and write files you upload or create\nArtifacts — build interactive apps and charts in a side panel\nDocument generation — produce Excel, Word, and PowerPoint files\n\nWhen you ask Claude.ai to analyze data, it plans the code, executes it in the Python environment, observes the result, and iterates — the same agent loop from Module 1."
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#portfolio-optimization",
-    "href": "slides/m3-mean-variance.html#portfolio-optimization",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Portfolio Optimization",
-    "text": "Portfolio Optimization"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#the-problem",
-    "href": "slides/m3-mean-variance.html#the-problem",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "The Problem",
-    "text": "The Problem\nGiven expected returns, risks (standard deviations), and correlations for multiple assets, plus a risk-free rate:\n\nWhat is the best portfolio?\nWhat does the set of all possible portfolios look like?\nHow do real-world constraints change the answer?"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#key-concepts",
-    "href": "slides/m3-mean-variance.html#key-concepts",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Key Concepts",
-    "text": "Key Concepts\n\n\nPortfolios\n\nTangency portfolio: the risky portfolio with the highest Sharpe ratio (excess return per unit of risk)\nGlobal minimum variance (GMV): the risky portfolio with the lowest possible risk\nEfficient frontier: the set of risky portfolios with the highest return for each level of risk\n\n\n\nCapital Allocation Line\n\nThe straight line from the risk-free rate through the tangency portfolio\nRepresents all combinations of the risk-free asset and the tangency portfolio\nThe best attainable risk-return tradeoff"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#solution-in-excel",
-    "href": "slides/m3-mean-variance.html#solution-in-excel",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Solution in Excel",
-    "text": "Solution in Excel\nMGMT 648 Example"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#real-world-constraints",
-    "href": "slides/m3-mean-variance.html#real-world-constraints",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Real-World Constraints",
-    "text": "Real-World Constraints\n\n\nCommon constraints\n\nNo short sales (all weights \\(\\geq 0\\))\nMaximum position (e.g., \\(\\leq 40\\%\\) per asset)\nMinimum position (e.g., \\(\\geq 2\\%\\) if held)\nMargin requirement (sum of absolute values \\(\\leq 2\\))\n\n\n\nWhat happens\n\nThe efficient frontier shifts inward (lower returns and/or higher risk)\nThe tangency portfolio changes\nThe Sharpe ratio cannot improve with constraints—it can only stay the same or get worse"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#solvers",
-    "href": "slides/m3-mean-variance.html#solvers",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Solvers",
-    "text": "Solvers\n\nSolver (numerical optimization)\n\nMaximize Sharpe ratio (tangency portfolio)\nMinimize risk for a target return (efficient frontier)\nMinimize risk (global minimum variance portfolio)\n\n\nPython solver options: scipy.minimize, cvxopt, cvxpy—AI chooses and writes the code.\nAsk Claude: Discuss the advantages and disadvantages of these solver options for mean-variance analysis with inequality constraints."
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#in-class-exercise-data",
-    "href": "slides/m3-mean-variance.html#in-class-exercise-data",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "In-Class Exercise: Data",
-    "text": "In-Class Exercise: Data\nWe will use monthly returns for four ETFs:\n\nSPY — S&P 500\nGLD — Gold\nIEF — 7–10 Year Treasuries\nEFA — International Developed Markets\n\nData: monthly returns, May 2007 – present. Monthly risk-free rate: \\(0.0375/12\\).\nDownload data. Then upload to Claude. Tell Claude the risk-free rate."
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
-    "href": "slides/m3-mean-variance.html#in-class-exercise-no-short-sales",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "In-Class Exercise: No Short Sales",
-    "text": "In-Class Exercise: No Short Sales\n\nAsk Claude to compute the tangency portfolio with no short sales (all weights \\(\\geq 0\\)). Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk: “Show me the code you used and explain it.”"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#the-unconstrained-case",
-    "href": "slides/m3-mean-variance.html#the-unconstrained-case",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "The Unconstrained Case",
-    "text": "The Unconstrained Case\n\nIf we tell Claude to find the tangency portfolio allowing short sales, then\n\nthe same solvers would work, but\nClaude will probably take a different route, solving a system of linear equations\n\nA similar system yields the GMV portfolio\nThe entire frontier can also be found by solving linear equations\nSolving linear equations is numerically easier than running a solver. Claude has seen it lots of times in its training data."
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#example-of-linear-equations",
-    "href": "slides/m3-mean-variance.html#example-of-linear-equations",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Example of Linear Equations",
-    "text": "Example of Linear Equations\n\\[3x + 2y = 7\\] \\[2x + 5y = 4\\]\nRewrite in matrix form:\n\\[\\begin{pmatrix} 3 & 2 \\\\ 2 & 5 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}\\]"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#solving-with-matrix-inverse",
-    "href": "slides/m3-mean-variance.html#solving-with-matrix-inverse",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Solving with Matrix Inverse",
-    "text": "Solving with Matrix Inverse\nCall the matrix \\(\\Sigma\\), the vector \\((x,y)\\) as \\(w\\), and the right-hand side \\(\\mu\\):\n\\[\\Sigma w = \\mu \\implies w = \\Sigma^{-1}\\mu = \\begin{pmatrix} 27/11 \\\\ -2/11 \\end{pmatrix}\\]"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
-    "href": "slides/m3-mean-variance.html#solving-linear-equations-for-optimal-portfolios",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Solving Linear Equations for Optimal Portfolios",
-    "text": "Solving Linear Equations for Optimal Portfolios\n\nTangency portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) risk premia\nGMV portfolio: \\(\\Sigma=\\) covariance matrix, \\(\\mu=\\) constants (ones)\nUsual code np.linalg.inv(Sigma) @ mu or np.linalg.solve(Sigma, mu) or np.linalg.inv(Sigma).dot(mu)\nIn both cases, after solving equations, scale so that weights sum to one (100% invested)"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",
-    "href": "slides/m3-mean-variance.html#in-class-exercise-tangency-portfolio-unrestricted",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "In-Class Exercise: Tangency Portfolio (Unrestricted)",
-    "text": "In-Class Exercise: Tangency Portfolio (Unrestricted)\n\nAsk Claude to compute the tangency portfolio allowing short sales. Report the weights, expected return, standard deviation, and Sharpe ratio.\nAsk Claude: “Show me the code you used and explain it step by step.”"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#in-class-exercise-frontier-and-cal",
-    "href": "slides/m3-mean-variance.html#in-class-exercise-frontier-and-cal",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "In-Class Exercise: Frontier and CAL",
-    "text": "In-Class Exercise: Frontier and CAL\n\nAsk Claude to compute the tangency portfolio and the efficient frontier for both cases (with and without short sales).\nAsk Claude to plot the efficient frontiers and capital allocation lines for both cases in the same figure.\nAsk Claude to also provide a figure with the two cases as stacked subplots with the same scales."
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#creating-a-reusable-tool",
-    "href": "slides/m3-mean-variance.html#creating-a-reusable-tool",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "Creating a Reusable Tool",
-    "text": "Creating a Reusable Tool\nOnce we have code that we’re happy with (we’ve read the code and/or compared results to known results), we can package it as a tool to be reused.\n\nCreate and deploy a mean-variance app (like a Claude artifact, but many ways to do it), or\nPackage it as a Python script and create a skill. The skill would say “use the script.””"
-  },
-  {
-    "objectID": "slides/m3-mean-variance.html#ai-in-excel",
-    "href": "slides/m3-mean-variance.html#ai-in-excel",
-    "title": "Module 3: Mean-Variance Analysis",
-    "section": "AI in Excel",
-    "text": "AI in Excel\n\nOpen ETF-returns.xlsx\nClick the Claude icon to open Claude in a sidebar\nAsk Claude to compute the sample means and sample covariance matrix and to compute the tangency portfolio assuming a risk-free rate of 0.0375/12\nRepeat using Microsoft Copilot in Excel"
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#from-makers-to-checkers",
-    "href": "slides/m1-ai-in-finance.html#from-makers-to-checkers",
-    "title": "Module 1: Overview",
-    "section": "From Makers to Checkers",
-    "text": "From Makers to Checkers\n\nWhat we’re working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.\nWorkers would shift from being creators of reports or software updates, or ‘makers’ … to ‘“checkers” or managers of AI agents’ doing that work.\n\n\nDerek Waldron, JP Morgan Chief Analytics Officer — CNBC interview, September 30, 2025"
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#cfos-are-going-all-in-on-ai",
-    "href": "slides/m1-ai-in-finance.html#cfos-are-going-all-in-on-ai",
-    "title": "Module 1: Overview",
-    "section": "CFOs Are Going All In on AI",
-    "text": "CFOs Are Going All In on AI\n\nDeloitte Q4 2025 CFO Signals Survey — 200 CFOs at $1B+ companies\n\n\n\n\n87%\n\n\nsay AI will be extremely or very important to finance operations\n\n\n\n\n54%\n\n\nprioritize integrating AI agents in finance\n\n\n\n\n50%\n\n\ncite digital transformation as #1 priority\n\n\n\n\n\n49%\n\n\nprioritize automating processes for higher-value work\n\n\n\n\n2%\n\n\nsay AI won’t be important"
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#case-study-hpes-alfred",
-    "href": "slides/m1-ai-in-finance.html#case-study-hpes-alfred",
-    "title": "Module 1: Overview",
-    "section": "Case Study: HPE’s “Alfred”",
-    "text": "Case Study: HPE’s “Alfred”\n\nMarie Myers, CFO of Hewlett Packard Enterprise (#143 on Fortune 500)\n\n\n\nThe Problem\n\nWeekly 90-minute operational review required 100+ slides\nHundreds of hours of preparation across business units\nNo time left for forward-looking analysis\n\n\n\nThe AI Solution\n\nBuilt “Alfred” — AI agents that pull, reconcile, and analyze data automatically\n90% of manual prep eliminated; cycle time reduced 40%, costs down 25%\n3,000+ finance employees being reskilled to build their own agents\n\n\n\n\n“The goal is for finance professionals to become masters of their own destiny rather than casualties of automation.” — Marie Myers\n\n\n“How HPE’s CFO used AI to transform the 100-slide Monday meeting,” Fortune, Feb. 12, 2026."
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#something-big-is-happening",
-    "href": "slides/m1-ai-in-finance.html#something-big-is-happening",
-    "title": "Module 1: Overview",
-    "section": "Something Big is Happening",
-    "text": "Something Big is Happening\n\nThe person who walks into a meeting and says “I used AI to do this analysis in an hour instead of three days” is going to be the most valuable person in the room. Not eventually. Right now.\nSpend one hour a day experimenting with AI … If you do this for the next six months, you will understand what’s coming better than 99% of the people around you.\n\n\nMatt Shumer, CEO of HyperWrite AI — February 2026"
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#ai-agents",
-    "href": "slides/m1-ai-in-finance.html#ai-agents",
-    "title": "Module 1: Overview",
-    "section": "AI Agents",
-    "text": "AI Agents"
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#chatbot",
-    "href": "slides/m1-ai-in-finance.html#chatbot",
-    "title": "Module 1: Overview",
-    "section": "Chatbot",
-    "text": "Chatbot\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"prompts & replies\"| C[\"&lt;b&gt;💬 Chatbot&lt;/b&gt;\"]\n  C ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe chatbot sends three things to the LLM with each request:\n\n\nUser prompt — what you just typed\nSystem prompt — hidden instructions that define the LLM’s behavior\nConversation history — all prior messages, so the LLM has context"
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#agent",
-    "href": "slides/m1-ai-in-finance.html#agent",
-    "title": "Module 1: Overview",
-    "section": "Agent",
-    "text": "Agent\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A ---|\"executes\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe agent programmatically controls communication between the LLM and the tool. The system prompt includes “You have a tool …” so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user."
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#how-tool-calls-work",
-    "href": "slides/m1-ai-in-finance.html#how-tool-calls-work",
-    "title": "Module 1: Overview",
-    "section": "How Tool Calls Work",
-    "text": "How Tool Calls Work\nThe LLM does not run code directly. When it decides a tool is needed, it returns a structured message:\n{\n  \"tool\": \"sql_query\",\n  \"query\": \"SELECT ticker, close FROM prices WHERE date = '2024-12-31'\"\n}\n\nThe agent’s execution layer reads that message, runs the actual tool, and sends the result back to the LLM. The LLM reads the result and decides what to do next.\nAn agent can use multiple tools in sequence — query a database, pass results to Python for analysis, generate a chart, and assemble everything into a PowerPoint deck — all from a single instruction."
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#the-agent-loop",
-    "href": "slides/m1-ai-in-finance.html#the-agent-loop",
-    "title": "Module 1: Overview",
-    "section": "The Agent Loop",
-    "text": "The Agent Loop\n\n\n\n🎯\n\n\nPlan\n\n\nThe LLM reads your request and breaks it into steps\n\n\n\n\n⚡\n\n\nExecute\n\n\nThe agent calls a tool — runs code, queries a database, writes a file\n\n\n\n\n👁️\n\n\nObserve\n\n\nThe agent checks the result of the action\n\n\n\n\n🔄\n\n\nIterate\n\n\nIf unsatisfactory, the agent adjusts its plan and tries again\n\n\n\n\nWhen an agent encounters an error, it doesn’t stop and ask you what to do. It diagnoses the problem, revises its approach, and tries again. This autonomous problem-solving is what separates agents from simple automation scripts."
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#examples-of-agent-tools",
-    "href": "slides/m1-ai-in-finance.html#examples-of-agent-tools",
-    "title": "Module 1: Overview",
-    "section": "Examples of Agent Tools",
-    "text": "Examples of Agent Tools\n\n\n\n🐍\n\n\nPython Environment\n\n\n\n\n🗄️\n\n\nDatabase Server\n\n\n\n\n🌐\n\n\nWeb Browser / Search\n\n\n\n\n📁\n\n\nFile System\n\n\n\n\n🔌\n\n\nAPI Calls\n\n\n\n\nAn agent may be connected to multiple tools. For example, get data from a database server and send it to a Python environment to return analysis."
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#past-present-and-future-of-personal-computing",
-    "href": "slides/m1-ai-in-finance.html#past-present-and-future-of-personal-computing",
-    "title": "Module 1: Overview",
-    "section": "Past, Present, and Future of Personal Computing",
-    "text": "Past, Present, and Future of Personal Computing"
-  },
-  {
-    "objectID": "slides/m1-ai-in-finance.html#example-rice-data-portal",
-    "href": "slides/m1-ai-in-finance.html#example-rice-data-portal",
-    "title": "Module 1: Overview",
-    "section": "Example: Rice Data Portal",
-    "text": "Example: Rice Data Portal\nThe Rice Data Portal is an agent.\n\n\nLLM: ChatGPT — interprets your natural-language question and writes a SQL query\nTool: A database server in the cloud holding stock-market and financial data\nAgent: An app running elsewhere in the cloud that coordinates communication between ChatGPT and the database\n\n\n\nYou type a question (“Show me AAPL closing prices for 2024”). The agent sends it to ChatGPT, which returns a SQL query. The agent runs the query against the database and displays the answer. If the query fails, ChatGPT rewrites it and tries again — multiple rounds, no human intervention."
-  },
-  {
-    "objectID": "assignments.html",
-    "href": "assignments.html",
-    "title": "Assignments",
-    "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nDCF Cross-Check with Red-Teaming\n\n\n\n4B\nAutomated Reporting Pipeline\n\n\n\n4C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
-  },
-  {
-    "objectID": "assignments.html#course-assignments",
-    "href": "assignments.html#course-assignments",
-    "title": "Assignments",
-    "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nDCF Cross-Check with Red-Teaming\n\n\n\n4B\nAutomated Reporting Pipeline\n\n\n\n4C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "",
-    "section": "",
-    "text": "Kerry Back (kerryback@gmail.com) J. Howard Creekmore Professor of Finance and Professor of Economics\n\n\n\nTTh 12:30 – 2:00 3/17/2026 – 4/23/2026\n\n\n\nSaturday, March 21, 9:00-12:00 - optional Python session\n\nAll sessions will be in McNair 212, including the special session.\n\n\n\n\nThe course is about financial applications of generative AI. We will discuss and use current AI tools but also discuss broader concepts of AI and how they relate to finance. The course will be “hands-on.” We will be working in class on laptops each day.\nWe will use Anthropic’s Claude throughout the course. Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork). Claude has also generally led all other models in coding tasks for the past two years. We will also briefly look at ChatGPT, Gemini, and other large language models.\n\n\n\n\nUse AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports\nApply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals\nConnect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation\nAutomate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents\nVerify and govern AI-generated analysis using red-teaming, audit protocols, and structured review\n\n\n\n\nGrades will be based on six group assignments (15% each) and peer assessments (10%). Groups can consist of no more than five students. Each assignment consists of multiple exercises and will take a nontrivial amount of time to complete. Do not wait until the last minute to get started.\nThe assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28 (during exam week).\n\n\n\nEach student will be reimbursed for a Claude Pro account ($20 per month). The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.\n\n\n\nThe Rice University honor code applies to all work in this course.\n\n\n\nAny student with a documented disability requiring accommodations in this course is encouraged to contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations regarding assignments or the final exam must be made in advance. Students with disabilities should also contact Disability Support Services in the Allen Center."
-  },
-  {
-    "objectID": "index.html#generative-ai-for-finance-spring-2026",
-    "href": "index.html#generative-ai-for-finance-spring-2026",
-    "title": "",
-    "section": "",
-    "text": "Kerry Back (kerryback@gmail.com) J. Howard Creekmore Professor of Finance and Professor of Economics\n\n\n\nTTh 12:30 – 2:00 3/17/2026 – 4/23/2026\n\n\n\nSaturday, March 21, 9:00-12:00 - optional Python session\n\nAll sessions will be in McNair 212, including the special session.\n\n\n\n\nThe course is about financial applications of generative AI. We will discuss and use current AI tools but also discuss broader concepts of AI and how they relate to finance. The course will be “hands-on.” We will be working in class on laptops each day.\nWe will use Anthropic’s Claude throughout the course. Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork). Claude has also generally led all other models in coding tasks for the past two years. We will also briefly look at ChatGPT, Gemini, and other large language models.\n\n\n\n\nUse AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports\nApply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals\nConnect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation\nAutomate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents\nVerify and govern AI-generated analysis using red-teaming, audit protocols, and structured review\n\n\n\n\nGrades will be based on six group assignments (15% each) and peer assessments (10%). Groups can consist of no more than five students. Each assignment consists of multiple exercises and will take a nontrivial amount of time to complete. Do not wait until the last minute to get started.\nThe assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28 (during exam week).\n\n\n\nEach student will be reimbursed for a Claude Pro account ($20 per month). The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.\n\n\n\nThe Rice University honor code applies to all work in this course.\n\n\n\nAny student with a documented disability requiring accommodations in this course is encouraged to contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations regarding assignments or the final exam must be made in advance. Students with disabilities should also contact Disability Support Services in the Allen Center."
-  },
-  {
-    "objectID": "slides.html",
-    "href": "slides.html",
-    "title": "Slides",
-    "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nChatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
-  },
-  {
-    "objectID": "slides.html#course-slides",
-    "href": "slides.html#course-slides",
-    "title": "Slides",
-    "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nChatbots and Agents\n\n\n\n8\nData Security and Governance\n\n\n\n9\nRetrieval Augmented Generation\n\n\n\n10\nSentiment Analysis"
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#exploring-claude.ai",
-    "href": "slides/m2-intro-claude.html#exploring-claude.ai",
-    "title": "Module 2: Exploring Claude",
-    "section": "Exploring Claude.ai",
-    "text": "Exploring Claude.ai"
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#getting-started-claude.ai",
-    "href": "slides/m2-intro-claude.html#getting-started-claude.ai",
-    "title": "Module 2: Exploring Claude",
-    "section": "Getting Started: Claude.ai",
-    "text": "Getting Started: Claude.ai\nGo to claude.ai in any browser. No installation required. Icon at top left opens sidebar.\nWhat it can do: It’s a chatbot with a code execution tool. It can answer questions, explain concepts, brainstorm, draft text, summarize documents you paste in. It can also generate charts, Excel files, Word docs, and PowerPoint decks. Code runs in a sandbox — can pip install packages but has no internet access.\nGetting started:\n\nGo to claude.ai and sign in (or create an account)\nType a question or upload a file\nIterate: refine, ask follow-ups, request changes"
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#artifacts-interactive-charts-and-apps",
-    "href": "slides/m2-intro-claude.html#artifacts-interactive-charts-and-apps",
-    "title": "Module 2: Exploring Claude",
-    "section": "Artifacts: Interactive Charts and Apps",
-    "text": "Artifacts: Interactive Charts and Apps\n\nClaude can produce interactive charts and apps that appear in a side panel\nChoose Artifacts → Create an Artifact → apps or websites\nClick Publish to get a shareable link — anyone can view and interact, no Claude account needed\n\nWhat Artifacts Can Build\n\n\n\nInteractive charts with hover/zoom\nFinancial calculators\nScenario analysis with sliders\n\n\n\n\nROI tools and comparisons\nDashboards with filters\nSurveys and data collection\n\n\n\n\nLimitation: Artifacts are client-side only — no database, no persistence. They are disposable by design: generate a new one when needs change, rather than maintaining an old one."
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#artifact-example-black-scholes-calculator",
-    "href": "slides/m2-intro-claude.html#artifact-example-black-scholes-calculator",
-    "title": "Module 2: Exploring Claude",
-    "section": "Artifact Example: Black-Scholes Calculator",
-    "text": "Artifact Example: Black-Scholes Calculator\n“Create a Black-Scholes option calculator with inputs for stock price, strike, rate, volatility, and expiration, and plot call and put prices as the stock price varies from 50% to 150% of the strike.”\nPublish: Publish the artifact and share the link."
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#artifacts-across-platforms",
-    "href": "slides/m2-intro-claude.html#artifacts-across-platforms",
-    "title": "Module 2: Exploring Claude",
-    "section": "Artifacts Across Platforms",
-    "text": "Artifacts Across Platforms\nAll three major platforms let you describe what you want in plain English and get an interactive tool.\n\nClaude Artifacts build React apps you can publish with one click — no account needed to view\nChatGPT Canvas produces similar React apps with inline editing and shareable links\nGemini Canvas generates HTML/CSS/JS and exports or copies the result\n\nWe use Claude, but the concepts transfer to any platform."
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#exploring-claude-for-excel",
-    "href": "slides/m2-intro-claude.html#exploring-claude-for-excel",
-    "title": "Module 2: Exploring Claude",
-    "section": "Exploring Claude for Excel",
-    "text": "Exploring Claude for Excel"
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#claude-for-excel-add-in",
-    "href": "slides/m2-intro-claude.html#claude-for-excel-add-in",
-    "title": "Module 2: Exploring Claude",
-    "section": "Claude for Excel Add-in",
-    "text": "Claude for Excel Add-in\n\n\nWhat It Does\n\nAI sidebar that reads and edits your workbook\nPreserves formula dependencies\nWorks with local files\n\n\n\nCapabilities\n\nAsk questions about workbook content\nBuild financial models from scratch\nTrace and fix formula errors\n\n\n\n\nRequires Claude Pro ($20/mo) or a Claude Team/Enterprise plan."
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#installing-the-add-in",
-    "href": "slides/m2-intro-claude.html#installing-the-add-in",
-    "title": "Module 2: Exploring Claude",
-    "section": "Installing the Add-in",
-    "text": "Installing the Add-in\n\nOpen Excel (desktop version, not the web app)\nGo to Insert → Get Add-ins\nSearch for “Claude by Anthropic” and click Add\nSign in with your Claude account when prompted\nThe Claude sidebar appears on the right — click the Claude icon in the Home ribbon tab to toggle it\n\n\nThe add-in can see your entire workbook: sheet names, cell values, and formulas. It edits cells directly — you can undo any change with Ctrl+Z."
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#example-loan-amortization-table",
-    "href": "slides/m2-intro-claude.html#example-loan-amortization-table",
-    "title": "Module 2: Exploring Claude",
-    "section": "Example: Loan Amortization Table",
-    "text": "Example: Loan Amortization Table\nOpen a blank workbook with the Claude sidebar visible. Type:\n\n“Create a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance. Add a summary section showing total interest paid.”\n\n\nClaude builds the table with live Excel formulas, not hardcoded values\nChange the rate or loan amount and the entire table recalculates\nAsk follow-ups: “Add a chart of principal vs. interest over time” or “What if I make an extra $200/month payment?”"
-  },
-  {
-    "objectID": "slides/m2-intro-claude.html#ai-spreadsheet-tools-compared",
-    "href": "slides/m2-intro-claude.html#ai-spreadsheet-tools-compared",
-    "title": "Module 2: Exploring Claude",
-    "section": "AI Spreadsheet Tools Compared",
-    "text": "AI Spreadsheet Tools Compared\n\nClaude for Excel ($20/mo): formula-preserving edits, no OneDrive required — best for financial modeling\nMicrosoft Copilot ($30/mo): Agent Mode and =COPILOT() function, Python in Excel — best for enterprise ecosystems\nGoogle Sheets + Gemini ($20/mo): =AI() function, web-only — best for cloud collaboration\n\n\nAll three can produce the same kinds of financial tools — DCF calculators, amortization tables, scenario analyzers. Choose based on your ecosystem."
-  },
-  {
-    "objectID": "slides/m4-claude.html#outline",
-    "href": "slides/m4-claude.html#outline",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Outline",
-    "text": "Outline\n\nClaude Desktop Install\nBuilding Small Web Apps\nWorking with Files"
-  },
-  {
-    "objectID": "slides/m4-claude.html#claude-desktop-overview",
-    "href": "slides/m4-claude.html#claude-desktop-overview",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Claude Desktop Overview",
-    "text": "Claude Desktop Overview"
-  },
-  {
-    "objectID": "slides/m4-claude.html#three-tabs-chat-cowork-code",
-    "href": "slides/m4-claude.html#three-tabs-chat-cowork-code",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Three Tabs: Chat, Cowork, Code",
-    "text": "Three Tabs: Chat, Cowork, Code\n\n\nChat (Analysis)\n\nSandboxed Python in the browser\nNo local file access\nMust upload data manually\n\n\n\nCowork\n\nRuns in a local VM\nFiles synced to/from VM\nNo internet access\n\n\n\nCode\n\nRuns on your machine\nFull local file access\nFull internet access\n\n\n\n\nCode mode gives Claude direct access to your machine — no sandbox, no VM, no upload step."
-  },
-  {
-    "objectID": "slides/m4-claude.html#which-tool-when",
-    "href": "slides/m4-claude.html#which-tool-when",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Which Tool When?",
-    "text": "Which Tool When?\n\nChat for questions, explanations, and brainstorming\nArtifacts for quick interactive tools (e.g., a DCF calculator with sliders)\nCode can do everything Cowork can do, plus it has full internet access and direct access to your local files\nCode can also build and deploy interactive tools (like Artifacts)\nCowork’s advantage is that it requires no local software setup and runs in an isolated sandbox"
-  },
-  {
-    "objectID": "slides/m4-claude.html#terminal-alternative",
-    "href": "slides/m4-claude.html#terminal-alternative",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Terminal Alternative",
-    "text": "Terminal Alternative\nThe Code tab in Claude Desktop and the terminal command claude use the same engine.\n\n\nClaude Desktop (Code tab)\n\nVisual interface with file browser\nClick to select working folder\nGood for getting started\n\n\n\nTerminal (claude)\n\nType claude in any terminal\nSame skills, same config\nIntegrates with VS Code\n\n\n\n\nBoth approaches share the same skills, MCP servers, and configuration files."
-  },
-  {
-    "objectID": "slides/m4-claude.html#class-installers",
-    "href": "slides/m4-claude.html#class-installers",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Class Installers",
-    "text": "Class Installers\nThe class installer sets up everything you need in one step:\n\nPython — language Claude Code uses to execute analysis\nGit for Windows (Windows only) — required by the terminal Claude Code\nClaude Desktop — the application with built-in Claude Code\nClaude Code (terminal) — run claude from any terminal or VS Code"
-  },
-  {
-    "objectID": "slides/m4-claude.html#running-the-installers",
-    "href": "slides/m4-claude.html#running-the-installers",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Running the Installers",
-    "text": "Running the Installers\n\n\nWindows\n\nDownload Windows Installer\nExtract the zip file\nDouble-click INSTALL.bat\nClick Yes when the permission prompt appears\n\n\n\nMac\n\nDownload Mac Installer to Downloads\nOpen Terminal\nRun: cd ~/Downloads && bash install.sh"
-  },
-  {
-    "objectID": "slides/m4-claude.html#getting-started",
-    "href": "slides/m4-claude.html#getting-started",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Getting Started",
-    "text": "Getting Started\n\nOpen Claude Desktop → Code tab\nSelect a working folder for your project\nChoose a model: use Sonnet to conserve tokens; Opus is more thorough but uses tokens much faster\nI would set permission mode to auto-accept, but do what you feel comfortable with."
-  },
-  {
-    "objectID": "slides/m4-claude.html#example",
-    "href": "slides/m4-claude.html#example",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Example",
-    "text": "Example\nCopy and past the following into the Code tab of Claude Desktop:\nCreate an Excel workbook with a loan amortization table for a $300,000 mortgage at 6.5% annual interest with a 30-year term and monthly payments. Use formulas so I can change the loan amount, rate, and term. Include columns for payment number, payment, principal, interest, and remaining balance."
-  },
-  {
-    "objectID": "slides/m4-claude.html#building-small-web-apps",
-    "href": "slides/m4-claude.html#building-small-web-apps",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Building Small Web Apps",
-    "text": "Building Small Web Apps"
-  },
-  {
-    "objectID": "slides/m4-claude.html#how-web-browsers-work",
-    "href": "slides/m4-claude.html#how-web-browsers-work",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "How Web Browsers Work",
-    "text": "How Web Browsers Work\nA web browser is a program that downloads and runs code — HTML, CSS, and JavaScript — delivered by a server when you visit a URL.\n\nHTML defines the content and structure\nCSS controls the visual styling\nJavaScript adds interactivity and computation\n\nRight-click any webpage and choose View Page Source to see the code your browser is running.\nPyodide is a JavaScript library that compiles Python to WebAssembly so it runs natively inside the browser. The result: Python code executing inside JavaScript, inside your browser — no server, no installation."
-  },
-  {
-    "objectID": "slides/m4-claude.html#running-python-in-the-browser",
-    "href": "slides/m4-claude.html#running-python-in-the-browser",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Running Python in the Browser",
-    "text": "Running Python in the Browser\nPyodide is a full Python runtime compiled to WebAssembly. It runs inside a browser tab — no server, no installation.\n\n\nWhat Pyodide Provides\n\nFull CPython interpreter in the browser\nNumPy, pandas, and other scientific packages\nBidirectional JavaScript ↔︎ Python interop\n\n\n\nWhat You Can Build\n\nCalculators and financial models\nInteractive charts and dashboards\nAny tool that runs entirely in the browser\n\n\n\n\nThis is the same technology Claude uses under the hood for artifacts — a self-contained HTML file with Pyodide embedded in it."
-  },
-  {
-    "objectID": "slides/m4-claude.html#example-npv-web-app",
-    "href": "slides/m4-claude.html#example-npv-web-app",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Example: NPV Web App",
-    "text": "Example: NPV Web App\nAsk Claude Code:\n“Create an HTML file called npv.html that uses Pyodide to compute NPV. Provide input cells for cash flows at dates 0 through 5 and a discount rate. Compute and display the NPV when the user clicks a button.”\nThen:\n\nFind npv.html in your project folder\nDouble-click it — it opens in your browser\nEnter cash flows and a discount rate, click the button, and see the NPV\n\n\nThe HTML file is self-contained. Anyone can open it — no Python installation needed."
-  },
-  {
-    "objectID": "slides/m4-claude.html#example-bar-chart-race",
-    "href": "slides/m4-claude.html#example-bar-chart-race",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Example: Bar Chart Race",
-    "text": "Example: Bar Chart Race\nDownload marketcap.xlsx — end-of-year market cap by sector, 2000–2025.\nUpload it to Claude and ask:\n“Build a web app with a bar chart race to show how the sizes of different sectors have changed over time.”\n\nClaude reads the data and writes the Plotly code — you get an interactive animated chart without writing a line of code."
-  },
-  {
-    "objectID": "slides/m4-claude.html#working-with-files",
-    "href": "slides/m4-claude.html#working-with-files",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Working with Files",
-    "text": "Working with Files"
-  },
-  {
-    "objectID": "slides/m4-claude.html#download-the-example-files",
-    "href": "slides/m4-claude.html#download-the-example-files",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Download the Example Files",
-    "text": "Download the Example Files\nDownload module4.zip and extract it to a folder on your computer.\nPoint Claude Code to that folder. It contains three subfolders:\n\nExample1/ — portfolio holdings spreadsheet\nExample2/ — loan terms document and payment history spreadsheet\nExample3/ — earnings PDF report and stock prices spreadsheet"
-  },
-  {
-    "objectID": "slides/m4-claude.html#example-1",
-    "href": "slides/m4-claude.html#example-1",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Example 1",
-    "text": "Example 1\nCopy and paste the following into the Code tab of Claude Desktop:\nRead the file Example1/portfolio.xlsx, which contains holdings with columns for ticker, asset class, sector, and market value. Create a pivot table showing total market value by asset class and sector. Save the pivot table to a new file called summary.xlsx."
-  },
-  {
-    "objectID": "slides/m4-claude.html#merging-data-from-different-sources",
-    "href": "slides/m4-claude.html#merging-data-from-different-sources",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Merging Data from Different Sources",
-    "text": "Merging Data from Different Sources\nReal financial data rarely lives in a single file or format. Claude Code can read Excel, PDF, and Word files, then combine, filter, and aggregate.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  WRD[\"&lt;b&gt;Word&lt;/b&gt;\"] --&gt; CC[\"&lt;b&gt;Claude Code&lt;/b&gt;&lt;br&gt;Merge, Filter, Aggregate\"]\n  XLS[\"&lt;b&gt;Excel&lt;/b&gt;\"] --&gt; CC\n  PDF[\"&lt;b&gt;PDF&lt;/b&gt;\"] --&gt; CC\n  CC --&gt; UT[\"&lt;b&gt;Unified Table&lt;/b&gt;\"]\n\n  style WRD fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style XLS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style PDF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style CC fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style UT fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px"
-  },
-  {
-    "objectID": "slides/m4-claude.html#example-2",
-    "href": "slides/m4-claude.html#example-2",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Example 2",
-    "text": "Example 2\nCopy and paste the following into the Code tab of Claude desktop:\nThe file Example2/loan_terms.docx contains a table with columns for borrower, loan type, origination date, principal, and interest rate. The file Example2/payments.xlsx contains monthly payment records with columns for borrower, date, and payment amount. Combine the two files on borrower name. Filter to loans with original principal above $500,000. Compute average interest rate and total original principal by loan type and save the results to summary.xlsx."
-  },
-  {
-    "objectID": "slides/m4-claude.html#example-3",
-    "href": "slides/m4-claude.html#example-3",
-    "title": "Module 4: Claude Desktop & Code",
-    "section": "Example 3",
-    "text": "Example 3\nCopy and paste the following into the Code tab of Claude Desktop:\nThe file Example3/earnings.pdf contains a table of Q4 2024 earnings results with columns for ticker, company, revenue, EPS, and guidance. The file Example3/prices.xlsx contains closing stock prices. Read both files, merge on ticker, and compute the price-to-earnings ratio for each company. Save the results sorted by P/E ratio to pe_analysis.xlsx."
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#from-makers-to-checkers",
-    "href": "slides/m6-makers-checkers.html#from-makers-to-checkers",
-    "title": "Module 6: Makers and Checkers",
-    "section": "From Makers to Checkers",
-    "text": "From Makers to Checkers\n\nWhat we’re working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.\nWorkers would shift from being creators of reports or software updates, or ‘makers’ … to ‘“checkers” or managers of AI agents’ doing that work.\n\n\nDerek Waldron, JP Morgan Chief Analytics Officer — CNBC interview, September 30, 2025"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#the-maker",
-    "href": "slides/m6-makers-checkers.html#the-maker",
-    "title": "Module 6: Makers and Checkers",
-    "section": "The Maker",
-    "text": "The Maker\nAI as maker is a fast, tireless junior analyst that handles the mechanical work.\n\n\nWhat AI Does Well\n\nDrafts reports, memos, and summaries\nWrangles and merges data from multiple sources\nBuilds spreadsheets with live formulas\nRuns calculations and generates charts\nFormats output to a professional standard\n\n\n\nThe Speed Advantage\n\nTasks that take hours become minutes\nNo fatigue, no context-switching cost\nRuns the same workflow identically every time\nFrees you for judgment, relationships, and strategy"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#the-checker",
-    "href": "slides/m6-makers-checkers.html#the-checker",
-    "title": "Module 6: Makers and Checkers",
-    "section": "The Checker",
-    "text": "The Checker\nYour role shifts from doing the work to directing and verifying it.\n\n\nDirecting\n\nSpecify the task clearly\nProvide the right inputs and context\nDefine what “good output” looks like\nDecide when to iterate vs. accept\n\n\n\nVerifying\n\nSpot-check key numbers against known sources\nConfirm the logic matches the business question\nReview edge cases and assumptions\nSign off before the output goes anywhere consequential\n\n\n\n\nThe checker adds the judgment the maker lacks. Neither alone is enough."
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#where-ai-can-silently-fail",
-    "href": "slides/m6-makers-checkers.html#where-ai-can-silently-fail",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Where AI Can Silently Fail",
-    "text": "Where AI Can Silently Fail"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#silent-analytical-errors",
-    "href": "slides/m6-makers-checkers.html#silent-analytical-errors",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Silent Analytical Errors",
-    "text": "Silent Analytical Errors\nAI in code-execution mode rarely invents facts outright. Instead it makes silent analytical errors — mistakes that look fine on the surface.\n\n\nCommon Failure Modes\n\nFilters slightly off (wrong date range, wrong column)\nMissing data dropped without warning\nAggregation in the wrong order\nMisread assumptions from an ambiguous prompt\nMade-up citations or statistics in prose\n\n\n\nWhy They’re Dangerous\n\nOutput looks polished and professional\nCharts render cleanly — nobody questions a clean chart\nErrors compound silently in multi-step workflows\nConfidence without verification is the real risk"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#the-checkers-toolkit",
-    "href": "slides/m6-makers-checkers.html#the-checkers-toolkit",
-    "title": "Module 6: Makers and Checkers",
-    "section": "The Checker’s Toolkit",
-    "text": "The Checker’s Toolkit\nYou don’t need to re-do the work. You need targeted verification.\n\nSpot-check with known answers — run a simplified version of the calculation by hand on one or two rows\nAsk Claude to explain its logic — “Walk me through how you computed this number”\nReview the code — ask Claude to show the key filter and aggregation steps\nTest edge cases — what happens with zeros, negatives, or missing values?\nSanity-check the magnitude — does the answer make sense given what you know?\n\n\nPick the checks that match the stakes. A quick directional analysis needs less verification than a client deliverable."
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#packaging-the-maker-as-a-skill",
-    "href": "slides/m6-makers-checkers.html#packaging-the-maker-as-a-skill",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Packaging the Maker as a Skill",
-    "text": "Packaging the Maker as a Skill"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#why-build-a-skill",
-    "href": "slides/m6-makers-checkers.html#why-build-a-skill",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Why Build a Skill?",
-    "text": "Why Build a Skill?\nOnce you have a workflow that works and passes your checks, turn it into a skill — a reusable, one-command process.\n\n\nWithout a Skill\n\nRe-type or copy-paste the same prompt each time\nRisk of drift — slightly different wording, slightly different output\nOthers on your team can’t easily reuse your work\n\n\n\nWith a Skill\n\nOne /command runs the full workflow\nSame logic, same checks, same output format every time\nShareable — drop it in a shared skills/ folder\n\n\n\n\nA skill is how a one-time workflow becomes a team asset."
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#building-a-skill-with-skill-creator",
-    "href": "slides/m6-makers-checkers.html#building-a-skill-with-skill-creator",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Building a Skill with /skill-creator",
-    "text": "Building a Skill with /skill-creator\n\nType /skill-creator to start the skill builder\nDescribe the workflow: inputs, steps, outputs, and any checks to include\nClaude generates a SKILL.md and installs it in ~/.claude/skills/\nInvoke it anytime with /skill-name\n\n\nYou can embed checker steps directly in the skill — for example, “after computing the result, show the row count and the min/max values so the user can sanity-check the data.”"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#valuing-companies",
-    "href": "slides/m6-makers-checkers.html#valuing-companies",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Valuing Companies",
-    "text": "Valuing Companies"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#valuation-by-multiples",
-    "href": "slides/m6-makers-checkers.html#valuation-by-multiples",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Valuation by Multiples",
-    "text": "Valuation by Multiples\nCompare the target company to similar public companies on industry and size, then apply their valuation multiples.\n\n\nFinding Comparables\n\nMatch on industry (same SIC code or GICS sector)\nMatch on size (revenue, market cap, or total assets)\nThe closer the match, the more reliable the multiple\n\n\n\nCommon Multiples\n\nP/E — price to earnings; most widely used\nP/S — price to sales; useful when earnings are negative\nP/B — price to book; common in financial firms\n\n\n\n\nFor full automation, connect the agent to a database of public company financials — it can pull comparables, compute medians, and apply multiples in one step."
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
-    "href": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Two-Stage DCF Analysis",
-    "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates\nExample: forecast sales growth, then derive everything else in relation to sales\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#gotcha-1",
-    "href": "slides/m6-makers-checkers.html#gotcha-1",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Gotcha 1",
-    "text": "Gotcha 1\n\nIt is reasonable to forecast balance sheet items in proportion to sales: receivables/sales, inventory/sales, net PP&E/sales, …\nThe change in a balance sheet item depends on the ratios in two successive years\nOutside of constant growth, compute the change — don’t forecast it as a proportion of sales\nFor cap ex: forecast net PP&E as a proportion of sales, forecast depreciation as a percent of net PP&E, calculate cap ex as the plug"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#try-it-the-ratio-approach",
-    "href": "slides/m6-makers-checkers.html#try-it-the-ratio-approach",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Try It: The Ratio Approach",
-    "text": "Try It: The Ratio Approach"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#gotcha-2",
-    "href": "slides/m6-makers-checkers.html#gotcha-2",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Gotcha 2",
-    "text": "Gotcha 2\nBecause changes in balance sheet items depend on sales growth in two successive years, first year of constant cash flow growth is second year of constant sales growth.\nAdd one year of constant sales growth to Stage 1. Make that year the terminal year."
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#gotcha-2-continued",
-    "href": "slides/m6-makers-checkers.html#gotcha-2-continued",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Gotcha 2 (continued)",
-    "text": "Gotcha 2 (continued)"
-  },
-  {
-    "objectID": "slides/m6-makers-checkers.html#getting-started",
-    "href": "slides/m6-makers-checkers.html#getting-started",
-    "title": "Module 6: Makers and Checkers",
-    "section": "Getting Started",
-    "text": "Getting Started\nAsk Claude Code:\nBuild an example of a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates."
   },
   {
     "objectID": "slides/m9-rag.html#beyond-prompting",

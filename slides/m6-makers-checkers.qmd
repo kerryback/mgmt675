@@ -219,7 +219,7 @@ Discount projected cash flows back to the present. Two stages handle near-term u
 - Outside of constant growth, [compute the change]{.amber} --- don't forecast it as a proportion of sales
 - For cap ex: forecast net PP&E as a proportion of sales, forecast depreciation as a percent of net PP&E, [calculate cap ex as the plug]{.amber}
 
-## Try It: The Ratio Approach
+## Gotcha 1 Example
 
 ![](images/gotcha1.png){width=80%}
 
