@@ -244,5 +244,13 @@ Year 4 should be the terminal year of the 1st stage.
 
 <div style="display:flex;justify-content:center;align-items:center;flex:1;"><img src="images/gotcha2.png" style="max-height:75vh;width:auto;"></div>
 
+## 2-Stage DCF Skill
 
+1. Type `/skill-creator` to start the skill builder
+2. Ask Claude to create a `2-stage-dcf` skill
+3. Include the gotcha rules in your prompt --- copy and paste or type them in:
+
+:::{.explainer}
+*"Forecast balance sheet items as ratios to sales. Outside of constant growth, compute balance sheet changes from the ratios --- do not forecast changes directly as a proportion of sales. For cap ex, forecast net PP&E/sales and depreciation/net PP&E, then calculate cap ex as the plug. Add one extra year of constant sales growth at the end of Stage 1 and make that year the terminal year, so that Stage 2 begins with the first year of constant cash flow growth."*
+:::
 
