@@ -1,5 +1,5 @@
 ---
-title: "Module 10: Retrieval Augmented Generation"
+title: "Module 9: Retrieval Augmented Generation"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:

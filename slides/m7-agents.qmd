@@ -1,5 +1,5 @@
 ---
-title: "Module 8: More on AI Agents"
+title: "Module 7: More on AI Agents"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:

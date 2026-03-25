@@ -1,5 +1,5 @@
 ---
-title: "Module 6: DCF Analysis"
+title: "Module 6: Makers and Checkers"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -17,249 +17,147 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## Learning Objectives
+## From Makers to Checkers {.quote-slide}
 
-1. Build two-stage DCF models driven by a small set of assumptions
-2. Perform sensitivity analysis and Monte Carlo simulation to quantify valuation uncertainty
-3. Use AI to build, extend, and stress-test valuation models
+:::{.quote-text}
+What we're working towards is that every employee will have their own personalized AI assistant; every process is powered by AI agents, and every client experience has an AI concierge.
 
-These are core tools of corporate finance. AI handles the mathematics and code. [You focus on the assumptions and the interpretation.]{.amber}
+Workers would shift from being creators of reports or software updates, or 'makers' ... to ['"checkers" or managers of AI agents']{.amber} doing that work.
+:::
 
-## Company Valuation: DCF {.section-divider}
+:::{.quote-source}
+Derek Waldron, JP Morgan Chief Analytics Officer — CNBC interview, September 30, 2025
+:::
 
-## The Big Picture
+## The Maker
 
-Discounted cash flow (DCF) valuation estimates the value of a company's operations by forecasting future free cash flows and discounting them to the present.
-
-- A small set of **assumptions** drives the entire model
-- AI builds the pro forma financial statements and computes free cash flow
-- You focus on [choosing the right assumptions]{.amber} and [interpreting the output]{.amber}
-
-## The Assumption Set
-
-A pro forma model is driven by a small number of assumptions. Everything else is computed.
-
-| **Assumption** | **Driver** |
-|----------------|------------|
-| Sales growth rate | % per year |
-| COGS | % of sales |
-| SG&A | Base amount + % of sales |
-| NWC, PP&E, net other OA | % of sales |
-| Depreciation | % of PP&E |
-| Tax rate | % of pre-tax income |
-
-Cap ex is not assumed directly --- it is computed from PP&E and depreciation.
-
-## Pro Forma Income Statement
-
-| **Line Item** | **How It's Computed** |
-|---------------|----------------------|
-| Sales | Prior sales $\times$ (1 + growth rate) |
-| COGS | COGS% $\times$ sales |
-| **Gross profit** | Sales $-$ COGS |
-| SG&A | Base + SG&A% $\times$ sales |
-| Depreciation | Depr% $\times$ PP&E |
-| **EBIT** | Gross profit $-$ SG&A $-$ depreciation |
-| Taxes | Tax rate $\times$ EBIT |
-| **NOPAT** | EBIT $-$ taxes |
-
-## Pro Forma Balance Sheet and Cap Ex
+AI as maker is a [fast, tireless junior analyst]{.amber} that handles the mechanical work.
 
 :::{.two-cards}
 :::{.card .card-light}
-[**Balance Sheet Items**]{.card-title}
+[**What AI Does Well**]{.card-title}
 
-- **NWC** = NWC% $\times$ sales
-- **PP&E** = PP&E% $\times$ sales
-- **Net other OA** = Net other OA% $\times$ sales
-- Change in each = current $-$ prior year
+- Drafts reports, memos, and summaries
+- Wrangles and merges data from multiple sources
+- Builds spreadsheets with live formulas
+- Runs calculations and generates charts
+- Formats output to a professional standard
 :::
 
 :::{.card .card-light}
-[**Capital Expenditures**]{.card-title}
+[**The Speed Advantage**]{.card-title}
 
-- Target PP&E$_t$ = PP&E% $\times$ sales$_t$
-- Depreciation$_t$ = depr% $\times$ PP&E$_{t-1}$
-- [Cap ex$_t$ = PP&E$_t$ $-$ PP&E$_{t-1}$ + depr$_t$]{.amber}
+- Tasks that take hours become minutes
+- No fatigue, no context-switching cost
+- Runs the same workflow identically every time
+- Frees you for judgment, relationships, and strategy
+:::
+:::
+
+## The Checker
+
+Your role shifts from doing the work to [directing and verifying]{.amber} it.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Directing**]{.card-title}
+
+- Specify the task clearly
+- Provide the right inputs and context
+- Define what "good output" looks like
+- Decide when to iterate vs. accept
+:::
+
+:::{.card .card-light}
+[**Verifying**]{.card-title}
+
+- Spot-check key numbers against known sources
+- Confirm the logic matches the business question
+- Review edge cases and assumptions
+- Sign off before the output goes anywhere consequential
 :::
 :::
 
 :::{.explainer style="text-align:center;"}
-**Free Cash Flow to the Firm:** FCF = NOPAT + Depreciation $-$ Cap Ex $-$ $\Delta$NWC $-$ $\Delta$Net Other OA
+The checker adds the judgment the maker lacks. [Neither alone is enough.]{.amber}
 :::
 
-## Two-Stage DCF {.section-divider}
+## Where AI Can Silently Fail {.section-divider}
 
-## Two-Stage DCF: Overview
+## Silent Analytical Errors
 
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
-flowchart LR
-  S1["<b>Stage 1: Explicit Forecast</b><br>(5–10 years)"] --> EV["<b>Enterprise Value</b><br>= PV(Stage 1) + PV(Stage 2)"]
-  S2["<b>Stage 2: Terminal Value</b><br>(perpetuity)"] --> EV
-
-  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style EV fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-```
-
-- **Stage 1**: Project FCF each year from pro forma assumptions
-- **Stage 2**: Terminal value = FCF$_{T+1}$ / (WACC $-$ $g$), where $g$ is the long-run growth rate
-- **Equity value** = Enterprise value $-$ net debt. Discount at the WACC.
-
-## Terminal Value
-
-The terminal value typically accounts for [60--80%]{.amber} of total enterprise value. Getting it right matters more than the explicit forecast.
+AI in code-execution mode rarely invents facts outright. Instead it makes [silent analytical errors]{.amber} --- mistakes that look fine on the surface.
 
 :::{.two-cards}
 :::{.card .card-light}
-[**Growing Perpetuity**]{.card-title}
+[**Common Failure Modes**]{.card-title}
 
-- TV = FCF$_{T+1}$ / (WACC $-$ $g$)
-- FCF$_{T+1}$ = year $T$ FCF $\times$ (1 + $g$)
-- $g$ = long-run nominal growth (typically 2--3%)
-- Requires $g <$ WACC
+- Filters slightly off (wrong date range, wrong column)
+- Missing data dropped without warning
+- Aggregation in the wrong order
+- Misread assumptions from an ambiguous prompt
+- Made-up citations or statistics in prose
 :::
 
 :::{.card .card-light}
-[**Exit Multiple**]{.card-title}
+[**Why They're Dangerous**]{.card-title}
 
-- TV = EBITDA$_T$ $\times$ exit multiple
-- Multiple from comparable firms
-- Common in practice (M&A, PE)
-- Cross-check against perpetuity method
+- Output looks polished and professional
+- Charts render cleanly --- nobody questions a clean chart
+- Errors compound silently in multi-step workflows
+- [Confidence without verification is the real risk]{.amber}
 :::
 :::
 
-## Sensitivity Analysis {.section-divider}
+## The Checker's Toolkit
 
-## Sensitivity Tables
+You don't need to re-do the work. You need [targeted verification]{.amber}.
 
-A sensitivity table shows how the output (e.g., equity value per share) changes as you vary one or two key inputs.
+- **Spot-check with known answers** --- run a simplified version of the calculation by hand on one or two rows
+- **Ask Claude to explain its logic** --- *"Walk me through how you computed this number"*
+- **Review the code** --- ask Claude to show the key filter and aggregation steps
+- **Test edge cases** --- what happens with zeros, negatives, or missing values?
+- **Sanity-check the magnitude** --- does the answer make sense given what you know?
+
+:::{.explainer style="text-align:center;"}
+Pick the checks that match the [stakes]{.amber}. A quick directional analysis needs less verification than a client deliverable.
+:::
+
+## Packaging the Maker as a Skill {.section-divider}
+
+## Why Build a Skill?
+
+Once you have a workflow that works and passes your checks, turn it into a [skill]{.amber} --- a reusable, one-command process.
 
 :::{.two-cards}
 :::{.card .card-light}
-[**One-Way Table**]{.card-title}
+[**Without a Skill**]{.card-title}
 
-- Vary a single input (e.g., WACC from 8% to 12%)
-- Hold everything else constant
-- Shows which inputs matter most
+- Re-type or copy-paste the same prompt each time
+- Risk of drift --- slightly different wording, slightly different output
+- Others on your team can't easily reuse your work
 :::
 
 :::{.card .card-light}
-[**Two-Way Table**]{.card-title}
+[**With a Skill**]{.card-title}
 
-- Vary two inputs simultaneously
-- Classic: WACC vs. terminal growth rate
-- Also useful for sales growth vs. COGS margin; reveals interaction effects
+- One `/command` runs the full workflow
+- Same logic, same checks, same output format every time
+- Shareable --- drop it in a shared `skills/` folder
 :::
 :::
 
-:::{.explainer}
-Ask Claude to produce sensitivity tables in Excel (with formulas) or as formatted output. In Excel, the Data Table feature automates two-way tables.
+:::{.explainer style="text-align:center;"}
+A skill is how a [one-time workflow]{.amber} becomes a [team asset]{.amber}.
 :::
 
-## Monte Carlo Simulation {.section-divider}
+## Building a Skill with /skill-creator
 
-## Why Simulate?
+1. Type `/skill-creator` to start the skill builder
+2. Describe the workflow: inputs, steps, outputs, and any checks to include
+3. Claude generates a `SKILL.md` and installs it in `~/.claude/skills/`
+4. Invoke it anytime with `/skill-name`
 
-- Sensitivity tables vary one or two inputs; in reality, [all assumptions are uncertain simultaneously]{.amber}
-- Monte Carlo simulation draws random values for each assumption, computes FCF and enterprise value, and repeats thousands of times
-- The result: a **distribution** of enterprise values, not a single point estimate
-
-## Simulation Setup
-
-Assign a probability distribution to each uncertain assumption, then sample and compute.
-
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%
-flowchart LR
-  RA["<b>Random<br>Assumptions</b>"] --> PF["<b>Pro Forma<br>Model</b>"]
-  PF --> FCF["<b>FCF</b>"]
-  FCF --> EV["<b>Enterprise<br>Value</b>"]
-  EV --> H["<b>Histogram<br>of Values</b>"]
-
-  style RA fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style PF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style FCF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style EV fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style H fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-```
-
-| **Assumption** | **Distribution** | **Example** |
-|----------------|------------------|-------------|
-| Sales growth | Normal | $\mu = 8\%$, $\sigma = 3\%$ |
-| COGS % | Normal | $\mu = 60\%$, $\sigma = 2\%$ |
-| Terminal growth | Uniform | 1.5% to 3.5% |
-| WACC | Normal | $\mu = 10\%$, $\sigma = 1\%$ |
-
-## Simulation Output
-
-- Run 10,000 simulations → 10,000 enterprise values
-- Report mean, median, 10th/90th percentiles; plot a histogram
-- Identify which assumptions drive the most variance (tornado chart)
-
-## Building These Analyses with AI {.section-divider}
-
-## Multiple Ways to Build with AI
-
-- **Chat**: "Build a two-stage DCF model for a company with these assumptions ... Generate an Excel file with pro formas, FCF, and a sensitivity table."
-- **Cowork**: Point Claude at a folder with data files. "Read the financial data, build pro formas, run a DCF, and save the results to Excel."
-- **Code**: "Build a DCF model in Python. Fetch Apple's financials from FMP, estimate assumptions from historical data, and run a Monte Carlo simulation."
-- **Excel add-in**: Open a blank workbook. "Build a two-stage DCF with pro forma statements, a sensitivity table for WACC vs. terminal growth, and a tornado chart."
-
-[Key difference:]{.amber} Chat and Cowork generate spreadsheets via Python (no internet). Code mode can [fetch live data]{.amber} from APIs before building the model.
-
-## {.centered-statement}
-
-:::{style="text-align:center;"}
-**The same analysis that takes hours with traditional tools takes minutes with AI.**
-
-Describing the problem clearly --- choosing the right assumptions, interpreting the output --- is the hard part. The computation is delegated entirely.
+:::{.explainer style="text-align:center;"}
+You can embed checker steps directly in the skill --- for example, *"after computing the result, show the row count and the min/max values so the user can sanity-check the data."*
 :::
-
-## Exercises {.section-divider}
-
-## In-Class Exercise: Pro Forma Skill
-
-Create a Claude skill that enforces specific pro forma forecasting rules for PP&E:
-
-:::{.info-box}
-[**Rules to Encode in the Skill**]{.box-title}
-
-1. Forecast **net PP&E** as a percentage of sales (e.g., trailing average of net PP&E / sales)
-2. Forecast **depreciation** as a percentage of net PP&E (e.g., trailing average of depreciation / net PP&E)
-3. Compute **cap ex** as the plug: cap ex = $\Delta$ net PP&E + depreciation
-:::
-
-1. Write a `SKILL.md` that tells Claude to follow these three rules whenever building pro formas
-2. Test it: ask Claude to build a pro forma for a company using the skill
-3. Verify: does the balance sheet balance? Is cap ex the plug?
-
-## Exercise 3: DCF Model
-
-Build a two-stage DCF for a hypothetical company:
-
-- Current sales: $500M; sales growth (yrs 1--5): 10%; terminal growth: 3%
-- COGS: 58% of sales; SG&A: $20M + 12% of sales
-- NWC: 15% of sales; PP&E: 40% of sales; net other OA: 5% of sales
-- Depreciation: 10% of PP&E; tax rate: 25%
-- WACC: 9%; net debt: $200M; shares outstanding: 50M
-
-Produce an Excel workbook with pro forma income statement, balance sheet items, FCF calculation, enterprise value, per-share value, and a two-way sensitivity table (WACC vs. terminal growth rate).
-
-## Exercise 4: DCF with Live Data
-
-- In Claude Code, fetch a real company's financials from the Rice Data Portal (SF1 table) and estimate assumptions from trailing averages.
-- Build a 5-year pro forma, run a two-stage DCF, and compare to the current market cap.
-- Submit the code output + a short memo explaining the comparison.
-
-**Note:** This exercise requires Claude Code (internet access for the database query).
-
-## Exercise 5: Monte Carlo Simulation
-
-- Take your DCF model and assign distributions to sales growth, COGS %, terminal growth, and WACC.
-- Run 10,000 simulations; report mean, median, 10th/90th percentiles.
-- Plot a histogram + tornado chart; discuss which assumption drives the most variation.

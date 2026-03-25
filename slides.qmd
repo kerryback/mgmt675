@@ -13,9 +13,8 @@ Click on a topic to view the slide deck.
 | 3 | <a href="slides/m3-mean-variance.html" target="_blank">Mean-Variance Analysis</a> | <a href="slides/m3-mean-variance.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 4 | <a href="slides/m4-claude.html" target="_blank">Claude Desktop and Claude Code</a> | <a href="slides/m4-claude.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 5 | <a href="slides/m5-skills.html" target="_blank">Claude Sub-Agents and Skills</a> | <a href="slides/m5-skills.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 6 | <a href="slides/m6-dcf.html" target="_blank">Discounted Cash Flow Analysis</a> | <a href="slides/m6-dcf.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 7 | <a href="slides/m7-reliability.html" target="_blank">Verification, Auditing, and Governance</a> | <a href="slides/m7-reliability.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 8 | <a href="slides/m8-agents.html" target="_blank">More on AI Agents</a> | <a href="slides/m8-agents.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 9 | <a href="slides/m9-mcp.html" target="_blank">Model Context Protocol</a> | <a href="slides/m9-mcp.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 10 | <a href="slides/m10-rag.html" target="_blank">Retrieval Augmented Generation</a> | <a href="slides/m10-rag.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 11 | <a href="slides/m11-sentiment.html" target="_blank">Sentiment Analysis</a> | <a href="slides/m11-sentiment.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 6 | <a href="slides/m6-dcf.html" target="_blank">Makers and Checkers</a> | <a href="slides/m6-dcf.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 7 | <a href="slides/m7-agents.html" target="_blank">More on AI Agents</a> | <a href="slides/m7-agents.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 8 | <a href="slides/m8-data-security.html" target="_blank">Data Security and Governance</a> | <a href="slides/m8-data-security.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 9 | <a href="slides/m9-rag.html" target="_blank">Retrieval Augmented Generation</a> | <a href="slides/m9-rag.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 10 | <a href="slides/m10-sentiment.html" target="_blank">Sentiment Analysis</a> | <a href="slides/m10-sentiment.html" target="_blank">{{< fa presentation-screen >}}</a> |

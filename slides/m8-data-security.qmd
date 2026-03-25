@@ -1,5 +1,5 @@
 ---
-title: "Module 7: Verification, Auditing, and Governance"
+title: "Module 8: Data Security and Governance"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:

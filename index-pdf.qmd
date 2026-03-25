@@ -66,15 +66,14 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 3. [Mean-Variance Analysis](https://mgmt675.kerryback.com/slides/m3-mean-variance.html)
 4. [Claude Desktop and Claude Code](https://mgmt675.kerryback.com/slides/m4-claude.html)
 5. [Claude Sub-Agents and Skills](https://mgmt675.kerryback.com/slides/m5-skills.html)
-6. [Discounted Cash Flow Analysis](https://mgmt675.kerryback.com/slides/m6-dcf.html)
+6. [Makers and Checkers](https://mgmt675.kerryback.com/slides/m6-dcf.html)
 :::
 
 ::: {}
-7. [Verification, Auditing, and Governance](https://mgmt675.kerryback.com/slides/m7-reliability.html)
-8. [More on AI Agents](https://mgmt675.kerryback.com/slides/m8-agents.html)
-9. [Model Context Protocol](https://mgmt675.kerryback.com/slides/m9-mcp.html)
-10. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m10-rag.html)
-11. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m11-sentiment.html)
+7. [More on AI Agents](https://mgmt675.kerryback.com/slides/m7-agents.html)
+8. [Data Security and Governance](https://mgmt675.kerryback.com/slides/m8-data-security.html)
+9. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m9-rag.html)
+10. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m10-sentiment.html)
 :::
 ::::
 

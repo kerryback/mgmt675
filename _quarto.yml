@@ -12,11 +12,10 @@ project:
     - slides/m4-claude.qmd
     - slides/m5-skills.qmd
     - slides/m6-dcf.qmd
-    - slides/m7-reliability.qmd
-    - slides/m8-agents.qmd
-    - slides/m9-mcp.qmd
-    - slides/m10-rag.qmd
-    - slides/m11-sentiment.qmd
+    - slides/m7-agents.qmd
+    - slides/m8-data-security.qmd
+    - slides/m9-rag.qmd
+    - slides/m10-sentiment.qmd
   resources:
     - CNAME
     - .nojekyll
