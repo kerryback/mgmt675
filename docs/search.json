@@ -599,7 +599,7 @@
     "href": "slides/m6-makers-checkers.html#getting-started",
     "title": "Module 6: Makers and Checkers",
     "section": "Getting Started",
-    "text": "Getting Started\nAsk Claude Code:\nBuild an example of a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates."
+    "text": "Getting Started\nAsk Claude Code:\nCreate an Excel workbook illustrating a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates."
   },
   {
     "objectID": "slides/m6-makers-checkers.html#gotcha-1",
@@ -613,21 +613,91 @@
     "href": "slides/m6-makers-checkers.html#gotcha-1-example",
     "title": "Module 6: Makers and Checkers",
     "section": "Gotcha 1 Example",
-    "text": "Gotcha 1 Example"
+    "text": "Gotcha 1 Example\nX = any balance sheet item: receivables, payables, net PP&E, …"
   },
   {
     "objectID": "slides/m6-makers-checkers.html#gotcha-2",
     "href": "slides/m6-makers-checkers.html#gotcha-2",
     "title": "Module 6: Makers and Checkers",
     "section": "Gotcha 2",
-    "text": "Gotcha 2\nBecause changes in balance sheet items depend on sales growth in two successive years, first year of constant cash flow growth is second year of constant sales growth.\nAdd one year of constant sales growth to Stage 1. Make that year the terminal year."
+    "text": "Gotcha 2\nBecause changes in balance sheet items depend on sales growth in two successive years, the first year of constant cash flow growth is the second year of constant sales growth.\nBottom line: Add the first year of constant sales growth to Stage 1. Make that year the terminal year."
   },
   {
     "objectID": "slides/m6-makers-checkers.html#gotcha-2-example",
     "href": "slides/m6-makers-checkers.html#gotcha-2-example",
     "title": "Module 6: Makers and Checkers",
     "section": "Gotcha 2 Example",
-    "text": "Gotcha 2 Example"
+    "text": "Gotcha 2 Example\nYear 5 should be the terminal year of the 1st stage."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#stage-dcf-skill",
+    "href": "slides/m6-makers-checkers.html#stage-dcf-skill",
+    "title": "Module 6: Makers and Checkers",
+    "section": "2-Stage DCF Skill",
+    "text": "2-Stage DCF Skill\n\nType /skill-creator to start the skill builder\nAsk Claude to create a 2-stage-dcf skill\nInclude the gotcha rules in your prompt — copy and paste or type them in."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#valuing-walmart-2010",
+    "href": "slides/m6-makers-checkers.html#valuing-walmart-2010",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Valuing Walmart 2010",
+    "text": "Valuing Walmart 2010"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#outline",
+    "href": "slides/m6-makers-checkers.html#outline",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Outline",
+    "text": "Outline\n\nCase Exhibits\n\n\nProvide baseline assumptions to Claude\nAsk Claude for 2-stage DCF analysis\nAsk Claude for sensitivity analysis\nAsk Claude for a Word doc with tables and analysis\nAsk Claude for a PowerPoint deck"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#income-statement",
+    "href": "slides/m6-makers-checkers.html#income-statement",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Income Statement",
+    "text": "Income Statement\n\nSales growth?\nCOGS % of sales?\nSG&A % of sales?\nIncome tax % of income?\nWhat to do about other income, discontinued operations, minority interest?\n\n\nStart by computing historical growth and percentages (or ask Claude to do it)."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#balance-sheet",
+    "href": "slides/m6-makers-checkers.html#balance-sheet",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Balance Sheet",
+    "text": "Balance Sheet\n\nItems as % of sales. What percents?\nWhat to do about cash, discontinued operations, capital leases, goodwill, other assets?"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#calculating-free-cash-flow",
+    "href": "slides/m6-makers-checkers.html#calculating-free-cash-flow",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Calculating Free Cash Flow",
+    "text": "Calculating Free Cash Flow\n\nNet income (ignoring interest)\nChange in NWC\nDepreciation add-back\nCalculate cap ex as plug\nChanges in other assets, goodwill?"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#use-claude",
+    "href": "slides/m6-makers-checkers.html#use-claude",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Use Claude",
+    "text": "Use Claude\nTell Claude what you’ve chosen as baseline assumptions (including WACC) and ask for a two-stage DCF analysis."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#subsequent-steps",
+    "href": "slides/m6-makers-checkers.html#subsequent-steps",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Subsequent Steps",
+    "text": "Subsequent Steps\n\nSensitivity analysis (in Excel)\nWord doc\nPowerPoint deck"
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#claude-on-its-own",
+    "href": "slides/m6-makers-checkers.html#claude-on-its-own",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Claude on its Own",
+    "text": "Claude on its Own\nStart a new Code session. Tell Claude:\nRead Walmart.xlsx, which contains historical statements. Formulate assumptions and prepare a 2-stage DCF analysis to value Walmart at the end of 2010. Create a Word doc containing results and discussion."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#collaborating-with-claude",
+    "href": "slides/m6-makers-checkers.html#collaborating-with-claude",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Collaborating with Claude",
+    "text": "Collaborating with Claude\nStart another new Code session. Tell Claude:\nRead Walmart.xlsx, which contains historical statements. I need to create a 2-stage DCF analysis to value Walmart at the end of 2010, and I want your help. How should we get started?"
   },
   {
     "objectID": "slides/m4-claude.html#outline",

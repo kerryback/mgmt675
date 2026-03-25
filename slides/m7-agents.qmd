@@ -48,14 +48,14 @@ Your Claude Pro subscription covers Claude.ai and Claude Code. The API is a sepa
 
 ## The Model Landscape: OpenRouter
 
-[OpenRouter](https://openrouter.ai/models) is a marketplace that routes API calls to hundreds of models from dozens of providers --- a single place to see what exists and compare pricing.
+[OpenRouter](https://openrouter.ai/models) is a marketplace that routes API calls to hundreds of models from dozens of providers --- [one account, one API key, any model]{.amber}.
 
-- **One API, many models** --- same code, swap the model name to use GPT-4o, Gemini, Llama, Mistral, Grok, and more
-- **Pricing transparency** --- cost per million input/output tokens shown for every model
-- **Good for exploration** --- browse capabilities and benchmarks before committing to a provider
+- **One key for everything** --- OpenAI, Anthropic, Google, Meta, Mistral, and more; swap the model name without changing providers or billing accounts
+- **Billing flows through OpenRouter** --- providers bill OpenRouter; OpenRouter bills you. No separate OpenAI or Anthropic accounts needed.
+- **Pricing transparency** --- cost per million input/output tokens shown for every model; compare before committing
 
 :::{.explainer style="text-align:center;"}
-Visit [openrouter.ai/models](https://openrouter.ai/models) to see the full landscape of available models.
+Visit [openrouter.ai/models](https://openrouter.ai/models) to see the full model landscape and pricing.
 :::
 
 ## A Single API Call
