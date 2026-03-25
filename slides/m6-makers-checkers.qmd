@@ -12,6 +12,7 @@ format:
     height: 1080
     margin: 0.05
     center: true
+    lazy-load: false
     include-after-body:
       - text: |
           <script src="https://hypothes.is/embed.js" async></script>
@@ -212,6 +213,12 @@ Discount projected cash flows back to the present. Two stages handle near-term u
 :::
 :::
 
+## Getting Started
+
+Ask Claude Code:
+
+*Build an example of a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates.*
+
 ## Gotcha 1
 
 - It is reasonable to forecast balance sheet items in proportion to sales: receivables/sales, inventory/sales, net PP&E/sales, ...
@@ -221,7 +228,7 @@ Discount projected cash flows back to the present. Two stages handle near-term u
 
 ## Gotcha 1 Example
 
-![](images/gotcha1.png){width=80%}
+<img src="images/gotcha1.png" style="width:80%;">
 
 ## Gotcha 2
 
@@ -229,13 +236,9 @@ Because changes in balance sheet items depend on sales growth in two successive 
 
 Add one year of constant sales growth to Stage 1. Make that year the terminal year.
 
-## Gotcha 2 (continued)
+## Gotcha 2 Example
 
-![](images/gotcha2.png){width=80%}
+<img src="images/gotcha2.png" style="width:80%;">
 
-## Getting Started
 
-Ask Claude Code:
-
-*Build an example of a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates.*
 
