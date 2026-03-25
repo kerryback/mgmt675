@@ -592,14 +592,21 @@
     "href": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
     "title": "Module 6: Makers and Checkers",
     "section": "Two-Stage DCF Analysis",
-    "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates rather than individual line items\nExample: forecast sales growth, then derive everything else as a fraction of sales — gross margin, operating margin, capex, working capital\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
+    "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates\nExample: forecast sales growth, then derive everything else in relation to salesca\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
   },
   {
-    "objectID": "slides/m6-makers-checkers.html#exercise-two-stage-dcf",
-    "href": "slides/m6-makers-checkers.html#exercise-two-stage-dcf",
+    "objectID": "slides/m6-makers-checkers.html#try-it-the-ratio-approach",
+    "href": "slides/m6-makers-checkers.html#try-it-the-ratio-approach",
     "title": "Module 6: Makers and Checkers",
-    "section": "Exercise: Two-Stage DCF",
-    "text": "Exercise: Two-Stage DCF\nAsk Claude Code:\n“Build a two-stage DCF model for a company. Forecast free cash flows for 10 years by projecting sales growth and key ratios (gross margin, EBIT margin, tax rate, capex as % of sales, change in working capital as % of sales). Use a terminal growth rate and WACC to compute terminal value and enterprise value. Use realistic assumptions for a mid-size US technology company. Show all assumptions explicitly.”\n\nReview the output as a checker: Are the growth rates reasonable? Does the terminal value dominate? Do the margins make sense for the industry?"
+    "section": "Try It: The Ratio Approach",
+    "text": "Try It: The Ratio Approach\nChange the inputs and re-run. Notice how ΔX / Sales converges to the sales growth rate once growth stabilizes.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/m6-makers-checkers.html#getting-started",
+    "href": "slides/m6-makers-checkers.html#getting-started",
+    "title": "Module 6: Makers and Checkers",
+    "section": "Getting Started",
+    "text": "Getting Started\nAsk Claude Code:\nBuild an example of a two-stage DCF model for a company. Forecast cash flows building up from forecasts of key financial ratios and growth rates."
   },
   {
     "objectID": "slides/m4-claude.html#outline",
@@ -1159,7 +1166,7 @@
     "href": "slides/m7-agents.html#the-model-landscape-openrouter",
     "title": "Module 7: Chatbots and Agents",
     "section": "The Model Landscape: OpenRouter",
-    "text": "The Model Landscape: OpenRouter\nOpenRouter is a marketplace that routes API calls to hundreds of models from dozens of providers — a single place to see what exists and compare pricing.\n\nOne API, many models — same code, swap the model name to use GPT-4o, Gemini, Llama, Mistral, Grok, and more\nPricing transparency — cost per million input/output tokens shown for every model\nGood for exploration — browse capabilities and benchmarks before committing to a provider\n\n\nVisit openrouter.ai/models to see the full landscape of available models."
+    "text": "The Model Landscape: OpenRouter\nOpenRouter is a marketplace that routes API calls to hundreds of models from dozens of providers — one account, one API key, any model.\n\nOne key for everything — OpenAI, Anthropic, Google, Meta, Mistral, and more; swap the model name without changing providers or billing accounts\nBilling flows through OpenRouter — providers bill OpenRouter; OpenRouter bills you. No separate OpenAI or Anthropic accounts needed.\nPricing transparency — cost per million input/output tokens shown for every model; compare before committing\n\n\nVisit openrouter.ai/models to see the full model landscape and pricing."
   },
   {
     "objectID": "slides/m7-agents.html#a-single-api-call",
