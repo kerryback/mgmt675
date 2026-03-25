@@ -234,9 +234,9 @@ X = any balance sheet item: receivables, payables, net PP&E, ...
 
 ## Gotcha 2
 
-Because changes in balance sheet items depend on sales growth in two successive years, [first year of constant cash flow growth is second year of constant sales growth]{.amber}.
+Because changes in balance sheet items depend on sales growth in two successive years, the first year of constant cash flow growth is the [second year of constant sales growth]{.amber}.
 
-Add one year of constant sales growth to Stage 1. Make that year the terminal year.
+Bottom line: Add the first year of constant sales growth to Stage 1. Make that year the terminal year.
 
 ## Gotcha 2 Example
 
