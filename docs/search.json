@@ -592,7 +592,7 @@
     "href": "slides/m6-makers-checkers.html#two-stage-dcf-analysis",
     "title": "Module 6: Makers and Checkers",
     "section": "Two-Stage DCF Analysis",
-    "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates\nExample: forecast sales growth, then derive everything else in relation to salesca\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
+    "text": "Two-Stage DCF Analysis\nDiscount projected cash flows back to the present. Two stages handle near-term uncertainty and long-run stability separately.\n\n\nStage 1: Year-by-Year Forecasts\n\nExplicitly forecast each year (typically 5–10 years)\nForecast key financial ratios and growth rates\nExample: forecast sales growth, then derive everything else in relation to sales\n\n\n\nStage 2: Terminal Value\n\nAfter the explicit forecast period, assume constant growth forever\nTerminal value = final year cash flow × (1 + g) / (r − g)\nOften represents 60–80% of total value — the checker’s most important number to scrutinize"
   },
   {
     "objectID": "slides/m6-makers-checkers.html#gotcha-1",

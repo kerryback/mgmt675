@@ -202,7 +202,7 @@ Discount projected cash flows back to the present. Two stages handle near-term u
 
 - Explicitly forecast each year (typically 5--10 years)
 - Forecast [key financial ratios and growth rates]{.amber} 
-- Example: forecast sales growth, then derive everything else in relation to salesca
+- Example: forecast sales growth, then derive everything else in relation to sales
 :::
 
 :::{.card .card-light}
@@ -226,6 +226,7 @@ Discount projected cash flows back to the present. Two stages handle near-term u
 Change the inputs and re-run. Notice how **ΔX / Sales** converges to the sales growth rate once growth stabilizes.
 
 ```{pyodide-python}
+#| autorun: true
 import pandas as pd
 
 # ── Change these and click Run ───────────────────────────────
@@ -275,7 +276,7 @@ styled = (df.style
                                    ("font-size","0.9em")]},
     ])
 )
-display(styled)
+styled
 ```
 
 ## Gotcha 2
