@@ -1211,32 +1211,25 @@
     "text": "The /xlsx Skill\nIn Claude Code, skills are plain text files stored in ~/.claude/skills/. You can read the full /xlsx skill at:\n\nGitHub: https://github.com/anthropics/skills/blob/main/skills/xlsx/SKILL.md\nIn Claude Code on your machine:\n\nWindows: C:\\Users\\yourname\\.claude\\skills\\xlsx\\SKILL.md\nMac: ~/.claude/skills/xlsx/SKILL.md\n\n\nIt instructs Claude to use live Excel formulas instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards."
   },
   {
-    "objectID": "slides/m5-skills.html#pre-installed-skills-skill-creator",
-    "href": "slides/m5-skills.html#pre-installed-skills-skill-creator",
+    "objectID": "slides/m5-skills.html#skill-creator",
+    "href": "slides/m5-skills.html#skill-creator",
     "title": "Module 5: Sub-Agents and Skills",
-    "section": "Pre-Installed Skills: Skill Creator",
-    "text": "Pre-Installed Skills: Skill Creator\nThe class installer also installs /skill-creator — a guide for building your own skills.\n\nWalks you through designing a new skill step by step\nGenerates the skill definition file\nInstalls the skill so it appears as a / command\n\nWe will use /skill-creator in the exercise below to build a personal task manager skill."
-  },
-  {
-    "objectID": "slides/m5-skills.html#adding-your-own-skills",
-    "href": "slides/m5-skills.html#adding-your-own-skills",
-    "title": "Module 5: Sub-Agents and Skills",
-    "section": "Adding Your Own Skills",
-    "text": "Adding Your Own Skills\nYou can add custom skills to Claude Code at any time.\n\nDrop a folder with a SKILL.md into ~/.claude/skills/\nInvoke with /skill-name\nProject-level skills go in .claude/skills/ inside your repo\n\n\nThe description in your SKILL.md tells Claude when to invoke the skill, so make it specific."
+    "section": "Skill Creator",
+    "text": "Skill Creator\nThe class installer also installs /skill-creator — a guide created by Anthropic for building your own skills.\n\nGenerates the skill definition file\nInstalls the skill so it appears as a / command"
   },
   {
     "objectID": "slides/m5-skills.html#customizing-a-built-in-skill",
     "href": "slides/m5-skills.html#customizing-a-built-in-skill",
     "title": "Module 5: Sub-Agents and Skills",
     "section": "Customizing a Built-In Skill",
-    "text": "Customizing a Built-In Skill\nYou cannot edit Anthropic’s document skills directly — but you can create a custom skill that extends one.\nYour SKILL.md would say something like:\n“Follow the /xlsx skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas.”\nThen invoke your custom version with /myxlsx instead of /xlsx.\n\nThis works in Claude Desktop and Claude Code. The custom skill’s instructions sit on top of the built-in skill’s behavior — you only need to specify what’s different."
+    "text": "Customizing a Built-In Skill\nIf you use Claude Desktop/Code, you cannot edit Anthropic’s document skills directly — but you can create a custom skill that extends one.\nYour SKILL.md would say something like:\n“Follow the /xlsx skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas.”\nThen invoke your custom version with /myxlsx instead of /xlsx.\n\nAsk Claude to create it for you. Use /skill-creator I want a skill that will override the xlsx skill so that …"
   },
   {
     "objectID": "slides/m5-skills.html#example-create-a-tasks-skill",
     "href": "slides/m5-skills.html#example-create-a-tasks-skill",
     "title": "Module 5: Sub-Agents and Skills",
     "section": "Example: Create a Tasks Skill",
-    "text": "Example: Create a Tasks Skill\n\nType /skill-creator to start the skill builder\nDescribe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”"
+    "text": "Example: Create a Tasks Skill\n\nType /skill-creator to start the skill builder\nDescribe what you want: I want to keep track of pending tasks in these categories: …\nLet Claude generate and install the skill\nTest it: “/tasks Add: finish DCF exercise, due Tuesday”\nTest it: “/tasks What’s pending?”"
   },
   {
     "objectID": "slides/m7-agents.html#the-api-building-custom-chatbots",

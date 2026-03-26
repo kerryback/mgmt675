@@ -133,31 +133,19 @@ In Claude Code, skills are plain text files stored in `~/.claude/skills/`. You c
 It instructs Claude to use [live Excel formulas]{.amber} instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards.
 
 
-## Pre-Installed Skills: Skill Creator
+## Skill Creator
 
-The class installer also installs `/skill-creator` --- a guide for [building your own skills]{.amber}.
+The class installer also installs `/skill-creator` --- a guide created by Anthropic for [building your own skills]{.amber}.
 
-- Walks you through designing a new skill step by step
+
 - Generates the skill definition file
 - Installs the skill so it appears as a `/` command
 
-We will use `/skill-creator` in the exercise below to build a personal task manager skill.
 
-## Adding Your Own Skills
-
-You can add [custom skills]{.amber} to Claude Code at any time.
-
-- Drop a folder with a `SKILL.md` into `~/.claude/skills/`
-- Invoke with `/skill-name`
-- Project-level skills go in `.claude/skills/` inside your repo
-
-:::{.explainer}
-The description in your `SKILL.md` tells Claude [when to invoke the skill]{.amber}, so make it specific.
-:::
 
 ## Customizing a Built-In Skill
 
-You cannot edit Anthropic's document skills directly --- but you can create a [custom skill that extends one]{.amber}.
+If you use Claude Desktop/Code, you cannot edit Anthropic's document skills directly --- but you can create a [custom skill that extends one]{.amber}.
 
 Your `SKILL.md` would say something like:
 
@@ -166,13 +154,13 @@ Your `SKILL.md` would say something like:
 Then invoke your custom version with `/myxlsx` instead of `/xlsx`.
 
 :::{.explainer}
-This works in [Claude Desktop and Claude Code]{.amber}. The custom skill's instructions sit on top of the built-in skill's behavior --- you only need to specify what's different.
+Ask Claude to create it for you. Use */skill-creator I want a skill that will override the xlsx skill so that ...*
 :::
 
 ## Example: Create a Tasks Skill
 
 1. Type `/skill-creator` to start the skill builder
-2. Describe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete
+2. Describe what you want: *I want to keep track of pending tasks in these categories: ...*
 3. Let Claude generate and install the skill
 4. Test it: *"/tasks Add: finish DCF exercise, due Tuesday"*
 5. Test it: *"/tasks What's pending?"*

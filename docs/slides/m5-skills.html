@@ -261,43 +261,29 @@ Kerry Back, Rice University
 </ul>
 <p>It instructs Claude to use <span class="amber">live Excel formulas</span> instead of hardcoded values, specifies a standard workflow (create, format, save, recalculate, verify), and includes financial modeling standards.</p>
 </section>
-<section id="pre-installed-skills-skill-creator" class="slide level2 center">
-<h2>Pre-Installed Skills: Skill Creator</h2>
-<p>The class installer also installs <code>/skill-creator</code> — a guide for <span class="amber">building your own skills</span>.</p>
+<section id="skill-creator" class="slide level2 center">
+<h2>Skill Creator</h2>
+<p>The class installer also installs <code>/skill-creator</code> — a guide created by Anthropic for <span class="amber">building your own skills</span>.</p>
 <ul>
-<li>Walks you through designing a new skill step by step</li>
 <li>Generates the skill definition file</li>
 <li>Installs the skill so it appears as a <code>/</code> command</li>
 </ul>
-<p>We will use <code>/skill-creator</code> in the exercise below to build a personal task manager skill.</p>
-</section>
-<section id="adding-your-own-skills" class="slide level2 center">
-<h2>Adding Your Own Skills</h2>
-<p>You can add <span class="amber">custom skills</span> to Claude Code at any time.</p>
-<ul>
-<li>Drop a folder with a <code>SKILL.md</code> into <code>~/.claude/skills/</code></li>
-<li>Invoke with <code>/skill-name</code></li>
-<li>Project-level skills go in <code>.claude/skills/</code> inside your repo</li>
-</ul>
-<div class="explainer">
-<p>The description in your <code>SKILL.md</code> tells Claude <span class="amber">when to invoke the skill</span>, so make it specific.</p>
-</div>
 </section>
 <section id="customizing-a-built-in-skill" class="slide level2 center">
 <h2>Customizing a Built-In Skill</h2>
-<p>You cannot edit Anthropic’s document skills directly — but you can create a <span class="amber">custom skill that extends one</span>.</p>
+<p>If you use Claude Desktop/Code, you cannot edit Anthropic’s document skills directly — but you can create a <span class="amber">custom skill that extends one</span>.</p>
 <p>Your <code>SKILL.md</code> would say something like:</p>
 <p><em>“Follow the <code>/xlsx</code> skill workflow exactly, EXCEPT: always include a summary sheet as the first tab, always freeze the header row, and always name ranges used in formulas.”</em></p>
 <p>Then invoke your custom version with <code>/myxlsx</code> instead of <code>/xlsx</code>.</p>
 <div class="explainer">
-<p>This works in <span class="amber">Claude Desktop and Claude Code</span>. The custom skill’s instructions sit on top of the built-in skill’s behavior — you only need to specify what’s different.</p>
+<p>Ask Claude to create it for you. Use <em>/skill-creator I want a skill that will override the xlsx skill so that …</em></p>
 </div>
 </section>
 <section id="example-create-a-tasks-skill" class="slide level2 center">
 <h2>Example: Create a Tasks Skill</h2>
 <ol type="1">
 <li>Type <code>/skill-creator</code> to start the skill builder</li>
-<li>Describe what you want: store tasks in markdown files, add tasks with a due date, list pending tasks, mark tasks complete</li>
+<li>Describe what you want: <em>I want to keep track of pending tasks in these categories: …</em></li>
 <li>Let Claude generate and install the skill</li>
 <li>Test it: <em>“/tasks Add: finish DCF exercise, due Tuesday”</em></li>
 <li>Test it: <em>“/tasks What’s pending?”</em></li>
