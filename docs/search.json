@@ -634,7 +634,7 @@
     "href": "slides/m6-makers-checkers.html#stage-dcf-skill",
     "title": "Module 6: Makers and Checkers",
     "section": "2-Stage DCF Skill",
-    "text": "2-Stage DCF Skill\n\nType /skill-creator to start the skill builder\nAsk Claude to create a 2-stage-dcf skill\nInclude the gotcha rules in your prompt — copy and paste or type them in."
+    "text": "2-Stage DCF Skill\n\nType /skill-creator to start the skill builder\nAsk Claude to create a 2-stage-dcf skill\nInclude the gotcha rules in your prompt — copy and paste or type them in.\n\n/skill-creator I want a 2-stage-dcf skill that use your xlsx skill to generate a two-stage DCF analysis. I want these rules to be followed …"
   },
   {
     "objectID": "slides/m6-makers-checkers.html#valuing-walmart-2010",
@@ -676,7 +676,7 @@
     "href": "slides/m6-makers-checkers.html#use-claude",
     "title": "Module 6: Makers and Checkers",
     "section": "Use Claude",
-    "text": "Use Claude\nTell Claude what you’ve chosen as baseline assumptions (including WACC) and ask for a two-stage DCF analysis."
+    "text": "Use Claude\nTell Claude what you’ve chosen as baseline assumptions (including WACC) and ask for a two-stage DCF analysis.\n/2-stage-dcf Read Walmart.xlsx, which contains historical statements. Create a two-stage DCF analysis to value Walmart at the end of 2010 using the following assumptions …"
   },
   {
     "objectID": "slides/m6-makers-checkers.html#subsequent-steps",

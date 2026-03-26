@@ -254,7 +254,7 @@ Bottom line: Add the first year of constant sales growth to Stage 1. Make that y
 2. Ask Claude to create a `2-stage-dcf` skill
 3. Include the gotcha rules in your prompt --- copy and paste or type them in.
 
-*/skill-creator I want a 2-stage-dcf skill that will use the 
+*/skill-creator I want a 2-stage-dcf skill that use your xlsx skill to generate a two-stage DCF analysis.  I want these rules to be followed ...*
 
 
 ## Valuing Walmart 2010 {.section-divider}
@@ -300,7 +300,7 @@ Start by computing historical growth and percentages (or ask Claude to do it).
 
 Tell Claude what you've chosen as baseline assumptions (including WACC) and ask for a two-stage DCF analysis.
 
-
+*/2-stage-dcf Read Walmart.xlsx, which contains historical statements.  Create a two-stage DCF analysis to value Walmart at the end of 2010 using the following assumptions ...*
 
 ## Subsequent Steps
 
