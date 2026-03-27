@@ -181,5 +181,8 @@ docs/.claude/
 .slide-review/
 .slide-screenshots/
 
-# Temp Excel files
-files/~$*.xlsx
+# Temp Excel files (Office lock files)
+~$*.xlsx
+~$*.xls
+~$*.docx
+~$*.pptx
