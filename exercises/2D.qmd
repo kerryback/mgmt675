@@ -9,7 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Download [portfolio-consolidation.zip](../files/portfolio-consolidation.zip) and extract the files into a folder. You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
+Download [portfolio-consolidation.zip](https://mgmt675.kerryback.com/files/portfolio-consolidation.zip) and extract the files into a folder. You will have holdings data from three brokerages in different formats (two Excel workbooks and one CSV).
 
 In Claude Code, ask Claude to:
 
