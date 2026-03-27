@@ -262,7 +262,7 @@ Bottom line: Add the first year of constant sales growth to Stage 1. Make that y
 ## Outline
 
 :::{style="text-align:center;margin-bottom:1em;"}
-[Case Exhibits](files/Walmart.xlsx)
+[Case Exhibits](../files/Walmart.xlsx)
 :::
 
 1. Provide baseline assumptions to Claude
