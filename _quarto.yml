@@ -12,10 +12,13 @@ project:
     - slides/m4-claude.qmd
     - slides/m5-skills.qmd
     - slides/m6-makers-checkers.qmd
-    - slides/m7-agents.qmd
-    - slides/m8-data-security.qmd
-    - slides/m9-rag.qmd
-    - slides/m10-sentiment.qmd
+    - slides/m7-tips.qmd
+    - slides/m8-scraping.qmd
+    - slides/m9-agents.qmd
+    - slides/m10-corporate.qmd
+    - slides/m11-rag.qmd
+    - slides/m12-sentiment.qmd
+    - slides/m13-extras.qmd
   resources:
     - CNAME
     - .nojekyll
@@ -26,6 +29,8 @@ project:
     - files/*.xlsx
     - files/*.csv
     - files/*.html
+    - files/*.docx
+    - files/*.md
     - exercises/*.pdf
     - index-pdf.pdf
     - install/windows/windows-install.zip

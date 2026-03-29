@@ -67,13 +67,16 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 4. [Claude Desktop and Claude Code](https://mgmt675.kerryback.com/slides/m4-claude.html)
 5. [Sub-Agents and Skills](https://mgmt675.kerryback.com/slides/m5-skills.html)
 6. [Makers and Checkers](https://mgmt675.kerryback.com/slides/m6-makers-checkers.html)
+7. [More Tips](https://mgmt675.kerryback.com/slides/m7-tips.html)
 :::
 
 ::: {}
-7. [Chatbots and Agents](https://mgmt675.kerryback.com/slides/m7-agents.html)
-8. [Data Security and Governance](https://mgmt675.kerryback.com/slides/m8-data-security.html)
-9. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m9-rag.html)
-10. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m10-sentiment.html)
+8. [Building a RAG Corpus](https://mgmt675.kerryback.com/slides/m8-scraping.html)
+9. [Build and Deploy Agents](https://mgmt675.kerryback.com/slides/m9-agents.html)
+10. [Corporate Agent Deployment](https://mgmt675.kerryback.com/slides/m10-corporate.html)
+11. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m11-rag.html)
+12. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m12-sentiment.html)
+13. [Extra Topics](https://mgmt675.kerryback.com/slides/m13-extras.html)
 :::
 ::::
 

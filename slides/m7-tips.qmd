@@ -1,0 +1,184 @@
+---
+title: "Module 7: More Tips"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## What We've Done
+
+- AI + code tool
+  - financial analysis (mean-variance, dcf*)
+  - deliverables (figures, excel, word, powerpoint)
+  - small web apps (artifacts, pyodide)
+- Skills (reusable instructions)
+
+## Where We're Going
+
+:::{.three-cards}
+:::{.card .card-light}
+[**More Tips (Today)**]{.card-title}
+
+- Use AI to critique AI
+- Enhance AI memory
+:::
+
+:::{.card .card-light}
+[**Build & Deploy Agents**]{.card-title}
+
+- The API: talking to LLMs from code
+- Chatbots and web apps
+- FastAPI and deployment
+:::
+
+:::{.card .card-light}
+[**Corporate Agent Deployment**]{.card-title}
+
+- Data security: on-prem or cloud
+- Guardrails and governance
+- ERP and the SaaSpocalypse
+:::
+:::
+
+## Where We're Going (cont.)
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Retrieval Augmented Generation**]{.card-title}
+
+- How RAG works
+- Example: RAG for security analysis and valuation
+- Chunking, embedding, and vector search
+:::
+
+:::{.card .card-light}
+[**AI Sentiment Analysis**]{.card-title}
+
+- LLMs as sentiment classifiers
+- News and earnings call analysis
+- Trading signals from text
+:::
+:::
+
+## Using AI to Evaluate AI {.section-divider}
+
+## Four Approaches
+
+AI output looks polished, but polished is not the same as correct. Use AI itself to [stress-test]{.amber} AI work.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Single Reviewer**]{.card-title}
+
+- **Use a different model** --- paste the output into a competing LLM and ask it to find errors
+- **Use a subagent** --- start a second conversation with the same model and ask it to critique the first
+:::
+
+:::{.card .card-light}
+[**Multiple Reviewers**]{.card-title}
+
+- **Use multiple subagents** --- spawn parallel reviewers with different lenses (correctness, clarity, devil's advocate)
+- **Evaluate in a loop** --- have the agent produce, critique, revise, and re-critique iteratively until stable
+:::
+:::
+
+[The more consequential the decision, the more reviewers you want.]{.amber}
+
+## The /critique Skill
+
+The `/critique` skill automates the multi-reviewer approach. It spawns [three parallel agents]{.amber} --- correctness, clarity, and devil's advocate --- then synthesizes and prioritizes the findings.
+
+:::{.two-col}
+::::{.column}
+**Example**
+
+We asked Claude to research and write a 5-page Word doc on the history of the World Wide Web. Then we ran `/critique` on it.
+
+The critique found [7 critical issues]{.amber}, 8 warnings, and 7 suggestions --- including wrong dates, understated statistics, and missing context.
+::::
+
+::::{.column}
+**Try it yourself**
+
+- [History-of-the-World-Wide-Web.docx](/files/History-of-the-World-Wide-Web.docx){target="_blank"} --- the AI-generated document
+- [Critique (markdown)](/files/History-of-the-World-Wide-Web-critique.md){target="_blank"} --- the full critique report
+- [Critique skill](/files/critique-skill.zip){target="_blank"} --- install this skill in Claude Code
+::::
+:::
+
+## Enhance AI Memory {.section-divider}
+
+## Saving Conversation Summaries
+
+AI conversations are [stateless]{.amber} --- each new session starts from scratch. You can fix this by saving summaries to [markdown (.md) files]{.amber} that AI reads at startup.
+
+:::{.two-col}
+::::{.column}
+**How it works**
+
+1. At the end of a session, ask Claude to summarize what was done
+2. The summary is saved as a `.md` file
+3. Next session, Claude reads these files automatically
+4. Continuity across days and weeks --- no need to re-explain
+::::
+
+::::{.column}
+**Types of memory files**
+
+- **CLAUDE.md** --- project-level instructions loaded every session
+- **Skills (.md)** --- reusable task-specific instructions
+- **Session summaries** --- what happened last time
+- **Memory files** --- stored observations about you and your preferences
+::::
+:::
+
+[Memory turns a capable tool into a capable *collaborator*.]{.amber}
+
+## What Is Markdown?
+
+Markdown is a plain-text format that uses simple symbols for formatting. AI reads and writes it natively.
+
+:::{.two-col}
+::::{.column}
+**Syntax**
+
+```markdown
+# Heading
+## Subheading
+
+- Bullet point
+- **Bold text**
+- *Italic text*
+
+1. Numbered list
+2. Second item
+
+> Blockquote
+
+`inline code`
+```
+::::
+
+::::{.column}
+**Where you'll see it**
+
+- **CLAUDE.md** --- project instructions
+- **SKILL.md** --- skill definitions
+- **Session summaries** --- conversation logs
+- **README.md** --- any GitHub repo
+
+Open any `.md` file in VS Code for a live preview, or paste it into [markdownlivepreview.com](https://markdownlivepreview.com){target="_blank"} to see it rendered.
+::::
+:::

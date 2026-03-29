@@ -1,0 +1,514 @@
+---
+title: "Web Scraping and Data Collection"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Web Scraping Fundamentals {.section-divider}
+
+## What Is Web Scraping?
+
+Getting data from websites is a task for which [AI + coding]{.amber} can really increase efficiency.
+
+Three levels of difficulty:
+
+1. **Easy**: extract a table from a static HTML page
+2. **Medium**: construct URLs and loop over downloads
+3. **Hard**: pages rendered dynamically with JavaScript
+
+## Example 1: Extracting a Table from Wikipedia
+
+This [Wikipedia page](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies) maintains a list of all S&P 500 companies with ticker, sector, headquarters, etc.
+
+```python
+import pandas as pd
+
+url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+tables = pd.read_html(url)
+sp500 = tables[0]
+sp500.to_excel("sp500.xlsx", index=False)
+```
+
+Compared to manually typing 500 rows, this takes [seconds]{.amber}.
+
+## How Does `read_html` Work?
+
+Right-click on the Wikipedia page → "View page source" to see the raw HTML. The `read_html` function searches for `<table>` tags, then interprets:
+
+- `<tbody>` = table body
+- `<tr>` = table row
+- `<th>` = table header
+- `<td>` = table data
+
+It builds a pandas DataFrame from the HTML structure --- no AI required, just pattern matching.
+
+## Example 2: FINRA Short Interest Data
+
+[FINRA](https://www.finra.org/finra-data/browse-catalog/equity-short-interest/files) publishes short interest data twice monthly. Clicking a date downloads a CSV. What's the URL pattern?
+
+Right-click → "View page source" → search for a date like `20250430`:
+
+```
+https://cdn.finra.org/equity/otcmarket/biweekly/shrt20250430.csv
+```
+
+Now we can [automate the download]{.amber} by looping over dates.
+
+## Automating FINRA Downloads
+
+```python
+import pandas as pd
+from datetime import date, timedelta
+
+frames = []
+d = date(2024, 1, 1)
+while d <= date(2025, 4, 30):
+    url = f"https://cdn.finra.org/equity/otcmarket/biweekly/shrt{d:%Y%m%d}.csv"
+    try:
+        frames.append(pd.read_csv(url, sep="|"))
+    except:
+        pass  # not a reporting date --- skip it
+    d += timedelta(days=1)
+
+df = pd.concat(frames)
+df.to_csv("finra_short_interest.csv", index=False)
+```
+
+Try every possible date in a `try-except` block. Only reporting dates (15th and last business day of each month) will succeed.
+
+## The Hard Case: JavaScript-Rendered Pages
+
+Many pages are [dynamically generated]{.amber} with JavaScript. The data we want isn't in the HTML source --- it's fetched by executing JavaScript code.
+
+**Example**: Open a [Tesla 10-K on EDGAR](https://www.sec.gov/ix?doc=/Archives/edgar/data/1318605/000110465925042659/tm252787d2_10ka.htm). The first table lists Tesla's directors. But if you "View page source" and search for "Elon Musk" --- [0 results]{.amber}.
+
+The entire page is populated by JavaScript with the `<script language="JavaScript">` tag.
+
+## Playwright: Automating a Real Browser
+
+[Playwright](https://playwright.dev/) is a library that controls a real browser (Chrome, Firefox, or Safari) from Python or JavaScript. It executes the JavaScript on the page, then lets you read the [rendered]{.amber} HTML.
+
+```python
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto("https://www.sec.gov/ix?doc=/Archives/edgar/data/...")
+
+    # Now the JavaScript has executed --- we can see the data
+    content = page.content()          # full rendered HTML
+    page.screenshot(path="page.png")  # visual snapshot
+    browser.close()
+```
+
+Unlike `requests` or `read_html`, Playwright sees the page [as a human would]{.amber}.
+
+## Playwright: Key Capabilities
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Navigation & Interaction**]{.card-title}
+
+- Click buttons, fill forms, select dropdowns
+- Wait for elements to load
+- Handle login pages and cookies
+- Download files triggered by clicks
+:::
+
+:::{.card .card-light}
+[**Data Extraction**]{.card-title}
+
+- Read rendered HTML after JavaScript executes
+- Take screenshots of pages or elements
+- Extract text, tables, links
+- Record and replay browser sessions
+:::
+:::
+
+Install: `pip install playwright && playwright install`
+
+## Playwright MCP: AI-Controlled Browsing
+
+The [Playwright MCP server](https://github.com/anthropics/mcp-playwright) connects Playwright to Claude Code, letting the AI [control the browser directly]{.amber}.
+
+```json
+// ~/.claude/.mcp.json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
+```
+
+Once configured, Claude Code can navigate pages, click links, fill forms, take screenshots, and extract data --- all through natural language instructions.
+
+## When to Use Each Tool
+
+| Scenario | Tool | Why |
+|----------|------|-----|
+| Static HTML table | `pd.read_html` | Simplest, fastest |
+| File download by URL pattern | `requests` / `curl` | Construct URLs, loop |
+| API with JSON responses | `requests` | Parse structured data |
+| JavaScript-rendered page | **Playwright** | Executes JS, sees rendered page |
+| Complex multi-step scraping | **Playwright MCP** | AI navigates and decides |
+| Login-protected content | **Playwright** or **MCP** | Handles authentication flows |
+
+For our Magnolia project, we used the EDGAR [API]{.amber} and [direct downloads]{.amber} where possible, avoiding the need for browser automation.
+
+## Case Study: Collecting Financial Documents {.section-divider}
+
+## Goal: Company Research Library
+
+We want to collect a comprehensive set of financial documents for a single company --- the kind of library an analyst would build before a valuation.
+
+**Target company**: [Magnolia Oil & Gas (MGY)]{.amber} --- a Houston-based small-cap E&P company operating in the Eagle Ford Shale.
+
+**What we need**:
+
+- 10-K annual reports (MD&A, risk factors, financial statements)
+- Earnings call transcripts and press releases
+- News articles
+
+## Why Magnolia?
+
+- **Public and small-cap** --- filings are freely available but analyst coverage is thinner
+- **Houston-headquartered** --- relevant to Rice students
+- **Simple business model** --- onshore oil & gas E&P, easy to understand financially
+- **7 years of public history** (IPO 2018) --- enough depth for trend analysis
+
+## Data Sources Overview
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
+flowchart LR
+  EDGAR["<b>SEC EDGAR</b><br>10-Ks, 8-Ks"] --> CORPUS["<b>Document Library</b><br>48+ documents"]
+  MF["<b>Motley Fool</b><br>Transcripts"] --> CORPUS
+  IR["<b>Company IR</b><br>Press releases"] --> CORPUS
+  NEWS["<b>News Sites</b><br>Articles"] --> CORPUS
+
+  style EDGAR fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+  style MF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+  style IR fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+  style NEWS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+  style CORPUS fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+```
+
+## Step 1: Finding the 10-Ks {.section-divider}
+
+## The EDGAR API
+
+SEC EDGAR provides a free REST API that returns filing metadata as JSON. No API key required --- just a `User-Agent` header.
+
+```python
+import requests, json
+
+url = "https://data.sec.gov/submissions/CIK0001698990.json"
+headers = {"User-Agent": "Kerry Back keb7@rice.edu"}
+data = requests.get(url, headers=headers).json()
+
+for i, form in enumerate(data["filings"]["recent"]["form"]):
+    if form == "10-K":
+        date = data["filings"]["recent"]["filingDate"][i]
+        doc = data["filings"]["recent"]["primaryDocument"][i]
+        print(f"{date}: {doc}")
+```
+
+## What We Got: 7 Years of 10-Ks
+
+| Fiscal Year | Filing Date | Document |
+|-------------|-------------|----------|
+| 2025 | 2026-02-12 | `mgy-20251231.htm` |
+| 2024 | 2025-02-19 | `mgy-20241231.htm` |
+| 2023 | 2024-02-15 | `mgy-20231231.htm` |
+| 2022 | 2023-02-16 | `mgy-20221231.htm` |
+| 2021 | 2022-02-17 | `mgy-20211231.htm` |
+| 2020 | 2021-02-23 | `mgy-20201231.htm` |
+| 2019 | 2020-02-26 | `a10-k2019.htm` |
+
+All downloaded as HTML directly from EDGAR.
+
+## Step 2: Extracting Sections {.section-divider}
+
+## Parsing 10-K HTML with Python
+
+The raw EDGAR HTML files are cluttered with CSS, XBRL tags, and formatting. We used [BeautifulSoup]{.amber} to extract three sections from each 10-K:
+
+```python
+from bs4 import BeautifulSoup
+
+with open("mgy-10k-2025.htm") as f:
+    soup = BeautifulSoup(f, "html.parser")
+
+# Find section headers like "Item 7" or "Item 1A"
+# Extract text between section boundaries
+# Convert HTML tables to markdown pipe format
+# Strip XBRL tags and embedded styles
+```
+
+## 21 Extracted Files
+
+For each of the 7 fiscal years, we extracted:
+
+:::{.three-cards}
+:::{.card .card-light}
+[**MD&A**]{.card-title}
+
+- Management's Discussion & Analysis (Item 7)
+- Revenue drivers, cost trends, liquidity
+- 33--46 KB per year
+:::
+
+:::{.card .card-light}
+[**Risk Factors**]{.card-title}
+
+- Item 1A: all risk categories
+- Commodity prices, regulatory, operational
+- 70--83 KB per year
+:::
+
+:::{.card .card-light}
+[**Financial Statements**]{.card-title}
+
+- Balance sheets, income statements, cash flows
+- Equity statements + all footnotes
+- 120--174 KB per year
+:::
+:::
+
+## Example: Balance Sheet (FY2025)
+
+```
+| ASSETS                                  | Dec 31, 2025 | Dec 31, 2024 |
+|-----------------------------------------|--------------|--------------|
+| Cash and cash equivalents               | $266,785     | $260,049     |
+| Total current assets                    | 442,435      | 410,824      |
+| Oil and natural gas properties          | 4,957,292    | 4,403,210    |
+| Accumulated DD&A                        | (2,553,758)  | (2,115,892)  |
+| Total property, plant & equipment, net  | 2,424,152    | 2,306,034    |
+| TOTAL ASSETS                            | $2,903,092   | $2,820,835   |
+```
+
+*(In thousands. Extracted from [mgy-2025-financial-statements.md](../magnolia/10k/extracted/mgy-2025-financial-statements.md))*
+
+## Example: Income Statement (FY2025)
+
+```
+| REVENUES                | 2025        | 2024        | 2023        |
+|-------------------------|-------------|-------------|-------------|
+| Oil revenues            | $918,027    | $1,046,675  | $958,388    |
+| Natural gas revenues    | 190,252     | 90,277      | 102,054     |
+| NGL revenues            | 203,566     | 178,934     | 166,537     |
+| Total revenues          | 1,311,845   | 1,315,886   | 1,226,979   |
+| OPERATING INCOME        | 439,181     | 511,988     | 534,485     |
+| NET INCOME              | 337,279     | 397,330     | 442,604     |
+| EPS (diluted)           | $1.73       | $1.94       | $2.04       |
+```
+
+*(In thousands except per share. From [mgy-2025-financial-statements.md](../magnolia/10k/extracted/mgy-2025-financial-statements.md))*
+
+## Step 3: Earnings Calls {.section-divider}
+
+## Two Sources of Earnings Data
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
+flowchart TD
+  EC["<b>Quarterly Earnings</b><br>28 quarters (Q2 2019 -- Q4 2025)"]
+  EC --> T["<b>Full Transcripts</b><br>6 quarters<br>(Motley Fool)"]
+  EC --> PR["<b>Press Releases</b><br>21 quarters<br>(EDGAR 8-K filings)"]
+
+  style EC fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+  style T fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+  style PR fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px
+```
+
+- **Transcripts** include management commentary and analyst Q&A
+- **Press releases** include financial tables, production data, and guidance
+- Together they cover [every quarter]{.amber} of Magnolia's public history
+
+## Transcript Sources: The Challenge
+
+Full earnings call transcripts are hard to get for free:
+
+| Source | Coverage | Access |
+|--------|----------|--------|
+| Motley Fool | Spotty for small-caps | Free |
+| Seeking Alpha | Complete | Paywalled |
+| MarketScreener | Complete | Paywalled |
+| GuruFocus | Complete | JS-rendered / paywalled |
+| Company webcasts | Audio only | Registration wall |
+
+**Our approach**: Grab what's free from Motley Fool, fill gaps with EDGAR press releases.
+
+## Fetching Transcripts from Motley Fool
+
+```python
+# WebFetch extracts the full transcript from Motley Fool
+# Example: Q3 2025 earnings call
+url = ("https://www.fool.com/earnings/call-transcripts/"
+       "2025/10/30/magnolia-oil-and-gas-mgy-earnings-transcript/")
+```
+
+**What we captured**: prepared remarks, financial highlights, management guidance, and the full analyst Q&A.
+
+Example output: [mgy-q3-2025-earnings.md](../magnolia/transcripts/mgy-q3-2025-earnings.md)
+
+## Fetching Press Releases from EDGAR
+
+For quarters without free transcripts, we downloaded [Exhibit 99.1]{.amber} from each earnings 8-K filing:
+
+```python
+# Same EDGAR API --- filter for 8-K filings
+# Download the Exhibit 99.1 (earnings press release)
+# Contains: financial tables, production data, guidance
+
+url = ("https://www.sec.gov/Archives/edgar/data/1698990/"
+       "000169899025000028/ex991-3q2025earningsrele.htm")
+```
+
+Example output: [mgy-q4-2024-press-release.md](../magnolia/transcripts/mgy-q4-2024-press-release.md)
+
+## Example: Transcript Excerpt (Q3 2025)
+
+> **Christopher Stavros, CEO**: "We have a lot of both financial and operational flexibility, especially considering some of those deferrals that have snaked through the system in 2025."
+
+Key data points extracted:
+
+- Record production: [100,500 BOE/day]{.amber} (11% YoY growth)
+- Free cash flow: $134 million
+- Adjusted EBITDAX: $219 million
+- Dividend increased 15% to $0.15/share quarterly
+
+## Step 4: News Articles {.section-divider}
+
+## Scraping Financial News
+
+The final layer of the corpus: news articles from financial media covering Magnolia over the past 2--3 years.
+
+**Target sources**: Reuters, Yahoo Finance, Hart Energy, Houston Chronicle, Rigzone
+
+**What we're looking for**:
+
+- Earnings coverage and analyst reactions
+- Acquisition announcements
+- Production and guidance updates
+- Oil price impact analysis
+- Dividend and buyback news
+
+## The Complete Corpus {.section-divider}
+
+## What We Built
+
+:::{.three-cards}
+:::{.card .card-light}
+[**10-K Extractions**]{.card-title}
+
+- 7 fiscal years (2019--2025)
+- 21 files: MD&A + Risk Factors + Financials
+- ~900 KB of clean markdown
+:::
+
+:::{.card .card-light}
+[**Earnings Data**]{.card-title}
+
+- 6 full transcripts
+- 21 press releases
+- 27 files covering every quarter
+:::
+
+:::{.card .card-light}
+[**News Articles**]{.card-title}
+
+- Financial media coverage
+- Analyst commentary
+- Industry context
+:::
+:::
+
+All stored in `magnolia/` as clean, structured text.
+
+## Corpus File Structure
+
+```
+magnolia/
+├── 10k/
+│   ├── mgy-10k-2019.htm ... mgy-10k-2025.htm    (raw EDGAR HTML)
+│   └── extracted/
+│       ├── mgy-2019-mda.md ... mgy-2025-mda.md
+│       ├── mgy-2019-risk-factors.md ... mgy-2025-risk-factors.md
+│       └── mgy-2019-financial-statements.md ... mgy-2025-financial-statements.md
+├── transcripts/
+│   ├── mgy-q2-2019-earnings.md ... mgy-q3-2025-earnings.md    (6 transcripts)
+│   └── mgy-q2-2020-press-release.md ... mgy-q4-2025-press-release.md  (21 PRs)
+└── news/
+    └── (articles)
+```
+
+## Key Techniques Summary
+
+| Step | Tool / API | What It Does |
+|------|-----------|--------------|
+| Find filings | EDGAR Submissions API | Returns filing metadata as JSON |
+| Download 10-Ks | `curl` + EDGAR URLs | Fetches HTML filings directly |
+| Parse HTML | BeautifulSoup | Strips XBRL/CSS, extracts sections |
+| Convert tables | Python script | HTML tables → markdown pipe format |
+| Get transcripts | WebFetch + Motley Fool | Extracts full call transcripts |
+| Get press releases | EDGAR 8-K Exhibit 99.1 | Quarterly financial data |
+| Scrape news | WebSearch + WebFetch | Articles from financial media |
+
+## Lessons Learned
+
+**What worked well**:
+
+- EDGAR API is [reliable and free]{.amber} --- no authentication needed
+- Constructing URLs from patterns (like the FINRA example) scales to many filings
+- `pd.read_html` and BeautifulSoup handle static HTML tables well
+- Motley Fool provides full transcripts for free (when they cover the company)
+
+**What was hard**:
+
+- Transcript coverage for small-caps is [spotty]{.amber} on free sources
+- Most transcript providers (Seeking Alpha, MarketScreener) are paywalled
+- Company webcasts use JS-based players (the same JavaScript problem we saw with Tesla/EDGAR)
+- EDGAR HTML is messy --- XBRL tags and inline styles require serious parsing
+
+## Summary
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}, 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14, 'useMaxWidth': true}}}%%
+flowchart LR
+  S1["<b>1. Identify<br>Sources</b>"] --> S2["<b>2. Download<br>Documents</b>"]
+  S2 --> S3["<b>3. Parse &<br>Extract</b>"]
+  S3 --> S4["<b>4. Collect<br>Transcripts</b>"]
+  S4 --> S5["<b>5. Scrape<br>News</b>"]
+  S5 --> S6["<b>6. Clean &<br>Structure</b>"]
+
+  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S4 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S5 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+  style S6 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px
+```
+
+Web scraping is fundamentally a [data engineering]{.amber} problem: finding sources, downloading documents, parsing messy formats, and converting everything to clean, structured text that AI tools can work with.

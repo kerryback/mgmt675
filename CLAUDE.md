@@ -25,10 +25,10 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 - `slides/mgmt675-style.tex` — shared style (metropolis theme, custom colors, tcolorbox environments)
 - `slides/images/` — images used in slides
 - `00-intro` — course introduction
-- Module decks: `m1` through `m11`:
+- Module decks: `m1` through `m13`:
   - m1-ai-in-finance, m2-intro-claude, m3-mean-variance, m4-claude
-  - m5-dcf, m6-skills, m7-reliability, m8-agents
-  - m9-mcp, m10-rag, m11-sentiment
+  - m5-skills, m6-makers-checkers, m7-tips, m8-scraping
+  - m9-agents, m10-corporate, m11-rag, m12-sentiment, m13-extras
 
 ### Other
 - `gamma_pptx_utils.py` — Python utilities for PPTX processing
@@ -55,12 +55,14 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 3. Portfolio Optimization (m3)
 4. Getting Started with Claude Code (m4)
 5. Company Valuation (m5)
-6. Claude Skills (m6)
-7. Verification and Governance (m7)
-8. AI Agents (m8)
-9. Connecting AI to Data and Tools (m9)
-10. Working with Financial Documents (m10)
-11. AI in Trading and Markets (m11)
+6. Makers and Checkers (m6)
+7. More Tips (m7)
+8. Building a RAG Corpus (m8)
+9. Build and Deploy Agents (m9)
+10. Corporate Agent Deployment (m10)
+11. Retrieval Augmented Generation (m11)
+12. Sentiment Analysis (m12)
+13. Extra Topics (m13)
 
 ## Session Schedule (12 sessions, 6 weeks)
 | Session | Date | Module |
@@ -69,14 +71,14 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 | 2 | Thu 3/19 | M4: Getting Started with Claude Code |
 | 3 | Tue 3/24 | M3: Portfolio Optimization |
 | 4 | Thu 3/26 | M5: Company Valuation |
-| 5 | Tue 3/31 | M8: AI Agents |
-| 6 | Thu 4/2 | M8: AI Agents (cont.) |
-| 7 | Tue 4/7 | M9: Connecting AI to Data & Tools |
-| 8 | Thu 4/10 | M7: Verification & Governance |
-| 9 | Tue 4/15 | M10: Working with Financial Documents |
-| 10 | Thu 4/17 | M10: Financial Documents (cont.) |
-| 11 | Tue 4/22 | M11: Trading: Sentiment Models & Research |
-| 12 | Thu 4/24 | M11: Trading: Implementation & Industry |
+| 5 | Tue 3/31 | M6: Makers and Checkers + M7: More Tips |
+| 6 | Thu 4/2 | M8: Building a RAG Corpus + M9: Build and Deploy Agents |
+| 7 | Tue 4/7 | M9: Build and Deploy Agents (cont.) |
+| 8 | Thu 4/10 | M10: Corporate Agent Deployment |
+| 9 | Tue 4/15 | M11: Retrieval Augmented Generation |
+| 10 | Thu 4/17 | M11: RAG (cont.) |
+| 11 | Tue 4/22 | M12: Sentiment Analysis |
+| 12 | Thu 4/24 | M12: Sentiment Analysis (cont.) |
 
 ## Assignment Schedule (6 weeks)
 | Week | Due | Modules | Exercises |
@@ -84,9 +86,9 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 | 1 | 3/24 | M1 + M2 | 1A, 1B, 1C |
 | 2 | 3/31 | M3 + M4 | 2A, 2B, 2C, 2D |
 | 3 | 4/7 | M5 + M6 | 3A, 3B, 3C, 3D |
-| 4 | 4/14 | M7 + M8 | 4A, 4B, 4C |
-| 5 | 4/21 | M9 + M10 | 5A, 5B, 5C |
-| 6 | 4/28 | M11 | 6A, 6B, 6C |
+| 4 | 4/14 | M9 + M10 | 4A, 4B, 4C |
+| 5 | 4/21 | M11 | 5A, 5B, 5C |
+| 6 | 4/28 | M12 | 6A, 6B, 6C |
 
 ## Grading
 Six group assignments (15% each) + peer assessments (10%). Due Tuesdays at 11:59pm, March 24 through April 28.

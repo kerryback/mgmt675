@@ -1,5 +1,5 @@
 ---
-title: "Module 10: Sentiment Analysis"
+title: "Module 12: Sentiment Analysis"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
