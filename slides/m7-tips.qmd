@@ -1,5 +1,5 @@
 ---
-title: "Module 7: More Tips"
+title: "Module 7: Some Tips"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -29,10 +29,19 @@ format:
 
 :::{.three-cards}
 :::{.card .card-light}
-[**More Tips (Today)**]{.card-title}
+[**Some Tips (Today)**]{.card-title}
 
 - Use AI to critique AI
 - Enhance AI memory
+- Boris Cherny's tips
+:::
+
+:::{.card .card-light}
+[**Web Scraping with AI**]{.card-title}
+
+- Scraping SEC EDGAR, news, transcripts
+- Transcribing earnings call audio
+- Static vs. dynamic pages
 :::
 
 :::{.card .card-light}
@@ -42,24 +51,24 @@ format:
 - Chatbots and web apps
 - FastAPI and deployment
 :::
+:::
 
+## Where We're Going (cont.)
+
+:::{.three-cards}
 :::{.card .card-light}
-[**Corporate Agent Deployment**]{.card-title}
+[**Corporate Deployment**]{.card-title}
 
 - Data security: on-prem or cloud
 - Guardrails and governance
 - ERP and the SaaSpocalypse
 :::
-:::
 
-## Where We're Going (cont.)
-
-:::{.two-cards}
 :::{.card .card-light}
 [**Retrieval Augmented Generation**]{.card-title}
 
 - How RAG works
-- Example: RAG for security analysis and valuation
+- Example: RAG for security analysis and valuation*
 - Chunking, embedding, and vector search
 :::
 
@@ -145,6 +154,30 @@ AI conversations are [stateless]{.amber} --- each new session starts from scratc
 :::
 
 [Memory turns a capable tool into a capable *collaborator*.]{.amber}
+
+## Resource: Boris Cherny's Claude Code Tips
+
+[Boris Cherny](https://howborisusesclaudecode.com/){target="_blank"} is the **creator and Head of Claude Code** at Anthropic. He compiled [72 tips]{.amber} on how he uses Claude Code daily, organized into 10 parts:
+
+:::{.two-col}
+::::{.column}
+- Core workflows & parallelism
+- CLAUDE.md, hooks, and verification loops
+- Worktrees and subagents
+- Slash commands and code quality
+- Automation and scheduling
+::::
+
+::::{.column}
+- Configuration and customization
+- Remote control and voice mode
+- Skills guide (9 skill types)
+- Mobile and multi-device workflows
+- Advanced: auto mode, safety classifiers
+::::
+:::
+
+His tips can be **installed as a Claude Code skill** --- paste the URL in Claude Code and ask it to create a skill from the content.
 
 ## What Is Markdown?
 

@@ -1,5 +1,5 @@
 ---
-title: "Web Scraping and Data Collection"
+title: "Module 8: Web Scraping with AI"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -16,6 +16,7 @@ format:
       - text: |
           <script src="https://hypothes.is/embed.js" async></script>
 ---
+
 
 ## Web Scraping Fundamentals {.section-divider}
 
@@ -357,7 +358,45 @@ Full earnings call transcripts are hard to get for free:
 | GuruFocus | Complete | JS-rendered / paywalled |
 | Company webcasts | Audio only | Registration wall |
 
-**Our approach**: Grab what's free from Motley Fool, fill gaps with EDGAR press releases.
+**Our approach**: Grab what's free from Motley Fool, fill gaps with EDGAR press releases --- or transcribe the audio yourself.
+
+## Option: Transcribe Company IR Audio
+
+Most companies post earnings call [audio webcasts]{.amber} on their investor relations page. If no free transcript exists, you can create your own.
+
+:::{.two-col}
+::::{.column}
+**How it works**
+
+1. Download the audio file from the company's IR page (often an MP3 or linked webcast)
+2. Run it through a speech-to-text model
+3. The output is a full text transcript
+
+```python
+# OpenAI's Whisper API
+from openai import OpenAI
+client = OpenAI()
+with open("earnings_call.mp3", "rb") as f:
+    transcript = client.audio.transcriptions.create(
+        model="whisper-1", file=f
+    )
+```
+::::
+
+::::{.column}
+**Options**
+
+- **OpenAI Whisper API** --- $0.006/min, fast, accurate
+- **Local Whisper** --- free, runs on your machine (`pip install openai-whisper`)
+- **AssemblyAI** --- speaker diarization (labels who is speaking)
+
+**Limitations**
+
+- Audio quality varies (phone lines, accents)
+- No speaker labels with basic Whisper (need diarization for Q&A attribution)
+- A 60-min call ≈ [8,000--12,000 words]{.amber} of transcript
+::::
+:::
 
 ## Fetching Transcripts from Motley Fool
 

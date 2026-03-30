@@ -67,11 +67,11 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 4. [Claude Desktop and Claude Code](https://mgmt675.kerryback.com/slides/m4-claude.html)
 5. [Sub-Agents and Skills](https://mgmt675.kerryback.com/slides/m5-skills.html)
 6. [Makers and Checkers](https://mgmt675.kerryback.com/slides/m6-makers-checkers.html)
-7. [More Tips](https://mgmt675.kerryback.com/slides/m7-tips.html)
+7. [Some Tips](https://mgmt675.kerryback.com/slides/m7-tips.html)
 :::
 
 ::: {}
-8. [Building a RAG Corpus](https://mgmt675.kerryback.com/slides/m8-scraping.html)
+8. [Web Scraping with AI](https://mgmt675.kerryback.com/slides/m8-scraping.html)
 9. [Build and Deploy Agents](https://mgmt675.kerryback.com/slides/m9-agents.html)
 10. [Corporate Agent Deployment](https://mgmt675.kerryback.com/slides/m10-corporate.html)
 11. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m11-rag.html)
