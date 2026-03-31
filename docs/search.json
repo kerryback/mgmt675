@@ -683,7 +683,7 @@
     "href": "slides/m7-tips.html#what-weve-done",
     "title": "Module 7: Some Claude Tips",
     "section": "What We’ve Done",
-    "text": "What We’ve Done\n\nAI + code tool\n\nfinancial analysis (mean-variance, dcf)\ndeliverables (figures, excel, word, powerpoint)\nsmall web apps (artifacts, pyodide)\n\nSkills (reusable instructions)"
+    "text": "What We’ve Done\n\nAI + code tool\n\nfinancial analysis (mean-variance, dcf*)\ndeliverables (figures, excel, word, powerpoint)\nsmall web apps (artifacts, pyodide)\n\nSkills (reusable instructions)"
   },
   {
     "objectID": "slides/m7-tips.html#where-were-going",
@@ -697,7 +697,7 @@
     "href": "slides/m7-tips.html#where-were-going-cont.",
     "title": "Module 7: Some Claude Tips",
     "section": "Where We’re Going (cont.)",
-    "text": "Where We’re Going (cont.)\n\n\nM10: Corporate Deployment\n\nData security: on-prem or cloud\nGuardrails and governance\nERP and AI disruption\n\n\n\nM11: Retrieval Augmented Generation\n\nHow RAG works\nChunking, embedding, and vector search\nExample: RAG for security analysis and valuation\n\n\n\nM12: AI Sentiment Analysis\n\nLLMs as sentiment classifiers\nNews and earnings call analysis\nTrading signals from text"
+    "text": "Where We’re Going (cont.)\n\n\nM10: Corporate Deployment\n\nData security: on-prem or cloud\nGuardrails and governance\n\n\n\nM11: Retrieval Augmented Generation\n\nHow RAG works\nChunking, embedding, and vector search\nMagnolia example*\n\n\n\nM12: AI Sentiment Analysis\n\nLLMs as sentiment classifiers\nNews and earnings call analysis\nTrading signals from text"
   },
   {
     "objectID": "slides/m7-tips.html#final-draft-not-first-draft",

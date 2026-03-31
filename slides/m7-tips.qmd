@@ -20,7 +20,7 @@ format:
 ## What We've Done
 
 - AI + code tool
-  - financial analysis (mean-variance, dcf)
+  - financial analysis (mean-variance, dcf*)
   - deliverables (figures, excel, word, powerpoint)
   - small web apps (artifacts, pyodide)
 - Skills (reusable instructions)
@@ -62,7 +62,6 @@ format:
 
 - Data security: on-prem or cloud
 - Guardrails and governance
-- ERP and AI disruption
 :::
 
 :::{.card .card-light}
@@ -70,7 +69,7 @@ format:
 
 - How RAG works
 - Chunking, embedding, and vector search
-- Example: RAG for security analysis and valuation
+- Magnolia example*
 
 :::
 
