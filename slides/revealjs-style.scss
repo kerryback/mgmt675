@@ -473,6 +473,15 @@ $body-bg: $off-white;
   font-size: 0.82em;
 }
 
+// ── Three-column text layout (no cards) ──
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5em;
+  margin-top: 0.4em;
+  font-size: 0.82em;
+}
+
 // ── Three cards ──
 .three-cards {
   display: grid;

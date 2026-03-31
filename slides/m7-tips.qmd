@@ -1,5 +1,5 @@
 ---
-title: "Module 7: Some Tips"
+title: "Module 7: Some Claude Tips"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -20,7 +20,7 @@ format:
 ## What We've Done
 
 - AI + code tool
-  - financial analysis (mean-variance, dcf*)
+  - financial analysis (mean-variance, dcf)
   - deliverables (figures, excel, word, powerpoint)
   - small web apps (artifacts, pyodide)
 - Skills (reusable instructions)
@@ -29,7 +29,7 @@ format:
 
 :::{.three-cards}
 :::{.card .card-light}
-[**Some Tips (Today)**]{.card-title}
+[**M7: Some Tips (Today)**]{.card-title}
 
 - Use AI to critique AI
 - Enhance AI memory
@@ -37,18 +37,19 @@ format:
 :::
 
 :::{.card .card-light}
-[**Web Scraping with AI**]{.card-title}
+[**M8: Web Scraping with AI**]{.card-title}
 
 - Scraping SEC EDGAR, news, transcripts
-- Transcribing earnings call audio
 - Static vs. dynamic pages
+- Magnolia example
 :::
 
 :::{.card .card-light}
-[**Build & Deploy Agents**]{.card-title}
+[**M9: Build & Deploy Agents**]{.card-title}
 
-- The API: talking to LLMs from code
+- The API: software connections to LLMs 
 - Chatbots and web apps
+- Connecting tools
 - FastAPI and deployment
 :::
 :::
@@ -57,23 +58,24 @@ format:
 
 :::{.three-cards}
 :::{.card .card-light}
-[**Corporate Deployment**]{.card-title}
+[**M10: Corporate Deployment**]{.card-title}
 
 - Data security: on-prem or cloud
 - Guardrails and governance
-- ERP and the SaaSpocalypse
+- ERP and AI disruption
 :::
 
 :::{.card .card-light}
-[**Retrieval Augmented Generation**]{.card-title}
+[**M11: Retrieval Augmented Generation**]{.card-title}
 
 - How RAG works
-- Example: RAG for security analysis and valuation*
 - Chunking, embedding, and vector search
+- Example: RAG for security analysis and valuation
+
 :::
 
 :::{.card .card-light}
-[**AI Sentiment Analysis**]{.card-title}
+[**M12: AI Sentiment Analysis**]{.card-title}
 
 - LLMs as sentiment classifiers
 - News and earnings call analysis
@@ -92,7 +94,7 @@ AI output looks polished, but polished is not the same as correct. Use AI itself
 [**Single Reviewer**]{.card-title}
 
 - **Use a different model** --- paste the output into a competing LLM and ask it to find errors
-- **Use a subagent** --- start a second conversation with the same model and ask it to critique the first
+- **Use the same model** --- start a second conversation with the same model or use a subagent and ask it for a critique
 :::
 
 :::{.card .card-light}
@@ -109,77 +111,58 @@ AI output looks polished, but polished is not the same as correct. Use AI itself
 
 The `/critique` skill automates the multi-reviewer approach. It spawns [three parallel agents]{.amber} --- correctness, clarity, and devil's advocate --- then synthesizes and prioritizes the findings.
 
-:::{.two-col}
+:::{.three-col}
 ::::{.column}
 **Example**
 
-We asked Claude to research and write a 5-page Word doc on the history of the World Wide Web. Then we ran `/critique` on it.
+I asked Claude to write a 5-page doc on the history of the World Wide Web.
 
-The critique found [7 critical issues]{.amber}, 8 warnings, and 7 suggestions --- including wrong dates, understated statistics, and missing context.
+[History-of-the-World-Wide-Web.docx](/files/History-of-the-World-Wide-Web.docx){target="_blank"}
+
+::::
+
+::::{.column}
+**Results**
+
+The critique found:
+
+- [7 critical issues]{.amber} (wrong dates, understated stats)
+- 8 warnings
+- 7 suggestions
+
+[View critique (markdown)](/files/History-of-the-World-Wide-Web-critique.md){target="_blank"}
+
 ::::
 
 ::::{.column}
 **Try it yourself**
 
-- [History-of-the-World-Wide-Web.docx](/files/History-of-the-World-Wide-Web.docx){target="_blank"} --- the AI-generated document
-- [Critique (markdown)](/files/History-of-the-World-Wide-Web-critique.md){target="_blank"} --- the full critique report
-- [Critique skill](/files/critique-skill.zip){target="_blank"} --- install this skill in Claude Code
+Download the [critique skill](/files/critique-skill.zip){target="_blank"} and ask Claude to install it.
+
 ::::
 :::
+
+[Caveat: AI reviewers share the same training data, so they can have shared blind spots. Use human judgment for high-stakes decisions.]{.amber}
 
 ## Enhance AI Memory {.section-divider}
 
 ## Saving Conversation Summaries
 
-AI conversations are [stateless]{.amber} --- each new session starts from scratch. You can fix this by saving summaries to [markdown (.md) files]{.amber} that AI reads at startup.
+AI conversations are [stateless]{.amber} --- each new session starts from scratch. You can fix this by saving things to [markdown (.md) files]{.amber}.
 
-:::{.two-col}
-::::{.column}
-**How it works**
+**A summarize chat skill**
 
-1. At the end of a session, ask Claude to summarize what was done
-2. The summary is saved as a `.md` file
-3. Next session, Claude reads these files automatically
-4. Continuity across days and weeks --- no need to re-explain
-::::
+1. Download [summarize-chat skill](/files/summarize-chat-skill.zip){target="_blank"} and ask Claude to install it.
+2. At the end of a chat, type `/summarize-chat`
+3. The summary is saved as a `.md` file in a `chats/` folder.  Each session, Claude reads the most recent summaries on startup.
 
-::::{.column}
-**Types of memory files**
+**Standard memory devices**
 
 - **CLAUDE.md** --- project-level instructions loaded every session
 - **Skills (.md)** --- reusable task-specific instructions
-- **Session summaries** --- what happened last time
-- **Memory files** --- stored observations about you and your preferences
-::::
-:::
+- **Other files** --- you can always ask Claude to save any chat or part of a chat as a file
 
-[Memory turns a capable tool into a capable *collaborator*.]{.amber}
-
-## Resource: Boris Cherny's Claude Code Tips
-
-[Boris Cherny](https://howborisusesclaudecode.com/){target="_blank"} is the **creator and Head of Claude Code** at Anthropic. He compiled [72 tips]{.amber} on how he uses Claude Code daily, organized into 10 parts:
-
-:::{.two-col}
-::::{.column}
-- Core workflows & parallelism
-- CLAUDE.md, hooks, and verification loops
-- Worktrees and subagents
-- Slash commands and code quality
-- Automation and scheduling
-::::
-
-::::{.column}
-- Configuration and customization
-- Remote control and voice mode
-- Skills guide (9 skill types)
-- Mobile and multi-device workflows
-- Advanced: auto mode, safety classifiers
-::::
-:::
-
-His tips can be **installed as a Claude Code skill** --- paste the URL in Claude Code and ask it to create a skill from the content.
-
-## What Is Markdown?
+## Markdown Quick Reference
 
 Markdown is a plain-text format that uses simple symbols for formatting. AI reads and writes it natively.
 
@@ -212,6 +195,124 @@ Markdown is a plain-text format that uses simple symbols for formatting. AI read
 - **Session summaries** --- conversation logs
 - **README.md** --- any GitHub repo
 
-Open any `.md` file in VS Code for a live preview, or paste it into [markdownlivepreview.com](https://markdownlivepreview.com){target="_blank"} to see it rendered.
+You can read any markdown file in Notepad, but you get a better presentation with a markdown renderer, for example, [markdownlivepreview.com](https://markdownlivepreview.com){target="_blank"}.
 ::::
 :::
+
+## Claude Dispatch {.section-divider}
+
+## Delegate Tasks from Your Phone
+
+Stuck in a meeting and realize a data pull needs fixing? Claude **Dispatch** lets you send a task from the Claude mobile app and have it [run on your desktop]{.amber} --- as either a Cowork or Code session, depending on the task.
+
+:::{.two-col}
+::::{.column}
+**Setup**
+
+1. [Update both apps first:]{.amber} Claude Desktop (Help → Check for Updates) and Claude mobile app (App Store / Google Play)
+2. Open **Claude Desktop** → **Cowork** tab
+3. Click **Dispatch** in the sidebar
+4. Scan the QR code from your phone
+5. Send a task --- e.g., *"fix the auth bug"*
+
+Dispatch decides whether the task needs a Code session (dev work) or can be handled in Cowork (research, writing).
+::::
+
+::::{.column}
+**How it works**
+
+- Your desktop must be **awake and running** Claude Desktop
+- Dev tasks → Code session spawned automatically
+- You get a **push notification** when done or when approval is needed
+- Full access to local files, MCP servers, and project config
+
+[Requires Pro or Max plan.]{.amber}
+::::
+:::
+
+## Boris Cherny's Tips {.section-divider}
+
+Boris Cherny is the **creator and Head of Claude Code** at Anthropic. In a series of X posts over several weeks, he offered tips on how he and his group use Claude Code.
+
+The tips were compiled by a fan and made available online [here](https://howborisusesclaudecode.com/){target="_blank"} --- dozens of tips organized into 10 parts covering workflows, memory, automation, and more.
+
+**A few highlights:**
+
+- Run multiple agents in [parallel using worktrees]{.amber} to get more done faster
+- Use [hooks]{.amber} to auto-verify work (e.g., run tests after every code change)
+- Write detailed [CLAUDE.md]{.amber} files --- the better the instructions, the less you need to repeat yourself
+
+His tips can be **installed as a Claude Code skill** --- paste the URL in Claude Code and ask it to create a skill from the content.
+
+## Claude Plugins {.section-divider}
+
+## What Are Plugins?
+
+A **plugin** bundles multiple Claude Code components into a [single installable package]{.amber}:
+
+| Component | What it does |
+|---|---|
+| Skills | Slash commands & auto-triggered prompts |
+| Agents | Custom sub-agent definitions |
+| Hooks | Event handlers (e.g., lint on file write) |
+| MCP servers | External tool integrations |
+| LSP servers | Language intelligence (type checking, etc.) |
+| Output styles | Custom formatting for agent output |
+
+## Installing and Sharing Plugins
+
+:::{.two-col}
+::::{.column}
+**Installing**
+
+- `/plugin install` from a marketplace or git repo
+- Commands are [namespaced]{.amber}: `/my-plugin:hello`
+- Versioned via `plugin.json` manifest
+
+::::
+
+::::{.column}
+**Why plugins?**
+
+- **Skills** are great for personal, single-project use
+- **Plugins** are designed for [team distribution]{.amber} and cross-project reuse
+- Available from the official marketplace, team marketplaces, or any git repo
+- Browse community plugins: [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins){target="_blank"}
+::::
+:::
+
+Skills are personal; plugins scale them to teams. Why does that matter for enterprise software?
+
+## When 1 License Replaces 5
+
+In early 2026, a wave of AI agent and plugin announcements --- from Anthropic, OpenAI, and others --- triggered a [historic selloff]{.amber} in enterprise software stocks. Wall Street dubbed it the [SaaSpocalypse]{.amber}. The thesis: if AI agents do the work of 5 employees, companies need [1 license instead of 5]{.amber}.
+
+:::{.two-col}
+::::{.column}
+**The damage (as of March 2026)**
+
+- [~$285B]{.amber} in software market cap erased in 48 hours (Feb 3--5)
+- Goldman Sachs software index fell 6% in a single day
+- IGV (software ETF) down [~25% YTD]{.amber}
+- Forward P/E multiples compressed from ~34x to ~22x
+- Software traded at a [discount to the S&P 500]{.amber} on a forward P/E basis --- a first
+
+::::
+
+::::{.column}
+**Notable drops**
+
+| Company | Decline | Period |
+|---|---|---|
+| Monday.com | -77% | from 52-wk high |
+| Atlassian | -73% | from 52-wk high |
+| ServiceNow | -49% | from 52-wk high |
+| Salesforce | -43% | from 52-wk high |
+| SAP | -16% | single day (Jan 29) |
+| Thomson Reuters | -16% | single day (Feb 4) |
+::::
+:::
+
+**The counterargument:** per-seat pricing may give way to usage-based or outcome-based models, but total enterprise software spend could still grow as AI capabilities expand.
+
+[Sources: Bloomberg, SaaStr, Goldman Sachs; data as of mid-March 2026.]{style="font-size: 0.7em; color: gray;"}

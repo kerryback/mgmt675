@@ -67,7 +67,7 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 4. [Claude Desktop and Claude Code](https://mgmt675.kerryback.com/slides/m4-claude.html)
 5. [Sub-Agents and Skills](https://mgmt675.kerryback.com/slides/m5-skills.html)
 6. [Makers and Checkers](https://mgmt675.kerryback.com/slides/m6-makers-checkers.html)
-7. [Some Tips](https://mgmt675.kerryback.com/slides/m7-tips.html)
+7. [Some Claude Tips](https://mgmt675.kerryback.com/slides/m7-tips.html)
 :::
 
 ::: {}
