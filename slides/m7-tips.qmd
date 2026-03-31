@@ -31,7 +31,7 @@ format:
 :::{.card .card-light}
 [**M7: Some Tips (Today)**]{.card-title}
 
-- Use AI to critique AI
+- Final draft, not first draft
 - Enhance AI memory
 - Boris Cherny's tips
 :::
@@ -83,72 +83,50 @@ format:
 :::
 :::
 
-## Using AI to Evaluate AI {.section-divider}
+## Final Draft, Not First Draft {.section-divider}
 
-## Four Approaches
+## Let AI Revise Its Own Work
 
-AI output looks polished, but polished is not the same as correct. Use AI itself to [stress-test]{.amber} AI work.
+Don't review AI's [first draft]{.amber}. Instead:
 
-:::{.two-cards}
-:::{.card .card-light}
-[**Single Reviewer**]{.card-title}
+1. Ask AI to produce the work
+2. Ask it to [critique itself]{.amber} and revise
+3. Repeat until no further revisions are needed
+4. **Now** review what it produced
 
-- **Use a different model** --- paste the output into a competing LLM and ask it to find errors
-- **Use the same model** --- start a second conversation with the same model or use a subagent and ask it for a critique
-:::
-
-:::{.card .card-light}
-[**Multiple Reviewers**]{.card-title}
-
-- **Use multiple subagents** --- spawn parallel reviewers with different lenses (correctness, clarity, devil's advocate)
-- **Evaluate in a loop** --- have the agent produce, critique, revise, and re-critique iteratively until stable
-:::
-:::
-
-[The more consequential the decision, the more reviewers you want.]{.amber}
+You review a [final draft]{.amber} instead of a first draft. This saves your time (though it burns tokens). The more consequential the work, the more revision cycles it deserves.
 
 ## The /critique Skill
 
-The `/critique` skill automates the multi-reviewer approach. It spawns [three parallel agents]{.amber} --- correctness, clarity, and devil's advocate --- then synthesizes and prioritizes the findings.
+The `/critique` skill automates this. It spawns [three parallel agents]{.amber}, each with a different lens, then synthesizes findings and applies revisions.
 
-:::{.three-col}
-::::{.column}
-**Example**
+:::{.three-cards}
+:::{.card .card-light}
+[**Correctness & Completeness**]{.card-title}
 
-I asked Claude to write a 5-page doc on the history of the World Wide Web.
+Are there factual errors, logical gaps, or missing information? Are claims supported and assumptions justified?
+:::
 
-[History-of-the-World-Wide-Web.docx](/files/History-of-the-World-Wide-Web.docx){target="_blank"}
+:::{.card .card-light}
+[**Clarity & Persuasiveness**]{.card-title}
 
-::::
+Is the structure logical? Is anything confusing, redundant, or buried? Could the main message be stated more directly?
+:::
 
-::::{.column}
-**Results**
+:::{.card .card-light}
+[**Devil's Advocate**]{.card-title}
 
-The critique found:
-
-- [7 critical issues]{.amber} (wrong dates, understated stats)
-- 8 warnings
-- 7 suggestions
-
-[View critique (markdown)](/files/History-of-the-World-Wide-Web-critique.md){target="_blank"}
-
-::::
-
-::::{.column}
-**Try it yourself**
+What are the strongest counterarguments? Where is the reasoning weakest? What would a skeptic challenge?
+:::
+:::
 
 Download the [critique skill](/files/critique-skill.zip){target="_blank"} and ask Claude to install it.
 
-::::
-:::
-
-[Caveat: AI reviewers share the same training data, so they can have shared blind spots. Use human judgment for high-stakes decisions.]{.amber}
-
 ## Enhance AI Memory {.section-divider}
 
-## Saving Conversation Summaries
+## Saving Conversation Summaries {.shrink}
 
-AI conversations are [stateless]{.amber} --- each new session starts from scratch. You can fix this by saving things to [markdown (.md) files]{.amber}.
+AI conversations have [no memory of previous conversations]{.amber} --- each new session starts from scratch. You can fix this by saving things to [markdown (.md) files]{.amber}.
 
 **A summarize chat skill**
 
@@ -162,13 +140,9 @@ AI conversations are [stateless]{.amber} --- each new session starts from scratc
 - **Skills (.md)** --- reusable task-specific instructions
 - **Other files** --- you can always ask Claude to save any chat or part of a chat as a file
 
-## Markdown Quick Reference
+## Markdown Quick Reference {.shrink}
 
 Markdown is a plain-text format that uses simple symbols for formatting. AI reads and writes it natively.
-
-:::{.two-col}
-::::{.column}
-**Syntax**
 
 ```markdown
 # Heading
@@ -182,12 +156,10 @@ Markdown is a plain-text format that uses simple symbols for formatting. AI read
 2. Second item
 
 > Blockquote
-
-`inline code`
 ```
-::::
 
-::::{.column}
+## Markdown in AI Workflows
+
 **Where you'll see it**
 
 - **CLAUDE.md** --- project instructions
@@ -196,17 +168,13 @@ Markdown is a plain-text format that uses simple symbols for formatting. AI read
 - **README.md** --- any GitHub repo
 
 You can read any markdown file in Notepad, but you get a better presentation with a markdown renderer, for example, [markdownlivepreview.com](https://markdownlivepreview.com){target="_blank"}.
-::::
-:::
 
 ## Claude Dispatch {.section-divider}
 
-## Delegate Tasks from Your Phone
+## Dispatch: Setup
 
-Stuck in a meeting and realize a data pull needs fixing? Claude **Dispatch** lets you send a task from the Claude mobile app and have it [run on your desktop]{.amber} --- as either a Cowork or Code session, depending on the task.
+Claude **Dispatch** lets you send a task from the Claude mobile app and have it [run on your desktop]{.amber} --- as either a Cowork or Code session, depending on the task.
 
-:::{.two-col}
-::::{.column}
 **Setup**
 
 1. [Update both apps first:]{.amber} Claude Desktop (Help → Check for Updates) and Claude mobile app (App Store / Google Play)
@@ -215,11 +183,9 @@ Stuck in a meeting and realize a data pull needs fixing? Claude **Dispatch** let
 4. Scan the QR code from your phone
 5. Send a task --- e.g., *"fix the auth bug"*
 
-Dispatch decides whether the task needs a Code session (dev work) or can be handled in Cowork (research, writing).
-::::
+## Dispatch: How It Works
 
-::::{.column}
-**How it works**
+Dispatch decides whether the task needs a Code session (dev work) or can be handled in Cowork (research, writing).
 
 - Your desktop must be **awake and running** Claude Desktop
 - Dev tasks → Code session spawned automatically
@@ -227,8 +193,6 @@ Dispatch decides whether the task needs a Code session (dev work) or can be hand
 - Full access to local files, MCP servers, and project config
 
 [Requires Pro or Max plan.]{.amber}
-::::
-:::
 
 ## Boris Cherny's Tips {.section-divider}
 
@@ -238,9 +202,9 @@ The tips were compiled by a fan and made available online [here](https://howbori
 
 **A few highlights:**
 
-- Run multiple agents in [parallel using worktrees]{.amber} to get more done faster
-- Use [hooks]{.amber} to auto-verify work (e.g., run tests after every code change)
-- Write detailed [CLAUDE.md]{.amber} files --- the better the instructions, the less you need to repeat yourself
+- Run [multiple tasks simultaneously]{.amber} instead of waiting for one to finish
+- Set up [automatic quality checks]{.amber} (e.g., verify data after every change)
+- Write detailed [CLAUDE.md]{.amber} files --- better instructions mean less repetition
 
 His tips can be **installed as a Claude Code skill** --- paste the URL in Claude Code and ask it to create a skill from the content.
 
@@ -281,38 +245,104 @@ A **plugin** bundles multiple Claude Code components into a [single installable 
 ::::
 :::
 
-Skills are personal; plugins scale them to teams. Why does that matter for enterprise software?
+## The SaaSpocalypse {.shrink}
 
-## When 1 License Replaces 5
+In early 2026, AI agent and plugin announcements triggered a [historic selloff]{.amber} in enterprise software stocks --- roughly [~$2 trillion]{.amber} in SaaS market cap evaporated between January and March. Wall Street dubbed it the [SaaSpocalypse]{.amber}.
 
-In early 2026, a wave of AI agent and plugin announcements --- from Anthropic, OpenAI, and others --- triggered a [historic selloff]{.amber} in enterprise software stocks. Wall Street dubbed it the [SaaSpocalypse]{.amber}. The thesis: if AI agents do the work of 5 employees, companies need [1 license instead of 5]{.amber}.
+AI is attacking the [interface and workflow layer, not the data layer]{.amber}:
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Replacing the UI**]{.card-title}
+
+Many SaaS products are forms, dashboards, and screens sitting on top of databases. AI agents let users skip navigating 20 screens and just state what they want in natural language.
+:::
+
+:::{.card .card-light}
+[**Automating Workflows**]{.card-title}
+
+Task tracking, status updates, if-then automations, data transfer between systems --- exactly what agents do natively.
+:::
+
+:::{.card .card-light}
+[**Collapsing Per-Seat Pricing**]{.card-title}
+
+If 10 AI agents do the work of 100 human reps, you need [10 Salesforce seats, not 100]{.amber}. The revenue model collapses even if the product is still used.
+:::
+:::
+
+## What Survives? {.shrink}
+
+AI isn't replacing the database --- it's replacing the [screens people use to interact with it]{.amber}, and the humans who sit behind those screens.
 
 :::{.two-col}
 ::::{.column}
-**The damage (as of March 2026)**
+**Defensible positions**
 
-- [~$285B]{.amber} in software market cap erased in 48 hours (Feb 3--5)
-- Goldman Sachs software index fell 6% in a single day
+- [Systems of record]{.amber} in regulated industries (finance, healthcare, law)
+- Platforms with accumulated [proprietary data]{.amber} and feedback loops
+- Integration hubs managing connections across many systems
+::::
+
+::::{.column}
+**The market damage (as of March 2026)**
+
 - IGV (software ETF) down [~25% YTD]{.amber}
-- Forward P/E multiples compressed from ~34x to ~22x
+- Forward P/E compressed from ~34x to ~22x
 - Software traded at a [discount to the S&P 500]{.amber} on a forward P/E basis --- a first
+- Salesforce -31%, Adobe -32%, Atlassian -35%
+::::
+:::
+
+[Sources: TechCrunch, CNBC, Bloomberg, SaaStr; data as of mid-March 2026.]{style="font-size: 0.7em; color: gray;"}
+
+## Version Control with Git {.section-divider}
+
+## Why Git Matters for AI Workflows {.shrink}
+
+**Git** is like [Track Changes]{.amber} for an entire folder --- it saves every version so you can always go back.
+
+:::{.two-col}
+::::{.column}
+**Why it matters with Claude**
+
+1. **Safety net** --- it is much safer to let Claude edit your files when you can [easily roll back]{.amber} to any previous version
+2. **Claude does the work** --- Claude can commit changes, review past commits, and recover old versions for you --- no need to learn git commands yourself
+::::
+
+::::{.column}
+**Getting started**
+
+Ask Claude to:
+
+1. **Set up Git** --- ask Claude; it will install and configure it if needed
+2. **Initialize a folder** as a git repo
+3. **Commit changes** whenever you reach a good stopping point
+
+That's it. Claude handles the commands. You just say [*"commit this"*]{.amber} or [*"show me what changed"*]{.amber}.
+::::
+:::
+
+## Back Up to GitHub
+
+Git keeps snapshots [locally]{.amber}. For an external backup, push to [GitHub]{.amber} (free account).
+
+:::{.two-col}
+::::{.column}
+**Setup (one time)**
+
+1. Create a free account at [github.com](https://github.com){target="_blank"}
+2. Ask Claude to **install the GitHub CLI** (`gh`)
+3. Run `gh auth login` --- it opens your browser to sign in (no tokens or passwords to manage)
+4. Ask Claude to create a GitHub repo and push your folder to it
 
 ::::
 
 ::::{.column}
-**Notable drops**
+**Ongoing**
 
-| Company | Decline | Period |
-|---|---|---|
-| Monday.com | -77% | from 52-wk high |
-| Atlassian | -73% | from 52-wk high |
-| ServiceNow | -49% | from 52-wk high |
-| Salesforce | -43% | from 52-wk high |
-| SAP | -16% | single day (Jan 29) |
-| Thomson Reuters | -16% | single day (Feb 4) |
+- After committing locally, say [*"push to GitHub"*]{.amber}
+- Your work is now backed up in the cloud
+- You can also browse history, compare versions, and restore files from the GitHub website
 ::::
 :::
-
-**The counterargument:** per-seat pricing may give way to usage-based or outcome-based models, but total enterprise software spend could still grow as AI capabilities expand.
-
-[Sources: Bloomberg, SaaStr, Goldman Sachs; data as of mid-March 2026.]{style="font-size: 0.7em; color: gray;"}

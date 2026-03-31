@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 7: More Tips</title>
+  <title>Module 7: Some Claude Tips</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -94,7 +94,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-80873d3a46d0a92d285a31910fb8318b.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-cdd81feb614051b1dc3229adfc5299fd.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -198,7 +198,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 7: More Tips</h1>
+  <h1 class="title">Module 7: Some Claude Tips</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -215,7 +215,7 @@ Kerry Back, Rice University
 <ul>
 <li>AI + code tool
 <ul>
-<li>financial analysis (mean-variance, dcf*)</li>
+<li>financial analysis (mean-variance, dcf)</li>
 <li>deliverables (figures, excel, word, powerpoint)</li>
 <li>small web apps (artifacts, pyodide)</li>
 </ul></li>
@@ -226,43 +226,53 @@ Kerry Back, Rice University
 <h2>Where We’re Going</h2>
 <div class="three-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>More Tips (Today)</strong></span></p>
+<p><span class="card-title"><strong>M7: Some Tips (Today)</strong></span></p>
 <ul>
-<li>Use AI to critique AI</li>
+<li>Final draft, not first draft</li>
 <li>Enhance AI memory</li>
+<li>Boris Cherny’s tips</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>Build &amp; Deploy Agents</strong></span></p>
+<p><span class="card-title"><strong>M8: Web Scraping with AI</strong></span></p>
 <ul>
-<li>The API: talking to LLMs from code</li>
+<li>Scraping SEC EDGAR, news, transcripts</li>
+<li>Static vs.&nbsp;dynamic pages</li>
+<li>Magnolia example</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>M9: Build &amp; Deploy Agents</strong></span></p>
+<ul>
+<li>The API: software connections to LLMs</li>
 <li>Chatbots and web apps</li>
+<li>Connecting tools</li>
 <li>FastAPI and deployment</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Corporate Agent Deployment</strong></span></p>
-<ul>
-<li>Data security: on-prem or cloud</li>
-<li>Guardrails and governance</li>
-<li>ERP and the SaaSpocalypse</li>
 </ul>
 </div>
 </div>
 </section>
 <section id="where-were-going-cont." class="slide level2 center">
 <h2>Where We’re Going (cont.)</h2>
-<div class="two-cards">
+<div class="three-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>Retrieval Augmented Generation</strong></span></p>
+<p><span class="card-title"><strong>M10: Corporate Deployment</strong></span></p>
 <ul>
-<li>How RAG works</li>
-<li>Example: RAG for security analysis and valuation</li>
-<li>Chunking, embedding, and vector search</li>
+<li>Data security: on-prem or cloud</li>
+<li>Guardrails and governance</li>
+<li>ERP and AI disruption</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>AI Sentiment Analysis</strong></span></p>
+<p><span class="card-title"><strong>M11: Retrieval Augmented Generation</strong></span></p>
+<ul>
+<li>How RAG works</li>
+<li>Chunking, embedding, and vector search</li>
+<li>Example: RAG for security analysis and valuation</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>M12: AI Sentiment Analysis</strong></span></p>
 <ul>
 <li>LLMs as sentiment classifiers</li>
 <li>News and earnings call analysis</li>
@@ -271,79 +281,61 @@ Kerry Back, Rice University
 </div>
 </div>
 </section>
-<section id="using-ai-to-evaluate-ai" class="slide level2 section-divider center">
-<h2>Using AI to Evaluate AI</h2>
+<section id="final-draft-not-first-draft" class="slide level2 section-divider center">
+<h2>Final Draft, Not First Draft</h2>
 </section>
-<section id="four-approaches" class="slide level2 center">
-<h2>Four Approaches</h2>
-<p>AI output looks polished, but polished is not the same as correct. Use AI itself to <span class="amber">stress-test</span> AI work.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Single Reviewer</strong></span></p>
-<ul>
-<li><strong>Use a different model</strong> — paste the output into a competing LLM and ask it to find errors</li>
-<li><strong>Use a subagent</strong> — start a second conversation with the same model and ask it to critique the first</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Multiple Reviewers</strong></span></p>
-<ul>
-<li><strong>Use multiple subagents</strong> — spawn parallel reviewers with different lenses (correctness, clarity, devil’s advocate)</li>
-<li><strong>Evaluate in a loop</strong> — have the agent produce, critique, revise, and re-critique iteratively until stable</li>
-</ul>
-</div>
-</div>
-<p><span class="amber">The more consequential the decision, the more reviewers you want.</span></p>
+<section id="let-ai-revise-its-own-work" class="slide level2 center">
+<h2>Let AI Revise Its Own Work</h2>
+<p>Don’t review AI’s <span class="amber">first draft</span>. Instead:</p>
+<ol type="1">
+<li>Ask AI to produce the work</li>
+<li>Ask it to <span class="amber">critique itself</span> and revise</li>
+<li>Repeat until no further revisions are needed</li>
+<li><strong>Now</strong> review what it produced</li>
+</ol>
+<p>You review a <span class="amber">final draft</span> instead of a first draft. This saves your time (though it burns tokens). The more consequential the work, the more revision cycles it deserves.</p>
 </section>
 <section id="the-critique-skill" class="slide level2 center">
 <h2>The /critique Skill</h2>
-<p>The <code>/critique</code> skill automates the multi-reviewer approach. It spawns <span class="amber">three parallel agents</span> — correctness, clarity, and devil’s advocate — then synthesizes and prioritizes the findings.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Example</strong></p>
-<p>We asked Claude to research and write a 5-page Word doc on the history of the World Wide Web. Then we ran <code>/critique</code> on it.</p>
-<p>The critique found <span class="amber">7 critical issues</span>, 8 warnings, and 7 suggestions — including wrong dates, understated statistics, and missing context.</p>
-</div><div class="column">
-<p><strong>Try it yourself</strong></p>
-<ul>
-<li><a href="..\files/History-of-the-World-Wide-Web.docx" target="_blank">History-of-the-World-Wide-Web.docx</a> — the AI-generated document</li>
-<li><a href="..\files/History-of-the-World-Wide-Web-critique.md" target="_blank">Critique (markdown)</a> — the full critique report</li>
-<li><a href="..\files/critique-skill.zip" target="_blank">Critique skill</a> — install this skill in Claude Code</li>
-</ul>
-</div></div>
+<p>The <code>/critique</code> skill automates this. It spawns <span class="amber">three parallel agents</span>, each with a different lens, then synthesizes findings and applies revisions.</p>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Correctness &amp; Completeness</strong></span></p>
+<p>Are there factual errors, logical gaps, or missing information? Are claims supported and assumptions justified?</p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Clarity &amp; Persuasiveness</strong></span></p>
+<p>Is the structure logical? Is anything confusing, redundant, or buried? Could the main message be stated more directly?</p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Devil’s Advocate</strong></span></p>
+<p>What are the strongest counterarguments? Where is the reasoning weakest? What would a skeptic challenge?</p>
+</div>
+</div>
+<p>Download the <a href="..\files/critique-skill.zip" target="_blank">critique skill</a> and ask Claude to install it.</p>
 </section>
 <section id="enhance-ai-memory" class="slide level2 section-divider center">
 <h2>Enhance AI Memory</h2>
 </section>
-<section id="saving-conversation-summaries" class="slide level2 center">
+<section id="saving-conversation-summaries" class="slide level2 shrink center">
 <h2>Saving Conversation Summaries</h2>
-<p>AI conversations are <span class="amber">stateless</span> — each new session starts from scratch. You can fix this by saving summaries to <span class="amber">markdown (.md) files</span> that AI reads at startup.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>How it works</strong></p>
+<p>AI conversations have <span class="amber">no memory of previous conversations</span> — each new session starts from scratch. You can fix this by saving things to <span class="amber">markdown (.md) files</span>.</p>
+<p><strong>A summarize chat skill</strong></p>
 <ol type="1">
-<li>At the end of a session, ask Claude to summarize what was done</li>
-<li>The summary is saved as a <code>.md</code> file</li>
-<li>Next session, Claude reads these files automatically</li>
-<li>Continuity across days and weeks — no need to re-explain</li>
+<li>Download <a href="..\files/summarize-chat-skill.zip" target="_blank">summarize-chat skill</a> and ask Claude to install it.</li>
+<li>At the end of a chat, type <code>/summarize-chat</code></li>
+<li>The summary is saved as a <code>.md</code> file in a <code>chats/</code> folder. Each session, Claude reads the most recent summaries on startup.</li>
 </ol>
-</div><div class="column">
-<p><strong>Types of memory files</strong></p>
+<p><strong>Standard memory devices</strong></p>
 <ul>
 <li><strong>CLAUDE.md</strong> — project-level instructions loaded every session</li>
 <li><strong>Skills (.md)</strong> — reusable task-specific instructions</li>
-<li><strong>Session summaries</strong> — what happened last time</li>
-<li><strong>Memory files</strong> — stored observations about you and your preferences</li>
+<li><strong>Other files</strong> — you can always ask Claude to save any chat or part of a chat as a file</li>
 </ul>
-</div></div>
-<p><span class="amber">Memory turns a capable tool into a capable <em>collaborator</em>.</span></p>
 </section>
-<section id="what-is-markdown" class="slide level2 center">
-<h2>What Is Markdown?</h2>
+<section id="markdown-quick-reference" class="slide level2 shrink center">
+<h2>Markdown Quick Reference</h2>
 <p>Markdown is a plain-text format that uses simple symbols for formatting. AI reads and writes it natively.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Syntax</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a></a><span class="fu"># Heading</span></span>
 <span id="cb1-2"><a></a><span class="fu">## Subheading</span></span>
 <span id="cb1-3"><a></a></span>
@@ -354,10 +346,10 @@ Kerry Back, Rice University
 <span id="cb1-8"><a></a><span class="ss">1. </span>Numbered list</span>
 <span id="cb1-9"><a></a><span class="ss">2. </span>Second item</span>
 <span id="cb1-10"><a></a></span>
-<span id="cb1-11"><a></a><span class="at">&gt; Blockquote</span></span>
-<span id="cb1-12"><a></a></span>
-<span id="cb1-13"><a></a><span class="in">`inline code`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
+<span id="cb1-11"><a></a><span class="at">&gt; Blockquote</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="markdown-in-ai-workflows" class="slide level2 center">
+<h2>Markdown in AI Workflows</h2>
 <p><strong>Where you’ll see it</strong></p>
 <ul>
 <li><strong>CLAUDE.md</strong> — project instructions</li>
@@ -365,7 +357,191 @@ Kerry Back, Rice University
 <li><strong>Session summaries</strong> — conversation logs</li>
 <li><strong>README.md</strong> — any GitHub repo</li>
 </ul>
-<p>Open any <code>.md</code> file in VS Code for a live preview, or paste it into <a href="https://markdownlivepreview.com" target="_blank">markdownlivepreview.com</a> to see it rendered.</p>
+<p>You can read any markdown file in Notepad, but you get a better presentation with a markdown renderer, for example, <a href="https://markdownlivepreview.com" target="_blank">markdownlivepreview.com</a>.</p>
+</section>
+<section id="claude-dispatch" class="slide level2 section-divider center">
+<h2>Claude Dispatch</h2>
+</section>
+<section id="dispatch-setup" class="slide level2 center">
+<h2>Dispatch: Setup</h2>
+<p>Claude <strong>Dispatch</strong> lets you send a task from the Claude mobile app and have it <span class="amber">run on your desktop</span> — as either a Cowork or Code session, depending on the task.</p>
+<p><strong>Setup</strong></p>
+<ol type="1">
+<li><span class="amber">Update both apps first:</span> Claude Desktop (Help → Check for Updates) and Claude mobile app (App Store / Google Play)</li>
+<li>Open <strong>Claude Desktop</strong> → <strong>Cowork</strong> tab</li>
+<li>Click <strong>Dispatch</strong> in the sidebar</li>
+<li>Scan the QR code from your phone</li>
+<li>Send a task — e.g., <em>“fix the auth bug”</em></li>
+</ol>
+</section>
+<section id="dispatch-how-it-works" class="slide level2 center">
+<h2>Dispatch: How It Works</h2>
+<p>Dispatch decides whether the task needs a Code session (dev work) or can be handled in Cowork (research, writing).</p>
+<ul>
+<li>Your desktop must be <strong>awake and running</strong> Claude Desktop</li>
+<li>Dev tasks → Code session spawned automatically</li>
+<li>You get a <strong>push notification</strong> when done or when approval is needed</li>
+<li>Full access to local files, MCP servers, and project config</li>
+</ul>
+<p><span class="amber">Requires Pro or Max plan.</span></p>
+</section>
+<section id="boris-chernys-tips" class="slide level2 section-divider center">
+<h2>Boris Cherny’s Tips</h2>
+<p>Boris Cherny is the <strong>creator and Head of Claude Code</strong> at Anthropic. In a series of X posts over several weeks, he offered tips on how he and his group use Claude Code.</p>
+<p>The tips were compiled by a fan and made available online <a href="https://howborisusesclaudecode.com/" target="_blank">here</a> — dozens of tips organized into 10 parts covering workflows, memory, automation, and more.</p>
+<p><strong>A few highlights:</strong></p>
+<ul>
+<li>Run <span class="amber">multiple tasks simultaneously</span> instead of waiting for one to finish</li>
+<li>Set up <span class="amber">automatic quality checks</span> (e.g., verify data after every change)</li>
+<li>Write detailed <span class="amber">CLAUDE.md</span> files — better instructions mean less repetition</li>
+</ul>
+<p>His tips can be <strong>installed as a Claude Code skill</strong> — paste the URL in Claude Code and ask it to create a skill from the content.</p>
+</section>
+<section id="claude-plugins" class="slide level2 section-divider center">
+<h2>Claude Plugins</h2>
+</section>
+<section id="what-are-plugins" class="slide level2 center">
+<h2>What Are Plugins?</h2>
+<p>A <strong>plugin</strong> bundles multiple Claude Code components into a <span class="amber">single installable package</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Skills</td>
+<td>Slash commands &amp; auto-triggered prompts</td>
+</tr>
+<tr class="even">
+<td>Agents</td>
+<td>Custom sub-agent definitions</td>
+</tr>
+<tr class="odd">
+<td>Hooks</td>
+<td>Event handlers (e.g., lint on file write)</td>
+</tr>
+<tr class="even">
+<td>MCP servers</td>
+<td>External tool integrations</td>
+</tr>
+<tr class="odd">
+<td>LSP servers</td>
+<td>Language intelligence (type checking, etc.)</td>
+</tr>
+<tr class="even">
+<td>Output styles</td>
+<td>Custom formatting for agent output</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="installing-and-sharing-plugins" class="slide level2 center">
+<h2>Installing and Sharing Plugins</h2>
+<div class="two-col">
+<div class="column">
+<p><strong>Installing</strong></p>
+<ul>
+<li><code>/plugin install</code> from a marketplace or git repo</li>
+<li>Commands are <span class="amber">namespaced</span>: <code>/my-plugin:hello</code></li>
+<li>Versioned via <code>plugin.json</code> manifest</li>
+</ul>
+</div><div class="column">
+<p><strong>Why plugins?</strong></p>
+<ul>
+<li><strong>Skills</strong> are great for personal, single-project use</li>
+<li><strong>Plugins</strong> are designed for <span class="amber">team distribution</span> and cross-project reuse</li>
+<li>Available from the official marketplace, team marketplaces, or any git repo</li>
+<li>Browse community plugins: <a href="https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins" target="_blank">anthropics/claude-plugins-official</a></li>
+</ul>
+</div></div>
+</section>
+<section id="the-saaspocalypse" class="slide level2 shrink center">
+<h2>The SaaSpocalypse</h2>
+<p>In early 2026, AI agent and plugin announcements triggered a <span class="amber">historic selloff</span> in enterprise software stocks — roughly <span class="amber">~$2 trillion</span> in SaaS market cap evaporated between January and March. Wall Street dubbed it the <span class="amber">SaaSpocalypse</span>.</p>
+<p>AI is attacking the <span class="amber">interface and workflow layer, not the data layer</span>:</p>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Replacing the UI</strong></span></p>
+<p>Many SaaS products are forms, dashboards, and screens sitting on top of databases. AI agents let users skip navigating 20 screens and just state what they want in natural language.</p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Automating Workflows</strong></span></p>
+<p>Task tracking, status updates, if-then automations, data transfer between systems — exactly what agents do natively.</p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Collapsing Per-Seat Pricing</strong></span></p>
+<p>If 10 AI agents do the work of 100 human reps, you need <span class="amber">10 Salesforce seats, not 100</span>. The revenue model collapses even if the product is still used.</p>
+</div>
+</div>
+</section>
+<section id="what-survives" class="slide level2 shrink center">
+<h2>What Survives?</h2>
+<p>AI isn’t replacing the database — it’s replacing the <span class="amber">screens people use to interact with it</span>, and the humans who sit behind those screens.</p>
+<div class="two-col">
+<div class="column">
+<p><strong>Defensible positions</strong></p>
+<ul>
+<li><span class="amber">Systems of record</span> in regulated industries (finance, healthcare, law)</li>
+<li>Platforms with accumulated <span class="amber">proprietary data</span> and feedback loops</li>
+<li>Integration hubs managing connections across many systems</li>
+</ul>
+</div><div class="column">
+<p><strong>The market damage (as of March 2026)</strong></p>
+<ul>
+<li>IGV (software ETF) down <span class="amber">~25% YTD</span></li>
+<li>Forward P/E compressed from ~34x to ~22x</li>
+<li>Software traded at a <span class="amber">discount to the S&amp;P 500</span> on a forward P/E basis — a first</li>
+<li>Salesforce -31%, Adobe -32%, Atlassian -35%</li>
+</ul>
+</div></div>
+<p><span style="font-size: 0.7em; color: gray;">Sources: TechCrunch, CNBC, Bloomberg, SaaStr; data as of mid-March 2026.</span></p>
+</section>
+<section id="version-control-with-git" class="slide level2 section-divider center">
+<h2>Version Control with Git</h2>
+</section>
+<section id="why-git-matters-for-ai-workflows" class="slide level2 shrink center">
+<h2>Why Git Matters for AI Workflows</h2>
+<p><strong>Git</strong> is like <span class="amber">Track Changes</span> for an entire folder — it saves every version so you can always go back.</p>
+<div class="two-col">
+<div class="column">
+<p><strong>Why it matters with Claude</strong></p>
+<ol type="1">
+<li><strong>Safety net</strong> — it is much safer to let Claude edit your files when you can <span class="amber">easily roll back</span> to any previous version</li>
+<li><strong>Claude does the work</strong> — Claude can commit changes, review past commits, and recover old versions for you — no need to learn git commands yourself</li>
+</ol>
+</div><div class="column">
+<p><strong>Getting started</strong></p>
+<p>Ask Claude to:</p>
+<ol type="1">
+<li><strong>Set up Git</strong> — ask Claude; it will install and configure it if needed</li>
+<li><strong>Initialize a folder</strong> as a git repo</li>
+<li><strong>Commit changes</strong> whenever you reach a good stopping point</li>
+</ol>
+<p>That’s it. Claude handles the commands. You just say <span class="amber"><em>“commit this”</em></span> or <span class="amber"><em>“show me what changed”</em></span>.</p>
+</div></div>
+</section>
+<section id="back-up-to-github" class="slide level2 center">
+<h2>Back Up to GitHub</h2>
+<p>Git keeps snapshots <span class="amber">locally</span>. For an external backup, push to <span class="amber">GitHub</span> (free account).</p>
+<div class="two-col">
+<div class="column">
+<p><strong>Setup (one time)</strong></p>
+<ol type="1">
+<li>Create a free account at <a href="https://github.com" target="_blank">github.com</a></li>
+<li>Ask Claude to <strong>install the GitHub CLI</strong> (<code>gh</code>)</li>
+<li>Run <code>gh auth login</code> — it opens your browser to sign in (no tokens or passwords to manage)</li>
+<li>Ask Claude to create a GitHub repo and push your folder to it</li>
+</ol>
+</div><div class="column">
+<p><strong>Ongoing</strong></p>
+<ul>
+<li>After committing locally, say <span class="amber"><em>“push to GitHub”</em></span></li>
+<li>Your work is now backed up in the cloud</li>
+<li>You can also browse history, compare versions, and restore files from the GitHub website</li>
+</ul>
 </div></div>
 
 

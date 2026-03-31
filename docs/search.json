@@ -681,65 +681,156 @@
   {
     "objectID": "slides/m7-tips.html#what-weve-done",
     "href": "slides/m7-tips.html#what-weve-done",
-    "title": "Module 7: More Tips",
+    "title": "Module 7: Some Claude Tips",
     "section": "What We’ve Done",
-    "text": "What We’ve Done\n\nAI + code tool\n\nfinancial analysis (mean-variance, dcf*)\ndeliverables (figures, excel, word, powerpoint)\nsmall web apps (artifacts, pyodide)\n\nSkills (reusable instructions)"
+    "text": "What We’ve Done\n\nAI + code tool\n\nfinancial analysis (mean-variance, dcf)\ndeliverables (figures, excel, word, powerpoint)\nsmall web apps (artifacts, pyodide)\n\nSkills (reusable instructions)"
   },
   {
     "objectID": "slides/m7-tips.html#where-were-going",
     "href": "slides/m7-tips.html#where-were-going",
-    "title": "Module 7: More Tips",
+    "title": "Module 7: Some Claude Tips",
     "section": "Where We’re Going",
-    "text": "Where We’re Going\n\n\nMore Tips (Today)\n\nUse AI to critique AI\nEnhance AI memory\n\n\n\nBuild & Deploy Agents\n\nThe API: talking to LLMs from code\nChatbots and web apps\nFastAPI and deployment\n\n\n\nCorporate Agent Deployment\n\nData security: on-prem or cloud\nGuardrails and governance\nERP and the SaaSpocalypse"
+    "text": "Where We’re Going\n\n\nM7: Some Tips (Today)\n\nFinal draft, not first draft\nEnhance AI memory\nBoris Cherny’s tips\n\n\n\nM8: Web Scraping with AI\n\nScraping SEC EDGAR, news, transcripts\nStatic vs. dynamic pages\nMagnolia example\n\n\n\nM9: Build & Deploy Agents\n\nThe API: software connections to LLMs\nChatbots and web apps\nConnecting tools\nFastAPI and deployment"
   },
   {
     "objectID": "slides/m7-tips.html#where-were-going-cont.",
     "href": "slides/m7-tips.html#where-were-going-cont.",
-    "title": "Module 7: More Tips",
+    "title": "Module 7: Some Claude Tips",
     "section": "Where We’re Going (cont.)",
-    "text": "Where We’re Going (cont.)\n\n\nRetrieval Augmented Generation\n\nHow RAG works\nExample: RAG for security analysis and valuation\nChunking, embedding, and vector search\n\n\n\nAI Sentiment Analysis\n\nLLMs as sentiment classifiers\nNews and earnings call analysis\nTrading signals from text"
+    "text": "Where We’re Going (cont.)\n\n\nM10: Corporate Deployment\n\nData security: on-prem or cloud\nGuardrails and governance\nERP and AI disruption\n\n\n\nM11: Retrieval Augmented Generation\n\nHow RAG works\nChunking, embedding, and vector search\nExample: RAG for security analysis and valuation\n\n\n\nM12: AI Sentiment Analysis\n\nLLMs as sentiment classifiers\nNews and earnings call analysis\nTrading signals from text"
   },
   {
-    "objectID": "slides/m7-tips.html#using-ai-to-evaluate-ai",
-    "href": "slides/m7-tips.html#using-ai-to-evaluate-ai",
-    "title": "Module 7: More Tips",
-    "section": "Using AI to Evaluate AI",
-    "text": "Using AI to Evaluate AI"
+    "objectID": "slides/m7-tips.html#final-draft-not-first-draft",
+    "href": "slides/m7-tips.html#final-draft-not-first-draft",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Final Draft, Not First Draft",
+    "text": "Final Draft, Not First Draft"
   },
   {
-    "objectID": "slides/m7-tips.html#four-approaches",
-    "href": "slides/m7-tips.html#four-approaches",
-    "title": "Module 7: More Tips",
-    "section": "Four Approaches",
-    "text": "Four Approaches\nAI output looks polished, but polished is not the same as correct. Use AI itself to stress-test AI work.\n\n\nSingle Reviewer\n\nUse a different model — paste the output into a competing LLM and ask it to find errors\nUse a subagent — start a second conversation with the same model and ask it to critique the first\n\n\n\nMultiple Reviewers\n\nUse multiple subagents — spawn parallel reviewers with different lenses (correctness, clarity, devil’s advocate)\nEvaluate in a loop — have the agent produce, critique, revise, and re-critique iteratively until stable\n\n\n\nThe more consequential the decision, the more reviewers you want."
+    "objectID": "slides/m7-tips.html#let-ai-revise-its-own-work",
+    "href": "slides/m7-tips.html#let-ai-revise-its-own-work",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Let AI Revise Its Own Work",
+    "text": "Let AI Revise Its Own Work\nDon’t review AI’s first draft. Instead:\n\nAsk AI to produce the work\nAsk it to critique itself and revise\nRepeat until no further revisions are needed\nNow review what it produced\n\nYou review a final draft instead of a first draft. This saves your time (though it burns tokens). The more consequential the work, the more revision cycles it deserves."
   },
   {
     "objectID": "slides/m7-tips.html#the-critique-skill",
     "href": "slides/m7-tips.html#the-critique-skill",
-    "title": "Module 7: More Tips",
+    "title": "Module 7: Some Claude Tips",
     "section": "The /critique Skill",
-    "text": "The /critique Skill\nThe /critique skill automates the multi-reviewer approach. It spawns three parallel agents — correctness, clarity, and devil’s advocate — then synthesizes and prioritizes the findings.\n\n\nExample\nWe asked Claude to research and write a 5-page Word doc on the history of the World Wide Web. Then we ran /critique on it.\nThe critique found 7 critical issues, 8 warnings, and 7 suggestions — including wrong dates, understated statistics, and missing context.\n\nTry it yourself\n\nHistory-of-the-World-Wide-Web.docx — the AI-generated document\nCritique (markdown) — the full critique report\nCritique skill — install this skill in Claude Code"
+    "text": "The /critique Skill\nThe /critique skill automates this. It spawns three parallel agents, each with a different lens, then synthesizes findings and applies revisions.\n\n\nCorrectness & Completeness\nAre there factual errors, logical gaps, or missing information? Are claims supported and assumptions justified?\n\n\nClarity & Persuasiveness\nIs the structure logical? Is anything confusing, redundant, or buried? Could the main message be stated more directly?\n\n\nDevil’s Advocate\nWhat are the strongest counterarguments? Where is the reasoning weakest? What would a skeptic challenge?\n\n\nDownload the critique skill and ask Claude to install it."
   },
   {
     "objectID": "slides/m7-tips.html#enhance-ai-memory",
     "href": "slides/m7-tips.html#enhance-ai-memory",
-    "title": "Module 7: More Tips",
+    "title": "Module 7: Some Claude Tips",
     "section": "Enhance AI Memory",
     "text": "Enhance AI Memory"
   },
   {
     "objectID": "slides/m7-tips.html#saving-conversation-summaries",
     "href": "slides/m7-tips.html#saving-conversation-summaries",
-    "title": "Module 7: More Tips",
+    "title": "Module 7: Some Claude Tips",
     "section": "Saving Conversation Summaries",
-    "text": "Saving Conversation Summaries\nAI conversations are stateless — each new session starts from scratch. You can fix this by saving summaries to markdown (.md) files that AI reads at startup.\n\n\nHow it works\n\nAt the end of a session, ask Claude to summarize what was done\nThe summary is saved as a .md file\nNext session, Claude reads these files automatically\nContinuity across days and weeks — no need to re-explain\n\n\nTypes of memory files\n\nCLAUDE.md — project-level instructions loaded every session\nSkills (.md) — reusable task-specific instructions\nSession summaries — what happened last time\nMemory files — stored observations about you and your preferences\n\n\nMemory turns a capable tool into a capable collaborator."
+    "text": "Saving Conversation Summaries\nAI conversations have no memory of previous conversations — each new session starts from scratch. You can fix this by saving things to markdown (.md) files.\nA summarize chat skill\n\nDownload summarize-chat skill and ask Claude to install it.\nAt the end of a chat, type /summarize-chat\nThe summary is saved as a .md file in a chats/ folder. Each session, Claude reads the most recent summaries on startup.\n\nStandard memory devices\n\nCLAUDE.md — project-level instructions loaded every session\nSkills (.md) — reusable task-specific instructions\nOther files — you can always ask Claude to save any chat or part of a chat as a file"
   },
   {
-    "objectID": "slides/m7-tips.html#what-is-markdown",
-    "href": "slides/m7-tips.html#what-is-markdown",
-    "title": "Module 7: More Tips",
-    "section": "What Is Markdown?",
-    "text": "What Is Markdown?\nMarkdown is a plain-text format that uses simple symbols for formatting. AI reads and writes it natively.\n\n\nSyntax\n# Heading\n## Subheading\n\n- Bullet point\n- **Bold text**\n- *Italic text*\n\n1. Numbered list\n2. Second item\n\n&gt; Blockquote\n\n`inline code`\n\nWhere you’ll see it\n\nCLAUDE.md — project instructions\nSKILL.md — skill definitions\nSession summaries — conversation logs\nREADME.md — any GitHub repo\n\nOpen any .md file in VS Code for a live preview, or paste it into markdownlivepreview.com to see it rendered."
+    "objectID": "slides/m7-tips.html#markdown-quick-reference",
+    "href": "slides/m7-tips.html#markdown-quick-reference",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Markdown Quick Reference",
+    "text": "Markdown Quick Reference\nMarkdown is a plain-text format that uses simple symbols for formatting. AI reads and writes it natively.\n# Heading\n## Subheading\n\n- Bullet point\n- **Bold text**\n- *Italic text*\n\n1. Numbered list\n2. Second item\n\n&gt; Blockquote"
+  },
+  {
+    "objectID": "slides/m7-tips.html#markdown-in-ai-workflows",
+    "href": "slides/m7-tips.html#markdown-in-ai-workflows",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Markdown in AI Workflows",
+    "text": "Markdown in AI Workflows\nWhere you’ll see it\n\nCLAUDE.md — project instructions\nSKILL.md — skill definitions\nSession summaries — conversation logs\nREADME.md — any GitHub repo\n\nYou can read any markdown file in Notepad, but you get a better presentation with a markdown renderer, for example, markdownlivepreview.com."
+  },
+  {
+    "objectID": "slides/m7-tips.html#claude-dispatch",
+    "href": "slides/m7-tips.html#claude-dispatch",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Claude Dispatch",
+    "text": "Claude Dispatch"
+  },
+  {
+    "objectID": "slides/m7-tips.html#dispatch-setup",
+    "href": "slides/m7-tips.html#dispatch-setup",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Dispatch: Setup",
+    "text": "Dispatch: Setup\nClaude Dispatch lets you send a task from the Claude mobile app and have it run on your desktop — as either a Cowork or Code session, depending on the task.\nSetup\n\nUpdate both apps first: Claude Desktop (Help → Check for Updates) and Claude mobile app (App Store / Google Play)\nOpen Claude Desktop → Cowork tab\nClick Dispatch in the sidebar\nScan the QR code from your phone\nSend a task — e.g., “fix the auth bug”"
+  },
+  {
+    "objectID": "slides/m7-tips.html#dispatch-how-it-works",
+    "href": "slides/m7-tips.html#dispatch-how-it-works",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Dispatch: How It Works",
+    "text": "Dispatch: How It Works\nDispatch decides whether the task needs a Code session (dev work) or can be handled in Cowork (research, writing).\n\nYour desktop must be awake and running Claude Desktop\nDev tasks → Code session spawned automatically\nYou get a push notification when done or when approval is needed\nFull access to local files, MCP servers, and project config\n\nRequires Pro or Max plan."
+  },
+  {
+    "objectID": "slides/m7-tips.html#boris-chernys-tips",
+    "href": "slides/m7-tips.html#boris-chernys-tips",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Boris Cherny’s Tips",
+    "text": "Boris Cherny’s Tips\nBoris Cherny is the creator and Head of Claude Code at Anthropic. In a series of X posts over several weeks, he offered tips on how he and his group use Claude Code.\nThe tips were compiled by a fan and made available online here — dozens of tips organized into 10 parts covering workflows, memory, automation, and more.\nA few highlights:\n\nRun multiple tasks simultaneously instead of waiting for one to finish\nSet up automatic quality checks (e.g., verify data after every change)\nWrite detailed CLAUDE.md files — better instructions mean less repetition\n\nHis tips can be installed as a Claude Code skill — paste the URL in Claude Code and ask it to create a skill from the content."
+  },
+  {
+    "objectID": "slides/m7-tips.html#claude-plugins",
+    "href": "slides/m7-tips.html#claude-plugins",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Claude Plugins",
+    "text": "Claude Plugins"
+  },
+  {
+    "objectID": "slides/m7-tips.html#what-are-plugins",
+    "href": "slides/m7-tips.html#what-are-plugins",
+    "title": "Module 7: Some Claude Tips",
+    "section": "What Are Plugins?",
+    "text": "What Are Plugins?\nA plugin bundles multiple Claude Code components into a single installable package:\n\n\n\nComponent\nWhat it does\n\n\n\n\nSkills\nSlash commands & auto-triggered prompts\n\n\nAgents\nCustom sub-agent definitions\n\n\nHooks\nEvent handlers (e.g., lint on file write)\n\n\nMCP servers\nExternal tool integrations\n\n\nLSP servers\nLanguage intelligence (type checking, etc.)\n\n\nOutput styles\nCustom formatting for agent output"
+  },
+  {
+    "objectID": "slides/m7-tips.html#installing-and-sharing-plugins",
+    "href": "slides/m7-tips.html#installing-and-sharing-plugins",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Installing and Sharing Plugins",
+    "text": "Installing and Sharing Plugins\n\n\nInstalling\n\n/plugin install from a marketplace or git repo\nCommands are namespaced: /my-plugin:hello\nVersioned via plugin.json manifest\n\n\nWhy plugins?\n\nSkills are great for personal, single-project use\nPlugins are designed for team distribution and cross-project reuse\nAvailable from the official marketplace, team marketplaces, or any git repo\nBrowse community plugins: anthropics/claude-plugins-official"
+  },
+  {
+    "objectID": "slides/m7-tips.html#the-saaspocalypse",
+    "href": "slides/m7-tips.html#the-saaspocalypse",
+    "title": "Module 7: Some Claude Tips",
+    "section": "The SaaSpocalypse",
+    "text": "The SaaSpocalypse\nIn early 2026, AI agent and plugin announcements triggered a historic selloff in enterprise software stocks — roughly ~$2 trillion in SaaS market cap evaporated between January and March. Wall Street dubbed it the SaaSpocalypse.\nAI is attacking the interface and workflow layer, not the data layer:\n\n\nReplacing the UI\nMany SaaS products are forms, dashboards, and screens sitting on top of databases. AI agents let users skip navigating 20 screens and just state what they want in natural language.\n\n\nAutomating Workflows\nTask tracking, status updates, if-then automations, data transfer between systems — exactly what agents do natively.\n\n\nCollapsing Per-Seat Pricing\nIf 10 AI agents do the work of 100 human reps, you need 10 Salesforce seats, not 100. The revenue model collapses even if the product is still used."
+  },
+  {
+    "objectID": "slides/m7-tips.html#what-survives",
+    "href": "slides/m7-tips.html#what-survives",
+    "title": "Module 7: Some Claude Tips",
+    "section": "What Survives?",
+    "text": "What Survives?\nAI isn’t replacing the database — it’s replacing the screens people use to interact with it, and the humans who sit behind those screens.\n\n\nDefensible positions\n\nSystems of record in regulated industries (finance, healthcare, law)\nPlatforms with accumulated proprietary data and feedback loops\nIntegration hubs managing connections across many systems\n\n\nThe market damage (as of March 2026)\n\nIGV (software ETF) down ~25% YTD\nForward P/E compressed from ~34x to ~22x\nSoftware traded at a discount to the S&P 500 on a forward P/E basis — a first\nSalesforce -31%, Adobe -32%, Atlassian -35%\n\n\nSources: TechCrunch, CNBC, Bloomberg, SaaStr; data as of mid-March 2026."
+  },
+  {
+    "objectID": "slides/m7-tips.html#version-control-with-git",
+    "href": "slides/m7-tips.html#version-control-with-git",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Version Control with Git",
+    "text": "Version Control with Git"
+  },
+  {
+    "objectID": "slides/m7-tips.html#why-git-matters-for-ai-workflows",
+    "href": "slides/m7-tips.html#why-git-matters-for-ai-workflows",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Why Git Matters for AI Workflows",
+    "text": "Why Git Matters for AI Workflows\nGit is like Track Changes for an entire folder — it saves every version so you can always go back.\n\n\nWhy it matters with Claude\n\nSafety net — it is much safer to let Claude edit your files when you can easily roll back to any previous version\nClaude does the work — Claude can commit changes, review past commits, and recover old versions for you — no need to learn git commands yourself\n\n\nGetting started\nAsk Claude to:\n\nSet up Git — ask Claude; it will install and configure it if needed\nInitialize a folder as a git repo\nCommit changes whenever you reach a good stopping point\n\nThat’s it. Claude handles the commands. You just say “commit this” or “show me what changed”."
+  },
+  {
+    "objectID": "slides/m7-tips.html#back-up-to-github",
+    "href": "slides/m7-tips.html#back-up-to-github",
+    "title": "Module 7: Some Claude Tips",
+    "section": "Back Up to GitHub",
+    "text": "Back Up to GitHub\nGit keeps snapshots locally. For an external backup, push to GitHub (free account).\n\n\nSetup (one time)\n\nCreate a free account at github.com\nAsk Claude to install the GitHub CLI (gh)\nRun gh auth login — it opens your browser to sign in (no tokens or passwords to manage)\nAsk Claude to create a GitHub repo and push your folder to it\n\n\nOngoing\n\nAfter committing locally, say “push to GitHub”\nYour work is now backed up in the cloud\nYou can also browse history, compare versions, and restore files from the GitHub website"
   },
   {
     "objectID": "slides/m5-skills.html#sub-agents",
@@ -1054,14 +1145,14 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nMore Tips\n\n\n\n8\nBuilding a RAG Corpus\n\n\n\n9\nBuild and Deploy Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nBuild and Deploy Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nMore Tips\n\n\n\n8\nBuilding a RAG Corpus\n\n\n\n9\nBuild and Deploy Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nBuild and Deploy Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
   },
   {
     "objectID": "slides/m2-intro-claude.html#exploring-claude.ai",
@@ -1465,261 +1556,317 @@
   {
     "objectID": "slides/m8-scraping.html#web-scraping-fundamentals",
     "href": "slides/m8-scraping.html#web-scraping-fundamentals",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Web Scraping Fundamentals",
     "text": "Web Scraping Fundamentals"
   },
   {
     "objectID": "slides/m8-scraping.html#what-is-web-scraping",
     "href": "slides/m8-scraping.html#what-is-web-scraping",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "What Is Web Scraping?",
-    "text": "What Is Web Scraping?\nGetting data from websites is a task for which AI + coding can really increase efficiency.\nThree levels of difficulty:\n\nEasy: extract a table from a static HTML page\nMedium: construct URLs and loop over downloads\nHard: pages rendered dynamically with JavaScript"
+    "text": "What Is Web Scraping?\nGetting data from websites is a task for which AI + coding can really increase efficiency.\nThree levels of difficulty:\n\nLevel 1 — Easy: extract a table from a static HTML page\nLevel 2 — Medium: construct URLs and loop over downloads\nLevel 3 — Hard: pages rendered dynamically with JavaScript"
   },
   {
-    "objectID": "slides/m8-scraping.html#example-1-extracting-a-table-from-wikipedia",
-    "href": "slides/m8-scraping.html#example-1-extracting-a-table-from-wikipedia",
-    "title": "Web Scraping and Data Collection",
-    "section": "Example 1: Extracting a Table from Wikipedia",
-    "text": "Example 1: Extracting a Table from Wikipedia\nThis Wikipedia page maintains a list of all S&P 500 companies with ticker, sector, headquarters, etc.\nimport pandas as pd\n\nurl = \"https://en.wikipedia.org/wiki/List_of_S%26P_500_companies\"\ntables = pd.read_html(url)\nsp500 = tables[0]\nsp500.to_excel(\"sp500.xlsx\", index=False)\nCompared to manually typing 500 rows, this takes seconds."
+    "objectID": "slides/m8-scraping.html#level-1-extracting-a-table-from-wikipedia",
+    "href": "slides/m8-scraping.html#level-1-extracting-a-table-from-wikipedia",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Level 1: Extracting a Table from Wikipedia",
+    "text": "Level 1: Extracting a Table from Wikipedia\nThis Wikipedia page maintains a list of all S&P 500 companies with ticker, sector, headquarters, etc.\nimport pandas as pd\n\nurl = \"https://en.wikipedia.org/wiki/List_of_S%26P_500_companies\"\ntables = pd.read_html(url)\nsp500 = tables[0]\nsp500.to_excel(\"sp500.xlsx\", index=False)\nCompared to manually typing 500 rows, this takes seconds."
   },
   {
     "objectID": "slides/m8-scraping.html#how-does-read_html-work",
     "href": "slides/m8-scraping.html#how-does-read_html-work",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "How Does read_html Work?",
     "text": "How Does read_html Work?\nRight-click on the Wikipedia page → “View page source” to see the raw HTML. The read_html function searches for &lt;table&gt; tags, then interprets:\n\n&lt;tbody&gt; = table body\n&lt;tr&gt; = table row\n&lt;th&gt; = table header\n&lt;td&gt; = table data\n\nIt builds a pandas DataFrame from the HTML structure — no AI required, just pattern matching."
   },
   {
-    "objectID": "slides/m8-scraping.html#example-2-finra-short-interest-data",
-    "href": "slides/m8-scraping.html#example-2-finra-short-interest-data",
-    "title": "Web Scraping and Data Collection",
-    "section": "Example 2: FINRA Short Interest Data",
-    "text": "Example 2: FINRA Short Interest Data\nFINRA publishes short interest data twice monthly. Clicking a date downloads a CSV. What’s the URL pattern?\nRight-click → “View page source” → search for a date like 20250430:\nhttps://cdn.finra.org/equity/otcmarket/biweekly/shrt20250430.csv\nNow we can automate the download by looping over dates."
+    "objectID": "slides/m8-scraping.html#level-2-finra-short-interest-data",
+    "href": "slides/m8-scraping.html#level-2-finra-short-interest-data",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Level 2: FINRA Short Interest Data",
+    "text": "Level 2: FINRA Short Interest Data\nFINRA publishes short interest data twice monthly. Clicking a date downloads a CSV. What’s the URL pattern?\nRight-click → “View page source” → search for a date like 20250430:\nhttps://cdn.finra.org/equity/otcmarket/biweekly/shrt20250430.csv\nNow we can automate the download by looping over dates."
   },
   {
     "objectID": "slides/m8-scraping.html#automating-finra-downloads",
     "href": "slides/m8-scraping.html#automating-finra-downloads",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Automating FINRA Downloads",
-    "text": "Automating FINRA Downloads\nimport pandas as pd\nfrom datetime import date, timedelta\n\nframes = []\nd = date(2024, 1, 1)\nwhile d &lt;= date(2025, 4, 30):\n    url = f\"https://cdn.finra.org/equity/otcmarket/biweekly/shrt{d:%Y%m%d}.csv\"\n    try:\n        frames.append(pd.read_csv(url, sep=\"|\"))\n    except:\n        pass  # not a reporting date --- skip it\n    d += timedelta(days=1)\n\ndf = pd.concat(frames)\ndf.to_csv(\"finra_short_interest.csv\", index=False)\nTry every possible date in a try-except block. Only reporting dates (15th and last business day of each month) will succeed."
+    "text": "Automating FINRA Downloads\nimport pandas as pd\nfrom datetime import date, timedelta\n\nframes = []\nd = date(2024, 1, 1)\nwhile d &lt;= date(2025, 4, 30):\n    url = f\"https://cdn.finra.org/equity/otcmarket/biweekly/shrt{d:%Y%m%d}.csv\"\n    try:\n        frames.append(pd.read_csv(url, sep=\"|\"))\n    except Exception:\n        pass  # not a reporting date --- skip it\n    d += timedelta(days=1)"
   },
   {
-    "objectID": "slides/m8-scraping.html#the-hard-case-javascript-rendered-pages",
-    "href": "slides/m8-scraping.html#the-hard-case-javascript-rendered-pages",
-    "title": "Web Scraping and Data Collection",
-    "section": "The Hard Case: JavaScript-Rendered Pages",
-    "text": "The Hard Case: JavaScript-Rendered Pages\nMany pages are dynamically generated with JavaScript. The data we want isn’t in the HTML source — it’s fetched by executing JavaScript code.\nExample: Open a Tesla 10-K on EDGAR. The first table lists Tesla’s directors. But if you “View page source” and search for “Elon Musk” — 0 results.\nThe entire page is populated by JavaScript with the &lt;script language=\"JavaScript\"&gt; tag."
+    "objectID": "slides/m8-scraping.html#automating-finra-downloads-cont.",
+    "href": "slides/m8-scraping.html#automating-finra-downloads-cont.",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Automating FINRA Downloads (cont.)",
+    "text": "Automating FINRA Downloads (cont.)\ndf = pd.concat(frames)\ndf.to_csv(\"finra_short_interest.csv\", index=False)\nTry every possible date and silently skip failures — quick and effective. Only FINRA settlement dates (roughly the 15th and last business day) will succeed."
+  },
+  {
+    "objectID": "slides/m8-scraping.html#level-3-javascript-rendered-pages",
+    "href": "slides/m8-scraping.html#level-3-javascript-rendered-pages",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Level 3: JavaScript-Rendered Pages",
+    "text": "Level 3: JavaScript-Rendered Pages\nMany pages are dynamically generated with JavaScript. The data we want isn’t in the HTML source — it’s fetched by executing JavaScript code.\nExample: Open a Tesla 10-K on EDGAR. The first table lists Tesla’s directors. But if you “View page source” and search for “Elon Musk” — 0 results.\nThe page content is loaded dynamically by JavaScript — the raw HTML is just a shell."
   },
   {
     "objectID": "slides/m8-scraping.html#playwright-automating-a-real-browser",
     "href": "slides/m8-scraping.html#playwright-automating-a-real-browser",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Playwright: Automating a Real Browser",
     "text": "Playwright: Automating a Real Browser\nPlaywright is a library that controls a real browser (Chrome, Firefox, or Safari) from Python or JavaScript. It executes the JavaScript on the page, then lets you read the rendered HTML.\nfrom playwright.sync_api import sync_playwright\n\nwith sync_playwright() as p:\n    browser = p.chromium.launch()\n    page = browser.new_page()\n    page.goto(\"https://www.sec.gov/ix?doc=/Archives/edgar/data/...\")\n\n    # Now the JavaScript has executed --- we can see the data\n    content = page.content()          # full rendered HTML\n    page.screenshot(path=\"page.png\")  # visual snapshot\n    browser.close()\nUnlike requests or read_html, Playwright sees the page as a human would."
   },
   {
     "objectID": "slides/m8-scraping.html#playwright-key-capabilities",
     "href": "slides/m8-scraping.html#playwright-key-capabilities",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Playwright: Key Capabilities",
     "text": "Playwright: Key Capabilities\n\n\nNavigation & Interaction\n\nClick buttons, fill forms, select dropdowns\nWait for elements to load\nHandle login pages and cookies\nDownload files triggered by clicks\n\n\n\nData Extraction\n\nRead rendered HTML after JavaScript executes\nTake screenshots of pages or elements\nExtract text, tables, links\nRecord and replay browser sessions\n\n\n\nInstall: pip install playwright && playwright install"
   },
   {
     "objectID": "slides/m8-scraping.html#playwright-mcp-ai-controlled-browsing",
     "href": "slides/m8-scraping.html#playwright-mcp-ai-controlled-browsing",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Playwright MCP: AI-Controlled Browsing",
-    "text": "Playwright MCP: AI-Controlled Browsing\nThe Playwright MCP server connects Playwright to Claude Code, letting the AI control the browser directly.\n// ~/.claude/.mcp.json\n{\n  \"mcpServers\": {\n    \"playwright\": {\n      \"command\": \"npx\",\n      \"args\": [\"@playwright/mcp@latest\"]\n    }\n  }\n}\nOnce configured, Claude Code can navigate pages, click links, fill forms, take screenshots, and extract data — all through natural language instructions."
+    "text": "Playwright MCP: AI-Controlled Browsing\nThe Playwright MCP server connects Playwright to Claude Code, letting the AI control the browser directly.\nAdd to ~/.claude/.mcp.json:\n{\n  \"mcpServers\": {\n    \"playwright\": {\n      \"command\": \"npx\",\n      \"args\": [\"@playwright/mcp@latest\"]\n    }\n  }\n}\nOnce configured, Claude Code can navigate pages, click links, fill forms, take screenshots, and extract data — all through natural language instructions."
   },
   {
     "objectID": "slides/m8-scraping.html#when-to-use-each-tool",
     "href": "slides/m8-scraping.html#when-to-use-each-tool",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "When to Use Each Tool",
-    "text": "When to Use Each Tool\n\n\n\n\n\n\n\n\nScenario\nTool\nWhy\n\n\n\n\nStatic HTML table\npd.read_html\nSimplest, fastest\n\n\nFile download by URL pattern\nrequests / curl\nConstruct URLs, loop\n\n\nAPI with JSON responses\nrequests\nParse structured data\n\n\nJavaScript-rendered page\nPlaywright\nExecutes JS, sees rendered page\n\n\nComplex multi-step scraping\nPlaywright MCP\nAI navigates and decides\n\n\nLogin-protected content\nPlaywright or MCP\nHandles authentication flows\n\n\n\nFor our Magnolia project, we used the EDGAR API and direct downloads where possible, avoiding the need for browser automation."
+    "text": "When to Use Each Tool\n\n\n\nScenario\nTool\nWhy\n\n\n\n\nStatic HTML table\npd.read_html\nSimplest, fastest\n\n\nFile download by URL pattern\nrequests / curl\nConstruct URLs, loop\n\n\nAPI with JSON responses\nrequests\nParse structured data (requests is Python’s standard HTTP library)\n\n\nJavaScript-rendered page\nPlaywright\nExecutes JS, sees rendered page\n\n\nComplex multi-step scraping\nPlaywright MCP\nAI navigates and decides\n\n\nLogin-protected content\nPlaywright or MCP\nHandles authentication flows\n\n\n\nAs we’ll see in the case study below, we used the EDGAR API and direct downloads where possible, avoiding the need for browser automation."
+  },
+  {
+    "objectID": "slides/m8-scraping.html#before-you-scrape-legal-and-ethical-considerations",
+    "href": "slides/m8-scraping.html#before-you-scrape-legal-and-ethical-considerations",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Before You Scrape: Legal and Ethical Considerations",
+    "text": "Before You Scrape: Legal and Ethical Considerations\n\n\nRespect the Rules\n\nCheck robots.txt before scraping any site\nSEC EDGAR enforces a 10 requests/second rate limit — exceed it and your IP gets blocked\nMotley Fool and Seeking Alpha have terms of service restricting automated access\nFair use may protect limited use for research and education, but it depends on the specifics — always check the site’s Terms of Service\n\n\n\nBest Practices\n\nUse APIs when available — they are faster, more reliable, and explicitly permitted\nInclude a User-Agent header identifying yourself (required by EDGAR)\nAdd delays between requests to avoid overwhelming servers\nPrefer official data sources over scraping when both exist\n\n\n\nWhen in doubt: if the site provides an API, use it. If it doesn’t, check the ToS."
   },
   {
     "objectID": "slides/m8-scraping.html#case-study-collecting-financial-documents",
     "href": "slides/m8-scraping.html#case-study-collecting-financial-documents",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Case Study: Collecting Financial Documents",
     "text": "Case Study: Collecting Financial Documents"
   },
   {
     "objectID": "slides/m8-scraping.html#goal-company-research-library",
     "href": "slides/m8-scraping.html#goal-company-research-library",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Goal: Company Research Library",
-    "text": "Goal: Company Research Library\nWe want to collect a comprehensive set of financial documents for a single company — the kind of library an analyst would build before a valuation.\nTarget company: Magnolia Oil & Gas (MGY) — a Houston-based small-cap E&P company operating in the Eagle Ford Shale.\nWhat we need:\n\n10-K annual reports (MD&A, risk factors, financial statements)\nEarnings call transcripts and press releases\nNews articles"
+    "text": "Goal: Company Research Library\nWe want to collect a comprehensive set of financial documents for a single company — the kind of library an analyst would build before a valuation. In Module 11, we will feed this corpus to an AI system (RAG) to generate analysis — but first we need the raw materials.\nTarget company: Magnolia Oil & Gas (MGY) — a Houston-based small-cap E&P company operating in the Eagle Ford Shale.\nWhat we need:\n\n10-K annual reports (MD&A, risk factors, financial statements)\nEarnings call transcripts and press releases\nNews articles"
   },
   {
     "objectID": "slides/m8-scraping.html#why-magnolia",
     "href": "slides/m8-scraping.html#why-magnolia",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Why Magnolia?",
-    "text": "Why Magnolia?\n\nPublic and small-cap — filings are freely available but analyst coverage is thinner\nHouston-headquartered — relevant to Rice students\nSimple business model — onshore oil & gas E&P, easy to understand financially\n7 years of public history (IPO 2018) — enough depth for trend analysis"
+    "text": "Why Magnolia?\n\nPublic since 2018 — 7 years of filings on EDGAR, enough for trend analysis\nHouston-headquartered — relevant to Rice students\nSimple business model — onshore oil & gas E&P, easy to understand financially\nThin analyst coverage — free transcript sources are spotty, so we need multiple scraping techniques\nIn your group projects, you will pick your own company"
   },
   {
     "objectID": "slides/m8-scraping.html#data-sources-overview",
     "href": "slides/m8-scraping.html#data-sources-overview",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Data Sources Overview",
-    "text": "Data Sources Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  EDGAR[\"&lt;b&gt;SEC EDGAR&lt;/b&gt;&lt;br&gt;10-Ks, 8-Ks\"] --&gt; CORPUS[\"&lt;b&gt;Document Library&lt;/b&gt;&lt;br&gt;48+ documents\"]\n  MF[\"&lt;b&gt;Motley Fool&lt;/b&gt;&lt;br&gt;Transcripts\"] --&gt; CORPUS\n  IR[\"&lt;b&gt;Company IR&lt;/b&gt;&lt;br&gt;Press releases\"] --&gt; CORPUS\n  NEWS[\"&lt;b&gt;News Sites&lt;/b&gt;&lt;br&gt;Articles\"] --&gt; CORPUS\n\n  style EDGAR fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style MF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style IR fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style NEWS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style CORPUS fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px"
+    "text": "Data Sources Overview\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  EDGAR[\"&lt;b&gt;SEC EDGAR&lt;/b&gt;&lt;br&gt;10-Ks, 8-Ks\"] --&gt; CORPUS[\"&lt;b&gt;Document Library&lt;/b&gt;&lt;br&gt;58 documents\"]\n  MF[\"&lt;b&gt;Motley Fool&lt;/b&gt;&lt;br&gt;Transcripts\"] --&gt; CORPUS\n  IR[\"&lt;b&gt;Company IR&lt;/b&gt;&lt;br&gt;Press releases\"] --&gt; CORPUS\n  NEWS[\"&lt;b&gt;News Sites&lt;/b&gt;&lt;br&gt;Articles\"] --&gt; CORPUS\n\n  style EDGAR fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style MF fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style IR fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style NEWS fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style CORPUS fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px"
   },
   {
     "objectID": "slides/m8-scraping.html#step-1-finding-the-10-ks",
     "href": "slides/m8-scraping.html#step-1-finding-the-10-ks",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Step 1: Finding the 10-Ks",
     "text": "Step 1: Finding the 10-Ks"
   },
   {
     "objectID": "slides/m8-scraping.html#the-edgar-api",
     "href": "slides/m8-scraping.html#the-edgar-api",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "The EDGAR API",
     "text": "The EDGAR API\nSEC EDGAR provides a free REST API that returns filing metadata as JSON. No API key required — just a User-Agent header.\nimport requests, json\n\nurl = \"https://data.sec.gov/submissions/CIK0001698990.json\"\nheaders = {\"User-Agent\": \"Kerry Back keb7@rice.edu\"}\ndata = requests.get(url, headers=headers).json()\n\nfor i, form in enumerate(data[\"filings\"][\"recent\"][\"form\"]):\n    if form == \"10-K\":\n        date = data[\"filings\"][\"recent\"][\"filingDate\"][i]\n        doc = data[\"filings\"][\"recent\"][\"primaryDocument\"][i]\n        print(f\"{date}: {doc}\")"
   },
   {
     "objectID": "slides/m8-scraping.html#what-we-got-7-years-of-10-ks",
     "href": "slides/m8-scraping.html#what-we-got-7-years-of-10-ks",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "What We Got: 7 Years of 10-Ks",
     "text": "What We Got: 7 Years of 10-Ks\n\n\n\nFiscal Year\nFiling Date\nDocument\n\n\n\n\n2025\n2026-02-12\nmgy-20251231.htm\n\n\n2024\n2025-02-19\nmgy-20241231.htm\n\n\n2023\n2024-02-15\nmgy-20231231.htm\n\n\n2022\n2023-02-16\nmgy-20221231.htm\n\n\n2021\n2022-02-17\nmgy-20211231.htm\n\n\n2020\n2021-02-23\nmgy-20201231.htm\n\n\n2019\n2020-02-26\na10-k2019.htm\n\n\n\nAll downloaded as HTML directly from EDGAR."
   },
   {
     "objectID": "slides/m8-scraping.html#step-2-extracting-sections",
     "href": "slides/m8-scraping.html#step-2-extracting-sections",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Step 2: Extracting Sections",
     "text": "Step 2: Extracting Sections"
   },
   {
-    "objectID": "slides/m8-scraping.html#parsing-10-k-html-with-python",
-    "href": "slides/m8-scraping.html#parsing-10-k-html-with-python",
-    "title": "Web Scraping and Data Collection",
-    "section": "Parsing 10-K HTML with Python",
-    "text": "Parsing 10-K HTML with Python\nThe raw EDGAR HTML files are cluttered with CSS, XBRL tags, and formatting. We used BeautifulSoup to extract three sections from each 10-K:\nfrom bs4 import BeautifulSoup\n\nwith open(\"mgy-10k-2025.htm\") as f:\n    soup = BeautifulSoup(f, \"html.parser\")\n\n# Find section headers like \"Item 7\" or \"Item 1A\"\n# Extract text between section boundaries\n# Convert HTML tables to markdown pipe format\n# Strip XBRL tags and embedded styles"
+    "objectID": "slides/m8-scraping.html#extracting-10-k-sections-with-claude-code",
+    "href": "slides/m8-scraping.html#extracting-10-k-sections-with-claude-code",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Extracting 10-K Sections with Claude Code",
+    "text": "Extracting 10-K Sections with Claude Code\nThe raw EDGAR HTML files are cluttered with CSS, XBRL tags, and formatting. We asked Claude Code to extract three sections from each 10-K:\n\n“Read the file mgy-10k-2025.htm. Extract Item 7 (MD&A), Item 1A (Risk Factors), and the Financial Statements. Strip all XBRL tags and CSS. Convert HTML tables to markdown pipe format. Save each section as a separate .md file.”\n\nClaude used BeautifulSoup to parse the HTML, find section boundaries, and produce clean markdown. The complete extraction scripts are in the magnolia/10k/ folder."
   },
   {
     "objectID": "slides/m8-scraping.html#extracted-files",
     "href": "slides/m8-scraping.html#extracted-files",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "21 Extracted Files",
     "text": "21 Extracted Files\nFor each of the 7 fiscal years, we extracted:\n\n\nMD&A\n\nManagement’s Discussion & Analysis (Item 7)\nRevenue drivers, cost trends, liquidity\n33–46 KB per year\n\n\n\nRisk Factors\n\nItem 1A: all risk categories\nCommodity prices, regulatory, operational\n70–83 KB per year\n\n\n\nFinancial Statements\n\nBalance sheets, income statements, cash flows\nEquity statements + all footnotes\n120–174 KB per year"
   },
   {
-    "objectID": "slides/m8-scraping.html#example-balance-sheet-fy2025",
-    "href": "slides/m8-scraping.html#example-balance-sheet-fy2025",
-    "title": "Web Scraping and Data Collection",
-    "section": "Example: Balance Sheet (FY2025)",
-    "text": "Example: Balance Sheet (FY2025)\n| ASSETS                                  | Dec 31, 2025 | Dec 31, 2024 |\n|-----------------------------------------|--------------|--------------|\n| Cash and cash equivalents               | $266,785     | $260,049     |\n| Total current assets                    | 442,435      | 410,824      |\n| Oil and natural gas properties          | 4,957,292    | 4,403,210    |\n| Accumulated DD&A                        | (2,553,758)  | (2,115,892)  |\n| Total property, plant & equipment, net  | 2,424,152    | 2,306,034    |\n| TOTAL ASSETS                            | $2,903,092   | $2,820,835   |\n(In thousands. Extracted from mgy-2025-financial-statements.md)"
-  },
-  {
-    "objectID": "slides/m8-scraping.html#example-income-statement-fy2025",
-    "href": "slides/m8-scraping.html#example-income-statement-fy2025",
-    "title": "Web Scraping and Data Collection",
-    "section": "Example: Income Statement (FY2025)",
-    "text": "Example: Income Statement (FY2025)\n| REVENUES                | 2025        | 2024        | 2023        |\n|-------------------------|-------------|-------------|-------------|\n| Oil revenues            | $918,027    | $1,046,675  | $958,388    |\n| Natural gas revenues    | 190,252     | 90,277      | 102,054     |\n| NGL revenues            | 203,566     | 178,934     | 166,537     |\n| Total revenues          | 1,311,845   | 1,315,886   | 1,226,979   |\n| OPERATING INCOME        | 439,181     | 511,988     | 534,485     |\n| NET INCOME              | 337,279     | 397,330     | 442,604     |\n| EPS (diluted)           | $1.73       | $1.94       | $2.04       |\n(In thousands except per share. From mgy-2025-financial-statements.md)"
+    "objectID": "slides/m8-scraping.html#example-extracted-financial-data-fy2025",
+    "href": "slides/m8-scraping.html#example-extracted-financial-data-fy2025",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Example: Extracted Financial Data (FY2025)",
+    "text": "Example: Extracted Financial Data (FY2025)\nThe output is clean markdown tables ready for AI analysis:\n\n\n| ASSETS             |     2025 |     2024 |\n|--------------------|----------|----------|\n| Cash & equiv.      | $266,785 | $260,049 |\n| Current assets     |  442,435 |  410,824 |\n| TOTAL ASSETS       |$2,903,092|$2,820,835|\n\n| REVENUES           |     2025 |     2024 |\n|--------------------|----------|----------|\n| Oil revenues       | $918,027 |$1,046,675|\n| Total revenues     |1,311,845 |1,315,886 |\n| NET INCOME         |  337,279 |  397,330 |\n\n(In thousands. Full statements in magnolia/10k/extracted/)"
   },
   {
     "objectID": "slides/m8-scraping.html#step-3-earnings-calls",
     "href": "slides/m8-scraping.html#step-3-earnings-calls",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Step 3: Earnings Calls",
     "text": "Step 3: Earnings Calls"
   },
   {
     "objectID": "slides/m8-scraping.html#two-sources-of-earnings-data",
     "href": "slides/m8-scraping.html#two-sources-of-earnings-data",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Two Sources of Earnings Data",
-    "text": "Two Sources of Earnings Data\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart TD\n  EC[\"&lt;b&gt;Quarterly Earnings&lt;/b&gt;&lt;br&gt;28 quarters (Q2 2019 -- Q4 2025)\"]\n  EC --&gt; T[\"&lt;b&gt;Full Transcripts&lt;/b&gt;&lt;br&gt;6 quarters&lt;br&gt;(Motley Fool)\"]\n  EC --&gt; PR[\"&lt;b&gt;Press Releases&lt;/b&gt;&lt;br&gt;21 quarters&lt;br&gt;(EDGAR 8-K filings)\"]\n\n  style EC fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style T fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style PR fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n\n\n\n\n\n\n\nTranscripts include management commentary and analyst Q&A\nPress releases include financial tables, production data, and guidance\nTogether they cover every quarter of Magnolia’s public history"
+    "text": "Two Sources of Earnings Data\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart TD\n  EC[\"&lt;b&gt;Quarterly Earnings&lt;/b&gt;&lt;br&gt;27 quarters (Q2 2019 -- Q4 2025)\"]\n  EC --&gt; T[\"&lt;b&gt;Full Transcripts&lt;/b&gt;&lt;br&gt;6 quarters&lt;br&gt;(Motley Fool)\"]\n  EC --&gt; PR[\"&lt;b&gt;Press Releases&lt;/b&gt;&lt;br&gt;21 quarters&lt;br&gt;(EDGAR 8-K filings)\"]\n\n  style EC fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style T fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n  style PR fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:14px\n\n\n\n\n\n\n\nTranscripts include management commentary and analyst Q&A\nPress releases include financial tables, production data, and guidance\nTogether they cover every quarter from Q2 2019 onward"
   },
   {
     "objectID": "slides/m8-scraping.html#transcript-sources-the-challenge",
     "href": "slides/m8-scraping.html#transcript-sources-the-challenge",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Transcript Sources: The Challenge",
-    "text": "Transcript Sources: The Challenge\nFull earnings call transcripts are hard to get for free:\n\n\n\nSource\nCoverage\nAccess\n\n\n\n\nMotley Fool\nSpotty for small-caps\nFree\n\n\nSeeking Alpha\nComplete\nPaywalled\n\n\nMarketScreener\nComplete\nPaywalled\n\n\nGuruFocus\nComplete\nJS-rendered / paywalled\n\n\nCompany webcasts\nAudio only\nRegistration wall\n\n\n\nOur approach: Grab what’s free from Motley Fool, fill gaps with EDGAR press releases."
+    "text": "Transcript Sources: The Challenge\nFull earnings call transcripts are hard to get for free:\n\n\n\nSource\nCoverage\nAccess\n\n\n\n\nMotley Fool\nSpotty for small-caps\nFree\n\n\nSeeking Alpha\nComplete\nPaywalled\n\n\nMarketScreener\nComplete\nPaywalled\n\n\nGuruFocus\nComplete\nJS-rendered / paywalled\n\n\nCompany webcasts\nAudio only\nRegistration wall\n\n\n\nOur approach: Grab what’s free from Motley Fool, fill gaps with EDGAR press releases — or transcribe the audio yourself."
+  },
+  {
+    "objectID": "slides/m8-scraping.html#option-transcribe-company-ir-audio",
+    "href": "slides/m8-scraping.html#option-transcribe-company-ir-audio",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Option: Transcribe Company IR Audio",
+    "text": "Option: Transcribe Company IR Audio\nIf no free transcript exists, you can transcribe the audio webcast from the company’s IR page. (We did not use this for Magnolia.)\n\n\nHow it works\n# OpenAI's Whisper API ($0.006/min)\nfrom openai import OpenAI\nclient = OpenAI()\nwith open(\"earnings_call.mp3\", \"rb\") as f:\n    transcript = client.audio.transcriptions.create(\n        model=\"whisper-1\", file=f\n    )\nOr run locally for free: pip install openai-whisper\n\nWhat to know\n\nWhisper API — $0.006/min, fast, accurate\nLocal Whisper — free, runs on your machine\nAssemblyAI — adds speaker labels (who said what)\nAudio quality varies; no speaker labels with basic Whisper\nA 60-min call produces 8,000–12,000 words"
   },
   {
     "objectID": "slides/m8-scraping.html#fetching-transcripts-from-motley-fool",
     "href": "slides/m8-scraping.html#fetching-transcripts-from-motley-fool",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Fetching Transcripts from Motley Fool",
-    "text": "Fetching Transcripts from Motley Fool\n# WebFetch extracts the full transcript from Motley Fool\n# Example: Q3 2025 earnings call\nurl = (\"https://www.fool.com/earnings/call-transcripts/\"\n       \"2025/10/30/magnolia-oil-and-gas-mgy-earnings-transcript/\")\nWhat we captured: prepared remarks, financial highlights, management guidance, and the full analyst Q&A.\nExample output: mgy-q3-2025-earnings.md"
+    "text": "Fetching Transcripts from Motley Fool\n\n“Fetch the Magnolia Oil & Gas Q3 2025 earnings call transcript from Motley Fool (https://www.fool.com/earnings/call-transcripts/2025/10/30/magnolia-oil-and-gas-mgy-earnings-transcript/). Extract the full text and save it as magnolia/transcripts/mgy-q3-2025-earnings.md.”\n\nClaude Code used WebFetch to download and clean the page, capturing prepared remarks, financial highlights, management guidance, and the full analyst Q&A."
   },
   {
     "objectID": "slides/m8-scraping.html#fetching-press-releases-from-edgar",
     "href": "slides/m8-scraping.html#fetching-press-releases-from-edgar",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Fetching Press Releases from EDGAR",
-    "text": "Fetching Press Releases from EDGAR\nFor quarters without free transcripts, we downloaded Exhibit 99.1 from each earnings 8-K filing:\n# Same EDGAR API --- filter for 8-K filings\n# Download the Exhibit 99.1 (earnings press release)\n# Contains: financial tables, production data, guidance\n\nurl = (\"https://www.sec.gov/Archives/edgar/data/1698990/\"\n       \"000169899025000028/ex991-3q2025earningsrele.htm\")\nExample output: mgy-q4-2024-press-release.md"
+    "text": "Fetching Press Releases from EDGAR\nFor quarters without free transcripts, we downloaded Exhibit 99.1 from each earnings 8-K filing:\n# Same EDGAR API --- filter for 8-K filings\n# Download the Exhibit 99.1 (earnings press release)\n# Contains: financial tables, production data, guidance\n\nurl = (\"https://www.sec.gov/Archives/edgar/data/1698990/\"\n       \"000169899025000028/ex991-3q2025earningsrele.htm\")\nExample output: magnolia/transcripts/mgy-q4-2024-press-release.md"
   },
   {
     "objectID": "slides/m8-scraping.html#example-transcript-excerpt-q3-2025",
     "href": "slides/m8-scraping.html#example-transcript-excerpt-q3-2025",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Example: Transcript Excerpt (Q3 2025)",
     "text": "Example: Transcript Excerpt (Q3 2025)\n\nChristopher Stavros, CEO: “We have a lot of both financial and operational flexibility, especially considering some of those deferrals that have snaked through the system in 2025.”\n\nKey data points extracted:\n\nRecord production: 100,500 BOE/day (11% YoY growth)\nFree cash flow: $134 million\nAdjusted EBITDAX: $219 million\nDividend increased 15% to $0.15/share quarterly"
   },
   {
     "objectID": "slides/m8-scraping.html#step-4-news-articles",
     "href": "slides/m8-scraping.html#step-4-news-articles",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Step 4: News Articles",
     "text": "Step 4: News Articles"
   },
   {
     "objectID": "slides/m8-scraping.html#scraping-financial-news",
     "href": "slides/m8-scraping.html#scraping-financial-news",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Scraping Financial News",
-    "text": "Scraping Financial News\nThe final layer of the corpus: news articles from financial media covering Magnolia over the past 2–3 years.\nTarget sources: Reuters, Yahoo Finance, Hart Energy, Houston Chronicle, Rigzone\nWhat we’re looking for:\n\nEarnings coverage and analyst reactions\nAcquisition announcements\nProduction and guidance updates\nOil price impact analysis\nDividend and buyback news"
+    "text": "Scraping Financial News\nThe final layer: news articles from financial media. Claude Code’s WebSearch and WebFetch tools handle this directly.\n\n\nThe prompt\n\n“Search for recent news articles about Magnolia Oil & Gas (MGY). For each article, fetch the full text and save it as a markdown file in magnolia/news/ with the format YYYY-MM-DD_source_title.md.”\n\n\nWhat we collected\n\nEarnings coverage and analyst reactions\nAnalyst upgrades/downgrades and price targets\nDividend increases and buyback announcements\nProduction records and guidance updates\n10 articles from Benzinga, AlphaStreet, Zacks, and others"
   },
   {
     "objectID": "slides/m8-scraping.html#the-complete-corpus",
     "href": "slides/m8-scraping.html#the-complete-corpus",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "The Complete Corpus",
     "text": "The Complete Corpus"
   },
   {
     "objectID": "slides/m8-scraping.html#what-we-built",
     "href": "slides/m8-scraping.html#what-we-built",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "What We Built",
-    "text": "What We Built\n\n\n10-K Extractions\n\n7 fiscal years (2019–2025)\n21 files: MD&A + Risk Factors + Financials\n~900 KB of clean markdown\n\n\n\nEarnings Data\n\n6 full transcripts\n21 press releases\n27 files covering every quarter\n\n\n\nNews Articles\n\nFinancial media coverage\nAnalyst commentary\nIndustry context\n\n\n\nAll stored in magnolia/ as clean, structured text."
+    "text": "What We Built\n\n\n10-K Extractions\n\n7 fiscal years (2019–2025)\n21 files: MD&A + Risk Factors + Financials\n~900 KB of clean markdown\n\n\n\nEarnings Data\n\n6 full transcripts\n21 press releases\n27 files covering every quarter\n\n\n\nNews Articles\n\n10 articles from financial media\nAnalyst upgrades, earnings coverage\nDividend and strategy news\n\n\n\nAll stored as clean, structured text. Browse the full corpus: Magnolia Documents (Dropbox)"
   },
   {
     "objectID": "slides/m8-scraping.html#corpus-file-structure",
     "href": "slides/m8-scraping.html#corpus-file-structure",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Corpus File Structure",
-    "text": "Corpus File Structure\nmagnolia/\n├── 10k/\n│   ├── mgy-10k-2019.htm ... mgy-10k-2025.htm    (raw EDGAR HTML)\n│   └── extracted/\n│       ├── mgy-2019-mda.md ... mgy-2025-mda.md\n│       ├── mgy-2019-risk-factors.md ... mgy-2025-risk-factors.md\n│       └── mgy-2019-financial-statements.md ... mgy-2025-financial-statements.md\n├── transcripts/\n│   ├── mgy-q2-2019-earnings.md ... mgy-q3-2025-earnings.md    (6 transcripts)\n│   └── mgy-q2-2020-press-release.md ... mgy-q4-2025-press-release.md  (21 PRs)\n└── news/\n    └── (articles)"
+    "text": "Corpus File Structure\nmagnolia/\n├── 10k/                        7 raw HTML + extracted/\n│   └── extracted/              mda, risk-factors, financial-statements\n│                               (7 × 3 = 21 markdown files)\n├── transcripts/                6 earnings + 21 press releases (27 files)\n└── news/                       10 articles from financial media"
   },
   {
     "objectID": "slides/m8-scraping.html#key-techniques-summary",
     "href": "slides/m8-scraping.html#key-techniques-summary",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Key Techniques Summary",
     "text": "Key Techniques Summary\n\n\n\n\n\n\n\n\nStep\nTool / API\nWhat It Does\n\n\n\n\nFind filings\nEDGAR Submissions API\nReturns filing metadata as JSON\n\n\nDownload 10-Ks\ncurl + EDGAR URLs\nFetches HTML filings directly\n\n\nParse HTML\nBeautifulSoup\nStrips XBRL/CSS, extracts sections\n\n\nConvert tables\nPython script\nHTML tables → markdown pipe format\n\n\nGet transcripts\nWebFetch + Motley Fool\nExtracts full call transcripts\n\n\nGet press releases\nEDGAR 8-K Exhibit 99.1\nQuarterly financial data\n\n\nScrape news\nWebSearch + WebFetch\nArticles from financial media"
   },
   {
     "objectID": "slides/m8-scraping.html#lessons-learned",
     "href": "slides/m8-scraping.html#lessons-learned",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Lessons Learned",
     "text": "Lessons Learned\nWhat worked well:\n\nEDGAR API is reliable and free — no authentication needed\nConstructing URLs from patterns (like the FINRA example) scales to many filings\npd.read_html and BeautifulSoup handle static HTML tables well\nMotley Fool provides full transcripts for free (when they cover the company)\n\nWhat was hard:\n\nTranscript coverage for small-caps is spotty on free sources\nMost transcript providers (Seeking Alpha, MarketScreener) are paywalled\nCompany webcasts use JS-based players (the same JavaScript problem we saw with Tesla/EDGAR)\nEDGAR HTML is messy — XBRL tags and inline styles require serious parsing"
   },
   {
+    "objectID": "slides/m8-scraping.html#exercises",
+    "href": "slides/m8-scraping.html#exercises",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Exercises",
+    "text": "Exercises"
+  },
+  {
+    "objectID": "slides/m8-scraping.html#exercise-1-scrape-a-wikipedia-table",
+    "href": "slides/m8-scraping.html#exercise-1-scrape-a-wikipedia-table",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Exercise 1: Scrape a Wikipedia Table",
+    "text": "Exercise 1: Scrape a Wikipedia Table\nUse pd.read_html to extract the S&P 500 company list from Wikipedia. Save it as an Excel file. How many sectors are represented? Which sector has the most companies?"
+  },
+  {
+    "objectID": "slides/m8-scraping.html#exercise-2-build-a-mini-corpus",
+    "href": "slides/m8-scraping.html#exercise-2-build-a-mini-corpus",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Exercise 2: Build a Mini Corpus",
+    "text": "Exercise 2: Build a Mini Corpus\nPick a public company of your choice. Using Claude Code:\n\nAsk Claude Code to find the company’s CIK on EDGAR (it can use https://www.sec.gov/files/company_tickers.json)\nDownload the most recent 10-K using the EDGAR Submissions API\nAsk Claude to extract the MD&A section and save it as markdown\nFind and save 3 news articles about the company using WebSearch + WebFetch\n\nSubmit: the four markdown files and a brief note on what worked and what was hard."
+  },
+  {
+    "objectID": "slides/m8-scraping.html#exercise-3-adapt-to-your-group-project-company",
+    "href": "slides/m8-scraping.html#exercise-3-adapt-to-your-group-project-company",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Exercise 3: Adapt to Your Group Project Company",
+    "text": "Exercise 3: Adapt to Your Group Project Company\nFor the company your group is analyzing, collect:\n\nThe 3 most recent 10-K filings from EDGAR\nAt least 2 earnings call transcripts or press releases (from Motley Fool, EDGAR 8-K Exhibit 99.1, or transcribed from IR audio)\n5+ news articles\n\nThis corpus will be used in Module 11 (RAG) exercises. Store everything in a corpus/ folder in your project. The Magnolia extraction scripts in magnolia/10k/ can serve as a reference."
+  },
+  {
     "objectID": "slides/m8-scraping.html#summary",
     "href": "slides/m8-scraping.html#summary",
-    "title": "Web Scraping and Data Collection",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "Summary",
+    "text": "Summary"
+  },
+  {
+    "objectID": "slides/m8-scraping.html#summary-1",
+    "href": "slides/m8-scraping.html#summary-1",
+    "title": "Module 8: Web Scraping with AI",
     "section": "Summary",
     "text": "Summary\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px'}, 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14, 'useMaxWidth': true}}}%%\nflowchart LR\n  S1[\"&lt;b&gt;1. Identify&lt;br&gt;Sources&lt;/b&gt;\"] --&gt; S2[\"&lt;b&gt;2. Download&lt;br&gt;Documents&lt;/b&gt;\"]\n  S2 --&gt; S3[\"&lt;b&gt;3. Parse &&lt;br&gt;Extract&lt;/b&gt;\"]\n  S3 --&gt; S4[\"&lt;b&gt;4. Collect&lt;br&gt;Transcripts&lt;/b&gt;\"]\n  S4 --&gt; S5[\"&lt;b&gt;5. Scrape&lt;br&gt;News&lt;/b&gt;\"]\n  S5 --&gt; S6[\"&lt;b&gt;6. Clean &&lt;br&gt;Structure&lt;/b&gt;\"]\n\n  style S1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S4 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S5 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n  style S6 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:20px,padding:12px\n\n\n\n\n\n\nWeb scraping is fundamentally a data engineering problem: finding sources, downloading documents, parsing messy formats, and converting everything to clean, structured text that AI tools can work with."
+  },
+  {
+    "objectID": "slides/m8-scraping.html#whats-next",
+    "href": "slides/m8-scraping.html#whats-next",
+    "title": "Module 8: Web Scraping with AI",
+    "section": "What’s Next",
+    "text": "What’s Next\nIn Module 11 (RAG), we will feed this Magnolia corpus to an AI retrieval system that can answer questions grounded in the actual documents — citing specific passages from 10-Ks, transcripts, and news articles.\nThe quality of RAG output depends entirely on the quality of the corpus. What you scrape determines what AI can find."
   },
   {
     "objectID": "slides/m10-corporate.html#guardrails-and-constraints",

@@ -339,6 +339,17 @@ $body-bg: $off-white;
   margin-bottom: 14em;
 }
 
+// Smaller mermaid for slides with text below the diagram
+.mermaid-small .mermaid {
+  transform: scale(2) !important;
+  margin-bottom: 6em !important;
+}
+
+.mermaid-compact .mermaid {
+  transform: scale(1.5) !important;
+  margin-bottom: 3em !important;
+}
+
 .reveal .mermaid .nodeLabel {
   font-weight: 700 !important;
   font-size: 1.1em !important;

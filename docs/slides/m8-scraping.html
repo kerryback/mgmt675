@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Web Scraping and Data Collection</title>
+  <title>Module 8: Web Scraping with AI</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -94,7 +94,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-80873d3a46d0a92d285a31910fb8318b.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-cdd81feb614051b1dc3229adfc5299fd.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -201,7 +201,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Web Scraping and Data Collection</h1>
+  <h1 class="title">Module 8: Web Scraping with AI</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -221,13 +221,13 @@ Kerry Back, Rice University
 <p>Getting data from websites is a task for which <span class="amber">AI + coding</span> can really increase efficiency.</p>
 <p>Three levels of difficulty:</p>
 <ol type="1">
-<li><strong>Easy</strong>: extract a table from a static HTML page</li>
-<li><strong>Medium</strong>: construct URLs and loop over downloads</li>
-<li><strong>Hard</strong>: pages rendered dynamically with JavaScript</li>
+<li><strong>Level 1 — Easy</strong>: extract a table from a static HTML page</li>
+<li><strong>Level 2 — Medium</strong>: construct URLs and loop over downloads</li>
+<li><strong>Level 3 — Hard</strong>: pages rendered dynamically with JavaScript</li>
 </ol>
 </section>
-<section id="example-1-extracting-a-table-from-wikipedia" class="slide level2 center">
-<h2>Example 1: Extracting a Table from Wikipedia</h2>
+<section id="level-1-extracting-a-table-from-wikipedia" class="slide level2 center">
+<h2>Level 1: Extracting a Table from Wikipedia</h2>
 <p>This <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies">Wikipedia page</a> maintains a list of all S&amp;P 500 companies with ticker, sector, headquarters, etc.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a></a></span>
@@ -248,8 +248,8 @@ Kerry Back, Rice University
 </ul>
 <p>It builds a pandas DataFrame from the HTML structure — no AI required, just pattern matching.</p>
 </section>
-<section id="example-2-finra-short-interest-data" class="slide level2 center">
-<h2>Example 2: FINRA Short Interest Data</h2>
+<section id="level-2-finra-short-interest-data" class="slide level2 center">
+<h2>Level 2: FINRA Short Interest Data</h2>
 <p><a href="https://www.finra.org/finra-data/browse-catalog/equity-short-interest/files">FINRA</a> publishes short interest data twice monthly. Clicking a date downloads a CSV. What’s the URL pattern?</p>
 <p>Right-click → “View page source” → search for a date like <code>20250430</code>:</p>
 <pre><code>https://cdn.finra.org/equity/otcmarket/biweekly/shrt20250430.csv</code></pre>
@@ -266,34 +266,36 @@ Kerry Back, Rice University
 <span id="cb3-7"><a></a>    url <span class="op">=</span> <span class="ss">f"https://cdn.finra.org/equity/otcmarket/biweekly/shrt</span><span class="sc">{</span>d<span class="sc">:</span><span class="op">%</span>Y<span class="op">%</span>m<span class="op">%</span>d<span class="sc">}</span><span class="ss">.csv"</span></span>
 <span id="cb3-8"><a></a>    <span class="cf">try</span>:</span>
 <span id="cb3-9"><a></a>        frames.append(pd.read_csv(url, sep<span class="op">=</span><span class="st">"|"</span>))</span>
-<span id="cb3-10"><a></a>    <span class="cf">except</span>:</span>
+<span id="cb3-10"><a></a>    <span class="cf">except</span> <span class="pp">Exception</span>:</span>
 <span id="cb3-11"><a></a>        <span class="cf">pass</span>  <span class="co"># not a reporting date --- skip it</span></span>
-<span id="cb3-12"><a></a>    d <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-13"><a></a></span>
-<span id="cb3-14"><a></a>df <span class="op">=</span> pd.concat(frames)</span>
-<span id="cb3-15"><a></a>df.to_csv(<span class="st">"finra_short_interest.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Try every possible date in a <code>try-except</code> block. Only reporting dates (15th and last business day of each month) will succeed.</p>
+<span id="cb3-12"><a></a>    d <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="the-hard-case-javascript-rendered-pages" class="slide level2 center">
-<h2>The Hard Case: JavaScript-Rendered Pages</h2>
+<section id="automating-finra-downloads-cont." class="slide level2 center">
+<h2>Automating FINRA Downloads (cont.)</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>df <span class="op">=</span> pd.concat(frames)</span>
+<span id="cb4-2"><a></a>df.to_csv(<span class="st">"finra_short_interest.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Try every possible date and silently skip failures — quick and effective. Only FINRA settlement dates (roughly the 15th and last business day) will succeed.</p>
+</section>
+<section id="level-3-javascript-rendered-pages" class="slide level2 center">
+<h2>Level 3: JavaScript-Rendered Pages</h2>
 <p>Many pages are <span class="amber">dynamically generated</span> with JavaScript. The data we want isn’t in the HTML source — it’s fetched by executing JavaScript code.</p>
 <p><strong>Example</strong>: Open a <a href="https://www.sec.gov/ix?doc=/Archives/edgar/data/1318605/000110465925042659/tm252787d2_10ka.htm">Tesla 10-K on EDGAR</a>. The first table lists Tesla’s directors. But if you “View page source” and search for “Elon Musk” — <span class="amber">0 results</span>.</p>
-<p>The entire page is populated by JavaScript with the <code>&lt;script language="JavaScript"&gt;</code> tag.</p>
+<p>The page content is loaded dynamically by JavaScript — the raw HTML is just a shell.</p>
 </section>
 <section id="playwright-automating-a-real-browser" class="slide level2 center">
 <h2>Playwright: Automating a Real Browser</h2>
 <p><a href="https://playwright.dev/">Playwright</a> is a library that controls a real browser (Chrome, Firefox, or Safari) from Python or JavaScript. It executes the JavaScript on the page, then lets you read the <span class="amber">rendered</span> HTML.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> playwright.sync_api <span class="im">import</span> sync_playwright</span>
-<span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a><span class="cf">with</span> sync_playwright() <span class="im">as</span> p:</span>
-<span id="cb4-4"><a></a>    browser <span class="op">=</span> p.chromium.launch()</span>
-<span id="cb4-5"><a></a>    page <span class="op">=</span> browser.new_page()</span>
-<span id="cb4-6"><a></a>    page.goto(<span class="st">"https://www.sec.gov/ix?doc=/Archives/edgar/data/..."</span>)</span>
-<span id="cb4-7"><a></a></span>
-<span id="cb4-8"><a></a>    <span class="co"># Now the JavaScript has executed --- we can see the data</span></span>
-<span id="cb4-9"><a></a>    content <span class="op">=</span> page.content()          <span class="co"># full rendered HTML</span></span>
-<span id="cb4-10"><a></a>    page.screenshot(path<span class="op">=</span><span class="st">"page.png"</span>)  <span class="co"># visual snapshot</span></span>
-<span id="cb4-11"><a></a>    browser.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">from</span> playwright.sync_api <span class="im">import</span> sync_playwright</span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a><span class="cf">with</span> sync_playwright() <span class="im">as</span> p:</span>
+<span id="cb5-4"><a></a>    browser <span class="op">=</span> p.chromium.launch()</span>
+<span id="cb5-5"><a></a>    page <span class="op">=</span> browser.new_page()</span>
+<span id="cb5-6"><a></a>    page.goto(<span class="st">"https://www.sec.gov/ix?doc=/Archives/edgar/data/..."</span>)</span>
+<span id="cb5-7"><a></a></span>
+<span id="cb5-8"><a></a>    <span class="co"># Now the JavaScript has executed --- we can see the data</span></span>
+<span id="cb5-9"><a></a>    content <span class="op">=</span> page.content()          <span class="co"># full rendered HTML</span></span>
+<span id="cb5-10"><a></a>    page.screenshot(path<span class="op">=</span><span class="st">"page.png"</span>)  <span class="co"># visual snapshot</span></span>
+<span id="cb5-11"><a></a>    browser.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Unlike <code>requests</code> or <code>read_html</code>, Playwright sees the page <span class="amber">as a human would</span>.</p>
 </section>
 <section id="playwright-key-capabilities" class="slide level2 center">
@@ -322,26 +324,21 @@ Kerry Back, Rice University
 </section>
 <section id="playwright-mcp-ai-controlled-browsing" class="slide level2 center">
 <h2>Playwright MCP: AI-Controlled Browsing</h2>
-<p>The <a href="https://github.com/anthropics/mcp-playwright">Playwright MCP server</a> connects Playwright to Claude Code, letting the AI <span class="amber">control the browser directly</span>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a></a><span class="er">//</span> <span class="er">~/.claude/.mcp.json</span></span>
-<span id="cb5-2"><a></a><span class="fu">{</span></span>
-<span id="cb5-3"><a></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-4"><a></a>    <span class="dt">"playwright"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-5"><a></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"npx"</span><span class="fu">,</span></span>
-<span id="cb5-6"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"@playwright/mcp@latest"</span><span class="ot">]</span></span>
-<span id="cb5-7"><a></a>    <span class="fu">}</span></span>
-<span id="cb5-8"><a></a>  <span class="fu">}</span></span>
-<span id="cb5-9"><a></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP server</a> connects Playwright to Claude Code, letting the AI <span class="amber">control the browser directly</span>.</p>
+<p>Add to <code>~/.claude/.mcp.json</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb6-1"><a></a><span class="fu">{</span></span>
+<span id="cb6-2"><a></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-3"><a></a>    <span class="dt">"playwright"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-4"><a></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"npx"</span><span class="fu">,</span></span>
+<span id="cb6-5"><a></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"@playwright/mcp@latest"</span><span class="ot">]</span></span>
+<span id="cb6-6"><a></a>    <span class="fu">}</span></span>
+<span id="cb6-7"><a></a>  <span class="fu">}</span></span>
+<span id="cb6-8"><a></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once configured, Claude Code can navigate pages, click links, fill forms, take screenshots, and extract data — all through natural language instructions.</p>
 </section>
 <section id="when-to-use-each-tool" class="slide level2 center">
 <h2>When to Use Each Tool</h2>
 <table class="caption-top">
-<colgroup>
-<col style="width: 47%">
-<col style="width: 28%">
-<col style="width: 23%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Scenario</th>
@@ -363,7 +360,7 @@ Kerry Back, Rice University
 <tr class="odd">
 <td>API with JSON responses</td>
 <td><code>requests</code></td>
-<td>Parse structured data</td>
+<td>Parse structured data (<a href="https://docs.python-requests.org"><code>requests</code></a> is Python’s standard HTTP library)</td>
 </tr>
 <tr class="even">
 <td>JavaScript-rendered page</td>
@@ -382,14 +379,38 @@ Kerry Back, Rice University
 </tr>
 </tbody>
 </table>
-<p>For our Magnolia project, we used the EDGAR <span class="amber">API</span> and <span class="amber">direct downloads</span> where possible, avoiding the need for browser automation.</p>
+<p>As we’ll see in the case study below, we used the EDGAR <span class="amber">API</span> and <span class="amber">direct downloads</span> where possible, avoiding the need for browser automation.</p>
+</section>
+<section id="before-you-scrape-legal-and-ethical-considerations" class="slide level2 center">
+<h2>Before You Scrape: Legal and Ethical Considerations</h2>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Respect the Rules</strong></span></p>
+<ul>
+<li>Check <code>robots.txt</code> before scraping any site</li>
+<li>SEC EDGAR enforces a <span class="amber">10 requests/second</span> rate limit — exceed it and your IP gets blocked</li>
+<li>Motley Fool and Seeking Alpha have terms of service restricting automated access</li>
+<li>Fair use may protect limited use for research and education, but it depends on the specifics — always check the site’s Terms of Service</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Best Practices</strong></span></p>
+<ul>
+<li>Use APIs when available — they are faster, more reliable, and explicitly permitted</li>
+<li>Include a <code>User-Agent</code> header identifying yourself (required by EDGAR)</li>
+<li>Add delays between requests to avoid overwhelming servers</li>
+<li>Prefer official data sources over scraping when both exist</li>
+</ul>
+</div>
+</div>
+<p><span class="amber">When in doubt: if the site provides an API, use it. If it doesn’t, check the ToS.</span></p>
 </section>
 <section id="case-study-collecting-financial-documents" class="slide level2 section-divider center">
 <h2>Case Study: Collecting Financial Documents</h2>
 </section>
 <section id="goal-company-research-library" class="slide level2 center">
 <h2>Goal: Company Research Library</h2>
-<p>We want to collect a comprehensive set of financial documents for a single company — the kind of library an analyst would build before a valuation.</p>
+<p>We want to collect a comprehensive set of financial documents for a single company — the kind of library an analyst would build before a valuation. In Module 11, we will feed this corpus to an AI system (RAG) to generate analysis — but first we need the raw materials.</p>
 <p><strong>Target company</strong>: <span class="amber">Magnolia Oil &amp; Gas (MGY)</span> — a Houston-based small-cap E&amp;P company operating in the Eagle Ford Shale.</p>
 <p><strong>What we need</strong>:</p>
 <ul>
@@ -401,13 +422,14 @@ Kerry Back, Rice University
 <section id="why-magnolia" class="slide level2 center">
 <h2>Why Magnolia?</h2>
 <ul>
-<li><strong>Public and small-cap</strong> — filings are freely available but analyst coverage is thinner</li>
+<li><strong>Public since 2018</strong> — 7 years of filings on EDGAR, enough for trend analysis</li>
 <li><strong>Houston-headquartered</strong> — relevant to Rice students</li>
 <li><strong>Simple business model</strong> — onshore oil &amp; gas E&amp;P, easy to understand financially</li>
-<li><strong>7 years of public history</strong> (IPO 2018) — enough depth for trend analysis</li>
+<li><strong>Thin analyst coverage</strong> — free transcript sources are spotty, so we need multiple scraping techniques</li>
+<li>In your group projects, you will pick your own company</li>
 </ul>
 </section>
-<section id="data-sources-overview" class="slide level2 center">
+<section id="data-sources-overview" class="slide level2 mermaid-small center">
 <h2>Data Sources Overview</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
 <div class="cell-output-display">
@@ -416,7 +438,7 @@ Kerry Back, Rice University
 <div>
 <pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
 flowchart LR
-  EDGAR["&lt;b&gt;SEC EDGAR&lt;/b&gt;&lt;br&gt;10-Ks, 8-Ks"] --&gt; CORPUS["&lt;b&gt;Document Library&lt;/b&gt;&lt;br&gt;48+ documents"]
+  EDGAR["&lt;b&gt;SEC EDGAR&lt;/b&gt;&lt;br&gt;10-Ks, 8-Ks"] --&gt; CORPUS["&lt;b&gt;Document Library&lt;/b&gt;&lt;br&gt;58 documents"]
   MF["&lt;b&gt;Motley Fool&lt;/b&gt;&lt;br&gt;Transcripts"] --&gt; CORPUS
   IR["&lt;b&gt;Company IR&lt;/b&gt;&lt;br&gt;Press releases"] --&gt; CORPUS
   NEWS["&lt;b&gt;News Sites&lt;/b&gt;&lt;br&gt;Articles"] --&gt; CORPUS
@@ -439,17 +461,17 @@ flowchart LR
 <section id="the-edgar-api" class="slide level2 center">
 <h2>The EDGAR API</h2>
 <p>SEC EDGAR provides a free REST API that returns filing metadata as JSON. No API key required — just a <code>User-Agent</code> header.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> requests, json</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a>url <span class="op">=</span> <span class="st">"https://data.sec.gov/submissions/CIK0001698990.json"</span></span>
-<span id="cb6-4"><a></a>headers <span class="op">=</span> {<span class="st">"User-Agent"</span>: <span class="st">"Kerry Back keb7@rice.edu"</span>}</span>
-<span id="cb6-5"><a></a>data <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers).json()</span>
-<span id="cb6-6"><a></a></span>
-<span id="cb6-7"><a></a><span class="cf">for</span> i, form <span class="kw">in</span> <span class="bu">enumerate</span>(data[<span class="st">"filings"</span>][<span class="st">"recent"</span>][<span class="st">"form"</span>]):</span>
-<span id="cb6-8"><a></a>    <span class="cf">if</span> form <span class="op">==</span> <span class="st">"10-K"</span>:</span>
-<span id="cb6-9"><a></a>        date <span class="op">=</span> data[<span class="st">"filings"</span>][<span class="st">"recent"</span>][<span class="st">"filingDate"</span>][i]</span>
-<span id="cb6-10"><a></a>        doc <span class="op">=</span> data[<span class="st">"filings"</span>][<span class="st">"recent"</span>][<span class="st">"primaryDocument"</span>][i]</span>
-<span id="cb6-11"><a></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>doc<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">import</span> requests, json</span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a>url <span class="op">=</span> <span class="st">"https://data.sec.gov/submissions/CIK0001698990.json"</span></span>
+<span id="cb7-4"><a></a>headers <span class="op">=</span> {<span class="st">"User-Agent"</span>: <span class="st">"Kerry Back keb7@rice.edu"</span>}</span>
+<span id="cb7-5"><a></a>data <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers).json()</span>
+<span id="cb7-6"><a></a></span>
+<span id="cb7-7"><a></a><span class="cf">for</span> i, form <span class="kw">in</span> <span class="bu">enumerate</span>(data[<span class="st">"filings"</span>][<span class="st">"recent"</span>][<span class="st">"form"</span>]):</span>
+<span id="cb7-8"><a></a>    <span class="cf">if</span> form <span class="op">==</span> <span class="st">"10-K"</span>:</span>
+<span id="cb7-9"><a></a>        date <span class="op">=</span> data[<span class="st">"filings"</span>][<span class="st">"recent"</span>][<span class="st">"filingDate"</span>][i]</span>
+<span id="cb7-10"><a></a>        doc <span class="op">=</span> data[<span class="st">"filings"</span>][<span class="st">"recent"</span>][<span class="st">"primaryDocument"</span>][i]</span>
+<span id="cb7-11"><a></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>doc<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="what-we-got-7-years-of-10-ks" class="slide level2 center">
 <h2>What We Got: 7 Years of 10-Ks</h2>
@@ -504,18 +526,13 @@ flowchart LR
 <section id="step-2-extracting-sections" class="slide level2 section-divider center">
 <h2>Step 2: Extracting Sections</h2>
 </section>
-<section id="parsing-10-k-html-with-python" class="slide level2 center">
-<h2>Parsing 10-K HTML with Python</h2>
-<p>The raw EDGAR HTML files are cluttered with CSS, XBRL tags, and formatting. We used <span class="amber">BeautifulSoup</span> to extract three sections from each 10-K:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mgy-10k-2025.htm"</span>) <span class="im">as</span> f:</span>
-<span id="cb7-4"><a></a>    soup <span class="op">=</span> BeautifulSoup(f, <span class="st">"html.parser"</span>)</span>
-<span id="cb7-5"><a></a></span>
-<span id="cb7-6"><a></a><span class="co"># Find section headers like "Item 7" or "Item 1A"</span></span>
-<span id="cb7-7"><a></a><span class="co"># Extract text between section boundaries</span></span>
-<span id="cb7-8"><a></a><span class="co"># Convert HTML tables to markdown pipe format</span></span>
-<span id="cb7-9"><a></a><span class="co"># Strip XBRL tags and embedded styles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="extracting-10-k-sections-with-claude-code" class="slide level2 center">
+<h2>Extracting 10-K Sections with Claude Code</h2>
+<p>The raw EDGAR HTML files are cluttered with CSS, XBRL tags, and formatting. We asked Claude Code to extract three sections from each 10-K:</p>
+<div class="info-box">
+<p><em>“Read the file mgy-10k-2025.htm. Extract Item 7 (MD&amp;A), Item 1A (Risk Factors), and the Financial Statements. Strip all XBRL tags and CSS. Convert HTML tables to markdown pipe format. Save each section as a separate .md file.”</em></p>
+</div>
+<p>Claude used <span class="amber">BeautifulSoup</span> to parse the HTML, find section boundaries, and produce clean markdown. The complete extraction scripts are in the <code>magnolia/10k/</code> folder.</p>
 </section>
 <section id="extracted-files" class="slide level2 center">
 <h2>21 Extracted Files</h2>
@@ -547,35 +564,29 @@ flowchart LR
 </div>
 </div>
 </section>
-<section id="example-balance-sheet-fy2025" class="slide level2 center">
-<h2>Example: Balance Sheet (FY2025)</h2>
-<pre><code>| ASSETS                                  | Dec 31, 2025 | Dec 31, 2024 |
-|-----------------------------------------|--------------|--------------|
-| Cash and cash equivalents               | $266,785     | $260,049     |
-| Total current assets                    | 442,435      | 410,824      |
-| Oil and natural gas properties          | 4,957,292    | 4,403,210    |
-| Accumulated DD&amp;A                        | (2,553,758)  | (2,115,892)  |
-| Total property, plant &amp; equipment, net  | 2,424,152    | 2,306,034    |
-| TOTAL ASSETS                            | $2,903,092   | $2,820,835   |</code></pre>
-<p><em>(In thousands. Extracted from <a href="../magnolia/10k/extracted/mgy-2025-financial-statements.md">mgy-2025-financial-statements.md</a>)</em></p>
-</section>
-<section id="example-income-statement-fy2025" class="slide level2 center">
-<h2>Example: Income Statement (FY2025)</h2>
-<pre><code>| REVENUES                | 2025        | 2024        | 2023        |
-|-------------------------|-------------|-------------|-------------|
-| Oil revenues            | $918,027    | $1,046,675  | $958,388    |
-| Natural gas revenues    | 190,252     | 90,277      | 102,054     |
-| NGL revenues            | 203,566     | 178,934     | 166,537     |
-| Total revenues          | 1,311,845   | 1,315,886   | 1,226,979   |
-| OPERATING INCOME        | 439,181     | 511,988     | 534,485     |
-| NET INCOME              | 337,279     | 397,330     | 442,604     |
-| EPS (diluted)           | $1.73       | $1.94       | $2.04       |</code></pre>
-<p><em>(In thousands except per share. From <a href="../magnolia/10k/extracted/mgy-2025-financial-statements.md">mgy-2025-financial-statements.md</a>)</em></p>
+<section id="example-extracted-financial-data-fy2025" class="slide level2 shrink center">
+<h2>Example: Extracted Financial Data (FY2025)</h2>
+<p>The output is clean markdown tables ready for AI analysis:</p>
+<div class="two-col">
+<div class="column">
+<pre><code>| ASSETS             |     2025 |     2024 |
+|--------------------|----------|----------|
+| Cash &amp; equiv.      | $266,785 | $260,049 |
+| Current assets     |  442,435 |  410,824 |
+| TOTAL ASSETS       |$2,903,092|$2,820,835|</code></pre>
+</div><div class="column">
+<pre><code>| REVENUES           |     2025 |     2024 |
+|--------------------|----------|----------|
+| Oil revenues       | $918,027 |$1,046,675|
+| Total revenues     |1,311,845 |1,315,886 |
+| NET INCOME         |  337,279 |  397,330 |</code></pre>
+</div></div>
+<p><em>(In thousands. Full statements in <code>magnolia/10k/extracted/</code>)</em></p>
 </section>
 <section id="step-3-earnings-calls" class="slide level2 section-divider center">
 <h2>Step 3: Earnings Calls</h2>
 </section>
-<section id="two-sources-of-earnings-data" class="slide level2 center">
+<section id="two-sources-of-earnings-data" class="slide level2 mermaid-small center">
 <h2>Two Sources of Earnings Data</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
 <div class="cell-output-display">
@@ -584,7 +595,7 @@ flowchart LR
 <div>
 <pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
 flowchart TD
-  EC["&lt;b&gt;Quarterly Earnings&lt;/b&gt;&lt;br&gt;28 quarters (Q2 2019 -- Q4 2025)"]
+  EC["&lt;b&gt;Quarterly Earnings&lt;/b&gt;&lt;br&gt;27 quarters (Q2 2019 -- Q4 2025)"]
   EC --&gt; T["&lt;b&gt;Full Transcripts&lt;/b&gt;&lt;br&gt;6 quarters&lt;br&gt;(Motley Fool)"]
   EC --&gt; PR["&lt;b&gt;Press Releases&lt;/b&gt;&lt;br&gt;21 quarters&lt;br&gt;(EDGAR 8-K filings)"]
 
@@ -600,7 +611,7 @@ flowchart TD
 <ul>
 <li><strong>Transcripts</strong> include management commentary and analyst Q&amp;A</li>
 <li><strong>Press releases</strong> include financial tables, production data, and guidance</li>
-<li>Together they cover <span class="amber">every quarter</span> of Magnolia’s public history</li>
+<li>Together they cover <span class="amber">every quarter from Q2 2019 onward</span></li>
 </ul>
 </section>
 <section id="transcript-sources-the-challenge" class="slide level2 center">
@@ -642,16 +653,39 @@ flowchart TD
 </tr>
 </tbody>
 </table>
-<p><strong>Our approach</strong>: Grab what’s free from Motley Fool, fill gaps with EDGAR press releases.</p>
+<p><strong>Our approach</strong>: Grab what’s free from Motley Fool, fill gaps with EDGAR press releases — or transcribe the audio yourself.</p>
+</section>
+<section id="option-transcribe-company-ir-audio" class="slide level2 shrink center">
+<h2>Option: Transcribe Company IR Audio</h2>
+<p>If no free transcript exists, you can transcribe the <span class="amber">audio webcast</span> from the company’s IR page. (We did not use this for Magnolia.)</p>
+<div class="two-col">
+<div class="column">
+<p><strong>How it works</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="co"># OpenAI's Whisper API ($0.006/min)</span></span>
+<span id="cb10-2"><a></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
+<span id="cb10-3"><a></a>client <span class="op">=</span> OpenAI()</span>
+<span id="cb10-4"><a></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"earnings_call.mp3"</span>, <span class="st">"rb"</span>) <span class="im">as</span> f:</span>
+<span id="cb10-5"><a></a>    transcript <span class="op">=</span> client.audio.transcriptions.create(</span>
+<span id="cb10-6"><a></a>        model<span class="op">=</span><span class="st">"whisper-1"</span>, <span class="bu">file</span><span class="op">=</span>f</span>
+<span id="cb10-7"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or run locally for free: <code>pip install openai-whisper</code></p>
+</div><div class="column">
+<p><strong>What to know</strong></p>
+<ul>
+<li><strong>Whisper API</strong> — $0.006/min, fast, accurate</li>
+<li><strong>Local Whisper</strong> — free, runs on your machine</li>
+<li><strong>AssemblyAI</strong> — adds speaker labels (who said what)</li>
+<li>Audio quality varies; no speaker labels with basic Whisper</li>
+<li>A 60-min call produces <span class="amber">8,000–12,000 words</span></li>
+</ul>
+</div></div>
 </section>
 <section id="fetching-transcripts-from-motley-fool" class="slide level2 center">
 <h2>Fetching Transcripts from Motley Fool</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="co"># WebFetch extracts the full transcript from Motley Fool</span></span>
-<span id="cb10-2"><a></a><span class="co"># Example: Q3 2025 earnings call</span></span>
-<span id="cb10-3"><a></a>url <span class="op">=</span> (<span class="st">"https://www.fool.com/earnings/call-transcripts/"</span></span>
-<span id="cb10-4"><a></a>       <span class="st">"2025/10/30/magnolia-oil-and-gas-mgy-earnings-transcript/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>What we captured</strong>: prepared remarks, financial highlights, management guidance, and the full analyst Q&amp;A.</p>
-<p>Example output: <a href="../magnolia/transcripts/mgy-q3-2025-earnings.md">mgy-q3-2025-earnings.md</a></p>
+<div class="info-box">
+<p><em>“Fetch the Magnolia Oil &amp; Gas Q3 2025 earnings call transcript from Motley Fool (<code>https://www.fool.com/earnings/call-transcripts/2025/10/30/magnolia-oil-and-gas-mgy-earnings-transcript/</code>). Extract the full text and save it as <code>magnolia/transcripts/mgy-q3-2025-earnings.md</code>.”</em></p>
+</div>
+<p>Claude Code used WebFetch to download and clean the page, capturing prepared remarks, financial highlights, management guidance, and the full analyst Q&amp;A.</p>
 </section>
 <section id="fetching-press-releases-from-edgar" class="slide level2 center">
 <h2>Fetching Press Releases from EDGAR</h2>
@@ -662,7 +696,7 @@ flowchart TD
 <span id="cb11-4"><a></a></span>
 <span id="cb11-5"><a></a>url <span class="op">=</span> (<span class="st">"https://www.sec.gov/Archives/edgar/data/1698990/"</span></span>
 <span id="cb11-6"><a></a>       <span class="st">"000169899025000028/ex991-3q2025earningsrele.htm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Example output: <a href="../magnolia/transcripts/mgy-q4-2024-press-release.md">mgy-q4-2024-press-release.md</a></p>
+<p>Example output: <code>magnolia/transcripts/mgy-q4-2024-press-release.md</code></p>
 </section>
 <section id="example-transcript-excerpt-q3-2025" class="slide level2 center">
 <h2>Example: Transcript Excerpt (Q3 2025)</h2>
@@ -682,16 +716,23 @@ flowchart TD
 </section>
 <section id="scraping-financial-news" class="slide level2 center">
 <h2>Scraping Financial News</h2>
-<p>The final layer of the corpus: news articles from financial media covering Magnolia over the past 2–3 years.</p>
-<p><strong>Target sources</strong>: Reuters, Yahoo Finance, Hart Energy, Houston Chronicle, Rigzone</p>
-<p><strong>What we’re looking for</strong>:</p>
+<p>The final layer: news articles from financial media. Claude Code’s <span class="amber">WebSearch and WebFetch</span> tools handle this directly.</p>
+<div class="two-col">
+<div class="column">
+<p><strong>The prompt</strong></p>
+<div class="info-box">
+<p><em>“Search for recent news articles about Magnolia Oil &amp; Gas (MGY). For each article, fetch the full text and save it as a markdown file in magnolia/news/ with the format YYYY-MM-DD_source_title.md.”</em></p>
+</div>
+</div><div class="column">
+<p><strong>What we collected</strong></p>
 <ul>
 <li>Earnings coverage and analyst reactions</li>
-<li>Acquisition announcements</li>
-<li>Production and guidance updates</li>
-<li>Oil price impact analysis</li>
-<li>Dividend and buyback news</li>
+<li>Analyst upgrades/downgrades and price targets</li>
+<li>Dividend increases and buyback announcements</li>
+<li>Production records and guidance updates</li>
+<li>10 articles from Benzinga, AlphaStreet, Zacks, and others</li>
 </ul>
+</div></div>
 </section>
 <section id="the-complete-corpus" class="slide level2 section-divider center">
 <h2>The Complete Corpus</h2>
@@ -718,28 +759,22 @@ flowchart TD
 <div class="card card-light">
 <p><span class="card-title"><strong>News Articles</strong></span></p>
 <ul>
-<li>Financial media coverage</li>
-<li>Analyst commentary</li>
-<li>Industry context</li>
+<li>10 articles from financial media</li>
+<li>Analyst upgrades, earnings coverage</li>
+<li>Dividend and strategy news</li>
 </ul>
 </div>
 </div>
-<p>All stored in <code>magnolia/</code> as clean, structured text.</p>
+<p>All stored as clean, structured text. Browse the full corpus: <a href="https://www.dropbox.com/scl/fo/jt8ku19ayl3czpkps6rth/AEmCwM9c4cyJWbdfpuNwPWA?rlkey=a5htizvzhv59vsd90wa2tf0q2&amp;dl=0" target="_blank">Magnolia Documents (Dropbox)</a></p>
 </section>
-<section id="corpus-file-structure" class="slide level2 center">
+<section id="corpus-file-structure" class="slide level2 shrink center">
 <h2>Corpus File Structure</h2>
 <pre><code>magnolia/
-├── 10k/
-│   ├── mgy-10k-2019.htm ... mgy-10k-2025.htm    (raw EDGAR HTML)
-│   └── extracted/
-│       ├── mgy-2019-mda.md ... mgy-2025-mda.md
-│       ├── mgy-2019-risk-factors.md ... mgy-2025-risk-factors.md
-│       └── mgy-2019-financial-statements.md ... mgy-2025-financial-statements.md
-├── transcripts/
-│   ├── mgy-q2-2019-earnings.md ... mgy-q3-2025-earnings.md    (6 transcripts)
-│   └── mgy-q2-2020-press-release.md ... mgy-q4-2025-press-release.md  (21 PRs)
-└── news/
-    └── (articles)</code></pre>
+├── 10k/                        7 raw HTML + extracted/
+│   └── extracted/              mda, risk-factors, financial-statements
+│                               (7 × 3 = 21 markdown files)
+├── transcripts/                6 earnings + 21 press releases (27 files)
+└── news/                       10 articles from financial media</code></pre>
 </section>
 <section id="key-techniques-summary" class="slide level2 center">
 <h2>Key Techniques Summary</h2>
@@ -812,7 +847,38 @@ flowchart TD
 <li>EDGAR HTML is messy — XBRL tags and inline styles require serious parsing</li>
 </ul>
 </section>
-<section id="summary" class="slide level2 center">
+<section id="exercises" class="slide level2 section-divider center">
+<h2>Exercises</h2>
+</section>
+<section id="exercise-1-scrape-a-wikipedia-table" class="slide level2 center">
+<h2>Exercise 1: Scrape a Wikipedia Table</h2>
+<p>Use <code>pd.read_html</code> to extract the S&amp;P 500 company list from Wikipedia. Save it as an Excel file. How many sectors are represented? Which sector has the most companies?</p>
+</section>
+<section id="exercise-2-build-a-mini-corpus" class="slide level2 center">
+<h2>Exercise 2: Build a Mini Corpus</h2>
+<p>Pick a public company of your choice. Using Claude Code:</p>
+<ol type="1">
+<li>Ask Claude Code to find the company’s CIK on EDGAR (it can use <code>https://www.sec.gov/files/company_tickers.json</code>)</li>
+<li>Download the most recent 10-K using the EDGAR Submissions API</li>
+<li>Ask Claude to extract the MD&amp;A section and save it as markdown</li>
+<li>Find and save 3 news articles about the company using WebSearch + WebFetch</li>
+</ol>
+<p>Submit: the four markdown files and a brief note on what worked and what was hard.</p>
+</section>
+<section id="exercise-3-adapt-to-your-group-project-company" class="slide level2 center">
+<h2>Exercise 3: Adapt to Your Group Project Company</h2>
+<p>For the company your group is analyzing, collect:</p>
+<ul>
+<li>The 3 most recent 10-K filings from EDGAR</li>
+<li>At least 2 earnings call transcripts or press releases (from Motley Fool, EDGAR 8-K Exhibit 99.1, or transcribed from IR audio)</li>
+<li>5+ news articles</li>
+</ul>
+<p>This corpus will be used in Module 11 (RAG) exercises. Store everything in a <code>corpus/</code> folder in your project. The Magnolia extraction scripts in <code>magnolia/10k/</code> can serve as a reference.</p>
+</section>
+<section id="summary" class="slide level2 section-divider center">
+<h2>Summary</h2>
+</section>
+<section id="summary-1" class="slide level2 mermaid-compact center">
 <h2>Summary</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
 <div class="cell-output-display">
@@ -840,6 +906,11 @@ flowchart LR
 </div>
 </div>
 <p>Web scraping is fundamentally a <span class="amber">data engineering</span> problem: finding sources, downloading documents, parsing messy formats, and converting everything to clean, structured text that AI tools can work with.</p>
+</section>
+<section id="whats-next" class="slide level2 center">
+<h2>What’s Next</h2>
+<p>In <span class="amber">Module 11 (RAG)</span>, we will feed this Magnolia corpus to an AI retrieval system that can answer questions grounded in the actual documents — citing specific passages from 10-Ks, transcripts, and news articles.</p>
+<p>The quality of RAG output depends entirely on the quality of the corpus. <span class="amber">What you scrape determines what AI can find.</span></p>
 
 
 </section>

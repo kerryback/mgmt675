@@ -83,7 +83,11 @@ while d <= date(2025, 4, 30):
     except Exception:
         pass  # not a reporting date --- skip it
     d += timedelta(days=1)
+```
 
+## Automating FINRA Downloads (cont.)
+
+```python
 df = pd.concat(frames)
 df.to_csv("finra_short_interest.csv", index=False)
 ```
@@ -167,12 +171,12 @@ Once configured, Claude Code can navigate pages, click links, fill forms, take s
 |----------|------|-----|
 | Static HTML table | `pd.read_html` | Simplest, fastest |
 | File download by URL pattern | `requests` / `curl` | Construct URLs, loop |
-| API with JSON responses | `requests` | Parse structured data |
+| API with JSON responses | `requests` | Parse structured data ([`requests`](https://docs.python-requests.org) is Python's standard HTTP library) |
 | JavaScript-rendered page | **Playwright** | Executes JS, sees rendered page |
 | Complex multi-step scraping | **Playwright MCP** | AI navigates and decides |
 | Login-protected content | **Playwright** or **MCP** | Handles authentication flows |
 
-For our Magnolia project, we used the EDGAR [API]{.amber} and [direct downloads]{.amber} where possible, avoiding the need for browser automation.
+As we'll see in the case study below, we used the EDGAR [API]{.amber} and [direct downloads]{.amber} where possible, avoiding the need for browser automation.
 
 ## Before You Scrape: Legal and Ethical Considerations
 
@@ -183,7 +187,7 @@ For our Magnolia project, we used the EDGAR [API]{.amber} and [direct downloads]
 - Check `robots.txt` before scraping any site
 - SEC EDGAR enforces a [10 requests/second]{.amber} rate limit --- exceed it and your IP gets blocked
 - Motley Fool and Seeking Alpha have terms of service restricting automated access
-- Copyrighted content (transcripts, articles) can be used for personal research but not redistributed
+- Fair use may protect limited use for research and education, but it depends on the specifics --- always check the site's Terms of Service
 :::
 
 :::{.card .card-light}
@@ -214,20 +218,19 @@ We want to collect a comprehensive set of financial documents for a single compa
 
 ## Why Magnolia?
 
-Magnolia is the ideal scraping target: filings are freely available on EDGAR, the business model (onshore E&P) is straightforward to value, and as a Houston-based small-cap, analyst coverage is thin enough that building your own research library adds genuine value.
-
-- **Public since 2018** --- 7 years of filings, enough for trend analysis
+- **Public since 2018** --- 7 years of filings on EDGAR, enough for trend analysis
 - **Houston-headquartered** --- relevant to Rice students
-- **Simple business model** --- onshore oil & gas, easy to understand financially
-- **Thin coverage** --- free transcript sources are spotty, so we need multiple techniques
+- **Simple business model** --- onshore oil & gas E&P, easy to understand financially
+- **Thin analyst coverage** --- free transcript sources are spotty, so we need multiple scraping techniques
+- In your group projects, you will pick your own company
 
-## Data Sources Overview
+## Data Sources Overview {.mermaid-small}
 
 ```{mermaid}
 %%| fig-width: 16
 %%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
 flowchart LR
-  EDGAR["<b>SEC EDGAR</b><br>10-Ks, 8-Ks"] --> CORPUS["<b>Document Library</b><br>48+ documents"]
+  EDGAR["<b>SEC EDGAR</b><br>10-Ks, 8-Ks"] --> CORPUS["<b>Document Library</b><br>58 documents"]
   MF["<b>Motley Fool</b><br>Transcripts"] --> CORPUS
   IR["<b>Company IR</b><br>Press releases"] --> CORPUS
   NEWS["<b>News Sites</b><br>Articles"] --> CORPUS
@@ -275,7 +278,7 @@ All downloaded as HTML directly from EDGAR.
 
 ## Step 2: Extracting Sections {.section-divider}
 
-## Parsing 10-K HTML with Python
+## Extracting 10-K Sections with Claude Code
 
 The raw EDGAR HTML files are cluttered with CSS, XBRL tags, and formatting. We asked Claude Code to extract three sections from each 10-K:
 
@@ -315,24 +318,37 @@ For each of the 7 fiscal years, we extracted:
 :::
 :::
 
-## Example: Extracted Financial Data (FY2025)
+## Example: Extracted Financial Data (FY2025) {.shrink}
 
 The output is clean markdown tables ready for AI analysis:
 
+:::{.two-col}
+::::{.column}
 ```
-| ASSETS                    | Dec 31, 2025 | Dec 31, 2024 |     | REVENUES         | 2025      | 2024      |
-|---------------------------|--------------|--------------|     |------------------|-----------|-----------|
-| Cash and equivalents      | $266,785     | $260,049     |     | Oil revenues     | $918,027  |$1,046,675 |
-| Total current assets      | 442,435      | 410,824      |     | NGL revenues     | 203,566   | 178,934   |
-| TOTAL ASSETS              | $2,903,092   | $2,820,835   |     | Total revenues   |1,311,845  |1,315,886  |
-|                           |              |              |     | NET INCOME       | 337,279   | 397,330   |
+| ASSETS             |     2025 |     2024 |
+|--------------------|----------|----------|
+| Cash & equiv.      | $266,785 | $260,049 |
+| Current assets     |  442,435 |  410,824 |
+| TOTAL ASSETS       |$2,903,092|$2,820,835|
 ```
+::::
+
+::::{.column}
+```
+| REVENUES           |     2025 |     2024 |
+|--------------------|----------|----------|
+| Oil revenues       | $918,027 |$1,046,675|
+| Total revenues     |1,311,845 |1,315,886 |
+| NET INCOME         |  337,279 |  397,330 |
+```
+::::
+:::
 
 *(In thousands. Full statements in `magnolia/10k/extracted/`)*
 
 ## Step 3: Earnings Calls {.section-divider}
 
-## Two Sources of Earnings Data
+## Two Sources of Earnings Data {.mermaid-small}
 
 ```{mermaid}
 %%| fig-width: 16
@@ -365,20 +381,16 @@ Full earnings call transcripts are hard to get for free:
 
 **Our approach**: Grab what's free from Motley Fool, fill gaps with EDGAR press releases --- or transcribe the audio yourself.
 
-## Option: Transcribe Company IR Audio
+## Option: Transcribe Company IR Audio {.shrink}
 
-Most companies post earnings call [audio webcasts]{.amber} on their investor relations page. If no free transcript exists, you can create your own.
+If no free transcript exists, you can transcribe the [audio webcast]{.amber} from the company's IR page. (We did not use this for Magnolia.)
 
 :::{.two-col}
 ::::{.column}
 **How it works**
 
-1. Download the audio file from the company's IR page (often an MP3 or linked webcast)
-2. Run it through a speech-to-text model
-3. The output is a full text transcript
-
 ```python
-# OpenAI's Whisper API
+# OpenAI's Whisper API ($0.006/min)
 from openai import OpenAI
 client = OpenAI()
 with open("earnings_call.mp3", "rb") as f:
@@ -386,35 +398,28 @@ with open("earnings_call.mp3", "rb") as f:
         model="whisper-1", file=f
     )
 ```
+
+Or run locally for free: `pip install openai-whisper`
 ::::
 
 ::::{.column}
-**Options**
+**What to know**
 
-- **OpenAI Whisper API** --- $0.006/min, fast, accurate
-- **Local Whisper** --- free, runs on your machine (`pip install openai-whisper`)
-- **AssemblyAI** --- speaker diarization (labels who is speaking)
-
-**Limitations**
-
-- Audio quality varies (phone lines, accents)
-- No speaker labels with basic Whisper (need diarization for Q&A attribution)
-- A 60-min call ≈ [8,000--12,000 words]{.amber} of transcript
+- **Whisper API** --- $0.006/min, fast, accurate
+- **Local Whisper** --- free, runs on your machine
+- **AssemblyAI** --- adds speaker labels (who said what)
+- Audio quality varies; no speaker labels with basic Whisper
+- A 60-min call produces [8,000--12,000 words]{.amber}
 ::::
 :::
 
 ## Fetching Transcripts from Motley Fool
 
-```python
-# WebFetch extracts the full transcript from Motley Fool
-# Example: Q3 2025 earnings call
-url = ("https://www.fool.com/earnings/call-transcripts/"
-       "2025/10/30/magnolia-oil-and-gas-mgy-earnings-transcript/")
-```
+:::{.info-box}
+*"Fetch the Magnolia Oil & Gas Q3 2025 earnings call transcript from Motley Fool (`https://www.fool.com/earnings/call-transcripts/2025/10/30/magnolia-oil-and-gas-mgy-earnings-transcript/`). Extract the full text and save it as `magnolia/transcripts/mgy-q3-2025-earnings.md`."*
+:::
 
-**What we captured**: prepared remarks, financial highlights, management guidance, and the full analyst Q&A.
-
-Example output: `magnolia/transcripts/mgy-q3-2025-earnings.md`
+Claude Code used WebFetch to download and clean the page, capturing prepared remarks, financial highlights, management guidance, and the full analyst Q&A.
 
 ## Fetching Press Releases from EDGAR
 
@@ -498,23 +503,17 @@ The final layer: news articles from financial media. Claude Code's [WebSearch an
 :::
 :::
 
-All stored in `magnolia/` as clean, structured text.
+All stored as clean, structured text. Browse the full corpus: [Magnolia Documents (Dropbox)](https://www.dropbox.com/scl/fo/jt8ku19ayl3czpkps6rth/AEmCwM9c4cyJWbdfpuNwPWA?rlkey=a5htizvzhv59vsd90wa2tf0q2&dl=0){target="_blank"}
 
-## Corpus File Structure
+## Corpus File Structure {.shrink}
 
 ```
 magnolia/
-├── 10k/
-│   ├── mgy-10k-2019.htm ... mgy-10k-2025.htm    (raw EDGAR HTML)
-│   └── extracted/
-│       ├── mgy-2019-mda.md ... mgy-2025-mda.md
-│       ├── mgy-2019-risk-factors.md ... mgy-2025-risk-factors.md
-│       └── mgy-2019-financial-statements.md ... mgy-2025-financial-statements.md
-├── transcripts/
-│   ├── mgy-q2-2019-earnings.md ... mgy-q3-2025-earnings.md    (6 transcripts)
-│   └── mgy-q2-2020-press-release.md ... mgy-q4-2025-press-release.md  (21 PRs)
-└── news/
-    └── (articles)
+├── 10k/                        7 raw HTML + extracted/
+│   └── extracted/              mda, risk-factors, financial-statements
+│                               (7 × 3 = 21 markdown files)
+├── transcripts/                6 earnings + 21 press releases (27 files)
+└── news/                       10 articles from financial media
 ```
 
 ## Key Techniques Summary
@@ -545,7 +544,36 @@ magnolia/
 - Company webcasts use JS-based players (the same JavaScript problem we saw with Tesla/EDGAR)
 - EDGAR HTML is messy --- XBRL tags and inline styles require serious parsing
 
-## Summary
+## Exercises {.section-divider}
+
+## Exercise 1: Scrape a Wikipedia Table
+
+Use `pd.read_html` to extract the S&P 500 company list from Wikipedia. Save it as an Excel file. How many sectors are represented? Which sector has the most companies?
+
+## Exercise 2: Build a Mini Corpus
+
+Pick a public company of your choice. Using Claude Code:
+
+1. Ask Claude Code to find the company's CIK on EDGAR (it can use `https://www.sec.gov/files/company_tickers.json`)
+2. Download the most recent 10-K using the EDGAR Submissions API
+3. Ask Claude to extract the MD&A section and save it as markdown
+4. Find and save 3 news articles about the company using WebSearch + WebFetch
+
+Submit: the four markdown files and a brief note on what worked and what was hard.
+
+## Exercise 3: Adapt to Your Group Project Company
+
+For the company your group is analyzing, collect:
+
+- The 3 most recent 10-K filings from EDGAR
+- At least 2 earnings call transcripts or press releases (from Motley Fool, EDGAR 8-K Exhibit 99.1, or transcribed from IR audio)
+- 5+ news articles
+
+This corpus will be used in Module 11 (RAG) exercises. Store everything in a `corpus/` folder in your project. The Magnolia extraction scripts in `magnolia/10k/` can serve as a reference.
+
+## Summary {.section-divider}
+
+## Summary {.mermaid-compact}
 
 ```{mermaid}
 %%| fig-width: 16
@@ -572,30 +600,3 @@ Web scraping is fundamentally a [data engineering]{.amber} problem: finding sour
 In [Module 11 (RAG)]{.amber}, we will feed this Magnolia corpus to an AI retrieval system that can answer questions grounded in the actual documents --- citing specific passages from 10-Ks, transcripts, and news articles.
 
 The quality of RAG output depends entirely on the quality of the corpus. [What you scrape determines what AI can find.]{.amber}
-
-## Exercises {.section-divider}
-
-## Exercise 1: Scrape a Wikipedia Table
-
-Use `pd.read_html` to extract the S&P 500 company list from Wikipedia. Save it as an Excel file. How many sectors are represented? Which sector has the most companies?
-
-## Exercise 2: Build a Mini Corpus
-
-Pick a public company of your choice. Using Claude Code:
-
-1. Find the company's CIK on EDGAR (search `https://efts.sec.gov/LATEST/search-index?q=COMPANY_NAME`)
-2. Download the most recent 10-K using the EDGAR Submissions API
-3. Ask Claude to extract the MD&A section and save it as markdown
-4. Find and save 3 news articles about the company using WebSearch + WebFetch
-
-Submit: the four markdown files and a brief note on what worked and what was hard.
-
-## Exercise 3: Adapt to Your Group Project Company
-
-For the company your group is analyzing, collect:
-
-- The 3 most recent 10-K filings from EDGAR
-- At least 2 earnings call transcripts (from Motley Fool, or transcribed from IR audio)
-- 5+ news articles
-
-This corpus will be used in Module 11 (RAG) exercises. Store everything in a `corpus/` folder in your project.
