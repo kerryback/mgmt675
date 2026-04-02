@@ -31,6 +31,7 @@ project:
     - files/*.html
     - files/*.docx
     - files/*.md
+    - slides/code/*.py
     - exercises/*.pdf
     - index-pdf.pdf
     - install/windows/windows-install.zip

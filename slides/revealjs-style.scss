@@ -359,9 +359,18 @@ $body-bg: $off-white;
   font-weight: 600 !important;
 }
 
+// ── Inline code ──
+.reveal code {
+  color: #e74c3c;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
 // ── Code blocks ──
 .reveal pre {
-  background: $dark-navy;
+  background: #272822;
   border-radius: 10px;
   padding: 1.2em 1.5em;
   font-size: 0.75em;
@@ -369,7 +378,7 @@ $body-bg: $off-white;
 }
 
 .reveal pre code {
-  color: #e2e8f0;
+  color: #f8f8f2;
   background: transparent;
 }
 
@@ -573,8 +582,8 @@ $body-bg: $off-white;
 
 // ── Code box (styled pseudocode) ──
 .code-box {
-  background: $dark-navy;
-  color: #e2e8f0;
+  background: #272822;
+  color: #f8f8f2;
   border-radius: 10px;
   padding: 1.2em 1.5em;
   font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;

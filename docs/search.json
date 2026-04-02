@@ -301,382 +301,312 @@
     "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo training required\n\n\n\nNotebookLM\n\nFree RAG without code\nInline citations\nAudio overviews\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence\n\n\n\n\nRAG gives AI knowledge it doesn’t have — grounded in your documents, with citations."
   },
   {
-    "objectID": "slides/m9-agents.html#the-api-building-custom-chatbots",
-    "href": "slides/m9-agents.html#the-api-building-custom-chatbots",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The API: Building Custom Chatbots",
-    "text": "The API: Building Custom Chatbots"
+    "objectID": "slides/m9-agents.html#overview",
+    "href": "slides/m9-agents.html#overview",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Overview",
+    "text": "Overview\n\nWeb apps, typically hosted on corporate intranets, share custom workflows across an organization without requiring software installs on everyone’s computer.\nCustom chatbots (which are web apps) route all traffic to a single LLM endpoint (API key), provide logging, and manage LLM behavior via the system prompt.\nAgents govern communication between an LLM and tools: databases, python environments, …"
   },
   {
-    "objectID": "slides/m9-agents.html#the-api-talking-to-an-llm-from-code",
-    "href": "slides/m9-agents.html#the-api-talking-to-an-llm-from-code",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The API: Talking to an LLM from Code",
-    "text": "The API: Talking to an LLM from Code\nAn API lets your code communicate with an LLM service over the internet.\n\n\nWhat You Need\n\nAn API key (authentication)\nThe anthropic Python package for Claude\nThe openai Python package for OpenAI and many other models\nA model name (e.g., claude-sonnet-4-20250514)\n\n\n\nGetting Your Key\n\nGo to console.anthropic.com\nCreate an API key under Settings\nAdd credit ($5 is plenty for the course)\n\n\n\n\nYour Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing."
+    "objectID": "slides/m9-agents.html#plan-for-today",
+    "href": "slides/m9-agents.html#plan-for-today",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Plan for Today",
+    "text": "Plan for Today\n\nGet an OpenRouter API key and make an API call to an LLM\nReview the structure of web apps and chatbots\nBuild and run a custom chatbot using OpenRouter and the LLM"
   },
   {
-    "objectID": "slides/m9-agents.html#the-model-landscape-openrouter",
-    "href": "slides/m9-agents.html#the-model-landscape-openrouter",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Model Landscape: OpenRouter",
-    "text": "The Model Landscape: OpenRouter\nOpenRouter is a marketplace that routes API calls to hundreds of models from dozens of providers — one account, one API key, any model.\n\nOne key for everything — OpenAI, Anthropic, Google, Meta, Mistral, and more; swap the model name without changing providers or billing accounts\nBilling flows through OpenRouter — providers bill OpenRouter; OpenRouter bills you. No separate OpenAI or Anthropic accounts needed.\nPricing transparency — cost per million input/output tokens shown for every model; compare before committing\n\n\nVisit openrouter.ai/models to see the full model landscape and pricing."
+    "objectID": "slides/m9-agents.html#anatomy-of-a-chatbot",
+    "href": "slides/m9-agents.html#anatomy-of-a-chatbot",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Anatomy of a Chatbot",
+    "text": "Anatomy of a Chatbot\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"prompts & replies\"| C[\"&lt;b&gt;💬 Chatbot&lt;/b&gt;\"]\n  C ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe chatbot sends three things to the LLM with each request:\n\nUser prompt — what you just typed\nSystem prompt — hidden instructions that define the LLM’s behavior\nConversation history — all prior messages, so the LLM has context"
   },
   {
-    "objectID": "slides/m9-agents.html#a-single-api-call",
-    "href": "slides/m9-agents.html#a-single-api-call",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "A Single API Call",
-    "text": "A Single API Call\n\nCalling the Anthropic API\nimport anthropic\n\nclient = anthropic.Anthropic(api_key=API_KEY)\n\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    messages=[\n        {\"role\": \"user\", \"content\": prompt}\n    ]\n)\nanswer = response.content[0].text"
+    "objectID": "slides/m9-agents.html#build-your-own-chatbot",
+    "href": "slides/m9-agents.html#build-your-own-chatbot",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Build Your Own Chatbot",
+    "text": "Build Your Own Chatbot\n\n\n1 Sign Up Create an OpenRouter account\n\n\n2 Chat Talk to a model in the browser\n\n\n3 API Key Get your key and save it\n\n\n4 Code Claude writes a script that calls a model\n\n\n5 App Claude builds a chatbot web app\n\n\n6 Customize Add a system prompt\n\n\n\nEach step builds on the last. By step 6 you will have a working chatbot app with a custom personality."
   },
   {
-    "objectID": "slides/m9-agents.html#conversation-history",
-    "href": "slides/m9-agents.html#conversation-history",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Conversation History",
-    "text": "Conversation History\n\nMessages Are a List of Dictionaries\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-20250514\",\n    max_tokens=1024,\n    system=\"You are a finance tutor...\",\n    messages=[\n        {\"role\": \"user\", \"content\": \"What is a P/E ratio?\"},\n        {\"role\": \"assistant\", \"content\": \"A P/E ratio is...\"},\n        {\"role\": \"user\", \"content\": \"How do I interpret it?\"}\n    ]\n)\n\n\nEach API call is independent — LLM has no memory\nYou must send the entire conversation history each time\nThe system prompt defines the agent’s behavior and available tools"
+    "objectID": "slides/m9-agents.html#what-is-openrouter",
+    "href": "slides/m9-agents.html#what-is-openrouter",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "What Is OpenRouter?",
+    "text": "What Is OpenRouter?\nOpenRouter is a marketplace that routes API calls to hundreds of models from dozens of providers — one account, one API key, any model.\n\nOne key for everything — OpenAI, Anthropic, Google, Meta, Mistral, Nvidia, and more\nFree models available — several high-quality models cost nothing\nPricing transparency — cost per million tokens shown for every model\n\n\nVisit openrouter.ai/models to browse available models and pricing."
   },
   {
-    "objectID": "slides/m9-agents.html#how-a-web-app-works",
-    "href": "slides/m9-agents.html#how-a-web-app-works",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "How a Web App Works",
-    "text": "How a Web App Works\nEvery web app has two parts that communicate over the internet.\n\n\nFrontend\n\nRuns in the user’s browser\nHTML, CSS, and JavaScript\nSends requests to the backend and displays results\nCannot safely hold API keys — source is visible to anyone\n\n\n\nBackend\n\nRuns on a server (your laptop counts during development)\nPython, Node.js, or any language\nHolds secrets (API keys, database credentials)\nReceives requests from the frontend, does the work, returns results\n\n\n\n\nFor a chatbot: browser sends the user’s message → backend calls the LLM API → backend returns the reply → browser displays it."
+    "objectID": "slides/m9-agents.html#step-1-sign-up-at-openrouter",
+    "href": "slides/m9-agents.html#step-1-sign-up-at-openrouter",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Step 1: Sign Up at OpenRouter",
+    "text": "Step 1: Sign Up at OpenRouter"
   },
   {
-    "objectID": "slides/m9-agents.html#fastapi",
-    "href": "slides/m9-agents.html#fastapi",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "FastAPI",
-    "text": "FastAPI"
+    "objectID": "slides/m9-agents.html#step-1-sign-up",
+    "href": "slides/m9-agents.html#step-1-sign-up",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Step 1: Sign Up",
+    "text": "Step 1: Sign Up\nGo to openrouter.ai and create an account.\n\nClick Sign Up (top right)\nYou can sign in with Google, GitHub, or email\nNo credit card needed — free models are available immediately"
   },
   {
-    "objectID": "slides/m9-agents.html#why-fastapi",
-    "href": "slides/m9-agents.html#why-fastapi",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Why FastAPI?",
-    "text": "Why FastAPI?\nFastAPI is a modern Python framework for building web backends.\n\n\nWhy FastAPI\n\nAsync-native — handles many requests concurrently\nMinimal boilerplate — a working API in under 20 lines\nAuto-generated interactive docs at /docs\nIndustry standard for Python APIs\n\n\n\nFor a Chatbot Backend\n\nOne endpoint receives the user’s message and conversation history\nBackend calls the Anthropic API with your server-side API key\nReturns the assistant’s reply to the browser\nKey never touches the frontend\n\n\n\n\nFastAPI is what sits between your chat interface and the LLM — it keeps credentials secure and handles the API calls."
+    "objectID": "slides/m9-agents.html#try-chatting",
+    "href": "slides/m9-agents.html#try-chatting",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Try Chatting",
+    "text": "Try Chatting\nGo to openrouter.ai/chat and start a conversation.\n\nSelect a free model — try Nvidia Nemotron 3 (free)\nAsk it a question: “What is a P/E ratio?”\nTry switching to a different model and asking the same question\nNotice how different models give different answers"
   },
   {
-    "objectID": "slides/m9-agents.html#when-pyodide-isnt-enough",
-    "href": "slides/m9-agents.html#when-pyodide-isnt-enough",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "When Pyodide Isn’t Enough",
-    "text": "When Pyodide Isn’t Enough\nPyodide HTML apps are self-contained and shareable, but they have limitations.\n\n\nPyodide: Client-Side Only\n\nCannot connect to live databases\nNo persistent storage between sessions\nAPI keys must be embedded (insecure)\nSingle user, single device\n\n\n\nFastAPI: Server-Side Power\n\nLive database connections\nPersistent storage\nSecure API key management via environment variables\nMulti-user access controls\n\n\n\n\nFastAPI gives you a real backend server where Python runs on the machine hosting the app."
+    "objectID": "slides/m9-agents.html#step-2-get-an-api-key",
+    "href": "slides/m9-agents.html#step-2-get-an-api-key",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Step 2: Get an API Key",
+    "text": "Step 2: Get an API Key"
   },
   {
-    "objectID": "slides/m9-agents.html#a-minimal-fastapi-app",
-    "href": "slides/m9-agents.html#a-minimal-fastapi-app",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "A Minimal FastAPI App",
-    "text": "A Minimal FastAPI App\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Hello World\"}\n\n@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int, q: str = None):\n    return {\"item_id\": item_id, \"q\": q}\nRun locally: uvicorn main:app --reload\nThe app is live at http://localhost:8000 with automatic docs at /docs."
+    "objectID": "slides/m9-agents.html#step-2-get-your-key",
+    "href": "slides/m9-agents.html#step-2-get-your-key",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Step 2: Get Your Key",
+    "text": "Step 2: Get Your Key\nGo to openrouter.ai/settings/keys and create an API key.\n\nClick Create Key\nGive it a name (e.g., “MGMT 675”)\nCopy the key and save it somewhere safe — you cannot view it again\nThe key starts with sk-or-..."
   },
   {
-    "objectID": "slides/m9-agents.html#exercise-build-a-fastapi-chatbot",
-    "href": "slides/m9-agents.html#exercise-build-a-fastapi-chatbot",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise: Build a FastAPI Chatbot",
-    "text": "Exercise: Build a FastAPI Chatbot\nAsk Claude Code:\n“Build a chatbot web app using FastAPI and the Anthropic API. The frontend should be a simple HTML page with a text input and a chat window. The backend should call Claude and maintain conversation history. Store the API key in a .env file.”\nThen:\n\nClaude Code creates the backend (main.py) and frontend (index.html)\nRun the server: uvicorn main:app --reload\nOpen http://localhost:8000 in your browser and chat\n\n\nThis is the same architecture used by every production chatbot. Claude Code writes all the code — your job is to test and refine it."
+    "objectID": "slides/m9-agents.html#step-3-call-a-model-from-python",
+    "href": "slides/m9-agents.html#step-3-call-a-model-from-python",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Step 3: Call a Model from Python",
+    "text": "Step 3: Call a Model from Python"
   },
   {
-    "objectID": "slides/m9-agents.html#try-these-system-prompts",
-    "href": "slides/m9-agents.html#try-these-system-prompts",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Try These System Prompts",
-    "text": "Try These System Prompts\nEdit the system prompt in your chatbot and ask the same question each time. See how the response changes.\n\n\nHaiku only\n“Respond to every message as a haiku (5-7-5 syllables), no matter how complex the question.”\n\n\nPirate\n“You are a pirate. Respond to every message in pirate dialect.”\n\n\n\n\nMedieval knight\n“You are a medieval knight. Respond to every message as if explaining it to a peasant in the 14th century.”\n\n\nSports announcer\n“You are a sports announcer. Describe everything the user says as if it’s the most exciting play in history.”\n\n\n\nThen try a finance-relevant system prompt: “You are a CFO. Answer every question in terms of its impact on cash flow and shareholder value.”"
+    "objectID": "slides/m9-agents.html#how-an-api-call-works",
+    "href": "slides/m9-agents.html#how-an-api-call-works",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "How an API Call Works",
+    "text": "How an API Call Works\nAn API lets your code talk to an LLM over the internet. OpenRouter provides an OpenAI-compatible API — the same code pattern works with any provider.\n\nWhat You Need\n\nThe openai Python package (works with OpenRouter, not just OpenAI)\nYour OpenRouter API key\nA model name (e.g., nvidia/nemotron-3-super-120b-a12b:free)"
   },
   {
-    "objectID": "slides/m9-agents.html#api-keys-never-in-code",
-    "href": "slides/m9-agents.html#api-keys-never-in-code",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "API Keys: Never in Code",
-    "text": "API Keys: Never in Code\nWhen calling external APIs like Anthropic, your key must never be in your code or repo.\n\n\nUser-Supplied Key (Client-Side)\n\nUser enters their key in a web form\nKey travels with each request\nRight when: each user has their own account\nExample: OpenAI’s ChatGPT interface\n\n\n\nServer-Side Key (Environment Variable)\n\nKey set on the server, never seen by users\nOne key serves all users\nRight when: you operate the service\nExample: Your deployed app calling Anthropic\n\n\n\n\nFor class exercises, user-supplied keys are simpler: no deployment setup needed."
+    "objectID": "slides/m9-agents.html#demo",
+    "href": "slides/m9-agents.html#demo",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo",
+    "text": "Demo\nAsk Claude Code:\n\nInstall the openai package. Then write a Python script that sends a message to  via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.\n\n\nSet your key first: export OPENROUTER_API_KEY=sk-or-...\nWatch Claude install the package, write the code, and run it\nTry changing the prompt or the model name and running again"
   },
   {
-    "objectID": "slides/m9-agents.html#in-class-exercise-investment-summary-tool",
-    "href": "slides/m9-agents.html#in-class-exercise-investment-summary-tool",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "In-Class Exercise: Investment Summary Tool",
-    "text": "In-Class Exercise: Investment Summary Tool"
+    "objectID": "slides/m9-agents.html#result",
+    "href": "slides/m9-agents.html#result",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Result",
+    "text": "Result\n\nCalling a Model via OpenRouter\nimport os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://openrouter.ai/api/v1\",\n    api_key=os.environ[\"OPENROUTER_API_KEY\"],\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-3-super-120b-a12b:free\",\n    messages=[\n        {\"role\": \"user\", \"content\": \"Explain a P/E ratio in two sentences.\"}\n    ],\n)\n\nprint(response.choices[0].message.content)"
   },
   {
-    "objectID": "slides/m9-agents.html#exercise-investment-summary-tool",
-    "href": "slides/m9-agents.html#exercise-investment-summary-tool",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise: Investment Summary Tool",
-    "text": "Exercise: Investment Summary Tool\nAsk Claude Code:\n*“Create a FastAPI app with two endpoints: 1. GET / serves an HTML form where the user enters a stock ticker and their Anthropic API key 2. POST /analyze accepts the ticker and API key, calls the Anthropic API asking for an investment summary, and returns the AI-generated analysis\nUse a user-supplied API key, not an environment variable.”*\nWhat this teaches: - Making HTTP requests from FastAPI to external APIs - Handling API keys securely (user-supplied pattern) - Serving HTML from FastAPI alongside JSON endpoints"
+    "objectID": "slides/m9-agents.html#step-4-build-a-chatbot-app",
+    "href": "slides/m9-agents.html#step-4-build-a-chatbot-app",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Step 4: Build a Chatbot App",
+    "text": "Step 4: Build a Chatbot App"
   },
   {
-    "objectID": "slides/m9-agents.html#the-agent-pattern",
-    "href": "slides/m9-agents.html#the-agent-pattern",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Agent Pattern",
-    "text": "The Agent Pattern"
+    "objectID": "slides/m9-agents.html#how-mobile-apps-and-web-apps-work",
+    "href": "slides/m9-agents.html#how-mobile-apps-and-web-apps-work",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "How Mobile Apps and Web Apps Work",
+    "text": "How Mobile Apps and Web Apps Work\nEvery app that connects to the internet has two parts that communicate over HTTP.\n\n\nFrontend (what the user sees)\n\nA web page in a browser\nA mobile app on a phone\nA desktop application\nWritten in JavaScript, Swift, Kotlin, etc.\n\n\n\nBackend (the server)\n\nRuns on a server (or your laptop during development)\nWritten in Python, Node.js, Java, Go — any language\nHolds secrets (API keys, database credentials)\nProcesses requests and returns results\n\n\n\n\nThe frontend and backend are separate programs. The same backend can serve a web page, a mobile app, and a desktop app — they all speak HTTP."
   },
   {
-    "objectID": "slides/m9-agents.html#agent-loop-pseudocode",
-    "href": "slides/m9-agents.html#agent-loop-pseudocode",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Agent Loop Pseudocode",
-    "text": "Agent Loop Pseudocode\n\nThe Agent’s Decision Loop\nwhile not done:\n    response = call_llm(messages, system_prompt, tools)\n\n    if response.has_tool_call:\n        result = execute_tool(response.tool_call)\n        messages.append(tool_result)\n    elif response.is_final:\n        done = True\n        return response.content\n\n\nThe agent is part LLM intelligence, part traditional programming."
+    "objectID": "slides/m9-agents.html#http-and-apis",
+    "href": "slides/m9-agents.html#http-and-apis",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "HTTP and APIs",
+    "text": "HTTP and APIs\nAn API is a set of HTTP endpoints that a server exposes — URLs that accept requests and return responses.\n\nGET / — retrieve the chat page\nPOST /chat — send a message, get a reply\nThe frontend calls these endpoints; the backend handles them\n\n\nHTTP defines a small set of verbs: GET (retrieve something), POST (send data), PUT (update), DELETE (remove). That’s basically it. Every web page, every API call, every app that touches the internet uses these same verbs over HTTP."
   },
   {
-    "objectID": "slides/m9-agents.html#claude-code-as-an-agent-harness",
-    "href": "slides/m9-agents.html#claude-code-as-an-agent-harness",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Claude Code as an Agent Harness",
-    "text": "Claude Code as an Agent Harness\nThe pseudocode shows the logic. A harness is the infrastructure that actually runs that loop — and controls what the agent is allowed to do.\n\n\nRuntime Infrastructure\n\nMaintains conversation state across turns\nExecutes tool calls and captures results\nHandles errors so the agent can recover\nEnforces iteration and cost limits\n\n\n\nControl and Safety\n\nPermission system: which tools are allowed\nHuman-in-the-loop approval gates\nHooks: custom checks before/after actions\nAudit log of every action taken\n\n\n\n\nClaude Code is a complete harness — you supply the task; it handles the loop, tools, and guardrails."
+    "objectID": "slides/m9-agents.html#our-chatbots-architecture",
+    "href": "slides/m9-agents.html#our-chatbots-architecture",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Our Chatbot’s Architecture",
+    "text": "Our Chatbot’s Architecture\n\n\nFrontend (JavaScript in the browser)\n\nUser types a message and clicks Send\nJavaScript sends an HTTP POST to /chat\nReceives the reply and displays it on screen\n\n\n\nBackend (Python with FastAPI)\n\nReceives the POST request with the user’s message\nCalls the LLM via the OpenRouter API\nReturns the LLM’s reply as JSON\n\n\n\n\nBrowser sends the user’s message → backend calls the LLM → backend returns the reply → browser displays it."
   },
   {
-    "objectID": "slides/m9-agents.html#the-real-agent-loop",
-    "href": "slides/m9-agents.html#the-real-agent-loop",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Real Agent Loop",
-    "text": "The Real Agent Loop\n\nA Production-Grade Loop\niteration = 0\nwhile iteration &lt; max_turns:\n    response = call_llm(messages, system_prompt, tools)\n    messages.append(response)             # Maintain full history\n\n    if response.stop_reason == \"end_turn\":\n        return response.text              # Task complete\n\n    for tool_call in response.tool_uses:\n        if needs_approval(tool_call):     # Human-in-the-loop\n            if not ask_user(tool_call):\n                break                     # User blocked the action\n        try:\n            result = execute(tool_call)\n        except Exception as e:\n            result = f\"Error: {e}\"        # Agent sees error and recovers\n        messages.append(tool_result(result))\n\n    iteration += 1\nraise MaxIterationsError(\"Did not complete\")"
+    "objectID": "slides/m9-agents.html#demo-1",
+    "href": "slides/m9-agents.html#demo-1",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo",
+    "text": "Demo\nAsk Claude Code:\n\nCreate a FastAPI app with a chatbot interface that chats with a model of your choice using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.\n\n\nClaude creates the backend and frontend in one file\nThe app runs at http://localhost:8000\nGo to that URL in your browser and chat"
   },
   {
-    "objectID": "slides/m9-agents.html#claude-codes-four-harness-layers",
-    "href": "slides/m9-agents.html#claude-codes-four-harness-layers",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Claude Code’s Four Harness Layers",
-    "text": "Claude Code’s Four Harness Layers\n\n\nCLAUDE.md\nInjected as the system prompt. Defines the agent’s persona, project context, and behavioral rules before any user message is sent.\n\n\nPermissions\nControls which tools and file paths the agent can access. Separate allow/deny lists for bash commands, file writes, and network calls.\n\n\n\n\nHooks\nShell commands that fire automatically at agent lifecycle events: before a tool runs, after it completes, or when the agent stops.\n\n\nIteration Limits\n--max-turns caps how many steps the agent takes. Prevents runaway loops and controls API spend."
+    "objectID": "slides/m9-agents.html#result-1",
+    "href": "slides/m9-agents.html#result-1",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Result",
+    "text": "Result"
   },
   {
-    "objectID": "slides/m9-agents.html#replacing-dashboards",
-    "href": "slides/m9-agents.html#replacing-dashboards",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Replacing Dashboards",
-    "text": "Replacing Dashboards"
+    "objectID": "slides/m9-agents.html#step-5-add-a-system-prompt",
+    "href": "slides/m9-agents.html#step-5-add-a-system-prompt",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Step 5: Add a System Prompt",
+    "text": "Step 5: Add a System Prompt"
   },
   {
-    "objectID": "slides/m9-agents.html#the-dashboard-trap",
-    "href": "slides/m9-agents.html#the-dashboard-trap",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Dashboard Trap",
-    "text": "The Dashboard Trap\nOrganizations spend millions building dashboards. When a new question arises, the cycle restarts: requirements –&gt; design –&gt; build –&gt; deploy.\n\n\nThe Typical Dashboard Lifecycle\n\nBusiness user requests a report\nTeam builds queries, charts, and deploys\nUser asks a follow-up — back to step 1\n\n\n\nThe Cost\n\nTime: Weeks to months per dashboard\nMoney: BI licenses, engineering hours, maintenance\nRigidity: Fixed views of fixed data\n\nGartner: only 20% of analytic insights deliver business outcomes."
+    "objectID": "slides/m9-agents.html#the-system-prompt",
+    "href": "slides/m9-agents.html#the-system-prompt",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "The System Prompt",
+    "text": "The System Prompt\nThe system prompt is what turns a generic LLM into a specialized chatbot. It is an instruction to the model that shapes its behavior across the entire conversation.\n\n\nWithout a System Prompt\n\nModel uses its default persona\nGeneric, helpful responses\nNo domain specialization\n\n\n\nWith a System Prompt\n\nModel adopts a specific role or personality\nResponses are shaped by the instruction\nSame question, very different answers"
   },
   {
-    "objectID": "slides/m9-agents.html#the-fundamental-problem",
-    "href": "slides/m9-agents.html#the-fundamental-problem",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Fundamental Problem",
-    "text": "The Fundamental Problem\nDashboards answer pre-defined questions. But the most valuable analysis comes from ad-hoc questions that arise in the moment.\n\n“What happened to margins in the Southeast last quarter?”\n“Show me our top 10 customers by growth rate, excluding one-time orders”\n“Compare Q3 headcount vs. budget by department, and flag anyone over 110%”\n\n\nThese are simple questions. Getting answers shouldn’t require a development cycle."
+    "objectID": "slides/m9-agents.html#demo-2",
+    "href": "slides/m9-agents.html#demo-2",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo",
+    "text": "Demo\nAsk Claude Code:\n\n“Add a system prompt to the chatbot app that says ‘Talk like a pirate.’ Restart the app.”\n\n\nAsk the chatbot the same question as before\nTry others, e.g., Respond to every message as a haiku (5-7-5 syllables).\n\n\nYou would get the same behavior by just pasting the system prompt into the chat window. Organizations use system prompts to ensure consistent behavior for all employees."
   },
   {
-    "objectID": "slides/m9-agents.html#the-shift-from-dashboards-to-conversations",
-    "href": "slides/m9-agents.html#the-shift-from-dashboards-to-conversations",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Shift: From Dashboards to Conversations",
-    "text": "The Shift: From Dashboards to Conversations\n\n\nTraditional Dashboard\n\nClick filters and select dates to query\nAnswers take minutes to weeks\nFollow-ups require a new dashboard request\n\n\nNatural Language AI\n\nAsk in plain English\nAnswers in seconds\nFollow-ups are the next sentence\n\n\n\nThe dashboard was a workaround for the fact that databases don’t speak English. Now they do."
+    "objectID": "slides/m9-agents.html#result-2",
+    "href": "slides/m9-agents.html#result-2",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Result",
+    "text": "Result"
   },
   {
-    "objectID": "slides/m9-agents.html#what-this-looks-like-in-practice",
-    "href": "slides/m9-agents.html#what-this-looks-like-in-practice",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "What This Looks Like in Practice",
-    "text": "What This Looks Like in Practice\n\n\n\nThe Conversation\n\n“Show me monthly revenue by product line for 2025”\nAI: writes SQL, produces grouped bar chart\n“Break out Enterprise by region”\nAI: refines query, updates chart\n\n\n\nWhat the User Needed to Know\n\nWhat questions to ask\nWhether the answers make sense\nNothing else\n\nBehind the Scenes\n\n4 different SQL queries written\n3 visualizations produced\nDerived metrics calculated"
+    "objectID": "slides/m9-agents.html#deployment",
+    "href": "slides/m9-agents.html#deployment",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Deployment",
+    "text": "Deployment"
   },
   {
-    "objectID": "slides/m9-agents.html#the-database-agent-pattern",
-    "href": "slides/m9-agents.html#the-database-agent-pattern",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Database Agent Pattern",
-    "text": "The Database Agent Pattern\nThe most powerful dashboard replacement: an AI agent connected to your database.\n\n\nHow to Build It\n\nConnect database via MCP or file upload\nGive AI the schema: table names, columns, relationships\nDescribe the business context\nStart asking questions\n\n\n\nWhat the Agent Can Do\n\nWrite and execute SQL queries\nCompute derived metrics (growth rates, ratios)\nGenerate charts and export to Excel or PowerPoint"
+    "objectID": "slides/m9-agents.html#deploy-from-your-computer",
+    "href": "slides/m9-agents.html#deploy-from-your-computer",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Deploy From Your Computer",
+    "text": "Deploy From Your Computer\n\nngrok creates a public URL for an app running on your machine. Your app stays on your computer\nngrok opens a tunnel to ngrok’s servers, which accept public requests and forward them to your machine.\nPaid Tiers ($8–$25+/month)\n\nAccess-controlled deployment platform\nMultiple simultaneous tunnels\nCustom domains (your own domain name)"
   },
   {
-    "objectID": "slides/m9-agents.html#replacing-dashboards-fpa-and-treasury",
-    "href": "slides/m9-agents.html#replacing-dashboards-fpa-and-treasury",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Replacing Dashboards: FP&A and Treasury",
-    "text": "Replacing Dashboards: FP&A and Treasury\n\n\nFP&A\n\n“Budget vs. actual for Q3, decompose the variance into volume, price, and cost drivers”\n“Rolling 12-month revenue forecast with confidence bands”\n\n\n\nTreasury & Risk\n\n“Cash position over the next 90 days using AR/AP forecasts”\n“VaR by desk for the last 30 days, flag breaches”\n\n\n\n\nEach of these would take a BI team days to build. With a database agent, they take seconds."
+    "objectID": "slides/m9-agents.html#demo-3",
+    "href": "slides/m9-agents.html#demo-3",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo",
+    "text": "Demo\n\nCreate an account at ngrok.com\nInstall: Windows: winget install ngrok / Mac: brew install ngrok\nAuthenticate: ngrok config add-authtoken &lt;TOKEN&gt;\nExpose your app: ngrok http 8000"
   },
   {
-    "objectID": "slides/m9-agents.html#replacing-dashboards-portfolio-and-executive",
-    "href": "slides/m9-agents.html#replacing-dashboards-portfolio-and-executive",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Replacing Dashboards: Portfolio and Executive",
-    "text": "Replacing Dashboards: Portfolio and Executive\n\n\nPortfolio Management\n\n“Sector allocation vs. benchmark with active weights”\n“Performance attribution — allocation vs. selection”\n\n\n\nExecutive Reporting\n\n“One-page executive summary with KPIs and trends”\n“Board deck from this quarter’s financials — 5 slides max”\n\n\n\n\nThe AI doesn’t replace the analyst’s judgment — it replaces the mechanical work of pulling data and building charts."
+    "objectID": "slides/m9-agents.html#cloud-deployment",
+    "href": "slides/m9-agents.html#cloud-deployment",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Cloud Deployment",
+    "text": "Cloud Deployment\nTwo types of hosts:\n\n\nPaaS (Platform as a Service)\n\nRailway, Render, Koyeb, Heroku\nPush your code, they handle servers, scaling, and SSL\nSimplest path for individuals and small teams\nThe Rice Data Portal runs on Koyeb\n\n\n\nIaaS (Infrastructure as a Service)\n\nAWS, Azure, Google Cloud\nYou manage VMs, containers, networking, load balancers\nWhere large organizations deploy internal tools with full security controls"
   },
   {
-    "objectID": "slides/m9-agents.html#the-weekly-ops-review-before-and-after",
-    "href": "slides/m9-agents.html#the-weekly-ops-review-before-and-after",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Weekly Ops Review — Before and After",
-    "text": "The Weekly Ops Review — Before and After\n\n\nBefore: The Dashboard Era\n\nData team pulls exports and builds slides (6+ hrs)\nManager reviews and revises (3 hrs)\nVP asks a question — “We’ll get back to you next week”\n\nTotal: 9+ hours per week\n\n\nAfter: Natural Language AI\n\nAI agent generates ops review (3 min)\nManager reviews and iterates in chat\nVP asks a question — AI answers in 10 seconds\n\nTotal: 15 minutes + live Q&A"
+    "objectID": "slides/m9-agents.html#deploy-with-railway",
+    "href": "slides/m9-agents.html#deploy-with-railway",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Deploy with Railway",
+    "text": "Deploy with Railway\nRailway is the simplest of the PaaS hosts.\n\nCreate an account at railway.com (free trial gives $5 credit)\nInstall the Railway CLI: npm install -g @railway/cli\nLog in from a regular terminal (not Claude Code): railway login --browserless — follow the link to authorize the CLI for all projects\nAsk Claude: “Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”\n\n\nThe Railway CLI requires npm (Node.js package manager). If npm is not installed, ask Claude: “Install Node.js and npm on my machine.”"
   },
   {
-    "objectID": "slides/m9-agents.html#the-reporting-pipeline",
-    "href": "slides/m9-agents.html#the-reporting-pipeline",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Reporting Pipeline",
-    "text": "The Reporting Pipeline"
+    "objectID": "slides/m9-agents.html#agents",
+    "href": "slides/m9-agents.html#agents",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Agents",
+    "text": "Agents"
   },
   {
-    "objectID": "slides/m9-agents.html#five-steps-from-query-to-report",
-    "href": "slides/m9-agents.html#five-steps-from-query-to-report",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Five Steps from Query to Report",
-    "text": "Five Steps from Query to Report\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;Database&lt;br/&gt;Query&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;Transform&lt;br/&gt;& Compute&lt;/b&gt;\"]\n  B --&gt; C[\"&lt;b&gt;Charts &&lt;br/&gt;Tables&lt;/b&gt;\"]\n  C --&gt; D[\"&lt;b&gt;AI&lt;br/&gt;Narrative&lt;/b&gt;\"]\n  D --&gt; E[\"&lt;b&gt;PowerPoint&lt;br/&gt;Output&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style B fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style E fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nFrom raw data to polished deck — no copy-paste, no formatting, no manual writing."
+    "objectID": "slides/m9-agents.html#anatomy-of-an-agent",
+    "href": "slides/m9-agents.html#anatomy-of-an-agent",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Anatomy of an Agent",
+    "text": "Anatomy of an Agent\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;👤 User&lt;/b&gt;\"] ---|\"request & result\"| A[\"&lt;b&gt;🤖 Agent&lt;/b&gt;\"]\n  A ---|\"API calls\"| L[\"&lt;b&gt;🧠 LLM&lt;/b&gt;\"]\n  A ---|\"executes\"| T[\"&lt;b&gt;🔧 Tool&lt;/b&gt;\"]\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px\n\n  linkStyle default stroke:#3b82f6,stroke-width:4px\n\n\n\n\n\n\n\nThe agent programmatically controls communication between the LLM and the tool. The system prompt includes “You have a tool …” so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user."
   },
   {
-    "objectID": "slides/m9-agents.html#building-it-with-your-coding-agent",
-    "href": "slides/m9-agents.html#building-it-with-your-coding-agent",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Building It with Your Coding Agent",
-    "text": "Building It with Your Coding Agent\nYou do not need to write this by hand. Give your coding agent a single prompt:\n\n“Build an app that connects to a database. When the user selects a report and clicks Generate, run the SQL query, create a chart, write a three-sentence executive summary, and assemble a three-slide PowerPoint (title, chart, findings). Show the chart and summary on screen with a download button for the PowerPoint file.”\n\n\nYour job is not to write the code. Your job is to test the result, refine the prompt, and iterate until the output meets your standards."
+    "objectID": "slides/m9-agents.html#example-the-data-portal-agent",
+    "href": "slides/m9-agents.html#example-the-data-portal-agent",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Example: The Data Portal Agent",
+    "text": "Example: The Data Portal Agent\nThe Rice Business Stock Market Data Portal lets users query a stock market database in plain English.\n\n\nArchitecture\n\nFrontend: browser chat interface\nBackend: Python (Flask) on Koyeb\nLLM: GPT-5-mini via OpenAI API (falls back to GPT-4.1 for large queries)\nDatabase: DuckDB with 6 tables of stock market data\nTool: SQL query execution against the database\n\n\n\nHow It Works\n\nUser asks: “Show me Apple’s revenue for the last 5 years”\nLLM generates a SQL query based on the system prompt\nApp executes the query against DuckDB\nData is returned\nUser asks a follow-up — the loop continues"
   },
   {
-    "objectID": "slides/m9-agents.html#building-the-pipeline-with-streamlit",
-    "href": "slides/m9-agents.html#building-the-pipeline-with-streamlit",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Building the Pipeline with Streamlit",
-    "text": "Building the Pipeline with Streamlit\nStreamlit turns a Python script into a web app in minutes. Combined with an AI pipeline, it becomes a self-service reporting tool.\n\n\nUser Interface\n\nDropdown: select time period, department, or metric\nButton: “Generate Report”\nDownload: auto-generated .pptx file\n\n\n\nBehind the Scenes\n\nQuery database for selected parameters\nCompute metrics and build charts\nSend chart data to LLM for narrative\nAssemble PowerPoint with python-pptx\n\n\n\n\nThe user clicks one button and gets a polished deck. No analyst needed."
+    "objectID": "slides/m9-agents.html#what-makes-it-an-agent",
+    "href": "slides/m9-agents.html#what-makes-it-an-agent",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "What Makes It an Agent?",
+    "text": "What Makes It an Agent?\nThe chatbot is more than a simple LLM wrapper — it has a tool (the database) and an agent loop (LLM ↔︎ tool interaction across multiple rounds).\n\nThe LLM decides what SQL to write based on the user’s question\nThe app executes the SQL and returns results to the LLM\nIf the query fails, the LLM sees the error and tries again\n\n\nThe intelligence comes from the LLM. The system prompt is what makes it useful."
   },
   {
-    "objectID": "slides/m9-agents.html#example-monthly-ops-review-pipeline",
-    "href": "slides/m9-agents.html#example-monthly-ops-review-pipeline",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Example: Monthly Ops Review Pipeline",
-    "text": "Example: Monthly Ops Review Pipeline\n\n\nWhat the Pipeline Produces\n\nTitle slide, KPI summary table, and trend charts\nVariance waterfall (budget vs. actual)\nAI-generated executive summary\n\n\nTime Comparison\n\nManual: 6–8 hours per month (data pull, Excel, copy-paste into PowerPoint, write narrative)\nPipeline: 30 seconds per run\nROI: First month pays for the build time"
+    "objectID": "slides/m9-agents.html#the-data-agents-system-prompt",
+    "href": "slides/m9-agents.html#the-data-agents-system-prompt",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "The Data Agent’s System Prompt",
+    "text": "The Data Agent’s System Prompt\nThe system prompt is a 61-rule instruction manual that tells the LLM how to behave.\n\n\nWhat It Contains\n\nFull database schema with sample rows\nQuery examples (few-shot learning)\nDate handling rules (e.g., all dates are VARCHAR)\nFinancial domain knowledge (dimensions, units)\nAvailable industries, sectors, and size categories\n\n\n\nGuardrails\n\nOnly SELECT statements allowed\nMust ask for clarification when ambiguous\nMust verify table/column names exist before querying\nStructured JSON output for machine parsing\nError recovery without apologies\n\n\n\n\nDownload the full system prompt to see how a production agent is configured."
   },
   {
-    "objectID": "slides/m9-agents.html#automated-powerpoint-with-python-pptx",
-    "href": "slides/m9-agents.html#automated-powerpoint-with-python-pptx",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Automated PowerPoint with python-pptx",
-    "text": "Automated PowerPoint with python-pptx\npython-pptx is a Python library for creating and editing PowerPoint files programmatically.\n\n\nWhat It Can Do\n\nCreate slides from templates\nInsert charts, tables, and images\nApply corporate formatting (fonts, colors, logos)\nPopulate placeholders with live data\n\n\n\nThe AI Advantage\n\nAI writes the python-pptx code for you\nTell Claude: “Create a 5-slide deck from this data with a waterfall chart on slide 3”\nAI handles layout, formatting, and data binding\n\n\n\n\nYou describe the deck; AI builds the automation. The pipeline runs unattended after that."
+    "objectID": "slides/m9-agents.html#building-apps",
+    "href": "slides/m9-agents.html#building-apps",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Building Apps",
+    "text": "Building Apps"
   },
   {
-    "objectID": "slides/m9-agents.html#orchestration",
-    "href": "slides/m9-agents.html#orchestration",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Orchestration",
-    "text": "Orchestration"
+    "objectID": "slides/m9-agents.html#building-apps-1",
+    "href": "slides/m9-agents.html#building-apps-1",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Building Apps",
+    "text": "Building Apps\n\nYou know how to create chatbots with Claude, so you can create other things too.\nFor example, a mean-variance app\nDeploy with ngrok or Railway"
   },
   {
-    "objectID": "slides/m9-agents.html#the-orchestration-layer",
-    "href": "slides/m9-agents.html#the-orchestration-layer",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Orchestration Layer",
-    "text": "The Orchestration Layer\nThe agent’s control logic can route different tasks to different models and prompts.\n\n\nDifferent Prompts\n\nSQL generation –&gt; database schema prompt\nPython analysis –&gt; data science prompt\nEach task gets specialized instructions\n\n\n\nDifferent Models\n\nSimple classification –&gt; fast, cheap model\nComplex reasoning –&gt; powerful model\nCost and speed optimization\n\n\n\n\nSub-agents: dispatch specialized workers for parallel tasks. This is what Cowork does with its parallel VMs."
+    "objectID": "slides/m9-agents.html#demo-4",
+    "href": "slides/m9-agents.html#demo-4",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo",
+    "text": "Demo\nAsk Claude:\nBuild a FastAPI mean-variance app that allows user input of parameters. Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line. Put the mean, standard deviation, and portfolio allocation in the hover data. Deploy it on Railway."
   },
   {
-    "objectID": "slides/m9-agents.html#sandboxed-execution",
-    "href": "slides/m9-agents.html#sandboxed-execution",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Sandboxed Execution",
-    "text": "Sandboxed Execution"
+    "objectID": "slides/m9-agents.html#claude-skills",
+    "href": "slides/m9-agents.html#claude-skills",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Claude Skills",
+    "text": "Claude Skills"
   },
   {
-    "objectID": "slides/m9-agents.html#development-vs.-production",
-    "href": "slides/m9-agents.html#development-vs.-production",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Development vs. Production",
-    "text": "Development vs. Production\n\n\nDevelopment (Your Laptop)\n\nAgent runs in your environment\nFull access to your files\nFine for prototyping\n\n\n\nProduction\n\nAgent runs in a container (Docker)\nIsolated, disposable environment\nRead-only database access\n\n\n\n\nA container is a disposable, isolated computing environment. A bug in AI-generated code cannot affect your other files, your database, or your network."
+    "objectID": "slides/m9-agents.html#skill-or-app",
+    "href": "slides/m9-agents.html#skill-or-app",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Skill or App?",
+    "text": "Skill or App?\n\nIf everyone on your team has Claude Code + Python, then you can share workflows as Claude skills.\nCreate apps for repeated, stable workflows.\nCreate skills for things that are closer to one-offs."
   },
   {
-    "objectID": "slides/m9-agents.html#the-sandbox-pattern",
-    "href": "slides/m9-agents.html#the-sandbox-pattern",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "The Sandbox Pattern",
-    "text": "The Sandbox Pattern\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;User&lt;/b&gt;\"] --&gt; A[\"&lt;b&gt;Agent&lt;/b&gt;\"]\n  A --&gt; S[\"&lt;b&gt;Sandboxed&lt;br&gt;Code&lt;/b&gt;\"]\n  S &lt;--&gt; DB[\"&lt;b&gt;Database&lt;br&gt;(read-only)&lt;/b&gt;\"]\n  S --&gt; R[\"&lt;b&gt;Report&lt;/b&gt;\"]\n  R --&gt; U\n\n  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n  style R fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px\n\n\n\n\n\n\n\nAgent plans and orchestrates; code runs in a sandboxed container\nContainer queries the database through a read-only connection\nFinished report flows back to the user"
+    "objectID": "slides/m9-agents.html#demo-part-1",
+    "href": "slides/m9-agents.html#demo-part-1",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo: Part 1",
+    "text": "Demo: Part 1\nAsk Claude:\nI want a python script that does mean-variance analysis using scipy.minimize It should ensure all needed libraries are installed. It should prompt the user for the number of assets and parameters including the risk-free rate. Assume no short sales are allowed. The script should output the tangency portfolio and produce two plots (one with Plotly rendered to html and one with Matplotlib rendered to png) showing the risky assets, the efficient frontier, the tangency portfolio, and the capital allocation line. For plotly, put mean, standard deviation, and the portfolio allocation in the hover data. I want the script to cause the html and png files to open."
   },
   {
-    "objectID": "slides/m9-agents.html#from-prototype-to-production",
-    "href": "slides/m9-agents.html#from-prototype-to-production",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "From Prototype to Production",
-    "text": "From Prototype to Production\nThe reporting app on your laptop is a prototype. Moving it to production adds infrastructure, not intelligence.\n\nAuthentication: SSO so only authorized users can generate reports\nScheduling: weekly reports generated automatically\nLogging: every query and LLM call recorded for compliance\nRead-only credentials: the agent cannot modify data\n\n\nThe pipeline you prototyped is the same artifact that powers the production tool. IT wraps it in infrastructure; you provide the domain knowledge and the prompt."
+    "objectID": "slides/m9-agents.html#demo-part-2",
+    "href": "slides/m9-agents.html#demo-part-2",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo: Part 2",
+    "text": "Demo: Part 2\nAsk Claude:\nNow create a Claude skill that runs the script when the user enters /mean-variance. Create Mac and Windows installers for the plugin. Package them in zip files."
   },
   {
-    "objectID": "slides/m9-agents.html#deploying-on-railway",
-    "href": "slides/m9-agents.html#deploying-on-railway",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Deploying on Railway",
-    "text": "Deploying on Railway"
+    "objectID": "slides/m9-agents.html#demo-part-3-the-user",
+    "href": "slides/m9-agents.html#demo-part-3-the-user",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Demo: Part 3 (the User)",
+    "text": "Demo: Part 3 (the User)\nDownload the installer for your platform:\n\nWindows installer\nMac installer\n\nExtract the zip and double-click the .bat (Windows) or run the .sh (Mac). Then invoke the skill with /mean-variance in Claude Code."
   },
   {
-    "objectID": "slides/m9-agents.html#deployment-options",
-    "href": "slides/m9-agents.html#deployment-options",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Deployment Options",
-    "text": "Deployment Options\nWhere do production apps actually run?\n\nCorporate intranet / IT-managed — most common in practice; IT provides auth, logging, security compliance\nPaaS (Railway, Render, Koyeb) — self-service, minimal setup; ideal for prototypes and course projects\nIaaS (AWS, Azure, GCP) — full control, more complexity; where large-scale apps live\n\nFor this course: Railway — simplest path from git push to live URL."
+    "objectID": "slides/m9-agents.html#next",
+    "href": "slides/m9-agents.html#next",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Next",
+    "text": "Next"
   },
   {
-    "objectID": "slides/m9-agents.html#deploying-with-railway",
-    "href": "slides/m9-agents.html#deploying-with-railway",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Deploying with Railway",
-    "text": "Deploying with Railway\nThree steps to production:\n\nConnect GitHub repo — one-click OAuth\nRailway detects FastAPI — automatically configures Python environment\nEvery git push redeploys — watch the dashboard for live status\n\nThe Railway dashboard shows: - Live URL (updates automatically) - Build and runtime logs - Environment variables (for API keys) - Deploy history"
-  },
-  {
-    "objectID": "slides/m9-agents.html#demo-deploy-the-simple-app",
-    "href": "slides/m9-agents.html#demo-deploy-the-simple-app",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Demo: Deploy the Simple App",
-    "text": "Demo: Deploy the Simple App\nInstructor walkthrough:\n\nPush the loan payment FastAPI app to GitHub\nConnect repo to Railway\nWatch the build process in the Railway dashboard\nClick the live URL: https://your-app.railway.app/loan_payment?principal=300000&rate=0.065&years=30\n\nStudents see: the same app they ran locally, now live on the internet."
-  },
-  {
-    "objectID": "slides/m9-agents.html#demo-deploy-with-environment-variables",
-    "href": "slides/m9-agents.html#demo-deploy-with-environment-variables",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Demo: Deploy with Environment Variables",
-    "text": "Demo: Deploy with Environment Variables\nInstructor walkthrough:\n\nModify the investment summary app to use an environment variable:\nimport os\napi_key = os.environ.get(\"ANTHROPIC_API_KEY\")\nDeploy to Railway\nIn Railway dashboard → Variables, add ANTHROPIC_API_KEY\nThe app works without users supplying their own key\n\n\nThe API key lives only on Railway’s servers — never in code, never in GitHub, never seen by users."
-  },
-  {
-    "objectID": "slides/m9-agents.html#exercises",
-    "href": "slides/m9-agents.html#exercises",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercises",
-    "text": "Exercises"
-  },
-  {
-    "objectID": "slides/m9-agents.html#exercise-1-simple-fastapi-app",
-    "href": "slides/m9-agents.html#exercise-1-simple-fastapi-app",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise 1: Simple FastAPI App",
-    "text": "Exercise 1: Simple FastAPI App\nAsk Claude Code:\n“Create a FastAPI app with a single endpoint /loan_payment that accepts principal, rate, and years as query parameters and returns the monthly payment amount. Include instructions for running it locally.”\nSteps: 1. Create a new folder for the project 2. Ask Claude to build the FastAPI app 3. Run uvicorn main:app --reload 4. Test the endpoint in your browser: http://localhost:8000/loan_payment?principal=300000&rate=0.065&years=30"
-  },
-  {
-    "objectID": "slides/m9-agents.html#exercise-2-investment-summary-with-user-api-key",
-    "href": "slides/m9-agents.html#exercise-2-investment-summary-with-user-api-key",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise 2: Investment Summary with User API Key",
-    "text": "Exercise 2: Investment Summary with User API Key\nBuild a FastAPI app that takes a ticker and Anthropic API key from a web form, calls the Anthropic API, and displays an investment summary."
-  },
-  {
-    "objectID": "slides/m9-agents.html#exercise-3-multi-step-agent-workflow",
-    "href": "slides/m9-agents.html#exercise-3-multi-step-agent-workflow",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise 3: Multi-Step Agent Workflow",
-    "text": "Exercise 3: Multi-Step Agent Workflow\nGive Claude Code a single compound instruction that requires at least three steps.\nExample: “Fetch Apple’s quarterly revenue from the Rice Data Portal. Create a bar chart of the last 8 quarters. Write a one-paragraph executive summary. Save the chart and summary to a reports folder.”\n\nObserve the agent loop — how many distinct tool calls does the agent make?\nDoes it check its own work?\nIf the output is not right, refine your prompt and try again"
-  },
-  {
-    "objectID": "slides/m9-agents.html#exercise-4-workflow-decomposition",
-    "href": "slides/m9-agents.html#exercise-4-workflow-decomposition",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise 4: Workflow Decomposition",
-    "text": "Exercise 4: Workflow Decomposition\nConsider the task: “Prepare the quarterly business review for the CEO.”\n\nList the 5–7 steps a human analyst would take to complete this task\nFor each step, identify what tool the agent would use and what data it would need\nMark which steps need human approval before the agent continues\nWrite a single prompt that describes the full workflow for an agent"
-  },
-  {
-    "objectID": "slides/m9-agents.html#exercise-5-deploy-to-railway",
-    "href": "slides/m9-agents.html#exercise-5-deploy-to-railway",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise 5: Deploy to Railway",
-    "text": "Exercise 5: Deploy to Railway\nDeploy either app to Railway and submit the live URL."
-  },
-  {
-    "objectID": "slides/m9-agents.html#exercise-6-streamlit-app-with-the-anthropic-api",
-    "href": "slides/m9-agents.html#exercise-6-streamlit-app-with-the-anthropic-api",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Exercise 6: Streamlit App with the Anthropic API",
-    "text": "Exercise 6: Streamlit App with the Anthropic API\n\nGet an API key from console.anthropic.com\nAsk Claude Code to build a Streamlit app that:\n\nTakes a company ticker from the user\nSends a prompt to the Anthropic API asking for an investment summary\nDisplays the AI-generated summary on screen\n\nExtend: add a system prompt with specific analysis criteria (valuation, growth, risks)"
-  },
-  {
-    "objectID": "slides/m9-agents.html#later-course-integration-rag-with-fastapi",
-    "href": "slides/m9-agents.html#later-course-integration-rag-with-fastapi",
-    "title": "Module 9: Build and Deploy Agents",
-    "section": "Later Course Integration: RAG with FastAPI",
-    "text": "Later Course Integration: RAG with FastAPI\nIn Module 11 (RAG), a capstone exercise combines all concepts:\n“Build a FastAPI app where the user pastes a document and asks a question. The app chunks the document, embeds it with OpenAI, stores in ChromaDB, retrieves relevant chunks, and generates an answer via Anthropic’s API. The user supplies their own API keys.”\nThis ties together: FastAPI, external APIs, vector databases, and RAG — all in one deployable application."
+    "objectID": "slides/m9-agents.html#deloitte-canada",
+    "href": "slides/m9-agents.html#deloitte-canada",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Deloitte Canada",
+    "text": "Deloitte Canada\nRead Blazing New Trails: Responsible Generative AI and the Creative Adoption of a Large Language Model at Deloitte Canada for Tuesday."
   },
   {
     "objectID": "slides/m7-tips.html#what-weve-done",
@@ -1145,14 +1075,14 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nBuild and Deploy Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nBuild and Deploy Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
   },
   {
     "objectID": "slides/m2-intro-claude.html#exploring-claude.ai",

@@ -1,10 +1,11 @@
 ---
-title: "Module 9: Build and Deploy Agents"
+title: "Module 9: Chatbots and Agents"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
   revealjs:
     theme: [default, revealjs-style.scss]
+    highlight-style: monokai
     slide-number: c
     transition: fade
     navigation-mode: linear
@@ -17,896 +18,507 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## The API: Building Custom Chatbots {.section-divider}
+## Overview
 
-## The API: Talking to an LLM from Code
+- Web apps, typically hosted on corporate intranets, share custom workflows across an organization without requiring software installs on everyone's computer.
+- Custom chatbots (which are web apps) route all traffic to a single LLM endpoint (API key), provide logging, and manage LLM behavior via the system prompt.
+- Agents govern communication between an LLM and tools: databases, python environments, ...
 
-An **API** lets your code communicate with an LLM service over the internet.
+## Plan for Today
 
-:::{.two-cards}
-:::{.card .card-light}
-[**What You Need**]{.card-title}
+- Get an OpenRouter API key and make an API call to an LLM
+- Review the structure of web apps and chatbots
+- Build and run a custom chatbot using OpenRouter and the LLM
+-
 
-- An API key (authentication)
-- The `anthropic` Python package for Claude
-- The `openai` Python package for OpenAI and many other models
-- A model name (e.g., `claude-sonnet-4-20250514`)
+
+## Anatomy of a Chatbot
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+flowchart LR
+  U["<b>👤 User</b>"] ---|"prompts & replies"| C["<b>💬 Chatbot</b>"]
+  C ---|"API calls"| L["<b>🧠 LLM</b>"]
+
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:4px
+```
+
+:::{.explainer}
+The chatbot sends three things to the LLM with each request:
+
+1. **User prompt** — what you just typed
+2. **System prompt** — hidden instructions that define the LLM's behavior
+3. **Conversation history** — all prior messages, so the LLM has context
 :::
 
-:::{.card .card-light}
-[**Getting Your Key**]{.card-title}
 
-- Go to `console.anthropic.com`
-- Create an API key under Settings
-- Add credit ($5 is plenty for the course)
+
+## Build Your Own Chatbot
+
+:::{.step-flow-6}
+:::{.step-card}
+[1]{.step-icon}
+[Sign Up]{.step-title}
+[Create an OpenRouter account]{.step-desc}
+:::
+:::{.step-card}
+[2]{.step-icon}
+[Chat]{.step-title}
+[Talk to a model in the browser]{.step-desc}
+:::
+:::{.step-card}
+[3]{.step-icon}
+[API Key]{.step-title}
+[Get your key and save it]{.step-desc}
+:::
+:::{.step-card}
+[4]{.step-icon}
+[Code]{.step-title}
+[Claude writes a script that calls a model]{.step-desc}
+:::
+:::{.step-card}
+[5]{.step-icon}
+[App]{.step-title}
+[Claude builds a chatbot web app]{.step-desc}
+:::
+:::{.step-card}
+[6]{.step-icon}
+[Customize]{.step-title}
+[Add a system prompt]{.step-desc}
 :::
 :::
 
-:::{.explainer style="margin-top:0.8em;"}
-Your Claude Pro subscription covers Claude.ai and Claude Code. The API is a separate product with pay-per-use pricing.
+:::{.explainer style="text-align:center; margin-top:1em;"}
+Each step builds on the last. By step 6 you will have a [working chatbot app]{.amber} with a custom personality.
 :::
 
-## The Model Landscape: OpenRouter
+## What Is OpenRouter?
 
-[OpenRouter](https://openrouter.ai/models) is a marketplace that routes API calls to hundreds of models from dozens of providers --- [one account, one API key, any model]{.amber}.
+[OpenRouter](https://openrouter.ai) is a marketplace that routes API calls to hundreds of models from dozens of providers --- [one account, one API key, any model]{.amber}.
 
-- **One key for everything** --- OpenAI, Anthropic, Google, Meta, Mistral, and more; swap the model name without changing providers or billing accounts
-- **Billing flows through OpenRouter** --- providers bill OpenRouter; OpenRouter bills you. No separate OpenAI or Anthropic accounts needed.
-- **Pricing transparency** --- cost per million input/output tokens shown for every model; compare before committing
+- **One key for everything** --- OpenAI, Anthropic, Google, Meta, Mistral, Nvidia, and more
+- **Free models available** --- several high-quality models cost nothing
+- **Pricing transparency** --- cost per million tokens shown for every model
 
 :::{.explainer style="text-align:center;"}
-Visit [openrouter.ai/models](https://openrouter.ai/models) to see the full model landscape and pricing.
+Visit [openrouter.ai/models](https://openrouter.ai/models) to browse available models and pricing.
 :::
 
-## A Single API Call
+## Step 1: Sign Up at OpenRouter {.section-divider}
+
+## Step 1: Sign Up
+
+Go to [openrouter.ai](https://openrouter.ai) and create an account.
+
+- Click **Sign Up** (top right)
+- You can sign in with Google, GitHub, or email
+- No credit card needed --- free models are available immediately
+
+
+## Try Chatting
+
+Go to [openrouter.ai/chat](https://openrouter.ai/chat) and start a conversation.
+
+- Select a free model --- try **Nvidia Nemotron 3** (free)
+- Ask it a question: *"What is a P/E ratio?"*
+- Try switching to a different model and asking the same question
+- Notice how different models give different answers
+
+## Step 2: Get an API Key {.section-divider}
+
+## Step 2: Get Your Key
+
+Go to [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys) and create an API key.
+
+- Click **Create Key**
+- Give it a name (e.g., "MGMT 675")
+- Copy the key and save it somewhere safe --- [you cannot view it again]{.amber}
+- The key starts with `sk-or-...`
+
+## Step 3: Call a Model from Python {.section-divider}
+
+## How an API Call Works
+
+An **API** lets your code talk to an LLM over the internet. OpenRouter provides an [OpenAI-compatible]{.amber} API --- the same code pattern works with any provider.
 
 :::{.info-box}
-[**Calling the Anthropic API**]{.box-title}
+[**What You Need**]{.box-title}
+
+- The `openai` Python package (works with OpenRouter, not just OpenAI)
+- Your OpenRouter API key
+- A model name (e.g., `nvidia/nemotron-3-super-120b-a12b:free`)
+:::
+
+## Demo
+
+Ask Claude Code:
+
+:::{.info-box}
+*Install the openai package. Then write a Python script that sends a message to <model name> via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.*
+:::
+
+- Set your key first: `export OPENROUTER_API_KEY=sk-or-...`
+- Watch Claude install the package, write the code, and run it
+- Try changing the prompt or the model name and running again
+
+
+## Result
+
+:::{.info-box}
+[**Calling a Model via OpenRouter**]{.box-title}
 
 ```python
-import anthropic
+import os
+from openai import OpenAI
 
-client = anthropic.Anthropic(api_key=API_KEY)
-
-response = client.messages.create(
-    model="claude-sonnet-4-20250514",
-    max_tokens=1024,
-    messages=[
-        {"role": "user", "content": prompt}
-    ]
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ["OPENROUTER_API_KEY"],
 )
-answer = response.content[0].text
+
+response = client.chat.completions.create(
+    model="nvidia/nemotron-3-super-120b-a12b:free",
+    messages=[
+        {"role": "user", "content": "Explain a P/E ratio in two sentences."}
+    ],
+)
+
+print(response.choices[0].message.content)
 ```
 :::
 
-## Conversation History
 
-:::{.info-box}
-[**Messages Are a List of Dictionaries**]{.box-title}
+## Step 4: Build a Chatbot App {.section-divider}
 
-```python
-response = client.messages.create(
-    model="claude-sonnet-4-20250514",
-    max_tokens=1024,
-    system="You are a finance tutor...",
-    messages=[
-        {"role": "user", "content": "What is a P/E ratio?"},
-        {"role": "assistant", "content": "A P/E ratio is..."},
-        {"role": "user", "content": "How do I interpret it?"}
-    ]
-)
-```
-:::
+## How Mobile Apps and Web Apps Work
 
-- Each API call is independent --- LLM has no memory
-- You must send the [entire conversation history]{.amber} each time
-- The **system prompt** defines the agent's behavior and available tools
-
-## How a Web App Works
-
-Every web app has two parts that communicate over the internet.
+Every app that connects to the internet has two parts that communicate over [HTTP]{.amber}.
 
 :::{.two-cards}
 :::{.card .card-light}
-[**Frontend**]{.card-title}
+[**Frontend (what the user sees)**]{.card-title}
 
-- Runs in the [user's browser]{.amber}
-- HTML, CSS, and JavaScript
-- Sends requests to the backend and displays results
-- Cannot safely hold API keys --- source is visible to anyone
+- A web page in a browser
+- A mobile app on a phone
+- A desktop application
+- Written in JavaScript, Swift, Kotlin, etc.
 :::
 
 :::{.card .card-light}
-[**Backend**]{.card-title}
+[**Backend (the server)**]{.card-title}
 
-- Runs on [a server]{.amber} (your laptop counts during development)
-- Python, Node.js, or any language
+- Runs on a server (or your laptop during development)
+- Written in Python, Node.js, Java, Go --- [any language]{.amber}
 - Holds secrets (API keys, database credentials)
-- Receives requests from the frontend, does the work, returns results
+- Processes requests and returns results
 :::
 :::
 
 :::{.explainer style="text-align:center;"}
-For a chatbot: browser sends the user's message → backend calls the LLM API → backend returns the reply → browser displays it.
+The frontend and backend are separate programs. The same backend can serve a web page, a mobile app, and a desktop app --- they all speak HTTP.
 :::
 
-## FastAPI {.section-divider}
+## HTTP and APIs
 
-## Why FastAPI?
+An **API** is a set of HTTP endpoints that a server exposes --- URLs that accept requests and return responses.
 
-[FastAPI](https://fastapi.tiangolo.com) is a modern Python framework for building web backends.
+- `GET /` --- retrieve the chat page
+- `POST /chat` --- send a message, get a reply
+- The frontend calls these endpoints; the backend handles them
+
+:::{.explainer style="text-align:center;"}
+HTTP defines a small set of verbs: **GET** (retrieve something), **POST** (send data), **PUT** (update), **DELETE** (remove). That's basically it. Every web page, every API call, every app that touches the internet uses these same verbs over HTTP.
+:::
+
+## Our Chatbot's Architecture
 
 :::{.two-cards}
 :::{.card .card-light}
-[**Why FastAPI**]{.card-title}
+[**Frontend (JavaScript in the browser)**]{.card-title}
 
-- Async-native --- handles many requests concurrently
-- Minimal boilerplate --- a working API in under 20 lines
-- Auto-generated interactive docs at `/docs`
-- Industry standard for Python APIs
+- User types a message and clicks Send
+- JavaScript sends an HTTP POST to `/chat`
+- Receives the reply and displays it on screen
 :::
 
 :::{.card .card-light}
-[**For a Chatbot Backend**]{.card-title}
+[**Backend (Python with FastAPI)**]{.card-title}
 
-- One endpoint receives the user's message and conversation history
-- Backend calls the Anthropic API with your [server-side API key]{.amber}
-- Returns the assistant's reply to the browser
-- Key never touches the frontend
+- Receives the POST request with the user's message
+- Calls the LLM via the OpenRouter API
+- Returns the LLM's reply as JSON
 :::
 :::
 
 :::{.explainer style="text-align:center;"}
-FastAPI is what sits between your chat interface and the LLM --- it keeps credentials secure and handles the API calls.
+Browser sends the user's message → backend calls the LLM → backend returns the reply → browser displays it.
 :::
 
-## When Pyodide Isn't Enough
 
-Pyodide HTML apps are self-contained and shareable, but they have limitations.
 
-:::{.two-cards}
-:::{.card .card-light}
-[**Pyodide: Client-Side Only**]{.card-title}
-
-- Cannot connect to live databases
-- No persistent storage between sessions
-- API keys must be embedded (insecure)
-- Single user, single device
-:::
-
-:::{.card .card-light}
-[**FastAPI: Server-Side Power**]{.card-title}
-
-- Live database connections
-- Persistent storage
-- Secure API key management via environment variables
-- Multi-user access controls
-:::
-:::
-
-:::{.explainer style="text-align:center;"}
-FastAPI gives you a real backend server where Python runs on the machine hosting the app.
-:::
-
-## A Minimal FastAPI App
-
-```python
-from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-```
-
-Run locally: `uvicorn main:app --reload`
-
-The app is live at `http://localhost:8000` with automatic docs at `/docs`.
-
-## Exercise: Build a FastAPI Chatbot
+## Demo
 
 Ask Claude Code:
 
-*"Build a chatbot web app using FastAPI and the Anthropic API. The frontend should be a simple HTML page with a text input and a chat window. The backend should call Claude and maintain conversation history. Store the API key in a `.env` file."*
-
-Then:
-
-1. Claude Code creates the backend (`main.py`) and frontend (`index.html`)
-2. Run the server: `uvicorn main:app --reload`
-3. Open `http://localhost:8000` in your browser and chat
-
-:::{.explainer style="text-align:center;"}
-This is the same architecture used by every production chatbot. [Claude Code writes all the code]{.amber} --- your job is to test and refine it.
+:::{.info-box}
+*Create a FastAPI app with a chatbot interface that chats with a model of your choice using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.*
 :::
 
-## Try These System Prompts
+- Claude creates the backend and frontend in one file
+- The app runs at `http://localhost:8000`
+- Go to that URL in your browser and chat
 
-Edit the system prompt in your chatbot and ask the same question each time. See how the response changes.
+## Result
+
+![](images/chatbot-from-code.png)
+
+## Step 5: Add a System Prompt {.section-divider}
+
+## The System Prompt
+
+The **system prompt** is what turns a generic LLM into a specialized chatbot.
+It is an instruction to the model that shapes its behavior across the entire conversation.
 
 :::{.two-cards}
 :::{.card .card-light}
-[**Haiku only**]{.card-title}
+[**Without a System Prompt**]{.card-title}
 
-*"Respond to every message as a haiku (5-7-5 syllables), no matter how complex the question."*
+- Model uses its default persona
+- Generic, helpful responses
+- No domain specialization
 :::
 
 :::{.card .card-light}
-[**Pirate**]{.card-title}
+[**With a System Prompt**]{.card-title}
 
-*"You are a pirate. Respond to every message in pirate dialect."*
+- Model adopts a specific role or personality
+- Responses are shaped by the instruction
+- Same question, [very different answers]{.amber}
 :::
 :::
 
-:::{.two-cards style="margin-top:0.8em;"}
-:::{.card .card-light}
-[**Medieval knight**]{.card-title}
-
-*"You are a medieval knight. Respond to every message as if explaining it to a peasant in the 14th century."*
-:::
-
-:::{.card .card-light}
-[**Sports announcer**]{.card-title}
-
-*"You are a sports announcer. Describe everything the user says as if it's the most exciting play in history."*
-:::
-:::
-
-:::{.explainer style="text-align:center;"}
-Then try a [finance-relevant system prompt]{.amber}: *"You are a CFO. Answer every question in terms of its impact on cash flow and shareholder value."*
-:::
-
-## API Keys: Never in Code
-
-When calling external APIs like Anthropic, your key must never be in your code or repo.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**User-Supplied Key (Client-Side)**]{.card-title}
-
-- User enters their key in a web form
-- Key travels with each request
-- Right when: each user has their own account
-- Example: OpenAI's ChatGPT interface
-:::
-
-:::{.card .card-light}
-[**Server-Side Key (Environment Variable)**]{.card-title}
-
-- Key set on the server, never seen by users
-- One key serves all users
-- Right when: you operate the service
-- Example: Your deployed app calling Anthropic
-:::
-:::
-
-:::{.explainer style="text-align:center;"}
-For class exercises, user-supplied keys are simpler: no deployment setup needed.
-:::
-
-## In-Class Exercise: Investment Summary Tool {.section-divider}
-
-## Exercise: Investment Summary Tool
+## Demo
 
 Ask Claude Code:
 
-*"Create a FastAPI app with two endpoints:
-1. `GET /` serves an HTML form where the user enters a stock ticker and their Anthropic API key
-2. `POST /analyze` accepts the ticker and API key, calls the Anthropic API asking for an investment summary, and returns the AI-generated analysis
-
-Use a user-supplied API key, not an environment variable."*
-
-**What this teaches:**
-- Making HTTP requests from FastAPI to external APIs
-- Handling API keys securely (user-supplied pattern)
-- Serving HTML from FastAPI alongside JSON endpoints
-
-## The Agent Pattern {.section-divider}
-
-## Agent Loop Pseudocode
-
 :::{.info-box}
-[**The Agent's Decision Loop**]{.box-title}
-
-```python
-while not done:
-    response = call_llm(messages, system_prompt, tools)
-
-    if response.has_tool_call:
-        result = execute_tool(response.tool_call)
-        messages.append(tool_result)
-    elif response.is_final:
-        done = True
-        return response.content
-```
+*"Add a system prompt to the chatbot app that says 'Talk like a pirate.' Restart the app."*
 :::
 
-:::{.explainer style="margin-top:0.8em; text-align:center;"}
-[The agent is part LLM intelligence, part traditional programming.]{.amber}
+- Ask the chatbot the same question as before
+
+- Try others, e.g., *Respond to every message as a haiku (5-7-5 syllables).*
+
+:::{.explainer style="text-align:center;"}
+You would get the same behavior by just pasting the system prompt into the chat window.  Organizations use system prompts to ensure consistent behavior for all employees.
 :::
 
-## Claude Code as an Agent Harness
+## Result
 
-The pseudocode shows the logic. A **harness** is the infrastructure that actually runs that loop --- and controls what the agent is allowed to do.
+![](images/chatbot-pirate.png)
+
+## Deployment {.section-divider}
+
+## Deploy From Your Computer
+
+- [ngrok](https://ngrok.com) creates a public URL for an app running on your machine. Your app stays on your computer
+- ngrok opens a [tunnel]{.amber} to ngrok's servers, which accept public requests and forward them to your machine.
+
+- Paid Tiers ($8--$25+/month)
+  - Access-controlled deployment platform
+  - Multiple simultaneous tunnels
+  - Custom domains (your own domain name)
+
+
+## Demo
+
+1. Create an account at [ngrok.com](https://ngrok.com)
+2. Install: **Windows:** `winget install ngrok` / **Mac:** `brew install ngrok`
+3. Authenticate: `ngrok config add-authtoken <TOKEN>`
+4. Expose your app: `ngrok http 8000`
+
+## Cloud Deployment
+
+Two types of hosts:
 
 :::{.two-cards}
 :::{.card .card-light}
-[**Runtime Infrastructure**]{.card-title}
+[**PaaS (Platform as a Service)**]{.card-title}
 
-- Maintains conversation state across turns
-- Executes tool calls and captures results
-- Handles errors so the agent can recover
-- Enforces iteration and cost limits
+- Railway, Render, Koyeb, Heroku
+- Push your code, they handle servers, scaling, and SSL
+- Simplest path for individuals and small teams
+- The Rice Data Portal runs on Koyeb
 :::
 
 :::{.card .card-light}
-[**Control and Safety**]{.card-title}
+[**IaaS (Infrastructure as a Service)**]{.card-title}
 
-- Permission system: which tools are allowed
-- Human-in-the-loop approval gates
-- Hooks: custom checks before/after actions
-- Audit log of every action taken
+- AWS, Azure, Google Cloud
+- You manage VMs, containers, networking, load balancers
+- Where large organizations deploy internal tools with full security controls
 :::
 :::
 
-:::{.explainer style="margin-top:0.8em;"}
-Claude Code is a complete harness --- you supply the task; it handles the loop, tools, and guardrails.
+
+## Deploy with Railway
+
+[Railway](https://railway.com) is the simplest of the PaaS hosts.
+
+1. Create an account at [railway.com](https://railway.com) (free trial gives $5 credit)
+2. Install the Railway CLI: `npm install -g @railway/cli`
+3. Log in from a regular terminal (not Claude Code): `railway login --browserless` --- follow the link to authorize the CLI for all projects
+4. Ask Claude: *"Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable"*
+
+:::{.explainer style="text-align:center;"}
+The Railway CLI requires npm (Node.js package manager). If `npm` is not installed, ask Claude: *"Install Node.js and npm on my machine."*
 :::
 
-## The Real Agent Loop
+## Agents {.section-divider}
 
-:::{.info-box}
-[**A Production-Grade Loop**]{.box-title}
-
-```python
-iteration = 0
-while iteration < max_turns:
-    response = call_llm(messages, system_prompt, tools)
-    messages.append(response)             # Maintain full history
-
-    if response.stop_reason == "end_turn":
-        return response.text              # Task complete
-
-    for tool_call in response.tool_uses:
-        if needs_approval(tool_call):     # Human-in-the-loop
-            if not ask_user(tool_call):
-                break                     # User blocked the action
-        try:
-            result = execute(tool_call)
-        except Exception as e:
-            result = f"Error: {e}"        # Agent sees error and recovers
-        messages.append(tool_result(result))
-
-    iteration += 1
-raise MaxIterationsError("Did not complete")
-```
-:::
-
-## Claude Code's Four Harness Layers
-
-:::{.two-cards}
-:::{.card .card-light}
-[**CLAUDE.md**]{.card-title}
-
-Injected as the system prompt. Defines the agent's persona, project context, and behavioral rules before any user message is sent.
-:::
-
-:::{.card .card-light}
-[**Permissions**]{.card-title}
-
-Controls which tools and file paths the agent can access. Separate allow/deny lists for bash commands, file writes, and network calls.
-:::
-:::
-
-:::{.two-cards style="margin-top:0.8em;"}
-:::{.card .card-light}
-[**Hooks**]{.card-title}
-
-Shell commands that fire automatically at agent lifecycle events: before a tool runs, after it completes, or when the agent stops.
-:::
-
-:::{.card .card-light}
-[**Iteration Limits**]{.card-title}
-
-`--max-turns` caps how many steps the agent takes. Prevents runaway loops and controls API spend.
-:::
-:::
-
-## Replacing Dashboards {.section-divider}
-
-## The Dashboard Trap
-
-Organizations spend millions building dashboards. When a new question arises, the cycle restarts: requirements --> design --> build --> deploy.
-
-:::{.two-cards}
-:::{.card .card-dark}
-[The Typical Dashboard Lifecycle]{.card-title}
-
-1. Business user requests a report
-2. Team builds queries, charts, and deploys
-3. User asks a follow-up --- [back to step 1]{.amber}
-:::
-
-:::{.card .card-light}
-[The Cost]{.card-title}
-
-- **Time**: Weeks to months per dashboard
-- **Money**: BI licenses, engineering hours, maintenance
-- **Rigidity**: Fixed views of fixed data
-
-Gartner: only **20%** of analytic insights deliver business outcomes.
-:::
-:::
-
-## The Fundamental Problem
-
-Dashboards answer **pre-defined questions**. But the most valuable analysis comes from **ad-hoc questions** that arise in the moment.
-
-- "What happened to margins in the Southeast last quarter?"
-- "Show me our top 10 customers by growth rate, excluding one-time orders"
-- "Compare Q3 headcount vs. budget by department, and flag anyone over 110%"
-
-:::{.explainer style="margin-top:0.8em;"}
-These are simple questions. Getting answers shouldn't require a development cycle.
-:::
-
-## The Shift: From Dashboards to Conversations
-
-:::{.two-col}
-::::{.column}
-**Traditional Dashboard**
-
-- Click filters and select dates to query
-- Answers take minutes to weeks
-- Follow-ups require a new dashboard request
-::::
-
-::::{.column}
-**Natural Language AI**
-
-- Ask in plain English
-- Answers in seconds
-- Follow-ups are the next sentence
-::::
-:::
-
-:::{.explainer style="margin-top:1em; text-align:center;"}
-The dashboard was a *workaround* for the fact that databases don't speak English. Now they do.
-:::
-
-## What This Looks Like in Practice
-
-:::{.two-col}
-::::{.column}
-:::{.info-box}
-[**The Conversation**]{.box-title}
-
-- *"Show me monthly revenue by product line for 2025"*
-- AI: writes SQL, produces grouped bar chart
-- *"Break out Enterprise by region"*
-- AI: refines query, updates chart
-:::
-::::
-
-::::{.column}
-**What the User Needed to Know**
-
-- What questions to ask
-- Whether the answers make sense
-- [Nothing else]{.amber}
-
-**Behind the Scenes**
-
-- 4 different SQL queries written
-- 3 visualizations produced
-- Derived metrics calculated
-::::
-:::
-
-## The Database Agent Pattern
-
-The most powerful dashboard replacement: an AI agent connected to your database.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**How to Build It**]{.card-title}
-
-1. Connect database via MCP or file upload
-2. Give AI the schema: table names, columns, relationships
-3. Describe the business context
-4. Start asking questions
-:::
-
-:::{.card .card-light}
-[**What the Agent Can Do**]{.card-title}
-
-- Write and execute SQL queries
-- Compute derived metrics (growth rates, ratios)
-- Generate charts and export to Excel or PowerPoint
-:::
-:::
-
-## Replacing Dashboards: FP&A and Treasury
-
-:::{.two-cards}
-:::{.card .card-light}
-[**FP&A**]{.card-title}
-
-- *"Budget vs. actual for Q3, decompose the variance into volume, price, and cost drivers"*
-- *"Rolling 12-month revenue forecast with confidence bands"*
-:::
-
-:::{.card .card-light}
-[**Treasury & Risk**]{.card-title}
-
-- *"Cash position over the next 90 days using AR/AP forecasts"*
-- *"VaR by desk for the last 30 days, flag breaches"*
-:::
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-Each of these would take a BI team **days to build**. With a database agent, they take [seconds]{.amber}.
-:::
-
-## Replacing Dashboards: Portfolio and Executive
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Portfolio Management**]{.card-title}
-
-- *"Sector allocation vs. benchmark with active weights"*
-- *"Performance attribution --- allocation vs. selection"*
-:::
-
-:::{.card .card-light}
-[**Executive Reporting**]{.card-title}
-
-- *"One-page executive summary with KPIs and trends"*
-- *"Board deck from this quarter's financials --- 5 slides max"*
-:::
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-The AI doesn't replace the analyst's judgment --- it replaces the [mechanical work]{.amber} of pulling data and building charts.
-:::
-
-## The Weekly Ops Review --- Before and After
-
-:::{.two-cards}
-:::{.card .card-dark}
-[Before: The Dashboard Era]{.card-title}
-
-1. Data team pulls exports and builds slides (6+ hrs)
-2. Manager reviews and revises (3 hrs)
-3. VP asks a question --- "We'll get back to you next week"
-
-**Total: 9+ hours per week**
-:::
-
-:::{.card .card-light}
-[After: Natural Language AI]{.card-title}
-
-1. AI agent generates ops review (3 min)
-2. Manager reviews and iterates in chat
-3. VP asks a question --- [AI answers in 10 seconds]{.amber}
-
-**Total: 15 minutes + live Q&A**
-:::
-:::
-
-## The Reporting Pipeline {.section-divider}
-
-## Five Steps from Query to Report
+## Anatomy of an Agent
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px'}, 'flowchart': {'nodeSpacing': 100, 'rankSpacing': 140, 'padding': 28, 'useMaxWidth': true}}}%%
 flowchart LR
-  A["<b>Database<br/>Query</b>"] --> B["<b>Transform<br/>& Compute</b>"]
-  B --> C["<b>Charts &<br/>Tables</b>"]
-  C --> D["<b>AI<br/>Narrative</b>"]
-  D --> E["<b>PowerPoint<br/>Output</b>"]
+  U["<b>👤 User</b>"] ---|"request & result"| A["<b>🤖 Agent</b>"]
+  A ---|"API calls"| L["<b>🧠 LLM</b>"]
+  A ---|"executes"| T["<b>🔧 Tool</b>"]
 
-  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style B fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style C fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style E fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
+  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+  style T fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a,font-size:56px,padding:24px
+
+  linkStyle default stroke:#3b82f6,stroke-width:4px
 ```
 
-:::{.explainer style="margin-top:0.8em; text-align:center;"}
-From raw data to polished deck --- [no copy-paste, no formatting, no manual writing.]{.amber}
+:::{.explainer}
+The agent programmatically controls communication between the LLM and the tool. The system prompt includes *"You have a tool ..."* so the LLM knows what it can call. Multiple rounds may occur before the agent returns output to the user.
 :::
 
-## Building It with Your Coding Agent
+## Example: The Data Portal Agent
 
-You do not need to write this by hand. Give your coding agent a single prompt:
-
-:::{.info-box}
-*"Build an app that connects to a database. When the user selects a report and clicks Generate, run the SQL query, create a chart, write a three-sentence executive summary, and assemble a three-slide PowerPoint (title, chart, findings). Show the chart and summary on screen with a download button for the PowerPoint file."*
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-Your job is not to write the code. Your job is to [test the result, refine the prompt, and iterate]{.amber} until the output meets your standards.
-:::
-
-## Building the Pipeline with Streamlit
-
-**Streamlit** turns a Python script into a web app in minutes. Combined with an AI pipeline, it becomes a [self-service reporting tool]{.amber}.
+The [Rice Business Stock Market Data Portal](https://data-portal.rice-business.org) lets users query a stock market database in plain English.
 
 :::{.two-cards}
 :::{.card .card-light}
-[**User Interface**]{.card-title}
+[**Architecture**]{.card-title}
 
-- Dropdown: select time period, department, or metric
-- Button: "Generate Report"
-- Download: auto-generated `.pptx` file
+- **Frontend:** browser chat interface
+- **Backend:** Python (Flask) on Koyeb
+- **LLM:** GPT-5-mini via OpenAI API (falls back to GPT-4.1 for large queries)
+- **Database:** DuckDB with 6 tables of stock market data
+- **Tool:** SQL query execution against the database
 :::
 
 :::{.card .card-light}
-[**Behind the Scenes**]{.card-title}
+[**How It Works**]{.card-title}
 
-- Query database for selected parameters
-- Compute metrics and build charts
-- Send chart data to LLM for narrative
-- Assemble PowerPoint with `python-pptx`
+1. User asks: *"Show me Apple's revenue for the last 5 years"*
+2. LLM generates a SQL query based on the system prompt
+3. App executes the query against DuckDB
+4. Data is returned
+5. User asks a follow-up --- [the loop continues]{.amber}
 :::
 :::
 
-:::{.explainer style="margin-top:0.8em;"}
-The user clicks one button and gets a polished deck. [No analyst needed.]{.amber}
-:::
+## What Makes It an Agent?
 
-## Example: Monthly Ops Review Pipeline
+The chatbot is more than a simple LLM wrapper --- it has a [tool]{.amber} (the database) and an [agent loop]{.amber} (LLM ↔ tool interaction across multiple rounds).
 
-:::{.two-col}
-::::{.column}
-**What the Pipeline Produces**
+- The LLM decides **what SQL to write** based on the user's question
+- The app **executes the SQL** and returns results to the LLM
+- If the query fails, the LLM sees the error and **tries again**
 
-1. Title slide, KPI summary table, and trend charts
-2. Variance waterfall (budget vs. actual)
-3. AI-generated executive summary
-::::
-
-::::{.column}
-**Time Comparison**
-
-- **Manual**: 6--8 hours per month (data pull, Excel, copy-paste into PowerPoint, write narrative)
-- **Pipeline**: [30 seconds]{.amber} per run
-- **ROI**: First month pays for the build time
-::::
-:::
-
-## Automated PowerPoint with python-pptx
-
-`python-pptx` is a Python library for creating and editing PowerPoint files programmatically.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**What It Can Do**]{.card-title}
-
-- Create slides from templates
-- Insert charts, tables, and images
-- Apply corporate formatting (fonts, colors, logos)
-- Populate placeholders with live data
-:::
-
-:::{.card .card-light}
-[**The AI Advantage**]{.card-title}
-
-- AI writes the `python-pptx` code for you
-- Tell Claude: "Create a 5-slide deck from this data with a waterfall chart on slide 3"
-- AI handles layout, formatting, and data binding
-:::
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-[You describe the deck; AI builds the automation.]{.amber} The pipeline runs unattended after that.
-:::
-
-## Orchestration {.section-divider}
-
-## The Orchestration Layer
-
-The agent's control logic can route different tasks to different models and prompts.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Different Prompts**]{.card-title}
-
-- SQL generation --> database schema prompt
-- Python analysis --> data science prompt
-- Each task gets specialized instructions
-:::
-
-:::{.card .card-light}
-[**Different Models**]{.card-title}
-
-- Simple classification --> fast, cheap model
-- Complex reasoning --> powerful model
-- Cost and speed optimization
-:::
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-Sub-agents: dispatch specialized workers for parallel tasks. This is what Cowork does with its parallel VMs.
-:::
-
-## Sandboxed Execution {.section-divider}
-
-## Development vs. Production
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Development (Your Laptop)**]{.card-title}
-
-- Agent runs in your environment
-- Full access to your files
-- Fine for prototyping
-:::
-
-:::{.card .card-light}
-[**Production**]{.card-title}
-
-- Agent runs in a [container]{.amber} (Docker)
-- Isolated, disposable environment
-- Read-only database access
-:::
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-A container is a disposable, isolated computing environment. A bug in AI-generated code cannot affect your other files, your database, or your network.
-:::
-
-## The Sandbox Pattern
-
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  U["<b>User</b>"] --> A["<b>Agent</b>"]
-  A --> S["<b>Sandboxed<br>Code</b>"]
-  S <--> DB["<b>Database<br>(read-only)</b>"]
-  S --> R["<b>Report</b>"]
-  R --> U
-
-  style U fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style A fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style DB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-  style R fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:28px,padding:24px
-```
-
-- Agent plans and orchestrates; code runs in a [sandboxed container]{.amber}
-- Container queries the database through a read-only connection
-- Finished report flows back to the user
-
-## From Prototype to Production
-
-The reporting app on your laptop is a prototype. Moving it to production adds **infrastructure**, not intelligence.
-
-- **Authentication**: SSO so only authorized users can generate reports
-- **Scheduling**: weekly reports generated automatically
-- **Logging**: every query and LLM call recorded for compliance
-- **Read-only credentials**: the agent cannot modify data
-
-:::{.explainer style="margin-top:0.8em;"}
-The pipeline you prototyped is the same artifact that powers the production tool. IT wraps it in infrastructure; [you provide the domain knowledge and the prompt]{.amber}.
-:::
-
-## Deploying on Railway {.section-divider}
-
-## Deployment Options
-
-**Where do production apps actually run?**
-
-- **Corporate intranet / IT-managed** — most common in practice; IT provides auth, logging, security compliance
-- **PaaS (Railway, Render, Koyeb)** — self-service, minimal setup; ideal for prototypes and course projects
-- **IaaS (AWS, Azure, GCP)** — full control, more complexity; where large-scale apps live
-
-For this course: **Railway** — simplest path from `git push` to live URL.
-
-## Deploying with Railway
-
-**Three steps to production:**
-
-1. **Connect GitHub repo** — one-click OAuth
-2. **Railway detects FastAPI** — automatically configures Python environment
-3. **Every `git push` redeploys** — watch the dashboard for live status
-
-The Railway dashboard shows:
-- Live URL (updates automatically)
-- Build and runtime logs
-- Environment variables (for API keys)
-- Deploy history
-
-## Demo: Deploy the Simple App
-
-**Instructor walkthrough:**
-
-1. Push the loan payment FastAPI app to GitHub
-2. Connect repo to Railway
-3. Watch the build process in the Railway dashboard
-4. Click the live URL: `https://your-app.railway.app/loan_payment?principal=300000&rate=0.065&years=30`
-
-**Students see:** the same app they ran locally, now live on the internet.
-
-## Demo: Deploy with Environment Variables
-
-**Instructor walkthrough:**
-
-1. Modify the investment summary app to use an environment variable:
-   ```python
-   import os
-   api_key = os.environ.get("ANTHROPIC_API_KEY")
-   ```
-
-2. Deploy to Railway
-3. In Railway dashboard → Variables, add `ANTHROPIC_API_KEY`
-4. The app works without users supplying their own key
 
 :::{.explainer style="text-align:center;"}
-The API key lives only on Railway's servers --- never in code, never in GitHub, never seen by users.
+The intelligence comes from the LLM. The [system prompt]{.amber} is what makes it useful.
 :::
 
-## Exercises {.section-divider}
+## The Data Agent's System Prompt
 
-## Exercise 1: Simple FastAPI App
+The system prompt is a 61-rule instruction manual that tells the LLM how to behave.
 
-Ask Claude Code:
+:::{.two-cards}
+:::{.card .card-light}
+[**What It Contains**]{.card-title}
 
-*"Create a FastAPI app with a single endpoint `/loan_payment` that accepts `principal`, `rate`, and `years` as query parameters and returns the monthly payment amount. Include instructions for running it locally."*
+- Full database schema with sample rows
+- Query examples (few-shot learning)
+- Date handling rules (e.g., all dates are VARCHAR)
+- Financial domain knowledge (dimensions, units)
+- Available industries, sectors, and size categories
+:::
 
-**Steps:**
-1. Create a new folder for the project
-2. Ask Claude to build the FastAPI app
-3. Run `uvicorn main:app --reload`
-4. Test the endpoint in your browser: `http://localhost:8000/loan_payment?principal=300000&rate=0.065&years=30`
+:::{.card .card-light}
+[**Guardrails**]{.card-title}
 
-## Exercise 2: Investment Summary with User API Key
+- Only SELECT statements allowed
+- Must ask for clarification when ambiguous
+- Must verify table/column names exist before querying
+- Structured JSON output for machine parsing
+- Error recovery without apologies
+:::
+:::
 
-Build a FastAPI app that takes a ticker and Anthropic API key from a web form, calls the Anthropic API, and displays an investment summary.
+:::{.explainer style="text-align:center;"}
+[Download the full system prompt](../files/data-portal-system-prompt.md) to see how a production agent is configured.
+:::
 
-## Exercise 3: Multi-Step Agent Workflow
+## Building Apps
 
-Give Claude Code a single compound instruction that requires at least three steps.
+## Building Apps
 
-**Example:** *"Fetch Apple's quarterly revenue from the Rice Data Portal. Create a bar chart of the last 8 quarters. Write a one-paragraph executive summary. Save the chart and summary to a reports folder."*
+- You know how to create chatbots with Claude, so you can create other things too.
+- For example, a mean-variance app
+- Deploy with ngrok or Railway
 
-- Observe the agent loop --- how many distinct tool calls does the agent make?
-- Does it check its own work?
-- If the output is not right, refine your prompt and try again
+## Demo
 
-## Exercise 4: Workflow Decomposition
+Ask Claude:
 
-Consider the task: *"Prepare the quarterly business review for the CEO."*
+*Build a FastAPI mean-variance app that allows user input of parameters.  Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line.  Put the mean, standard deviation, and portfolio allocation in the hover data.  Deploy it on Railway.*
 
-1. List the 5--7 steps a human analyst would take to complete this task
-2. For each step, identify what **tool** the agent would use and what **data** it would need
-3. Mark which steps need [human approval]{.amber} before the agent continues
-4. Write a single prompt that describes the full workflow for an agent
+## Claude Skills {.section-divider}
 
-## Exercise 5: Deploy to Railway
+## Skill or App?
 
-Deploy either app to Railway and submit the live URL.
+- If everyone on your team has Claude Code + Python, then you can share workflows as Claude skills.
 
-## Exercise 6: Streamlit App with the Anthropic API
+- Create apps for repeated, stable workflows.
 
-1. Get an API key from `console.anthropic.com`
-2. Ask Claude Code to build a Streamlit app that:
-   - Takes a company ticker from the user
-   - Sends a prompt to the Anthropic API asking for an investment summary
-   - Displays the AI-generated summary on screen
-3. Extend: add a system prompt with specific analysis criteria (valuation, growth, risks)
+- Create skills for things that are closer to one-offs.
 
-## Later Course Integration: RAG with FastAPI
+## Demo: Part 1
 
-In Module 11 (RAG), a capstone exercise combines all concepts:
+Ask Claude:
 
-*"Build a FastAPI app where the user pastes a document and asks a question. The app chunks the document, embeds it with OpenAI, stores in ChromaDB, retrieves relevant chunks, and generates an answer via Anthropic's API. The user supplies their own API keys."*
+*I want a python script that does mean-variance analysis using scipy.minimize  It should ensure all needed libraries are installed. It should prompt the user for the number of assets and parameters including the risk-free rate.  Assume no short sales are allowed.  The script should output the tangency portfolio and produce two plots (one with Plotly rendered to html and one with Matplotlib rendered to png) showing the risky assets, the efficient frontier, the tangency portfolio, and the capital allocation line.  For plotly, put mean, standard deviation, and the portfolio allocation in the hover data.  I want the script to cause the html and png files to open.*
 
-This ties together: FastAPI, external APIs, vector databases, and RAG --- all in one deployable application.
+## Demo: Part 2
+
+Ask Claude:
+
+*Now create a Claude skill that runs the script when the user enters /mean-variance.  Create Mac and Windows installers for the plugin.  Package them in zip files.*
+
+## Demo: Part 3 (the User)
+
+Download the installer for your platform:
+
+- [Windows installer](../files/mean-variance-plugin-windows.zip)
+- [Mac installer](../files/mean-variance-plugin-mac.zip)
+
+Extract the zip and double-click the `.bat` (Windows) or run the `.sh` (Mac). Then invoke the skill with `/mean-variance` in Claude Code.
+
+## Next {.section-divider}
+
+## Deloitte Canada
+
+Read *Blazing New Trails: Responsible Generative AI and the Creative Adoption of a Large Language Model at Deloitte Canada* for Tuesday.
