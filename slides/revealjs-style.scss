@@ -432,12 +432,9 @@ $body-bg: $off-white;
 }
 
 .reveal .slides section img.r-stretch {
-  flex-shrink: 1 !important;
-  flex-grow: 1 !important;
   max-height: 75vh !important;
   width: auto !important;
   max-width: 90% !important;
-  object-fit: contain;
 }
 
 // ── Inline text classes ──
