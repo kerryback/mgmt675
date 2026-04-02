@@ -223,12 +223,19 @@ Kerry Back, Rice University
 </section>
 <section id="plan-for-today" class="slide level2 center">
 <h2>Plan for Today</h2>
+<ol type="1">
+<li>Build a chatbot</li>
+<li>Deploy a chatbot</li>
+<li>AI agents</li>
+<li>Build an app</li>
+<li>Claude skills</li>
+</ol>
 <ul>
-<li>Get an OpenRouter API key and make an API call to an LLM</li>
-<li>Review the structure of web apps and chatbots</li>
-<li>Build and run a custom chatbot using OpenRouter and the LLM</li>
 <li></li>
 </ul>
+</section>
+<section id="chatbots" class="slide level2 section-divider center">
+<h2>Chatbots</h2>
 </section>
 <section id="anatomy-of-a-chatbot" class="slide level2 center">
 <h2>Anatomy of a Chatbot</h2>
@@ -533,6 +540,9 @@ flowchart LR
 <li>Authenticate: <code>ngrok config add-authtoken &lt;TOKEN&gt;</code></li>
 <li>Expose your app: <code>ngrok http 8000</code></li>
 </ol>
+<div class="explainer" style="text-align:center;">
+<p>My chatbot on ngrok: <a href="https://4f8d-2606-a300-9008-3b1d-650f-efb4-cf7b-ba00.ngrok-free.app/">https://4f8d-2606-a300-9008-3b1d-650f-efb4-cf7b-ba00.ngrok-free.app/</a></p>
+</div>
 </section>
 <section id="cloud-deployment" class="slide level2 center">
 <h2>Cloud Deployment</h2>
@@ -564,10 +574,18 @@ flowchart LR
 <li>Create an account at <a href="https://railway.com">railway.com</a> (free trial gives $5 credit)</li>
 <li>Install the Railway CLI: <code>npm install -g @railway/cli</code></li>
 <li>Log in from a regular terminal (not Claude Code): <code>railway login --browserless</code> — follow the link to authorize the CLI for all projects</li>
-<li>Ask Claude: <em>“Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”</em></li>
 </ol>
 <div class="explainer" style="text-align:center;">
 <p>The Railway CLI requires npm (Node.js package manager). If <code>npm</code> is not installed, ask Claude: <em>“Install Node.js and npm on my machine.”</em></p>
+</div>
+</section>
+<section id="section" class="slide level2 center">
+<h2></h2>
+<ol start="4" type="1">
+<li>Ask Claude: <em>“Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”</em></li>
+</ol>
+<div class="explainer" style="text-align:center;">
+<p>My chatbot on Railway: https://pirate-chatbot-productio n.up.railway.app</p>
 </div>
 </section>
 <section id="agents" class="slide level2 section-divider center">
@@ -684,6 +702,9 @@ flowchart LR
 <h2>Demo</h2>
 <p>Ask Claude:</p>
 <p><em>Build a FastAPI mean-variance app that allows user input of parameters. Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line. Put the mean, standard deviation, and portfolio allocation in the hover data. Deploy it on Railway.</em></p>
+<div class="explainer" style="text-align:center;">
+<p>My mean-variance app on Railway: https://chatbot-app-production-0 fb1.up.railway.app</p>
+</div>
 </section>
 <section id="claude-skills" class="slide level2 section-divider center">
 <h2>Claude Skills</h2>

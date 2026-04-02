@@ -26,11 +26,14 @@ format:
 
 ## Plan for Today
 
-- Get an OpenRouter API key and make an API call to an LLM
-- Review the structure of web apps and chatbots
-- Build and run a custom chatbot using OpenRouter and the LLM
+1. Build a chatbot
+2. Deploy a chatbot
+3. AI agents
+4. Build an app
+5. Claude skills
 -
 
+## Chatbots {.section-divider}
 
 ## Anatomy of a Chatbot
 
@@ -342,6 +345,10 @@ You would get the same behavior by just pasting the system prompt into the chat 
 3. Authenticate: `ngrok config add-authtoken <TOKEN>`
 4. Expose your app: `ngrok http 8000`
 
+:::{.explainer style="text-align:center;"}
+My chatbot on ngrok: [https://4f8d-2606-a300-9008-3b1d-650f-efb4-cf7b-ba00.ngrok-free.app/](https://4f8d-2606-a300-9008-3b1d-650f-efb4-cf7b-ba00.ngrok-free.app/)
+:::
+
 ## Cloud Deployment
 
 Two types of hosts:
@@ -373,10 +380,21 @@ Two types of hosts:
 1. Create an account at [railway.com](https://railway.com) (free trial gives $5 credit)
 2. Install the Railway CLI: `npm install -g @railway/cli`
 3. Log in from a regular terminal (not Claude Code): `railway login --browserless` --- follow the link to authorize the CLI for all projects
-4. Ask Claude: *"Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable"*
 
 :::{.explainer style="text-align:center;"}
 The Railway CLI requires npm (Node.js package manager). If `npm` is not installed, ask Claude: *"Install Node.js and npm on my machine."*
+:::
+
+## 
+
+4. Ask Claude: 
+*"Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable"*
+
+:::{.explainer style="text-align:center;"}
+
+My chatbot on Railway: https://pirate-chatbot-productio
+  n.up.railway.app
+
 :::
 
 ## Agents {.section-divider}
@@ -485,6 +503,11 @@ The system prompt is a 61-rule instruction manual that tells the LLM how to beha
 Ask Claude:
 
 *Build a FastAPI mean-variance app that allows user input of parameters.  Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line.  Put the mean, standard deviation, and portfolio allocation in the hover data.  Deploy it on Railway.*
+
+:::{.explainer style="text-align:center;"}
+My mean-variance app on Railway: https://chatbot-app-production-0
+  fb1.up.railway.app
+:::
 
 ## Claude Skills {.section-divider}
 

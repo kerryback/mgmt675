@@ -312,7 +312,14 @@
     "href": "slides/m9-agents.html#plan-for-today",
     "title": "Module 9: Chatbots and Agents",
     "section": "Plan for Today",
-    "text": "Plan for Today\n\nGet an OpenRouter API key and make an API call to an LLM\nReview the structure of web apps and chatbots\nBuild and run a custom chatbot using OpenRouter and the LLM"
+    "text": "Plan for Today\n\nBuild a chatbot\nDeploy a chatbot\nAI agents\nBuild an app\nClaude skills"
+  },
+  {
+    "objectID": "slides/m9-agents.html#chatbots",
+    "href": "slides/m9-agents.html#chatbots",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "Chatbots",
+    "text": "Chatbots"
   },
   {
     "objectID": "slides/m9-agents.html#anatomy-of-a-chatbot",
@@ -487,7 +494,7 @@
     "href": "slides/m9-agents.html#demo-3",
     "title": "Module 9: Chatbots and Agents",
     "section": "Demo",
-    "text": "Demo\n\nCreate an account at ngrok.com\nInstall: Windows: winget install ngrok / Mac: brew install ngrok\nAuthenticate: ngrok config add-authtoken &lt;TOKEN&gt;\nExpose your app: ngrok http 8000"
+    "text": "Demo\n\nCreate an account at ngrok.com\nInstall: Windows: winget install ngrok / Mac: brew install ngrok\nAuthenticate: ngrok config add-authtoken &lt;TOKEN&gt;\nExpose your app: ngrok http 8000\n\n\nMy chatbot on ngrok: https://4f8d-2606-a300-9008-3b1d-650f-efb4-cf7b-ba00.ngrok-free.app/"
   },
   {
     "objectID": "slides/m9-agents.html#cloud-deployment",
@@ -501,7 +508,14 @@
     "href": "slides/m9-agents.html#deploy-with-railway",
     "title": "Module 9: Chatbots and Agents",
     "section": "Deploy with Railway",
-    "text": "Deploy with Railway\nRailway is the simplest of the PaaS hosts.\n\nCreate an account at railway.com (free trial gives $5 credit)\nInstall the Railway CLI: npm install -g @railway/cli\nLog in from a regular terminal (not Claude Code): railway login --browserless — follow the link to authorize the CLI for all projects\nAsk Claude: “Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”\n\n\nThe Railway CLI requires npm (Node.js package manager). If npm is not installed, ask Claude: “Install Node.js and npm on my machine.”"
+    "text": "Deploy with Railway\nRailway is the simplest of the PaaS hosts.\n\nCreate an account at railway.com (free trial gives $5 credit)\nInstall the Railway CLI: npm install -g @railway/cli\nLog in from a regular terminal (not Claude Code): railway login --browserless — follow the link to authorize the CLI for all projects\n\n\nThe Railway CLI requires npm (Node.js package manager). If npm is not installed, ask Claude: “Install Node.js and npm on my machine.”"
+  },
+  {
+    "objectID": "slides/m9-agents.html#section",
+    "href": "slides/m9-agents.html#section",
+    "title": "Module 9: Chatbots and Agents",
+    "section": "",
+    "text": "Ask Claude: “Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”\n\n\nMy chatbot on Railway: https://pirate-chatbot-productio n.up.railway.app"
   },
   {
     "objectID": "slides/m9-agents.html#agents",
@@ -557,7 +571,7 @@
     "href": "slides/m9-agents.html#demo-4",
     "title": "Module 9: Chatbots and Agents",
     "section": "Demo",
-    "text": "Demo\nAsk Claude:\nBuild a FastAPI mean-variance app that allows user input of parameters. Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line. Put the mean, standard deviation, and portfolio allocation in the hover data. Deploy it on Railway."
+    "text": "Demo\nAsk Claude:\nBuild a FastAPI mean-variance app that allows user input of parameters. Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line. Put the mean, standard deviation, and portfolio allocation in the hover data. Deploy it on Railway.\n\nMy mean-variance app on Railway: https://chatbot-app-production-0 fb1.up.railway.app"
   },
   {
     "objectID": "slides/m9-agents.html#claude-skills",
