@@ -60,47 +60,7 @@ The chatbot sends three things to the LLM with each request:
 :::
 
 
-
-## Build Your Own Chatbot
-
-:::{.step-flow-6}
-:::{.step-card}
-[1]{.step-icon}
-[Sign Up]{.step-title}
-[Create an OpenRouter account]{.step-desc}
-:::
-:::{.step-card}
-[2]{.step-icon}
-[Chat]{.step-title}
-[Talk to a model in the browser]{.step-desc}
-:::
-:::{.step-card}
-[3]{.step-icon}
-[API Key]{.step-title}
-[Get your key and save it]{.step-desc}
-:::
-:::{.step-card}
-[4]{.step-icon}
-[Code]{.step-title}
-[Claude writes a script that calls a model]{.step-desc}
-:::
-:::{.step-card}
-[5]{.step-icon}
-[App]{.step-title}
-[Claude builds a chatbot web app]{.step-desc}
-:::
-:::{.step-card}
-[6]{.step-icon}
-[Customize]{.step-title}
-[Add a system prompt]{.step-desc}
-:::
-:::
-
-:::{.explainer style="text-align:center; margin-top:1em;"}
-Each step builds on the last. By step 6 you will have a [working chatbot app]{.amber} with a custom personality.
-:::
-
-## What Is OpenRouter?
+## OpenRouter
 
 [OpenRouter](https://openrouter.ai) is a marketplace that routes API calls to hundreds of models from dozens of providers --- [one account, one API key, any model]{.amber}.
 
