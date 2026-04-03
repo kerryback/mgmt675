@@ -122,7 +122,7 @@ An **API** lets your code talk to an LLM over the internet. OpenRouter provides 
 Ask Claude Code:
 
 :::{.info-box}
-*Install the openai package. Then write a Python script that sends a message to <model name> via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.*
+*Install the openai package. Then write a Python script that sends a message to this model ... via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.*
 :::
 
 - Set your key first: `export OPENROUTER_API_KEY=sk-or-...`
@@ -186,17 +186,6 @@ Every app that connects to the internet has two parts that communicate over [HTT
 The frontend and backend are separate programs. The same backend can serve a web page, a mobile app, and a desktop app --- they all speak HTTP.
 :::
 
-## HTTP and APIs
-
-An **API** is a set of HTTP endpoints that a server exposes --- URLs that accept requests and return responses.
-
-- `GET /` --- retrieve the chat page
-- `POST /chat` --- send a message, get a reply
-- The frontend calls these endpoints; the backend handles them
-
-:::{.explainer style="text-align:center;"}
-HTTP defines a small set of verbs: **GET** (retrieve something), **POST** (send data), **PUT** (update), **DELETE** (remove). That's basically it. Every web page, every API call, every app that touches the internet uses these same verbs over HTTP.
-:::
 
 ## Our Chatbot's Architecture
 
@@ -205,7 +194,7 @@ HTTP defines a small set of verbs: **GET** (retrieve something), **POST** (send 
 [**Frontend (JavaScript in the browser)**]{.card-title}
 
 - User types a message and clicks Send
-- JavaScript sends an HTTP POST to `/chat`
+- JavaScript sends an HTTP POST to the backend
 - Receives the reply and displays it on screen
 :::
 
@@ -229,7 +218,7 @@ Browser sends the user's message → backend calls the LLM → backend returns t
 Ask Claude Code:
 
 :::{.info-box}
-*Create a FastAPI app with a chatbot interface that chats with a model of your choice using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.*
+*Create a FastAPI app with a chatbot interface that chats with this model ... using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.*
 :::
 
 - Claude creates the backend and frontend in one file
@@ -292,7 +281,7 @@ You would get the same behavior by just pasting the system prompt into the chat 
 - [ngrok](https://ngrok.com) creates a public URL for an app running on your machine. Your app stays on your computer
 - ngrok opens a [tunnel]{.amber} to ngrok's servers, which accept public requests and forward them to your machine.
 
-- Paid Tiers ($8--$25+/month)
+- There are free accounts but you get more with paid accounts:
   - Access-controlled deployment platform
   - Multiple simultaneous tunnels
   - Custom domains (your own domain name)
@@ -300,7 +289,7 @@ You would get the same behavior by just pasting the system prompt into the chat 
 
 ## Demo
 
-1. Create an account at [ngrok.com](https://ngrok.com)
+1. Create an account at [ngrok.com](https://ngrok.com) and get an access token.
 2. Install: **Windows:** `winget install ngrok` / **Mac:** `brew install ngrok`
 3. Authenticate: `ngrok config add-authtoken <TOKEN>`
 4. Expose your app: `ngrok http 8000`
@@ -352,8 +341,7 @@ The Railway CLI requires npm (Node.js package manager). If `npm` is not installe
 
 :::{.explainer style="text-align:center;"}
 
-My chatbot on Railway: https://pirate-chatbot-productio
-  n.up.railway.app
+My chatbot on Railway: https://pirate-chatbot-production.up.railway.app
 
 :::
 
@@ -465,8 +453,7 @@ Ask Claude:
 *Build a FastAPI mean-variance app that allows user input of parameters.  Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line.  Put the mean, standard deviation, and portfolio allocation in the hover data.  Deploy it on Railway.*
 
 :::{.explainer style="text-align:center;"}
-My mean-variance app on Railway: https://chatbot-app-production-0
-  fb1.up.railway.app
+My mean-variance app on Railway: https://chatbot-app-production-0fb1.up.railway.app
 :::
 
 ## Claude Skills {.section-divider}

@@ -335,7 +335,7 @@ flowchart LR
 <h2>Demo</h2>
 <p>Ask Claude Code:</p>
 <div class="info-box">
-<p><em>Install the openai package. Then write a Python script that sends a message to <model name=""> via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.</model></em></p>
+<p><em>Install the openai package. Then write a Python script that sends a message to this model … via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.</em></p>
 </div>
 <ul>
 <li>Set your key first: <code>export OPENROUTER_API_KEY=sk-or-...</code></li>
@@ -395,18 +395,6 @@ flowchart LR
 <p>The frontend and backend are separate programs. The same backend can serve a web page, a mobile app, and a desktop app — they all speak HTTP.</p>
 </div>
 </section>
-<section id="http-and-apis" class="slide level2 center">
-<h2>HTTP and APIs</h2>
-<p>An <strong>API</strong> is a set of HTTP endpoints that a server exposes — URLs that accept requests and return responses.</p>
-<ul>
-<li><code>GET /</code> — retrieve the chat page</li>
-<li><code>POST /chat</code> — send a message, get a reply</li>
-<li>The frontend calls these endpoints; the backend handles them</li>
-</ul>
-<div class="explainer" style="text-align:center;">
-<p>HTTP defines a small set of verbs: <strong>GET</strong> (retrieve something), <strong>POST</strong> (send data), <strong>PUT</strong> (update), <strong>DELETE</strong> (remove). That’s basically it. Every web page, every API call, every app that touches the internet uses these same verbs over HTTP.</p>
-</div>
-</section>
 <section id="our-chatbots-architecture" class="slide level2 center">
 <h2>Our Chatbot’s Architecture</h2>
 <div class="two-cards">
@@ -414,7 +402,7 @@ flowchart LR
 <p><span class="card-title"><strong>Frontend (JavaScript in the browser)</strong></span></p>
 <ul>
 <li>User types a message and clicks Send</li>
-<li>JavaScript sends an HTTP POST to <code>/chat</code></li>
+<li>JavaScript sends an HTTP POST to the backend</li>
 <li>Receives the reply and displays it on screen</li>
 </ul>
 </div>
@@ -435,7 +423,7 @@ flowchart LR
 <h2>Demo</h2>
 <p>Ask Claude Code:</p>
 <div class="info-box">
-<p><em>Create a FastAPI app with a chatbot interface that chats with a model of your choice using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.</em></p>
+<p><em>Create a FastAPI app with a chatbot interface that chats with this model … using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.</em></p>
 </div>
 <ul>
 <li>Claude creates the backend and frontend in one file</li>
@@ -498,7 +486,7 @@ flowchart LR
 <ul>
 <li><p><a href="https://ngrok.com">ngrok</a> creates a public URL for an app running on your machine. Your app stays on your computer</p></li>
 <li><p>ngrok opens a <span class="amber">tunnel</span> to ngrok’s servers, which accept public requests and forward them to your machine.</p></li>
-<li><p>Paid Tiers ($8–$25+/month)</p>
+<li><p>There are free accounts but you get more with paid accounts:</p>
 <ul>
 <li>Access-controlled deployment platform</li>
 <li>Multiple simultaneous tunnels</li>
@@ -509,7 +497,7 @@ flowchart LR
 <section id="demo-3" class="slide level2 center">
 <h2>Demo</h2>
 <ol type="1">
-<li>Create an account at <a href="https://ngrok.com">ngrok.com</a></li>
+<li>Create an account at <a href="https://ngrok.com">ngrok.com</a> and get an access token.</li>
 <li>Install: <strong>Windows:</strong> <code>winget install ngrok</code> / <strong>Mac:</strong> <code>brew install ngrok</code></li>
 <li>Authenticate: <code>ngrok config add-authtoken &lt;TOKEN&gt;</code></li>
 <li>Expose your app: <code>ngrok http 8000</code></li>
@@ -559,7 +547,7 @@ flowchart LR
 <li>Ask Claude: <em>“Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”</em></li>
 </ol>
 <div class="explainer" style="text-align:center;">
-<p>My chatbot on Railway: https://pirate-chatbot-productio n.up.railway.app</p>
+<p>My chatbot on Railway: https://pirate-chatbot-production.up.railway.app</p>
 </div>
 </section>
 <section id="agents" class="slide level2 section-divider center">
@@ -677,7 +665,7 @@ flowchart LR
 <p>Ask Claude:</p>
 <p><em>Build a FastAPI mean-variance app that allows user input of parameters. Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line. Put the mean, standard deviation, and portfolio allocation in the hover data. Deploy it on Railway.</em></p>
 <div class="explainer" style="text-align:center;">
-<p>My mean-variance app on Railway: https://chatbot-app-production-0 fb1.up.railway.app</p>
+<p>My mean-variance app on Railway: https://chatbot-app-production-0fb1.up.railway.app</p>
 </div>
 </section>
 <section id="claude-skills" class="slide level2 section-divider center">

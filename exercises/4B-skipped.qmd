@@ -1,0 +1,31 @@
+---
+title: "Exercise 4B: Automated Reporting Pipeline"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Build an automated reporting pipeline that transforms raw data into a polished PowerPoint deck. Use Claude Code to create the pipeline.
+
+Your pipeline should include these stages:
+
+1. **Data query**: Load a financial dataset (CSV, Excel, or database query)
+2. **Transform**: Compute at least 3 KPIs (e.g., revenue growth, profit margin, variance vs.\ budget)
+3. **Visualize**: Generate at least 2 charts (e.g., trend line, waterfall, bar chart)
+4. **Narrative**: Use an LLM to generate a 2--3 sentence executive summary from the computed metrics
+5. **PowerPoint output**: Assemble a 3--5 slide deck using `python-pptx` with a title slide, KPI summary, charts, and the AI-generated narrative
+
+You may use any financial dataset (the Chinook database, a budget-vs-actual spreadsheet, stock return data from the Rice Data Portal, etc.).
+
+Run the pipeline end-to-end and verify that the PowerPoint file opens correctly and the charts match the underlying data.
+
+\bigskip
+\noindent\textbf{Deliverables.}
+
+- Python script or notebook that runs the pipeline (`4B-Pipeline.py` or `4B-Pipeline.ipynb`)
+- Generated PowerPoint deck (`4B-Report.pptx`)
+- Screenshot of the pipeline running (`4B-Screenshot.png`)

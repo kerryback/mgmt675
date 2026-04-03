@@ -1,5 +1,5 @@
 ---
-title: "Exercise 4B: Automated Reporting Pipeline"
+title: "Exercise 4B: Data Agent"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,23 +9,53 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Build an automated reporting pipeline that transforms raw data into a polished PowerPoint deck. Use Claude Code to create the pipeline.
+Build a chatbot that lets users query an M\&A transaction database in plain English.
 
-Your pipeline should include these stages:
+\bigskip
+\noindent\textbf{Background.}
+Download \href{https://mgmt675.kerryback.com/files/manda.db}{manda.db}, a SQLite database of 200 M\&A transactions (2019--2025) with three tables: \texttt{transactions}, \texttt{advisors}, and \texttt{financing}.
 
-1. **Data query**: Load a financial dataset (CSV, Excel, or database query)
-2. **Transform**: Compute at least 3 KPIs (e.g., revenue growth, profit margin, variance vs.\ budget)
-3. **Visualize**: Generate at least 2 charts (e.g., trend line, waterfall, bar chart)
-4. **Narrative**: Use an LLM to generate a 2--3 sentence executive summary from the computed metrics
-5. **PowerPoint output**: Assemble a 3--5 slide deck using `python-pptx` with a title slide, KPI summary, charts, and the AI-generated narrative
+\bigskip
+\noindent\textbf{Step 1: Explore the database.}
+Place \texttt{manda.db} in a project folder and ask Claude Code:
 
-You may use any financial dataset (the Chinook database, a budget-vs-actual spreadsheet, stock return data from the Rice Data Portal, etc.).
+\begin{quote}
+\textit{Read the SQLite database manda.db.  Describe each table's columns and data types, and show the first three rows of each table.}
+\end{quote}
 
-Run the pipeline end-to-end and verify that the PowerPoint file opens correctly and the charts match the underlying data.
+Review the output so you understand the schema before proceeding.
+
+\bigskip
+\noindent\textbf{Step 2: Build the chatbot.}
+Ask Claude Code to build a FastAPI chatbot app that:
+
+\begin{enumerate}
+  \item Connects to \texttt{manda.db} and answers user questions by generating and executing SQL queries.
+  \item Uses the OpenRouter API with a free model (e.g., \texttt{nvidia/nemotron-3-super-120b-a12b:free}).
+  \item Includes a system prompt that describes the database schema, column meanings, and any data conventions (e.g., deal values are in millions, some fields may be NULL).
+\end{enumerate}
+
+The app should ensure all required libraries are installed before trying to import them.
+
+\bigskip
+\noindent\textbf{Step 3: Test the chatbot.}
+Test with at least 5 questions, for example:
+
+\begin{itemize}
+  \item \textit{What are the five largest completed deals?}
+  \item \textit{Which banks advised the most deals as target advisor?}
+  \item \textit{What is the average EV/EBITDA multiple for tech acquisitions?}
+  \item \textit{Show me all hostile deals.}
+  \item \textit{How much debt financing did LBOs use on average?}
+\end{itemize}
+
+Evaluate whether the chatbot generates correct SQL and returns sensible answers.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Python script or notebook that runs the pipeline (`4B-Pipeline.py` or `4B-Pipeline.ipynb`)
-- Generated PowerPoint deck (`4B-Report.pptx`)
-- Screenshot of the pipeline running (`4B-Screenshot.png`)
+\begin{itemize}
+  \item Code (\texttt{4B-Code.zip}) --- include \texttt{manda.db} and your FastAPI app
+  \item Screenshot of the running app in your browser showing at least 3 query--response exchanges (\texttt{4B-Screenshot.png})
+  \item Evaluation of answer quality (\texttt{4B-Evaluation.pdf}, half page)
+\end{itemize}

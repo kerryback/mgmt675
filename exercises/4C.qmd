@@ -1,5 +1,5 @@
 ---
-title: "Exercise 4C: Financial Chatbot"
+title: "Exercise 4C: Options Data Dashboard"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,41 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Build a custom financial chatbot as a Streamlit app using the OpenRouter API with a free model (e.g., `mistralai/mistral-7b-instruct:free`).
+Build a FastAPI dashboard for exploring options market data.
 
-The chatbot should:
+\bigskip
+\noindent\textbf{Background.}
+Download \href{https://mgmt675.kerryback.com/files/get_options.py}{get\_options.py}, which pulls 15-minute delayed options data from the CBOE (Chicago Board Options Exchange) via Yahoo Finance. It exposes a single function:
 
-1. **Connect to a financial dataset** (a CSV file or small database)
-2. **Include a system prompt** with schema knowledge and domain expertise --- tell the model what columns exist, what the data represents, and how to answer questions
-3. **Let users ask questions in English** and display results
+\begin{verbatim}
+from get_options import get_options_data
 
-You can ask Claude Code to build the entire app for you. Focus on writing a good system prompt --- this is where the skill concepts from Module 6 apply.
+data = get_options_data("AAPL", weeks_out=4, option_type="call")
+# Returns a dict with keys:
+#   "chain"       — DataFrame with Strike, Bid, Ask, Mid, ...
+#   "expiration"  — selected expiration date
+#   "stock_price" — last traded stock price
+\end{verbatim}
 
-Test with at least 5 financial questions and evaluate the quality of the answers.
+Place \texttt{get\_options.py} in your project folder and use it as the data layer for your app.
+
+\bigskip
+\noindent\textbf{Requirements.}
+Ask Claude Code to build a FastAPI app with the following features:
+
+\begin{enumerate}
+  \item \textbf{Inputs:} ticker symbol, weeks out (integer), and option type (call or put).
+  \item \textbf{Update button:} clicking it fetches fresh data from Yahoo Finance using \texttt{get\_options\_data}.
+  \item \textbf{Plot:} display bid--ask midpoints (the \texttt{Mid} column) against strike prices.  Mark the current stock price on the plot.
+  \item \textbf{Data table:} display the full options chain below the plot.
+\end{enumerate}
+
+The app should ensure all required libraries are installed before trying to import them.
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Code (`4C-Code.zip`)
-- Screenshot of the running app showing at least 3 exchanges (`4C-Screenshot.png`)
-- Evaluation of answer quality (`4C-Evaluation.pdf`, half page)
+\begin{itemize}
+  \item Code (\texttt{4C-Code.zip}) --- your FastAPI app
+  \item Screenshot of the running app in your browser showing a plot and data table (\texttt{4C-Screenshot.png})
+\end{itemize}

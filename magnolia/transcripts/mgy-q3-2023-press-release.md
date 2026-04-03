@@ -1,0 +1,464 @@
+# Magnolia Oil & Gas Corporation — Third Quarter 2023 Earnings Press Release
+
+Source: SEC EDGAR 8-K Filing (Exhibit 99.1)
+
+---
+
+EX-99.1 2 q32023pressrelease.htm EX-99.1 
+
+Exhibit 99.1
+
+Magnolia Oil & Gas Corporation Announces Third Quarter 2023 Results
+
+
+HOUSTON, TX, November 1, 2023 \- Magnolia Oil & Gas Corporation (“Magnolia,” “we,” “our,” or the “Company”) (NYSE: MGY) today announced its financial and operational results for the third quarter of 2023.
+
+
+Third Quarter 2023 Highlights: 
+
+| | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---  
+(In millions, except per share data)| For theQuarter EndedSeptember 30, 2023| For theQuarter EndedSeptember 30, 2022| Percentage increase (decrease)  
+Net income| $| 117.5 | | $| 287.0 | | (59)| %  
+Earnings per share - diluted| $| 0.54 | | $| 1.29 | | (58)| %  
+Adjusted EBITDAX(1)| $| 239.0 | | $| 386.0 | | (38)| %  
+Capital expenditures - D&C| $| 104.3 | | $| 114.5 | | (9)| %  
+Average daily production (Mboe/d)| 82.7 | | 81.5 | | 1 | %  
+Cash balance as of period end| $| 618.5 | | $| 689.5 | | (10)| %  
+Diluted weighted average total shares outstanding(2)| 209.1 | | 217.8 | | (4)| %  
+
+
+Third Quarter 2023 Highlights: 
+
+
+•Magnolia reported third quarter 2023 net income attributable to Class A Common Stock of $102.0 million, or $0.54 per diluted share. Third quarter 2023 total net income was $117.5 million. Diluted weighted average total shares outstanding decreased by 4% to 209.1 million(2) compared to third quarter 2022.
+
+
+•Adjusted EBITDAX(1) was $239.0 million during the third quarter of 2023 and total drilling and completions (“D&C”) capital was $104.3 million, or approximately 44% of adjusted EBITDAX. The Company continues to realize the benefit of lower capital related costs for oil field services and materials due to successful initiatives earlier this year.
+
+
+•Magnolia’s operating income as a percentage of revenue improved to 47% during the third quarter of 2023 compared to 43% in the second quarter as a result of higher product price realizations and lower field operating costs.
+
+
+•Total production in the third quarter of 2023 grew 1% sequentially to 82.7 thousand barrels of oil equivalent per day (“Mboe/d”). Production at Giddings and Other was 61.2 Mboe/d, providing overall growth of 28% compared to last year’s third quarter, including oil production growth of 23%.
+
+
+•We are increasing our full-year 2023 organic production growth to 8% which is the high-end of our previous guidance range. Including production for the recently announced bolt-on acquisition in Giddings, total 2023 production is expected to grow 9% compared to last year.
+
+
+•Net cash provided by operating activities was $187.3 million during the third quarter of 2023 and the Company generated free cash flow(1) of $127.8 million. 
+
+
+•The Company repurchased 2.5 million of its Class A Common Stock during the third quarter for $56.8 million. Magnolia has 11.7 million Class A Common shares remaining under its current repurchase authorization, which are specifically allocated toward open market share repurchases.
+
+
+•As previously announced, the Board of Directors declared a cash dividend of $0.115 per share of Class A common stock, and a cash distribution of $0.115 per Class B unit, payable on December 1, 2023 to shareholders of record as of November 9, 2023.
+
+
+(1) Adjusted EBITDAX and free cash flow are non-GAAP financial measures. For reconciliations to the most comparable GAAP measures, please see “Non-GAAP Financial Measures” at the end of this press release.
+
+(2) Weighted average total shares outstanding include diluted weighted average shares of Class A Common Stock outstanding during the period and shares of Class B Common Stock, which are anti-dilutive in the calculation of weighted average number of common shares outstanding.
+
+
+1
+
+* * *
+
+
+•Magnolia returned $81.1 million(3), or 63% of the Company’s free cash flow, to shareholders during the third quarter through a combination of share repurchases and dividends while ending the period with $618.5 million of cash on the balance sheet. The Company remains undrawn on its $450.0 million revolving credit facility, has no debt maturities until 2026 and has no plan to increase its debt levels.
+
+
+“Magnolia continues to execute on its business model as evidenced by our third quarter financial and operating results,” said President and CEO Chris Stavros. “Production trended above our expectations due to strong well performance in Giddings.  Our operating results are further supported by realizing ongoing efficiencies in the field. We set a record during the quarter with completed feet per day, and we are currently seeing the results of our cost reduction efforts. These accomplishments position Magnolia to deliver organic production growth of 8% in 2023 with capital outlays that are 15% lower than our original plan and 7% below our 2022 spending levels.
+
+
+“During the third quarter, we utilized some of the excess cash generated by the business announcing an accretive bolt-on acquisition in our Giddings area. This acquisition improves our overall business by adding high margin, oil-weighted production, while also enhancing the depth of our development locations in both the Eagle Ford and Austin Chalk formations. The transaction, which is expected to close during the fourth quarter, will bring our total Giddings acreage position to more than half a million net acres with a current development area of more than 150,000 net acres. We plan to fold this into our existing Giddings asset and include it as part of our 2024 development plan. This is an example of our strategy to pursue small bolt-on assets, adding to our high-quality bench, and leveraging the significant knowledge we have gained through operating in the Giddings field to enhance our per share metrics and improve the overall business.
+
+
+“Magnolia’s high-quality assets and ongoing strategy which includes disciplined capital spending, generating moderate annual production growth, high pre-tax margins, and steady, consistent free cash flow, continue to drive the value of the business. We believe this framework is optimal in maximizing shareholder value over the long-term and through an uncertain product price environment. Our focus remains on taking actions to improve the overall business, sustain our high returns, and increase our dividend per share payout capacity, allowing for annual dividend growth of at least 10%.
+
+
+“As we look towards 2024, our core principles and strategy remain largely unchanged. We remain well-positioned with a strong balance sheet, a significantly improved cost structure and a larger footprint in the Giddings field allowing for efficient development which should continue to drive our high-return production growth. Assuming current product prices, we expect to spend less than half of our EBITDAX for drilling and completing wells which should deliver high single-digit year-over-year production growth.”
+
+
+Operational Update
+
+
+Third quarter 2023 total company production volumes averaged 82.7 Mboe/d, representing 1% sequential growth and ahead of our guidance due to better well performance from our Giddings asset. Production from Giddings and Other increased by 28% compared to last year’s third quarter to 61.2 Mboe/d with oil production growing 3.8 MBbl/d or 23% over the same period. Magnolia’s third quarter 2023 capital spending on drilling, completions and associated facilities was $104.3 million.
+
+
+The Company continues to operate two drilling rigs and one completion crew. One rig continues to drill multi-well development pads in our Giddings area with the second rig drilling a mix of wells in both the Karnes and Giddings areas, including some appraisal wells at Giddings. In Giddings, we currently expect to average approximately 4 wells per pad with average lateral lengths of approximately 8,000 feet.
+
+
+Additional Guidance
+
+
+We currently expect our total D&C capital for full-year 2023 to be approximately $430 million, which is in the lower half of Magnolia’s previous guidance range of $425 to $440 million. This amount is 15% below our original outlook for this year’s spending that we conveyed early in the year. In addition, we are increasing our expected full-year 2023 organic production growth to 8% and at the high-end of our previous guidance range. Including the recently announced bolt-on acquisition in Giddings, total 2023 production growth is expected to be approximately 9%.
+
+
+(3) Includes $1.2 million of share repurchases incurred during the third quarter, but settled during the fourth quarter of 2023, and excludes $1.1 million of share repurchases incurred during the second quarter, but settled during the third quarter of 2023.
+
+2
+
+* * *
+
+
+We expect our fourth quarter D&C capital to be approximately $100 million. Total oil and gas production for the fourth quarter is expected to be approximately 85 Mboe/d, including a partial period of production from the recent Giddings acquisition. Oil price differentials are anticipated to be approximately a $3.00 per barrel discount to Magellan East Houston and Magnolia remains completely unhedged for all its oil and natural gas production. The fully diluted share count for the fourth quarter of 2023 is expected to be approximately 207 million shares, which is approximately 4% lower than fourth quarter 2022 levels.
+
+
+Assuming current product prices, our operating plan for 2024 is currently expected to be similar to this year, in which we continue to operate two drilling rigs and one completion crew. Lower costs for drilling and completions as part of this year’s initiatives, in addition to efficiency gains, allow us to plan to drill and complete more wells during 2024 and to deliver high single-digit year-over-year production growth. Overall, our plan is to continue to execute on our strategy of generating moderate production growth while spending within 55% of our adjusted EBITDAX. As customary, we expect to re-evaluate our current annual dividend rate of $0.46 per share early next year based on our full-year 2023 financial and operating results. Our share repurchase program and the payment of a secure, sustainable, and growing dividend remain important components of Magnolia’s total shareholder return proposition. 
+
+
+Quarterly Report on Form 10-Q
+
+
+Magnolia's financial statements and related footnotes will be available in its Quarterly Report on Form 10-Q for the three months ended September 30, 2023, which is expected to be filed with the U.S. Securities and Exchange Commission (“SEC”) on November 2, 2023.
+
+
+Conference Call and Webcast
+
+
+Magnolia will host an investor conference call on Thursday, November 2, 2023 at 10:00 a.m. Central (11:00 a.m. Eastern) to discuss these operating and financial results. Interested parties may join the webcast by visiting Magnolia's website at www.magnoliaoilgas.com/investors/events-and-presentations and clicking on the webcast link or by dialing 1-844-701-1059. A replay of the webcast will be posted on Magnolia's website following completion of the call.
+
+
+About Magnolia Oil & Gas Corporation
+
+
+Magnolia (MGY) is a publicly traded oil and gas exploration and production company with operations primarily in South Texas in the core of the Eagle Ford Shale and Austin Chalk formations. Magnolia focuses on generating value for shareholders by delivering steady, moderate annual production growth resulting from its disciplined and efficient philosophy toward capital spending. The Company strives to generate high pre‐tax margins and consistent free cash flow allowing for strong cash returns to our shareholders. For more information, visit www.magnoliaoilgas.com.
+
+
+3
+
+* * *
+
+
+Cautionary Note Regarding Forward-Looking Statements
+
+
+The information in this press release includes forward-looking statements within the meaning of Section 27A of the Securities Act of 1933, as amended, and Section 21E of the Securities Exchange Act of 1934, as amended. All statements, other than statements of present or historical fact included in this press release, regarding Magnolia’s strategy, future operations, financial position, estimated revenues and losses, projected costs, prospects, plans and objectives of management are forward looking statements. When used in this press release, the words could, should, will, may, believe, anticipate, intend, estimate, expect, project, the negative of such terms and other similar expressions are intended to identify forward-looking statements, although not all forward-looking statements contain such identifying words. These forward-looking statements are based on management’s current expectations and assumptions about future events. Except as otherwise required by applicable law, Magnolia disclaims any duty to update any forward-looking statements, all of which are expressly qualified by the statements in this section, to reflect events or circumstances after the date of this press release. Magnolia cautions you that these forward-looking statements are subject to all of the risks and uncertainties, most of which are difficult to predict and many of which are beyond the control of Magnolia, incident to the development, production, gathering and sale of oil, natural gas and natural gas liquids. In addition, Magnolia cautions you that the forward looking statements contained in this press release are subject to the following factors: (i) the supply and demand for oil, natural gas, NGLs, and other products or services, including impacts of actions taken by OPEC and other state-controlled oil companies; (ii) the outcome of any legal proceedings that may be instituted against Magnolia; (iii) Magnolia’s ability to realize the anticipated benefits of its acquisitions, which may be affected by, among other things, competition and the ability of Magnolia to grow and manage growth profitably; (iv) changes in applicable laws or regulations; (v) geopolitical and business conditions in key regions of the world; and (vi) the possibility that Magnolia may be adversely affected by other economic, business, and/or competitive factors, including inflation. Should one or more of the risks or uncertainties described in this press release occur, or should underlying assumptions prove incorrect, actual results and plans could differ materially from those expressed in any forward-looking statements. Additional information concerning these and other factors that may impact the operations and projections discussed herein can be found in Magnolia’s filings with the SEC, including its Annual Report on Form 10-K for the fiscal year ended December 31, 2022. Magnolia’s SEC filings are available publicly on the SEC’s website at www.sec.gov.
+
+
+Contacts for Magnolia Oil & Gas Corporation 
+
+| | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+Investors| | Media| |   
+| | | |   
+Jim Johnson| | Art Pike| |   
+(713) 842-9033| | (713) 842-9057| |   
+jjohnson@mgyoil.com| | apike@mgyoil.com| |   
+| | | |   
+Tom Fitter| | | |   
+(713) 331-4802| | | |   
+tfitter@mgyoil.com | | | |   
+
+4
+
+* * *
+
+
+| | | | | | | | | | | | | | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+Magnolia Oil & Gas Corporation  
+Operating Highlights  
+| | | | | | | |   
+| | For the Quarters Ended| | For the Nine Months Ended  
+| | September 30, 2023| | September 30, 2022| | September 30, 2023| | September 30, 2022  
+Production:| | | | | | | |   
+Oil (MBbls)| | 3,024 | | | 3,381 | | | 9,345 | | | 9,216 |   
+Natural gas (MMcf)| | 14,406 | | | 13,364 | | | 40,839 | | | 38,205 |   
+Natural gas liquids (MBbls)| | 2,179 | | | 1,892 | | | 6,045 | | | 5,134 |   
+Total (Mboe)| | 7,604 | | | 7,500 | | | 22,196 | | | 20,718 |   
+| | | | | | | |   
+Average daily production:| | | | | | | |   
+Oil (Bbls/d)| | 32,867 | | | 36,751 | | | 34,229 | | | 33,760 |   
+Natural gas (Mcf/d)| | 156,585 | | | 145,257 | | | 149,594 | | | 139,947 |   
+Natural gas liquids (Bbls/d)| | 23,686 | | | 20,568 | | | 22,142 | | | 18,806 |   
+Total (boe/d)| | 82,651 | | | 81,529 | | | 81,303 | | | 75,890 |   
+| | | | | | | |   
+Revenues (in thousands):| | | | | | | |   
+Oil revenues| | $| 243,588 | | | $| 317,243 | | | $| 705,857 | | | $| 912,702 |   
+Natural gas revenues| | 27,069 | | | 100,124 | | | 75,687 | | | 242,049 |   
+Natural gas liquids revenues| | 45,021 | | | 65,596 | | | 122,807 | | | 190,700 |   
+Total Revenues| | $| 315,678 | | | $| 482,963 | | | $| 904,351 | | | $| 1,345,451 |   
+| | | | | | | |   
+Average sales price:| | | | | | | |   
+Oil (per Bbl)| | $| 80.56 | | | $| 93.83 | | | $| 75.54 | | | $| 99.03 |   
+Natural gas (per Mcf)| | 1.88 | | | 7.49 | | | 1.85 | | | 6.34 |   
+Natural gas liquids (per Bbl)| | 20.66 | | | 34.66 | | | 20.32 | | | 37.14 |   
+Total (per boe)| | $| 41.52 | | | $| 64.40 | | | $| 40.74 | | | $| 64.94 |   
+| | | | | | | |   
+NYMEX WTI (per Bbl)| | $| 82.18 | | | $| 91.64 | | | $| 77.37 | | | $| 98.14 |   
+NYMEX Henry Hub (per MMBtu)| | $| 2.54 | | | $| 8.19 | | | $| 2.69 | | | $| 6.77 |   
+Realization to benchmark:| | | | | | | |   
+Oil (% of WTI)| | 98 | %| | 102 | %| | 98 | %| | 101 | %  
+Natural Gas (% of Henry Hub)| | 74 | %| | 91 | %| | 69 | %| | 94 | %  
+| | | | | | | |   
+Operating expenses (in thousands):| | | | | | | |   
+Lease operating expenses| | $| 35,893 | | | $| 34,709 | | | $| 115,060 | | | $| 96,057 |   
+Gathering, transportation and processing| | 10,297 | | | 19,297 | | | 33,419 | | | 51,518 |   
+Taxes other than income| | 14,823 | | | 26,623 | | | 49,331 | | | 74,917 |   
+Depreciation, depletion and amortization| | 81,158 | | | 68,972 | | | 228,868 | | | 179,331 |   
+| | | | | | | |   
+Operating costs per boe:| | | | | | | |   
+Lease operating expenses| | $| 4.72 | | | $| 4.63 | | | $| 5.18 | | | $| 4.64 |   
+Gathering, transportation and processing| | 1.35 | | | 2.57 | | | 1.51 | | | 2.49 |   
+Taxes other than income| | 1.95 | | | 3.55 | | | 2.22 | | | 3.62 |   
+Depreciation, depletion and amortization| | 10.67 | | | 9.20 | | | 10.31 | | | 8.66 |   
+
+5
+
+* * *
+
+
+Magnolia Oil & Gas Corporation
+
+Consolidated Statements of Operations
+
+(In thousands, except per share data) 
+
+
+| | | | | | | | | | | | | | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+| | For the Quarters Ended| | For the Nine Months Ended  
+| | September 30, 2023| | September 30, 2022| | September 30, 2023| | September 30, 2022  
+REVENUES| | | |  | | | |   
+Oil revenues| | $| 243,588 | | | $| 317,243 | | | $| 705,857 | | | $| 912,702 |   
+Natural gas revenues| | 27,069 | | | 100,124 | | | 75,687 | | | 242,049 |   
+Natural gas liquids revenues| | 45,021 | | | 65,596 | | | 122,807 | | | 190,700 |   
+Total revenues| | 315,678 | | | 482,963 | | | 904,351 | | | 1,345,451 |   
+OPERATING EXPENSES| | | | | | | |   
+Lease operating expenses| | 35,893 | | | 34,709 | | | 115,060 | | | 96,057 |   
+Gathering, transportation and processing| | 10,297 | | | 19,297 | | | 33,419 | | | 51,518 |   
+Taxes other than income| | 14,823 | | | 26,623 | | | 49,331 | | | 74,917 |   
+Exploration expenses| | 5,128 | | | 1,173 | | | 5,139 | | | 10,119 |   
+Asset retirement obligations accretion| | 875 | | | 814 | | | 2,539 | | | 2,404 |   
+Depreciation, depletion and amortization| | 81,158 | | | 68,972 | | | 228,868 | | | 179,331 |   
+Impairment of oil and natural gas properties| | — | | | — | | | 15,735 | | | — |   
+General and administrative expenses| | 19,371 | | | 19,625 | | | 57,863 | | | 55,226 |   
+Total operating expenses| | 167,545 | | | 171,213 | | | 507,954 | | | 469,572 |   
+| | | | | | | |   
+OPERATING INCOME| | 148,133 | | | 311,750 | | | 396,397 | | | 875,879 |   
+| | | | | | | |   
+OTHER INCOME (EXPENSE)| | | | | | | |   
+Interest income (expense), net| | 1,034 | | | (5,263)| | | 372 | | | (21,637)|   
+Other income (expense), net| | (479)| | | (166)| | | 7,643 | | | 6,579 |   
+Total other expense, net| | 555 | | | (5,429)| | | 8,015 | | | (15,058)|   
+| | | | | | | |   
+INCOME BEFORE INCOME TAXES| | 148,688 | | | 306,321 | | | 404,412 | | | 860,821 |   
+| | | | | | | |   
+Current income tax expense| | 19,262 | | | 19,358 | | | 27,450 | | | 65,333 |   
+Deferred income tax expense| | 11,949 | | | — | | | 48,213 | | | — |   
+Total income tax expense| | 31,211 | | | 19,358 | | | 75,663 | | | 65,333 |   
+| | | | | | | |   
+NET INCOME| | 117,477 | | | 286,963 | | | 328,749 | | | 795,488 |   
+LESS: Net income attributable to noncontrolling interest| | 15,447 | | | 41,486 | | | 38,893 | | | 133,389 |   
+NET INCOME ATTRIBUTABLE TO CLASS A COMMON STOCK| | $| 102,030 | | | $| 245,477 | | | $| 289,856 | | | $| 662,099 |   
+| | | | | | | |   
+NET INCOME PER COMMON SHARE| | | |   
+Basic| | $| 0.54 | | | $| 1.29 | | | $| 1.51 | | | $| 3.52 |   
+Diluted| | $| 0.54 | | | $| 1.29 | | | $| 1.51 | | | $| 3.51 |   
+WEIGHTED AVERAGE NUMBER OF COMMON SHARES OUTSTANDING| | | |   
+Basic| | 187,093 | | | 188,635 | | | 189,408 | | | 186,475 |   
+Diluted| | 187,265 | | | 189,074 | | | 189,612 | | | 186,967 |   
+WEIGHTED AVERAGE NUMBER OF CLASS B SHARES OUTSTANDING (1)| | 21,827 | | | 28,710 | | | 21,827 | | | 35,528 |   
+DILUTED WEIGHTED AVERAGE TOTAL SHARES OUTSTANDING (1)| | 209,092 | | | 217,784 | | | 211,439 | | | 222,495 |   
+
+(1) Shares of Class B Common Stock, and corresponding Magnolia LLC Units, are anti-dilutive in the calculation of weighted average number of common shares outstanding.
+
+6
+
+* * *
+
+
+Magnolia Oil & Gas Corporation
+
+Summary Cash Flow Data
+
+(In thousands) 
+
+| | | | | | | | | | | | | | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+| | For the Quarters Ended| | For the Nine Months Ended  
+| | September 30, 2023| | September 30, 2022| | September 30, 2023| | September 30, 2022  
+CASH FLOWS FROM OPERATING ACTIVITIES| | | |   
+NET INCOME| | $| 117,477 | | | $| 286,963 | | | $| 328,749 | | | $| 795,488 |   
+Adjustments to reconcile net income to net cash provided by operating activities:| | | | | | | |   
+Depreciation, depletion and amortization| | 81,158 | | | 68,972 | | | 228,868 | | | 179,331 |   
+Exploration expenses, non-cash| | — | | | — | | | 9 | | | — |   
+Impairment of oil and natural gas properties| | — | | | — | | | 15,735 | | | — |   
+Asset retirement obligations accretion| | 875 | | | 814 | | | 2,539 | | | 2,404 |   
+Amortization of deferred financing costs| | 1,073 | | | 1,032 | | | 3,173 | | | 4,812 |   
+(Gain) on sale of assets| | — | | | — | | | (3,946)| | | — |   
+Deferred income tax expense| | 11,949 | | | — | | | 48,213 | | | — |   
+Stock based compensation| | 4,197 | | | 3,462 | | | 12,060 | | | 9,864 |   
+Net change in operating assets and liabilities| | (29,419)| | | 49,438 | | | (26,493)| | | 36,786 |   
+Net cash provided by operating activities| | 187,310 | | | 410,681 | | | 608,907 | | | 1,028,685 |   
+| | | | | | | |   
+CASH FLOWS FROM INVESTING ACTIVITIES| | | |   
+Acquisitions| | (50,456)| | | (7,402)| | | (53,812)| | | (11,749)|   
+Deposits for acquisitions of oil and natural gas properties (1)| | (22,503)| | | — | | | (22,503)| | | — |   
+Additions to oil and natural gas properties| | (106,668)| | | (116,050)| | | (332,055)| | | (323,510)|   
+Changes in working capital associated with additions to oil and natural gas properties| | 17,735 | | | (11,342)| | | (21,688)| | | 14,152 |   
+Other investing| | (498)| | | (169)| | | (590)| | | (1,187)|   
+Net cash used in investing activities| | (162,390)| | | (134,963)| | | (430,648)| | | (322,294)|   
+| | | | | | | |   
+CASH FLOW FROM FINANCING ACTIVITIES| | | |   
+Class A Common Stock repurchases| | (56,754)| | | (60,983)| | | (151,696)| | | (153,138)|   
+Class B Common Stock purchase and cancellation| | — | | | — | | | — | | | (138,753)|   
+Dividends paid| | (21,796)| | | (19,043)| | | (66,480)| | | (56,220)|   
+Cash paid for debt modification| | — | | | (221)| | | — | | | (5,494)|   
+Distributions to noncontrolling interest owners| | (4,347)| | | (7,608)| | | (9,946)| | | (23,852)|   
+Other financing activities| | (125)| | | (215)| | | (7,112)| | | (6,377)|   
+Net cash used in financing activities| | (83,022)| | | (88,070)| | | (235,234)| | | (383,834)|   
+| | | | | | | |   
+NET CHANGE IN CASH AND CASH EQUIVALENTS| | (58,102)| | | 187,648 | | | (56,975)| | | 322,557 |   
+Cash and cash equivalents – Beginning of period| | 676,568 | | | 501,891 | | | 675,441 | | | 366,982 |   
+Cash and cash equivalents – End of period| | $| 618,466 | | | $| 689,539 | | | $| 618,466 | | | $| 689,539 |   
+
+
+(1) Associated with the acquisition of certain oil and gas producing properties including leasehold and mineral interests in the Giddings area, expected to close in the fourth quarter of 2023.
+
+7
+
+* * *
+
+
+Magnolia Oil & Gas Corporation
+
+Summary Balance Sheet Data
+
+(In thousands) 
+
+
+| | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+| | September 30, 2023| | December 31, 2022  
+Cash and cash equivalents| | $| 618,466 | | | $| 675,441 |   
+Other current assets| | 187,282 | | | 175,306 |   
+Property, plant and equipment, net| | 1,682,456 | | | 1,533,029 |   
+Other assets| | 164,289 | | | 188,809 |   
+Total assets| | $| 2,652,493 | | | $| 2,572,585 |   
+| | | |   
+Current liabilities| | $| 303,705 | | | $| 340,273 |   
+Long-term debt, net| | 392,209 | | | 390,383 |   
+Other long-term liabilities| | 109,422 | | | 101,738 |   
+Common stock| | 23 | | | 23 |   
+Additional paid in capital| | 1,738,668 | | | 1,719,875 |   
+Treasury stock| | (483,745)| | | (329,512)|   
+Retained earnings| | 409,230 | | | 185,669 |   
+Noncontrolling interest| | 182,981 | | | 164,136 |   
+Total liabilities and equity| | $| 2,652,493 | | | $| 2,572,585 |   
+
+
+8
+
+* * *
+
+
+Magnolia Oil & Gas Corporation 
+
+Non-GAAP Financial Measures 
+
+
+Reconciliation of net income to adjusted EBITDAX
+
+
+In this press release, we refer to adjusted EBITDAX, a supplemental non-GAAP financial measure that is used by management and external users of our consolidated financial statements, such as industry analysts, investors, lenders, and rating agencies. We define adjusted EBITDAX as net income before interest (income) expense, income taxes, depreciation, depletion and amortization, exploration expenses, and accretion of asset retirement obligations, adjusted to exclude the effect of certain items included in net income. Adjusted EBITDAX is not a measure of net income in accordance with GAAP.
+
+
+Our management believes that adjusted EBITDAX is useful because it allows them to more effectively evaluate our operating performance and compare the results of our operations from period to period and against our peers without regard to our financing methods or capital structure. We also believe that securities analysts, investors, and other interested parties may use adjusted EBITDAX in the evaluation of our Company. We exclude the items listed above from net income in arriving at adjusted EBITDAX because these amounts can vary substantially from company to company within our industry depending upon accounting methods and book values of assets, capital structures and the method by which the assets were acquired. Adjusted EBITDAX should not be considered as an alternative to, or more meaningful than, net income as determined in accordance with GAAP or as an indicator of our operating performance or liquidity. Certain items excluded from adjusted EBITDAX are significant components in understanding and assessing a company’s financial performance, such as a company’s cost of capital and tax structure, as well as the historic costs of depreciable assets, none of which are components of adjusted EBITDAX. Our presentation of adjusted EBITDAX should not be construed as an inference that our results will be unaffected by unusual or non-recurring items. Our computations of adjusted EBITDAX may not be comparable to other similarly titled measures of other companies.
+
+
+The following table presents a reconciliation of net income to adjusted EBITDAX, our most directly comparable financial measure, calculated and presented in accordance with GAAP:
+
+| | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+| | For the Quarters Ended  
+(In thousands)| | September 30, 2023| | September 30, 2022  
+NET INCOME| | $| 117,477 | | | $| 286,963 |   
+Exploration expenses| | 5,128 | | | 1,173 |   
+Asset retirement obligations accretion| | 875 | | | 814 |   
+Depreciation, depletion and amortization| | 81,158 | | | 68,972 |   
+Interest (income) expense, net| | (1,034)| | | 5,263 |   
+Income tax expense| | 31,211 | | | 19,358 |   
+EBITDAX| | 234,815 | | | 382,543 |   
+Non-cash stock based compensation expense| | 4,197 | | | 3,462 |   
+Adjusted EBITDAX| | $| 239,012 | | | $| 386,005 |   
+
+
+9
+
+* * *
+
+
+Magnolia Oil & Gas Corporation
+
+Non-GAAP Financial Measures
+
+
+Reconciliation of revenue to adjusted cash operating margin and operating income margin
+
+
+Our presentation of adjusted cash operating margin and total adjusted cash operating costs are supplemental non-GAAP financial measures that are used by management. Total adjusted cash operating costs exclude the impact of non-cash activity. We define adjusted cash operating margin per boe as total revenues per boe less cash operating costs per boe. Management believes that total adjusted cash operating costs per boe and adjusted cash operating margin per boe provide relevant and useful information, which is used by our management in assessing the Company’s profitability and comparability of results to our peers.
+
+
+As a performance measure, total adjusted cash operating costs and adjusted cash operating margin may be useful to investors in facilitating comparisons to others in the Company’s industry because certain items can vary substantially in the oil and gas industry from company to company depending upon accounting methods, book value of assets, and capital structure, among other factors. Management believes excluding these items facilitates investors and analysts in evaluating and comparing the underlying operating and financial performance of our business from period to period by eliminating differences caused by the existence and timing of certain expense and income items that would not otherwise be apparent on a GAAP basis. However, our presentation of adjusted cash operating margin may not be comparable to similar measures of other companies in our industry.
+
+
+| | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+| | For the Quarters Ended  
+(in $/boe)| | September 30, 2023| | September 30, 2022  
+Revenue| | $| 41.52 | | | $| 64.40 |   
+Total cash operating costs:| | | |   
+Lease operating expenses (1)| | (4.65)| | | (4.59)|   
+Gathering, transportation and processing| | (1.35)| | | (2.57)|   
+Taxes other than income| | (1.95)| | | (3.55)|   
+Exploration expenses| | (0.67)| | | (0.16)|   
+General and administrative expenses (2)| | (2.06)| | | (2.20)|   
+Total adjusted cash operating costs| | (10.68)| | | (13.07)|   
+Adjusted cash operating margin| | $| 30.84 | | | $| 51.33 |   
+Margin (%)| | 74 | %| | 80 | %  
+Non-cash costs:| | | |   
+Depreciation, depletion and amortization| | $| (10.67)| | | $| (9.20)|   
+Asset retirement obligations accretion| | (0.12)| | | (0.11)|   
+Non-cash stock based compensation| | (0.56)| | | (0.46)|   
+Total non-cash costs| | (11.35)| | | (9.77)|   
+Operating income margin| | $| 19.49 | | | $| 41.56 |   
+Margin (%)| | 47 | %| | 65 | %  
+
+
+(1) Lease operating expenses exclude non-cash stock based compensation of $0.5 million, or $0.07 per boe, and $0.3 million, or $0.04 per boe, for the quarters ended September 30, 2023 and 2022, respectively.
+
+(2) General and administrative expenses exclude non-cash stock based compensation of $3.7 million, or $0.49 per boe, and $3.1 million, or $0.42 per boe, for the quarters ended September 30, 2023 and 2022, respectively.
+
+
+10
+
+* * *
+
+
+Magnolia Oil & Gas Corporation
+
+Non-GAAP Financial Measures
+
+
+Reconciliation of net cash provided by operating activities to free cash flow
+
+
+Free cash flow is a non-GAAP financial measure. Free cash flow is defined as cash flows from operations before net change in operating assets and liabilities less additions to oil and natural gas properties and changes in working capital associated with additions to oil and natural gas properties. Management believes free cash flow is useful for investors and widely accepted by those following the oil and gas industry as financial indicators of a company’s ability to generate cash to internally fund drilling and completion activities, fund acquisitions, and service debt. It is also used by research analysts to value and compare oil and gas exploration and production companies and are frequently included in published research when providing investment recommendations. Free cash flow is used by management as an additional measure of liquidity. Free cash flow is not a measure of financial performance under GAAP and should not be considered an alternative to cash flows from operating, investing, or financing activities.
+
+
+| | | | | | | | | | | | | |   
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+| | For the Quarters Ended  
+(In thousands)| | September 30, 2023| | September 30, 2022  
+Net cash provided by operating activities| | $| 187,310 | | | $| 410,681 |   
+Add back: net change in operating assets and liabilities| | 29,419 | | | (49,438)|   
+Cash flows from operations before net change in operating assets and liabilities| | 216,729 | | | 361,243 |   
+Additions to oil and natural gas properties| | (106,668)| | | (116,050)|   
+Changes in working capital associated with additions to oil and natural gas properties| | 17,735 | | | (11,342)|   
+Free cash flow| | $| 127,796 | | | $| 233,851 |   
+
+
+11

@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 10: Corporate Agent Deployment</title>
+  <title>Module 10: Corporate AI Deployment</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,71 +28,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7fc5b5c007afbaadd84527aba0b064b8.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -201,7 +136,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 10: Corporate Agent Deployment</h1>
+  <h1 class="title">Module 10: Corporate AI Deployment</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -213,197 +148,111 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="guardrails-and-constraints" class="slide level2 section-divider center">
-<h2>Guardrails and Constraints</h2>
+<section id="data-security" class="slide level2 section-divider center">
+<h2>Data Security</h2>
 </section>
-<section id="why-guardrails" class="slide level2 center">
-<h2>Why Guardrails?</h2>
-<p>Without constraints, an autonomous agent can cause real damage — even with good intentions.</p>
-<div class="two-cards">
-<div class="card card-dark">
-<p><span class="card-title"><strong>What Can Go Wrong</strong></span></p>
-<ul>
-<li><em>“Clean up the repo”</em> → deletes files you need</li>
-<li>A loop bug triggers hundreds of API calls</li>
-<li>Write access to the database → unintended edits</li>
-<li>A misread instruction → wrong files overwritten</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>The Principle</strong></span></p>
-<p>Grant the agent the <span class="amber">minimum access</span> it needs to complete the task — and no more.</p>
-<ul>
-<li>Read-only unless writes are required</li>
-<li>Specific directories, not the whole filesystem</li>
-<li>No network unless the task requires it</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="permission-modes-in-claude-code" class="slide level2 center">
-<h2>Permission Modes in Claude Code</h2>
-<p>Claude Code pauses and asks before taking consequential actions — unless you explicitly allow them.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Default: Human in the Loop</strong></p>
-<ul>
-<li>Agent stops before running bash commands, writing files, or calling the network</li>
-<li>You approve or deny each action</li>
-<li>Safe for unfamiliar tasks or new codebases</li>
-</ul>
-</div><div class="column">
-<p><strong>Allow Lists</strong></p>
-<ul>
-<li>Approve a specific command once — or always</li>
-<li>Approve an entire tool (e.g., all file reads)</li>
-<li>Approve a path prefix (e.g., <code>./reports/</code>)</li>
-<li>Stored in <code>settings.json</code></li>
-</ul>
-</div></div>
-<div class="explainer" style="margin-top:0.8em;">
-<p><span class="amber">Human approval is the default.</span> You choose how much autonomy to grant, task by task.</p>
-</div>
-</section>
-<section id="claude.md-as-a-behavioral-guardrail" class="slide level2 center">
-<h2>CLAUDE.md as a Behavioral Guardrail</h2>
-<p>CLAUDE.md is not just documentation — it is the agent’s system prompt. Use it to enforce rules.</p>
-<div class="info-box">
-<p><span class="box-title"><strong>Examples of Constraint Instructions</strong></span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a></a><span class="ss">- </span>Never modify files outside the src/ directory</span>
-<span id="cb1-2"><a></a><span class="ss">- </span>Always ask before running git push or git commit</span>
-<span id="cb1-3"><a></a><span class="ss">- </span>Use read-only database connections unless told otherwise</span>
-<span id="cb1-4"><a></a><span class="ss">- </span>If a task would delete more than 3 files, pause and confirm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="explainer" style="margin-top:0.8em;">
-<p>The system prompt is the <span class="amber">first line of defense</span>. Clear written rules reduce the chance of unintended actions.</p>
-</div>
-</section>
-<section id="hooks-programmatic-checks" class="slide level2 center">
-<h2>Hooks: Programmatic Checks</h2>
-<p>Hooks run shell commands automatically at agent lifecycle events.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Event Types</strong></span></p>
-<ul>
-<li><strong>PreToolUse</strong> — runs before a tool fires; can block the action</li>
-<li><strong>PostToolUse</strong> — runs after a tool completes; can log or validate</li>
-<li><strong>Stop</strong> — runs when the agent finishes</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Example Uses</strong></span></p>
-<ul>
-<li>Block any bash command containing <code>rm -rf</code></li>
-<li>Log every file write to an audit trail</li>
-<li>Send an alert when the agent finishes</li>
-<li>Run tests automatically after every code edit</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="margin-top:0.8em;">
-<p>Hooks enforce rules <span class="amber">programmatically</span> — the check runs whether or not the agent remembers the instruction.</p>
-</div>
-</section>
-<section id="layered-guardrails" class="slide level2 center">
-<h2>Layered Guardrails</h2>
-<p>No single guardrail is sufficient. Defense in depth combines all layers.</p>
-<div class="two-col">
-<div class="column">
-<ol type="1">
-<li><strong>CLAUDE.md</strong> — behavioral rules in the system prompt</li>
-<li><strong>Permissions</strong> — tool and path access control</li>
-<li><strong>Hooks</strong> — programmatic checks at runtime</li>
-</ol>
-</div><div class="column">
-<ol start="4" type="1">
-<li><strong>Sandboxing</strong> — isolated execution environment</li>
-<li><strong>Human approval</strong> — pause before high-stakes actions</li>
-<li><strong>Iteration limits</strong> — prevent runaway loops and cost overruns</li>
-</ol>
-</div></div>
-<div class="explainer" style="margin-top:1em; text-align:center;">
-<p>Each layer catches what the previous one misses. <span class="amber">Together they make autonomous agents safe to deploy.</span></p>
-</div>
-</section>
-<section id="audit-logging" class="slide level2 section-divider center">
-<h2>Audit Logging</h2>
-</section>
-<section id="jsonl-audit-logs" class="slide level2 center">
-<h2>JSONL Audit Logs</h2>
-<p>Every AI interaction in a production system should produce an <span class="amber">audit log entry</span>. The standard format is JSONL (one JSON object per line).</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>What to Log</strong></span></p>
-<ul>
-<li><strong>Identity</strong>: timestamp, user, model</li>
-<li><strong>Content</strong>: prompt and response</li>
-<li><strong>Metadata</strong>: token count, latency, cost</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Why It Matters</strong></span></p>
-<ul>
-<li><strong>Compliance</strong>: Regulators can audit what the AI said</li>
-<li><strong>Debugging</strong>: Trace errors back to the exact prompt</li>
-<li><strong>Cost and quality</strong>: Track token usage and identify common failures for skill updates</li>
-</ul>
-</div>
-</div>
-<p>Store logs locally or in a cloud database. <span class="amber">If it’s not logged, it didn’t happen.</span></p>
-</section>
-<section id="three-layers-of-auditability" class="slide level2 section-divider center">
-<h2>Three Layers of Auditability</h2>
-</section>
-<section id="defense-in-depth" class="slide level2 center">
-<h2>Defense in Depth</h2>
+<section id="the-agent-evaluation-loop" class="slide level2 center">
+<h2>The Agent Evaluation Loop</h2>
+<p>An AI agent that queries your database does not just send one message — it runs a <span class="amber">multi-turn loop</span>.</p>
 <div class="step-flow">
 <div class="step-card">
 <div class="step-icon">
-<p>📄</p>
+<p>1</p>
 </div>
 <div class="step-title">
-<p>Layer 1</p>
+<p>Prompt</p>
 </div>
 <div class="step-desc">
-<p>RAG Citations</p>
+<p>System prompt + user question sent to LLM</p>
 </div>
 </div>
 <div class="step-card">
 <div class="step-icon">
-<p>💻</p>
+<p>2</p>
 </div>
 <div class="step-title">
-<p>Layer 2</p>
+<p>Generate</p>
 </div>
 <div class="step-desc">
-<p>Code Transparency</p>
+<p>LLM writes SQL or Python</p>
 </div>
 </div>
 <div class="step-card">
 <div class="step-icon">
-<p>📋</p>
+<p>3</p>
 </div>
 <div class="step-title">
-<p>Layer 3</p>
+<p>Execute</p>
 </div>
 <div class="step-desc">
-<p>Audit Logs</p>
+<p>Code runs locally against your database</p>
+</div>
+</div>
+<div class="step-card">
+<div class="step-icon">
+<p>4</p>
+</div>
+<div class="step-title">
+<p>Evaluate</p>
+</div>
+<div class="step-desc">
+<p>Results sent back to LLM for review</p>
 </div>
 </div>
 </div>
-<ol type="1">
-<li><p><strong>RAG citations</strong>: Ground answers in source documents with traceable references. AI answers based on <span class="amber">your content</span>, not its training data.</p></li>
-<li><p><strong>Code transparency</strong>: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.</p></li>
-<li><p><strong>Audit logs</strong>: Every prompt, response, and token count recorded in JSONL. Complete trail of every AI decision.</p></li>
-</ol>
-<p><span class="amber">The more layers, the harder it is for errors to reach your team.</span></p>
+<p>Steps 1–3 can be made safe. Step 4 is where <span class="amber">real data may leak</span> to the cloud provider — query results, error messages containing data values, or raw rows the LLM needs to interpret.</p>
 </section>
-<section id="security-and-data-policies" class="slide level2 section-divider center">
-<h2>Security and Data Policies</h2>
+<section id="protecting-step-1-schema-synthetic-rows" class="slide level2 center">
+<h2>Protecting Step 1: Schema + Synthetic Rows</h2>
+<p>The system prompt should describe your database using <span class="amber">schema and synthetic rows</span> — never real data.</p>
+<div class="two-col">
+<div class="column">
+<p><strong>What to include</strong></p>
+<ul>
+<li>Table names, column names, data types</li>
+<li>~3 <span class="amber">synthetic</span> rows per table (fabricated, matching real formats)</li>
+<li>Column descriptions and domain conventions</li>
+<li>Databricks: ~3 synthetic rows raises SQL accuracy by <span class="amber">~6 pp</span></li>
+</ul>
+</div><div class="column">
+<p><strong>Why synthetic rows help</strong></p>
+<ul>
+<li>Reveal data formats (is status <code>'Active'</code> or <code>1</code>?)</li>
+<li>Disambiguate columns (is <code>code</code> a country code or product code?)</li>
+<li>Help the LLM write correct WHERE clauses</li>
+<li><span class="amber">No real records are transmitted</span></li>
+</ul>
+</div></div>
+<div class="explainer" style="text-align:center;">
+<p>Schema metadata is not PII — safe to share. The LLM writes the query; your server runs it.</p>
+</div>
+</section>
+<section id="protecting-step-4-the-hard-part" class="slide level2 center">
+<h2>Protecting Step 4: The Hard Part</h2>
+<p>When the agent loop sends results back to the LLM, <span class="amber">real data leaves your network</span>. Mitigations exist but each has gaps.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Mitigations</strong></span></p>
+<ul>
+<li><strong>Aggregate only</strong>: send row counts and summary statistics, never raw rows</li>
+<li><strong>Error messages only</strong>: if SQL fails, send the error string (schema info, not data) for correction; if it succeeds, don’t send results back</li>
+<li><strong>Redaction layer</strong>: middleware that strips values matching PII patterns before sending to the LLM</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Why Mitigations Are Not Foolproof</strong></span></p>
+<ul>
+<li>A query like <em>“show the account with the highest balance”</em> returns one row — that <span class="amber">is</span> PII</li>
+<li>SQL errors can echo offending data values</li>
+<li>Redaction is pattern-based and misses context-dependent sensitivity</li>
+<li>“Don’t send results back” limits the agent to single-turn — you lose the error-correction loop that makes agents useful</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="data-policies-training-and-retention" class="slide level2 center">
 <h2>Data Policies: Training and Retention</h2>
-<p>Before sending data to any AI provider, know the answers to two questions.</p>
+<p>Before sending any data to a cloud AI provider, know the answers to two questions.</p>
 <div class="two-col">
 <div class="column">
 <p><strong>Will they train on your data?</strong></p>
@@ -420,172 +269,181 @@ Kerry Back, Rice University
 <li>Know the policy <span class="amber">before</span> you send sensitive data</li>
 </ul>
 </div></div>
+<div class="explainer" style="text-align:center;">
+<p>Even with zero-training guarantees, data still <span class="amber">transits</span> an external server. For regulated data, transit alone may violate compliance.</p>
+</div>
 </section>
-<section id="the-schema-only-pattern" class="slide level2 center">
-<h2>The Schema-Only Pattern</h2>
-<p>AI can analyze sensitive data <span class="amber">without ever reading it</span>. It only needs the table structure.</p>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  S["&lt;b&gt;Schema&lt;/b&gt;&lt;br/&gt;&lt;i&gt;table names, columns&lt;/i&gt;"] --&gt;|"safe to share"| AI["&lt;b&gt;AI&lt;/b&gt;"]
-  AI --&gt; SQL["&lt;b&gt;SQL Code&lt;/b&gt;"]
-  SQL --&gt; L["&lt;b&gt;Runs Locally&lt;/b&gt;"]
-  DB["&lt;b&gt;Your Database&lt;/b&gt;"] --&gt;|"data stays here"| L
-
-  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style AI fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style SQL fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style DB fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-</pre>
+<section id="the-hybrid-pattern" class="slide level2 center">
+<h2>The Hybrid Pattern</h2>
+<p>For most organizations, the answer is not “all cloud” or “all on-prem” — it is <span class="amber">hybrid</span>.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Cloud AI (General Work)</strong></span></p>
+<ul>
+<li>Research, drafting, coding assistance</li>
+<li>Non-sensitive data analysis</li>
+<li>Frontier model quality</li>
+<li>No infrastructure to manage</li>
+</ul>
 </div>
-<p></p></figure><p></p>
+<div class="card card-light">
+<p><span class="card-title"><strong>On-Prem AI (Sensitive Data)</strong></span></p>
+<ul>
+<li>Client data under NDA</li>
+<li>HIPAA, GDPR, SOX-covered records</li>
+<li>Material non-public financial information</li>
+<li>Defense and classified environments</li>
+</ul>
 </div>
 </div>
+<div class="explainer" style="text-align:center;">
+<p>The schema-only pattern lets you use cloud AI for the <em>thinking</em> while keeping sensitive data on-prem for the <em>execution</em>. But when even the evaluation loop must stay local, you need on-prem models.</p>
 </div>
+</section>
+<section id="private-cloud-on-prem-managed-by-experts" class="slide level2 center">
+<h2>Private Cloud: On-Prem Managed by Experts</h2>
+<p><strong>Private cloud</strong> means AI infrastructure on your premises, <span class="amber">managed by an outside provider</span>. You get data control without building the IT team yourself.</p>
 <div class="two-col">
 <div class="column">
 <p><strong>How it works</strong></p>
-<ol type="1">
-<li>Describe tables in instructions: names, columns, types</li>
-<li>Ask AI to write the query</li>
-<li>AI writes SQL from the schema alone; the script runs locally and output stays local</li>
-</ol>
-</div><div class="column">
-<p><strong>Why it’s compliant</strong></p>
 <ul>
-<li>Table metadata is <span class="amber">not PII</span> — safe to share</li>
-<li>Sensitive records stay on your server</li>
-<li>AI produces the <em>tool</em>, not the <em>output</em></li>
-<li>Works for FERPA, HIPAA, SOX, GDPR</li>
-</ul>
-</div></div>
-</section>
-<section id="improving-sql-quality-schema-synthetic-rows" class="slide level2 center">
-<h2>Improving SQL Quality: Schema + Synthetic Rows</h2>
-<p>Schema alone works, but adding <span class="amber">~3 synthetic rows per table</span> makes the generated SQL significantly more accurate.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Why sample rows help</strong></p>
-<ul>
-<li>Reveal data formats (is status <code>'Active'</code> or <code>1</code>?)</li>
-<li>Disambiguate columns (is <code>code</code> a country code or product code?)</li>
-<li>Help the LLM write correct WHERE clauses with properly formatted literals</li>
-</ul>
-</div><div class="column">
-<p><strong>Rules</strong></p>
-<ul>
-<li>Rows are <span class="amber">synthetic</span> — fabricated to match real formats without containing actual records</li>
-<li>Three rows per table is the sweet spot; more tends to distract the model</li>
-<li>Databricks: ~3 rows per table raises SQL accuracy by <span class="amber">~6 pp</span></li>
-</ul>
-</div></div>
-</section>
-<section id="where-should-ai-infrastructure-live" class="slide level2 center">
-<h2>Where Should AI Infrastructure Live?</h2>
-<p>When you connect an AI agent to enterprise data, you face a fundamental question: <span class="amber">where does the computation happen?</span></p>
-<div class="three-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Public Cloud AI</strong></span></p>
-<ul>
-<li>Data sent to provider (OpenAI, Anthropic, Google)</li>
-<li>Fastest to deploy</li>
-<li>Provider controls infrastructure</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Private / On-Prem AI</strong></span></p>
-<ul>
-<li>Data never leaves your network</li>
-<li>Full control over access</li>
-<li>Higher upfront cost</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Hybrid</strong></span></p>
-<ul>
-<li>Sensitive data stays on-prem</li>
-<li>Non-sensitive tasks use cloud AI</li>
-<li>Most common enterprise pattern</li>
-</ul>
-</div>
-</div>
-<p>Antonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.”</p>
-</section>
-<section id="data-sovereignty" class="slide level2 center">
-<h2>Data Sovereignty</h2>
-<p><strong>Data sovereignty</strong> means controlling where your data lives, who can access it, and what jurisdiction governs it.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Why it matters for AI</strong></p>
-<ul>
-<li>AI agents may transmit query results to external LLMs</li>
-<li>Regulations (GDPR, HIPAA, SOX) may restrict where data can go</li>
-<li>Defense agencies require air-gapped environments</li>
+<li>Hardware sits in your data center (or a dedicated facility)</li>
+<li>A vendor (HPE, Dell, IBM) manages the infrastructure</li>
+<li>Your data never leaves your network</li>
+<li>The vendor handles updates, scaling, and maintenance</li>
 </ul>
 </div><div class="column">
 <p><strong>Enterprise examples</strong></p>
 <ul>
-<li><strong>DISA</strong> (U.S. DoD): $931M on-prem private cloud</li>
+<li><strong>DISA</strong> (U.S. DoD): $931M HPE private cloud</li>
 <li><strong>Barclays</strong>: 50K+ workloads to private cloud</li>
 <li><strong>2degrees</strong> (NZ): sovereign AI for data residency</li>
 </ul>
 </div></div>
+<p>Antonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.”</p>
+<div class="explainer" style="text-align:center;">
+<p>If mitigations for the evaluation loop were foolproof, this market wouldn’t exist. Private cloud exists because <span class="amber">some data cannot risk transit</span> through any external server, even transiently.</p>
+</div>
 </section>
-<section id="data-security-running-ai-locally" class="slide level2 section-divider center">
-<h2>Data Security: Running AI Locally</h2>
+<section id="what-on-prem-ai-actually-requires" class="slide level2 section-divider center">
+<h2>What On-Prem AI Actually Requires</h2>
 </section>
-<section id="the-case-for-local-ai" class="slide level2 center">
-<h2>The Case for Local AI</h2>
-<p>Cloud AI is convenient, but <span class="amber">local models</span> keep data inside your machine — no transmission, no retention policy, no provider to trust.</p>
+<section id="more-than-a-model" class="slide level2 center">
+<h2>More Than a Model</h2>
+<p>Choosing on-prem means building <span class="amber">an entire AI platform</span>, not just downloading a model.</p>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>The Model Layer</strong></span></p>
+<ul>
+<li>Open-source LLM (Llama, Qwen, Mistral)</li>
+<li>GPU servers to run inference</li>
+<li>Model serving software (Ollama, vLLM)</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>The API Layer</strong></span></p>
+<ul>
+<li>Internal API endpoint (like OpenAI’s, but on your network)</li>
+<li>Authentication, rate limiting, logging</li>
+<li>Lets any internal app call the model programmatically</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>The Interface Layer</strong></span></p>
+<ul>
+<li>Chat UI for non-technical users</li>
+<li>System prompt management</li>
+<li>Conversation history and audit logs</li>
+</ul>
+</div>
+</div>
+<p>With a cloud provider, you get all three out of the box. On-prem, you build each one.</p>
+</section>
+<section id="the-developer-tooling-gap" class="slide level2 center">
+<h2>The Developer Tooling Gap</h2>
+<p>For AI-assisted coding, the gap is even wider. A coding agent is <span class="amber">not just an LLM</span> — it’s a harness of tools wrapped around the model.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>What a Coding Agent Needs</strong></span></p>
+<ul>
+<li>File read/write with permission controls</li>
+<li>Terminal execution in a sandbox</li>
+<li>Git integration (commits, diffs, branches)</li>
+<li>Context management (which files to feed the model)</li>
+<li>Multi-agent orchestration</li>
+<li>Memory and session persistence</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>What Cloud Providers Bundle</strong></span></p>
+<ul>
+<li>Anthropic: Claude Code (~500K lines of tooling)</li>
+<li>GitHub: Copilot (IDE-integrated agent)</li>
+<li>Google: Gemini Code Assist</li>
+<li>All include the harness <span class="amber">for free</span> with API access</li>
+<li>Continuously updated by large engineering teams</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>The model is the brain. The harness is everything else. On-prem means building the harness yourself.</p>
+</div>
+</section>
+<section id="case-study-the-claude-code-leak" class="slide level2 center">
+<h2>Case Study: The Claude Code Leak</h2>
+<p>On March 31, 2026, Anthropic accidentally published Claude Code’s full source code — <span class="amber">512,000 lines of TypeScript</span> — via an npm packaging error.</p>
 <div class="two-col">
 <div class="column">
-<p><strong>When local AI makes sense</strong></p>
+<p><strong>What it revealed</strong></p>
 <ul>
-<li>Client data under NDA</li>
-<li>HIPAA, GDPR, or FERPA-covered records</li>
-<li>Proprietary deal models and memos</li>
-<li>Regulated industries (banking, defense, healthcare)</li>
+<li>~40 permission-gated tools (file, terminal, git, web, IDE)</li>
+<li>Three-layer memory architecture</li>
+<li>Multi-agent orchestration via prompts</li>
+<li>Granular sandboxing and access control</li>
+<li>Background “dream” mode for autonomous work</li>
 </ul>
 </div><div class="column">
-<p><strong>The trade-off</strong></p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>Cloud AI</th>
-<th>Local AI</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Model quality</td>
-<td>★★★★★</td>
-<td>★★★☆☆</td>
-</tr>
-<tr class="even">
-<td>Data privacy</td>
-<td>Provider policy</td>
-<td>100% local</td>
-</tr>
-<tr class="odd">
-<td>Setup cost</td>
-<td>None</td>
-<td>Minutes</td>
-</tr>
-<tr class="even">
-<td>Compute</td>
-<td>Unlimited</td>
-<td>Your hardware</td>
-</tr>
-</tbody>
-</table>
+<p><strong>What happened next</strong></p>
+<ul>
+<li><a href="https://github.com/ultraworkers/claw-code">claw-code</a>: open-source reimplementation hit 160K GitHub stars in days</li>
+<li>Provider-agnostic: works with Claude, OpenAI, or <span class="amber">local models via Ollama</span></li>
+<li>Other alternatives: Aider, OpenHands, Continue.dev</li>
+<li>All are less mature than the cloud originals</li>
+</ul>
 </div></div>
-<p><span class="amber">For narrow, sensitive tasks, a smaller local model is often the right call.</span></p>
+<div class="explainer" style="text-align:center;">
+<p>The leak made the cost of developer tooling visible. 500K lines of code is what sits between a raw model and a productive developer.</p>
+</div>
+</section>
+<section id="the-build-vs-buy-reality" class="slide level2 center">
+<h2>The Build-vs-Buy Reality</h2>
+<p>The TCO of on-prem AI is <span class="amber">not just GPU costs</span>.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Cloud (e.g., Anthropic API)</strong></span></p>
+<ul>
+<li>Model + API + coding agent included</li>
+<li>Pay per token (~$3–15 per million)</li>
+<li>No infrastructure team needed</li>
+<li>Continuous model improvements</li>
+<li>Risk: data leaves your network</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>On-Prem</strong></span></p>
+<ul>
+<li>GPU hardware ($50K–$500K+)</li>
+<li>Model serving and API infrastructure</li>
+<li>Build or assemble developer tooling</li>
+<li>Ongoing maintenance and model updates</li>
+<li>Engineering team to support all of the above</li>
+<li>Benefit: <span class="amber">complete data control</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="implement-your-own-on-prem" class="slide level2 section-divider center">
+<h2>Implement Your Own On-Prem</h2>
 </section>
 <section id="ollama-local-llms-in-one-installer" class="slide level2 center">
 <h2>Ollama: Local LLMs in One Installer</h2>
@@ -608,9 +466,6 @@ flowchart LR
 <li>Models download once and run offline</li>
 </ul>
 </div></div>
-</section>
-<section id="exercise-install-ollama-and-try-local-llms" class="slide level2 section-divider center">
-<h2>Exercise: Install Ollama and Try Local LLMs</h2>
 </section>
 <section id="exercise-running-a-local-model" class="slide level2 center">
 <h2>Exercise: Running a Local Model</h2>

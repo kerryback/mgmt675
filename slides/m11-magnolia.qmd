@@ -1,0 +1,285 @@
+---
+title: "Module 11: Valuing Magnolia Oil & Gas"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Materials & Setup
+
+Download these files and add them to a Claude Code session:
+
+- [magnolia-financials.xlsx](../files/magnolia-financials.xlsx) --- Financial statements, 2019--2025
+- [magnolia-10k-narrative.md](../files/magnolia-10k-narrative.md) --- MD&A + Risk Factors, 2019--2025
+- [magnolia-news.md](../files/magnolia-news.md) --- Recent news articles (Jul 2025 -- Mar 2026)
+
+:::{.info-box}
+[**Google Meet**]{.box-title}
+
+Join at [meet.google.com/grn-mrsu-wkt](https://meet.google.com/grn-mrsu-wkt) --- you will share your screen when called on.
+:::
+
+## What We're Doing Today
+
+We will [value Magnolia Oil & Gas (MGY)]{.amber} as a class, with AI as our analyst.
+
+Each step will be assigned to a student or group. You will:
+
+1. Prompt Claude with the data files
+2. Share your screen via Google Meet
+3. Walk us through what you found
+
+:::{.explainer}
+The slides pose questions --- you and Claude supply the answers.
+:::
+
+## Understand the Business {.section-divider}
+
+## What Does Magnolia Do?
+
+Using the [MD&A and risk factors]{.amber}, answer:
+
+- What does Magnolia produce, and where?
+- What is the company's stated strategy?
+- How does it make money --- what drives revenue?
+
+:::{.info-box}
+[**Prompt idea**]{.box-title}
+
+*"Read the MD&A file. Summarize Magnolia's business model, geography, and key revenue drivers in 3--5 bullets."*
+:::
+
+## What Are the Key Risks?
+
+Still using the [narrative file]{.amber}:
+
+- What commodity price risks does Magnolia face?
+- What operational or regulatory risks stand out?
+- Have any risks [materialized]{.amber} over the 2019--2025 period?
+
+:::{.explainer}
+Ask Claude to compare risk factor sections across years --- what changed, what stayed the same?
+:::
+
+## Historical Financials {.section-divider}
+
+## Revenue and Profitability
+
+Using the [financials workbook]{.amber}, ask Claude to extract and analyze:
+
+- Revenue trend (2019--2025)
+- Gross margin and operating margin trends
+- Net income trajectory
+
+:::{.info-box}
+[**Prompt idea**]{.box-title}
+
+*"From the financial statements workbook, extract annual revenue, operating income, and net income for 2019--2025. Show a table and describe the trend."*
+:::
+
+## Production and Pricing
+
+Magnolia is an E&P company, so production volumes and realized prices matter as much as dollar revenue.
+
+- How has production (BOE/day) grown?
+- What are realized prices per barrel?
+- How much of the revenue growth is volume vs. price?
+
+:::{.explainer}
+The earnings press releases in the news file and the MD&A sections have production data. Ask Claude to pull the numbers.
+:::
+
+## Cash Flow and Capital Discipline
+
+- What is the trend in [free cash flow]{.amber}?
+- How much does Magnolia spend on capex vs. what it earns?
+- What does it do with excess cash --- dividends, buybacks, debt paydown?
+
+:::{.info-box}
+[**Prompt idea**]{.box-title}
+
+*"From the cash flow statements, calculate free cash flow (operating cash flow minus capex) for each year. Also summarize dividends paid and shares repurchased."*
+:::
+
+## Balance Sheet Health
+
+- How much debt does Magnolia carry?
+- What is the debt-to-equity ratio over time?
+- Does the company have significant lease or other off-balance-sheet obligations?
+
+:::{.explainer}
+A clean balance sheet matters for the discount rate we'll choose later.
+:::
+
+## Build Assumptions {.section-divider}
+
+## The DCF Framework
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What We Need**]{.card-title}
+
+- Projected free cash flows (5--10 years)
+- A terminal value (perpetuity growth or exit multiple)
+- A discount rate (WACC)
+:::
+
+:::{.card .card-light}
+[**Where AI Helps**]{.card-title}
+
+- Extracting historical base rates from the data
+- Identifying what analysts and news say about growth
+- Sanity-checking our assumptions against peers
+:::
+:::
+
+:::{.explainer}
+The goal is not a "right" answer --- it is a [defensible]{.amber} set of assumptions grounded in evidence.
+:::
+
+## Revenue Growth Assumptions
+
+What revenue growth rate should we project?
+
+- What has [historical]{.amber} revenue growth been?
+- What do the [news articles]{.amber} say about analyst expectations?
+- What does recent production growth imply about future revenue?
+
+:::{.info-box}
+[**Prompt idea**]{.box-title}
+
+*"Calculate Magnolia's year-over-year revenue growth for 2019--2025. Then check the news articles for any analyst revenue or production forecasts. Suggest a reasonable revenue growth assumption for the next 5 years and explain your reasoning."*
+:::
+
+## Margin Assumptions
+
+- Are margins [stable, expanding, or compressing]{.amber}?
+- What operating margin should we project?
+- Does the MD&A discuss anything that would change the cost structure?
+
+## Capex and Working Capital
+
+- What is capex as a percentage of revenue historically?
+- Is Magnolia in a growth phase (high capex) or maintenance mode?
+- How should we project capex going forward?
+
+:::{.explainer}
+Free cash flow = Operating income × (1 − tax rate) + depreciation − capex − change in working capital.
+:::
+
+## Discount Rate
+
+- What is an appropriate [WACC]{.amber} for a mid-cap E&P company?
+- What beta would you use? What equity risk premium?
+- Does Magnolia's capital structure (low debt) simplify or complicate this?
+
+:::{.info-box}
+[**Prompt idea**]{.box-title}
+
+*"Suggest a WACC for Magnolia Oil & Gas. Consider its capital structure, industry betas for E&P companies, and current risk-free rates. Show your calculation."*
+:::
+
+## Terminal Value
+
+- Should we use a [perpetuity growth model]{.amber} or an [exit multiple]{.amber}?
+- What terminal growth rate makes sense for an oil & gas company?
+- What EV/EBITDA multiples do E&P peers trade at?
+
+:::{.explainer}
+The terminal value typically accounts for 60--80% of total DCF value. It deserves careful thought.
+:::
+
+## Valuation {.section-divider}
+
+## Build the DCF
+
+Now put it together:
+
+1. Project free cash flows for 5 years using our assumptions
+2. Calculate the terminal value
+3. Discount everything back to the present
+4. Subtract net debt, divide by shares outstanding
+
+:::{.info-box}
+[**Prompt idea**]{.box-title}
+
+*"Build a DCF valuation for Magnolia Oil & Gas using these assumptions: [insert the assumptions we agreed on]. Show projected free cash flows, terminal value, enterprise value, and per-share equity value."*
+:::
+
+## Sensitivity Analysis
+
+A single point estimate is never enough. Test:
+
+- What if revenue growth is 2% higher or lower?
+- What if the discount rate is 1% higher or lower?
+- What if the terminal multiple changes by 1--2x?
+
+:::{.explainer}
+Ask Claude to build a sensitivity table showing value per share under different assumption combinations.
+:::
+
+## Compare to Market {.section-divider}
+
+## Market Check
+
+Magnolia's current stock price reflects the market's collective view. How does our estimate compare?
+
+- If our value is [above]{.amber} the market price --- what might we be missing?
+- If our value is [below]{.amber} --- what does the market see that we don't?
+- What would have to be true for the market price to be "right"?
+
+:::{.explainer}
+This is the most important slide. Valuation is not about getting a number --- it is about [understanding what drives the number]{.amber}.
+:::
+
+## Multiples Cross-Check
+
+As a sanity check, compare Magnolia to peers on:
+
+- EV / EBITDA
+- P / E
+- Price / Free Cash Flow
+
+:::{.info-box}
+[**Prompt idea**]{.box-title}
+
+*"What are typical EV/EBITDA, P/E, and Price/FCF multiples for mid-cap E&P companies? How does Magnolia compare based on our financial data?"*
+:::
+
+## Takeaways {.section-divider}
+
+## What We Learned
+
+:::{.two-cards}
+:::{.card .card-light}
+[**About Magnolia**]{.card-title}
+
+- Business model and value drivers
+- Historical financial performance
+- Key risks and opportunities
+:::
+
+:::{.card .card-light}
+[**About Using AI for Valuation**]{.card-title}
+
+- AI extracts and organizes data quickly
+- Humans choose the assumptions and judge reasonableness
+- The [conversation]{.amber} with AI is the analysis
+:::
+:::
+
+:::{.explainer}
+The AI did not "do the valuation" --- it helped us think through it systematically, with evidence at every step.
+:::

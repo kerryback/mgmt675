@@ -16,9 +16,11 @@ project:
     - slides/m8-scraping.qmd
     - slides/m9-agents.qmd
     - slides/m10-corporate.qmd
-    - slides/m11-rag.qmd
-    - slides/m12-sentiment.qmd
-    - slides/m13-extras.qmd
+    - slides/m11-magnolia.qmd
+    - slides/m12-rag.qmd
+    - slides/m13-predictive-modeling.qmd
+    - slides/m14-sentiment.qmd
+    - slides/m15-extras.qmd
   resources:
     - CNAME
     - .nojekyll
@@ -31,6 +33,8 @@ project:
     - files/*.html
     - files/*.docx
     - files/*.md
+    - files/*.py
+    - files/*.db
     - slides/code/*.py
     - exercises/*.pdf
     - index-pdf.pdf

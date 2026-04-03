@@ -1,0 +1,256 @@
+---
+title: "Module 11: Retrieval Augmented Generation"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Beyond Prompting {.section-divider}
+
+## Three Ways to Give AI Knowledge
+
+Prompting and skills customize *how* an LLM responds. But what if you need it to know things it wasn't trained on?
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%
+flowchart LR
+  RAG["<b>RAG</b>"] ~~~ FT["<b>Fine-Tuning</b>"] ~~~ SLM["<b>Small Language<br>Model</b>"]
+
+  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+```
+
+- **RAG**: Up-to-date or proprietary facts; data changes frequently
+- **Fine-Tuning**: Specific tone, format, or domain expertise baked in
+- **Small Language Model**: Full control, privacy, or a highly specialized task
+
+## How RAG Works {.section-divider}
+
+## What is RAG?
+
+**RAG** = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user's question. The LLM generates an answer [grounded in the retrieved text]{.amber}.
+
+- The LLM's training data may be stale or lack your proprietary information
+- RAG injects current, domain-specific context at query time
+- No model weights are changed --- the base LLM is used as-is
+
+## The RAG Pipeline
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
+flowchart LR
+  D["<b>Documents</b>"] --> CE["<b>Chunk &<br>Embed</b>"]
+  CE --> VDB["<b>Vector DB</b>"]
+  UQ["<b>User Query</b>"] --> R["<b>Retrieve<br>Matches</b>"]
+  VDB --> R
+  R -->|"query + context"| LLM["<b>LLM</b>"]
+  LLM --> A["<b>Grounded<br>Answer</b>"]
+
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
+```
+
+## RAG: Key Concepts
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Embeddings**]{.card-title}
+
+- Text converted into numerical vectors
+- Similar meaning → nearby vectors
+- Enables semantic search (not just keyword matching)
+:::
+
+:::{.card .card-light}
+[**Vector Database**]{.card-title}
+
+- Stores document chunks as vectors
+- Fast similarity search
+- Examples: Pinecone, Chroma, FAISS
+:::
+:::
+
+**Chunking**
+
+- Documents are split into small, overlapping pieces (chunks)
+- Chunk size matters: too large = noisy context, too small = lost meaning
+- Typical sizes: 200--1000 tokens per chunk
+
+## RAG in Finance {.section-divider}
+
+## Finance Applications of RAG
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Document Types**]{.card-title}
+
+- 10-K/10-Q filings and earnings transcripts
+- Analyst reports and deal documents
+- Internal policies and memos
+:::
+
+:::{.card .card-light}
+[**Use Cases**]{.card-title}
+
+- **Compliance Q&A**: query regulatory filings, internal policies
+- **Due diligence**: search deal documents with citations
+- **Research synthesis**: combine multiple sources
+:::
+:::
+
+## RAG: Strengths and Limitations
+
+:::{.two-col}
+:::{.column}
+**Strengths**
+
+- No training required
+- Data can be updated in real time
+- Answers are traceable to source pages
+:::
+
+:::{.column}
+**Limitations**
+
+- Quality depends on retrieval quality
+- Context window limits how much can be passed
+- Chunking can split important context
+:::
+:::
+
+## NotebookLM: RAG Without Code {.section-divider}
+
+## What is NotebookLM?
+
+**Google NotebookLM** is a free, consumer-friendly RAG tool. Upload your documents, and it builds a personal knowledge base you can query with natural language.
+
+- Available at [notebooklm.google](https://notebooklm.google)
+- Upload up to 50 sources: PDFs, Docs, Slides, web pages, YouTube
+- Ask questions and get answers with [inline citations]{.amber}; no code required
+
+## NotebookLM Features
+
+:::{.two-col}
+:::{.column}
+**Query & Summarize**
+
+- Chat with your documents
+- Answers include inline citations
+- Generate summaries, FAQs, study guides, timelines, briefing docs
+:::
+
+:::{.column}
+**Audio Overview**
+
+- Generates a podcast-style audio discussion of your sources
+- Two AI hosts discuss key points conversationally
+- Great for reviewing material on the go
+:::
+:::
+
+**Visual Outputs**: Generate slide decks and infographics from your sources --- useful for turning research into presentation-ready visuals.
+
+## NotebookLM for Finance
+
+- **Earnings analysis**: Upload 10-K/10-Q filings and earnings transcripts, ask comparative questions
+- **Deal prep**: Load pitch books, CIMs, and contracts for quick reference
+- **Year-over-year comparison**: Upload two years of 10-Ks, ask AI to identify changes in risk factors, revenue composition, and guidance
+
+NotebookLM is a practical example of RAG that you can use [today]{.amber}.
+
+## Building a RAG Pipeline {.section-divider}
+
+## Under the Hood: Building a RAG Pipeline
+
+For those who want to understand the internals, ask Claude Code to build a RAG pipeline step by step.
+
+1. Install libraries (`langchain`, `chromadb`, an embedding model)
+2. Load and chunk a PDF, embed and store in a vector database
+3. Query the pipeline with finance-specific questions
+
+## Example Questions to Try
+
+Upload a company's 10-K and ask:
+
+- What was total revenue in the most recent fiscal year?
+- What are the main risk factors related to supply chain?
+- Summarize management's outlook for the coming year
+
+Notice how answers are grounded in the actual document --- the key benefit of RAG over plain prompting.
+
+## Exercises {.section-divider}
+
+## Exercise 1: NotebookLM Analysis
+
+1. Upload 3+ financial documents for the same company into NotebookLM (10-K, earnings transcript, analyst report)
+2. Ask 5+ questions across the documents
+3. Note how citations trace back to specific sources
+4. Submit: Q&A pairs + quality assessment (were answers grounded? any hallucinations?)
+
+## Exercise 2: RAG Pipeline
+
+1. Ask Claude Code to build a RAG pipeline that loads a corporate annual report (e.g., Apple 10-K)
+2. Have it chunk and embed the document into a vector database
+3. Ask 5 finance-specific questions and evaluate whether answers are grounded or hallucinated
+4. Submit: code + evaluation
+
+## Exercise 3: Document Comparison
+
+1. Upload two years of 10-Ks for the same company into NotebookLM
+2. Ask AI to identify the most significant changes in:
+   - Risk factors
+   - Revenue composition
+   - Management guidance and accounting policies
+3. Submit: summary of key changes with source citations
+
+## Summary
+
+:::{.three-cards}
+:::{.card .card-light}
+[**RAG**]{.card-title}
+
+- Retrieve, then generate
+- Grounds answers in sources
+- No training required
+:::
+
+:::{.card .card-light}
+[**NotebookLM**]{.card-title}
+
+- Free RAG without code
+- Inline citations
+- Audio overviews
+:::
+
+:::{.card .card-light}
+[**Finance Uses**]{.card-title}
+
+- 10-K analysis
+- Earnings call Q&A
+- Due diligence
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+[RAG gives AI knowledge it doesn't have --- grounded in your documents, with citations.]{.amber}
+:::

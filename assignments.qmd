@@ -38,9 +38,9 @@ Click on an exercise to download the PDF.
 
 | | | |
 |:-:|----------|:-:|
-| 4A | [DCF Cross-Check with Red-Teaming](exercises/4A.pdf) | [{{< fa file-pdf >}}](exercises/4A.pdf) |
-| 4B | [Automated Reporting Pipeline](exercises/4B.pdf) | [{{< fa file-pdf >}}](exercises/4B.pdf) |
-| 4C | [Financial Chatbot](exercises/4C.pdf) | [{{< fa file-pdf >}}](exercises/4C.pdf) |
+| 4A | [Capital Budgeting Case Analysis](exercises/4A.pdf) | [{{< fa file-pdf >}}](exercises/4A.pdf) |
+| 4B | [Data Agent](exercises/4B.pdf) | [{{< fa file-pdf >}}](exercises/4B.pdf) |
+| 4C | [Options Data Dashboard](exercises/4C.pdf) | [{{< fa file-pdf >}}](exercises/4C.pdf) |
 
 ### Week 5: Data Tools & Financial Documents (due April 21)
 

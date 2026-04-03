@@ -1,5 +1,5 @@
 ---
-title: "Exercise 4A: DCF Cross-Check with Red-Teaming"
+title: "Exercise 4A: Capital Budgeting Case Analysis"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,25 +9,32 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Take the DCF model you built in Exercise 3A. Start a **new** Claude conversation (do not continue the original) and upload the workbook. Ask Claude to critique the valuation:
+Use AI to analyze the capital budgeting decision in the \textit{Sneaker 2013} case (Babson College), which asks whether New Balance should manufacture a new running shoe.
 
-1. **Identify at least 3 questionable assumptions** --- are the growth rates, margins, or discount rate reasonable?
-2. **Check formula consistency** --- does FCF match the pro forma income statement and balance sheet?
-3. **Evaluate the terminal value** --- is the implied terminal growth rate reasonable relative to GDP growth? What fraction of enterprise value comes from the terminal value?
-4. **Suggest specific revisions** with justification
+\medskip
+\noindent\textbf{Important:} Analyze only the \textbf{Sneaker} project.  You do not need to analyze the Persistence project.
 
-Then apply **red-teaming protocols** from Module 7:
+\medskip
+\noindent\textbf{Important:} Do \textbf{not} upload the case document to any AI tool.  Instead, read the case yourself and describe the decision and the relevant financial data to the AI in your own words.
 
-5. Set revenue growth to 0\% --- does the model break or produce nonsense?
-6. Use a WACC below the risk-free rate --- does the model flag this as unreasonable?
-7. Feed a scenario with negative free cash flow in all projection years --- what happens to the valuation?
+\bigskip
+\noindent\textbf{Requirements.}
 
-Revise the model based on the critique and red-teaming results. Compare the original and revised valuations.
+\begin{enumerate}
+  \item \textbf{Chat about the analysis.}  Open a conversation with Claude (or another AI) and describe the Sneaker project: the nature of the investment, the cash flow projections, the discount rate, and any other relevant assumptions from the case.  Ask the AI to help you think through the DCF analysis --- what to include, how to structure it, and what assumptions deserve scrutiny.
+
+  \item \textbf{Build the DCF model.}  Using Claude Code, build a spreadsheet or Python script that computes the NPV of the Sneaker project based on the case data.  The model should clearly show the projected cash flows, the discount rate, and the NPV.
+
+  \item \textbf{Sensitivity analysis.}  Vary at least two key assumptions (e.g., sales volume, unit price, discount rate) and show how the NPV changes.  Present the results in a table or chart.
+
+  \item \textbf{Recommendation.}  Based on your analysis, should New Balance proceed with the Sneaker project?  Write a brief justification.
+\end{enumerate}
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Original DCF model (`4A-Original.xlsx`)
-- Revised DCF model (`4A-Revised.xlsx`)
-- Summary of critique, red-teaming findings, and revisions (`4A-Summary.pdf`, 1 page)
-- Screenshots of both Claude conversations (`4A-Screenshot1.png`, `4A-Screenshot2.png`)
+\begin{itemize}
+  \item DCF model (\texttt{4A-Model.xlsx} or \texttt{4A-Model.py})
+  \item Summary with sensitivity analysis and recommendation (\texttt{4A-Summary.pdf}, 1--2 pages)
+  \item Screenshots of your AI conversation (\texttt{4A-Screenshots.pdf})
+\end{itemize}

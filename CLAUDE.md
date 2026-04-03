@@ -60,9 +60,11 @@ Course materials for MGMT 675 at Rice Business, Spring 2026. Instructor: Kerry B
 8. Building a RAG Corpus (m8)
 9. Build and Deploy Agents (m9)
 10. Corporate Agent Deployment (m10)
-11. Retrieval Augmented Generation (m11)
-12. Sentiment Analysis (m12)
-13. Extra Topics (m13)
+11. Magnolia (m11)
+12. Retrieval Augmented Generation (m12)
+13. Predictive Modeling (m13)
+14. Sentiment Analysis (m14)
+15. Extra Topics (m15)
 
 ## Session Schedule (12 sessions, 6 weeks)
 | Session | Date | Module |

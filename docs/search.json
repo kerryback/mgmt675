@@ -1,304 +1,339 @@
 [
   {
-    "objectID": "slides/m13-extras.html#the-trust-spectrum",
-    "href": "slides/m13-extras.html#the-trust-spectrum",
+    "objectID": "slides/m15-extras.html#the-trust-spectrum",
+    "href": "slides/m15-extras.html#the-trust-spectrum",
     "title": "Module 13: Extra Topics",
     "section": "The Trust Spectrum",
     "text": "The Trust Spectrum"
   },
   {
-    "objectID": "slides/m13-extras.html#ai-with-code-execution-a-fast-junior-analyst",
-    "href": "slides/m13-extras.html#ai-with-code-execution-a-fast-junior-analyst",
+    "objectID": "slides/m15-extras.html#ai-with-code-execution-a-fast-junior-analyst",
+    "href": "slides/m15-extras.html#ai-with-code-execution-a-fast-junior-analyst",
     "title": "Module 13: Extra Topics",
     "section": "AI with Code Execution: A Fast Junior Analyst",
     "text": "AI with Code Execution: A Fast Junior Analyst\nAI with code execution is like a fast junior analyst — capable but needs oversight. The level of oversight depends on the stakes.\n\n\nLow-Stakes\n\nExploratory charts\nDirectional trends\nInternal brainstorming\n\nQuick sanity check.\n\n\nMedium-Stakes\n\nTeam tools and skills\nRecurring reports\nInternal dashboards\n\nTest with known answers.\n\n\nHigh-Stakes\n\nClient deliverables\nRegulatory filings\nBoard presentations\n\nFull verification protocol.\n\n\nThe more consequential the decision, the more you verify. Not distrust — calibrated confidence."
   },
   {
-    "objectID": "slides/m13-extras.html#ai-makes-silent-analytical-errors",
-    "href": "slides/m13-extras.html#ai-makes-silent-analytical-errors",
+    "objectID": "slides/m15-extras.html#ai-makes-silent-analytical-errors",
+    "href": "slides/m15-extras.html#ai-makes-silent-analytical-errors",
     "title": "Module 13: Extra Topics",
     "section": "AI Makes Silent Analytical Errors",
     "text": "AI Makes Silent Analytical Errors"
   },
   {
-    "objectID": "slides/m13-extras.html#the-real-risk-not-hallucination-bugs",
-    "href": "slides/m13-extras.html#the-real-risk-not-hallucination-bugs",
+    "objectID": "slides/m15-extras.html#the-real-risk-not-hallucination-bugs",
+    "href": "slides/m15-extras.html#the-real-risk-not-hallucination-bugs",
     "title": "Module 13: Extra Topics",
     "section": "The Real Risk: Not Hallucination — Bugs",
     "text": "The Real Risk: Not Hallucination — Bugs\nAI in code-execution mode doesn’t invent facts the way a chatbot might. Instead, it makes silent analytical errors: wrong filters, dropped rows, incorrect joins.\n\n\nCommon errors\n\nMissing data silently dropped\nDate or currency parsing surprises\nFilters slightly off; aggregating before vs. after filtering\n\n\nWhy it’s dangerous\n\nThe output looks professional\nCharts render cleanly and nobody questions a polished result\nConfidence without verification is the real risk"
   },
   {
-    "objectID": "slides/m13-extras.html#catching-a-silent-error",
-    "href": "slides/m13-extras.html#catching-a-silent-error",
+    "objectID": "slides/m15-extras.html#catching-a-silent-error",
+    "href": "slides/m15-extras.html#catching-a-silent-error",
     "title": "Module 13: Extra Topics",
     "section": "Catching a Silent Error",
     "text": "Catching a Silent Error\n\n\nThe prompt\n“What’s the average profit margin by sub-category? Exclude any sub-categories with negative total profit.”\nThe trap\n\nDoes AI filter before or after aggregating?\nDoes it drop rows with negative profit, or sub-categories with negative total profit?\nThe order matters — and AI often gets it wrong\n\n\nHow to catch it\n\n“Show me the code” — inspect the filter logic\n“How many rows are in the result?” — does it match your expectation?\n“List the excluded sub-categories” — are they the right ones?\n\nLesson: The more specific the filter logic, the more likely AI misinterprets it. Always verify multi-step operations."
   },
   {
-    "objectID": "slides/m13-extras.html#the-verification-checklist",
-    "href": "slides/m13-extras.html#the-verification-checklist",
+    "objectID": "slides/m15-extras.html#the-verification-checklist",
+    "href": "slides/m15-extras.html#the-verification-checklist",
     "title": "Module 13: Extra Topics",
     "section": "The Verification Checklist",
     "text": "The Verification Checklist"
   },
   {
-    "objectID": "slides/m13-extras.html#a-4-step-verification-protocol",
-    "href": "slides/m13-extras.html#a-4-step-verification-protocol",
+    "objectID": "slides/m15-extras.html#a-4-step-verification-protocol",
+    "href": "slides/m15-extras.html#a-4-step-verification-protocol",
     "title": "Module 13: Extra Topics",
     "section": "A 4-Step Verification Protocol",
     "text": "A 4-Step Verification Protocol\nApply this to any AI-generated analysis.\n\nSanity-check with known answers Ask questions where you already know the result: row count, column names, a total you can verify in Excel.\nAsk AI to show its methodology “Show me the code” or “Show me the SQL.” Read the logic, not just the output.\nCross-check by rephrasing Ask the same question differently. Start a fresh conversation and ask again. Do answers agree?\nSpot-check edge cases Test the smallest group, zero values, null fields, boundary dates. Errors hide at the edges."
   },
   {
-    "objectID": "slides/m13-extras.html#section",
-    "href": "slides/m13-extras.html#section",
+    "objectID": "slides/m15-extras.html#section",
+    "href": "slides/m15-extras.html#section",
     "title": "Module 13: Extra Topics",
     "section": "",
     "text": "Trust is a process, not a setting.\nEvery AI output deserves the same scrutiny you’d give a new analyst’s first deliverable."
   },
   {
-    "objectID": "slides/m13-extras.html#hands-on-validating-prior-work",
-    "href": "slides/m13-extras.html#hands-on-validating-prior-work",
+    "objectID": "slides/m15-extras.html#hands-on-validating-prior-work",
+    "href": "slides/m15-extras.html#hands-on-validating-prior-work",
     "title": "Module 13: Extra Topics",
     "section": "Hands-On: Validating Prior Work",
     "text": "Hands-On: Validating Prior Work"
   },
   {
-    "objectID": "slides/m13-extras.html#reproducibility-test",
-    "href": "slides/m13-extras.html#reproducibility-test",
+    "objectID": "slides/m15-extras.html#reproducibility-test",
+    "href": "slides/m15-extras.html#reproducibility-test",
     "title": "Module 13: Extra Topics",
     "section": "Reproducibility Test",
     "text": "Reproducibility Test\nTake analysis from earlier modules and test whether it reproduces.\n\n\nThe exercise\n\nPick a financial analysis from Module 3 (portfolio) or Module 5 (DCF)\nStart a fresh conversation\nGive the same data and ask the same question\nCompare: do the results match?\n\n\nWhat you’re testing\n\nReproducibility: Same data, same question — same answer?\nMethodology: Did AI use the same approach both times?\nStability: Small rephrasing shouldn’t change the result\n\n\nIf the numbers don’t match, that’s not a failure — it’s exactly why we verify. And it’s exactly why skills (Module 6) matter."
   },
   {
-    "objectID": "slides/m13-extras.html#auditing-a-dcf-model",
-    "href": "slides/m13-extras.html#auditing-a-dcf-model",
+    "objectID": "slides/m15-extras.html#auditing-a-dcf-model",
+    "href": "slides/m15-extras.html#auditing-a-dcf-model",
     "title": "Module 13: Extra Topics",
     "section": "Auditing a DCF Model",
     "text": "Auditing a DCF Model\nTake the DCF built in Module 5. Start a fresh conversation. Ask Claude to critique it.\n\n\nWhat to ask\n\n“Identify 3+ questionable assumptions”\n“Check formula consistency — does FCF match the pro formas?”\n“Is the terminal value reasonable? Compare implied terminal growth to GDP growth.”\n\n\nWhy this matters\n\nThe most valuable use of AI is often having it check work, not produce it\nCross-evaluation: use a second conversation to critique the first\nCompare original vs. revised valuations"
   },
   {
-    "objectID": "slides/m13-extras.html#red-teaming",
-    "href": "slides/m13-extras.html#red-teaming",
+    "objectID": "slides/m15-extras.html#red-teaming",
+    "href": "slides/m15-extras.html#red-teaming",
     "title": "Module 13: Extra Topics",
     "section": "Red-Teaming",
     "text": "Red-Teaming"
   },
   {
-    "objectID": "slides/m13-extras.html#red-teaming-a-deployed-skill",
-    "href": "slides/m13-extras.html#red-teaming-a-deployed-skill",
+    "objectID": "slides/m15-extras.html#red-teaming-a-deployed-skill",
+    "href": "slides/m15-extras.html#red-teaming-a-deployed-skill",
     "title": "Module 13: Extra Topics",
     "section": "Red-Teaming a Deployed Skill",
     "text": "Red-Teaming a Deployed Skill\nA database skill is the kind of tool people stop questioning once deployed. Test it like any tool your team depends on.\n\n\nAdversarial queries\n\nQuery for nonexistent data (“Sales in 2030”)\nRequest something not in the schema (“Customer satisfaction scores”)\nUse ambiguous language (“Best employee”)\n\n\nFor each failure\n\nDiagnose: Bad SQL? Missing context? Wrong assumption?\nFix: Add clarification, examples, or constraints to SKILL.md\nRetest: Run the query again after the fix\n\nThis is how production skills get hardened. Every failure makes the skill better."
   },
   {
-    "objectID": "slides/m13-extras.html#systematic-red-teaming",
-    "href": "slides/m13-extras.html#systematic-red-teaming",
+    "objectID": "slides/m15-extras.html#systematic-red-teaming",
+    "href": "slides/m15-extras.html#systematic-red-teaming",
     "title": "Module 13: Extra Topics",
     "section": "Systematic Red-Teaming",
     "text": "Systematic Red-Teaming\nRed-teaming goes beyond ad-hoc testing. A protocol ensures you test every failure mode systematically.\n\n\n\n\n\n\n\nTest Category\nWhat You Try\n\n\n\n\nOut-of-scope questions\nAsk about data that doesn’t exist in the schema\n\n\nConflicting documents\nUpload docs with contradictory numbers\n\n\nEdge cases\nZero values, null fields, single-row groups, boundary dates\n\n\nHand-written SQL comparison\nWrite the query yourself and compare to AI’s result\n\n\nAmbiguous language\n“Best customer” — by revenue? frequency? margin?\n\n\n\nA skill that hasn’t been red-teamed is a liability, not an asset."
   },
   {
-    "objectID": "slides/m13-extras.html#red-teaming-a-dcf-model",
-    "href": "slides/m13-extras.html#red-teaming-a-dcf-model",
+    "objectID": "slides/m15-extras.html#red-teaming-a-dcf-model",
+    "href": "slides/m15-extras.html#red-teaming-a-dcf-model",
     "title": "Module 13: Extra Topics",
     "section": "Red-Teaming a DCF Model",
     "text": "Red-Teaming a DCF Model\nApply red-teaming protocols to the DCF models built in Module 5.\n\n\nFinancial Red-Team Tests\n\nSet revenue growth to 0% — does the model break?\nUse a WACC below the risk-free rate — does AI flag it?\nFeed a company with negative FCF and compare AI’s output to a hand-built Excel model\n\n\n\nWhat You Learn\n\nWhere the model silently produces nonsense\nWhich assumptions the AI accepts without questioning\nHow to improve guardrails so the verification checklist catches the errors"
   },
   {
-    "objectID": "slides/m13-extras.html#finance-applications",
-    "href": "slides/m13-extras.html#finance-applications",
+    "objectID": "slides/m15-extras.html#finance-applications",
+    "href": "slides/m15-extras.html#finance-applications",
     "title": "Module 13: Extra Topics",
     "section": "Finance Applications",
     "text": "Finance Applications"
   },
   {
-    "objectID": "slides/m13-extras.html#variance-analysis",
-    "href": "slides/m13-extras.html#variance-analysis",
+    "objectID": "slides/m15-extras.html#variance-analysis",
+    "href": "slides/m15-extras.html#variance-analysis",
     "title": "Module 13: Extra Topics",
     "section": "Variance Analysis",
     "text": "Variance Analysis\nVariance analysis compares budgeted figures to actual results and decomposes the differences into actionable drivers. It is the core analytical task in FP&A.\n\n\nWhy It Matters\n\nEvery public company does it quarterly\nBoards and investors ask “why did we miss?”\nDrives re-forecasting and capital allocation\n\n\nKey Decompositions\n\nRevenue: volume vs. price vs. mix\nCOGS: volume vs. unit cost\nSG&A: headcount vs. rate vs. discretionary\n\n\n\nRevenue variance = Volume effect + Price effect + Mix effect"
   },
   {
-    "objectID": "slides/m13-extras.html#variance-analysis-example-data",
-    "href": "slides/m13-extras.html#variance-analysis-example-data",
+    "objectID": "slides/m15-extras.html#variance-analysis-example-data",
+    "href": "slides/m15-extras.html#variance-analysis-example-data",
     "title": "Module 13: Extra Topics",
     "section": "Variance Analysis: Example Data",
     "text": "Variance Analysis: Example Data\nScenario: You are an FP&A analyst. Q1 actuals just closed. The CEO wants to know why operating income missed budget by $300K.\n\nRevenue: Budget 100K units at $50 = $5M; Actual 95K units at $51 = $4.845M — ($155K) miss\nCOGS: Budget $30/unit = $3M; Actual $32/unit = $3.04M — ($40K) miss\nSG&A: Budget $1.45M; Actual $1.555M — ($105K) miss\nOperating Income: Budget $550K; Actual $250K — ($300K) total miss"
   },
   {
-    "objectID": "slides/m13-extras.html#variance-analysis-with-an-agent",
-    "href": "slides/m13-extras.html#variance-analysis-with-an-agent",
+    "objectID": "slides/m15-extras.html#variance-analysis-with-an-agent",
+    "href": "slides/m15-extras.html#variance-analysis-with-an-agent",
     "title": "Module 13: Extra Topics",
     "section": "Variance Analysis with an Agent",
     "text": "Variance Analysis with an Agent\nWith a database agent connected to your financials, one prompt replaces 2–4 hours of FP&A work:\nPrompt\n“Here is our Q1 budget vs. actuals spreadsheet. Decompose the $300K operating income miss into volume, price, cost, and discretionary spending drivers. Produce a waterfall chart and a summary memo for the CFO.”\nWhat the Agent Does\n\nPlans: identifies the variance decomposition formulas needed\nDecomposes revenue into volume + price; COGS into volume + rate\nGenerates waterfall chart and writes CFO-ready memo in Word format"
   },
   {
-    "objectID": "slides/m13-extras.html#ma-due-diligence-with-an-agent",
-    "href": "slides/m13-extras.html#ma-due-diligence-with-an-agent",
+    "objectID": "slides/m15-extras.html#ma-due-diligence-with-an-agent",
+    "href": "slides/m15-extras.html#ma-due-diligence-with-an-agent",
     "title": "Module 13: Extra Topics",
     "section": "M&A Due Diligence with an Agent",
     "text": "M&A Due Diligence with an Agent\nGive an agent a goal: “Evaluate this acquisition target.” The agent:\n\nIngests data from multiple formats (Excel, PDF, Word, CSV)\nApplies evaluation criteria and computes risk metrics\nProduces a summary memo with flagged risks\n\n\nThis is a single prompt to Claude Code. The agent plans and executes all three steps autonomously, reading multiple file formats and combining the results."
   },
   {
-    "objectID": "slides/m13-extras.html#summary",
-    "href": "slides/m13-extras.html#summary",
+    "objectID": "slides/m15-extras.html#summary",
+    "href": "slides/m15-extras.html#summary",
     "title": "Module 13: Extra Topics",
     "section": "Summary",
     "text": "Summary"
   },
   {
-    "objectID": "slides/m13-extras.html#summary-1",
-    "href": "slides/m13-extras.html#summary-1",
+    "objectID": "slides/m15-extras.html#summary-1",
+    "href": "slides/m15-extras.html#summary-1",
     "title": "Module 13: Extra Topics",
     "section": "Summary",
     "text": "Summary\n\n\nVerification\n\nTrust spectrum\n4-step protocol\nSilent errors\n\n\n\nRed-Teaming\n\nSystematic protocols\nEdge cases\nSQL comparison\n\n\n\nCritiquing Output\n\nAI reviews AI\nParallel reviewers\nFactual + structural checks\n\n\n\nFinance Applications\n\nVariance analysis\nM&A due diligence\n\n\n\n\nVerify, critique, then trust."
   },
   {
-    "objectID": "slides/m11-rag.html#beyond-prompting",
-    "href": "slides/m11-rag.html#beyond-prompting",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Beyond Prompting",
-    "text": "Beyond Prompting"
+    "objectID": "slides/m13-predictive-modeling.html#coming-soon",
+    "href": "slides/m13-predictive-modeling.html#coming-soon",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Coming Soon",
+    "text": "Coming Soon"
   },
   {
-    "objectID": "slides/m11-rag.html#three-ways-to-give-ai-knowledge",
-    "href": "slides/m11-rag.html#three-ways-to-give-ai-knowledge",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Three Ways to Give AI Knowledge",
-    "text": "Three Ways to Give AI Knowledge\nPrompting and skills customize how an LLM responds. But what if you need it to know things it wasn’t trained on?\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RAG[\"&lt;b&gt;RAG&lt;/b&gt;\"] ~~~ FT[\"&lt;b&gt;Fine-Tuning&lt;/b&gt;\"] ~~~ SLM[\"&lt;b&gt;Small Language&lt;br&gt;Model&lt;/b&gt;\"]\n\n  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n\n\n\n\n\n\n\nRAG: Up-to-date or proprietary facts; data changes frequently\nFine-Tuning: Specific tone, format, or domain expertise baked in\nSmall Language Model: Full control, privacy, or a highly specialized task"
+    "objectID": "slides/m11-magnolia.html#materials-setup",
+    "href": "slides/m11-magnolia.html#materials-setup",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Materials & Setup",
+    "text": "Materials & Setup\nDownload these files and add them to a Claude Code session:\n\nmagnolia-financials.xlsx — Financial statements, 2019–2025\nmagnolia-10k-narrative.md — MD&A + Risk Factors, 2019–2025\nmagnolia-news.md — Recent news articles (Jul 2025 – Mar 2026)\n\n\nGoogle Meet\nJoin at meet.google.com/grn-mrsu-wkt — you will share your screen when called on."
   },
   {
-    "objectID": "slides/m11-rag.html#how-rag-works",
-    "href": "slides/m11-rag.html#how-rag-works",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "How RAG Works",
-    "text": "How RAG Works"
+    "objectID": "slides/m11-magnolia.html#what-were-doing-today",
+    "href": "slides/m11-magnolia.html#what-were-doing-today",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "What We’re Doing Today",
+    "text": "What We’re Doing Today\nWe will value Magnolia Oil & Gas (MGY) as a class, with AI as our analyst.\nEach step will be assigned to a student or group. You will:\n\nPrompt Claude with the data files\nShare your screen via Google Meet\nWalk us through what you found\n\n\nThe slides pose questions — you and Claude supply the answers."
   },
   {
-    "objectID": "slides/m11-rag.html#what-is-rag",
-    "href": "slides/m11-rag.html#what-is-rag",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "What is RAG?",
-    "text": "What is RAG?\nRAG = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user’s question. The LLM generates an answer grounded in the retrieved text.\n\nThe LLM’s training data may be stale or lack your proprietary information\nRAG injects current, domain-specific context at query time\nNo model weights are changed — the base LLM is used as-is"
+    "objectID": "slides/m11-magnolia.html#understand-the-business",
+    "href": "slides/m11-magnolia.html#understand-the-business",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Understand the Business",
+    "text": "Understand the Business"
   },
   {
-    "objectID": "slides/m11-rag.html#the-rag-pipeline",
-    "href": "slides/m11-rag.html#the-rag-pipeline",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "The RAG Pipeline",
-    "text": "The RAG Pipeline\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  D[\"&lt;b&gt;Documents&lt;/b&gt;\"] --&gt; CE[\"&lt;b&gt;Chunk &&lt;br&gt;Embed&lt;/b&gt;\"]\n  CE --&gt; VDB[\"&lt;b&gt;Vector DB&lt;/b&gt;\"]\n  UQ[\"&lt;b&gt;User Query&lt;/b&gt;\"] --&gt; R[\"&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;\"]\n  VDB --&gt; R\n  R --&gt;|\"query + context\"| LLM[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n  LLM --&gt; A[\"&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;\"]\n\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px"
+    "objectID": "slides/m11-magnolia.html#what-does-magnolia-do",
+    "href": "slides/m11-magnolia.html#what-does-magnolia-do",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "What Does Magnolia Do?",
+    "text": "What Does Magnolia Do?\nUsing the MD&A and risk factors, answer:\n\nWhat does Magnolia produce, and where?\nWhat is the company’s stated strategy?\nHow does it make money — what drives revenue?\n\n\nPrompt idea\n“Read the MD&A file. Summarize Magnolia’s business model, geography, and key revenue drivers in 3–5 bullets.”"
   },
   {
-    "objectID": "slides/m11-rag.html#rag-key-concepts",
-    "href": "slides/m11-rag.html#rag-key-concepts",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "RAG: Key Concepts",
-    "text": "RAG: Key Concepts\n\n\nEmbeddings\n\nText converted into numerical vectors\nSimilar meaning → nearby vectors\nEnables semantic search (not just keyword matching)\n\n\n\nVector Database\n\nStores document chunks as vectors\nFast similarity search\nExamples: Pinecone, Chroma, FAISS\n\n\n\nChunking\n\nDocuments are split into small, overlapping pieces (chunks)\nChunk size matters: too large = noisy context, too small = lost meaning\nTypical sizes: 200–1000 tokens per chunk"
+    "objectID": "slides/m11-magnolia.html#what-are-the-key-risks",
+    "href": "slides/m11-magnolia.html#what-are-the-key-risks",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "What Are the Key Risks?",
+    "text": "What Are the Key Risks?\nStill using the narrative file:\n\nWhat commodity price risks does Magnolia face?\nWhat operational or regulatory risks stand out?\nHave any risks materialized over the 2019–2025 period?\n\n\nAsk Claude to compare risk factor sections across years — what changed, what stayed the same?"
   },
   {
-    "objectID": "slides/m11-rag.html#rag-in-finance",
-    "href": "slides/m11-rag.html#rag-in-finance",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "RAG in Finance",
-    "text": "RAG in Finance"
+    "objectID": "slides/m11-magnolia.html#historical-financials",
+    "href": "slides/m11-magnolia.html#historical-financials",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Historical Financials",
+    "text": "Historical Financials"
   },
   {
-    "objectID": "slides/m11-rag.html#finance-applications-of-rag",
-    "href": "slides/m11-rag.html#finance-applications-of-rag",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Finance Applications of RAG",
-    "text": "Finance Applications of RAG\n\n\nDocument Types\n\n10-K/10-Q filings and earnings transcripts\nAnalyst reports and deal documents\nInternal policies and memos\n\n\n\nUse Cases\n\nCompliance Q&A: query regulatory filings, internal policies\nDue diligence: search deal documents with citations\nResearch synthesis: combine multiple sources"
+    "objectID": "slides/m11-magnolia.html#revenue-and-profitability",
+    "href": "slides/m11-magnolia.html#revenue-and-profitability",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Revenue and Profitability",
+    "text": "Revenue and Profitability\nUsing the financials workbook, ask Claude to extract and analyze:\n\nRevenue trend (2019–2025)\nGross margin and operating margin trends\nNet income trajectory\n\n\nPrompt idea\n“From the financial statements workbook, extract annual revenue, operating income, and net income for 2019–2025. Show a table and describe the trend.”"
   },
   {
-    "objectID": "slides/m11-rag.html#rag-strengths-and-limitations",
-    "href": "slides/m11-rag.html#rag-strengths-and-limitations",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "RAG: Strengths and Limitations",
-    "text": "RAG: Strengths and Limitations\n\n\nStrengths\n\nNo training required\nData can be updated in real time\nAnswers are traceable to source pages\n\n\nLimitations\n\nQuality depends on retrieval quality\nContext window limits how much can be passed\nChunking can split important context"
+    "objectID": "slides/m11-magnolia.html#production-and-pricing",
+    "href": "slides/m11-magnolia.html#production-and-pricing",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Production and Pricing",
+    "text": "Production and Pricing\nMagnolia is an E&P company, so production volumes and realized prices matter as much as dollar revenue.\n\nHow has production (BOE/day) grown?\nWhat are realized prices per barrel?\nHow much of the revenue growth is volume vs. price?\n\n\nThe earnings press releases in the news file and the MD&A sections have production data. Ask Claude to pull the numbers."
   },
   {
-    "objectID": "slides/m11-rag.html#notebooklm-rag-without-code",
-    "href": "slides/m11-rag.html#notebooklm-rag-without-code",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "NotebookLM: RAG Without Code",
-    "text": "NotebookLM: RAG Without Code"
+    "objectID": "slides/m11-magnolia.html#cash-flow-and-capital-discipline",
+    "href": "slides/m11-magnolia.html#cash-flow-and-capital-discipline",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Cash Flow and Capital Discipline",
+    "text": "Cash Flow and Capital Discipline\n\nWhat is the trend in free cash flow?\nHow much does Magnolia spend on capex vs. what it earns?\nWhat does it do with excess cash — dividends, buybacks, debt paydown?\n\n\nPrompt idea\n“From the cash flow statements, calculate free cash flow (operating cash flow minus capex) for each year. Also summarize dividends paid and shares repurchased.”"
   },
   {
-    "objectID": "slides/m11-rag.html#what-is-notebooklm",
-    "href": "slides/m11-rag.html#what-is-notebooklm",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "What is NotebookLM?",
-    "text": "What is NotebookLM?\nGoogle NotebookLM is a free, consumer-friendly RAG tool. Upload your documents, and it builds a personal knowledge base you can query with natural language.\n\nAvailable at notebooklm.google\nUpload up to 50 sources: PDFs, Docs, Slides, web pages, YouTube\nAsk questions and get answers with inline citations; no code required"
+    "objectID": "slides/m11-magnolia.html#balance-sheet-health",
+    "href": "slides/m11-magnolia.html#balance-sheet-health",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Balance Sheet Health",
+    "text": "Balance Sheet Health\n\nHow much debt does Magnolia carry?\nWhat is the debt-to-equity ratio over time?\nDoes the company have significant lease or other off-balance-sheet obligations?\n\n\nA clean balance sheet matters for the discount rate we’ll choose later."
   },
   {
-    "objectID": "slides/m11-rag.html#notebooklm-features",
-    "href": "slides/m11-rag.html#notebooklm-features",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "NotebookLM Features",
-    "text": "NotebookLM Features\n\n\nQuery & Summarize\n\nChat with your documents\nAnswers include inline citations\nGenerate summaries, FAQs, study guides, timelines, briefing docs\n\n\nAudio Overview\n\nGenerates a podcast-style audio discussion of your sources\nTwo AI hosts discuss key points conversationally\nGreat for reviewing material on the go\n\n\nVisual Outputs: Generate slide decks and infographics from your sources — useful for turning research into presentation-ready visuals."
+    "objectID": "slides/m11-magnolia.html#build-assumptions",
+    "href": "slides/m11-magnolia.html#build-assumptions",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Build Assumptions",
+    "text": "Build Assumptions"
   },
   {
-    "objectID": "slides/m11-rag.html#notebooklm-for-finance",
-    "href": "slides/m11-rag.html#notebooklm-for-finance",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "NotebookLM for Finance",
-    "text": "NotebookLM for Finance\n\nEarnings analysis: Upload 10-K/10-Q filings and earnings transcripts, ask comparative questions\nDeal prep: Load pitch books, CIMs, and contracts for quick reference\nYear-over-year comparison: Upload two years of 10-Ks, ask AI to identify changes in risk factors, revenue composition, and guidance\n\nNotebookLM is a practical example of RAG that you can use today."
+    "objectID": "slides/m11-magnolia.html#the-dcf-framework",
+    "href": "slides/m11-magnolia.html#the-dcf-framework",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "The DCF Framework",
+    "text": "The DCF Framework\n\n\nWhat We Need\n\nProjected free cash flows (5–10 years)\nA terminal value (perpetuity growth or exit multiple)\nA discount rate (WACC)\n\n\n\nWhere AI Helps\n\nExtracting historical base rates from the data\nIdentifying what analysts and news say about growth\nSanity-checking our assumptions against peers\n\n\n\n\nThe goal is not a “right” answer — it is a defensible set of assumptions grounded in evidence."
   },
   {
-    "objectID": "slides/m11-rag.html#building-a-rag-pipeline",
-    "href": "slides/m11-rag.html#building-a-rag-pipeline",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Building a RAG Pipeline",
-    "text": "Building a RAG Pipeline"
+    "objectID": "slides/m11-magnolia.html#revenue-growth-assumptions",
+    "href": "slides/m11-magnolia.html#revenue-growth-assumptions",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Revenue Growth Assumptions",
+    "text": "Revenue Growth Assumptions\nWhat revenue growth rate should we project?\n\nWhat has historical revenue growth been?\nWhat do the news articles say about analyst expectations?\nWhat does recent production growth imply about future revenue?\n\n\nPrompt idea\n“Calculate Magnolia’s year-over-year revenue growth for 2019–2025. Then check the news articles for any analyst revenue or production forecasts. Suggest a reasonable revenue growth assumption for the next 5 years and explain your reasoning.”"
   },
   {
-    "objectID": "slides/m11-rag.html#under-the-hood-building-a-rag-pipeline",
-    "href": "slides/m11-rag.html#under-the-hood-building-a-rag-pipeline",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Under the Hood: Building a RAG Pipeline",
-    "text": "Under the Hood: Building a RAG Pipeline\nFor those who want to understand the internals, ask Claude Code to build a RAG pipeline step by step.\n\nInstall libraries (langchain, chromadb, an embedding model)\nLoad and chunk a PDF, embed and store in a vector database\nQuery the pipeline with finance-specific questions"
+    "objectID": "slides/m11-magnolia.html#margin-assumptions",
+    "href": "slides/m11-magnolia.html#margin-assumptions",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Margin Assumptions",
+    "text": "Margin Assumptions\n\nAre margins stable, expanding, or compressing?\nWhat operating margin should we project?\nDoes the MD&A discuss anything that would change the cost structure?"
   },
   {
-    "objectID": "slides/m11-rag.html#example-questions-to-try",
-    "href": "slides/m11-rag.html#example-questions-to-try",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Example Questions to Try",
-    "text": "Example Questions to Try\nUpload a company’s 10-K and ask:\n\nWhat was total revenue in the most recent fiscal year?\nWhat are the main risk factors related to supply chain?\nSummarize management’s outlook for the coming year\n\nNotice how answers are grounded in the actual document — the key benefit of RAG over plain prompting."
+    "objectID": "slides/m11-magnolia.html#capex-and-working-capital",
+    "href": "slides/m11-magnolia.html#capex-and-working-capital",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Capex and Working Capital",
+    "text": "Capex and Working Capital\n\nWhat is capex as a percentage of revenue historically?\nIs Magnolia in a growth phase (high capex) or maintenance mode?\nHow should we project capex going forward?\n\n\nFree cash flow = Operating income × (1 − tax rate) + depreciation − capex − change in working capital."
   },
   {
-    "objectID": "slides/m11-rag.html#exercises",
-    "href": "slides/m11-rag.html#exercises",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Exercises",
-    "text": "Exercises"
+    "objectID": "slides/m11-magnolia.html#discount-rate",
+    "href": "slides/m11-magnolia.html#discount-rate",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Discount Rate",
+    "text": "Discount Rate\n\nWhat is an appropriate WACC for a mid-cap E&P company?\nWhat beta would you use? What equity risk premium?\nDoes Magnolia’s capital structure (low debt) simplify or complicate this?\n\n\nPrompt idea\n“Suggest a WACC for Magnolia Oil & Gas. Consider its capital structure, industry betas for E&P companies, and current risk-free rates. Show your calculation.”"
   },
   {
-    "objectID": "slides/m11-rag.html#exercise-1-notebooklm-analysis",
-    "href": "slides/m11-rag.html#exercise-1-notebooklm-analysis",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Exercise 1: NotebookLM Analysis",
-    "text": "Exercise 1: NotebookLM Analysis\n\nUpload 3+ financial documents for the same company into NotebookLM (10-K, earnings transcript, analyst report)\nAsk 5+ questions across the documents\nNote how citations trace back to specific sources\nSubmit: Q&A pairs + quality assessment (were answers grounded? any hallucinations?)"
+    "objectID": "slides/m11-magnolia.html#terminal-value",
+    "href": "slides/m11-magnolia.html#terminal-value",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Terminal Value",
+    "text": "Terminal Value\n\nShould we use a perpetuity growth model or an exit multiple?\nWhat terminal growth rate makes sense for an oil & gas company?\nWhat EV/EBITDA multiples do E&P peers trade at?\n\n\nThe terminal value typically accounts for 60–80% of total DCF value. It deserves careful thought."
   },
   {
-    "objectID": "slides/m11-rag.html#exercise-2-rag-pipeline",
-    "href": "slides/m11-rag.html#exercise-2-rag-pipeline",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Exercise 2: RAG Pipeline",
-    "text": "Exercise 2: RAG Pipeline\n\nAsk Claude Code to build a RAG pipeline that loads a corporate annual report (e.g., Apple 10-K)\nHave it chunk and embed the document into a vector database\nAsk 5 finance-specific questions and evaluate whether answers are grounded or hallucinated\nSubmit: code + evaluation"
+    "objectID": "slides/m11-magnolia.html#valuation",
+    "href": "slides/m11-magnolia.html#valuation",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Valuation",
+    "text": "Valuation"
   },
   {
-    "objectID": "slides/m11-rag.html#exercise-3-document-comparison",
-    "href": "slides/m11-rag.html#exercise-3-document-comparison",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Exercise 3: Document Comparison",
-    "text": "Exercise 3: Document Comparison\n\nUpload two years of 10-Ks for the same company into NotebookLM\nAsk AI to identify the most significant changes in:\n\nRisk factors\nRevenue composition\nManagement guidance and accounting policies\n\nSubmit: summary of key changes with source citations"
+    "objectID": "slides/m11-magnolia.html#build-the-dcf",
+    "href": "slides/m11-magnolia.html#build-the-dcf",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Build the DCF",
+    "text": "Build the DCF\nNow put it together:\n\nProject free cash flows for 5 years using our assumptions\nCalculate the terminal value\nDiscount everything back to the present\nSubtract net debt, divide by shares outstanding\n\n\nPrompt idea\n“Build a DCF valuation for Magnolia Oil & Gas using these assumptions: [insert the assumptions we agreed on]. Show projected free cash flows, terminal value, enterprise value, and per-share equity value.”"
   },
   {
-    "objectID": "slides/m11-rag.html#summary",
-    "href": "slides/m11-rag.html#summary",
-    "title": "Module 11: Retrieval Augmented Generation",
-    "section": "Summary",
-    "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo training required\n\n\n\nNotebookLM\n\nFree RAG without code\nInline citations\nAudio overviews\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence\n\n\n\n\nRAG gives AI knowledge it doesn’t have — grounded in your documents, with citations."
+    "objectID": "slides/m11-magnolia.html#sensitivity-analysis",
+    "href": "slides/m11-magnolia.html#sensitivity-analysis",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Sensitivity Analysis",
+    "text": "Sensitivity Analysis\nA single point estimate is never enough. Test:\n\nWhat if revenue growth is 2% higher or lower?\nWhat if the discount rate is 1% higher or lower?\nWhat if the terminal multiple changes by 1–2x?\n\n\nAsk Claude to build a sensitivity table showing value per share under different assumption combinations."
+  },
+  {
+    "objectID": "slides/m11-magnolia.html#compare-to-market",
+    "href": "slides/m11-magnolia.html#compare-to-market",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Compare to Market",
+    "text": "Compare to Market"
+  },
+  {
+    "objectID": "slides/m11-magnolia.html#market-check",
+    "href": "slides/m11-magnolia.html#market-check",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Market Check",
+    "text": "Market Check\nMagnolia’s current stock price reflects the market’s collective view. How does our estimate compare?\n\nIf our value is above the market price — what might we be missing?\nIf our value is below — what does the market see that we don’t?\nWhat would have to be true for the market price to be “right”?\n\n\nThis is the most important slide. Valuation is not about getting a number — it is about understanding what drives the number."
+  },
+  {
+    "objectID": "slides/m11-magnolia.html#multiples-cross-check",
+    "href": "slides/m11-magnolia.html#multiples-cross-check",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Multiples Cross-Check",
+    "text": "Multiples Cross-Check\nAs a sanity check, compare Magnolia to peers on:\n\nEV / EBITDA\nP / E\nPrice / Free Cash Flow\n\n\nPrompt idea\n“What are typical EV/EBITDA, P/E, and Price/FCF multiples for mid-cap E&P companies? How does Magnolia compare based on our financial data?”"
+  },
+  {
+    "objectID": "slides/m11-magnolia.html#takeaways",
+    "href": "slides/m11-magnolia.html#takeaways",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "Takeaways",
+    "text": "Takeaways"
+  },
+  {
+    "objectID": "slides/m11-magnolia.html#what-we-learned",
+    "href": "slides/m11-magnolia.html#what-we-learned",
+    "title": "Module 11: Valuing Magnolia Oil & Gas",
+    "section": "What We Learned",
+    "text": "What We Learned\n\n\nAbout Magnolia\n\nBusiness model and value drivers\nHistorical financial performance\nKey risks and opportunities\n\n\n\nAbout Using AI for Valuation\n\nAI extracts and organizes data quickly\nHumans choose the assumptions and judge reasonableness\nThe conversation with AI is the analysis\n\n\n\n\nThe AI did not “do the valuation” — it helped us think through it systematically, with evidence at every step."
   },
   {
     "objectID": "slides/m9-agents.html#overview",
@@ -389,7 +424,7 @@
     "href": "slides/m9-agents.html#demo",
     "title": "Module 9: Chatbots and Agents",
     "section": "Demo",
-    "text": "Demo\nAsk Claude Code:\n\nInstall the openai package. Then write a Python script that sends a message to  via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.\n\n\nSet your key first: export OPENROUTER_API_KEY=sk-or-...\nWatch Claude install the package, write the code, and run it\nTry changing the prompt or the model name and running again"
+    "text": "Demo\nAsk Claude Code:\n\nInstall the openai package. Then write a Python script that sends a message to this model … via OpenRouter using my API key (which is in the environment variable OPENROUTER_API_KEY). Show me the code, then run it.\n\n\nSet your key first: export OPENROUTER_API_KEY=sk-or-...\nWatch Claude install the package, write the code, and run it\nTry changing the prompt or the model name and running again"
   },
   {
     "objectID": "slides/m9-agents.html#result",
@@ -413,25 +448,18 @@
     "text": "How Mobile Apps and Web Apps Work\nEvery app that connects to the internet has two parts that communicate over HTTP.\n\n\nFrontend (what the user sees)\n\nA web page in a browser\nA mobile app on a phone\nA desktop application\nWritten in JavaScript, Swift, Kotlin, etc.\n\n\n\nBackend (the server)\n\nRuns on a server (or your laptop during development)\nWritten in Python, Node.js, Java, Go — any language\nHolds secrets (API keys, database credentials)\nProcesses requests and returns results\n\n\n\n\nThe frontend and backend are separate programs. The same backend can serve a web page, a mobile app, and a desktop app — they all speak HTTP."
   },
   {
-    "objectID": "slides/m9-agents.html#http-and-apis",
-    "href": "slides/m9-agents.html#http-and-apis",
-    "title": "Module 9: Chatbots and Agents",
-    "section": "HTTP and APIs",
-    "text": "HTTP and APIs\nAn API is a set of HTTP endpoints that a server exposes — URLs that accept requests and return responses.\n\nGET / — retrieve the chat page\nPOST /chat — send a message, get a reply\nThe frontend calls these endpoints; the backend handles them\n\n\nHTTP defines a small set of verbs: GET (retrieve something), POST (send data), PUT (update), DELETE (remove). That’s basically it. Every web page, every API call, every app that touches the internet uses these same verbs over HTTP."
-  },
-  {
     "objectID": "slides/m9-agents.html#our-chatbots-architecture",
     "href": "slides/m9-agents.html#our-chatbots-architecture",
     "title": "Module 9: Chatbots and Agents",
     "section": "Our Chatbot’s Architecture",
-    "text": "Our Chatbot’s Architecture\n\n\nFrontend (JavaScript in the browser)\n\nUser types a message and clicks Send\nJavaScript sends an HTTP POST to /chat\nReceives the reply and displays it on screen\n\n\n\nBackend (Python with FastAPI)\n\nReceives the POST request with the user’s message\nCalls the LLM via the OpenRouter API\nReturns the LLM’s reply as JSON\n\n\n\n\nBrowser sends the user’s message → backend calls the LLM → backend returns the reply → browser displays it."
+    "text": "Our Chatbot’s Architecture\n\n\nFrontend (JavaScript in the browser)\n\nUser types a message and clicks Send\nJavaScript sends an HTTP POST to the backend\nReceives the reply and displays it on screen\n\n\n\nBackend (Python with FastAPI)\n\nReceives the POST request with the user’s message\nCalls the LLM via the OpenRouter API\nReturns the LLM’s reply as JSON\n\n\n\n\nBrowser sends the user’s message → backend calls the LLM → backend returns the reply → browser displays it."
   },
   {
     "objectID": "slides/m9-agents.html#demo-1",
     "href": "slides/m9-agents.html#demo-1",
     "title": "Module 9: Chatbots and Agents",
     "section": "Demo",
-    "text": "Demo\nAsk Claude Code:\n\nCreate a FastAPI app with a chatbot interface that chats with a model of your choice using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.\n\n\nClaude creates the backend and frontend in one file\nThe app runs at http://localhost:8000\nGo to that URL in your browser and chat"
+    "text": "Demo\nAsk Claude Code:\n\nCreate a FastAPI app with a chatbot interface that chats with this model … using my OpenRouter API key (in the environment variable OPENROUTER_API_KEY). Run the app.\n\n\nClaude creates the backend and frontend in one file\nThe app runs at http://localhost:8000\nGo to that URL in your browser and chat"
   },
   {
     "objectID": "slides/m9-agents.html#result-1",
@@ -480,14 +508,14 @@
     "href": "slides/m9-agents.html#deploy-from-your-computer",
     "title": "Module 9: Chatbots and Agents",
     "section": "Deploy From Your Computer",
-    "text": "Deploy From Your Computer\n\nngrok creates a public URL for an app running on your machine. Your app stays on your computer\nngrok opens a tunnel to ngrok’s servers, which accept public requests and forward them to your machine.\nPaid Tiers ($8–$25+/month)\n\nAccess-controlled deployment platform\nMultiple simultaneous tunnels\nCustom domains (your own domain name)"
+    "text": "Deploy From Your Computer\n\nngrok creates a public URL for an app running on your machine. Your app stays on your computer\nngrok opens a tunnel to ngrok’s servers, which accept public requests and forward them to your machine.\nThere are free accounts but you get more with paid accounts:\n\nAccess-controlled deployment platform\nMultiple simultaneous tunnels\nCustom domains (your own domain name)"
   },
   {
     "objectID": "slides/m9-agents.html#demo-3",
     "href": "slides/m9-agents.html#demo-3",
     "title": "Module 9: Chatbots and Agents",
     "section": "Demo",
-    "text": "Demo\n\nCreate an account at ngrok.com\nInstall: Windows: winget install ngrok / Mac: brew install ngrok\nAuthenticate: ngrok config add-authtoken &lt;TOKEN&gt;\nExpose your app: ngrok http 8000\n\n\nMy chatbot on ngrok: https://4f8d-2606-a300-9008-3b1d-650f-efb4-cf7b-ba00.ngrok-free.app/"
+    "text": "Demo\n\nCreate an account at ngrok.com and get an access token.\nInstall: Windows: winget install ngrok / Mac: brew install ngrok\nAuthenticate: ngrok config add-authtoken &lt;TOKEN&gt;\nExpose your app: ngrok http 8000\n\n\nMy chatbot on ngrok: https://4f8d-2606-a300-9008-3b1d-650f-efb4-cf7b-ba00.ngrok-free.app/"
   },
   {
     "objectID": "slides/m9-agents.html#cloud-deployment",
@@ -508,7 +536,7 @@
     "href": "slides/m9-agents.html#section",
     "title": "Module 9: Chatbots and Agents",
     "section": "",
-    "text": "Ask Claude: “Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”\n\n\nMy chatbot on Railway: https://pirate-chatbot-productio n.up.railway.app"
+    "text": "Ask Claude: “Deploy my chatbot app to Railway with my OpenRouter API key as an environment variable”\n\n\nMy chatbot on Railway: https://pirate-chatbot-production.up.railway.app"
   },
   {
     "objectID": "slides/m9-agents.html#agents",
@@ -564,7 +592,7 @@
     "href": "slides/m9-agents.html#demo-4",
     "title": "Module 9: Chatbots and Agents",
     "section": "Demo",
-    "text": "Demo\nAsk Claude:\nBuild a FastAPI mean-variance app that allows user input of parameters. Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line. Put the mean, standard deviation, and portfolio allocation in the hover data. Deploy it on Railway.\n\nMy mean-variance app on Railway: https://chatbot-app-production-0 fb1.up.railway.app"
+    "text": "Demo\nAsk Claude:\nBuild a FastAPI mean-variance app that allows user input of parameters. Hard wire that there are three risky assets. Assume short sales are not allowed. Use plotly to generate a plot of the three assets, the tangency portfolio, the efficient frontier, and the capital market line. Put the mean, standard deviation, and portfolio allocation in the hover data. Deploy it on Railway.\n\nMy mean-variance app on Railway: https://chatbot-app-production-0fb1.up.railway.app"
   },
   {
     "objectID": "slides/m9-agents.html#claude-skills",
@@ -1054,14 +1082,14 @@
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nDCF Cross-Check with Red-Teaming\n\n\n\n4B\nAutomated Reporting Pipeline\n\n\n\n4C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nCapital Budgeting Case Analysis\n\n\n\n4B\nData Agent\n\n\n\n4C\nOptions Data Dashboard\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
   },
   {
     "objectID": "assignments.html#course-assignments",
     "href": "assignments.html#course-assignments",
     "title": "Assignments",
     "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nDCF Cross-Check with Red-Teaming\n\n\n\n4B\nAutomated Reporting Pipeline\n\n\n\n4C\nFinancial Chatbot\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nCapital Budgeting Case Analysis\n\n\n\n4B\nData Agent\n\n\n\n4C\nOptions Data Dashboard\n\n\n\n\n\n\n\n\n\n\n5A\nFinancial Data with MCP\n\n\n\n5B\nNotebookLM Financial Analysis\n\n\n\n5C\nStock Analysis in Colab\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
   },
   {
     "objectID": "index.html",
@@ -1082,14 +1110,14 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nPredictive Modeling\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nExtra Topics"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nRetrieval Augmented Generation\n\n\n\n12\nSentiment Analysis\n\n\n\n13\nExtra Topics"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate Agent Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nPredictive Modeling\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nExtra Topics"
   },
   {
     "objectID": "slides/m2-intro-claude.html#exploring-claude.ai",
@@ -1806,624 +1834,729 @@
     "text": "What’s Next\nIn Module 11 (RAG), we will feed this Magnolia corpus to an AI retrieval system that can answer questions grounded in the actual documents — citing specific passages from 10-Ks, transcripts, and news articles.\nThe quality of RAG output depends entirely on the quality of the corpus. What you scrape determines what AI can find."
   },
   {
-    "objectID": "slides/m10-corporate.html#guardrails-and-constraints",
-    "href": "slides/m10-corporate.html#guardrails-and-constraints",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Guardrails and Constraints",
-    "text": "Guardrails and Constraints"
+    "objectID": "slides/m10-corporate.html#data-security",
+    "href": "slides/m10-corporate.html#data-security",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Data Security",
+    "text": "Data Security"
   },
   {
-    "objectID": "slides/m10-corporate.html#why-guardrails",
-    "href": "slides/m10-corporate.html#why-guardrails",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Why Guardrails?",
-    "text": "Why Guardrails?\nWithout constraints, an autonomous agent can cause real damage — even with good intentions.\n\n\nWhat Can Go Wrong\n\n“Clean up the repo” → deletes files you need\nA loop bug triggers hundreds of API calls\nWrite access to the database → unintended edits\nA misread instruction → wrong files overwritten\n\n\n\nThe Principle\nGrant the agent the minimum access it needs to complete the task — and no more.\n\nRead-only unless writes are required\nSpecific directories, not the whole filesystem\nNo network unless the task requires it"
+    "objectID": "slides/m10-corporate.html#the-agent-evaluation-loop",
+    "href": "slides/m10-corporate.html#the-agent-evaluation-loop",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "The Agent Evaluation Loop",
+    "text": "The Agent Evaluation Loop\nAn AI agent that queries your database does not just send one message — it runs a multi-turn loop.\n\n\n\n1\n\n\nPrompt\n\n\nSystem prompt + user question sent to LLM\n\n\n\n\n2\n\n\nGenerate\n\n\nLLM writes SQL or Python\n\n\n\n\n3\n\n\nExecute\n\n\nCode runs locally against your database\n\n\n\n\n4\n\n\nEvaluate\n\n\nResults sent back to LLM for review\n\n\n\nSteps 1–3 can be made safe. Step 4 is where real data may leak to the cloud provider — query results, error messages containing data values, or raw rows the LLM needs to interpret."
   },
   {
-    "objectID": "slides/m10-corporate.html#permission-modes-in-claude-code",
-    "href": "slides/m10-corporate.html#permission-modes-in-claude-code",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Permission Modes in Claude Code",
-    "text": "Permission Modes in Claude Code\nClaude Code pauses and asks before taking consequential actions — unless you explicitly allow them.\n\n\nDefault: Human in the Loop\n\nAgent stops before running bash commands, writing files, or calling the network\nYou approve or deny each action\nSafe for unfamiliar tasks or new codebases\n\n\nAllow Lists\n\nApprove a specific command once — or always\nApprove an entire tool (e.g., all file reads)\nApprove a path prefix (e.g., ./reports/)\nStored in settings.json\n\n\n\nHuman approval is the default. You choose how much autonomy to grant, task by task."
+    "objectID": "slides/m10-corporate.html#protecting-step-1-schema-synthetic-rows",
+    "href": "slides/m10-corporate.html#protecting-step-1-schema-synthetic-rows",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Protecting Step 1: Schema + Synthetic Rows",
+    "text": "Protecting Step 1: Schema + Synthetic Rows\nThe system prompt should describe your database using schema and synthetic rows — never real data.\n\n\nWhat to include\n\nTable names, column names, data types\n~3 synthetic rows per table (fabricated, matching real formats)\nColumn descriptions and domain conventions\nDatabricks: ~3 synthetic rows raises SQL accuracy by ~6 pp\n\n\nWhy synthetic rows help\n\nReveal data formats (is status 'Active' or 1?)\nDisambiguate columns (is code a country code or product code?)\nHelp the LLM write correct WHERE clauses\nNo real records are transmitted\n\n\n\nSchema metadata is not PII — safe to share. The LLM writes the query; your server runs it."
   },
   {
-    "objectID": "slides/m10-corporate.html#claude.md-as-a-behavioral-guardrail",
-    "href": "slides/m10-corporate.html#claude.md-as-a-behavioral-guardrail",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "CLAUDE.md as a Behavioral Guardrail",
-    "text": "CLAUDE.md as a Behavioral Guardrail\nCLAUDE.md is not just documentation — it is the agent’s system prompt. Use it to enforce rules.\n\nExamples of Constraint Instructions\n- Never modify files outside the src/ directory\n- Always ask before running git push or git commit\n- Use read-only database connections unless told otherwise\n- If a task would delete more than 3 files, pause and confirm\n\n\nThe system prompt is the first line of defense. Clear written rules reduce the chance of unintended actions."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#hooks-programmatic-checks",
-    "href": "slides/m10-corporate.html#hooks-programmatic-checks",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Hooks: Programmatic Checks",
-    "text": "Hooks: Programmatic Checks\nHooks run shell commands automatically at agent lifecycle events.\n\n\nEvent Types\n\nPreToolUse — runs before a tool fires; can block the action\nPostToolUse — runs after a tool completes; can log or validate\nStop — runs when the agent finishes\n\n\n\nExample Uses\n\nBlock any bash command containing rm -rf\nLog every file write to an audit trail\nSend an alert when the agent finishes\nRun tests automatically after every code edit\n\n\n\n\nHooks enforce rules programmatically — the check runs whether or not the agent remembers the instruction."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#layered-guardrails",
-    "href": "slides/m10-corporate.html#layered-guardrails",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Layered Guardrails",
-    "text": "Layered Guardrails\nNo single guardrail is sufficient. Defense in depth combines all layers.\n\n\n\nCLAUDE.md — behavioral rules in the system prompt\nPermissions — tool and path access control\nHooks — programmatic checks at runtime\n\n\n\nSandboxing — isolated execution environment\nHuman approval — pause before high-stakes actions\nIteration limits — prevent runaway loops and cost overruns\n\n\n\nEach layer catches what the previous one misses. Together they make autonomous agents safe to deploy."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#audit-logging",
-    "href": "slides/m10-corporate.html#audit-logging",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Audit Logging",
-    "text": "Audit Logging"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#jsonl-audit-logs",
-    "href": "slides/m10-corporate.html#jsonl-audit-logs",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "JSONL Audit Logs",
-    "text": "JSONL Audit Logs\nEvery AI interaction in a production system should produce an audit log entry. The standard format is JSONL (one JSON object per line).\n\n\nWhat to Log\n\nIdentity: timestamp, user, model\nContent: prompt and response\nMetadata: token count, latency, cost\n\n\n\nWhy It Matters\n\nCompliance: Regulators can audit what the AI said\nDebugging: Trace errors back to the exact prompt\nCost and quality: Track token usage and identify common failures for skill updates\n\n\n\nStore logs locally or in a cloud database. If it’s not logged, it didn’t happen."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#three-layers-of-auditability",
-    "href": "slides/m10-corporate.html#three-layers-of-auditability",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Three Layers of Auditability",
-    "text": "Three Layers of Auditability"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#defense-in-depth",
-    "href": "slides/m10-corporate.html#defense-in-depth",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Defense in Depth",
-    "text": "Defense in Depth\n\n\n\n📄\n\n\nLayer 1\n\n\nRAG Citations\n\n\n\n\n💻\n\n\nLayer 2\n\n\nCode Transparency\n\n\n\n\n📋\n\n\nLayer 3\n\n\nAudit Logs\n\n\n\n\nRAG citations: Ground answers in source documents with traceable references. AI answers based on your content, not its training data.\nCode transparency: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.\nAudit logs: Every prompt, response, and token count recorded in JSONL. Complete trail of every AI decision.\n\nThe more layers, the harder it is for errors to reach your team."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#security-and-data-policies",
-    "href": "slides/m10-corporate.html#security-and-data-policies",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Security and Data Policies",
-    "text": "Security and Data Policies"
+    "objectID": "slides/m10-corporate.html#protecting-step-4-the-hard-part",
+    "href": "slides/m10-corporate.html#protecting-step-4-the-hard-part",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Protecting Step 4: The Hard Part",
+    "text": "Protecting Step 4: The Hard Part\nWhen the agent loop sends results back to the LLM, real data leaves your network. Mitigations exist but each has gaps.\n\n\nMitigations\n\nAggregate only: send row counts and summary statistics, never raw rows\nError messages only: if SQL fails, send the error string (schema info, not data) for correction; if it succeeds, don’t send results back\nRedaction layer: middleware that strips values matching PII patterns before sending to the LLM\n\n\n\nWhy Mitigations Are Not Foolproof\n\nA query like “show the account with the highest balance” returns one row — that is PII\nSQL errors can echo offending data values\nRedaction is pattern-based and misses context-dependent sensitivity\n“Don’t send results back” limits the agent to single-turn — you lose the error-correction loop that makes agents useful"
   },
   {
     "objectID": "slides/m10-corporate.html#data-policies-training-and-retention",
     "href": "slides/m10-corporate.html#data-policies-training-and-retention",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Data Policies: Training and Retention",
-    "text": "Data Policies: Training and Retention\nBefore sending data to any AI provider, know the answers to two questions.\n\n\nWill they train on your data?\n\nConsumer tiers (free ChatGPT, free Claude) may use your input to improve models\nAPI and enterprise tiers typically do not\nCheck your agreement and settings\n\n\nHow long do they keep it?\n\nProviders retain prompts for a window (often 30 days) for safety monitoring\nEnterprise contracts may offer zero retention\nKnow the policy before you send sensitive data"
+    "text": "Data Policies: Training and Retention\nBefore sending any data to a cloud AI provider, know the answers to two questions.\n\n\nWill they train on your data?\n\nConsumer tiers (free ChatGPT, free Claude) may use your input to improve models\nAPI and enterprise tiers typically do not\nCheck your agreement and settings\n\n\nHow long do they keep it?\n\nProviders retain prompts for a window (often 30 days) for safety monitoring\nEnterprise contracts may offer zero retention\nKnow the policy before you send sensitive data\n\n\n\nEven with zero-training guarantees, data still transits an external server. For regulated data, transit alone may violate compliance."
   },
   {
-    "objectID": "slides/m10-corporate.html#the-schema-only-pattern",
-    "href": "slides/m10-corporate.html#the-schema-only-pattern",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "The Schema-Only Pattern",
-    "text": "The Schema-Only Pattern\nAI can analyze sensitive data without ever reading it. It only needs the table structure.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  S[\"&lt;b&gt;Schema&lt;/b&gt;&lt;br/&gt;&lt;i&gt;table names, columns&lt;/i&gt;\"] --&gt;|\"safe to share\"| AI[\"&lt;b&gt;AI&lt;/b&gt;\"]\n  AI --&gt; SQL[\"&lt;b&gt;SQL Code&lt;/b&gt;\"]\n  SQL --&gt; L[\"&lt;b&gt;Runs Locally&lt;/b&gt;\"]\n  DB[\"&lt;b&gt;Your Database&lt;/b&gt;\"] --&gt;|\"data stays here\"| L\n\n  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style AI fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style SQL fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style DB fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n\n\n\n\n\n\n\n\nHow it works\n\nDescribe tables in instructions: names, columns, types\nAsk AI to write the query\nAI writes SQL from the schema alone; the script runs locally and output stays local\n\n\nWhy it’s compliant\n\nTable metadata is not PII — safe to share\nSensitive records stay on your server\nAI produces the tool, not the output\nWorks for FERPA, HIPAA, SOX, GDPR"
+    "objectID": "slides/m10-corporate.html#the-hybrid-pattern",
+    "href": "slides/m10-corporate.html#the-hybrid-pattern",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "The Hybrid Pattern",
+    "text": "The Hybrid Pattern\nFor most organizations, the answer is not “all cloud” or “all on-prem” — it is hybrid.\n\n\nCloud AI (General Work)\n\nResearch, drafting, coding assistance\nNon-sensitive data analysis\nFrontier model quality\nNo infrastructure to manage\n\n\n\nOn-Prem AI (Sensitive Data)\n\nClient data under NDA\nHIPAA, GDPR, SOX-covered records\nMaterial non-public financial information\nDefense and classified environments\n\n\n\n\nThe schema-only pattern lets you use cloud AI for the thinking while keeping sensitive data on-prem for the execution. But when even the evaluation loop must stay local, you need on-prem models."
   },
   {
-    "objectID": "slides/m10-corporate.html#improving-sql-quality-schema-synthetic-rows",
-    "href": "slides/m10-corporate.html#improving-sql-quality-schema-synthetic-rows",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Improving SQL Quality: Schema + Synthetic Rows",
-    "text": "Improving SQL Quality: Schema + Synthetic Rows\nSchema alone works, but adding ~3 synthetic rows per table makes the generated SQL significantly more accurate.\n\n\nWhy sample rows help\n\nReveal data formats (is status 'Active' or 1?)\nDisambiguate columns (is code a country code or product code?)\nHelp the LLM write correct WHERE clauses with properly formatted literals\n\n\nRules\n\nRows are synthetic — fabricated to match real formats without containing actual records\nThree rows per table is the sweet spot; more tends to distract the model\nDatabricks: ~3 rows per table raises SQL accuracy by ~6 pp"
+    "objectID": "slides/m10-corporate.html#private-cloud-on-prem-managed-by-experts",
+    "href": "slides/m10-corporate.html#private-cloud-on-prem-managed-by-experts",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Private Cloud: On-Prem Managed by Experts",
+    "text": "Private Cloud: On-Prem Managed by Experts\nPrivate cloud means AI infrastructure on your premises, managed by an outside provider. You get data control without building the IT team yourself.\n\n\nHow it works\n\nHardware sits in your data center (or a dedicated facility)\nA vendor (HPE, Dell, IBM) manages the infrastructure\nYour data never leaves your network\nThe vendor handles updates, scaling, and maintenance\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M HPE private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency\n\n\nAntonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.”\n\nIf mitigations for the evaluation loop were foolproof, this market wouldn’t exist. Private cloud exists because some data cannot risk transit through any external server, even transiently."
   },
   {
-    "objectID": "slides/m10-corporate.html#where-should-ai-infrastructure-live",
-    "href": "slides/m10-corporate.html#where-should-ai-infrastructure-live",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Where Should AI Infrastructure Live?",
-    "text": "Where Should AI Infrastructure Live?\nWhen you connect an AI agent to enterprise data, you face a fundamental question: where does the computation happen?\n\n\nPublic Cloud AI\n\nData sent to provider (OpenAI, Anthropic, Google)\nFastest to deploy\nProvider controls infrastructure\n\n\n\nPrivate / On-Prem AI\n\nData never leaves your network\nFull control over access\nHigher upfront cost\n\n\n\nHybrid\n\nSensitive data stays on-prem\nNon-sensitive tasks use cloud AI\nMost common enterprise pattern\n\n\n\nAntonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.”"
+    "objectID": "slides/m10-corporate.html#what-on-prem-ai-actually-requires",
+    "href": "slides/m10-corporate.html#what-on-prem-ai-actually-requires",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "What On-Prem AI Actually Requires",
+    "text": "What On-Prem AI Actually Requires"
   },
   {
-    "objectID": "slides/m10-corporate.html#data-sovereignty",
-    "href": "slides/m10-corporate.html#data-sovereignty",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Data Sovereignty",
-    "text": "Data Sovereignty\nData sovereignty means controlling where your data lives, who can access it, and what jurisdiction governs it.\n\n\nWhy it matters for AI\n\nAI agents may transmit query results to external LLMs\nRegulations (GDPR, HIPAA, SOX) may restrict where data can go\nDefense agencies require air-gapped environments\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M on-prem private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency"
+    "objectID": "slides/m10-corporate.html#more-than-a-model",
+    "href": "slides/m10-corporate.html#more-than-a-model",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "More Than a Model",
+    "text": "More Than a Model\nChoosing on-prem means building an entire AI platform, not just downloading a model.\n\n\nThe Model Layer\n\nOpen-source LLM (Llama, Qwen, Mistral)\nGPU servers to run inference\nModel serving software (Ollama, vLLM)\n\n\n\nThe API Layer\n\nInternal API endpoint (like OpenAI’s, but on your network)\nAuthentication, rate limiting, logging\nLets any internal app call the model programmatically\n\n\n\nThe Interface Layer\n\nChat UI for non-technical users\nSystem prompt management\nConversation history and audit logs\n\n\n\nWith a cloud provider, you get all three out of the box. On-prem, you build each one."
   },
   {
-    "objectID": "slides/m10-corporate.html#data-security-running-ai-locally",
-    "href": "slides/m10-corporate.html#data-security-running-ai-locally",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Data Security: Running AI Locally",
-    "text": "Data Security: Running AI Locally"
+    "objectID": "slides/m10-corporate.html#the-developer-tooling-gap",
+    "href": "slides/m10-corporate.html#the-developer-tooling-gap",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "The Developer Tooling Gap",
+    "text": "The Developer Tooling Gap\nFor AI-assisted coding, the gap is even wider. A coding agent is not just an LLM — it’s a harness of tools wrapped around the model.\n\n\nWhat a Coding Agent Needs\n\nFile read/write with permission controls\nTerminal execution in a sandbox\nGit integration (commits, diffs, branches)\nContext management (which files to feed the model)\nMulti-agent orchestration\nMemory and session persistence\n\n\n\nWhat Cloud Providers Bundle\n\nAnthropic: Claude Code (~500K lines of tooling)\nGitHub: Copilot (IDE-integrated agent)\nGoogle: Gemini Code Assist\nAll include the harness for free with API access\nContinuously updated by large engineering teams\n\n\n\n\nThe model is the brain. The harness is everything else. On-prem means building the harness yourself."
   },
   {
-    "objectID": "slides/m10-corporate.html#the-case-for-local-ai",
-    "href": "slides/m10-corporate.html#the-case-for-local-ai",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "The Case for Local AI",
-    "text": "The Case for Local AI\nCloud AI is convenient, but local models keep data inside your machine — no transmission, no retention policy, no provider to trust.\n\n\nWhen local AI makes sense\n\nClient data under NDA\nHIPAA, GDPR, or FERPA-covered records\nProprietary deal models and memos\nRegulated industries (banking, defense, healthcare)\n\n\nThe trade-off\n\n\n\n\nCloud AI\nLocal AI\n\n\n\n\nModel quality\n★★★★★\n★★★☆☆\n\n\nData privacy\nProvider policy\n100% local\n\n\nSetup cost\nNone\nMinutes\n\n\nCompute\nUnlimited\nYour hardware\n\n\n\n\nFor narrow, sensitive tasks, a smaller local model is often the right call."
+    "objectID": "slides/m10-corporate.html#case-study-the-claude-code-leak",
+    "href": "slides/m10-corporate.html#case-study-the-claude-code-leak",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Case Study: The Claude Code Leak",
+    "text": "Case Study: The Claude Code Leak\nOn March 31, 2026, Anthropic accidentally published Claude Code’s full source code — 512,000 lines of TypeScript — via an npm packaging error.\n\n\nWhat it revealed\n\n~40 permission-gated tools (file, terminal, git, web, IDE)\nThree-layer memory architecture\nMulti-agent orchestration via prompts\nGranular sandboxing and access control\nBackground “dream” mode for autonomous work\n\n\nWhat happened next\n\nclaw-code: open-source reimplementation hit 160K GitHub stars in days\nProvider-agnostic: works with Claude, OpenAI, or local models via Ollama\nOther alternatives: Aider, OpenHands, Continue.dev\nAll are less mature than the cloud originals\n\n\n\nThe leak made the cost of developer tooling visible. 500K lines of code is what sits between a raw model and a productive developer."
+  },
+  {
+    "objectID": "slides/m10-corporate.html#the-build-vs-buy-reality",
+    "href": "slides/m10-corporate.html#the-build-vs-buy-reality",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "The Build-vs-Buy Reality",
+    "text": "The Build-vs-Buy Reality\nThe TCO of on-prem AI is not just GPU costs.\n\n\nCloud (e.g., Anthropic API)\n\nModel + API + coding agent included\nPay per token (~$3–15 per million)\nNo infrastructure team needed\nContinuous model improvements\nRisk: data leaves your network\n\n\n\nOn-Prem\n\nGPU hardware ($50K–$500K+)\nModel serving and API infrastructure\nBuild or assemble developer tooling\nOngoing maintenance and model updates\nEngineering team to support all of the above\nBenefit: complete data control"
+  },
+  {
+    "objectID": "slides/m10-corporate.html#implement-your-own-on-prem",
+    "href": "slides/m10-corporate.html#implement-your-own-on-prem",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Implement Your Own On-Prem",
+    "text": "Implement Your Own On-Prem"
   },
   {
     "objectID": "slides/m10-corporate.html#ollama-local-llms-in-one-installer",
     "href": "slides/m10-corporate.html#ollama-local-llms-in-one-installer",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Ollama: Local LLMs in One Installer",
     "text": "Ollama: Local LLMs in One Installer\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.\n\n\nHow it works\n\nDownload and run the Ollama installer\nPull a model (e.g., llama3.2)\nChat locally via a browser UI or the terminal\nAll inference runs on your CPU/GPU\n\n\nAvailable models\n\nLlama 3.1 (Meta, 8B) — strong reasoning\nLlama 3.2 (Meta, 3B) — faster, lighter\nMistral, Gemma, Phi — many options\nModels download once and run offline"
   },
   {
-    "objectID": "slides/m10-corporate.html#exercise-install-ollama-and-try-local-llms",
-    "href": "slides/m10-corporate.html#exercise-install-ollama-and-try-local-llms",
-    "title": "Module 10: Corporate Agent Deployment",
-    "section": "Exercise: Install Ollama and Try Local LLMs",
-    "text": "Exercise: Install Ollama and Try Local LLMs"
-  },
-  {
     "objectID": "slides/m10-corporate.html#exercise-running-a-local-model",
     "href": "slides/m10-corporate.html#exercise-running-a-local-model",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Exercise: Running a Local Model",
     "text": "Exercise: Running a Local Model\n\n\nSetup\n\nGo to ollama.com and download the installer for your OS\nRun the installer (no terminal needed)\nOnce installed, open a terminal and run:\nollama run llama3.2\nThen try:\nollama run llama3.1\n\n\nThe prompt\nGive each model this prompt and compare their responses:\n\n“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”\n\nWhat to notice: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.\n\nBoth models run entirely on your machine. No data is sent anywhere."
   },
   {
     "objectID": "slides/m10-corporate.html#erp-and-the-saaspocalypse",
     "href": "slides/m10-corporate.html#erp-and-the-saaspocalypse",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "ERP and the SaaSpocalypse",
     "text": "ERP and the SaaSpocalypse"
   },
   {
     "objectID": "slides/m10-corporate.html#february-2026-2-trillion-vanished",
     "href": "slides/m10-corporate.html#february-2026-2-trillion-vanished",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "February 2026: $2 Trillion Vanished",
     "text": "February 2026: $2 Trillion Vanished\nIn a single week, AI agents wiped $2 trillion from enterprise software valuations.\n\n\n\n$2T\n\n\nMarket cap erased from SaaS companies\n\n\n\n\n30–50%\n\n\nDecline in leading ERP/CRM stocks\n\n\n\n\n$250B+\n\n\nAnnual enterprise software spend at risk\n\n\n\nThe market’s thesis: AI agents can replace entire categories of enterprise software — BI dashboards, reporting layers, workflow tools, Tier 1 support."
   },
   {
     "objectID": "slides/m10-corporate.html#what-investors-are-betting-on",
     "href": "slides/m10-corporate.html#what-investors-are-betting-on",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "What Investors Are Betting On",
     "text": "What Investors Are Betting On\n\n\nThe Old Model\n\nBuy a CRM ($150/user/month)\nBuy a BI tool ($70/user/month)\nBuy an integration platform ($50K+/year)\nBuy a reporting tool ($30/user/month)\nHire analysts to run queries and build dashboards\nWait 3 weeks for a cross-system report\n\n\n\nThe AI Model\n\nOne AI agent queries all your systems\nNatural language — no SQL, no dashboard builder\nCross-system analysis in seconds, not weeks\nReports, charts, and narratives generated on demand\nThe “last mile” from data to decision collapses\nCost per query: $0.01–0.05"
   },
   {
     "objectID": "slides/m10-corporate.html#section-1",
     "href": "slides/m10-corporate.html#section-1",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "",
     "text": "“Every application that is essentially a natural-language interface to a database is at risk. That’s CRM, ERP reporting, BI dashboards, HR analytics, support ticket routing — a huge fraction of enterprise software revenue.”\n\n\n— Investor thesis, widely circulated, February 2026"
   },
   {
     "objectID": "slides/m10-corporate.html#the-traditional-enterprise-stack",
     "href": "slides/m10-corporate.html#the-traditional-enterprise-stack",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The Traditional Enterprise Stack",
     "text": "The Traditional Enterprise Stack"
   },
   {
     "objectID": "slides/m10-corporate.html#how-companies-run-today",
     "href": "slides/m10-corporate.html#how-companies-run-today",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "How Companies Run Today",
     "text": "How Companies Run Today\nA typical mid-market company ($500M revenue) runs 10+ enterprise systems across divisions.\n\n\nCRM\n\nSalesforce, HubSpot, or legacy\nPipeline, contacts, deals\nEach division may use a different one\n\n\n\nFinance / ERP\n\nNetSuite, SAP, QuickBooks\nGL, invoices, budgets\nOften different systems per division\n\n\n\nOperations & HR\n\nSAP, Oracle SCM, Workday\nSupply chain, inventory, headcount\nTypically centralized\n\n\n\nThese systems don’t talk to each other. Getting a cross-system answer requires ETL pipelines, data warehouses, or analyst time."
   },
   {
     "objectID": "slides/m10-corporate.html#the-cross-system-problem",
     "href": "slides/m10-corporate.html#the-cross-system-problem",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The Cross-System Problem",
     "text": "The Cross-System Problem\nA CEO asks: “Which customers buy from multiple divisions?”\n\n\n\n1\n\n\nRequest\n\n\nCEO emails the BI team\n\n\n\n\n2\n\n\nGather\n\n\nAnalyst queries 3 CRMs separately\n\n\n\n\n3\n\n\nReconcile\n\n\nMatch “GE” / “GE Industrial” / “GE Safety”\n\n\n\n\n4\n\n\nDeliver\n\n\n3 weeks later: a spreadsheet\n\n\n\nThe traditional answer is a data warehouse ($500K–$5M, 6–18 months to build). The AI alternative: query each system where it lives and merge on the fly."
   },
   {
     "objectID": "slides/m10-corporate.html#demo-meridian-corp",
     "href": "slides/m10-corporate.html#demo-meridian-corp",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Demo: Meridian Corp",
     "text": "Demo: Meridian Corp"
   },
   {
     "objectID": "slides/m10-corporate.html#meridian-corp-a-simulated-enterprise",
     "href": "slides/m10-corporate.html#meridian-corp-a-simulated-enterprise",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Meridian Corp: A Simulated Enterprise",
     "text": "Meridian Corp: A Simulated Enterprise\nMeridian Corp is a fictional $500M B2B industrial supplies distributor with three operating divisions and 10 enterprise systems.\n\n\nIndustrial Division (~$250M)\n\nSalesforce CRM\nNetSuite Finance\nSAP Operations\n\nEnergy Division (~$150M)\n\nLegacy CRM (custom-built)\nQuickBooks Finance\nOracle SCM\n\n\nSafety Division (~$100M)\n\nHubSpot CRM\nShared NetSuite Finance\n\nCorporate HQ\n\nWorkday HR (all divisions)\nNetSuite Consolidation\nZendesk Support\n\n\n41 tables, 26,000+ rows, 3 years of data (2023–2025)."
   },
   {
     "objectID": "slides/m10-corporate.html#realistic-data-friction",
     "href": "slides/m10-corporate.html#realistic-data-friction",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Realistic Data Friction",
     "text": "Realistic Data Friction\nThe simulation includes the same data quality problems real enterprises face.\n\n\nNaming Conflicts\n\nSalesforce: CamelCase columns\nLegacy CRM: snake_case columns\nSame customer, different names across divisions\n\n\n\nFormat Mismatches\n\nLegacy CRM stores dates as text: \"03/15/2025\"\nOther systems use proper date types\nRevenue in different currencies or fiscal calendars\n\n\n\nNo Cross-System Joins\n\nThe agent cannot join across systems in SQL\nMust query each system separately\nMerges data with Python + fuzzy matching\n\n\n\nThis is exactly how a real enterprise AI tool would need to work."
   },
   {
     "objectID": "slides/m10-corporate.html#the-ai-agent-architecture",
     "href": "slides/m10-corporate.html#the-ai-agent-architecture",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The AI Agent Architecture",
     "text": "The AI Agent Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;User Question&lt;/b&gt;&lt;br/&gt;&lt;i&gt;plain English&lt;/i&gt;\"] --&gt; A[\"&lt;b&gt;AI Agent&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Claude&lt;/i&gt;\"]\n  A --&gt; Q1[\"&lt;b&gt;Salesforce&lt;/b&gt;\"]\n  A --&gt; Q2[\"&lt;b&gt;Legacy CRM&lt;/b&gt;\"]\n  A --&gt; Q3[\"&lt;b&gt;Workday&lt;/b&gt;\"]\n  Q1 --&gt; M[\"&lt;b&gt;Merge & Analyze&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Python&lt;/i&gt;\"]\n  Q2 --&gt; M\n  Q3 --&gt; M\n  M --&gt; R[\"&lt;b&gt;Answer&lt;/b&gt;&lt;br/&gt;&lt;i&gt;charts + narrative&lt;/i&gt;\"]\n\n  style U fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style Q1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style Q2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style Q3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style M fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n\n\n\n\n\n\nThe agent writes SQL for each system, executes it, then uses Python to merge, reconcile, and visualize the combined results."
   },
   {
     "objectID": "slides/m10-corporate.html#live-demo-single-system-queries",
     "href": "slides/m10-corporate.html#live-demo-single-system-queries",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Live Demo: Single-System Queries",
     "text": "Live Demo: Single-System Queries"
   },
   {
     "objectID": "slides/m10-corporate.html#demo-querying-individual-systems",
     "href": "slides/m10-corporate.html#demo-querying-individual-systems",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Demo: Querying Individual Systems",
     "text": "Demo: Querying Individual Systems\nWe’ll ask Meridian questions that hit one system at a time — the kind of query a dashboard or BI tool handles today.\n\n\nSales pipeline\n\n“How many open deals are in Salesforce?”\n“Which sales rep has the highest win rate this quarter?”\n“What’s the Energy Division’s pipeline value?”\n\n\nFinance and HR\n\n“What was Q4 revenue by division in NetSuite?”\n“How many employees does each division have?”\n“What’s the average support ticket resolution time?”\n\n\nWatch for: the SQL the agent writes, the speed of response, and the chart/narrative it generates."
   },
   {
     "objectID": "slides/m10-corporate.html#live-demo-cross-system-queries",
     "href": "slides/m10-corporate.html#live-demo-cross-system-queries",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Live Demo: Cross-System Queries",
     "text": "Live Demo: Cross-System Queries"
   },
   {
     "objectID": "slides/m10-corporate.html#demo-the-cross-system-merge",
     "href": "slides/m10-corporate.html#demo-the-cross-system-merge",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Demo: The Cross-System Merge",
     "text": "Demo: The Cross-System Merge\nNow the queries that no single system can answer — the ones that justify the enterprise software stack.\n\n\nCross-system questions\n\n“Which customers buy from multiple divisions?”\n“What’s revenue per employee by division?”\n“Compare our top customer’s pipeline to their support ticket trends”\n\n\nWhat to watch\n\nAgent queries 2–3 systems separately\nFuzzy matching reconciles customer names\nPython merges the results\nThe agent shows its work: SQL + merge logic\n\n\nThis is the query that takes the BI team 3 weeks. The agent does it in 30 seconds."
   },
   {
     "objectID": "slides/m10-corporate.html#demo-full-reporting-pipeline",
     "href": "slides/m10-corporate.html#demo-full-reporting-pipeline",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Demo: Full Reporting Pipeline",
     "text": "Demo: Full Reporting Pipeline"
   },
   {
     "objectID": "slides/m10-corporate.html#demo-from-question-to-board-memo",
     "href": "slides/m10-corporate.html#demo-from-question-to-board-memo",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Demo: From Question to Board Memo",
     "text": "Demo: From Question to Board Memo\nThe “last mile” — not just data, but a delivered artifact.\nAsk Meridian:\n\n“Prepare a quarterly executive summary of Meridian Corp performance — revenue by division, headcount efficiency, top customer risks, and supply chain issues.”\n\nThe agent will:\n\nQuery 6+ systems (CRM, Finance, HR, Support, Supply Chain)\nMerge and reconcile across divisions\nGenerate charts\nWrite a structured narrative memo\n\nThis is the pipeline that replaces the reporting team’s weekly cycle."
   },
   {
     "objectID": "slides/m10-corporate.html#whats-at-risk",
     "href": "slides/m10-corporate.html#whats-at-risk",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "What’s at Risk",
     "text": "What’s at Risk"
   },
   {
     "objectID": "slides/m10-corporate.html#the-saas-revenue-model-under-pressure",
     "href": "slides/m10-corporate.html#the-saas-revenue-model-under-pressure",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The SaaS Revenue Model Under Pressure",
     "text": "The SaaS Revenue Model Under Pressure\nEnterprise software charges per seat, per month. AI agents threaten the math.\n\n\n\n\n\n\n\n\n\nLayer\nExamples\nAnnual spend\nAI threat\n\n\n\n\nCRM\nSalesforce, HubSpot\n$150/user/mo\nQuery layer replaceable\n\n\nBI / Analytics\nTableau, Power BI\n$70/user/mo\nHigh — dashboards are natural language\n\n\nIntegration\nMuleSoft, Informatica\n$50K–500K/yr\nAgent-based merging as alternative\n\n\nReporting\nWorkiva, Adaptive\n$30/user/mo\nHigh — narrative generation\n\n\nSupport\nZendesk, ServiceNow\n$100/user/mo\nTier 1 triage automatable\n\n\n\nThe most vulnerable: anything that is fundamentally a natural-language interface to structured data."
   },
   {
     "objectID": "slides/m10-corporate.html#the-counter-argument",
     "href": "slides/m10-corporate.html#the-counter-argument",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The Counter-Argument",
     "text": "The Counter-Argument"
   },
   {
     "objectID": "slides/m10-corporate.html#why-erp-isnt-dead",
     "href": "slides/m10-corporate.html#why-erp-isnt-dead",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Why ERP Isn’t Dead",
     "text": "Why ERP Isn’t Dead\nThe SaaSpocalypse thesis has real limits. Enterprise software does things AI agents cannot easily replace.\n\n\nWhat ERP Does Beyond Queries\n\nTransaction processing (orders, invoices, payments)\nWorkflow enforcement (approval chains, compliance gates)\nAudit trails with legal standing\nRole-based access control at the field level\nReal-time integrations (inventory, shipping, payments)\n\n\n\nWhat AI Agents Can’t Do (Yet)\n\nProcess a purchase order end-to-end\nEnforce SOX compliance controls\nGuarantee data consistency across systems\nReplace the system of record\nProvide legally defensible audit trails\n\n\n\nERP is a system of record. AI agents are a system of insight. These are different jobs."
   },
   {
     "objectID": "slides/m10-corporate.html#the-integration-layer-is-the-real-target",
     "href": "slides/m10-corporate.html#the-integration-layer-is-the-real-target",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The Integration Layer Is the Real Target",
     "text": "The Integration Layer Is the Real Target\nThe $2T thesis is partially right, partially wrong.\n\n\nWhat AI will displace\n\nBI dashboards and ad-hoc reporting\nData integration middleware (for read-only queries)\nAnalyst time spent on data wrangling\nTier 1 support triage\nManual report generation\n\n\nWhat survives\n\nTransaction processing engines\nCompliance and audit infrastructure\nWorkflow orchestration with legal standing\nMaster data management\nSystems of record\n\n\nThe disruption isn’t “AI replaces SAP.” It’s “AI replaces the $200K/year you spend making SAP’s data accessible.”"
   },
   {
     "objectID": "slides/m10-corporate.html#what-this-means-for-finance-professionals",
     "href": "slides/m10-corporate.html#what-this-means-for-finance-professionals",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "What This Means for Finance Professionals",
     "text": "What This Means for Finance Professionals\n\n\nNear Term (2026–2027)\n\nAI agents supplement BI tools, not replace them\nCross-system queries become self-service\nReporting cycles compress from weeks to hours\nNew role: AI verifier — checking agent output, not producing it\n\n\n\nMedium Term (2027–2029)\n\nERP vendors embed AI agents natively (SAP Joule, Salesforce Agentforce)\nStandalone BI tools lose market share\nData warehouse projects face “build vs. agent” decisions\nCompliance frameworks catch up\n\n\n\nLong Term (2029+)\n\nThe “reporting layer” is fully AI-native\nERP becomes invisible infrastructure (like databases today)\nCompetitive advantage shifts from data access to data judgment\nThe CFO’s question isn’t “can we get the data?” — it’s “can we trust the answer?”"
   },
   {
     "objectID": "slides/m10-corporate.html#the-verification-problem-at-enterprise-scale",
     "href": "slides/m10-corporate.html#the-verification-problem-at-enterprise-scale",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The Verification Problem at Enterprise Scale",
     "text": "The Verification Problem at Enterprise Scale\nEverything from Module 7 applies here (and Module 13 for details). An AI agent querying 10 systems makes all the same errors — at enterprise scale.\n\n\nThe demo looked impressive. But…\n\nDid the fuzzy matching miss a customer?\nDid the date format mismatch skew Q4 numbers?\nDid the agent silently drop rows with NULL values?\nDid it average across won and lost deals?\n\n\nThe verification checklist still applies\n\nSanity-check with known answers\n“Show me the SQL” for each system\nCross-check by rephrasing\nSpot-check edge cases and merge logic\n\nThe more systems involved, the more places for silent errors."
   },
   {
     "objectID": "slides/m10-corporate.html#section-2",
     "href": "slides/m10-corporate.html#section-2",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "",
     "text": "The SaaSpocalypse isn’t about whether AI can query your data.\nIt’s about whether anyone will trust the answer enough to act on it."
   },
   {
     "objectID": "slides/m10-corporate.html#ai-adoption-roadmap",
     "href": "slides/m10-corporate.html#ai-adoption-roadmap",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "AI Adoption Roadmap",
     "text": "AI Adoption Roadmap"
   },
   {
     "objectID": "slides/m10-corporate.html#the-sandbox-audit-deploy-pattern",
     "href": "slides/m10-corporate.html#the-sandbox-audit-deploy-pattern",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "The Sandbox-Audit-Deploy Pattern",
     "text": "The Sandbox-Audit-Deploy Pattern\nBefore deploying any AI workflow to your team, follow three phases.\n\n\n\n🧪\n\n\n\nSandbox\n\n\n\nTest with dummy data\n\n\n\n\n🔍\n\n\n\nAudit\n\n\n\nReview logs and logic\n\n\n\n\n🚀\n\n\n\nDeploy\n\n\n\nRoll out with monitoring\n\n\n\nTest with synthetic data, review logs and logic, then roll out with weekly monitoring."
   },
   {
     "objectID": "slides/m10-corporate.html#adoption-timeline-from-quick-wins-to-strategic",
     "href": "slides/m10-corporate.html#adoption-timeline-from-quick-wins-to-strategic",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Adoption Timeline: From Quick Wins to Strategic",
     "text": "Adoption Timeline: From Quick Wins to Strategic\nEach adoption stage maps to a trust level.\n\nQuick wins (weeks) — light verification:\n\nChat for research, summarization, drafts\nUpload spreadsheets for ad-hoc analysis\n\nMedium-term (months) — test-before-deploy:\n\nSkills for recurring workflows\nMCP integrations and web apps\n\nStrategic (quarters) — full audit trail:\n\nProduction apps with authentication\nAI usage policy and governance framework"
   },
   {
     "objectID": "slides/m10-corporate.html#small-language-models-and-fine-tuning",
     "href": "slides/m10-corporate.html#small-language-models-and-fine-tuning",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Small Language Models and Fine-Tuning",
     "text": "Small Language Models and Fine-Tuning"
   },
   {
     "objectID": "slides/m10-corporate.html#improving-reliability-fine-tuning-and-slms",
     "href": "slides/m10-corporate.html#improving-reliability-fine-tuning-and-slms",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Improving Reliability: Fine-Tuning and SLMs",
     "text": "Improving Reliability: Fine-Tuning and SLMs\nA complementary approach to verification: make the model itself more reliable for your tasks.\n\n\nFine-tuning an LLM\n\nTrain on your domain data (10-Ks, memos, deal docs)\nModel learns your terminology and conventions\nFewer silent errors on domain-specific tasks\n\n\nSmall Language Models (SLMs)\n\n~1–8B parameters (vs. hundreds of billions)\nFine-tuned in hours on a single GPU\nRun on-premise — data never leaves your network\nSpecialized small models can outperform large models on narrow tasks"
   },
   {
     "objectID": "slides/m10-corporate.html#why-slms-for-agentic-systems",
     "href": "slides/m10-corporate.html#why-slms-for-agentic-systems",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Why SLMs for Agentic Systems?",
     "text": "Why SLMs for Agentic Systems?\nBelcak et al. (2025), “Small Language Models are the Future of Agentic AI”:\n\nMost agent subtasks are repetitive, scoped, and non-conversational — classifying documents, extracting fields, formatting outputs\nSLMs fine-tuned on a single task outperform LLMs on format compliance and consistency\n10–30x cheaper in latency, energy, and compute vs. large models\nOn-device deployment enables real-time, offline inference with full data privacy\nAgents can use multiple models: an LLM for complex reasoning, SLMs for routine subtasks"
   },
   {
     "objectID": "slides/m10-corporate.html#from-llm-to-slm-the-conversion-process",
     "href": "slides/m10-corporate.html#from-llm-to-slm-the-conversion-process",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "From LLM to SLM: The Conversion Process",
     "text": "From LLM to SLM: The Conversion Process\nThe paper proposes a six-step migration path:\n\n\n\n📝\n\n\n\nLog\n\n\n\nAgent interactions (prompts, responses, tool calls)\n\n\n\n\n🧹\n\n\n\nCurate\n\n\n\nRemove PII, filter for quality\n\n\n\n\n🔗\n\n\n\nCluster\n\n\n\nIdentify recurring task patterns\n\n\n\n\n📐\n\n\n\nSelect\n\n\n\nSLM sized to each task’s complexity\n\n\n\n\n⚙️\n\n\n\nFine-tune\n\n\n\nLoRA with 10K–100K examples\n\n\n\n\n🔄\n\n\n\nRepeat\n\n\n\nRetrain as usage patterns evolve\n\n\n\nThe audit logs from earlier in this module are exactly the data you need for step 1."
   },
   {
     "objectID": "slides/m10-corporate.html#summary",
     "href": "slides/m10-corporate.html#summary",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Summary",
     "text": "Summary"
   },
   {
     "objectID": "slides/m10-corporate.html#summary-1",
     "href": "slides/m10-corporate.html#summary-1",
-    "title": "Module 10: Corporate Agent Deployment",
+    "title": "Module 10: Corporate AI Deployment",
     "section": "Summary",
     "text": "Summary\n\n\nGuardrails\n\nPermissions & hooks\nCLAUDE.md constraints\nLayered defense\n\n\n\nData Security\n\nSchema-only pattern\nLocal AI / Ollama\nData sovereignty\n\n\n\nERP & SaaSpocalypse\n\n$2T market signal\nSystem of record vs. insight\nMeridian demo\n\n\n\nEnterprise Adoption\n\nSandbox-audit-deploy\nSLMs & fine-tuning\nAdoption roadmap\n\n\n\n\nControl the agent, protect the data, understand the disruption."
   },
   {
-    "objectID": "slides/m12-sentiment.html#why-news-moves-markets",
-    "href": "slides/m12-sentiment.html#why-news-moves-markets",
+    "objectID": "slides/m12-rag.html#beyond-prompting",
+    "href": "slides/m12-rag.html#beyond-prompting",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Beyond Prompting",
+    "text": "Beyond Prompting"
+  },
+  {
+    "objectID": "slides/m12-rag.html#three-ways-to-give-ai-knowledge",
+    "href": "slides/m12-rag.html#three-ways-to-give-ai-knowledge",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Three Ways to Give AI Knowledge",
+    "text": "Three Ways to Give AI Knowledge\nPrompting and skills customize how an LLM responds. But what if you need it to know things it wasn’t trained on?\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RAG[\"&lt;b&gt;RAG&lt;/b&gt;\"] ~~~ FT[\"&lt;b&gt;Fine-Tuning&lt;/b&gt;\"] ~~~ SLM[\"&lt;b&gt;Small Language&lt;br&gt;Model&lt;/b&gt;\"]\n\n  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n\n\n\n\n\n\n\nRAG: Up-to-date or proprietary facts; data changes frequently\nFine-Tuning: Specific tone, format, or domain expertise baked in\nSmall Language Model: Full control, privacy, or a highly specialized task"
+  },
+  {
+    "objectID": "slides/m12-rag.html#how-rag-works",
+    "href": "slides/m12-rag.html#how-rag-works",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "How RAG Works",
+    "text": "How RAG Works"
+  },
+  {
+    "objectID": "slides/m12-rag.html#what-is-rag",
+    "href": "slides/m12-rag.html#what-is-rag",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "What is RAG?",
+    "text": "What is RAG?\nRAG = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user’s question. The LLM generates an answer grounded in the retrieved text.\n\nThe LLM’s training data may be stale or lack your proprietary information\nRAG injects current, domain-specific context at query time\nNo model weights are changed — the base LLM is used as-is"
+  },
+  {
+    "objectID": "slides/m12-rag.html#the-rag-pipeline",
+    "href": "slides/m12-rag.html#the-rag-pipeline",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "The RAG Pipeline",
+    "text": "The RAG Pipeline\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  D[\"&lt;b&gt;Documents&lt;/b&gt;\"] --&gt; CE[\"&lt;b&gt;Chunk &&lt;br&gt;Embed&lt;/b&gt;\"]\n  CE --&gt; VDB[\"&lt;b&gt;Vector DB&lt;/b&gt;\"]\n  UQ[\"&lt;b&gt;User Query&lt;/b&gt;\"] --&gt; R[\"&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;\"]\n  VDB --&gt; R\n  R --&gt;|\"query + context\"| LLM[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n  LLM --&gt; A[\"&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;\"]\n\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px"
+  },
+  {
+    "objectID": "slides/m12-rag.html#rag-key-concepts",
+    "href": "slides/m12-rag.html#rag-key-concepts",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "RAG: Key Concepts",
+    "text": "RAG: Key Concepts\n\n\nEmbeddings\n\nText converted into numerical vectors\nSimilar meaning → nearby vectors\nEnables semantic search (not just keyword matching)\n\n\n\nVector Database\n\nStores document chunks as vectors\nFast similarity search\nExamples: Pinecone, Chroma, FAISS\n\n\n\nChunking\n\nDocuments are split into small, overlapping pieces (chunks)\nChunk size matters: too large = noisy context, too small = lost meaning\nTypical sizes: 200–1000 tokens per chunk"
+  },
+  {
+    "objectID": "slides/m12-rag.html#rag-in-finance",
+    "href": "slides/m12-rag.html#rag-in-finance",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "RAG in Finance",
+    "text": "RAG in Finance"
+  },
+  {
+    "objectID": "slides/m12-rag.html#finance-applications-of-rag",
+    "href": "slides/m12-rag.html#finance-applications-of-rag",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Finance Applications of RAG",
+    "text": "Finance Applications of RAG\n\n\nDocument Types\n\n10-K/10-Q filings and earnings transcripts\nAnalyst reports and deal documents\nInternal policies and memos\n\n\n\nUse Cases\n\nCompliance Q&A: query regulatory filings, internal policies\nDue diligence: search deal documents with citations\nResearch synthesis: combine multiple sources"
+  },
+  {
+    "objectID": "slides/m12-rag.html#rag-strengths-and-limitations",
+    "href": "slides/m12-rag.html#rag-strengths-and-limitations",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "RAG: Strengths and Limitations",
+    "text": "RAG: Strengths and Limitations\n\n\nStrengths\n\nNo training required\nData can be updated in real time\nAnswers are traceable to source pages\n\n\nLimitations\n\nQuality depends on retrieval quality\nContext window limits how much can be passed\nChunking can split important context"
+  },
+  {
+    "objectID": "slides/m12-rag.html#notebooklm-rag-without-code",
+    "href": "slides/m12-rag.html#notebooklm-rag-without-code",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "NotebookLM: RAG Without Code",
+    "text": "NotebookLM: RAG Without Code"
+  },
+  {
+    "objectID": "slides/m12-rag.html#what-is-notebooklm",
+    "href": "slides/m12-rag.html#what-is-notebooklm",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "What is NotebookLM?",
+    "text": "What is NotebookLM?\nGoogle NotebookLM is a free, consumer-friendly RAG tool. Upload your documents, and it builds a personal knowledge base you can query with natural language.\n\nAvailable at notebooklm.google\nUpload up to 50 sources: PDFs, Docs, Slides, web pages, YouTube\nAsk questions and get answers with inline citations; no code required"
+  },
+  {
+    "objectID": "slides/m12-rag.html#notebooklm-features",
+    "href": "slides/m12-rag.html#notebooklm-features",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "NotebookLM Features",
+    "text": "NotebookLM Features\n\n\nQuery & Summarize\n\nChat with your documents\nAnswers include inline citations\nGenerate summaries, FAQs, study guides, timelines, briefing docs\n\n\nAudio Overview\n\nGenerates a podcast-style audio discussion of your sources\nTwo AI hosts discuss key points conversationally\nGreat for reviewing material on the go\n\n\nVisual Outputs: Generate slide decks and infographics from your sources — useful for turning research into presentation-ready visuals."
+  },
+  {
+    "objectID": "slides/m12-rag.html#notebooklm-for-finance",
+    "href": "slides/m12-rag.html#notebooklm-for-finance",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "NotebookLM for Finance",
+    "text": "NotebookLM for Finance\n\nEarnings analysis: Upload 10-K/10-Q filings and earnings transcripts, ask comparative questions\nDeal prep: Load pitch books, CIMs, and contracts for quick reference\nYear-over-year comparison: Upload two years of 10-Ks, ask AI to identify changes in risk factors, revenue composition, and guidance\n\nNotebookLM is a practical example of RAG that you can use today."
+  },
+  {
+    "objectID": "slides/m12-rag.html#building-a-rag-pipeline",
+    "href": "slides/m12-rag.html#building-a-rag-pipeline",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Building a RAG Pipeline",
+    "text": "Building a RAG Pipeline"
+  },
+  {
+    "objectID": "slides/m12-rag.html#under-the-hood-building-a-rag-pipeline",
+    "href": "slides/m12-rag.html#under-the-hood-building-a-rag-pipeline",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Under the Hood: Building a RAG Pipeline",
+    "text": "Under the Hood: Building a RAG Pipeline\nFor those who want to understand the internals, ask Claude Code to build a RAG pipeline step by step.\n\nInstall libraries (langchain, chromadb, an embedding model)\nLoad and chunk a PDF, embed and store in a vector database\nQuery the pipeline with finance-specific questions"
+  },
+  {
+    "objectID": "slides/m12-rag.html#example-questions-to-try",
+    "href": "slides/m12-rag.html#example-questions-to-try",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Example Questions to Try",
+    "text": "Example Questions to Try\nUpload a company’s 10-K and ask:\n\nWhat was total revenue in the most recent fiscal year?\nWhat are the main risk factors related to supply chain?\nSummarize management’s outlook for the coming year\n\nNotice how answers are grounded in the actual document — the key benefit of RAG over plain prompting."
+  },
+  {
+    "objectID": "slides/m12-rag.html#exercises",
+    "href": "slides/m12-rag.html#exercises",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Exercises",
+    "text": "Exercises"
+  },
+  {
+    "objectID": "slides/m12-rag.html#exercise-1-notebooklm-analysis",
+    "href": "slides/m12-rag.html#exercise-1-notebooklm-analysis",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Exercise 1: NotebookLM Analysis",
+    "text": "Exercise 1: NotebookLM Analysis\n\nUpload 3+ financial documents for the same company into NotebookLM (10-K, earnings transcript, analyst report)\nAsk 5+ questions across the documents\nNote how citations trace back to specific sources\nSubmit: Q&A pairs + quality assessment (were answers grounded? any hallucinations?)"
+  },
+  {
+    "objectID": "slides/m12-rag.html#exercise-2-rag-pipeline",
+    "href": "slides/m12-rag.html#exercise-2-rag-pipeline",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Exercise 2: RAG Pipeline",
+    "text": "Exercise 2: RAG Pipeline\n\nAsk Claude Code to build a RAG pipeline that loads a corporate annual report (e.g., Apple 10-K)\nHave it chunk and embed the document into a vector database\nAsk 5 finance-specific questions and evaluate whether answers are grounded or hallucinated\nSubmit: code + evaluation"
+  },
+  {
+    "objectID": "slides/m12-rag.html#exercise-3-document-comparison",
+    "href": "slides/m12-rag.html#exercise-3-document-comparison",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Exercise 3: Document Comparison",
+    "text": "Exercise 3: Document Comparison\n\nUpload two years of 10-Ks for the same company into NotebookLM\nAsk AI to identify the most significant changes in:\n\nRisk factors\nRevenue composition\nManagement guidance and accounting policies\n\nSubmit: summary of key changes with source citations"
+  },
+  {
+    "objectID": "slides/m12-rag.html#summary",
+    "href": "slides/m12-rag.html#summary",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Summary",
+    "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo training required\n\n\n\nNotebookLM\n\nFree RAG without code\nInline citations\nAudio overviews\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence\n\n\n\n\nRAG gives AI knowledge it doesn’t have — grounded in your documents, with citations."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#why-news-moves-markets",
+    "href": "slides/m14-sentiment.html#why-news-moves-markets",
     "title": "Module 12: Sentiment Analysis",
     "section": "Why News Moves Markets",
     "text": "Why News Moves Markets\nAsset prices reflect expectations. News changes expectations. The trader who understands news faster and more accurately captures the profit.\n\nEarnings surprises, Fed announcements, M&A rumors, FDA decisions, geopolitical shocks\nQuantitative firms began automating this with simple keyword rules in the 2000s\nLLMs now understand nuance, context, and implication — a qualitative leap"
   },
   {
-    "objectID": "slides/m12-sentiment.html#the-evolution-of-text-based-trading",
-    "href": "slides/m12-sentiment.html#the-evolution-of-text-based-trading",
+    "objectID": "slides/m14-sentiment.html#the-evolution-of-text-based-trading",
+    "href": "slides/m14-sentiment.html#the-evolution-of-text-based-trading",
     "title": "Module 12: Sentiment Analysis",
     "section": "The Evolution of Text-Based Trading",
     "text": "The Evolution of Text-Based Trading\n\n\n\n\n\n\n\n\nEra\nMethod\nCapability\n\n\n\n\nPre-2010\nKeyword matching\nCount positive/negative words\n\n\n2011\nLoughran-McDonald dictionary\nFinance-specific word lists\n\n\n2018–19\nBERT / FinBERT\nContextual understanding of sentences\n\n\n2023\nGPT-3.5 / GPT-4\nZero-shot reasoning about market impact\n\n\n2024–26\nFine-tuned SLMs + agents\nDomain-optimized, multi-step analysis"
   },
   {
-    "objectID": "slides/m12-sentiment.html#the-models",
-    "href": "slides/m12-sentiment.html#the-models",
+    "objectID": "slides/m14-sentiment.html#the-models",
+    "href": "slides/m14-sentiment.html#the-models",
     "title": "Module 12: Sentiment Analysis",
     "section": "The Models",
     "text": "The Models"
   },
   {
-    "objectID": "slides/m12-sentiment.html#finbert-the-first-financial-sentiment-model",
-    "href": "slides/m12-sentiment.html#finbert-the-first-financial-sentiment-model",
+    "objectID": "slides/m14-sentiment.html#finbert-the-first-financial-sentiment-model",
+    "href": "slides/m14-sentiment.html#finbert-the-first-financial-sentiment-model",
     "title": "Module 12: Sentiment Analysis",
     "section": "FinBERT: The First Financial Sentiment Model",
     "text": "FinBERT: The First Financial Sentiment Model\nFinBERT (Araci, 2019) = BERT pre-trained on financial text and fine-tuned for 3-class sentiment (positive / negative / neutral).\n\n\nArchitecture\n\n110M parameters (BERT-base)\nFine-tuned on Financial PhraseBank (4,840 labeled sentences)\nOpen source: ProsusAI/finbert on HuggingFace\n\n\n\nPerformance\n\n~87% accuracy on Financial PhraseBank\n14 pp improvement over vanilla BERT\nBecame the standard baseline for financial NLP"
   },
   {
-    "objectID": "slides/m12-sentiment.html#bloomberggpt-and-fingpt",
-    "href": "slides/m12-sentiment.html#bloomberggpt-and-fingpt",
+    "objectID": "slides/m14-sentiment.html#bloomberggpt-and-fingpt",
+    "href": "slides/m14-sentiment.html#bloomberggpt-and-fingpt",
     "title": "Module 12: Sentiment Analysis",
     "section": "BloombergGPT and FinGPT",
     "text": "BloombergGPT and FinGPT\n\n\nBloombergGPT (2023)\n\n50B parameters; ~$10M training cost\nTrained on Bloomberg’s FinPile (363B tokens) + 345B tokens of general text\nProprietary — weights not released\n\n\n\nFinGPT (2023)\n\nOpen-source (AI4Finance Foundation)\nFine-tunes Llama, Falcon, etc. with LoRA\nTraining cost: under $300\n\n\n\n\nBloombergGPT proved the concept; FinGPT democratized it."
   },
   {
-    "objectID": "slides/m12-sentiment.html#gpt-4-and-general-purpose-llms",
-    "href": "slides/m12-sentiment.html#gpt-4-and-general-purpose-llms",
+    "objectID": "slides/m14-sentiment.html#gpt-4-and-general-purpose-llms",
+    "href": "slides/m14-sentiment.html#gpt-4-and-general-purpose-llms",
     "title": "Module 12: Sentiment Analysis",
     "section": "GPT-4 and General-Purpose LLMs",
     "text": "GPT-4 and General-Purpose LLMs\nGeneral-purpose LLMs can classify financial sentiment with zero training data — just a well-crafted prompt.\n\n\nStrengths\n\nUnderstands: “despite strong revenue, guidance was weak” → negative\nHandles sarcasm, hedging, implicit sentiment\nSentiment + event classification + summarization in one model\n\n\n\nWeaknesses\n\nLatency: 500ms–5s per API call\nCost: $2.50–10/M input tokens (varies by model)\nData leaves your infrastructure"
   },
   {
-    "objectID": "slides/m12-sentiment.html#fine-tuning-concepts",
-    "href": "slides/m12-sentiment.html#fine-tuning-concepts",
+    "objectID": "slides/m14-sentiment.html#fine-tuning-concepts",
+    "href": "slides/m14-sentiment.html#fine-tuning-concepts",
     "title": "Module 12: Sentiment Analysis",
     "section": "Fine-Tuning Concepts",
     "text": "Fine-Tuning Concepts\n\nFine-tuning: Take a pre-trained model, continue training on domain-specific data\nLoRA (Low-Rank Adaptation): Update only a small fraction of model weights — dramatically reduces cost and GPU requirements\nSmall language models (1–10B parameters): privacy (data stays local), speed (5–10ms inference), specialization\n\nWhy this matters for trading: FinBERT processes headlines in milliseconds; GPT-4 takes seconds."
   },
   {
-    "objectID": "slides/m12-sentiment.html#what-the-research-shows",
-    "href": "slides/m12-sentiment.html#what-the-research-shows",
+    "objectID": "slides/m14-sentiment.html#what-the-research-shows",
+    "href": "slides/m14-sentiment.html#what-the-research-shows",
     "title": "Module 12: Sentiment Analysis",
     "section": "What the Research Shows",
     "text": "What the Research Shows"
   },
   {
-    "objectID": "slides/m12-sentiment.html#can-chatgpt-forecast-stock-prices",
-    "href": "slides/m12-sentiment.html#can-chatgpt-forecast-stock-prices",
+    "objectID": "slides/m14-sentiment.html#can-chatgpt-forecast-stock-prices",
+    "href": "slides/m14-sentiment.html#can-chatgpt-forecast-stock-prices",
     "title": "Module 12: Sentiment Analysis",
     "section": "Can ChatGPT Forecast Stock Prices?",
     "text": "Can ChatGPT Forecast Stock Prices?\nLopez-Lira & Tang (2023). Accepted at the Journal of Finance.\n\n67,586 headlines for 4,138 companies (Oct 2021–Dec 2022)\nLong-short strategies: overnight Sharpe ratio 2.97, intraday Sharpe ratio 2.63\nForecasting ability increases with model size — financial reasoning is an “emerging capability” of larger LLMs"
   },
   {
-    "objectID": "slides/m12-sentiment.html#llms-vs.-traditional-sentiment-analysis",
-    "href": "slides/m12-sentiment.html#llms-vs.-traditional-sentiment-analysis",
+    "objectID": "slides/m14-sentiment.html#llms-vs.-traditional-sentiment-analysis",
+    "href": "slides/m14-sentiment.html#llms-vs.-traditional-sentiment-analysis",
     "title": "Module 12: Sentiment Analysis",
     "section": "LLMs vs. Traditional Sentiment Analysis",
     "text": "LLMs vs. Traditional Sentiment Analysis\nKirtac & Germano (2024), Finance Research Letters. 965,375 U.S. financial news articles.\n\n\n\nMethod\nSentiment Accuracy\nLong-Short Sharpe\n\n\n\n\nLoughran-McDonald dictionary\n50.1%\n1.23\n\n\nFinBERT\n72.2%\n2.07\n\n\nOPT (GPT-3 family)\n74.4%\n3.05\n\n\n\nTraditional bag-of-words methods are now effectively obsolete for this task."
   },
   {
-    "objectID": "slides/m12-sentiment.html#more-key-results",
-    "href": "slides/m12-sentiment.html#more-key-results",
+    "objectID": "slides/m14-sentiment.html#more-key-results",
+    "href": "slides/m14-sentiment.html#more-key-results",
     "title": "Module 12: Sentiment Analysis",
     "section": "More Key Results",
     "text": "More Key Results\n\n\nGPT-4 vs. Human Analysts\n\nKim, Muhn & Nikolaev (2024), Chicago Booth\nGPT-4 given only anonymized financial statements\nOutperforms the median human analyst at predicting earnings direction\n\n\n\nFine-Tuned Small Models\n\nFinLlama (2024, Imperial College)\nLlama 2 7B fine-tuned with LoRA (4.2M trainable params)\nOutperforms FinBERT by 44.7% in cumulative returns"
   },
   {
-    "objectID": "slides/m12-sentiment.html#multi-agent-trading-systems",
-    "href": "slides/m12-sentiment.html#multi-agent-trading-systems",
+    "objectID": "slides/m14-sentiment.html#multi-agent-trading-systems",
+    "href": "slides/m14-sentiment.html#multi-agent-trading-systems",
     "title": "Module 12: Sentiment Analysis",
     "section": "Multi-Agent Trading Systems",
     "text": "Multi-Agent Trading Systems\nMarketSenseAI 2.0 (2025): GPT-4 + RAG multi-agent system.\n\n125.9% cumulative returns vs. 73.5% for S&P 100"
   },
   {
-    "objectID": "slides/m12-sentiment.html#how-it-works-implementation",
-    "href": "slides/m12-sentiment.html#how-it-works-implementation",
+    "objectID": "slides/m14-sentiment.html#how-it-works-implementation",
+    "href": "slides/m14-sentiment.html#how-it-works-implementation",
     "title": "Module 12: Sentiment Analysis",
     "section": "How It Works: Implementation",
     "text": "How It Works: Implementation"
   },
   {
-    "objectID": "slides/m12-sentiment.html#the-news-trading-pipeline",
-    "href": "slides/m12-sentiment.html#the-news-trading-pipeline",
+    "objectID": "slides/m14-sentiment.html#the-news-trading-pipeline",
+    "href": "slides/m14-sentiment.html#the-news-trading-pipeline",
     "title": "Module 12: Sentiment Analysis",
     "section": "The News Trading Pipeline",
     "text": "The News Trading Pipeline\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;Data&lt;br&gt;Ingestion&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;Entity&lt;br&gt;Resolution&lt;/b&gt;\"]\n  B --&gt; C[\"&lt;b&gt;Sentiment&lt;br&gt;Extraction&lt;/b&gt;\"]\n  C --&gt; D[\"&lt;b&gt;Signal&lt;br&gt;Construction&lt;/b&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Trade&lt;br&gt;Execution&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n\n\nData ingestion: Reuters, Bloomberg, SEC filings\nEntity resolution: “Apple” → AAPL\nSentiment extraction: The LLM’s core job\n\n\n\nSignal construction: Aggregate, weight, normalize\nTrade execution: Route orders\nThe LLM replaces steps 2 and 3"
   },
   {
-    "objectID": "slides/m12-sentiment.html#what-the-llm-extracts",
-    "href": "slides/m12-sentiment.html#what-the-llm-extracts",
+    "objectID": "slides/m14-sentiment.html#what-the-llm-extracts",
+    "href": "slides/m14-sentiment.html#what-the-llm-extracts",
     "title": "Module 12: Sentiment Analysis",
     "section": "What the LLM Extracts",
     "text": "What the LLM Extracts\nSentiment is more than positive/negative. A production system classifies along multiple dimensions:\n\n\n\n\n\n\n\n\nDimension\nQuestion\nExample\n\n\n\n\nPolarity\nPositive, negative, or neutral?\n“Revenue beat estimates” → positive\n\n\nMagnitude\nHow strong?\n“Slight miss” vs. “catastrophic failure”\n\n\nRelevance\nIs this market-moving?\nRoutine board meeting → low\n\n\n\n\nLLMs handle all dimensions in a single prompt; traditional methods handle only polarity."
   },
   {
-    "objectID": "slides/m12-sentiment.html#the-cascade-architecture",
-    "href": "slides/m12-sentiment.html#the-cascade-architecture",
+    "objectID": "slides/m14-sentiment.html#the-cascade-architecture",
+    "href": "slides/m14-sentiment.html#the-cascade-architecture",
     "title": "Module 12: Sentiment Analysis",
     "section": "The Cascade Architecture",
     "text": "The Cascade Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;All Headlines&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;\"]\n  B --&gt;|\"high conf.\"| C[\"&lt;b&gt;Immediate Signal&lt;/b&gt;\"]\n  B --&gt;|\"low conf.\"| D[\"&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Enhanced Signal&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\n\nFine-Tuned Small Model\n\nFinBERT, FinLlama, custom BERT\nInference: 5–10ms on GPU\nDeterministic; runs on your infra\n\n\n\nGeneral-Purpose LLM\n\nGPT-4, Claude, Gemini\nInference: 500ms–5s via API\nZero labeled data needed\n\n\n\nBest Practice: Fast path (~5ms) for high-confidence; slow path (~1–5s) for low-confidence; batch reprocessing end-of-day."
   },
   {
-    "objectID": "slides/m12-sentiment.html#latency-and-alpha-decay",
-    "href": "slides/m12-sentiment.html#latency-and-alpha-decay",
+    "objectID": "slides/m14-sentiment.html#latency-and-alpha-decay",
+    "href": "slides/m14-sentiment.html#latency-and-alpha-decay",
     "title": "Module 12: Sentiment Analysis",
     "section": "Latency and Alpha Decay",
     "text": "Latency and Alpha Decay\nAlpha decay = the rate at which a signal’s profitability diminishes as the market incorporates the information.\n\n\n\nStrategy\nLatency Budget\nModel\n\n\n\n\nHFT / market making\n&lt;1ms\nKeyword lookup\n\n\nLow-latency systematic\n1–100ms\nFinBERT\n\n\nEvent-driven\n100ms–5s\nFinBERT + LLM\n\n\nDaily systematic\nMinutes–hours\nFull LLM pipeline\n\n\nFundamental\nHours–days\nDeep LLM analysis\n\n\n\nYou don’t need to be the fastest — you need to be fast enough for the alpha you’re targeting."
   },
   {
-    "objectID": "slides/m12-sentiment.html#event-driven-strategies",
-    "href": "slides/m12-sentiment.html#event-driven-strategies",
+    "objectID": "slides/m14-sentiment.html#event-driven-strategies",
+    "href": "slides/m14-sentiment.html#event-driven-strategies",
     "title": "Module 12: Sentiment Analysis",
     "section": "Event-Driven Strategies",
     "text": "Event-Driven Strategies"
   },
   {
-    "objectID": "slides/m12-sentiment.html#types-of-news-events",
-    "href": "slides/m12-sentiment.html#types-of-news-events",
+    "objectID": "slides/m14-sentiment.html#types-of-news-events",
+    "href": "slides/m14-sentiment.html#types-of-news-events",
     "title": "Module 12: Sentiment Analysis",
     "section": "Types of News Events",
     "text": "Types of News Events\n\n\nScheduled Events\n\nEarnings: Compare actuals to consensus; analyze management tone\nFed / central bank: Single word changes carry enormous implications\nEconomic data: CPI, jobs reports, PMI\n\n\n\nUnscheduled Events\n\nM&A: Assess deal likelihood and regulatory risk\nFDA decisions: Binary, high-impact\nGeopolitical: Sanctions, trade policy, elections\n\n\n\nThe tone of an earnings call often matters more for returns than the reported numbers."
   },
   {
-    "objectID": "slides/m12-sentiment.html#earnings-call-analysis",
-    "href": "slides/m12-sentiment.html#earnings-call-analysis",
+    "objectID": "slides/m14-sentiment.html#earnings-call-analysis",
+    "href": "slides/m14-sentiment.html#earnings-call-analysis",
     "title": "Module 12: Sentiment Analysis",
     "section": "Earnings Call Analysis",
     "text": "Earnings Call Analysis\nThe Prompt\n“Rate management’s tone from $-$5 (very bearish) to +5 (very bullish). Explain your reasoning. Identify forward-looking statements that differ from consensus.”\n\nThe LLM processes the entire transcript (8,000–15,000 tokens)\nDetects hedging: “We’re pleased with results but expect headwinds in Q4” → net negative\nTraditional keyword methods would flag “pleased” as positive\n\n\nThis is where LLMs provide the greatest edge over traditional NLP."
   },
   {
-    "objectID": "slides/m12-sentiment.html#beyond-company-sentiment-geopolitical-risk",
-    "href": "slides/m12-sentiment.html#beyond-company-sentiment-geopolitical-risk",
+    "objectID": "slides/m14-sentiment.html#beyond-company-sentiment-geopolitical-risk",
+    "href": "slides/m14-sentiment.html#beyond-company-sentiment-geopolitical-risk",
     "title": "Module 12: Sentiment Analysis",
     "section": "Beyond Company Sentiment: Geopolitical Risk",
     "text": "Beyond Company Sentiment: Geopolitical Risk"
   },
   {
-    "objectID": "slides/m12-sentiment.html#the-propagation-problem",
-    "href": "slides/m12-sentiment.html#the-propagation-problem",
+    "objectID": "slides/m14-sentiment.html#the-propagation-problem",
+    "href": "slides/m14-sentiment.html#the-propagation-problem",
     "title": "Module 12: Sentiment Analysis",
     "section": "The Propagation Problem",
     "text": "The Propagation Problem\nMost LLM trading research focuses on company-level sentiment. The real competitive advantage: understanding how macro events propagate across sectors.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;Conflict&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;Oil&lt;br&gt;prices ↑&lt;/b&gt;\"]\n  B --&gt; C[\"&lt;b&gt;Energy&lt;br&gt;stocks ↑&lt;/b&gt;\"]\n  B --&gt; D[\"&lt;b&gt;Fertilizer&lt;br&gt;costs ↑&lt;/b&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Food&lt;br&gt;prices ↑&lt;/b&gt;\"]\n  E --&gt; F[\"&lt;b&gt;Staples&lt;br&gt;margins ↓&lt;/b&gt;\"]\n\n  style A fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style F fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n“Russia invades Ukraine” — which sectors benefit? Which suffer?\nMulti-hop causal reasoning:\n\n1st order: Oil prices rise → energy stocks up\n2nd order: Fertilizer costs rise → agriculture costs up\n3rd order: Food prices rise → consumer staples margins squeezed"
   },
   {
-    "objectID": "slides/m12-sentiment.html#measuring-geopolitical-risk",
-    "href": "slides/m12-sentiment.html#measuring-geopolitical-risk",
+    "objectID": "slides/m14-sentiment.html#measuring-geopolitical-risk",
+    "href": "slides/m14-sentiment.html#measuring-geopolitical-risk",
     "title": "Module 12: Sentiment Analysis",
     "section": "Measuring Geopolitical Risk",
     "text": "Measuring Geopolitical Risk\n\n\nCaldara-Iacoviello GPR Index\n\nPublished in AER (2022)\nCounts articles in 10 newspapers across 8 categories\nAvailable for 44 countries since 1900\n\n\n\nBlackRock BGRI\n\nNeural network NLP on brokerage reports + news\nFor each risk, identifies the 3 most sensitive assets\nThe industry gold standard"
   },
   {
-    "objectID": "slides/m12-sentiment.html#knowledge-graphs-mapping-shock-propagation",
-    "href": "slides/m12-sentiment.html#knowledge-graphs-mapping-shock-propagation",
+    "objectID": "slides/m14-sentiment.html#knowledge-graphs-mapping-shock-propagation",
+    "href": "slides/m14-sentiment.html#knowledge-graphs-mapping-shock-propagation",
     "title": "Module 12: Sentiment Analysis",
     "section": "Knowledge Graphs: Mapping Shock Propagation",
     "text": "Knowledge Graphs: Mapping Shock Propagation\nA knowledge graph maps entities (firms, sectors, commodities) and their relationships. Combined with an LLM, it enables multi-hop reasoning about how shocks propagate.\n\n\nFinDKG (Li et al., 2024)\n\nFine-tuned LLM builds a dynamic knowledge graph from financial news\nOutperforms thematic ETFs at identifying sector themes\nOpen source\n\n\n\nSupply Chain Mapping\n\nLLMs extract multi-tier supplier networks from text\nMap 3,000+ firms and 11,000+ supply links\nPredict how disruptions cascade through supply chains"
   },
   {
-    "objectID": "slides/m12-sentiment.html#industry-adoption-and-risks",
-    "href": "slides/m12-sentiment.html#industry-adoption-and-risks",
+    "objectID": "slides/m14-sentiment.html#industry-adoption-and-risks",
+    "href": "slides/m14-sentiment.html#industry-adoption-and-risks",
     "title": "Module 12: Sentiment Analysis",
     "section": "Industry Adoption and Risks",
     "text": "Industry Adoption and Risks"
   },
   {
-    "objectID": "slides/m12-sentiment.html#who-is-doing-this",
-    "href": "slides/m12-sentiment.html#who-is-doing-this",
+    "objectID": "slides/m14-sentiment.html#who-is-doing-this",
+    "href": "slides/m14-sentiment.html#who-is-doing-this",
     "title": "Module 12: Sentiment Analysis",
     "section": "Who Is Doing This?",
     "text": "Who Is Doing This?\n\n\nHedge Funds\n\nBridgewater: $2B AI fund using OpenAI, Anthropic, Perplexity\nTwo Sigma: NLP for 10+ years\nNumerai: Crowdsourced AI fund, $550M AUM\n\n\n\nPlatforms\n\nBloomberg: BloombergGPT, terminal-integrated NLP\nRavenPack: Structured sentiment signals\nKensho: Acquired by S&P Global for $550M\n\n\n\nPermutable AI: LLM-based trading live Oct 2024 — 20.6% return, Sharpe ratio 2.85."
   },
   {
-    "objectID": "slides/m12-sentiment.html#cautionary-tales",
-    "href": "slides/m12-sentiment.html#cautionary-tales",
+    "objectID": "slides/m14-sentiment.html#cautionary-tales",
+    "href": "slides/m14-sentiment.html#cautionary-tales",
     "title": "Module 12: Sentiment Analysis",
     "section": "Cautionary Tales",
     "text": "Cautionary Tales\n\n\n\n\n\n\n\n\nEvent\nWhat Happened\nImpact\n\n\n\n\nAP Twitter Hack (2013)\nFake “White House explosions” tweet\nS&P 500 lost $136B in seconds\n\n\nAlpha Arena\nChatGPT trading competition\n63% loss\n\n\nIMF Warning\nAI trading increases volatility\nRegulatory scrutiny\n\n\n\n\nThe competitive edge is real, but so are the risks."
   },
   {
-    "objectID": "slides/m12-sentiment.html#the-crowding-problem",
-    "href": "slides/m12-sentiment.html#the-crowding-problem",
+    "objectID": "slides/m14-sentiment.html#the-crowding-problem",
+    "href": "slides/m14-sentiment.html#the-crowding-problem",
     "title": "Module 12: Sentiment Analysis",
     "section": "The Crowding Problem",
     "text": "The Crowding Problem\nAs more firms adopt the same LLM-based analysis, alpha from news sentiment decays faster.\n\nLopez-Lira & Tang document declining returns as LLM adoption rises — consistent with the Efficient Market Hypothesis\nMore sophisticated signals (tone analysis, cross-sector propagation) retain more alpha\nThe arms race: better NLP → alpha captured → faster decay → need even better NLP\n\nThe moat is shifting from speed of access to depth of understanding."
   },
   {
-    "objectID": "slides/m12-sentiment.html#exercises",
-    "href": "slides/m12-sentiment.html#exercises",
+    "objectID": "slides/m14-sentiment.html#exercises",
+    "href": "slides/m14-sentiment.html#exercises",
     "title": "Module 12: Sentiment Analysis",
     "section": "Exercises",
     "text": "Exercises"
   },
   {
-    "objectID": "slides/m12-sentiment.html#exercise-1-headline-sentiment-classification",
-    "href": "slides/m12-sentiment.html#exercise-1-headline-sentiment-classification",
+    "objectID": "slides/m14-sentiment.html#exercise-1-headline-sentiment-classification",
+    "href": "slides/m14-sentiment.html#exercise-1-headline-sentiment-classification",
     "title": "Module 12: Sentiment Analysis",
     "section": "Exercise 1: Headline Sentiment Classification",
     "text": "Exercise 1: Headline Sentiment Classification\n\nCollect 20 recent financial headlines and have Claude classify sentiment, magnitude, and relevance for each.\nCompare classifications to actual stock price movements over the following day and calculate accuracy.\nSubmit: spreadsheet with headlines, classifications, prices, and accuracy."
   },
   {
-    "objectID": "slides/m12-sentiment.html#exercise-2-earnings-call-analysis",
-    "href": "slides/m12-sentiment.html#exercise-2-earnings-call-analysis",
+    "objectID": "slides/m14-sentiment.html#exercise-2-earnings-call-analysis",
+    "href": "slides/m14-sentiment.html#exercise-2-earnings-call-analysis",
     "title": "Module 12: Sentiment Analysis",
     "section": "Exercise 2: Earnings Call Analysis",
     "text": "Exercise 2: Earnings Call Analysis\n\nDownload an earnings call transcript (e.g., from Seeking Alpha)\nAsk Claude to:\n\nRate management tone ($-$5 to +5)\nIdentify forward-looking statements that differ from consensus\nFlag hedging language\n\nCompare to the stock’s post-earnings move\nSubmit: transcript excerpt + Claude’s analysis + stock movement + reflection"
   },
   {
-    "objectID": "slides/m12-sentiment.html#exercise-3-finbert-comparison-bonus",
-    "href": "slides/m12-sentiment.html#exercise-3-finbert-comparison-bonus",
+    "objectID": "slides/m14-sentiment.html#exercise-3-finbert-comparison-bonus",
+    "href": "slides/m14-sentiment.html#exercise-3-finbert-comparison-bonus",
     "title": "Module 12: Sentiment Analysis",
     "section": "Exercise 3: FinBERT Comparison (Bonus)",
     "text": "Exercise 3: FinBERT Comparison (Bonus)\n\nRun the same 20 headlines through FinBERT (via HuggingFace)\nCompare FinBERT’s classifications to Claude’s\nWhich handles nuance better? Where does each fail?\nSubmit: side-by-side comparison + analysis"
   },
   {
-    "objectID": "slides/m12-sentiment.html#summary",
-    "href": "slides/m12-sentiment.html#summary",
+    "objectID": "slides/m14-sentiment.html#summary",
+    "href": "slides/m14-sentiment.html#summary",
     "title": "Module 12: Sentiment Analysis",
     "section": "Summary",
     "text": "Summary\n\n\nWhat We Know\n\nLLMs dramatically outperform dictionaries (50% → 74% accuracy)\nGPT-4 can match or beat human analysts\nFine-tuned small models compete at a fraction of cost\n\n\n\nWhat to Watch\n\nAlpha decay as adoption increases\nAdversarial attacks and manipulation\nCrowding risk: correlated AI trades → systemic instability\n\n\n\n\nThe value of LLMs in trading is not just speed — it is depth of understanding."
   },
   {
-    "objectID": "slides/m12-sentiment.html#key-references",
-    "href": "slides/m12-sentiment.html#key-references",
+    "objectID": "slides/m14-sentiment.html#key-references",
+    "href": "slides/m14-sentiment.html#key-references",
     "title": "Module 12: Sentiment Analysis",
     "section": "Key References",
     "text": "Key References\n\n\nLopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? Journal of Finance.\nKirtac & Germano (2024). Sentiment Trading with Large Language Models. Finance Research Letters.\nKim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.\nAraci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.\nWu et al. (2023). BloombergGPT: A Large Language Model for Finance.\nYang et al. (2023). FinGPT: Open-Source Financial Large Language Models.\nFinLlama (2024). Financial Sentiment Analysis for Algorithmic Trading. ICAIF ’24.\nCaldara & Iacoviello (2022). Measuring Geopolitical Risk. AER, 112(4).\nLi et al. (2024). FinDKG: Dynamic Knowledge Graphs with LLMs. ICAIF ’24."

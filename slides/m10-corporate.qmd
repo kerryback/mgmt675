@@ -1,5 +1,5 @@
 ---
-title: "Module 10: Corporate Agent Deployment"
+title: "Module 10: Corporate AI Deployment"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -17,209 +17,119 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## Guardrails and Constraints {.section-divider}
 
-## Why Guardrails?
+## Data Security {.section-divider}
 
-Without constraints, an autonomous agent can cause real damage --- even with good intentions.
+## The Agent Evaluation Loop
 
-:::{.two-cards}
-:::{.card .card-dark}
-[**What Can Go Wrong**]{.card-title}
-
-- *"Clean up the repo"* → deletes files you need
-- A loop bug triggers hundreds of API calls
-- Write access to the database → unintended edits
-- A misread instruction → wrong files overwritten
-:::
-
-:::{.card .card-light}
-[**The Principle**]{.card-title}
-
-Grant the agent the [minimum access]{.amber} it needs to complete the task --- and no more.
-
-- Read-only unless writes are required
-- Specific directories, not the whole filesystem
-- No network unless the task requires it
-:::
-:::
-
-## Permission Modes in Claude Code
-
-Claude Code pauses and asks before taking consequential actions --- unless you explicitly allow them.
-
-:::{.two-col}
-::::{.column}
-**Default: Human in the Loop**
-
-- Agent stops before running bash commands, writing files, or calling the network
-- You approve or deny each action
-- Safe for unfamiliar tasks or new codebases
-::::
-
-::::{.column}
-**Allow Lists**
-
-- Approve a specific command once --- or always
-- Approve an entire tool (e.g., all file reads)
-- Approve a path prefix (e.g., `./reports/`)
-- Stored in `settings.json`
-::::
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-[Human approval is the default.]{.amber} You choose how much autonomy to grant, task by task.
-:::
-
-## CLAUDE.md as a Behavioral Guardrail
-
-CLAUDE.md is not just documentation --- it is the agent's system prompt. Use it to enforce rules.
-
-:::{.info-box}
-[**Examples of Constraint Instructions**]{.box-title}
-
-```markdown
-- Never modify files outside the src/ directory
-- Always ask before running git push or git commit
-- Use read-only database connections unless told otherwise
-- If a task would delete more than 3 files, pause and confirm
-```
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-The system prompt is the [first line of defense]{.amber}. Clear written rules reduce the chance of unintended actions.
-:::
-
-## Hooks: Programmatic Checks
-
-Hooks run shell commands automatically at agent lifecycle events.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Event Types**]{.card-title}
-
-- **PreToolUse** --- runs before a tool fires; can block the action
-- **PostToolUse** --- runs after a tool completes; can log or validate
-- **Stop** --- runs when the agent finishes
-:::
-
-:::{.card .card-light}
-[**Example Uses**]{.card-title}
-
-- Block any bash command containing `rm -rf`
-- Log every file write to an audit trail
-- Send an alert when the agent finishes
-- Run tests automatically after every code edit
-:::
-:::
-
-:::{.explainer style="margin-top:0.8em;"}
-Hooks enforce rules [programmatically]{.amber} --- the check runs whether or not the agent remembers the instruction.
-:::
-
-## Layered Guardrails
-
-No single guardrail is sufficient. Defense in depth combines all layers.
-
-:::{.two-col}
-::::{.column}
-1. **CLAUDE.md** --- behavioral rules in the system prompt
-2. **Permissions** --- tool and path access control
-3. **Hooks** --- programmatic checks at runtime
-::::
-
-::::{.column}
-4. **Sandboxing** --- isolated execution environment
-5. **Human approval** --- pause before high-stakes actions
-6. **Iteration limits** --- prevent runaway loops and cost overruns
-::::
-:::
-
-:::{.explainer style="margin-top:1em; text-align:center;"}
-Each layer catches what the previous one misses. [Together they make autonomous agents safe to deploy.]{.amber}
-:::
-
-## Audit Logging {.section-divider}
-
-## JSONL Audit Logs
-
-Every AI interaction in a production system should produce an [audit log entry]{.amber}. The standard format is JSONL (one JSON object per line).
-
-:::{.two-cards}
-:::{.card .card-light}
-[**What to Log**]{.card-title}
-
-- **Identity**: timestamp, user, model
-- **Content**: prompt and response
-- **Metadata**: token count, latency, cost
-:::
-
-:::{.card .card-light}
-[**Why It Matters**]{.card-title}
-
-- **Compliance**: Regulators can audit what the AI said
-- **Debugging**: Trace errors back to the exact prompt
-- **Cost and quality**: Track token usage and identify common failures for skill updates
-:::
-:::
-
-Store logs locally or in a cloud database. [If it's not logged, it didn't happen.]{.amber}
-
-## Three Layers of Auditability {.section-divider}
-
-## Defense in Depth
+An AI agent that queries your database does not just send one message --- it runs a [multi-turn loop]{.amber}.
 
 :::{.step-flow}
 :::{.step-card}
 :::{.step-icon}
-📄
+1
 :::
 :::{.step-title}
-Layer 1
+Prompt
 :::
 :::{.step-desc}
-RAG Citations
+System prompt + user question sent to LLM
 :::
 :::
 
 :::{.step-card}
 :::{.step-icon}
-💻
+2
 :::
 :::{.step-title}
-Layer 2
+Generate
 :::
 :::{.step-desc}
-Code Transparency
+LLM writes SQL or Python
 :::
 :::
 
 :::{.step-card}
 :::{.step-icon}
-📋
+3
 :::
 :::{.step-title}
-Layer 3
+Execute
 :::
 :::{.step-desc}
-Audit Logs
+Code runs locally against your database
+:::
+:::
+
+:::{.step-card}
+:::{.step-icon}
+4
+:::
+:::{.step-title}
+Evaluate
+:::
+:::{.step-desc}
+Results sent back to LLM for review
 :::
 :::
 :::
 
-1. **RAG citations**: Ground answers in source documents with traceable references. AI answers based on [your content]{.amber}, not its training data.
+Steps 1--3 can be made safe. Step 4 is where [real data may leak]{.amber} to the cloud provider --- query results, error messages containing data values, or raw rows the LLM needs to interpret.
 
-2. **Code transparency**: AI displays the SQL or Python it used. Analysts review the logic, not just the answer.
+## Protecting Step 1: Schema + Synthetic Rows
 
-3. **Audit logs**: Every prompt, response, and token count recorded in JSONL. Complete trail of every AI decision.
+The system prompt should describe your database using [schema and synthetic rows]{.amber} --- never real data.
 
-[The more layers, the harder it is for errors to reach your team.]{.amber}
+:::{.two-col}
+::::{.column}
+**What to include**
 
-## Security and Data Policies {.section-divider}
+- Table names, column names, data types
+- ~3 [synthetic]{.amber} rows per table (fabricated, matching real formats)
+- Column descriptions and domain conventions
+- Databricks: ~3 synthetic rows raises SQL accuracy by [~6 pp]{.amber}
+::::
+
+::::{.column}
+**Why synthetic rows help**
+
+- Reveal data formats (is status `'Active'` or `1`?)
+- Disambiguate columns (is `code` a country code or product code?)
+- Help the LLM write correct WHERE clauses
+- [No real records are transmitted]{.amber}
+::::
+:::
+
+:::{.explainer style="text-align:center;"}
+Schema metadata is not PII --- safe to share. The LLM writes the query; your server runs it.
+:::
+
+## Protecting Step 4: The Hard Part
+
+When the agent loop sends results back to the LLM, [real data leaves your network]{.amber}. Mitigations exist but each has gaps.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Mitigations**]{.card-title}
+
+- **Aggregate only**: send row counts and summary statistics, never raw rows
+- **Error messages only**: if SQL fails, send the error string (schema info, not data) for correction; if it succeeds, don't send results back
+- **Redaction layer**: middleware that strips values matching PII patterns before sending to the LLM
+:::
+
+:::{.card .card-dark}
+[**Why Mitigations Are Not Foolproof**]{.card-title}
+
+- A query like *"show the account with the highest balance"* returns one row --- that [is]{.amber} PII
+- SQL errors can echo offending data values
+- Redaction is pattern-based and misses context-dependent sensitivity
+- "Don't send results back" limits the agent to single-turn --- you lose the error-correction loop that makes agents useful
+:::
+:::
 
 ## Data Policies: Training and Retention
 
-Before sending data to any AI provider, know the answers to two questions.
+Before sending any data to a cloud AI provider, know the answers to two questions.
 
 :::{.two-col}
 ::::{.column}
@@ -239,151 +149,189 @@ Before sending data to any AI provider, know the answers to two questions.
 ::::
 :::
 
-## The Schema-Only Pattern
+:::{.explainer style="text-align:center;"}
+Even with zero-training guarantees, data still [transits]{.amber} an external server. For regulated data, transit alone may violate compliance.
+:::
 
-AI can analyze sensitive data [without ever reading it]{.amber}. It only needs the table structure.
+## The Hybrid Pattern
 
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  S["<b>Schema</b><br/><i>table names, columns</i>"] -->|"safe to share"| AI["<b>AI</b>"]
-  AI --> SQL["<b>SQL Code</b>"]
-  SQL --> L["<b>Runs Locally</b>"]
-  DB["<b>Your Database</b>"] -->|"data stays here"| L
+For most organizations, the answer is not "all cloud" or "all on-prem" --- it is [hybrid]{.amber}.
 
-  style S fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style AI fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style SQL fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style L fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style DB fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-```
+:::{.two-cards}
+:::{.card .card-light}
+[**Cloud AI (General Work)**]{.card-title}
+
+- Research, drafting, coding assistance
+- Non-sensitive data analysis
+- Frontier model quality
+- No infrastructure to manage
+:::
+
+:::{.card .card-light}
+[**On-Prem AI (Sensitive Data)**]{.card-title}
+
+- Client data under NDA
+- HIPAA, GDPR, SOX-covered records
+- Material non-public financial information
+- Defense and classified environments
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+The schema-only pattern lets you use cloud AI for the *thinking* while keeping sensitive data on-prem for the *execution*. But when even the evaluation loop must stay local, you need on-prem models.
+:::
+
+## Private Cloud: On-Prem Managed by Experts
+
+**Private cloud** means AI infrastructure on your premises, [managed by an outside provider]{.amber}. You get data control without building the IT team yourself.
 
 :::{.two-col}
 ::::{.column}
 **How it works**
 
-1. Describe tables in instructions: names, columns, types
-2. Ask AI to write the query
-3. AI writes SQL from the schema alone; the script runs locally and output stays local
-::::
-
-::::{.column}
-**Why it's compliant**
-
-- Table metadata is [not PII]{.amber} --- safe to share
-- Sensitive records stay on your server
-- AI produces the *tool*, not the *output*
-- Works for FERPA, HIPAA, SOX, GDPR
-::::
-:::
-
-## Improving SQL Quality: Schema + Synthetic Rows
-
-Schema alone works, but adding [~3 synthetic rows per table]{.amber} makes the generated SQL significantly more accurate.
-
-:::{.two-col}
-::::{.column}
-**Why sample rows help**
-
-- Reveal data formats (is status `'Active'` or `1`?)
-- Disambiguate columns (is `code` a country code or product code?)
-- Help the LLM write correct WHERE clauses with properly formatted literals
-::::
-
-::::{.column}
-**Rules**
-
-- Rows are [synthetic]{.amber} --- fabricated to match real formats without containing actual records
-- Three rows per table is the sweet spot; more tends to distract the model
-- Databricks: ~3 rows per table raises SQL accuracy by [~6 pp]{.amber}
-::::
-:::
-
-## Where Should AI Infrastructure Live?
-
-When you connect an AI agent to enterprise data, you face a fundamental question: [where does the computation happen?]{.amber}
-
-:::{.three-cards}
-:::{.card .card-light}
-[**Public Cloud AI**]{.card-title}
-
-- Data sent to provider (OpenAI, Anthropic, Google)
-- Fastest to deploy
-- Provider controls infrastructure
-:::
-
-:::{.card .card-light}
-[**Private / On-Prem AI**]{.card-title}
-
-- Data never leaves your network
-- Full control over access
-- Higher upfront cost
-:::
-
-:::{.card .card-light}
-[**Hybrid**]{.card-title}
-
-- Sensitive data stays on-prem
-- Non-sensitive tasks use cloud AI
-- Most common enterprise pattern
-:::
-:::
-
-Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds."
-
-## Data Sovereignty
-
-**Data sovereignty** means controlling where your data lives, who can access it, and what jurisdiction governs it.
-
-:::{.two-col}
-::::{.column}
-**Why it matters for AI**
-
-- AI agents may transmit query results to external LLMs
-- Regulations (GDPR, HIPAA, SOX) may restrict where data can go
-- Defense agencies require air-gapped environments
+- Hardware sits in your data center (or a dedicated facility)
+- A vendor (HPE, Dell, IBM) manages the infrastructure
+- Your data never leaves your network
+- The vendor handles updates, scaling, and maintenance
 ::::
 
 ::::{.column}
 **Enterprise examples**
 
-- **DISA** (U.S. DoD): $931M on-prem private cloud
+- **DISA** (U.S. DoD): $931M HPE private cloud
 - **Barclays**: 50K+ workloads to private cloud
 - **2degrees** (NZ): sovereign AI for data residency
 ::::
 :::
 
-## Data Security: Running AI Locally {.section-divider}
+Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds."
 
-## The Case for Local AI
+:::{.explainer style="text-align:center;"}
+If mitigations for the evaluation loop were foolproof, this market wouldn't exist. Private cloud exists because [some data cannot risk transit]{.amber} through any external server, even transiently.
+:::
 
-Cloud AI is convenient, but [local models]{.amber} keep data inside your machine --- no transmission, no retention policy, no provider to trust.
+## What On-Prem AI Actually Requires {.section-divider}
+
+## More Than a Model
+
+Choosing on-prem means building [an entire AI platform]{.amber}, not just downloading a model.
+
+:::{.three-cards}
+:::{.card .card-light}
+[**The Model Layer**]{.card-title}
+
+- Open-source LLM (Llama, Qwen, Mistral)
+- GPU servers to run inference
+- Model serving software (Ollama, vLLM)
+:::
+
+:::{.card .card-light}
+[**The API Layer**]{.card-title}
+
+- Internal API endpoint (like OpenAI's, but on your network)
+- Authentication, rate limiting, logging
+- Lets any internal app call the model programmatically
+:::
+
+:::{.card .card-light}
+[**The Interface Layer**]{.card-title}
+
+- Chat UI for non-technical users
+- System prompt management
+- Conversation history and audit logs
+:::
+:::
+
+With a cloud provider, you get all three out of the box. On-prem, you build each one.
+
+## The Developer Tooling Gap
+
+For AI-assisted coding, the gap is even wider. A coding agent is [not just an LLM]{.amber} --- it's a harness of tools wrapped around the model.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What a Coding Agent Needs**]{.card-title}
+
+- File read/write with permission controls
+- Terminal execution in a sandbox
+- Git integration (commits, diffs, branches)
+- Context management (which files to feed the model)
+- Multi-agent orchestration
+- Memory and session persistence
+:::
+
+:::{.card .card-light}
+[**What Cloud Providers Bundle**]{.card-title}
+
+- Anthropic: Claude Code (~500K lines of tooling)
+- GitHub: Copilot (IDE-integrated agent)
+- Google: Gemini Code Assist
+- All include the harness [for free]{.amber} with API access
+- Continuously updated by large engineering teams
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+The model is the brain. The harness is everything else. On-prem means building the harness yourself.
+:::
+
+## Case Study: The Claude Code Leak
+
+On March 31, 2026, Anthropic accidentally published Claude Code's full source code --- [512,000 lines of TypeScript]{.amber} --- via an npm packaging error.
 
 :::{.two-col}
 ::::{.column}
-**When local AI makes sense**
+**What it revealed**
 
-- Client data under NDA
-- HIPAA, GDPR, or FERPA-covered records
-- Proprietary deal models and memos
-- Regulated industries (banking, defense, healthcare)
+- ~40 permission-gated tools (file, terminal, git, web, IDE)
+- Three-layer memory architecture
+- Multi-agent orchestration via prompts
+- Granular sandboxing and access control
+- Background "dream" mode for autonomous work
 ::::
 
 ::::{.column}
-**The trade-off**
+**What happened next**
 
-| | Cloud AI | Local AI |
-|---|---|---|
-| Model quality | ★★★★★ | ★★★☆☆ |
-| Data privacy | Provider policy | 100% local |
-| Setup cost | None | Minutes |
-| Compute | Unlimited | Your hardware |
-
+- [claw-code](https://github.com/ultraworkers/claw-code): open-source reimplementation hit 160K GitHub stars in days
+- Provider-agnostic: works with Claude, OpenAI, or [local models via Ollama]{.amber}
+- Other alternatives: Aider, OpenHands, Continue.dev
+- All are less mature than the cloud originals
 ::::
 :::
 
-[For narrow, sensitive tasks, a smaller local model is often the right call.]{.amber}
+:::{.explainer style="text-align:center;"}
+The leak made the cost of developer tooling visible. 500K lines of code is what sits between a raw model and a productive developer.
+:::
+
+## The Build-vs-Buy Reality
+
+The TCO of on-prem AI is [not just GPU costs]{.amber}.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Cloud (e.g., Anthropic API)**]{.card-title}
+
+- Model + API + coding agent included
+- Pay per token (~$3--15 per million)
+- No infrastructure team needed
+- Continuous model improvements
+- Risk: data leaves your network
+:::
+
+:::{.card .card-dark}
+[**On-Prem**]{.card-title}
+
+- GPU hardware ($50K--$500K+)
+- Model serving and API infrastructure
+- Build or assemble developer tooling
+- Ongoing maintenance and model updates
+- Engineering team to support all of the above
+- Benefit: [complete data control]{.amber}
+:::
+:::
+
+## Implement Your Own On-Prem {.section-divider}
 
 ## Ollama: Local LLMs in One Installer
 
@@ -408,8 +356,6 @@ Cloud AI is convenient, but [local models]{.amber} keep data inside your machine
 - Models download once and run offline
 ::::
 :::
-
-## Exercise: Install Ollama and Try Local LLMs {.section-divider}
 
 ## Exercise: Running a Local Model
 
