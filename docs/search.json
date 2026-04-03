@@ -154,11 +154,291 @@
     "text": "Summary\n\n\nVerification\n\nTrust spectrum\n4-step protocol\nSilent errors\n\n\n\nRed-Teaming\n\nSystematic protocols\nEdge cases\nSQL comparison\n\n\n\nCritiquing Output\n\nAI reviews AI\nParallel reviewers\nFactual + structural checks\n\n\n\nFinance Applications\n\nVariance analysis\nM&A due diligence\n\n\n\n\nVerify, critique, then trust."
   },
   {
-    "objectID": "slides/m13-predictive-modeling.html#coming-soon",
-    "href": "slides/m13-predictive-modeling.html#coming-soon",
+    "objectID": "slides/m13-predictive-modeling.html#what-is-predictive-modeling",
+    "href": "slides/m13-predictive-modeling.html#what-is-predictive-modeling",
     "title": "Module 13: Predictive Modeling",
-    "section": "Coming Soon",
-    "text": "Coming Soon"
+    "section": "What Is Predictive Modeling?",
+    "text": "What Is Predictive Modeling?\nUse historical data to learn a function \\(f\\) that maps features \\(X\\) to a target \\(y\\).\n\\[y \\approx f(X)\\]\n\n\nRegression\n\nTarget is a continuous number\nExample: predict house prices\nMeasure error with MSE, \\(R^2\\)\n\n\n\nClassification\n\nTarget is a category (0 or 1, etc.)\nExample: predict loan default\nMeasure with accuracy, AUC"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#linear-regression-as-a-prediction-model",
+    "href": "slides/m13-predictive-modeling.html#linear-regression-as-a-prediction-model",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Linear Regression as a Prediction Model",
+    "text": "Linear Regression as a Prediction Model\nThe simplest \\(f\\): a weighted sum of features.\n\\[\\hat{y} = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\cdots + \\beta_p x_p\\]\n\nFit by minimizing sum of squared errors on training data\nFast, interpretable, strong baseline\nWorks well when the true relationship is approximately linear\n\n\nYou already know linear regression from statistics. The new idea is to use it as a prediction machine: fit on known data, then predict for new observations."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#linear-regression-in-scikit-learn",
+    "href": "slides/m13-predictive-modeling.html#linear-regression-in-scikit-learn",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Linear Regression in scikit-learn",
+    "text": "Linear Regression in scikit-learn\nfrom sklearn.linear_model import LinearRegression\nimport numpy as np\n\n# X is an n×p array of features, y is an n-vector of targets\nmodel = LinearRegression()\nmodel.fit(X, y)\n\n# Predict for a single new observation (1×p array)\nnew_obs = np.array([[feature1, feature2, ..., featurep]])\nprediction = model.predict(new_obs)\nprint(f\"Predicted value: {prediction[0]:.2f}\")\n\nThree steps: (1) create the model, (2) fit on data, (3) predict for new inputs. Every scikit-learn model follows this same pattern."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#beyond-linear-models",
+    "href": "slides/m13-predictive-modeling.html#beyond-linear-models",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Beyond Linear Models",
+    "text": "Beyond Linear Models"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#categories-of-nonlinear-models",
+    "href": "slides/m13-predictive-modeling.html#categories-of-nonlinear-models",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Categories of Nonlinear Models",
+    "text": "Categories of Nonlinear Models\n\n\nTree-Based\n\nDecision trees\nRandom forests\nGradient boosting\n\n\n\nNeural Networks\n\nFeedforward nets\nDeep learning\nTransformers (LLMs!)\n\n\n\nKernel Methods\n\nSupport vector machines\nGaussian processes\n\n\n\nOther\n\nK-nearest neighbors\nNaive Bayes\nEnsemble methods\n\n\n\n\nWe’ll focus on gradient boosting — it dominates structured/tabular data tasks and is the most widely used ML method in finance."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#what-is-gradient-boosting",
+    "href": "slides/m13-predictive-modeling.html#what-is-gradient-boosting",
+    "title": "Module 13: Predictive Modeling",
+    "section": "What Is Gradient Boosting?",
+    "text": "What Is Gradient Boosting?\nBuild a prediction by adding many small decision trees, each one correcting the errors of the previous ensemble.\n\nThe Intuition\n\nFit a simple tree to the data\nCompute the residuals (errors)\nFit the next tree to predict the residuals\nAdd the new tree’s predictions (scaled down) to the running total\nRepeat for hundreds of rounds\n\n\n\nEach tree is weak on its own, but the ensemble is powerful. The “gradient” part means we follow the gradient of the loss function — like gradient descent, but in function space."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#gradient-boosting-in-scikit-learn",
+    "href": "slides/m13-predictive-modeling.html#gradient-boosting-in-scikit-learn",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Gradient Boosting in scikit-learn",
+    "text": "Gradient Boosting in scikit-learn\nfrom sklearn.ensemble import GradientBoostingRegressor\n\nmodel = GradientBoostingRegressor(\n    n_estimators=500,     # number of trees\n    max_depth=4,          # depth of each tree\n    learning_rate=0.05,   # shrinkage factor\n)\nmodel.fit(X, y)\n\nprediction = model.predict(new_obs)\n\nSame fit / predict interface. The key hyperparameters are the number of trees, depth, and learning rate."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#regression-example-california-housing",
+    "href": "slides/m13-predictive-modeling.html#regression-example-california-housing",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Regression Example: California Housing",
+    "text": "Regression Example: California Housing"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#the-dataset",
+    "href": "slides/m13-predictive-modeling.html#the-dataset",
+    "title": "Module 13: Predictive Modeling",
+    "section": "The Dataset",
+    "text": "The Dataset\nPredict median house value for California census block groups.\n\n\n\nFeature\nDescription\n\n\n\n\nMedInc\nMedian income in block group\n\n\nHouseAge\nMedian house age\n\n\nAveRooms\nAverage number of rooms\n\n\nAveBedrms\nAverage number of bedrooms\n\n\nPopulation\nBlock group population\n\n\nAveOccup\nAverage household size\n\n\nLatitude\nBlock group latitude\n\n\nLongitude\nBlock group longitude\n\n\n\nDownload: california-housing.csv (20,640 observations)"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#load-and-inspect",
+    "href": "slides/m13-predictive-modeling.html#load-and-inspect",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Load and Inspect",
+    "text": "Load and Inspect\nimport pandas as pd\n\ndf = pd.read_csv(\"files/california-housing.csv\")\nX = df.drop(columns=\"MedHouseVal\")\ny = df[\"MedHouseVal\"]\n\nprint(f\"Features: {X.shape[1]}, Observations: {X.shape[0]}\")\nprint(X.describe().round(2))\n\nMedHouseVal is the target (in $100,000s). The 8 remaining columns are features."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#fit-both-models",
+    "href": "slides/m13-predictive-modeling.html#fit-both-models",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Fit Both Models",
+    "text": "Fit Both Models\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.ensemble import GradientBoostingRegressor\n\n# Linear regression\nlr = LinearRegression().fit(X, y)\n\n# Gradient boosting\ngb = GradientBoostingRegressor(\n    n_estimators=500, max_depth=4, learning_rate=0.05\n).fit(X, y)"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#predict-for-a-new-observation",
+    "href": "slides/m13-predictive-modeling.html#predict-for-a-new-observation",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Predict for a New Observation",
+    "text": "Predict for a New Observation\nimport numpy as np\n\n# A hypothetical census block group\nnew_obs = np.array([[4.5, 30, 5.5, 1.1, 1200, 3.0, 34.0, -118.5]])\n\nlr_pred = lr.predict(new_obs)[0]\ngb_pred = gb.predict(new_obs)[0]\n\nprint(f\"Linear regression: ${lr_pred * 100_000:,.0f}\")\nprint(f\"Gradient boosting: ${gb_pred * 100_000:,.0f}\")\n\nBoth models produce a prediction, but which one should we trust? We need a principled way to compare them."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#which-model-is-better",
+    "href": "slides/m13-predictive-modeling.html#which-model-is-better",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Which Model Is Better?",
+    "text": "Which Model Is Better?"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#the-problem-with-training-error",
+    "href": "slides/m13-predictive-modeling.html#the-problem-with-training-error",
+    "title": "Module 13: Predictive Modeling",
+    "section": "The Problem with Training Error",
+    "text": "The Problem with Training Error\nIf we measure error on the same data we used to fit, a more complex model will always look better.\n\nIt can memorize the training data (overfitting)\nTraining error is an optimistic estimate of true prediction quality\nWe need to test on data the model has never seen"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#traintest-split",
+    "href": "slides/m13-predictive-modeling.html#traintest-split",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Train/Test Split",
+    "text": "Train/Test Split\n\nThe Solution\n\nRandomly split the data into training (e.g., 80%) and test (20%) sets\nFit both models on the training set only\nEvaluate predictions on the held-out test set\nThe model with lower test error generalizes better\n\n\nfrom sklearn.model_selection import train_test_split\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42\n)\nprint(f\"Train: {X_train.shape[0]}, Test: {X_test.shape[0]}\")"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#evaluate-on-the-test-set",
+    "href": "slides/m13-predictive-modeling.html#evaluate-on-the-test-set",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Evaluate on the Test Set",
+    "text": "Evaluate on the Test Set\nfrom sklearn.metrics import mean_squared_error, r2_score\n\n# Fit on training data\nlr = LinearRegression().fit(X_train, y_train)\ngb = GradientBoostingRegressor(\n    n_estimators=500, max_depth=4, learning_rate=0.05\n).fit(X_train, y_train)\n\n# Predict on test data\nlr_pred = lr.predict(X_test)\ngb_pred = gb.predict(X_test)"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#compare-results",
+    "href": "slides/m13-predictive-modeling.html#compare-results",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Compare Results",
+    "text": "Compare Results\nprint(\"Linear Regression:\")\nprint(f\"  RMSE = {mean_squared_error(y_test, lr_pred, squared=False):.3f}\")\nprint(f\"  R²   = {r2_score(y_test, lr_pred):.3f}\")\nprint()\nprint(\"Gradient Boosting:\")\nprint(f\"  RMSE = {mean_squared_error(y_test, gb_pred, squared=False):.3f}\")\nprint(f\"  R²   = {r2_score(y_test, gb_pred):.3f}\")\n\nRMSE is in the same units as the target ($100k). \\(R^2\\) is the fraction of variance explained. Lower RMSE and higher \\(R^2\\) on the test set = better generalization."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#typical-results",
+    "href": "slides/m13-predictive-modeling.html#typical-results",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Typical Results",
+    "text": "Typical Results\n\n\n\nMetric\nLinear Regression\nGradient Boosting\n\n\n\n\nTest RMSE\n~0.73\n~0.53\n\n\nTest \\(R^2\\)\n~0.58\n~0.78\n\n\n\n\nGradient boosting captures nonlinear patterns — interactions between location, income, and housing characteristics — that linear regression misses."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#classification",
+    "href": "slides/m13-predictive-modeling.html#classification",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Classification",
+    "text": "Classification"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#from-regression-to-classification",
+    "href": "slides/m13-predictive-modeling.html#from-regression-to-classification",
+    "title": "Module 13: Predictive Modeling",
+    "section": "From Regression to Classification",
+    "text": "From Regression to Classification\nWhen the target is binary (0 or 1), we need classification models.\n\n\nLogistic Regression\n\nLinear model, but outputs a probability via the sigmoid function\n\\(P(y=1) = \\frac{1}{1 + e^{-(\\beta_0 + \\beta_1 x_1 + \\cdots)}}\\)\nClassify as 1 if \\(P &gt; 0.5\\), else 0\n\n\n\nGradient Boosting Classifier\n\nSame boosting idea, but optimizes log-loss (cross-entropy)\nUses softmax to convert raw scores to probabilities\nHandles nonlinear decision boundaries"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#logistic-regression-in-scikit-learn",
+    "href": "slides/m13-predictive-modeling.html#logistic-regression-in-scikit-learn",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Logistic Regression in scikit-learn",
+    "text": "Logistic Regression in scikit-learn\nfrom sklearn.linear_model import LogisticRegression\n\nmodel = LogisticRegression(max_iter=10000)\nmodel.fit(X_train, y_train)\n\n# Predict class labels\ny_pred = model.predict(X_test)\n\n# Predict probabilities\ny_prob = model.predict_proba(X_test)[:, 1]  # P(class = 1)\n\nSame fit/predict pattern. Use predict_proba to get probabilities instead of hard class labels."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#gradient-boosting-for-classification",
+    "href": "slides/m13-predictive-modeling.html#gradient-boosting-for-classification",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Gradient Boosting for Classification",
+    "text": "Gradient Boosting for Classification\nfrom sklearn.ensemble import GradientBoostingClassifier\n\nmodel = GradientBoostingClassifier(\n    n_estimators=300,\n    max_depth=3,\n    learning_rate=0.1,\n)\nmodel.fit(X_train, y_train)\n\ny_pred = model.predict(X_test)\ny_prob = model.predict_proba(X_test)[:, 1]\n\nThe classifier version automatically uses log-loss and softmax internally. The API is identical to the regressor."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#classification-example-breast-cancer",
+    "href": "slides/m13-predictive-modeling.html#classification-example-breast-cancer",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Classification Example: Breast Cancer",
+    "text": "Classification Example: Breast Cancer"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#the-dataset-1",
+    "href": "slides/m13-predictive-modeling.html#the-dataset-1",
+    "title": "Module 13: Predictive Modeling",
+    "section": "The Dataset",
+    "text": "The Dataset\nPredict whether a tumor is malignant (0) or benign (1) from cell nucleus measurements.\n\n569 observations, 30 features\nFeatures: radius, texture, perimeter, area, smoothness, etc.\nEach measured as mean, standard error, and worst (largest) value\n\nDownload: breast-cancer.csv\n\nThis is a classic ML benchmark. In finance, the same methods apply to credit default, fraud detection, and churn prediction."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#load-and-split",
+    "href": "slides/m13-predictive-modeling.html#load-and-split",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Load and Split",
+    "text": "Load and Split\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\n\ndf = pd.read_csv(\"files/breast-cancer.csv\")\nX = df.drop(columns=\"target\")\ny = df[\"target\"]\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42\n)\nprint(f\"Train: {X_train.shape[0]}, Test: {X_test.shape[0]}\")\nprint(f\"Class balance: {y_train.value_counts().to_dict()}\")"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#fit-both-classifiers",
+    "href": "slides/m13-predictive-modeling.html#fit-both-classifiers",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Fit Both Classifiers",
+    "text": "Fit Both Classifiers\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.ensemble import GradientBoostingClassifier\n\n# Logistic regression\nlogit = LogisticRegression(max_iter=10000).fit(X_train, y_train)\n\n# Gradient boosting\ngbc = GradientBoostingClassifier(\n    n_estimators=300, max_depth=3, learning_rate=0.1\n).fit(X_train, y_train)"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#confusion-matrix",
+    "href": "slides/m13-predictive-modeling.html#confusion-matrix",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Confusion Matrix",
+    "text": "Confusion Matrix\nA confusion matrix shows counts of correct and incorrect predictions.\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay\nimport matplotlib.pyplot as plt\n\nfig, axes = plt.subplots(1, 2, figsize=(12, 4))\n\nfor ax, model, name in [\n    (axes[0], logit, \"Logistic Regression\"),\n    (axes[1], gbc, \"Gradient Boosting\"),\n]:\n    cm = confusion_matrix(y_test, model.predict(X_test))\n    ConfusionMatrixDisplay(cm, display_labels=[\"Malignant\", \"Benign\"]).plot(ax=ax)\n    ax.set_title(name)\n\nplt.tight_layout()\nplt.savefig(\"files/confusion-matrices.png\", dpi=150)\nplt.show()"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#reading-a-confusion-matrix",
+    "href": "slides/m13-predictive-modeling.html#reading-a-confusion-matrix",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Reading a Confusion Matrix",
+    "text": "Reading a Confusion Matrix\n\n\n\n\nPredicted Malignant\nPredicted Benign\n\n\n\n\nActually Malignant\nTrue Negative\nFalse Positive\n\n\nActually Benign\nFalse Negative\nTrue Positive\n\n\n\n\nFalse positives: predicted benign but actually malignant (dangerous!)\nFalse negatives: predicted malignant but actually benign (unnecessary worry)\nOverall accuracy = (TP + TN) / total"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#roc-curves-and-auc",
+    "href": "slides/m13-predictive-modeling.html#roc-curves-and-auc",
+    "title": "Module 13: Predictive Modeling",
+    "section": "ROC Curves and AUC",
+    "text": "ROC Curves and AUC\nThe ROC curve plots true positive rate vs. false positive rate at every probability threshold.\nfrom sklearn.metrics import roc_curve, auc\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots(figsize=(7, 6))\n\nfor model, name in [(logit, \"Logistic Regression\"), (gbc, \"Gradient Boosting\")]:\n    y_prob = model.predict_proba(X_test)[:, 1]\n    fpr, tpr, _ = roc_curve(y_test, y_prob)\n    ax.plot(fpr, tpr, label=f\"{name} (AUC = {auc(fpr, tpr):.3f})\")\n\nax.plot([0, 1], [0, 1], \"k--\", label=\"Random (AUC = 0.500)\")\nax.set_xlabel(\"False Positive Rate\")\nax.set_ylabel(\"True Positive Rate\")\nax.set_title(\"ROC Curves\")\nax.legend()\nplt.savefig(\"files/roc-curves.png\", dpi=150)\nplt.show()"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#interpreting-auc",
+    "href": "slides/m13-predictive-modeling.html#interpreting-auc",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Interpreting AUC",
+    "text": "Interpreting AUC\n\nAUC = 0.5: model is no better than random guessing\nAUC = 1.0: model is perfect\nAUC &gt; 0.9: excellent discrimination\n\n\nAUC in Finance\n\nCredit scoring: does the model separate defaults from non-defaults?\nFraud detection: does it flag fraudulent transactions?\nHigher AUC = more reliable ranking of risky vs. safe cases"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#neural-networks",
+    "href": "slides/m13-predictive-modeling.html#neural-networks",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Neural Networks",
+    "text": "Neural Networks"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#what-is-a-neural-network",
+    "href": "slides/m13-predictive-modeling.html#what-is-a-neural-network",
+    "title": "Module 13: Predictive Modeling",
+    "section": "What Is a Neural Network?",
+    "text": "What Is a Neural Network?\nA neural network passes inputs through layers of simple functions, each transforming the data before handing it to the next layer.\n\n\n\n\n\n\nInput layer: your raw features (\\(x_1, x_2, \\ldots, x_p\\))\nHidden layers: neurons that compute weighted sums, then apply a nonlinear function\nOutput layer: produces the final prediction\n\n\nStacking layers lets the network learn hierarchical patterns — early layers detect simple relationships, later layers combine them into complex ones."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#how-a-single-neuron-works",
+    "href": "slides/m13-predictive-modeling.html#how-a-single-neuron-works",
+    "title": "Module 13: Predictive Modeling",
+    "section": "How a Single Neuron Works",
+    "text": "How a Single Neuron Works\nEach neuron computes two things:\n\nA weighted sum of its inputs plus a bias:\n\n\\[z = b + w_1 x_1 + w_2 x_2 + \\cdots + w_n x_n\\]\n\nAn activation function applied to \\(z\\):\n\n\\[h = \\text{activation}(z)\\]\n\nThe weights \\(w_i\\) and bias \\(b\\) are the parameters learned during training. Every neuron has its own set."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#activation-functions",
+    "href": "slides/m13-predictive-modeling.html#activation-functions",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Activation Functions",
+    "text": "Activation Functions\nThe activation function introduces nonlinearity — without it, stacking layers would just be another linear model.\n\n\nReLU (hidden layers)\n\\[h = \\max(0,\\; z)\\]\n\nOutputs \\(z\\) if positive, 0 otherwise\nSimple, fast, and effective\nThe default choice for hidden layers\n\n\n\nSigmoid (output layer)\n\\[h = \\frac{1}{1 + e^{-z}}\\]\n\nSquashes any value into \\((0, 1)\\)\nNatural for probabilities\nUsed in the output layer for binary classification"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#putting-it-together",
+    "href": "slides/m13-predictive-modeling.html#putting-it-together",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Putting It Together",
+    "text": "Putting It Together\nA small network with 2 inputs, one hidden layer of 3 neurons, and 1 output:\n\nParameter Count\n\nHidden layer: each of 3 neurons has 2 weights + 1 bias = 9 parameters\nOutput layer: 1 neuron has 3 weights + 1 bias = 4 parameters\nTotal: 13 parameters\n\n\n\nReal networks have millions or billions of parameters. GPT-4 has over a trillion. But the building block is always the same: weighted sum \\(\\rightarrow\\) activation."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#training-a-neural-network",
+    "href": "slides/m13-predictive-modeling.html#training-a-neural-network",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Training a Neural Network",
+    "text": "Training a Neural Network\nHow does the network learn?\n\nForward pass — compute predictions from current weights\nLoss — measure how wrong the predictions are (MSE for regression, cross-entropy for classification)\nBackpropagation — compute the gradient of the loss with respect to every weight\nUpdate — nudge each weight in the direction that reduces the loss\nRepeat for many iterations (epochs)\n\n\nThis is gradient descent, the same optimization idea behind gradient boosting — but applied to the network’s weights rather than to adding trees."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#why-neural-networks-matter",
+    "href": "slides/m13-predictive-modeling.html#why-neural-networks-matter",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Why Neural Networks Matter",
+    "text": "Why Neural Networks Matter\n\n\nDeep Learning\n\nNetworks with many hidden layers\nPowers image recognition, speech, translation\nExcels when data is unstructured (images, text, audio)\n\n\n\nLarge Language Models\n\nChatGPT, Claude, Gemini are all neural networks\nTrained on vast text corpora\nThe “transformer” is a specialized neural network architecture\n\n\n\n\nFor tabular data (spreadsheets, databases), gradient boosting usually wins. Neural networks shine when the data is high-dimensional and unstructured."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#when-to-use-what",
+    "href": "slides/m13-predictive-modeling.html#when-to-use-what",
+    "title": "Module 13: Predictive Modeling",
+    "section": "When to Use What",
+    "text": "When to Use What\n\n\n\nData Type\nBest Starting Model\n\n\n\n\nTabular / structured\nGradient boosting\n\n\nImages\nConvolutional neural networks\n\n\nText / documents\nTransformers (LLMs)\n\n\nTime series\nBoth can work; transformers increasingly popular\n\n\nSmall datasets (&lt; 1,000 rows)\nLinear/logistic regression\n\n\n\n\nYou don’t need to implement neural networks from scratch. The key is knowing when they’re the right tool and being able to interpret the results."
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#summary",
+    "href": "slides/m13-predictive-modeling.html#summary",
+    "title": "Module 13: Predictive Modeling",
+    "section": "Summary",
+    "text": "Summary"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#what-we-covered",
+    "href": "slides/m13-predictive-modeling.html#what-we-covered",
+    "title": "Module 13: Predictive Modeling",
+    "section": "What We Covered",
+    "text": "What We Covered\n\n\nRegression\n\nLinear regression baseline\nGradient boosting for nonlinear patterns\nEvaluate with RMSE and \\(R^2\\)\n\n\n\nClassification\n\nLogistic regression baseline\nGradient boosting classifier\nConfusion matrices and AUC\n\n\n\nNeural Networks\n\nNeurons, layers, activations\nTraining via backpropagation\nPowers deep learning and LLMs\n\n\n\nKey Principle\n\nAlways use a train/test split\nTest error measures generalization\nMatch model to data type"
+  },
+  {
+    "objectID": "slides/m13-predictive-modeling.html#the-ai-workflow",
+    "href": "slides/m13-predictive-modeling.html#the-ai-workflow",
+    "title": "Module 13: Predictive Modeling",
+    "section": "The AI Workflow",
+    "text": "The AI Workflow\nYou don’t need to memorize scikit-learn syntax. The workflow is:\n\nDescribe your prediction problem to Claude\nProvide or point to your data\nAsk Claude to fit models and compare them\nUnderstand the results and make decisions\n\n\nAI writes the code. You choose the models, interpret the output, and decide what to do with the predictions."
   },
   {
     "objectID": "slides/m11-magnolia.html#materials-setup",
@@ -1866,21 +2146,28 @@
     "href": "slides/m10-corporate.html#data-policies-training-and-retention",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Data Policies: Training and Retention",
-    "text": "Data Policies: Training and Retention\nBefore sending any data to a cloud AI provider, know the answers to two questions.\n\n\nWill they train on your data?\n\nConsumer tiers (free ChatGPT, free Claude) may use your input to improve models\nAPI and enterprise tiers typically do not\nCheck your agreement and settings\n\n\nHow long do they keep it?\n\nProviders retain prompts for a window (often 30 days) for safety monitoring\nEnterprise contracts may offer zero retention\nKnow the policy before you send sensitive data\n\n\n\nEven with zero-training guarantees, data still transits an external server. For regulated data, transit alone may violate compliance."
+    "text": "Data Policies: Training and Retention\nEven after mitigating the evaluation loop, broader provider policies determine what happens to data that does reach the cloud. Before sending any data to a cloud AI provider, know the answers to two questions.\n\n\nWill they train on your data?\n\nConsumer tiers (free ChatGPT, free Claude) may use your input to improve models\nAPI and enterprise tiers typically do not\nCheck your agreement and settings\n\n\nHow long do they keep it?\n\nProviders retain prompts for a window (often 30 days) for safety monitoring\nEnterprise contracts may offer zero retention\nKnow the policy before you send sensitive data\n\n\n\nEven with zero-training guarantees, data still transits an external server. For regulated data, transit alone may violate compliance."
   },
   {
-    "objectID": "slides/m10-corporate.html#the-hybrid-pattern",
-    "href": "slides/m10-corporate.html#the-hybrid-pattern",
+    "objectID": "slides/m10-corporate.html#the-deployment-spectrum",
+    "href": "slides/m10-corporate.html#the-deployment-spectrum",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "The Hybrid Pattern",
-    "text": "The Hybrid Pattern\nFor most organizations, the answer is not “all cloud” or “all on-prem” — it is hybrid.\n\n\nCloud AI (General Work)\n\nResearch, drafting, coding assistance\nNon-sensitive data analysis\nFrontier model quality\nNo infrastructure to manage\n\n\n\nOn-Prem AI (Sensitive Data)\n\nClient data under NDA\nHIPAA, GDPR, SOX-covered records\nMaterial non-public financial information\nDefense and classified environments\n\n\n\n\nThe schema-only pattern lets you use cloud AI for the thinking while keeping sensitive data on-prem for the execution. But when even the evaluation loop must stay local, you need on-prem models."
+    "section": "The Deployment Spectrum",
+    "text": "The Deployment Spectrum\nFor most organizations, the answer is not “all cloud” or “all on-prem” — it is a spectrum.\n\n\nPublic Cloud API\n\nResearch, drafting, coding assistance\nNon-sensitive data analysis\nFrontier model quality\nNo infrastructure to manage\n\n\n\nCloud-Hosted Private AI\n\nAWS Bedrock, Azure OpenAI, GCP Vertex AI\nModels run in your VPC with private endpoints\nCustomer-managed encryption keys\nMeets HIPAA, SOX, FedRAMP for many use cases\n\n\n\nOn-Prem / Private Cloud\n\nAir-gapped or classified environments\nData that cannot transit any external network\nFull physical control of hardware\nHighest cost, highest data control\n\n\n\n\nCloud-hosted private AI (middle column) is the most common enterprise pattern today. True on-prem is reserved for the most sensitive workloads."
+  },
+  {
+    "objectID": "slides/m10-corporate.html#emerging-confidential-computing",
+    "href": "slides/m10-corporate.html#emerging-confidential-computing",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Emerging: Confidential Computing",
+    "text": "Emerging: Confidential Computing\nAn emerging technology that may shift this spectrum: confidential computing allows data to be encrypted even while being processed.\n\nIntel SGX, AMD SEV, AWS Nitro Enclaves — hardware-level isolation where even the cloud provider cannot see the data\nIf proven at scale, this could allow cloud AI to handle sensitive workloads without the evaluation-loop risk\nStill maturing — not yet widely adopted for LLM inference\n\n\nWatch this space. Confidential computing could collapse the middle of the spectrum into the left column."
   },
   {
     "objectID": "slides/m10-corporate.html#private-cloud-on-prem-managed-by-experts",
     "href": "slides/m10-corporate.html#private-cloud-on-prem-managed-by-experts",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Private Cloud: On-Prem Managed by Experts",
-    "text": "Private Cloud: On-Prem Managed by Experts\nPrivate cloud means AI infrastructure on your premises, managed by an outside provider. You get data control without building the IT team yourself.\n\n\nHow it works\n\nHardware sits in your data center (or a dedicated facility)\nA vendor (HPE, Dell, IBM) manages the infrastructure\nYour data never leaves your network\nThe vendor handles updates, scaling, and maintenance\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M HPE private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency\n\n\nAntonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.”\n\nIf mitigations for the evaluation loop were foolproof, this market wouldn’t exist. Private cloud exists because some data cannot risk transit through any external server, even transiently."
+    "text": "Private Cloud: On-Prem Managed by Experts\nPrivate cloud means AI infrastructure on your premises, managed by an outside provider. You get data control without building the IT team yourself.\n\n\nHow it works\n\nHardware sits in your data center (or a dedicated facility)\nA vendor (HPE, Dell, IBM) manages the infrastructure\nYour data never leaves your network\nThe vendor handles updates, scaling, and maintenance\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M HPE private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency\n\n\nAntonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.” (Neri’s company sells private cloud hardware — but the trend he describes is real.)\n\nIf mitigations for the evaluation loop were foolproof, this market wouldn’t exist. Private cloud exists because some data cannot risk transit through any external server, even transiently."
   },
   {
     "objectID": "slides/m10-corporate.html#what-on-prem-ai-actually-requires",
@@ -1908,210 +2195,42 @@
     "href": "slides/m10-corporate.html#case-study-the-claude-code-leak",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Case Study: The Claude Code Leak",
-    "text": "Case Study: The Claude Code Leak\nOn March 31, 2026, Anthropic accidentally published Claude Code’s full source code — 512,000 lines of TypeScript — via an npm packaging error.\n\n\nWhat it revealed\n\n~40 permission-gated tools (file, terminal, git, web, IDE)\nThree-layer memory architecture\nMulti-agent orchestration via prompts\nGranular sandboxing and access control\nBackground “dream” mode for autonomous work\n\n\nWhat happened next\n\nclaw-code: open-source reimplementation hit 160K GitHub stars in days\nProvider-agnostic: works with Claude, OpenAI, or local models via Ollama\nOther alternatives: Aider, OpenHands, Continue.dev\nAll are less mature than the cloud originals\n\n\n\nThe leak made the cost of developer tooling visible. 500K lines of code is what sits between a raw model and a productive developer."
+    "text": "Case Study: The Claude Code Leak\nOn March 31, 2026, Anthropic accidentally published Claude Code’s full source code via an npm packaging error — making the architectural complexity of a production coding agent visible for the first time.\n\n\nWhat it revealed\n\n~40 permission-gated tools (file, terminal, git, web, IDE)\nThree-layer memory architecture\nMulti-agent orchestration via prompts\nGranular sandboxing and access control\n\n\nWhat happened next\n\nclaw-code: open-source reimplementation became the fastest-growing repo on GitHub\nProvider-agnostic: works with Claude, OpenAI, or local models via Ollama\nOther alternatives: Aider, OpenHands, Continue.dev\nAll are less mature than the cloud originals\n\n\n\nThe leak made clear that a coding agent is not just a model — it is a complex harness of tools, permissions, and orchestration that takes significant engineering to build and maintain."
   },
   {
     "objectID": "slides/m10-corporate.html#the-build-vs-buy-reality",
     "href": "slides/m10-corporate.html#the-build-vs-buy-reality",
     "title": "Module 10: Corporate AI Deployment",
     "section": "The Build-vs-Buy Reality",
-    "text": "The Build-vs-Buy Reality\nThe TCO of on-prem AI is not just GPU costs.\n\n\nCloud (e.g., Anthropic API)\n\nModel + API + coding agent included\nPay per token (~$3–15 per million)\nNo infrastructure team needed\nContinuous model improvements\nRisk: data leaves your network\n\n\n\nOn-Prem\n\nGPU hardware ($50K–$500K+)\nModel serving and API infrastructure\nBuild or assemble developer tooling\nOngoing maintenance and model updates\nEngineering team to support all of the above\nBenefit: complete data control"
+    "text": "The Build-vs-Buy Reality\nThe TCO of on-prem AI is not just hardware.\n\n\nCloud (e.g., Anthropic API)\n\nModel + API + coding agent included\nPay per token, scale on demand\nNo infrastructure team needed\nContinuous model improvements\nRisk: data leaves your network\n\n\n\nOn-Prem\n\nGPU hardware and data center space\nModel serving and API infrastructure\nBuild or assemble developer tooling\nOngoing maintenance and model updates\nEngineering team to support all of the above\nBenefit: complete data control\n\n\n\n\nAt low-to-moderate usage, cloud wins on cost. At enterprise scale (thousands of employees, continuous inference), on-prem TCO can be lower — but only if you amortize the engineering team across enough usage."
   },
   {
     "objectID": "slides/m10-corporate.html#implement-your-own-on-prem",
     "href": "slides/m10-corporate.html#implement-your-own-on-prem",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Implement Your Own On-Prem",
-    "text": "Implement Your Own On-Prem"
+    "text": "Implement Your Own On-Prem\nTo make on-prem concrete, let’s start small — running a model locally on your own machine."
   },
   {
     "objectID": "slides/m10-corporate.html#ollama-local-llms-in-one-installer",
     "href": "slides/m10-corporate.html#ollama-local-llms-in-one-installer",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Ollama: Local LLMs in One Installer",
-    "text": "Ollama: Local LLMs in One Installer\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.\n\n\nHow it works\n\nDownload and run the Ollama installer\nPull a model (e.g., llama3.2)\nChat locally via a browser UI or the terminal\nAll inference runs on your CPU/GPU\n\n\nAvailable models\n\nLlama 3.1 (Meta, 8B) — strong reasoning\nLlama 3.2 (Meta, 3B) — faster, lighter\nMistral, Gemma, Phi — many options\nModels download once and run offline"
+    "text": "Ollama: Local LLMs in One Installer\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.\n\n\nHow it works\n\nDownload and run the Ollama installer\nRun a model: ollama run gemma4:e2b\nChat locally in the terminal\nAll inference runs on your CPU/GPU\n\n\nModel sizes and RAM\n\nGemma 4 E2B (Google, ~2B active) — runs on 8GB RAM\nGemma 4 E4B (Google, ~4B active) — runs on 8GB RAM\nLlama 3.1 8B (Meta) — needs 16GB RAM\nModels download once and run offline"
+  },
+  {
+    "objectID": "slides/m10-corporate.html#apple-silicon-a-local-ai-advantage",
+    "href": "slides/m10-corporate.html#apple-silicon-a-local-ai-advantage",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Apple Silicon: A Local AI Advantage",
+    "text": "Apple Silicon: A Local AI Advantage\nMacs with Apple Silicon have unified memory — CPU, GPU, and Neural Engine share one memory pool with no copying bottleneck. This is ideal for LLM inference.\n\n\n\n\n\n\n\n\nMac Configuration\nUnified Memory\nLargest Model\n\n\n\n\nMacBook Air / base Pro\n8–16 GB\nGemma 4 E4B, Llama 3.1 8B\n\n\nMacBook Pro (M3/M4 Pro)\n18–48 GB\n30B+ models comfortably\n\n\nMacBook Pro / Mac Studio (M4 Max)\n36–128 GB\n70B models at 30–45 tokens/sec\n\n\n\n\nA 16GB MacBook often outperforms a Windows PC with 32GB for AI workloads, because there is no separate GPU memory bottleneck."
   },
   {
     "objectID": "slides/m10-corporate.html#exercise-running-a-local-model",
     "href": "slides/m10-corporate.html#exercise-running-a-local-model",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Exercise: Running a Local Model",
-    "text": "Exercise: Running a Local Model\n\n\nSetup\n\nGo to ollama.com and download the installer for your OS\nRun the installer (no terminal needed)\nOnce installed, open a terminal and run:\nollama run llama3.2\nThen try:\nollama run llama3.1\n\n\nThe prompt\nGive each model this prompt and compare their responses:\n\n“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”\n\nWhat to notice: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.\n\nBoth models run entirely on your machine. No data is sent anywhere."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#erp-and-the-saaspocalypse",
-    "href": "slides/m10-corporate.html#erp-and-the-saaspocalypse",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "ERP and the SaaSpocalypse",
-    "text": "ERP and the SaaSpocalypse"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#february-2026-2-trillion-vanished",
-    "href": "slides/m10-corporate.html#february-2026-2-trillion-vanished",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "February 2026: $2 Trillion Vanished",
-    "text": "February 2026: $2 Trillion Vanished\nIn a single week, AI agents wiped $2 trillion from enterprise software valuations.\n\n\n\n$2T\n\n\nMarket cap erased from SaaS companies\n\n\n\n\n30–50%\n\n\nDecline in leading ERP/CRM stocks\n\n\n\n\n$250B+\n\n\nAnnual enterprise software spend at risk\n\n\n\nThe market’s thesis: AI agents can replace entire categories of enterprise software — BI dashboards, reporting layers, workflow tools, Tier 1 support."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#what-investors-are-betting-on",
-    "href": "slides/m10-corporate.html#what-investors-are-betting-on",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "What Investors Are Betting On",
-    "text": "What Investors Are Betting On\n\n\nThe Old Model\n\nBuy a CRM ($150/user/month)\nBuy a BI tool ($70/user/month)\nBuy an integration platform ($50K+/year)\nBuy a reporting tool ($30/user/month)\nHire analysts to run queries and build dashboards\nWait 3 weeks for a cross-system report\n\n\n\nThe AI Model\n\nOne AI agent queries all your systems\nNatural language — no SQL, no dashboard builder\nCross-system analysis in seconds, not weeks\nReports, charts, and narratives generated on demand\nThe “last mile” from data to decision collapses\nCost per query: $0.01–0.05"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#section-1",
-    "href": "slides/m10-corporate.html#section-1",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "",
-    "text": "“Every application that is essentially a natural-language interface to a database is at risk. That’s CRM, ERP reporting, BI dashboards, HR analytics, support ticket routing — a huge fraction of enterprise software revenue.”\n\n\n— Investor thesis, widely circulated, February 2026"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-traditional-enterprise-stack",
-    "href": "slides/m10-corporate.html#the-traditional-enterprise-stack",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The Traditional Enterprise Stack",
-    "text": "The Traditional Enterprise Stack"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#how-companies-run-today",
-    "href": "slides/m10-corporate.html#how-companies-run-today",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "How Companies Run Today",
-    "text": "How Companies Run Today\nA typical mid-market company ($500M revenue) runs 10+ enterprise systems across divisions.\n\n\nCRM\n\nSalesforce, HubSpot, or legacy\nPipeline, contacts, deals\nEach division may use a different one\n\n\n\nFinance / ERP\n\nNetSuite, SAP, QuickBooks\nGL, invoices, budgets\nOften different systems per division\n\n\n\nOperations & HR\n\nSAP, Oracle SCM, Workday\nSupply chain, inventory, headcount\nTypically centralized\n\n\n\nThese systems don’t talk to each other. Getting a cross-system answer requires ETL pipelines, data warehouses, or analyst time."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-cross-system-problem",
-    "href": "slides/m10-corporate.html#the-cross-system-problem",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The Cross-System Problem",
-    "text": "The Cross-System Problem\nA CEO asks: “Which customers buy from multiple divisions?”\n\n\n\n1\n\n\nRequest\n\n\nCEO emails the BI team\n\n\n\n\n2\n\n\nGather\n\n\nAnalyst queries 3 CRMs separately\n\n\n\n\n3\n\n\nReconcile\n\n\nMatch “GE” / “GE Industrial” / “GE Safety”\n\n\n\n\n4\n\n\nDeliver\n\n\n3 weeks later: a spreadsheet\n\n\n\nThe traditional answer is a data warehouse ($500K–$5M, 6–18 months to build). The AI alternative: query each system where it lives and merge on the fly."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#demo-meridian-corp",
-    "href": "slides/m10-corporate.html#demo-meridian-corp",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Demo: Meridian Corp",
-    "text": "Demo: Meridian Corp"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#meridian-corp-a-simulated-enterprise",
-    "href": "slides/m10-corporate.html#meridian-corp-a-simulated-enterprise",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Meridian Corp: A Simulated Enterprise",
-    "text": "Meridian Corp: A Simulated Enterprise\nMeridian Corp is a fictional $500M B2B industrial supplies distributor with three operating divisions and 10 enterprise systems.\n\n\nIndustrial Division (~$250M)\n\nSalesforce CRM\nNetSuite Finance\nSAP Operations\n\nEnergy Division (~$150M)\n\nLegacy CRM (custom-built)\nQuickBooks Finance\nOracle SCM\n\n\nSafety Division (~$100M)\n\nHubSpot CRM\nShared NetSuite Finance\n\nCorporate HQ\n\nWorkday HR (all divisions)\nNetSuite Consolidation\nZendesk Support\n\n\n41 tables, 26,000+ rows, 3 years of data (2023–2025)."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#realistic-data-friction",
-    "href": "slides/m10-corporate.html#realistic-data-friction",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Realistic Data Friction",
-    "text": "Realistic Data Friction\nThe simulation includes the same data quality problems real enterprises face.\n\n\nNaming Conflicts\n\nSalesforce: CamelCase columns\nLegacy CRM: snake_case columns\nSame customer, different names across divisions\n\n\n\nFormat Mismatches\n\nLegacy CRM stores dates as text: \"03/15/2025\"\nOther systems use proper date types\nRevenue in different currencies or fiscal calendars\n\n\n\nNo Cross-System Joins\n\nThe agent cannot join across systems in SQL\nMust query each system separately\nMerges data with Python + fuzzy matching\n\n\n\nThis is exactly how a real enterprise AI tool would need to work."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-ai-agent-architecture",
-    "href": "slides/m10-corporate.html#the-ai-agent-architecture",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The AI Agent Architecture",
-    "text": "The AI Agent Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  U[\"&lt;b&gt;User Question&lt;/b&gt;&lt;br/&gt;&lt;i&gt;plain English&lt;/i&gt;\"] --&gt; A[\"&lt;b&gt;AI Agent&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Claude&lt;/i&gt;\"]\n  A --&gt; Q1[\"&lt;b&gt;Salesforce&lt;/b&gt;\"]\n  A --&gt; Q2[\"&lt;b&gt;Legacy CRM&lt;/b&gt;\"]\n  A --&gt; Q3[\"&lt;b&gt;Workday&lt;/b&gt;\"]\n  Q1 --&gt; M[\"&lt;b&gt;Merge & Analyze&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Python&lt;/i&gt;\"]\n  Q2 --&gt; M\n  Q3 --&gt; M\n  M --&gt; R[\"&lt;b&gt;Answer&lt;/b&gt;&lt;br/&gt;&lt;i&gt;charts + narrative&lt;/i&gt;\"]\n\n  style U fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style Q1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style Q2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style Q3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n  style M fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a\n\n\n\n\n\n\nThe agent writes SQL for each system, executes it, then uses Python to merge, reconcile, and visualize the combined results."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#live-demo-single-system-queries",
-    "href": "slides/m10-corporate.html#live-demo-single-system-queries",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Live Demo: Single-System Queries",
-    "text": "Live Demo: Single-System Queries"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#demo-querying-individual-systems",
-    "href": "slides/m10-corporate.html#demo-querying-individual-systems",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Demo: Querying Individual Systems",
-    "text": "Demo: Querying Individual Systems\nWe’ll ask Meridian questions that hit one system at a time — the kind of query a dashboard or BI tool handles today.\n\n\nSales pipeline\n\n“How many open deals are in Salesforce?”\n“Which sales rep has the highest win rate this quarter?”\n“What’s the Energy Division’s pipeline value?”\n\n\nFinance and HR\n\n“What was Q4 revenue by division in NetSuite?”\n“How many employees does each division have?”\n“What’s the average support ticket resolution time?”\n\n\nWatch for: the SQL the agent writes, the speed of response, and the chart/narrative it generates."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#live-demo-cross-system-queries",
-    "href": "slides/m10-corporate.html#live-demo-cross-system-queries",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Live Demo: Cross-System Queries",
-    "text": "Live Demo: Cross-System Queries"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#demo-the-cross-system-merge",
-    "href": "slides/m10-corporate.html#demo-the-cross-system-merge",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Demo: The Cross-System Merge",
-    "text": "Demo: The Cross-System Merge\nNow the queries that no single system can answer — the ones that justify the enterprise software stack.\n\n\nCross-system questions\n\n“Which customers buy from multiple divisions?”\n“What’s revenue per employee by division?”\n“Compare our top customer’s pipeline to their support ticket trends”\n\n\nWhat to watch\n\nAgent queries 2–3 systems separately\nFuzzy matching reconciles customer names\nPython merges the results\nThe agent shows its work: SQL + merge logic\n\n\nThis is the query that takes the BI team 3 weeks. The agent does it in 30 seconds."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#demo-full-reporting-pipeline",
-    "href": "slides/m10-corporate.html#demo-full-reporting-pipeline",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Demo: Full Reporting Pipeline",
-    "text": "Demo: Full Reporting Pipeline"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#demo-from-question-to-board-memo",
-    "href": "slides/m10-corporate.html#demo-from-question-to-board-memo",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Demo: From Question to Board Memo",
-    "text": "Demo: From Question to Board Memo\nThe “last mile” — not just data, but a delivered artifact.\nAsk Meridian:\n\n“Prepare a quarterly executive summary of Meridian Corp performance — revenue by division, headcount efficiency, top customer risks, and supply chain issues.”\n\nThe agent will:\n\nQuery 6+ systems (CRM, Finance, HR, Support, Supply Chain)\nMerge and reconcile across divisions\nGenerate charts\nWrite a structured narrative memo\n\nThis is the pipeline that replaces the reporting team’s weekly cycle."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#whats-at-risk",
-    "href": "slides/m10-corporate.html#whats-at-risk",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "What’s at Risk",
-    "text": "What’s at Risk"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-saas-revenue-model-under-pressure",
-    "href": "slides/m10-corporate.html#the-saas-revenue-model-under-pressure",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The SaaS Revenue Model Under Pressure",
-    "text": "The SaaS Revenue Model Under Pressure\nEnterprise software charges per seat, per month. AI agents threaten the math.\n\n\n\n\n\n\n\n\n\nLayer\nExamples\nAnnual spend\nAI threat\n\n\n\n\nCRM\nSalesforce, HubSpot\n$150/user/mo\nQuery layer replaceable\n\n\nBI / Analytics\nTableau, Power BI\n$70/user/mo\nHigh — dashboards are natural language\n\n\nIntegration\nMuleSoft, Informatica\n$50K–500K/yr\nAgent-based merging as alternative\n\n\nReporting\nWorkiva, Adaptive\n$30/user/mo\nHigh — narrative generation\n\n\nSupport\nZendesk, ServiceNow\n$100/user/mo\nTier 1 triage automatable\n\n\n\nThe most vulnerable: anything that is fundamentally a natural-language interface to structured data."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-counter-argument",
-    "href": "slides/m10-corporate.html#the-counter-argument",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The Counter-Argument",
-    "text": "The Counter-Argument"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#why-erp-isnt-dead",
-    "href": "slides/m10-corporate.html#why-erp-isnt-dead",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Why ERP Isn’t Dead",
-    "text": "Why ERP Isn’t Dead\nThe SaaSpocalypse thesis has real limits. Enterprise software does things AI agents cannot easily replace.\n\n\nWhat ERP Does Beyond Queries\n\nTransaction processing (orders, invoices, payments)\nWorkflow enforcement (approval chains, compliance gates)\nAudit trails with legal standing\nRole-based access control at the field level\nReal-time integrations (inventory, shipping, payments)\n\n\n\nWhat AI Agents Can’t Do (Yet)\n\nProcess a purchase order end-to-end\nEnforce SOX compliance controls\nGuarantee data consistency across systems\nReplace the system of record\nProvide legally defensible audit trails\n\n\n\nERP is a system of record. AI agents are a system of insight. These are different jobs."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-integration-layer-is-the-real-target",
-    "href": "slides/m10-corporate.html#the-integration-layer-is-the-real-target",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The Integration Layer Is the Real Target",
-    "text": "The Integration Layer Is the Real Target\nThe $2T thesis is partially right, partially wrong.\n\n\nWhat AI will displace\n\nBI dashboards and ad-hoc reporting\nData integration middleware (for read-only queries)\nAnalyst time spent on data wrangling\nTier 1 support triage\nManual report generation\n\n\nWhat survives\n\nTransaction processing engines\nCompliance and audit infrastructure\nWorkflow orchestration with legal standing\nMaster data management\nSystems of record\n\n\nThe disruption isn’t “AI replaces SAP.” It’s “AI replaces the $200K/year you spend making SAP’s data accessible.”"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#what-this-means-for-finance-professionals",
-    "href": "slides/m10-corporate.html#what-this-means-for-finance-professionals",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "What This Means for Finance Professionals",
-    "text": "What This Means for Finance Professionals\n\n\nNear Term (2026–2027)\n\nAI agents supplement BI tools, not replace them\nCross-system queries become self-service\nReporting cycles compress from weeks to hours\nNew role: AI verifier — checking agent output, not producing it\n\n\n\nMedium Term (2027–2029)\n\nERP vendors embed AI agents natively (SAP Joule, Salesforce Agentforce)\nStandalone BI tools lose market share\nData warehouse projects face “build vs. agent” decisions\nCompliance frameworks catch up\n\n\n\nLong Term (2029+)\n\nThe “reporting layer” is fully AI-native\nERP becomes invisible infrastructure (like databases today)\nCompetitive advantage shifts from data access to data judgment\nThe CFO’s question isn’t “can we get the data?” — it’s “can we trust the answer?”"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-verification-problem-at-enterprise-scale",
-    "href": "slides/m10-corporate.html#the-verification-problem-at-enterprise-scale",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The Verification Problem at Enterprise Scale",
-    "text": "The Verification Problem at Enterprise Scale\nEverything from Module 7 applies here (and Module 13 for details). An AI agent querying 10 systems makes all the same errors — at enterprise scale.\n\n\nThe demo looked impressive. But…\n\nDid the fuzzy matching miss a customer?\nDid the date format mismatch skew Q4 numbers?\nDid the agent silently drop rows with NULL values?\nDid it average across won and lost deals?\n\n\nThe verification checklist still applies\n\nSanity-check with known answers\n“Show me the SQL” for each system\nCross-check by rephrasing\nSpot-check edge cases and merge logic\n\nThe more systems involved, the more places for silent errors."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#section-2",
-    "href": "slides/m10-corporate.html#section-2",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "",
-    "text": "The SaaSpocalypse isn’t about whether AI can query your data.\nIt’s about whether anyone will trust the answer enough to act on it."
+    "text": "Exercise: Running a Local Model\n\n\nSetup\n\nGo to ollama.com and download the installer for your OS\nRun the installer (no terminal needed)\nOnce installed, open a terminal and run:\nollama run gemma4:e2b\nThen try:\nollama run gemma4:e4b\n\n\nThe prompt\nGive each model this prompt and compare their responses:\n\n“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”\n\nWhat to notice: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.\n\nBoth models run entirely on your machine. No data is sent anywhere."
   },
   {
     "objectID": "slides/m10-corporate.html#ai-adoption-roadmap",
@@ -2135,34 +2254,6 @@
     "text": "Adoption Timeline: From Quick Wins to Strategic\nEach adoption stage maps to a trust level.\n\nQuick wins (weeks) — light verification:\n\nChat for research, summarization, drafts\nUpload spreadsheets for ad-hoc analysis\n\nMedium-term (months) — test-before-deploy:\n\nSkills for recurring workflows\nMCP integrations and web apps\n\nStrategic (quarters) — full audit trail:\n\nProduction apps with authentication\nAI usage policy and governance framework"
   },
   {
-    "objectID": "slides/m10-corporate.html#small-language-models-and-fine-tuning",
-    "href": "slides/m10-corporate.html#small-language-models-and-fine-tuning",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Small Language Models and Fine-Tuning",
-    "text": "Small Language Models and Fine-Tuning"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#improving-reliability-fine-tuning-and-slms",
-    "href": "slides/m10-corporate.html#improving-reliability-fine-tuning-and-slms",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Improving Reliability: Fine-Tuning and SLMs",
-    "text": "Improving Reliability: Fine-Tuning and SLMs\nA complementary approach to verification: make the model itself more reliable for your tasks.\n\n\nFine-tuning an LLM\n\nTrain on your domain data (10-Ks, memos, deal docs)\nModel learns your terminology and conventions\nFewer silent errors on domain-specific tasks\n\n\nSmall Language Models (SLMs)\n\n~1–8B parameters (vs. hundreds of billions)\nFine-tuned in hours on a single GPU\nRun on-premise — data never leaves your network\nSpecialized small models can outperform large models on narrow tasks"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#why-slms-for-agentic-systems",
-    "href": "slides/m10-corporate.html#why-slms-for-agentic-systems",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Why SLMs for Agentic Systems?",
-    "text": "Why SLMs for Agentic Systems?\nBelcak et al. (2025), “Small Language Models are the Future of Agentic AI”:\n\nMost agent subtasks are repetitive, scoped, and non-conversational — classifying documents, extracting fields, formatting outputs\nSLMs fine-tuned on a single task outperform LLMs on format compliance and consistency\n10–30x cheaper in latency, energy, and compute vs. large models\nOn-device deployment enables real-time, offline inference with full data privacy\nAgents can use multiple models: an LLM for complex reasoning, SLMs for routine subtasks"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#from-llm-to-slm-the-conversion-process",
-    "href": "slides/m10-corporate.html#from-llm-to-slm-the-conversion-process",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "From LLM to SLM: The Conversion Process",
-    "text": "From LLM to SLM: The Conversion Process\nThe paper proposes a six-step migration path:\n\n\n\n📝\n\n\n\nLog\n\n\n\nAgent interactions (prompts, responses, tool calls)\n\n\n\n\n🧹\n\n\n\nCurate\n\n\n\nRemove PII, filter for quality\n\n\n\n\n🔗\n\n\n\nCluster\n\n\n\nIdentify recurring task patterns\n\n\n\n\n📐\n\n\n\nSelect\n\n\n\nSLM sized to each task’s complexity\n\n\n\n\n⚙️\n\n\n\nFine-tune\n\n\n\nLoRA with 10K–100K examples\n\n\n\n\n🔄\n\n\n\nRepeat\n\n\n\nRetrain as usage patterns evolve\n\n\n\nThe audit logs from earlier in this module are exactly the data you need for step 1."
-  },
-  {
     "objectID": "slides/m10-corporate.html#summary",
     "href": "slides/m10-corporate.html#summary",
     "title": "Module 10: Corporate AI Deployment",
@@ -2174,7 +2265,7 @@
     "href": "slides/m10-corporate.html#summary-1",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Summary",
-    "text": "Summary\n\n\nGuardrails\n\nPermissions & hooks\nCLAUDE.md constraints\nLayered defense\n\n\n\nData Security\n\nSchema-only pattern\nLocal AI / Ollama\nData sovereignty\n\n\n\nERP & SaaSpocalypse\n\n$2T market signal\nSystem of record vs. insight\nMeridian demo\n\n\n\nEnterprise Adoption\n\nSandbox-audit-deploy\nSLMs & fine-tuning\nAdoption roadmap\n\n\n\n\nControl the agent, protect the data, understand the disruption."
+    "text": "Summary\n\n\nData Security\n\nAgent evaluation loop\nSchema + synthetic rows\nMitigations and their limits\n\n\n\nDeployment Spectrum\n\nPublic cloud → VPC-hosted → on-prem\nPrivate cloud and confidential computing\nBuild-vs-buy reality\n\n\n\nEnterprise Adoption\n\nSandbox-audit-deploy\nQuick wins → medium-term → strategic\nTrust is the bottleneck\n\n\n\n\nProtect the data, understand the deployment options, adopt in stages."
   },
   {
     "objectID": "slides/m12-rag.html#beyond-prompting",

@@ -127,9 +127,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -252,7 +249,7 @@ Kerry Back, Rice University
 </section>
 <section id="data-policies-training-and-retention" class="slide level2 center">
 <h2>Data Policies: Training and Retention</h2>
-<p>Before sending any data to a cloud AI provider, know the answers to two questions.</p>
+<p>Even after mitigating the evaluation loop, broader provider policies determine what happens to data that does reach the cloud. Before sending any data to a cloud AI provider, know the answers to two questions.</p>
 <div class="two-col">
 <div class="column">
 <p><strong>Will they train on your data?</strong></p>
@@ -273,12 +270,12 @@ Kerry Back, Rice University
 <p>Even with zero-training guarantees, data still <span class="amber">transits</span> an external server. For regulated data, transit alone may violate compliance.</p>
 </div>
 </section>
-<section id="the-hybrid-pattern" class="slide level2 center">
-<h2>The Hybrid Pattern</h2>
-<p>For most organizations, the answer is not “all cloud” or “all on-prem” — it is <span class="amber">hybrid</span>.</p>
-<div class="two-cards">
+<section id="the-deployment-spectrum" class="slide level2 center">
+<h2>The Deployment Spectrum</h2>
+<p>For most organizations, the answer is not “all cloud” or “all on-prem” — it is a <span class="amber">spectrum</span>.</p>
+<div class="three-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>Cloud AI (General Work)</strong></span></p>
+<p><span class="card-title"><strong>Public Cloud API</strong></span></p>
 <ul>
 <li>Research, drafting, coding assistance</li>
 <li>Non-sensitive data analysis</li>
@@ -287,17 +284,38 @@ Kerry Back, Rice University
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>On-Prem AI (Sensitive Data)</strong></span></p>
+<p><span class="card-title"><strong>Cloud-Hosted Private AI</strong></span></p>
 <ul>
-<li>Client data under NDA</li>
-<li>HIPAA, GDPR, SOX-covered records</li>
-<li>Material non-public financial information</li>
-<li>Defense and classified environments</li>
+<li>AWS Bedrock, Azure OpenAI, GCP Vertex AI</li>
+<li>Models run in your VPC with private endpoints</li>
+<li>Customer-managed encryption keys</li>
+<li>Meets HIPAA, SOX, FedRAMP for many use cases</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>On-Prem / Private Cloud</strong></span></p>
+<ul>
+<li>Air-gapped or classified environments</li>
+<li>Data that cannot transit any external network</li>
+<li>Full physical control of hardware</li>
+<li>Highest cost, highest data control</li>
 </ul>
 </div>
 </div>
 <div class="explainer" style="text-align:center;">
-<p>The schema-only pattern lets you use cloud AI for the <em>thinking</em> while keeping sensitive data on-prem for the <em>execution</em>. But when even the evaluation loop must stay local, you need on-prem models.</p>
+<p>Cloud-hosted private AI (middle column) is the <span class="amber">most common enterprise pattern</span> today. True on-prem is reserved for the most sensitive workloads.</p>
+</div>
+</section>
+<section id="emerging-confidential-computing" class="slide level2 center">
+<h2>Emerging: Confidential Computing</h2>
+<p>An emerging technology that may shift this spectrum: <span class="amber">confidential computing</span> allows data to be encrypted even while being processed.</p>
+<ul>
+<li><strong>Intel SGX, AMD SEV, AWS Nitro Enclaves</strong> — hardware-level isolation where even the cloud provider cannot see the data</li>
+<li>If proven at scale, this could allow cloud AI to handle sensitive workloads without the evaluation-loop risk</li>
+<li>Still maturing — not yet widely adopted for LLM inference</li>
+</ul>
+<div class="explainer" style="text-align:center;">
+<p>Watch this space. Confidential computing could collapse the middle of the spectrum into the left column.</p>
 </div>
 </section>
 <section id="private-cloud-on-prem-managed-by-experts" class="slide level2 center">
@@ -320,7 +338,7 @@ Kerry Back, Rice University
 <li><strong>2degrees</strong> (NZ): sovereign AI for data residency</li>
 </ul>
 </div></div>
-<p>Antonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.”</p>
+<p>Antonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.” (Neri’s company sells private cloud hardware — but the trend he describes is real.)</p>
 <div class="explainer" style="text-align:center;">
 <p>If mitigations for the evaluation loop were foolproof, this market wouldn’t exist. Private cloud exists because <span class="amber">some data cannot risk transit</span> through any external server, even transiently.</p>
 </div>
@@ -391,7 +409,7 @@ Kerry Back, Rice University
 </section>
 <section id="case-study-the-claude-code-leak" class="slide level2 center">
 <h2>Case Study: The Claude Code Leak</h2>
-<p>On March 31, 2026, Anthropic accidentally published Claude Code’s full source code — <span class="amber">512,000 lines of TypeScript</span> — via an npm packaging error.</p>
+<p>On March 31, 2026, Anthropic accidentally published Claude Code’s full source code via an npm packaging error — making the <span class="amber">architectural complexity</span> of a production coding agent visible for the first time.</p>
 <div class="two-col">
 <div class="column">
 <p><strong>What it revealed</strong></p>
@@ -400,30 +418,29 @@ Kerry Back, Rice University
 <li>Three-layer memory architecture</li>
 <li>Multi-agent orchestration via prompts</li>
 <li>Granular sandboxing and access control</li>
-<li>Background “dream” mode for autonomous work</li>
 </ul>
 </div><div class="column">
 <p><strong>What happened next</strong></p>
 <ul>
-<li><a href="https://github.com/ultraworkers/claw-code">claw-code</a>: open-source reimplementation hit 160K GitHub stars in days</li>
+<li><a href="https://github.com/ultraworkers/claw-code">claw-code</a>: open-source reimplementation became the fastest-growing repo on GitHub</li>
 <li>Provider-agnostic: works with Claude, OpenAI, or <span class="amber">local models via Ollama</span></li>
 <li>Other alternatives: Aider, OpenHands, Continue.dev</li>
 <li>All are less mature than the cloud originals</li>
 </ul>
 </div></div>
 <div class="explainer" style="text-align:center;">
-<p>The leak made the cost of developer tooling visible. 500K lines of code is what sits between a raw model and a productive developer.</p>
+<p>The leak made clear that a coding agent is not just a model — it is a <span class="amber">complex harness</span> of tools, permissions, and orchestration that takes significant engineering to build and maintain.</p>
 </div>
 </section>
 <section id="the-build-vs-buy-reality" class="slide level2 center">
 <h2>The Build-vs-Buy Reality</h2>
-<p>The TCO of on-prem AI is <span class="amber">not just GPU costs</span>.</p>
+<p>The TCO of on-prem AI is <span class="amber">not just hardware</span>.</p>
 <div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Cloud (e.g., Anthropic API)</strong></span></p>
 <ul>
 <li>Model + API + coding agent included</li>
-<li>Pay per token (~$3–15 per million)</li>
+<li>Pay per token, scale on demand</li>
 <li>No infrastructure team needed</li>
 <li>Continuous model improvements</li>
 <li>Risk: data leaves your network</li>
@@ -432,7 +449,7 @@ Kerry Back, Rice University
 <div class="card card-dark">
 <p><span class="card-title"><strong>On-Prem</strong></span></p>
 <ul>
-<li>GPU hardware ($50K–$500K+)</li>
+<li>GPU hardware and data center space</li>
 <li>Model serving and API infrastructure</li>
 <li>Build or assemble developer tooling</li>
 <li>Ongoing maintenance and model updates</li>
@@ -441,9 +458,13 @@ Kerry Back, Rice University
 </ul>
 </div>
 </div>
+<div class="explainer" style="text-align:center;">
+<p>At low-to-moderate usage, cloud wins on cost. At enterprise scale (thousands of employees, continuous inference), on-prem TCO can be lower — but only if you amortize the engineering team across enough usage.</p>
+</div>
 </section>
 <section id="implement-your-own-on-prem" class="slide level2 section-divider center">
 <h2>Implement Your Own On-Prem</h2>
+<p>To make on-prem concrete, let’s start small — running a model locally on your own machine.</p>
 </section>
 <section id="ollama-local-llms-in-one-installer" class="slide level2 center">
 <h2>Ollama: Local LLMs in One Installer</h2>
@@ -453,19 +474,57 @@ Kerry Back, Rice University
 <p><strong>How it works</strong></p>
 <ol type="1">
 <li>Download and run the Ollama installer</li>
-<li>Pull a model (e.g., <code>llama3.2</code>)</li>
-<li>Chat locally via a browser UI or the terminal</li>
+<li>Run a model: <code>ollama run gemma4:e2b</code></li>
+<li>Chat locally in the terminal</li>
 <li>All inference runs on your CPU/GPU</li>
 </ol>
 </div><div class="column">
-<p><strong>Available models</strong></p>
+<p><strong>Model sizes and RAM</strong></p>
 <ul>
-<li><strong>Llama 3.1</strong> (Meta, 8B) — strong reasoning</li>
-<li><strong>Llama 3.2</strong> (Meta, 3B) — faster, lighter</li>
-<li><strong>Mistral</strong>, <strong>Gemma</strong>, <strong>Phi</strong> — many options</li>
+<li><strong>Gemma 4 E2B</strong> (Google, ~2B active) — runs on <span class="amber">8GB RAM</span></li>
+<li><strong>Gemma 4 E4B</strong> (Google, ~4B active) — runs on 8GB RAM</li>
+<li><strong>Llama 3.1 8B</strong> (Meta) — needs 16GB RAM</li>
 <li>Models download once and run offline</li>
 </ul>
 </div></div>
+</section>
+<section id="apple-silicon-a-local-ai-advantage" class="slide level2 center">
+<h2>Apple Silicon: A Local AI Advantage</h2>
+<p>Macs with Apple Silicon have <span class="amber">unified memory</span> — CPU, GPU, and Neural Engine share one memory pool with no copying bottleneck. This is ideal for LLM inference.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mac Configuration</th>
+<th>Unified Memory</th>
+<th>Largest Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MacBook Air / base Pro</td>
+<td>8–16 GB</td>
+<td>Gemma 4 E4B, Llama 3.1 8B</td>
+</tr>
+<tr class="even">
+<td>MacBook Pro (M3/M4 Pro)</td>
+<td>18–48 GB</td>
+<td>30B+ models comfortably</td>
+</tr>
+<tr class="odd">
+<td>MacBook Pro / Mac Studio (M4 Max)</td>
+<td>36–128 GB</td>
+<td>70B models at 30–45 tokens/sec</td>
+</tr>
+</tbody>
+</table>
+<div class="explainer" style="text-align:center;">
+<p>A 16GB MacBook often outperforms a Windows PC with 32GB for AI workloads, because there is no separate GPU memory bottleneck.</p>
+</div>
 </section>
 <section id="exercise-running-a-local-model" class="slide level2 center">
 <h2>Exercise: Running a Local Model</h2>
@@ -476,9 +535,9 @@ Kerry Back, Rice University
 <li><p>Go to <a href="https://ollama.com">ollama.com</a> and download the installer for your OS</p></li>
 <li><p>Run the installer (no terminal needed)</p></li>
 <li><p>Once installed, open a terminal and run:</p>
-<pre><code>ollama run llama3.2</code></pre></li>
+<pre><code>ollama run gemma4:e2b</code></pre></li>
 <li><p>Then try:</p>
-<pre><code>ollama run llama3.1</code></pre></li>
+<pre><code>ollama run gemma4:e4b</code></pre></li>
 </ol>
 </div><div class="column">
 <p><strong>The prompt</strong></p>
@@ -489,502 +548,6 @@ Kerry Back, Rice University
 <p><strong>What to notice</strong>: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.</p>
 </div></div>
 <p><span class="amber">Both models run entirely on your machine. No data is sent anywhere.</span></p>
-</section>
-<section id="erp-and-the-saaspocalypse" class="slide level2 section-divider center">
-<h2>ERP and the SaaSpocalypse</h2>
-</section>
-<section id="february-2026-2-trillion-vanished" class="slide level2 center">
-<h2>February 2026: $2 Trillion Vanished</h2>
-<p>In a single week, AI agents wiped <span class="amber">$2 trillion</span> from enterprise software valuations.</p>
-<div class="stat-cards">
-<div class="stat-card">
-<div class="stat-number">
-<p>$2T</p>
-</div>
-<div class="stat-label">
-<p>Market cap erased from SaaS companies</p>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-number">
-<p>30–50%</p>
-</div>
-<div class="stat-label">
-<p>Decline in leading ERP/CRM stocks</p>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-number">
-<p>$250B+</p>
-</div>
-<div class="stat-label">
-<p>Annual enterprise software spend at risk</p>
-</div>
-</div>
-</div>
-<p>The market’s thesis: AI agents can <span class="amber">replace entire categories</span> of enterprise software — BI dashboards, reporting layers, workflow tools, Tier 1 support.</p>
-</section>
-<section id="what-investors-are-betting-on" class="slide level2 center">
-<h2>What Investors Are Betting On</h2>
-<div class="two-cards">
-<div class="card card-dark">
-<p><span class="card-title"><strong>The Old Model</strong></span></p>
-<ul>
-<li>Buy a CRM ($150/user/month)</li>
-<li>Buy a BI tool ($70/user/month)</li>
-<li>Buy an integration platform ($50K+/year)</li>
-<li>Buy a reporting tool ($30/user/month)</li>
-<li>Hire analysts to run queries and build dashboards</li>
-<li>Wait 3 weeks for a cross-system report</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>The AI Model</strong></span></p>
-<ul>
-<li>One AI agent queries all your systems</li>
-<li>Natural language — no SQL, no dashboard builder</li>
-<li>Cross-system analysis in seconds, not weeks</li>
-<li>Reports, charts, and narratives generated on demand</li>
-<li>The “last mile” from data to decision collapses</li>
-<li><span class="amber">Cost per query: $0.01–0.05</span></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="section" class="slide level2 quote-slide center">
-<h2></h2>
-</section>
-<section id="section-1" class="slide level2 quote-slide center">
-<h2></h2>
-<div class="quote-text">
-<p>“Every application that is essentially a <span class="amber">natural-language interface to a database</span> is at risk. That’s CRM, ERP reporting, BI dashboards, HR analytics, support ticket routing — a huge fraction of enterprise software revenue.”</p>
-</div>
-<div class="quote-source">
-<p>— Investor thesis, widely circulated, February 2026</p>
-</div>
-</section>
-<section id="the-traditional-enterprise-stack" class="slide level2 section-divider center">
-<h2>The Traditional Enterprise Stack</h2>
-</section>
-<section id="how-companies-run-today" class="slide level2 center">
-<h2>How Companies Run Today</h2>
-<p>A typical mid-market company ($500M revenue) runs <span class="amber">10+ enterprise systems</span> across divisions.</p>
-<div class="three-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>CRM</strong></span></p>
-<ul>
-<li>Salesforce, HubSpot, or legacy</li>
-<li>Pipeline, contacts, deals</li>
-<li>Each division may use a different one</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Finance / ERP</strong></span></p>
-<ul>
-<li>NetSuite, SAP, QuickBooks</li>
-<li>GL, invoices, budgets</li>
-<li>Often different systems per division</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Operations &amp; HR</strong></span></p>
-<ul>
-<li>SAP, Oracle SCM, Workday</li>
-<li>Supply chain, inventory, headcount</li>
-<li>Typically centralized</li>
-</ul>
-</div>
-</div>
-<p>These systems don’t talk to each other. Getting a cross-system answer requires <span class="amber">ETL pipelines, data warehouses, or analyst time</span>.</p>
-</section>
-<section id="the-cross-system-problem" class="slide level2 center">
-<h2>The Cross-System Problem</h2>
-<p>A CEO asks: <span class="amber"><em>“Which customers buy from multiple divisions?”</em></span></p>
-<div class="step-flow">
-<div class="step-card">
-<div class="step-icon">
-<p>1</p>
-</div>
-<div class="step-title">
-<p>Request</p>
-</div>
-<div class="step-desc">
-<p>CEO emails the BI team</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>2</p>
-</div>
-<div class="step-title">
-<p>Gather</p>
-</div>
-<div class="step-desc">
-<p>Analyst queries 3 CRMs separately</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>3</p>
-</div>
-<div class="step-title">
-<p>Reconcile</p>
-</div>
-<div class="step-desc">
-<p>Match “GE” / “GE Industrial” / “GE Safety”</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>4</p>
-</div>
-<div class="step-title">
-<p>Deliver</p>
-</div>
-<div class="step-desc">
-<p>3 weeks later: a spreadsheet</p>
-</div>
-</div>
-</div>
-<p>The traditional answer is a <span class="amber">data warehouse</span> ($500K–$5M, 6–18 months to build). The AI alternative: query each system where it lives and merge on the fly.</p>
-</section>
-<section id="demo-meridian-corp" class="slide level2 section-divider center">
-<h2>Demo: Meridian Corp</h2>
-</section>
-<section id="meridian-corp-a-simulated-enterprise" class="slide level2 center">
-<h2>Meridian Corp: A Simulated Enterprise</h2>
-<p>Meridian Corp is a fictional <span class="amber">$500M B2B industrial supplies distributor</span> with three operating divisions and 10 enterprise systems.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Industrial Division</strong> (~$250M)</p>
-<ul>
-<li>Salesforce CRM</li>
-<li>NetSuite Finance</li>
-<li>SAP Operations</li>
-</ul>
-<p><strong>Energy Division</strong> (~$150M)</p>
-<ul>
-<li>Legacy CRM (custom-built)</li>
-<li>QuickBooks Finance</li>
-<li>Oracle SCM</li>
-</ul>
-</div><div class="column">
-<p><strong>Safety Division</strong> (~$100M)</p>
-<ul>
-<li>HubSpot CRM</li>
-<li>Shared NetSuite Finance</li>
-</ul>
-<p><strong>Corporate HQ</strong></p>
-<ul>
-<li>Workday HR (all divisions)</li>
-<li>NetSuite Consolidation</li>
-<li>Zendesk Support</li>
-</ul>
-</div></div>
-<p><span class="amber">41 tables, 26,000+ rows, 3 years of data (2023–2025).</span></p>
-</section>
-<section id="realistic-data-friction" class="slide level2 center">
-<h2>Realistic Data Friction</h2>
-<p>The simulation includes the same data quality problems real enterprises face.</p>
-<div class="three-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Naming Conflicts</strong></span></p>
-<ul>
-<li>Salesforce: <code>CamelCase</code> columns</li>
-<li>Legacy CRM: <code>snake_case</code> columns</li>
-<li>Same customer, different names across divisions</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Format Mismatches</strong></span></p>
-<ul>
-<li>Legacy CRM stores dates as text: <code>"03/15/2025"</code></li>
-<li>Other systems use proper date types</li>
-<li>Revenue in different currencies or fiscal calendars</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>No Cross-System Joins</strong></span></p>
-<ul>
-<li>The agent cannot join across systems in SQL</li>
-<li>Must query each system separately</li>
-<li>Merges data with Python + fuzzy matching</li>
-</ul>
-</div>
-</div>
-<p>This is <span class="amber">exactly</span> how a real enterprise AI tool would need to work.</p>
-</section>
-<section id="the-ai-agent-architecture" class="slide level2 center">
-<h2>The AI Agent Architecture</h2>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  U["&lt;b&gt;User Question&lt;/b&gt;&lt;br/&gt;&lt;i&gt;plain English&lt;/i&gt;"] --&gt; A["&lt;b&gt;AI Agent&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Claude&lt;/i&gt;"]
-  A --&gt; Q1["&lt;b&gt;Salesforce&lt;/b&gt;"]
-  A --&gt; Q2["&lt;b&gt;Legacy CRM&lt;/b&gt;"]
-  A --&gt; Q3["&lt;b&gt;Workday&lt;/b&gt;"]
-  Q1 --&gt; M["&lt;b&gt;Merge &amp; Analyze&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Python&lt;/i&gt;"]
-  Q2 --&gt; M
-  Q3 --&gt; M
-  M --&gt; R["&lt;b&gt;Answer&lt;/b&gt;&lt;br/&gt;&lt;i&gt;charts + narrative&lt;/i&gt;"]
-
-  style U fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style Q1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style Q2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style Q3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style M fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>The agent writes SQL for each system, executes it, then uses Python to merge, reconcile, and visualize the combined results.</p>
-</section>
-<section id="live-demo-single-system-queries" class="slide level2 section-divider center">
-<h2>Live Demo: Single-System Queries</h2>
-</section>
-<section id="demo-querying-individual-systems" class="slide level2 center">
-<h2>Demo: Querying Individual Systems</h2>
-<p>We’ll ask Meridian questions that hit <span class="amber">one system at a time</span> — the kind of query a dashboard or BI tool handles today.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Sales pipeline</strong></p>
-<ul>
-<li>“How many open deals are in Salesforce?”</li>
-<li>“Which sales rep has the highest win rate this quarter?”</li>
-<li>“What’s the Energy Division’s pipeline value?”</li>
-</ul>
-</div><div class="column">
-<p><strong>Finance and HR</strong></p>
-<ul>
-<li>“What was Q4 revenue by division in NetSuite?”</li>
-<li>“How many employees does each division have?”</li>
-<li>“What’s the average support ticket resolution time?”</li>
-</ul>
-</div></div>
-<p>Watch for: the SQL the agent writes, the speed of response, and the chart/narrative it generates.</p>
-</section>
-<section id="live-demo-cross-system-queries" class="slide level2 section-divider center">
-<h2>Live Demo: Cross-System Queries</h2>
-</section>
-<section id="demo-the-cross-system-merge" class="slide level2 center">
-<h2>Demo: The Cross-System Merge</h2>
-<p>Now the queries that <span class="amber">no single system can answer</span> — the ones that justify the enterprise software stack.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Cross-system questions</strong></p>
-<ul>
-<li>“Which customers buy from multiple divisions?”</li>
-<li>“What’s revenue per employee by division?”</li>
-<li>“Compare our top customer’s pipeline to their support ticket trends”</li>
-</ul>
-</div><div class="column">
-<p><strong>What to watch</strong></p>
-<ul>
-<li>Agent queries 2–3 systems separately</li>
-<li>Fuzzy matching reconciles customer names</li>
-<li>Python merges the results</li>
-<li>The agent <span class="amber">shows its work</span>: SQL + merge logic</li>
-</ul>
-</div></div>
-<p>This is the query that takes the BI team 3 weeks. The agent does it in <span class="amber">30 seconds</span>.</p>
-</section>
-<section id="demo-full-reporting-pipeline" class="slide level2 section-divider center">
-<h2>Demo: Full Reporting Pipeline</h2>
-</section>
-<section id="demo-from-question-to-board-memo" class="slide level2 center">
-<h2>Demo: From Question to Board Memo</h2>
-<p>The “last mile” — not just data, but a <span class="amber">delivered artifact</span>.</p>
-<p>Ask Meridian:</p>
-<blockquote>
-<p><em>“Prepare a quarterly executive summary of Meridian Corp performance — revenue by division, headcount efficiency, top customer risks, and supply chain issues.”</em></p>
-</blockquote>
-<p>The agent will:</p>
-<ol type="1">
-<li>Query 6+ systems (CRM, Finance, HR, Support, Supply Chain)</li>
-<li>Merge and reconcile across divisions</li>
-<li>Generate charts</li>
-<li>Write a structured narrative memo</li>
-</ol>
-<p>This is the pipeline that <span class="amber">replaces the reporting team’s weekly cycle</span>.</p>
-</section>
-<section id="whats-at-risk" class="slide level2 section-divider center">
-<h2>What’s at Risk</h2>
-</section>
-<section id="the-saas-revenue-model-under-pressure" class="slide level2 center">
-<h2>The SaaS Revenue Model Under Pressure</h2>
-<p>Enterprise software charges <span class="amber">per seat, per month</span>. AI agents threaten the math.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Layer</th>
-<th>Examples</th>
-<th>Annual spend</th>
-<th>AI threat</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>CRM</td>
-<td>Salesforce, HubSpot</td>
-<td>$150/user/mo</td>
-<td>Query layer replaceable</td>
-</tr>
-<tr class="even">
-<td>BI / Analytics</td>
-<td>Tableau, Power BI</td>
-<td>$70/user/mo</td>
-<td><span class="amber">High</span> — dashboards are natural language</td>
-</tr>
-<tr class="odd">
-<td>Integration</td>
-<td>MuleSoft, Informatica</td>
-<td>$50K–500K/yr</td>
-<td>Agent-based merging as alternative</td>
-</tr>
-<tr class="even">
-<td>Reporting</td>
-<td>Workiva, Adaptive</td>
-<td>$30/user/mo</td>
-<td><span class="amber">High</span> — narrative generation</td>
-</tr>
-<tr class="odd">
-<td>Support</td>
-<td>Zendesk, ServiceNow</td>
-<td>$100/user/mo</td>
-<td>Tier 1 triage automatable</td>
-</tr>
-</tbody>
-</table>
-<p>The <span class="amber">most vulnerable</span>: anything that is fundamentally a natural-language interface to structured data.</p>
-</section>
-<section id="the-counter-argument" class="slide level2 section-divider center">
-<h2>The Counter-Argument</h2>
-</section>
-<section id="why-erp-isnt-dead" class="slide level2 center">
-<h2>Why ERP Isn’t Dead</h2>
-<p>The SaaSpocalypse thesis has real limits. Enterprise software does things AI agents <span class="amber">cannot easily replace</span>.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>What ERP Does Beyond Queries</strong></span></p>
-<ul>
-<li>Transaction processing (orders, invoices, payments)</li>
-<li>Workflow enforcement (approval chains, compliance gates)</li>
-<li>Audit trails with legal standing</li>
-<li>Role-based access control at the field level</li>
-<li>Real-time integrations (inventory, shipping, payments)</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>What AI Agents Can’t Do (Yet)</strong></span></p>
-<ul>
-<li>Process a purchase order end-to-end</li>
-<li>Enforce SOX compliance controls</li>
-<li>Guarantee data consistency across systems</li>
-<li>Replace the system of record</li>
-<li>Provide legally defensible audit trails</li>
-</ul>
-</div>
-</div>
-<p>ERP is a <span class="amber">system of record</span>. AI agents are a <span class="amber">system of insight</span>. These are different jobs.</p>
-</section>
-<section id="the-integration-layer-is-the-real-target" class="slide level2 center">
-<h2>The Integration Layer Is the Real Target</h2>
-<p>The $2T thesis is <span class="amber">partially right, partially wrong</span>.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>What AI will displace</strong></p>
-<ul>
-<li>BI dashboards and ad-hoc reporting</li>
-<li>Data integration middleware (for read-only queries)</li>
-<li>Analyst time spent on data wrangling</li>
-<li>Tier 1 support triage</li>
-<li>Manual report generation</li>
-</ul>
-</div><div class="column">
-<p><strong>What survives</strong></p>
-<ul>
-<li>Transaction processing engines</li>
-<li>Compliance and audit infrastructure</li>
-<li>Workflow orchestration with legal standing</li>
-<li>Master data management</li>
-<li>Systems of record</li>
-</ul>
-</div></div>
-<p>The disruption isn’t “AI replaces SAP.” It’s <span class="amber">“AI replaces the $200K/year you spend making SAP’s data accessible.”</span></p>
-</section>
-<section id="what-this-means-for-finance-professionals" class="slide level2 center">
-<h2>What This Means for Finance Professionals</h2>
-<div class="three-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Near Term (2026–2027)</strong></span></p>
-<ul>
-<li>AI agents supplement BI tools, not replace them</li>
-<li>Cross-system queries become self-service</li>
-<li>Reporting cycles compress from weeks to hours</li>
-<li>New role: <span class="amber">AI verifier</span> — checking agent output, not producing it</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Medium Term (2027–2029)</strong></span></p>
-<ul>
-<li>ERP vendors embed AI agents natively (SAP Joule, Salesforce Agentforce)</li>
-<li>Standalone BI tools lose market share</li>
-<li>Data warehouse projects face “build vs.&nbsp;agent” decisions</li>
-<li>Compliance frameworks catch up</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Long Term (2029+)</strong></span></p>
-<ul>
-<li>The “reporting layer” is fully AI-native</li>
-<li>ERP becomes invisible infrastructure (like databases today)</li>
-<li>Competitive advantage shifts from data access to <span class="amber">data judgment</span></li>
-<li>The CFO’s question isn’t “can we get the data?” — it’s “can we trust the answer?”</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="the-verification-problem-at-enterprise-scale" class="slide level2 center">
-<h2>The Verification Problem at Enterprise Scale</h2>
-<p>Everything from Module 7 applies here (and Module 13 for details). An AI agent querying 10 systems makes <span class="amber">all the same errors</span> — at enterprise scale.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>The demo looked impressive. But…</strong></p>
-<ul>
-<li>Did the fuzzy matching miss a customer?</li>
-<li>Did the date format mismatch skew Q4 numbers?</li>
-<li>Did the agent silently drop rows with NULL values?</li>
-<li>Did it average across won and lost deals?</li>
-</ul>
-</div><div class="column">
-<p><strong>The verification checklist still applies</strong></p>
-<ol type="1">
-<li>Sanity-check with known answers</li>
-<li>“Show me the SQL” for each system</li>
-<li>Cross-check by rephrasing</li>
-<li>Spot-check edge cases and merge logic</li>
-</ol>
-<p><span class="amber">The more systems involved, the more places for silent errors.</span></p>
-</div></div>
-</section>
-<section id="section-2" class="slide level2 centered-statement center">
-<h2></h2>
-<p><strong>The SaaSpocalypse isn’t about whether AI can query your data.</strong></p>
-<p><strong>It’s about whether anyone will <span class="amber">trust the answer</span> enough to act on it.</strong></p>
 </section>
 <section id="ai-adoption-roadmap" class="slide level2 section-divider center">
 <h2>AI Adoption Roadmap</h2>
@@ -1056,167 +619,39 @@ flowchart LR
 </ul></li>
 </ol>
 </section>
-<section id="small-language-models-and-fine-tuning" class="slide level2 section-divider center">
-<h2>Small Language Models and Fine-Tuning</h2>
-</section>
-<section id="improving-reliability-fine-tuning-and-slms" class="slide level2 center">
-<h2>Improving Reliability: Fine-Tuning and SLMs</h2>
-<p>A complementary approach to verification: make the model itself more reliable for your tasks.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>Fine-tuning an LLM</strong></p>
-<ul>
-<li>Train on your domain data (10-Ks, memos, deal docs)</li>
-<li>Model learns your terminology and conventions</li>
-<li>Fewer silent errors on domain-specific tasks</li>
-</ul>
-</div><div class="column">
-<p><strong>Small Language Models (SLMs)</strong></p>
-<ul>
-<li>~1–8B parameters (vs.&nbsp;hundreds of billions)</li>
-<li>Fine-tuned in hours on a single GPU</li>
-<li>Run on-premise — <span class="amber">data never leaves your network</span></li>
-<li><span class="amber">Specialized small models can outperform large models on narrow tasks</span></li>
-</ul>
-</div></div>
-</section>
-<section id="why-slms-for-agentic-systems" class="slide level2 center">
-<h2>Why SLMs for Agentic Systems?</h2>
-<p>Belcak et al.&nbsp;(2025), “<a href="https://arxiv.org/abs/2506.02153">Small Language Models are the Future of Agentic AI</a>”:</p>
-<ul>
-<li>Most agent subtasks are <span class="amber">repetitive, scoped, and non-conversational</span> — classifying documents, extracting fields, formatting outputs</li>
-<li>SLMs fine-tuned on a single task outperform LLMs on format compliance and consistency</li>
-<li>10–30x cheaper in latency, energy, and compute vs.&nbsp;large models</li>
-<li>On-device deployment enables real-time, offline inference with full data privacy</li>
-<li>Agents can use <span class="amber">multiple models</span>: an LLM for complex reasoning, SLMs for routine subtasks</li>
-</ul>
-</section>
-<section id="from-llm-to-slm-the-conversion-process" class="slide level2 center">
-<h2>From LLM to SLM: The Conversion Process</h2>
-<p>The paper proposes a six-step migration path:</p>
-<div class="step-flow-6">
-<div class="step-card">
-<div class="step-icon">
-<p>📝</p>
-</div>
-<div class="step-title">
-<ol type="1">
-<li>Log</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>Agent interactions (prompts, responses, tool calls)</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>🧹</p>
-</div>
-<div class="step-title">
-<ol start="2" type="1">
-<li>Curate</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>Remove PII, filter for quality</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>🔗</p>
-</div>
-<div class="step-title">
-<ol start="3" type="1">
-<li>Cluster</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>Identify recurring task patterns</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>📐</p>
-</div>
-<div class="step-title">
-<ol start="4" type="1">
-<li>Select</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>SLM sized to each task’s complexity</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>⚙️</p>
-</div>
-<div class="step-title">
-<ol start="5" type="1">
-<li>Fine-tune</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>LoRA with 10K–100K examples</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>🔄</p>
-</div>
-<div class="step-title">
-<ol start="6" type="1">
-<li>Repeat</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>Retrain as usage patterns evolve</p>
-</div>
-</div>
-</div>
-<p><span class="amber">The audit logs from earlier in this module are exactly the data you need for step 1.</span></p>
-</section>
 <section id="summary" class="slide level2 section-divider center">
 <h2>Summary</h2>
 </section>
 <section id="summary-1" class="slide level2 center">
 <h2>Summary</h2>
-<div class="four-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Guardrails</strong></span></p>
-<ul>
-<li>Permissions &amp; hooks</li>
-<li>CLAUDE.md constraints</li>
-<li>Layered defense</li>
-</ul>
-</div>
+<div class="three-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Data Security</strong></span></p>
 <ul>
-<li>Schema-only pattern</li>
-<li>Local AI / Ollama</li>
-<li>Data sovereignty</li>
+<li>Agent evaluation loop</li>
+<li>Schema + synthetic rows</li>
+<li>Mitigations and their limits</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>ERP &amp; SaaSpocalypse</strong></span></p>
+<p><span class="card-title"><strong>Deployment Spectrum</strong></span></p>
 <ul>
-<li>$2T market signal</li>
-<li>System of record vs.&nbsp;insight</li>
-<li>Meridian demo</li>
+<li>Public cloud → VPC-hosted → on-prem</li>
+<li>Private cloud and confidential computing</li>
+<li>Build-vs-buy reality</li>
 </ul>
 </div>
 <div class="card card-light">
 <p><span class="card-title"><strong>Enterprise Adoption</strong></span></p>
 <ul>
 <li>Sandbox-audit-deploy</li>
-<li>SLMs &amp; fine-tuning</li>
-<li>Adoption roadmap</li>
+<li>Quick wins → medium-term → strategic</li>
+<li>Trust is the bottleneck</li>
 </ul>
 </div>
 </div>
 <div style="text-align:center; margin-top:1em;">
-<p><span class="amber">Control the agent, protect the data, understand the disruption.</span></p>
+<p><span class="amber">Protect the data, understand the deployment options, adopt in stages.</span></p>
 </div>
 
 

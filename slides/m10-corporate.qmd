@@ -129,7 +129,7 @@ When the agent loop sends results back to the LLM, [real data leaves your networ
 
 ## Data Policies: Training and Retention
 
-Before sending any data to a cloud AI provider, know the answers to two questions.
+Even after mitigating the evaluation loop, broader provider policies determine what happens to data that does reach the cloud. Before sending any data to a cloud AI provider, know the answers to two questions.
 
 :::{.two-col}
 ::::{.column}
@@ -153,13 +153,13 @@ Before sending any data to a cloud AI provider, know the answers to two question
 Even with zero-training guarantees, data still [transits]{.amber} an external server. For regulated data, transit alone may violate compliance.
 :::
 
-## The Hybrid Pattern
+## The Deployment Spectrum
 
-For most organizations, the answer is not "all cloud" or "all on-prem" --- it is [hybrid]{.amber}.
+For most organizations, the answer is not "all cloud" or "all on-prem" --- it is a [spectrum]{.amber}.
 
-:::{.two-cards}
+:::{.three-cards}
 :::{.card .card-light}
-[**Cloud AI (General Work)**]{.card-title}
+[**Public Cloud API**]{.card-title}
 
 - Research, drafting, coding assistance
 - Non-sensitive data analysis
@@ -168,17 +168,38 @@ For most organizations, the answer is not "all cloud" or "all on-prem" --- it is
 :::
 
 :::{.card .card-light}
-[**On-Prem AI (Sensitive Data)**]{.card-title}
+[**Cloud-Hosted Private AI**]{.card-title}
 
-- Client data under NDA
-- HIPAA, GDPR, SOX-covered records
-- Material non-public financial information
-- Defense and classified environments
+- AWS Bedrock, Azure OpenAI, GCP Vertex AI
+- Models run in your VPC with private endpoints
+- Customer-managed encryption keys
+- Meets HIPAA, SOX, FedRAMP for many use cases
+:::
+
+:::{.card .card-light}
+[**On-Prem / Private Cloud**]{.card-title}
+
+- Air-gapped or classified environments
+- Data that cannot transit any external network
+- Full physical control of hardware
+- Highest cost, highest data control
 :::
 :::
 
 :::{.explainer style="text-align:center;"}
-The schema-only pattern lets you use cloud AI for the *thinking* while keeping sensitive data on-prem for the *execution*. But when even the evaluation loop must stay local, you need on-prem models.
+Cloud-hosted private AI (middle column) is the [most common enterprise pattern]{.amber} today. True on-prem is reserved for the most sensitive workloads.
+:::
+
+## Emerging: Confidential Computing
+
+An emerging technology that may shift this spectrum: [confidential computing]{.amber} allows data to be encrypted even while being processed.
+
+- **Intel SGX, AMD SEV, AWS Nitro Enclaves** --- hardware-level isolation where even the cloud provider cannot see the data
+- If proven at scale, this could allow cloud AI to handle sensitive workloads without the evaluation-loop risk
+- Still maturing --- not yet widely adopted for LLM inference
+
+:::{.explainer style="text-align:center;"}
+Watch this space. Confidential computing could collapse the middle of the spectrum into the left column.
 :::
 
 ## Private Cloud: On-Prem Managed by Experts
@@ -204,7 +225,7 @@ The schema-only pattern lets you use cloud AI for the *thinking* while keeping s
 ::::
 :::
 
-Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds."
+Antonio Neri, CEO of HPE: "In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds." (Neri's company sells private cloud hardware --- but the trend he describes is real.)
 
 :::{.explainer style="text-align:center;"}
 If mitigations for the evaluation loop were foolproof, this market wouldn't exist. Private cloud exists because [some data cannot risk transit]{.amber} through any external server, even transiently.
@@ -277,7 +298,7 @@ The model is the brain. The harness is everything else. On-prem means building t
 
 ## Case Study: The Claude Code Leak
 
-On March 31, 2026, Anthropic accidentally published Claude Code's full source code --- [512,000 lines of TypeScript]{.amber} --- via an npm packaging error.
+On March 31, 2026, Anthropic accidentally published Claude Code's full source code via an npm packaging error --- making the [architectural complexity]{.amber} of a production coding agent visible for the first time.
 
 :::{.two-col}
 ::::{.column}
@@ -287,13 +308,12 @@ On March 31, 2026, Anthropic accidentally published Claude Code's full source co
 - Three-layer memory architecture
 - Multi-agent orchestration via prompts
 - Granular sandboxing and access control
-- Background "dream" mode for autonomous work
 ::::
 
 ::::{.column}
 **What happened next**
 
-- [claw-code](https://github.com/ultraworkers/claw-code): open-source reimplementation hit 160K GitHub stars in days
+- [claw-code](https://github.com/ultraworkers/claw-code): open-source reimplementation became the fastest-growing repo on GitHub
 - Provider-agnostic: works with Claude, OpenAI, or [local models via Ollama]{.amber}
 - Other alternatives: Aider, OpenHands, Continue.dev
 - All are less mature than the cloud originals
@@ -301,19 +321,19 @@ On March 31, 2026, Anthropic accidentally published Claude Code's full source co
 :::
 
 :::{.explainer style="text-align:center;"}
-The leak made the cost of developer tooling visible. 500K lines of code is what sits between a raw model and a productive developer.
+The leak made clear that a coding agent is not just a model --- it is a [complex harness]{.amber} of tools, permissions, and orchestration that takes significant engineering to build and maintain.
 :::
 
 ## The Build-vs-Buy Reality
 
-The TCO of on-prem AI is [not just GPU costs]{.amber}.
+The TCO of on-prem AI is [not just hardware]{.amber}.
 
 :::{.two-cards}
 :::{.card .card-light}
 [**Cloud (e.g., Anthropic API)**]{.card-title}
 
 - Model + API + coding agent included
-- Pay per token (~$3--15 per million)
+- Pay per token, scale on demand
 - No infrastructure team needed
 - Continuous model improvements
 - Risk: data leaves your network
@@ -322,7 +342,7 @@ The TCO of on-prem AI is [not just GPU costs]{.amber}.
 :::{.card .card-dark}
 [**On-Prem**]{.card-title}
 
-- GPU hardware ($50K--$500K+)
+- GPU hardware and data center space
 - Model serving and API infrastructure
 - Build or assemble developer tooling
 - Ongoing maintenance and model updates
@@ -331,7 +351,13 @@ The TCO of on-prem AI is [not just GPU costs]{.amber}.
 :::
 :::
 
+:::{.explainer style="text-align:center;"}
+At low-to-moderate usage, cloud wins on cost. At enterprise scale (thousands of employees, continuous inference), on-prem TCO can be lower --- but only if you amortize the engineering team across enough usage.
+:::
+
 ## Implement Your Own On-Prem {.section-divider}
+
+To make on-prem concrete, let's start small --- running a model locally on your own machine.
 
 ## Ollama: Local LLMs in One Installer
 
@@ -342,19 +368,33 @@ The TCO of on-prem AI is [not just GPU costs]{.amber}.
 **How it works**
 
 1. Download and run the Ollama installer
-2. Pull a model (e.g., `llama3.2`)
-3. Chat locally via a browser UI or the terminal
+2. Run a model: `ollama run gemma4:e2b`
+3. Chat locally in the terminal
 4. All inference runs on your CPU/GPU
 ::::
 
 ::::{.column}
-**Available models**
+**Model sizes and RAM**
 
-- **Llama 3.1** (Meta, 8B) --- strong reasoning
-- **Llama 3.2** (Meta, 3B) --- faster, lighter
-- **Mistral**, **Gemma**, **Phi** --- many options
+- **Gemma 4 E2B** (Google, ~2B active) --- runs on [8GB RAM]{.amber}
+- **Gemma 4 E4B** (Google, ~4B active) --- runs on 8GB RAM
+- **Llama 3.1 8B** (Meta) --- needs 16GB RAM
 - Models download once and run offline
 ::::
+:::
+
+## Apple Silicon: A Local AI Advantage
+
+Macs with Apple Silicon have [unified memory]{.amber} --- CPU, GPU, and Neural Engine share one memory pool with no copying bottleneck. This is ideal for LLM inference.
+
+| Mac Configuration | Unified Memory | Largest Model |
+|---|---|---|
+| MacBook Air / base Pro | 8--16 GB | Gemma 4 E4B, Llama 3.1 8B |
+| MacBook Pro (M3/M4 Pro) | 18--48 GB | 30B+ models comfortably |
+| MacBook Pro / Mac Studio (M4 Max) | 36--128 GB | 70B models at 30--45 tokens/sec |
+
+:::{.explainer style="text-align:center;"}
+A 16GB MacBook often outperforms a Windows PC with 32GB for AI workloads, because there is no separate GPU memory bottleneck.
 :::
 
 ## Exercise: Running a Local Model
@@ -367,11 +407,11 @@ The TCO of on-prem AI is [not just GPU costs]{.amber}.
 2. Run the installer (no terminal needed)
 3. Once installed, open a terminal and run:
    ```
-   ollama run llama3.2
+   ollama run gemma4:e2b
    ```
 4. Then try:
    ```
-   ollama run llama3.1
+   ollama run gemma4:e4b
    ```
 ::::
 
@@ -387,475 +427,6 @@ Give each model this prompt and compare their responses:
 :::
 
 [Both models run entirely on your machine. No data is sent anywhere.]{.amber}
-
-## ERP and the SaaSpocalypse {.section-divider}
-
-## February 2026: $2 Trillion Vanished
-
-In a single week, AI agents wiped [$2 trillion]{.amber} from enterprise software valuations.
-
-:::{.stat-cards}
-:::{.stat-card}
-:::{.stat-number}
-$2T
-:::
-:::{.stat-label}
-Market cap erased from SaaS companies
-:::
-:::
-
-:::{.stat-card}
-:::{.stat-number}
-30--50%
-:::
-:::{.stat-label}
-Decline in leading ERP/CRM stocks
-:::
-:::
-
-:::{.stat-card}
-:::{.stat-number}
-$250B+
-:::
-:::{.stat-label}
-Annual enterprise software spend at risk
-:::
-:::
-:::
-
-The market's thesis: AI agents can [replace entire categories]{.amber} of enterprise software --- BI dashboards, reporting layers, workflow tools, Tier 1 support.
-
-## What Investors Are Betting On
-
-:::{.two-cards}
-:::{.card .card-dark}
-[**The Old Model**]{.card-title}
-
-- Buy a CRM ($150/user/month)
-- Buy a BI tool ($70/user/month)
-- Buy an integration platform ($50K+/year)
-- Buy a reporting tool ($30/user/month)
-- Hire analysts to run queries and build dashboards
-- Wait 3 weeks for a cross-system report
-:::
-
-:::{.card .card-light}
-[**The AI Model**]{.card-title}
-
-- One AI agent queries all your systems
-- Natural language --- no SQL, no dashboard builder
-- Cross-system analysis in seconds, not weeks
-- Reports, charts, and narratives generated on demand
-- The "last mile" from data to decision collapses
-- [Cost per query: $0.01--0.05]{.amber}
-:::
-:::
-
-## {.quote-slide}
-
-## {.quote-slide}
-
-:::{.quote-text}
-"Every application that is essentially a [natural-language interface to a database]{.amber} is at risk. That's CRM, ERP reporting, BI dashboards, HR analytics, support ticket routing --- a huge fraction of enterprise software revenue."
-:::
-
-:::{.quote-source}
---- Investor thesis, widely circulated, February 2026
-:::
-
-## The Traditional Enterprise Stack {.section-divider}
-
-## How Companies Run Today
-
-A typical mid-market company ($500M revenue) runs [10+ enterprise systems]{.amber} across divisions.
-
-:::{.three-cards}
-:::{.card .card-light}
-[**CRM**]{.card-title}
-
-- Salesforce, HubSpot, or legacy
-- Pipeline, contacts, deals
-- Each division may use a different one
-:::
-
-:::{.card .card-light}
-[**Finance / ERP**]{.card-title}
-
-- NetSuite, SAP, QuickBooks
-- GL, invoices, budgets
-- Often different systems per division
-:::
-
-:::{.card .card-light}
-[**Operations & HR**]{.card-title}
-
-- SAP, Oracle SCM, Workday
-- Supply chain, inventory, headcount
-- Typically centralized
-:::
-:::
-
-These systems don't talk to each other. Getting a cross-system answer requires [ETL pipelines, data warehouses, or analyst time]{.amber}.
-
-## The Cross-System Problem
-
-A CEO asks: [*"Which customers buy from multiple divisions?"*]{.amber}
-
-:::{.step-flow}
-:::{.step-card}
-:::{.step-icon}
-1
-:::
-:::{.step-title}
-Request
-:::
-:::{.step-desc}
-CEO emails the BI team
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-2
-:::
-:::{.step-title}
-Gather
-:::
-:::{.step-desc}
-Analyst queries 3 CRMs separately
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-3
-:::
-:::{.step-title}
-Reconcile
-:::
-:::{.step-desc}
-Match "GE" / "GE Industrial" / "GE Safety"
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-4
-:::
-:::{.step-title}
-Deliver
-:::
-:::{.step-desc}
-3 weeks later: a spreadsheet
-:::
-:::
-:::
-
-The traditional answer is a [data warehouse]{.amber} ($500K--$5M, 6--18 months to build). The AI alternative: query each system where it lives and merge on the fly.
-
-## Demo: Meridian Corp {.section-divider}
-
-## Meridian Corp: A Simulated Enterprise
-
-Meridian Corp is a fictional [$500M B2B industrial supplies distributor]{.amber} with three operating divisions and 10 enterprise systems.
-
-:::{.two-col}
-::::{.column}
-**Industrial Division** (~$250M)
-
-- Salesforce CRM
-- NetSuite Finance
-- SAP Operations
-
-**Energy Division** (~$150M)
-
-- Legacy CRM (custom-built)
-- QuickBooks Finance
-- Oracle SCM
-::::
-
-::::{.column}
-**Safety Division** (~$100M)
-
-- HubSpot CRM
-- Shared NetSuite Finance
-
-**Corporate HQ**
-
-- Workday HR (all divisions)
-- NetSuite Consolidation
-- Zendesk Support
-::::
-:::
-
-[41 tables, 26,000+ rows, 3 years of data (2023--2025).]{.amber}
-
-## Realistic Data Friction
-
-The simulation includes the same data quality problems real enterprises face.
-
-:::{.three-cards}
-:::{.card .card-light}
-[**Naming Conflicts**]{.card-title}
-
-- Salesforce: `CamelCase` columns
-- Legacy CRM: `snake_case` columns
-- Same customer, different names across divisions
-:::
-
-:::{.card .card-light}
-[**Format Mismatches**]{.card-title}
-
-- Legacy CRM stores dates as text: `"03/15/2025"`
-- Other systems use proper date types
-- Revenue in different currencies or fiscal calendars
-:::
-
-:::{.card .card-light}
-[**No Cross-System Joins**]{.card-title}
-
-- The agent cannot join across systems in SQL
-- Must query each system separately
-- Merges data with Python + fuzzy matching
-:::
-:::
-
-This is [exactly]{.amber} how a real enterprise AI tool would need to work.
-
-## The AI Agent Architecture
-
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  U["<b>User Question</b><br/><i>plain English</i>"] --> A["<b>AI Agent</b><br/><i>Claude</i>"]
-  A --> Q1["<b>Salesforce</b>"]
-  A --> Q2["<b>Legacy CRM</b>"]
-  A --> Q3["<b>Workday</b>"]
-  Q1 --> M["<b>Merge & Analyze</b><br/><i>Python</i>"]
-  Q2 --> M
-  Q3 --> M
-  M --> R["<b>Answer</b><br/><i>charts + narrative</i>"]
-
-  style U fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style A fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style Q1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style Q2 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style Q3 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-  style M fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a
-```
-
-The agent writes SQL for each system, executes it, then uses Python to merge, reconcile, and visualize the combined results.
-
-## Live Demo: Single-System Queries {.section-divider}
-
-## Demo: Querying Individual Systems
-
-We'll ask Meridian questions that hit [one system at a time]{.amber} --- the kind of query a dashboard or BI tool handles today.
-
-:::{.two-col}
-::::{.column}
-**Sales pipeline**
-
-- "How many open deals are in Salesforce?"
-- "Which sales rep has the highest win rate this quarter?"
-- "What's the Energy Division's pipeline value?"
-::::
-
-::::{.column}
-**Finance and HR**
-
-- "What was Q4 revenue by division in NetSuite?"
-- "How many employees does each division have?"
-- "What's the average support ticket resolution time?"
-::::
-:::
-
-Watch for: the SQL the agent writes, the speed of response, and the chart/narrative it generates.
-
-## Live Demo: Cross-System Queries {.section-divider}
-
-## Demo: The Cross-System Merge
-
-Now the queries that [no single system can answer]{.amber} --- the ones that justify the enterprise software stack.
-
-:::{.two-col}
-::::{.column}
-**Cross-system questions**
-
-- "Which customers buy from multiple divisions?"
-- "What's revenue per employee by division?"
-- "Compare our top customer's pipeline to their support ticket trends"
-::::
-
-::::{.column}
-**What to watch**
-
-- Agent queries 2--3 systems separately
-- Fuzzy matching reconciles customer names
-- Python merges the results
-- The agent [shows its work]{.amber}: SQL + merge logic
-::::
-:::
-
-This is the query that takes the BI team 3 weeks. The agent does it in [30 seconds]{.amber}.
-
-## Demo: Full Reporting Pipeline {.section-divider}
-
-## Demo: From Question to Board Memo
-
-The "last mile" --- not just data, but a [delivered artifact]{.amber}.
-
-Ask Meridian:
-
-> *"Prepare a quarterly executive summary of Meridian Corp performance --- revenue by division, headcount efficiency, top customer risks, and supply chain issues."*
-
-The agent will:
-
-1. Query 6+ systems (CRM, Finance, HR, Support, Supply Chain)
-2. Merge and reconcile across divisions
-3. Generate charts
-4. Write a structured narrative memo
-
-This is the pipeline that [replaces the reporting team's weekly cycle]{.amber}.
-
-## What's at Risk {.section-divider}
-
-## The SaaS Revenue Model Under Pressure
-
-Enterprise software charges [per seat, per month]{.amber}. AI agents threaten the math.
-
-| Layer | Examples | Annual spend | AI threat |
-|---|---|---|---|
-| CRM | Salesforce, HubSpot | $150/user/mo | Query layer replaceable |
-| BI / Analytics | Tableau, Power BI | $70/user/mo | [High]{.amber} --- dashboards are natural language |
-| Integration | MuleSoft, Informatica | $50K--500K/yr | Agent-based merging as alternative |
-| Reporting | Workiva, Adaptive | $30/user/mo | [High]{.amber} --- narrative generation |
-| Support | Zendesk, ServiceNow | $100/user/mo | Tier 1 triage automatable |
-
-The [most vulnerable]{.amber}: anything that is fundamentally a natural-language interface to structured data.
-
-## The Counter-Argument {.section-divider}
-
-## Why ERP Isn't Dead
-
-The SaaSpocalypse thesis has real limits. Enterprise software does things AI agents [cannot easily replace]{.amber}.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**What ERP Does Beyond Queries**]{.card-title}
-
-- Transaction processing (orders, invoices, payments)
-- Workflow enforcement (approval chains, compliance gates)
-- Audit trails with legal standing
-- Role-based access control at the field level
-- Real-time integrations (inventory, shipping, payments)
-:::
-
-:::{.card .card-light}
-[**What AI Agents Can't Do (Yet)**]{.card-title}
-
-- Process a purchase order end-to-end
-- Enforce SOX compliance controls
-- Guarantee data consistency across systems
-- Replace the system of record
-- Provide legally defensible audit trails
-:::
-:::
-
-ERP is a [system of record]{.amber}. AI agents are a [system of insight]{.amber}. These are different jobs.
-
-## The Integration Layer Is the Real Target
-
-The $2T thesis is [partially right, partially wrong]{.amber}.
-
-:::{.two-col}
-::::{.column}
-**What AI will displace**
-
-- BI dashboards and ad-hoc reporting
-- Data integration middleware (for read-only queries)
-- Analyst time spent on data wrangling
-- Tier 1 support triage
-- Manual report generation
-::::
-
-::::{.column}
-**What survives**
-
-- Transaction processing engines
-- Compliance and audit infrastructure
-- Workflow orchestration with legal standing
-- Master data management
-- Systems of record
-::::
-:::
-
-The disruption isn't "AI replaces SAP." It's ["AI replaces the $200K/year you spend making SAP's data accessible."]{.amber}
-
-## What This Means for Finance Professionals
-
-:::{.three-cards}
-:::{.card .card-light}
-[**Near Term (2026--2027)**]{.card-title}
-
-- AI agents supplement BI tools, not replace them
-- Cross-system queries become self-service
-- Reporting cycles compress from weeks to hours
-- New role: [AI verifier]{.amber} --- checking agent output, not producing it
-:::
-
-:::{.card .card-light}
-[**Medium Term (2027--2029)**]{.card-title}
-
-- ERP vendors embed AI agents natively (SAP Joule, Salesforce Agentforce)
-- Standalone BI tools lose market share
-- Data warehouse projects face "build vs. agent" decisions
-- Compliance frameworks catch up
-:::
-
-:::{.card .card-light}
-[**Long Term (2029+)**]{.card-title}
-
-- The "reporting layer" is fully AI-native
-- ERP becomes invisible infrastructure (like databases today)
-- Competitive advantage shifts from data access to [data judgment]{.amber}
-- The CFO's question isn't "can we get the data?" --- it's "can we trust the answer?"
-:::
-:::
-
-## The Verification Problem at Enterprise Scale
-
-Everything from Module 7 applies here (and Module 13 for details). An AI agent querying 10 systems makes [all the same errors]{.amber} --- at enterprise scale.
-
-:::{.two-col}
-::::{.column}
-**The demo looked impressive. But...**
-
-- Did the fuzzy matching miss a customer?
-- Did the date format mismatch skew Q4 numbers?
-- Did the agent silently drop rows with NULL values?
-- Did it average across won and lost deals?
-::::
-
-::::{.column}
-**The verification checklist still applies**
-
-1. Sanity-check with known answers
-2. "Show me the SQL" for each system
-3. Cross-check by rephrasing
-4. Spot-check edge cases and merge logic
-
-[The more systems involved, the more places for silent errors.]{.amber}
-::::
-:::
-
-## {.centered-statement}
-
-**The SaaSpocalypse isn't about whether AI can query your data.**
-
-**It's about whether anyone will [trust the answer]{.amber} enough to act on it.**
 
 ## AI Adoption Roadmap {.section-divider}
 
@@ -919,159 +490,36 @@ Each adoption stage maps to a trust level.
    - Production apps with authentication
    - AI usage policy and governance framework
 
-## Small Language Models and Fine-Tuning {.section-divider}
-
-## Improving Reliability: Fine-Tuning and SLMs
-
-A complementary approach to verification: make the model itself more reliable for your tasks.
-
-:::{.two-col}
-::::{.column}
-**Fine-tuning an LLM**
-
-- Train on your domain data (10-Ks, memos, deal docs)
-- Model learns your terminology and conventions
-- Fewer silent errors on domain-specific tasks
-::::
-
-::::{.column}
-**Small Language Models (SLMs)**
-
-- ~1--8B parameters (vs. hundreds of billions)
-- Fine-tuned in hours on a single GPU
-- Run on-premise --- [data never leaves your network]{.amber}
-- [Specialized small models can outperform large models on narrow tasks]{.amber}
-::::
-:::
-
-## Why SLMs for Agentic Systems?
-
-Belcak et al. (2025), "[Small Language Models are the Future of Agentic AI](https://arxiv.org/abs/2506.02153)":
-
-- Most agent subtasks are [repetitive, scoped, and non-conversational]{.amber} --- classifying documents, extracting fields, formatting outputs
-- SLMs fine-tuned on a single task outperform LLMs on format compliance and consistency
-- 10--30x cheaper in latency, energy, and compute vs. large models
-- On-device deployment enables real-time, offline inference with full data privacy
-- Agents can use [multiple models]{.amber}: an LLM for complex reasoning, SLMs for routine subtasks
-
-## From LLM to SLM: The Conversion Process
-
-The paper proposes a six-step migration path:
-
-:::{.step-flow-6}
-:::{.step-card}
-:::{.step-icon}
-📝
-:::
-:::{.step-title}
-1. Log
-:::
-:::{.step-desc}
-Agent interactions (prompts, responses, tool calls)
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-🧹
-:::
-:::{.step-title}
-2. Curate
-:::
-:::{.step-desc}
-Remove PII, filter for quality
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-🔗
-:::
-:::{.step-title}
-3. Cluster
-:::
-:::{.step-desc}
-Identify recurring task patterns
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-📐
-:::
-:::{.step-title}
-4. Select
-:::
-:::{.step-desc}
-SLM sized to each task's complexity
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-⚙️
-:::
-:::{.step-title}
-5. Fine-tune
-:::
-:::{.step-desc}
-LoRA with 10K--100K examples
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-🔄
-:::
-:::{.step-title}
-6. Repeat
-:::
-:::{.step-desc}
-Retrain as usage patterns evolve
-:::
-:::
-:::
-
-[The audit logs from earlier in this module are exactly the data you need for step 1.]{.amber}
-
 ## Summary {.section-divider}
 
 ## Summary
 
-:::{.four-cards}
-:::{.card .card-light}
-[**Guardrails**]{.card-title}
-
-- Permissions & hooks
-- CLAUDE.md constraints
-- Layered defense
-:::
-
+:::{.three-cards}
 :::{.card .card-light}
 [**Data Security**]{.card-title}
 
-- Schema-only pattern
-- Local AI / Ollama
-- Data sovereignty
+- Agent evaluation loop
+- Schema + synthetic rows
+- Mitigations and their limits
 :::
 
 :::{.card .card-light}
-[**ERP & SaaSpocalypse**]{.card-title}
+[**Deployment Spectrum**]{.card-title}
 
-- $2T market signal
-- System of record vs. insight
-- Meridian demo
+- Public cloud → VPC-hosted → on-prem
+- Private cloud and confidential computing
+- Build-vs-buy reality
 :::
 
 :::{.card .card-light}
 [**Enterprise Adoption**]{.card-title}
 
 - Sandbox-audit-deploy
-- SLMs & fine-tuning
-- Adoption roadmap
+- Quick wins → medium-term → strategic
+- Trust is the bottleneck
 :::
 :::
 
 :::{style="text-align:center; margin-top:1em;"}
-[Control the agent, protect the data, understand the disruption.]{.amber}
+[Protect the data, understand the deployment options, adopt in stages.]{.amber}
 :::
