@@ -432,6 +432,36 @@ Kerry Back, Rice University
 <p>The leak made clear that a coding agent is not just a model — it is a <span class="amber">complex harness</span> of tools, permissions, and orchestration that takes significant engineering to build and maintain.</p>
 </div>
 </section>
+<section id="agents-cant-grade-their-own-work" class="slide level2 center">
+<h2>Agents Can’t Grade Their Own Work</h2>
+<p>A recent Anthropic engineering post makes a critical point about coding harnesses:</p>
+<blockquote>
+<p>“When asked to evaluate work they’ve produced, agents tend to respond by confidently praising the work — even when, to a human observer, the quality is obviously mediocre.”</p>
+</blockquote>
+<p>The solution: a <span class="amber">generator-evaluator separation</span> — use a separate agent to critique.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>The Pattern</strong></span></p>
+<ul>
+<li>A <strong>generator</strong> agent writes the code</li>
+<li>A separate <strong>evaluator</strong> agent tests and critiques it</li>
+<li>The evaluator is tuned to be <span class="amber">skeptical</span></li>
+<li>They iterate via “sprint contracts” with success criteria defined before implementation</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Why It Works</strong></span></p>
+<ul>
+<li>“Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work”</li>
+<li>The evaluator catches real bugs: broken logic, API errors, incomplete features</li>
+<li>Same idea as <span class="amber">makers and checkers</span> (Module 7)</li>
+</ul>
+</div>
+</div>
+<div class="explainer" style="text-align:center;">
+<p>Source: Prithvi Rajasekaran, “<a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness design for long-running application development</a>,” Anthropic Labs, March 2026.</p>
+</div>
+</section>
 <section id="the-build-vs-buy-reality" class="slide level2 center">
 <h2>The Build-vs-Buy Reality</h2>
 <p>The TCO of on-prem AI is <span class="amber">not just hardware</span>.</p>

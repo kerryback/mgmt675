@@ -324,6 +324,37 @@ On March 31, 2026, Anthropic accidentally published Claude Code's full source co
 The leak made clear that a coding agent is not just a model --- it is a [complex harness]{.amber} of tools, permissions, and orchestration that takes significant engineering to build and maintain.
 :::
 
+## Agents Can't Grade Their Own Work
+
+A recent Anthropic engineering post makes a critical point about coding harnesses:
+
+> "When asked to evaluate work they've produced, agents tend to respond by confidently praising the work --- even when, to a human observer, the quality is obviously mediocre."
+
+The solution: a [generator-evaluator separation]{.amber} --- use a separate agent to critique.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**The Pattern**]{.card-title}
+
+- A **generator** agent writes the code
+- A separate **evaluator** agent tests and critiques it
+- The evaluator is tuned to be [skeptical]{.amber}
+- They iterate via "sprint contracts" with success criteria defined before implementation
+:::
+
+:::{.card .card-dark}
+[**Why It Works**]{.card-title}
+
+- "Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work"
+- The evaluator catches real bugs: broken logic, API errors, incomplete features
+- Same idea as [makers and checkers]{.amber} (Module 7)
+:::
+:::
+
+:::{.explainer style="text-align:center;"}
+Source: Prithvi Rajasekaran, "[Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)," Anthropic Labs, March 2026.
+:::
+
 ## The Build-vs-Buy Reality
 
 The TCO of on-prem AI is [not just hardware]{.amber}.

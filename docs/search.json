@@ -469,6 +469,13 @@
     "text": "Case Study: The Claude Code Leak\nOn March 31, 2026, Anthropic accidentally published Claude Code’s full source code via an npm packaging error — making the architectural complexity of a production coding agent visible for the first time.\n\n\nWhat it revealed\n\n~40 permission-gated tools (file, terminal, git, web, IDE)\nThree-layer memory architecture\nMulti-agent orchestration via prompts\nGranular sandboxing and access control\n\n\nWhat happened next\n\nclaw-code: open-source reimplementation became the fastest-growing repo on GitHub\nProvider-agnostic: works with Claude, OpenAI, or local models via Ollama\nOther alternatives: Aider, OpenHands, Continue.dev\nAll are less mature than the cloud originals\n\n\n\nThe leak made clear that a coding agent is not just a model — it is a complex harness of tools, permissions, and orchestration that takes significant engineering to build and maintain."
   },
   {
+    "objectID": "slides/m10-corporate.html#agents-cant-grade-their-own-work",
+    "href": "slides/m10-corporate.html#agents-cant-grade-their-own-work",
+    "title": "Module 10: Corporate AI Deployment",
+    "section": "Agents Can’t Grade Their Own Work",
+    "text": "Agents Can’t Grade Their Own Work\nA recent Anthropic engineering post makes a critical point about coding harnesses:\n\n“When asked to evaluate work they’ve produced, agents tend to respond by confidently praising the work — even when, to a human observer, the quality is obviously mediocre.”\n\nThe solution: a generator-evaluator separation — use a separate agent to critique.\n\n\nThe Pattern\n\nA generator agent writes the code\nA separate evaluator agent tests and critiques it\nThe evaluator is tuned to be skeptical\nThey iterate via “sprint contracts” with success criteria defined before implementation\n\n\n\nWhy It Works\n\n“Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work”\nThe evaluator catches real bugs: broken logic, API errors, incomplete features\nSame idea as makers and checkers (Module 7)\n\n\n\n\nSource: Prithvi Rajasekaran, “Harness design for long-running application development,” Anthropic Labs, March 2026."
+  },
+  {
     "objectID": "slides/m10-corporate.html#the-build-vs-buy-reality",
     "href": "slides/m10-corporate.html#the-build-vs-buy-reality",
     "title": "Module 10: Corporate AI Deployment",
