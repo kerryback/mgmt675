@@ -38,6 +38,125 @@ flowchart LR
 - **Fine-Tuning**: Specific tone, format, or domain expertise baked in
 - **Small Language Model**: Full control, privacy, or a highly specialized task
 
+## Embeddings: A Concrete Example {.section-divider}
+
+## Word Vectors
+
+An **embedding model** converts text into a vector of numbers. Words with similar meanings get similar vectors.
+
+Using GloVe (50-dimensional vectors trained on Wikipedia):
+
+```python
+import gensim.downloader as api
+model = api.load("glove-wiki-gigaword-50")
+
+model["king"]   # array([ 0.50,  0.68, -0.59,  0.11,  0.05, ...])  50 dims
+model["queen"]  # array([ 0.38,  0.72, -0.63, -0.01,  0.03, ...])
+model["apple"]  # array([-0.39,  0.33,  0.21, -0.58,  0.47, ...])
+```
+
+"King" and "queen" have similar vectors. "Apple" is very different.
+
+## Word Analogies: King -- Man + Woman
+
+Word vectors capture **meaning arithmetically**:
+
+$$\vec{\text{king}} - \vec{\text{man}} + \vec{\text{woman}} \approx \vec{\text{queen}}$$
+
+```python
+result = model.most_similar(
+    positive=["king", "woman"], negative=["man"], topn=3
+)
+# [('queen', 0.77), ('monarch', 0.68), ('princess', 0.66)]
+```
+
+The model was never told these relationships --- it learned them from patterns in text.
+
+## From Words to Sentences
+
+For RAG, we need to embed **entire sentences or paragraphs**, not single words.
+
+**Sentence-transformers** passes the full text through a transformer and outputs a single vector:
+
+```python
+from sentence_transformers import SentenceTransformer
+model = SentenceTransformer("all-MiniLM-L6-v2")  # 384 dimensions
+
+model.encode("Revenue grew 15%")     # one 384-dim vector
+model.encode("How did profits change?")  # another 384-dim vector
+```
+
+This is **not** an average of word vectors --- the transformer considers word order, grammar, and context to produce a single representation.
+
+## Cosine Similarity
+
+How do we measure if two vectors are "close"?  [**Cosine similarity**]{.amber}: the cosine of the angle between them.
+
+- **1.0** = identical direction (same meaning)
+- **0.0** = perpendicular (unrelated)
+- **--1.0** = opposite
+
+```python
+from sklearn.metrics.pairwise import cosine_similarity
+
+chunks = [
+    "Revenue grew 15% year over year to $4.2 billion.",
+    "The company opened 12 new retail locations in Q3.",
+    "Net income declined 8% due to rising input costs.",
+]
+query = "How did profits change?"
+
+scores = cosine_similarity(model.encode([query]), model.encode(chunks))[0]
+# [0.31, 0.12, 0.68]  ← net income chunk is the best match
+```
+
+## Chunking a Document
+
+Before embedding, documents are split into **chunks** --- small pieces that each become one vector.
+
+```python
+text = """Apple reported Q4 revenue of $89.5 billion, down 1% year
+over year. Services revenue hit an all-time record of $22.3
+billion. iPhone revenue was $43.8 billion. The company returned
+over $25 billion to shareholders during the quarter through
+dividends and share repurchases."""
+
+# Split into chunks of ~50 words with overlap
+chunks = [
+    "Apple reported Q4 revenue of $89.5 billion, down 1% year over year. "
+    "Services revenue hit an all-time record of $22.3 billion.",
+
+    "Services revenue hit an all-time record of $22.3 billion. "
+    "iPhone revenue was $43.8 billion.",
+
+    "iPhone revenue was $43.8 billion. The company returned over $25 "
+    "billion to shareholders through dividends and share repurchases.",
+]
+```
+
+Overlap ensures context isn't lost at chunk boundaries.
+
+## The Full Picture: Query → Retrieve → Generate
+
+```python
+# 1. Embed chunks and store in a vector database
+chunk_vectors = model.encode(chunks)
+
+# 2. User asks a question — embed the query with the SAME model
+query = "What was Apple's services revenue?"
+query_vector = model.encode([query])
+
+# 3. Find the most similar chunk (cosine similarity)
+scores = cosine_similarity(query_vector, chunk_vectors)[0]
+best_chunk = chunks[scores.argmax()]
+# → "...Services revenue hit an all-time record of $22.3 billion..."
+
+# 4. Pass the chunk + question to the LLM
+prompt = f"Based on this context:\n{best_chunk}\n\nAnswer: {query}"
+```
+
+The LLM never sees the whole document --- just the [most relevant chunk]{.amber}.
+
 ## How RAG Works {.section-divider}
 
 ## What is RAG?

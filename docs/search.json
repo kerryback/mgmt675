@@ -252,6 +252,55 @@
     "text": "Three Ways to Give AI Knowledge\nPrompting and skills customize how an LLM responds. But what if you need it to know things it wasn’t trained on?\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%\nflowchart LR\n  RAG[\"&lt;b&gt;RAG&lt;/b&gt;\"] ~~~ FT[\"&lt;b&gt;Fine-Tuning&lt;/b&gt;\"] ~~~ SLM[\"&lt;b&gt;Small Language&lt;br&gt;Model&lt;/b&gt;\"]\n\n  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px\n\n\n\n\n\n\n\nRAG: Up-to-date or proprietary facts; data changes frequently\nFine-Tuning: Specific tone, format, or domain expertise baked in\nSmall Language Model: Full control, privacy, or a highly specialized task"
   },
   {
+    "objectID": "slides/m12-rag.html#embeddings-a-concrete-example",
+    "href": "slides/m12-rag.html#embeddings-a-concrete-example",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Embeddings: A Concrete Example",
+    "text": "Embeddings: A Concrete Example"
+  },
+  {
+    "objectID": "slides/m12-rag.html#word-vectors",
+    "href": "slides/m12-rag.html#word-vectors",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Word Vectors",
+    "text": "Word Vectors\nAn embedding model converts text into a vector of numbers. Words with similar meanings get similar vectors.\nUsing GloVe (50-dimensional vectors trained on Wikipedia):\nimport gensim.downloader as api\nmodel = api.load(\"glove-wiki-gigaword-50\")\n\nmodel[\"king\"]   # array([ 0.50,  0.68, -0.59,  0.11,  0.05, ...])  50 dims\nmodel[\"queen\"]  # array([ 0.38,  0.72, -0.63, -0.01,  0.03, ...])\nmodel[\"apple\"]  # array([-0.39,  0.33,  0.21, -0.58,  0.47, ...])\n“King” and “queen” have similar vectors. “Apple” is very different."
+  },
+  {
+    "objectID": "slides/m12-rag.html#word-analogies-king-man-woman",
+    "href": "slides/m12-rag.html#word-analogies-king-man-woman",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Word Analogies: King – Man + Woman",
+    "text": "Word Analogies: King – Man + Woman\nWord vectors capture meaning arithmetically:\n\\[\\vec{\\text{king}} - \\vec{\\text{man}} + \\vec{\\text{woman}} \\approx \\vec{\\text{queen}}\\]\nresult = model.most_similar(\n    positive=[\"king\", \"woman\"], negative=[\"man\"], topn=3\n)\n# [('queen', 0.77), ('monarch', 0.68), ('princess', 0.66)]\nThe model was never told these relationships — it learned them from patterns in text."
+  },
+  {
+    "objectID": "slides/m12-rag.html#from-words-to-sentences",
+    "href": "slides/m12-rag.html#from-words-to-sentences",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "From Words to Sentences",
+    "text": "From Words to Sentences\nFor RAG, we need to embed entire sentences or paragraphs, not single words.\nSentence-transformers passes the full text through a transformer and outputs a single vector:\nfrom sentence_transformers import SentenceTransformer\nmodel = SentenceTransformer(\"all-MiniLM-L6-v2\")  # 384 dimensions\n\nmodel.encode(\"Revenue grew 15%\")     # one 384-dim vector\nmodel.encode(\"How did profits change?\")  # another 384-dim vector\nThis is not an average of word vectors — the transformer considers word order, grammar, and context to produce a single representation."
+  },
+  {
+    "objectID": "slides/m12-rag.html#cosine-similarity",
+    "href": "slides/m12-rag.html#cosine-similarity",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Cosine Similarity",
+    "text": "Cosine Similarity\nHow do we measure if two vectors are “close”? Cosine similarity: the cosine of the angle between them.\n\n1.0 = identical direction (same meaning)\n0.0 = perpendicular (unrelated)\n–1.0 = opposite\n\nfrom sklearn.metrics.pairwise import cosine_similarity\n\nchunks = [\n    \"Revenue grew 15% year over year to $4.2 billion.\",\n    \"The company opened 12 new retail locations in Q3.\",\n    \"Net income declined 8% due to rising input costs.\",\n]\nquery = \"How did profits change?\"\n\nscores = cosine_similarity(model.encode([query]), model.encode(chunks))[0]\n# [0.31, 0.12, 0.68]  ← net income chunk is the best match"
+  },
+  {
+    "objectID": "slides/m12-rag.html#chunking-a-document",
+    "href": "slides/m12-rag.html#chunking-a-document",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "Chunking a Document",
+    "text": "Chunking a Document\nBefore embedding, documents are split into chunks — small pieces that each become one vector.\ntext = \"\"\"Apple reported Q4 revenue of $89.5 billion, down 1% year\nover year. Services revenue hit an all-time record of $22.3\nbillion. iPhone revenue was $43.8 billion. The company returned\nover $25 billion to shareholders during the quarter through\ndividends and share repurchases.\"\"\"\n\n# Split into chunks of ~50 words with overlap\nchunks = [\n    \"Apple reported Q4 revenue of $89.5 billion, down 1% year over year. \"\n    \"Services revenue hit an all-time record of $22.3 billion.\",\n\n    \"Services revenue hit an all-time record of $22.3 billion. \"\n    \"iPhone revenue was $43.8 billion.\",\n\n    \"iPhone revenue was $43.8 billion. The company returned over $25 \"\n    \"billion to shareholders through dividends and share repurchases.\",\n]\nOverlap ensures context isn’t lost at chunk boundaries."
+  },
+  {
+    "objectID": "slides/m12-rag.html#the-full-picture-query-retrieve-generate",
+    "href": "slides/m12-rag.html#the-full-picture-query-retrieve-generate",
+    "title": "Module 11: Retrieval Augmented Generation",
+    "section": "The Full Picture: Query → Retrieve → Generate",
+    "text": "The Full Picture: Query → Retrieve → Generate\n# 1. Embed chunks and store in a vector database\nchunk_vectors = model.encode(chunks)\n\n# 2. User asks a question — embed the query with the SAME model\nquery = \"What was Apple's services revenue?\"\nquery_vector = model.encode([query])\n\n# 3. Find the most similar chunk (cosine similarity)\nscores = cosine_similarity(query_vector, chunk_vectors)[0]\nbest_chunk = chunks[scores.argmax()]\n# → \"...Services revenue hit an all-time record of $22.3 billion...\"\n\n# 4. Pass the chunk + question to the LLM\nprompt = f\"Based on this context:\\n{best_chunk}\\n\\nAnswer: {query}\"\nThe LLM never sees the whole document — just the most relevant chunk."
+  },
+  {
     "objectID": "slides/m12-rag.html#how-rag-works",
     "href": "slides/m12-rag.html#how-rag-works",
     "title": "Module 11: Retrieval Augmented Generation",
@@ -385,109 +434,32 @@
     "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo training required\n\n\n\nNotebookLM\n\nFree RAG without code\nInline citations\nAudio overviews\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence\n\n\n\n\nRAG gives AI knowledge it doesn’t have — grounded in your documents, with citations."
   },
   {
-    "objectID": "slides/m10-corporate.html#data-security",
-    "href": "slides/m10-corporate.html#data-security",
+    "objectID": "slides/m10-corporate.html#where-ai-can-live",
+    "href": "slides/m10-corporate.html#where-ai-can-live",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "Data Security",
-    "text": "Data Security"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-agent-evaluation-loop",
-    "href": "slides/m10-corporate.html#the-agent-evaluation-loop",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The Agent Evaluation Loop",
-    "text": "The Agent Evaluation Loop\nAn AI agent that queries your database does not just send one message — it runs a multi-turn loop.\n\n\n\n1\n\n\nPrompt\n\n\nSystem prompt + user question sent to LLM\n\n\n\n\n2\n\n\nGenerate\n\n\nLLM writes SQL or Python\n\n\n\n\n3\n\n\nExecute\n\n\nCode runs locally against your database\n\n\n\n\n4\n\n\nEvaluate\n\n\nResults sent back to LLM for review\n\n\n\nSteps 1–3 can be made safe. Step 4 is where real data may leak to the cloud provider — query results, error messages containing data values, or raw rows the LLM needs to interpret."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#protecting-step-1-schema-synthetic-rows",
-    "href": "slides/m10-corporate.html#protecting-step-1-schema-synthetic-rows",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Protecting Step 1: Schema + Synthetic Rows",
-    "text": "Protecting Step 1: Schema + Synthetic Rows\nThe system prompt should describe your database using schema and synthetic rows — never real data.\n\n\nWhat to include\n\nTable names, column names, data types\n~3 synthetic rows per table (fabricated, matching real formats)\nColumn descriptions and domain conventions\nDatabricks: ~3 synthetic rows raises SQL accuracy by ~6 pp\n\n\nWhy synthetic rows help\n\nReveal data formats (is status 'Active' or 1?)\nDisambiguate columns (is code a country code or product code?)\nHelp the LLM write correct WHERE clauses\nNo real records are transmitted\n\n\n\nSchema metadata is not PII — safe to share. The LLM writes the query; your server runs it."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#protecting-step-4-the-hard-part",
-    "href": "slides/m10-corporate.html#protecting-step-4-the-hard-part",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Protecting Step 4: The Hard Part",
-    "text": "Protecting Step 4: The Hard Part\nWhen the agent loop sends results back to the LLM, real data leaves your network. Mitigations exist but each has gaps.\n\n\nMitigations\n\nAggregate only: send row counts and summary statistics, never raw rows\nError messages only: if SQL fails, send the error string (schema info, not data) for correction; if it succeeds, don’t send results back\nRedaction layer: middleware that strips values matching PII patterns before sending to the LLM\n\n\n\nWhy Mitigations Are Not Foolproof\n\nA query like “show the account with the highest balance” returns one row — that is PII\nSQL errors can echo offending data values\nRedaction is pattern-based and misses context-dependent sensitivity\n“Don’t send results back” limits the agent to single-turn — you lose the error-correction loop that makes agents useful"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#data-policies-training-and-retention",
-    "href": "slides/m10-corporate.html#data-policies-training-and-retention",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Data Policies: Training and Retention",
-    "text": "Data Policies: Training and Retention\nEven after mitigating the evaluation loop, broader provider policies determine what happens to data that does reach the cloud. Before sending any data to a cloud AI provider, know the answers to two questions.\n\n\nWill they train on your data?\n\nConsumer tiers (free ChatGPT, free Claude) may use your input to improve models\nAPI and enterprise tiers typically do not\nCheck your agreement and settings\n\n\nHow long do they keep it?\n\nProviders retain prompts for a window (often 30 days) for safety monitoring\nEnterprise contracts may offer zero retention\nKnow the policy before you send sensitive data\n\n\n\nEven with zero-training guarantees, data still transits an external server. For regulated data, transit alone may violate compliance."
+    "section": "Where AI Can Live",
+    "text": "Where AI Can Live"
   },
   {
     "objectID": "slides/m10-corporate.html#the-deployment-spectrum",
     "href": "slides/m10-corporate.html#the-deployment-spectrum",
     "title": "Module 10: Corporate AI Deployment",
     "section": "The Deployment Spectrum",
-    "text": "The Deployment Spectrum\nFor most organizations, the answer is not “all cloud” or “all on-prem” — it is a spectrum.\n\n\nPublic Cloud API\n\nResearch, drafting, coding assistance\nNon-sensitive data analysis\nFrontier model quality\nNo infrastructure to manage\n\n\n\nCloud-Hosted Private AI\n\nAWS Bedrock, Azure OpenAI, GCP Vertex AI\nModels run in your VPC with private endpoints\nCustomer-managed encryption keys\nMeets HIPAA, SOX, FedRAMP for many use cases\n\n\n\nOn-Prem / Private Cloud\n\nAir-gapped or classified environments\nData that cannot transit any external network\nFull physical control of hardware\nHighest cost, highest data control\n\n\n\n\nCloud-hosted private AI (middle column) is the most common enterprise pattern today. True on-prem is reserved for the most sensitive workloads."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#emerging-confidential-computing",
-    "href": "slides/m10-corporate.html#emerging-confidential-computing",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Emerging: Confidential Computing",
-    "text": "Emerging: Confidential Computing\nAn emerging technology that may shift this spectrum: confidential computing allows data to be encrypted even while being processed.\n\nIntel SGX, AMD SEV, AWS Nitro Enclaves — hardware-level isolation where even the cloud provider cannot see the data\nIf proven at scale, this could allow cloud AI to handle sensitive workloads without the evaluation-loop risk\nStill maturing — not yet widely adopted for LLM inference\n\n\nWatch this space. Confidential computing could collapse the middle of the spectrum into the left column."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#private-cloud-on-prem-managed-by-experts",
-    "href": "slides/m10-corporate.html#private-cloud-on-prem-managed-by-experts",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Private Cloud: On-Prem Managed by Experts",
-    "text": "Private Cloud: On-Prem Managed by Experts\nPrivate cloud means AI infrastructure on your premises, managed by an outside provider. You get data control without building the IT team yourself.\n\n\nHow it works\n\nHardware sits in your data center (or a dedicated facility)\nA vendor (HPE, Dell, IBM) manages the infrastructure\nYour data never leaves your network\nThe vendor handles updates, scaling, and maintenance\n\n\nEnterprise examples\n\nDISA (U.S. DoD): $931M HPE private cloud\nBarclays: 50K+ workloads to private cloud\n2degrees (NZ): sovereign AI for data residency\n\n\nAntonio Neri, CEO of HPE: “In the AI era, where data sovereignty, privacy and control of data matter, the industry is seeing a shift back to private clouds.” (Neri’s company sells private cloud hardware — but the trend he describes is real.)\n\nIf mitigations for the evaluation loop were foolproof, this market wouldn’t exist. Private cloud exists because some data cannot risk transit through any external server, even transiently."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#what-on-prem-ai-actually-requires",
-    "href": "slides/m10-corporate.html#what-on-prem-ai-actually-requires",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "What On-Prem AI Actually Requires",
-    "text": "What On-Prem AI Actually Requires"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#more-than-a-model",
-    "href": "slides/m10-corporate.html#more-than-a-model",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "More Than a Model",
-    "text": "More Than a Model\nChoosing on-prem means building an entire AI platform, not just downloading a model.\n\n\nThe Model Layer\n\nOpen-source LLM (Llama, Qwen, Mistral)\nGPU servers to run inference\nModel serving software (Ollama, vLLM)\n\n\n\nThe API Layer\n\nInternal API endpoint (like OpenAI’s, but on your network)\nAuthentication, rate limiting, logging\nLets any internal app call the model programmatically\n\n\n\nThe Interface Layer\n\nChat UI for non-technical users\nSystem prompt management\nConversation history and audit logs\n\n\n\nWith a cloud provider, you get all three out of the box. On-prem, you build each one."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#the-developer-tooling-gap",
-    "href": "slides/m10-corporate.html#the-developer-tooling-gap",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "The Developer Tooling Gap",
-    "text": "The Developer Tooling Gap\nFor AI-assisted coding, the gap is even wider. A coding agent is not just an LLM — it’s a harness of tools wrapped around the model.\n\n\nWhat a Coding Agent Needs\n\nFile read/write with permission controls\nTerminal execution in a sandbox\nGit integration (commits, diffs, branches)\nContext management (which files to feed the model)\nMulti-agent orchestration\nMemory and session persistence\n\n\n\nWhat Cloud Providers Bundle\n\nAnthropic: Claude Code (~500K lines of tooling)\nGitHub: Copilot (IDE-integrated agent)\nGoogle: Gemini Code Assist\nAll include the harness for free with API access\nContinuously updated by large engineering teams\n\n\n\n\nThe model is the brain. The harness is everything else. On-prem means building the harness yourself."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#case-study-the-claude-code-leak",
-    "href": "slides/m10-corporate.html#case-study-the-claude-code-leak",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Case Study: The Claude Code Leak",
-    "text": "Case Study: The Claude Code Leak\nOn March 31, 2026, Anthropic accidentally published Claude Code’s full source code via an npm packaging error — making the architectural complexity of a production coding agent visible for the first time.\n\n\nWhat it revealed\n\n~40 permission-gated tools (file, terminal, git, web, IDE)\nThree-layer memory architecture\nMulti-agent orchestration via prompts\nGranular sandboxing and access control\n\n\nWhat happened next\n\nclaw-code: open-source reimplementation became the fastest-growing repo on GitHub\nProvider-agnostic: works with Claude, OpenAI, or local models via Ollama\nOther alternatives: Aider, OpenHands, Continue.dev\nAll are less mature than the cloud originals\n\n\n\nThe leak made clear that a coding agent is not just a model — it is a complex harness of tools, permissions, and orchestration that takes significant engineering to build and maintain."
+    "text": "The Deployment Spectrum\nWe discussed data security risks with the Deloitte Canada case. The key question is: where does inference happen?\n\n\nPublic Cloud API\n\nResearch, drafting, coding assistance\nNon-sensitive data analysis\nFrontier model quality\nNo infrastructure to manage\n\n\n\nCloud-Hosted Private AI\n\nAWS Bedrock, Azure OpenAI, GCP Vertex AI\nModels run in your VPC with private endpoints\nCustomer-managed encryption keys\nMeets HIPAA, SOX, FedRAMP for many use cases\n\n\n\nOn-Prem / Private Cloud\n\nAir-gapped or classified environments\nData that cannot transit any external network\nFull physical control of hardware\nHighest cost, highest data control\n\n\n\n\nCloud-hosted private AI (middle column) is the most common enterprise pattern today. For most of your work, public cloud APIs are fine — just know when they’re not."
   },
   {
     "objectID": "slides/m10-corporate.html#agents-cant-grade-their-own-work",
     "href": "slides/m10-corporate.html#agents-cant-grade-their-own-work",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Agents Can’t Grade Their Own Work",
-    "text": "Agents Can’t Grade Their Own Work\nA recent Anthropic engineering post makes a critical point about coding harnesses:\n\n“When asked to evaluate work they’ve produced, agents tend to respond by confidently praising the work — even when, to a human observer, the quality is obviously mediocre.”\n\nThe solution: a generator-evaluator separation — use a separate agent to critique.\n\n\nThe Pattern\n\nA generator agent writes the code\nA separate evaluator agent tests and critiques it\nThe evaluator is tuned to be skeptical\nThey iterate via “sprint contracts” with success criteria defined before implementation\n\n\n\nWhy It Works\n\n“Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work”\nThe evaluator catches real bugs: broken logic, API errors, incomplete features\nSame idea as makers and checkers (Module 7)\n\n\n\n\nSource: Prithvi Rajasekaran, “Harness design for long-running application development,” Anthropic Labs, March 2026."
+    "text": "Agents Can’t Grade Their Own Work\nA recent Anthropic engineering post makes a critical point about AI agents:\n\n“When asked to evaluate work they’ve produced, agents tend to respond by confidently praising the work — even when, to a human observer, the quality is obviously mediocre.”\n\nThe solution: a generator-evaluator separation — use a separate agent to critique.\n\n\nThe Pattern\n\nA generator agent writes the code\nA separate evaluator agent tests and critiques it\nThe evaluator is tuned to be skeptical\nThey iterate via “sprint contracts” with success criteria defined before implementation\n\n\n\nWhy It Works\n\n“Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work”\nThe evaluator catches real bugs: broken logic, API errors, incomplete features\nSame idea as makers and checkers (Module 7)\n\n\n\n\nSource: Prithvi Rajasekaran, “Harness design for long-running application development,” Anthropic Labs, March 2026."
   },
   {
-    "objectID": "slides/m10-corporate.html#the-build-vs-buy-reality",
-    "href": "slides/m10-corporate.html#the-build-vs-buy-reality",
+    "objectID": "slides/m10-corporate.html#running-ai-locally",
+    "href": "slides/m10-corporate.html#running-ai-locally",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "The Build-vs-Buy Reality",
-    "text": "The Build-vs-Buy Reality\nThe TCO of on-prem AI is not just hardware.\n\n\nCloud (e.g., Anthropic API)\n\nModel + API + coding agent included\nPay per token, scale on demand\nNo infrastructure team needed\nContinuous model improvements\nRisk: data leaves your network\n\n\n\nOn-Prem\n\nGPU hardware and data center space\nModel serving and API infrastructure\nBuild or assemble developer tooling\nOngoing maintenance and model updates\nEngineering team to support all of the above\nBenefit: complete data control\n\n\n\n\nAt low-to-moderate usage, cloud wins on cost. At enterprise scale (thousands of employees, continuous inference), on-prem TCO can be lower — but only if you amortize the engineering team across enough usage."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#implement-your-own-on-prem",
-    "href": "slides/m10-corporate.html#implement-your-own-on-prem",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Implement Your Own On-Prem",
-    "text": "Implement Your Own On-Prem\nTo make on-prem concrete, let’s start small — running a model locally on your own machine."
+    "section": "Running AI Locally",
+    "text": "Running AI Locally"
   },
   {
     "objectID": "slides/m10-corporate.html#ollama-local-llms-in-one-installer",
@@ -495,13 +467,6 @@
     "title": "Module 10: Corporate AI Deployment",
     "section": "Ollama: Local LLMs in One Installer",
     "text": "Ollama: Local LLMs in One Installer\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.\n\n\nHow it works\n\nDownload and run the Ollama installer\nRun a model: ollama run gemma4:e2b\nChat locally in the terminal\nAll inference runs on your CPU/GPU\n\n\nModel sizes and RAM\n\nGemma 4 E2B (Google, ~2B active) — runs on 8GB RAM\nGemma 4 E4B (Google, ~4B active) — runs on 8GB RAM\nLlama 3.1 8B (Meta) — needs 16GB RAM\nModels download once and run offline"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#apple-silicon-a-local-ai-advantage",
-    "href": "slides/m10-corporate.html#apple-silicon-a-local-ai-advantage",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Apple Silicon: A Local AI Advantage",
-    "text": "Apple Silicon: A Local AI Advantage\nMacs with Apple Silicon have unified memory — CPU, GPU, and Neural Engine share one memory pool with no copying bottleneck. This is ideal for LLM inference.\n\n\n\n\n\n\n\n\nMac Configuration\nUnified Memory\nLargest Model\n\n\n\n\nMacBook Air / base Pro\n8–16 GB\nGemma 4 E4B, Llama 3.1 8B\n\n\nMacBook Pro (M3/M4 Pro)\n18–48 GB\n30B+ models comfortably\n\n\nMacBook Pro / Mac Studio (M4 Max)\n36–128 GB\n70B models at 30–45 tokens/sec\n\n\n\n\nA 16GB MacBook often outperforms a Windows PC with 32GB for AI workloads, because there is no separate GPU memory bottleneck."
   },
   {
     "objectID": "slides/m10-corporate.html#exercise-running-a-local-model",
@@ -543,7 +508,7 @@
     "href": "slides/m10-corporate.html#summary-1",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Summary",
-    "text": "Summary\n\n\nData Security\n\nAgent evaluation loop\nSchema + synthetic rows\nMitigations and their limits\n\n\n\nDeployment Spectrum\n\nPublic cloud → VPC-hosted → on-prem\nPrivate cloud and confidential computing\nBuild-vs-buy reality\n\n\n\nEnterprise Adoption\n\nSandbox-audit-deploy\nQuick wins → medium-term → strategic\nTrust is the bottleneck\n\n\n\n\nProtect the data, understand the deployment options, adopt in stages."
+    "text": "Summary\n\n\nWhere AI Lives\n\nPublic cloud → VPC-hosted → on-prem\nMatch deployment to data sensitivity\nMost work: cloud APIs are fine\n\n\n\nWorking with Agents\n\nAgents can’t grade their own work\nGenerator-evaluator separation\nLocal models via Ollama for sensitive data\n\n\n\nAdoption\n\nSandbox → audit → deploy\nQuick wins → medium-term → strategic\nTrust is the bottleneck\n\n\n\n\nKnow where AI can live, use the right patterns, adopt in stages."
   },
   {
     "objectID": "slides/m8-scraping.html#web-scraping-fundamentals",

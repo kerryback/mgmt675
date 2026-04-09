@@ -320,3 +320,48 @@ The upgrade came Thursday, March 28, 2026, following Magnolia's quarterly earnin
 **Magnolia Oil & Gas:** An independent energy firm focused on acquiring, developing, and optimizing onshore oil and gas assets in South Texas.
 
 **Zacks Research:** An equity research organization providing investment analysis and recommendations to institutional and retail investors.
+
+---
+
+## April 1, 2026 — Daily Political
+
+# Q1 EPS Estimates for Magnolia Oil & Gas Boosted by KeyCorp
+
+KeyCorp analyst Tim Rezvan boosted Q1 2026 EPS estimates for Magnolia Oil & Gas Corporation (NYSE: MGY) from $0.42 to $0.58. The full-year 2026 EPS estimate stands at $3.22, with quarterly estimates of $0.58 (Q1), $0.92 (Q2), $0.87 (Q3), and $0.85 (Q4).
+
+KeyCorp maintains an Overweight rating with a $38.00 price target — the highest among covering analysts.
+
+---
+
+## April 4, 2026 — Houston Today (National Today)
+
+# Magnolia Oil & Gas Earns 'Moderate Buy' Rating from Analysts
+
+Magnolia Oil & Gas holds a consensus "Moderate Buy" rating based on 17 analysts — 8 Hold, 8 Buy, and 1 Strong Buy. The average 12-month price target is $30.55, with a range from $25.00 to $38.00 (KeyCorp).
+
+Recent analyst actions include BMO Capital initiating with Outperform ($27), Goldman Sachs raising its target from $23 to $26 (Neutral), UBS reaffirming Buy ($29), and Roth MKM maintaining Buy.
+
+---
+
+## April 7, 2026 — Zacks
+
+# Magnolia Oil & Gas Added to Zacks Rank #1 (Strong Buy) List
+
+Zacks added Magnolia Oil & Gas (NYSE: MGY) to its Rank #1 (Strong Buy) list, citing upward revisions to earnings estimates. The stock traded at approximately $31.80, up 38% year-to-date, with a 30-day return of 9.2%.
+
+## Key Financial Metrics
+
+- **Market capitalization:** ~$5.65 billion
+- **P/E ratio:** 16.4x
+- **Beta:** 0.96
+- **Debt-to-equity:** 0.20
+- **Current ratio:** 1.54
+- **5-year total shareholder return:** +192%
+
+## Insider Activity
+
+Recent insider selling includes Director Shandell Szabo selling 11,731 shares at ~$31.98 on March 30, and Director Edward Djerejian selling 18,000 shares at ~$28.98 on March 10. Over the past 90 days, insiders have sold approximately 339,000 shares worth ~$9.9 million.
+
+## Upcoming Catalyst
+
+Magnolia's Q1 2026 earnings call is scheduled for May 7, 2026.
