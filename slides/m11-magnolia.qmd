@@ -25,12 +25,6 @@ Download these files and add them to a Claude Code session:
 - [magnolia-10k-narrative.md](../files/magnolia-10k-narrative.md) --- MD&A + Risk Factors, 2019--2025
 - [magnolia-news.md](../files/magnolia-news.md) --- Recent news articles (Jul 2025 -- Mar 2026)
 
-:::{.info-box}
-[**Google Meet**]{.box-title}
-
-Join at [meet.google.com/grn-mrsu-wkt](https://meet.google.com/grn-mrsu-wkt) --- you will share your screen when called on.
-:::
-
 ## What We're Doing Today
 
 We will [value Magnolia Oil & Gas (MGY)]{.amber} as a class, with AI as our analyst.
@@ -38,7 +32,7 @@ We will [value Magnolia Oil & Gas (MGY)]{.amber} as a class, with AI as our anal
 Each step will be assigned to a student or group. You will:
 
 1. Prompt Claude with the data files
-2. Share your screen via Google Meet
+2. Share your screen
 3. Walk us through what you found
 
 :::{.explainer}
@@ -143,10 +137,6 @@ A clean balance sheet matters for the discount rate we'll choose later.
 - Identifying what analysts and news say about growth
 - Sanity-checking our assumptions against peers
 :::
-:::
-
-:::{.explainer}
-The goal is not a "right" answer --- it is a [defensible]{.amber} set of assumptions grounded in evidence.
 :::
 
 ## Revenue Growth Assumptions

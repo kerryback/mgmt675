@@ -1992,14 +1992,14 @@
     "href": "slides/m11-magnolia.html#materials-setup",
     "title": "Module 11: Valuing Magnolia Oil & Gas",
     "section": "Materials & Setup",
-    "text": "Materials & Setup\nDownload these files and add them to a Claude Code session:\n\nmagnolia-financials.xlsx — Financial statements, 2019–2025\nmagnolia-10k-narrative.md — MD&A + Risk Factors, 2019–2025\nmagnolia-news.md — Recent news articles (Jul 2025 – Mar 2026)\n\n\nGoogle Meet\nJoin at meet.google.com/grn-mrsu-wkt — you will share your screen when called on."
+    "text": "Materials & Setup\nDownload these files and add them to a Claude Code session:\n\nmagnolia-financials.xlsx — Financial statements, 2019–2025\nmagnolia-10k-narrative.md — MD&A + Risk Factors, 2019–2025\nmagnolia-news.md — Recent news articles (Jul 2025 – Mar 2026)"
   },
   {
     "objectID": "slides/m11-magnolia.html#what-were-doing-today",
     "href": "slides/m11-magnolia.html#what-were-doing-today",
     "title": "Module 11: Valuing Magnolia Oil & Gas",
     "section": "What We’re Doing Today",
-    "text": "What We’re Doing Today\nWe will value Magnolia Oil & Gas (MGY) as a class, with AI as our analyst.\nEach step will be assigned to a student or group. You will:\n\nPrompt Claude with the data files\nShare your screen via Google Meet\nWalk us through what you found\n\n\nThe slides pose questions — you and Claude supply the answers."
+    "text": "What We’re Doing Today\nWe will value Magnolia Oil & Gas (MGY) as a class, with AI as our analyst.\nEach step will be assigned to a student or group. You will:\n\nPrompt Claude with the data files\nShare your screen\nWalk us through what you found\n\n\nThe slides pose questions — you and Claude supply the answers."
   },
   {
     "objectID": "slides/m11-magnolia.html#understand-the-business",
@@ -2069,7 +2069,7 @@
     "href": "slides/m11-magnolia.html#the-dcf-framework",
     "title": "Module 11: Valuing Magnolia Oil & Gas",
     "section": "The DCF Framework",
-    "text": "The DCF Framework\n\n\nWhat We Need\n\nProjected free cash flows (5–10 years)\nA terminal value (perpetuity growth or exit multiple)\nA discount rate (WACC)\n\n\n\nWhere AI Helps\n\nExtracting historical base rates from the data\nIdentifying what analysts and news say about growth\nSanity-checking our assumptions against peers\n\n\n\n\nThe goal is not a “right” answer — it is a defensible set of assumptions grounded in evidence."
+    "text": "The DCF Framework\n\n\nWhat We Need\n\nProjected free cash flows (5–10 years)\nA terminal value (perpetuity growth or exit multiple)\nA discount rate (WACC)\n\n\n\nWhere AI Helps\n\nExtracting historical base rates from the data\nIdentifying what analysts and news say about growth\nSanity-checking our assumptions against peers"
   },
   {
     "objectID": "slides/m11-magnolia.html#revenue-growth-assumptions",
