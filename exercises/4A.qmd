@@ -1,5 +1,5 @@
 ---
-title: "Exercise 4A: Capital Budgeting Case Analysis"
+title: "Exercise 4A: Persistence Project"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,7 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Use AI to analyze the capital budgeting decision in the \textit{Sneaker 2013} case (Babson College), which asks whether New Balance should manufacture a new running shoe.
+Use AI to analyze the Persistence project in the \textit{Sneaker 2013} case (Babson College).  Assume the project is independent of the Sneaker project - the firm can adopt either, none, or both.  You can upload [this Excel workbook], which contains the  tables in the case.
 
 \medskip
 \noindent\textbf{Important:} Analyze only the \textbf{Sneaker} project.  You do not need to analyze the Persistence project.
@@ -21,20 +21,20 @@ Use AI to analyze the capital budgeting decision in the \textit{Sneaker 2013} ca
 \noindent\textbf{Requirements.}
 
 \begin{enumerate}
-  \item \textbf{Chat about the analysis.}  Open a conversation with Claude (or another AI) and describe the Sneaker project: the nature of the investment, the cash flow projections, the discount rate, and any other relevant assumptions from the case.  Ask the AI to help you think through the DCF analysis --- what to include, how to structure it, and what assumptions deserve scrutiny.
+  \item \textbf{Chat about the analysis.}  Open a conversation with Claude Code and describe the Persistence project: the nature of the investment, the cash flow projections, the discount rate, and any other relevant assumptions from the case.  Ask the AI to help you think through the DCF analysis --- what to include, how to structure it, and what assumptions deserve scrutiny.
 
-  \item \textbf{Build the DCF model.}  Using Claude Code, build a spreadsheet or Python script that computes the NPV of the Sneaker project based on the case data.  The model should clearly show the projected cash flows, the discount rate, and the NPV.
+  \item \textbf{Build the DCF model.}  Using Claude Code, build an Excel workbook that computes the NPV of the Sneaker project based on the case data.  The model should clearly show the projected cash flows, the discount rate, and the NPV.
 
   \item \textbf{Sensitivity analysis.}  Vary at least two key assumptions (e.g., sales volume, unit price, discount rate) and show how the NPV changes.  Present the results in a table or chart.
 
-  \item \textbf{Recommendation.}  Based on your analysis, should New Balance proceed with the Sneaker project?  Write a brief justification.
+  \item \textbf{Recommendation.}  Based on your analysis, should New Balance proceed with the Persistence project?  Write a brief justification.
 \end{enumerate}
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
 \begin{itemize}
-  \item DCF model (\texttt{4A-Model.xlsx} or \texttt{4A-Model.py})
+  \item DCF model (\texttt{4A-Model.xlsx})
   \item Summary with sensitivity analysis and recommendation (\texttt{4A-Summary.pdf}, 1--2 pages)
   \item Screenshots of your AI conversation (\texttt{4A-Screenshots.pdf})
 \end{itemize}

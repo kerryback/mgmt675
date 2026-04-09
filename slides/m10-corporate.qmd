@@ -18,11 +18,10 @@ format:
 ---
 
 
-## Where AI Can Live {.section-divider}
 
 ## The Deployment Spectrum
 
-We discussed data security risks with the Deloitte Canada case. The key question is: [where does inference happen]{.amber}?
+We discussed data security risks with the Deloitte Canada case. A key question is: [where does inference happen]{.amber}?
 
 :::{.three-cards}
 :::{.card .card-light}
@@ -41,202 +40,104 @@ We discussed data security risks with the Deloitte Canada case. The key question
 - Models run in your VPC with private endpoints
 - Customer-managed encryption keys
 - Meets HIPAA, SOX, FedRAMP for many use cases
+- Most common choice
 :::
 
 :::{.card .card-light}
 [**On-Prem / Private Cloud**]{.card-title}
 
+- Only available for [open-source models]{.amber} (Llama, Gemma, Mistral, etc.)
 - Air-gapped or classified environments
 - Data that cannot transit any external network
 - Full physical control of hardware
-- Highest cost, highest data control
 :::
 :::
 
-:::{.explainer style="text-align:center;"}
-Cloud-hosted private AI (middle column) is the [most common enterprise pattern]{.amber} today. For most of your work, public cloud APIs are fine --- just know when they're not.
-:::
+## Running AI Locally
 
-## Agents Can't Grade Their Own Work
+[Ollama](https://ollama.com) lets you run open-source models on your laptop --- no cloud, no API key, no data leaving your machine.  Same idea as on-prem deployment.
 
-A recent Anthropic engineering post makes a critical point about AI agents:
-
-> "When asked to evaluate work they've produced, agents tend to respond by confidently praising the work --- even when, to a human observer, the quality is obviously mediocre."
-
-The solution: a [generator-evaluator separation]{.amber} --- use a separate agent to critique.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**The Pattern**]{.card-title}
-
-- A **generator** agent writes the code
-- A separate **evaluator** agent tests and critiques it
-- The evaluator is tuned to be [skeptical]{.amber}
-- They iterate via "sprint contracts" with success criteria defined before implementation
-:::
-
-:::{.card .card-dark}
-[**Why It Works**]{.card-title}
-
-- "Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work"
-- The evaluator catches real bugs: broken logic, API errors, incomplete features
-- Same idea as [makers and checkers]{.amber} (Module 7)
-:::
-:::
-
-:::{.explainer style="text-align:center;"}
-Source: Prithvi Rajasekaran, "[Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)," Anthropic Labs, March 2026.
-:::
-
-## Running AI Locally {.section-divider}
-
-## Ollama: Local LLMs in One Installer
-
-[Ollama](https://ollama.com) lets you run open-source models on your laptop --- no cloud, no API key, no data leaving your machine.
-
-:::{.two-col}
-::::{.column}
-**How it works**
-
-1. Download and run the Ollama installer
-2. Run a model: `ollama run gemma4:e2b`
-3. Chat locally in the terminal
-4. All inference runs on your CPU/GPU
-::::
-
-::::{.column}
-**Model sizes and RAM**
-
-- **Gemma 4 E2B** (Google, ~2B active) --- runs on [8GB RAM]{.amber}
-- **Gemma 4 E4B** (Google, ~4B active) --- runs on 8GB RAM
-- **Llama 3.1 8B** (Meta) --- needs 16GB RAM
-- Models download once and run offline
-::::
-:::
-
-## Exercise: Running a Local Model
-
-:::{.two-col}
-::::{.column}
 **Setup**
 
 1. Go to [ollama.com](https://ollama.com) and download the installer for your OS
 2. Run the installer (no terminal needed)
 3. Once installed, open a terminal and run:
+
    ```
    ollama run gemma4:e2b
    ```
-4. Then try:
+
+
+## Prompt and Assess
+
+**The prompt**
+
+Give gemma4:e2b  this prompt:
+
+> *A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7--9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?*
+
+Assess the quality of the response.
+
+## A Larger Model
+
+Now try:
+
    ```
    ollama run gemma4:e4b
    ```
-::::
 
-::::{.column}
-**The prompt**
+Try the same prompt and assess the response.
 
-Give each model this prompt and compare their responses:
+## Example Model sizes and RAM
 
-> *"A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7--9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?"*
+- Gemma 4 E2B (Google, ~2B active) --- runs on 4GB RAM
+- Gemma 4 E4B (Google, ~4B active) --- runs on 8GB RAM
+- Llama 3.1 8B (Meta) --- needs 16GB RAM
 
-**What to notice**: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.
-::::
-:::
 
-[Both models run entirely on your machine. No data is sent anywhere.]{.amber}
+## How Small Models Fit on a Laptop: Quantization
 
-## AI Adoption Roadmap {.section-divider}
+Full-precision LLMs store each parameter as a 32-bit float. [Quantization]{.amber} shrinks those numbers to 4--8 bits, by rounding on a discrete grid, slashing the memory requirement with surprisingly little quality loss.
 
-## The Sandbox-Audit-Deploy Pattern
-
-Before deploying any AI workflow to your team, follow three phases.
-
-:::{.step-flow}
-:::{.step-card}
-:::{.step-icon}
-🧪
-:::
-:::{.step-title}
-1. Sandbox
-:::
-:::{.step-desc}
-Test with dummy data
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-🔍
-:::
-:::{.step-title}
-2. Audit
-:::
-:::{.step-desc}
-Review logs and logic
-:::
-:::
-
-:::{.step-card}
-:::{.step-icon}
-🚀
-:::
-:::{.step-title}
-3. Deploy
-:::
-:::{.step-desc}
-Roll out with monitoring
-:::
-:::
-:::
-
-Test with synthetic data, review logs and logic, then roll out with weekly monitoring.
-
-## Adoption Timeline: From Quick Wins to Strategic
-
-Each adoption stage maps to a trust level.
-
-1. **Quick wins** (weeks) --- *light verification*:
-   - Chat for research, summarization, drafts
-   - Upload spreadsheets for ad-hoc analysis
-
-2. **Medium-term** (months) --- *test-before-deploy*:
-   - Skills for recurring workflows
-   - MCP integrations and web apps
-
-3. **Strategic** (quarters) --- *full audit trail*:
-   - Production apps with authentication
-   - AI usage policy and governance framework
-
-## Summary {.section-divider}
-
-## Summary
-
-:::{.three-cards}
+:::{.two-cards}
 :::{.card .card-light}
-[**Where AI Lives**]{.card-title}
+[**What Quantization Does**]{.card-title}
 
-- Public cloud → VPC-hosted → on-prem
-- Match deployment to data sensitivity
-- Most work: cloud APIs are fine
+- Converts weights from 32-bit (or 16-bit) floats to 4-bit or 8-bit integers (integer=location on the grid)
+- A 7B-parameter model: ~14 GB at 16-bit → [~4 GB at 4-bit]{.amber}
+- Different quantizations ship as different model names, with the default usually being 4-bit 
+
 :::
 
-:::{.card .card-light}
-[**Working with Agents**]{.card-title}
+:::{.card .card-dark}
+[**What You Give Up**]{.card-title}
 
-- Agents can't grade their own work
-- Generator-evaluator separation
-- Local models via Ollama for sensitive data
-:::
-
-:::{.card .card-light}
-[**Adoption**]{.card-title}
-
-- Sandbox → audit → deploy
-- Quick wins → medium-term → strategic
-- Trust is the bottleneck
+- Slight loss in nuance on complex reasoning
+- Rare factual errors on edge cases
+- For most business tasks (drafting, summarization, code), [the difference is negligible]{.amber}
+- 8-bit is nearly lossless; 4-bit is the sweet spot for laptops
 :::
 :::
 
-:::{style="text-align:center; margin-top:1em;"}
-[Know where AI can live, use the right patterns, adopt in stages.]{.amber}
+
+## Developer Tooling
+
+For deployment, another consideration beyond the LLM is the coding harness.  A coding agent is [not just an LLM]{.amber} --- it's a harness of tools wrapped around the model.
+
+:::{.explainer style="text-align:center;"}
+The model is the brain. The harness is everything else. On-prem means building the harness yourself.
 :::
+
+## The Claude Code Leak
+
+On March 31, 2026, Anthropic accidentally published Claude Code's full source code via an npm packaging error --- making the [architectural complexity]{.amber} of a production coding agent visible for the first time.
+
+512,000 lines (not all production code), ~40 permission-gated tools (file, terminal, git, web, IDE) 
+
+**What happened next**
+
+- [claw-code](https://github.com/ultraworkers/claw-code): open-source reimplementation became the fastest-growing repo on GitHub
+- Provider-agnostic: works with Claude, OpenAI, or [local models via Ollama]{.amber}
+- Other alternatives: Aider, OpenHands, Continue.dev
+
+

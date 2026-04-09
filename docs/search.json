@@ -434,81 +434,60 @@
     "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo training required\n\n\n\nNotebookLM\n\nFree RAG without code\nInline citations\nAudio overviews\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence\n\n\n\n\nRAG gives AI knowledge it doesn’t have — grounded in your documents, with citations."
   },
   {
-    "objectID": "slides/m10-corporate.html#where-ai-can-live",
-    "href": "slides/m10-corporate.html#where-ai-can-live",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Where AI Can Live",
-    "text": "Where AI Can Live"
-  },
-  {
     "objectID": "slides/m10-corporate.html#the-deployment-spectrum",
     "href": "slides/m10-corporate.html#the-deployment-spectrum",
     "title": "Module 10: Corporate AI Deployment",
     "section": "The Deployment Spectrum",
-    "text": "The Deployment Spectrum\nWe discussed data security risks with the Deloitte Canada case. The key question is: where does inference happen?\n\n\nPublic Cloud API\n\nResearch, drafting, coding assistance\nNon-sensitive data analysis\nFrontier model quality\nNo infrastructure to manage\n\n\n\nCloud-Hosted Private AI\n\nAWS Bedrock, Azure OpenAI, GCP Vertex AI\nModels run in your VPC with private endpoints\nCustomer-managed encryption keys\nMeets HIPAA, SOX, FedRAMP for many use cases\n\n\n\nOn-Prem / Private Cloud\n\nAir-gapped or classified environments\nData that cannot transit any external network\nFull physical control of hardware\nHighest cost, highest data control\n\n\n\n\nCloud-hosted private AI (middle column) is the most common enterprise pattern today. For most of your work, public cloud APIs are fine — just know when they’re not."
-  },
-  {
-    "objectID": "slides/m10-corporate.html#agents-cant-grade-their-own-work",
-    "href": "slides/m10-corporate.html#agents-cant-grade-their-own-work",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Agents Can’t Grade Their Own Work",
-    "text": "Agents Can’t Grade Their Own Work\nA recent Anthropic engineering post makes a critical point about AI agents:\n\n“When asked to evaluate work they’ve produced, agents tend to respond by confidently praising the work — even when, to a human observer, the quality is obviously mediocre.”\n\nThe solution: a generator-evaluator separation — use a separate agent to critique.\n\n\nThe Pattern\n\nA generator agent writes the code\nA separate evaluator agent tests and critiques it\nThe evaluator is tuned to be skeptical\nThey iterate via “sprint contracts” with success criteria defined before implementation\n\n\n\nWhy It Works\n\n“Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work”\nThe evaluator catches real bugs: broken logic, API errors, incomplete features\nSame idea as makers and checkers (Module 7)\n\n\n\n\nSource: Prithvi Rajasekaran, “Harness design for long-running application development,” Anthropic Labs, March 2026."
+    "text": "The Deployment Spectrum\nWe discussed data security risks with the Deloitte Canada case. A key question is: where does inference happen?\n\n\nPublic Cloud API\n\nResearch, drafting, coding assistance\nNon-sensitive data analysis\nFrontier model quality\nNo infrastructure to manage\n\n\n\nCloud-Hosted Private AI\n\nAWS Bedrock, Azure OpenAI, GCP Vertex AI\nModels run in your VPC with private endpoints\nCustomer-managed encryption keys\nMeets HIPAA, SOX, FedRAMP for many use cases\nMost common choice\n\n\n\nOn-Prem / Private Cloud\n\nOnly available for open-source models (Llama, Gemma, Mistral, etc.)\nAir-gapped or classified environments\nData that cannot transit any external network\nFull physical control of hardware"
   },
   {
     "objectID": "slides/m10-corporate.html#running-ai-locally",
     "href": "slides/m10-corporate.html#running-ai-locally",
     "title": "Module 10: Corporate AI Deployment",
     "section": "Running AI Locally",
-    "text": "Running AI Locally"
+    "text": "Running AI Locally\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine. Same idea as on-prem deployment.\nSetup\n\nGo to ollama.com and download the installer for your OS\nRun the installer (no terminal needed)\nOnce installed, open a terminal and run:\nollama run gemma4:e2b"
   },
   {
-    "objectID": "slides/m10-corporate.html#ollama-local-llms-in-one-installer",
-    "href": "slides/m10-corporate.html#ollama-local-llms-in-one-installer",
+    "objectID": "slides/m10-corporate.html#prompt-and-assess",
+    "href": "slides/m10-corporate.html#prompt-and-assess",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "Ollama: Local LLMs in One Installer",
-    "text": "Ollama: Local LLMs in One Installer\nOllama lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.\n\n\nHow it works\n\nDownload and run the Ollama installer\nRun a model: ollama run gemma4:e2b\nChat locally in the terminal\nAll inference runs on your CPU/GPU\n\n\nModel sizes and RAM\n\nGemma 4 E2B (Google, ~2B active) — runs on 8GB RAM\nGemma 4 E4B (Google, ~4B active) — runs on 8GB RAM\nLlama 3.1 8B (Meta) — needs 16GB RAM\nModels download once and run offline"
+    "section": "Prompt and Assess",
+    "text": "Prompt and Assess\nThe prompt\nGive gemma4:e2b this prompt:\n\nA private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?\n\nAssess the quality of the response."
   },
   {
-    "objectID": "slides/m10-corporate.html#exercise-running-a-local-model",
-    "href": "slides/m10-corporate.html#exercise-running-a-local-model",
+    "objectID": "slides/m10-corporate.html#a-larger-model",
+    "href": "slides/m10-corporate.html#a-larger-model",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "Exercise: Running a Local Model",
-    "text": "Exercise: Running a Local Model\n\n\nSetup\n\nGo to ollama.com and download the installer for your OS\nRun the installer (no terminal needed)\nOnce installed, open a terminal and run:\nollama run gemma4:e2b\nThen try:\nollama run gemma4:e4b\n\n\nThe prompt\nGive each model this prompt and compare their responses:\n\n“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”\n\nWhat to notice: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.\n\nBoth models run entirely on your machine. No data is sent anywhere."
+    "section": "A Larger Model",
+    "text": "A Larger Model\nNow try:\nollama run gemma4:e4b\nTry the same prompt and assess the response."
   },
   {
-    "objectID": "slides/m10-corporate.html#ai-adoption-roadmap",
-    "href": "slides/m10-corporate.html#ai-adoption-roadmap",
+    "objectID": "slides/m10-corporate.html#example-model-sizes-and-ram",
+    "href": "slides/m10-corporate.html#example-model-sizes-and-ram",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "AI Adoption Roadmap",
-    "text": "AI Adoption Roadmap"
+    "section": "Example Model sizes and RAM",
+    "text": "Example Model sizes and RAM\n\nGemma 4 E2B (Google, ~2B active) — runs on 4GB RAM\nGemma 4 E4B (Google, ~4B active) — runs on 8GB RAM\nLlama 3.1 8B (Meta) — needs 16GB RAM"
   },
   {
-    "objectID": "slides/m10-corporate.html#the-sandbox-audit-deploy-pattern",
-    "href": "slides/m10-corporate.html#the-sandbox-audit-deploy-pattern",
+    "objectID": "slides/m10-corporate.html#how-small-models-fit-on-a-laptop-quantization",
+    "href": "slides/m10-corporate.html#how-small-models-fit-on-a-laptop-quantization",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "The Sandbox-Audit-Deploy Pattern",
-    "text": "The Sandbox-Audit-Deploy Pattern\nBefore deploying any AI workflow to your team, follow three phases.\n\n\n\n🧪\n\n\n\nSandbox\n\n\n\nTest with dummy data\n\n\n\n\n🔍\n\n\n\nAudit\n\n\n\nReview logs and logic\n\n\n\n\n🚀\n\n\n\nDeploy\n\n\n\nRoll out with monitoring\n\n\n\nTest with synthetic data, review logs and logic, then roll out with weekly monitoring."
+    "section": "How Small Models Fit on a Laptop: Quantization",
+    "text": "How Small Models Fit on a Laptop: Quantization\nFull-precision LLMs store each parameter as a 32-bit float. Quantization shrinks those numbers to 4–8 bits, by rounding on a discrete grid, slashing the memory requirement with surprisingly little quality loss.\n\n\nWhat Quantization Does\n\nConverts weights from 32-bit (or 16-bit) floats to 4-bit or 8-bit integers (integer=location on the grid)\nA 7B-parameter model: ~14 GB at 16-bit → ~4 GB at 4-bit\nDifferent quantizations ship as different model names, with the default usually being 4-bit\n\n\n\nWhat You Give Up\n\nSlight loss in nuance on complex reasoning\nRare factual errors on edge cases\nFor most business tasks (drafting, summarization, code), the difference is negligible\n8-bit is nearly lossless; 4-bit is the sweet spot for laptops"
   },
   {
-    "objectID": "slides/m10-corporate.html#adoption-timeline-from-quick-wins-to-strategic",
-    "href": "slides/m10-corporate.html#adoption-timeline-from-quick-wins-to-strategic",
+    "objectID": "slides/m10-corporate.html#developer-tooling",
+    "href": "slides/m10-corporate.html#developer-tooling",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "Adoption Timeline: From Quick Wins to Strategic",
-    "text": "Adoption Timeline: From Quick Wins to Strategic\nEach adoption stage maps to a trust level.\n\nQuick wins (weeks) — light verification:\n\nChat for research, summarization, drafts\nUpload spreadsheets for ad-hoc analysis\n\nMedium-term (months) — test-before-deploy:\n\nSkills for recurring workflows\nMCP integrations and web apps\n\nStrategic (quarters) — full audit trail:\n\nProduction apps with authentication\nAI usage policy and governance framework"
+    "section": "Developer Tooling",
+    "text": "Developer Tooling\nFor deployment, another consideration beyond the LLM is the coding harness. A coding agent is not just an LLM — it’s a harness of tools wrapped around the model.\n\nThe model is the brain. The harness is everything else. On-prem means building the harness yourself."
   },
   {
-    "objectID": "slides/m10-corporate.html#summary",
-    "href": "slides/m10-corporate.html#summary",
+    "objectID": "slides/m10-corporate.html#the-claude-code-leak",
+    "href": "slides/m10-corporate.html#the-claude-code-leak",
     "title": "Module 10: Corporate AI Deployment",
-    "section": "Summary",
-    "text": "Summary"
-  },
-  {
-    "objectID": "slides/m10-corporate.html#summary-1",
-    "href": "slides/m10-corporate.html#summary-1",
-    "title": "Module 10: Corporate AI Deployment",
-    "section": "Summary",
-    "text": "Summary\n\n\nWhere AI Lives\n\nPublic cloud → VPC-hosted → on-prem\nMatch deployment to data sensitivity\nMost work: cloud APIs are fine\n\n\n\nWorking with Agents\n\nAgents can’t grade their own work\nGenerator-evaluator separation\nLocal models via Ollama for sensitive data\n\n\n\nAdoption\n\nSandbox → audit → deploy\nQuick wins → medium-term → strategic\nTrust is the bottleneck\n\n\n\n\nKnow where AI can live, use the right patterns, adopt in stages."
+    "section": "The Claude Code Leak",
+    "text": "The Claude Code Leak\nOn March 31, 2026, Anthropic accidentally published Claude Code’s full source code via an npm packaging error — making the architectural complexity of a production coding agent visible for the first time.\n512,000 lines (not all production code), ~40 permission-gated tools (file, terminal, git, web, IDE)\nWhat happened next\n\nclaw-code: open-source reimplementation became the fastest-growing repo on GitHub\nProvider-agnostic: works with Claude, OpenAI, or local models via Ollama\nOther alternatives: Aider, OpenHands, Continue.dev"
   },
   {
     "objectID": "slides/m8-scraping.html#web-scraping-fundamentals",

@@ -145,12 +145,9 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="where-ai-can-live" class="slide level2 section-divider center">
-<h2>Where AI Can Live</h2>
-</section>
 <section id="the-deployment-spectrum" class="slide level2 center">
 <h2>The Deployment Spectrum</h2>
-<p>We discussed data security risks with the Deloitte Canada case. The key question is: <span class="amber">where does inference happen</span>?</p>
+<p>We discussed data security risks with the Deloitte Canada case. A key question is: <span class="amber">where does inference happen</span>?</p>
 <div class="three-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Public Cloud API</strong></span></p>
@@ -168,204 +165,94 @@ Kerry Back, Rice University
 <li>Models run in your VPC with private endpoints</li>
 <li>Customer-managed encryption keys</li>
 <li>Meets HIPAA, SOX, FedRAMP for many use cases</li>
+<li>Most common choice</li>
 </ul>
 </div>
 <div class="card card-light">
 <p><span class="card-title"><strong>On-Prem / Private Cloud</strong></span></p>
 <ul>
+<li>Only available for <span class="amber">open-source models</span> (Llama, Gemma, Mistral, etc.)</li>
 <li>Air-gapped or classified environments</li>
 <li>Data that cannot transit any external network</li>
 <li>Full physical control of hardware</li>
-<li>Highest cost, highest data control</li>
 </ul>
 </div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Cloud-hosted private AI (middle column) is the <span class="amber">most common enterprise pattern</span> today. For most of your work, public cloud APIs are fine — just know when they’re not.</p>
 </div>
 </section>
-<section id="agents-cant-grade-their-own-work" class="slide level2 center">
-<h2>Agents Can’t Grade Their Own Work</h2>
-<p>A recent Anthropic engineering post makes a critical point about AI agents:</p>
-<blockquote>
-<p>“When asked to evaluate work they’ve produced, agents tend to respond by confidently praising the work — even when, to a human observer, the quality is obviously mediocre.”</p>
-</blockquote>
-<p>The solution: a <span class="amber">generator-evaluator separation</span> — use a separate agent to critique.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>The Pattern</strong></span></p>
-<ul>
-<li>A <strong>generator</strong> agent writes the code</li>
-<li>A separate <strong>evaluator</strong> agent tests and critiques it</li>
-<li>The evaluator is tuned to be <span class="amber">skeptical</span></li>
-<li>They iterate via “sprint contracts” with success criteria defined before implementation</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Why It Works</strong></span></p>
-<ul>
-<li>“Tuning a standalone evaluator to be skeptical turns out to be far more tractable than making a generator critical of its own work”</li>
-<li>The evaluator catches real bugs: broken logic, API errors, incomplete features</li>
-<li>Same idea as <span class="amber">makers and checkers</span> (Module 7)</li>
-</ul>
-</div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p>Source: Prithvi Rajasekaran, “<a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness design for long-running application development</a>,” Anthropic Labs, March 2026.</p>
-</div>
-</section>
-<section id="running-ai-locally" class="slide level2 section-divider center">
+<section id="running-ai-locally" class="slide level2 center">
 <h2>Running AI Locally</h2>
-</section>
-<section id="ollama-local-llms-in-one-installer" class="slide level2 center">
-<h2>Ollama: Local LLMs in One Installer</h2>
-<p><a href="https://ollama.com">Ollama</a> lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine.</p>
-<div class="two-col">
-<div class="column">
-<p><strong>How it works</strong></p>
-<ol type="1">
-<li>Download and run the Ollama installer</li>
-<li>Run a model: <code>ollama run gemma4:e2b</code></li>
-<li>Chat locally in the terminal</li>
-<li>All inference runs on your CPU/GPU</li>
-</ol>
-</div><div class="column">
-<p><strong>Model sizes and RAM</strong></p>
-<ul>
-<li><strong>Gemma 4 E2B</strong> (Google, ~2B active) — runs on <span class="amber">8GB RAM</span></li>
-<li><strong>Gemma 4 E4B</strong> (Google, ~4B active) — runs on 8GB RAM</li>
-<li><strong>Llama 3.1 8B</strong> (Meta) — needs 16GB RAM</li>
-<li>Models download once and run offline</li>
-</ul>
-</div></div>
-</section>
-<section id="exercise-running-a-local-model" class="slide level2 center">
-<h2>Exercise: Running a Local Model</h2>
-<div class="two-col">
-<div class="column">
+<p><a href="https://ollama.com">Ollama</a> lets you run open-source models on your laptop — no cloud, no API key, no data leaving your machine. Same idea as on-prem deployment.</p>
 <p><strong>Setup</strong></p>
 <ol type="1">
 <li><p>Go to <a href="https://ollama.com">ollama.com</a> and download the installer for your OS</p></li>
 <li><p>Run the installer (no terminal needed)</p></li>
 <li><p>Once installed, open a terminal and run:</p>
 <pre><code>ollama run gemma4:e2b</code></pre></li>
-<li><p>Then try:</p>
-<pre><code>ollama run gemma4:e4b</code></pre></li>
 </ol>
-</div><div class="column">
+</section>
+<section id="prompt-and-assess" class="slide level2 center">
+<h2>Prompt and Assess</h2>
 <p><strong>The prompt</strong></p>
-<p>Give each model this prompt and compare their responses:</p>
+<p>Give gemma4:e2b this prompt:</p>
 <blockquote>
-<p><em>“A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?”</em></p>
+<p><em>A private equity firm is evaluating a manufacturing company with $50M in revenue, 12% EBITDA margins, and 8% annual revenue growth. Comparable transactions have been done at 7–9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?</em></p>
 </blockquote>
-<p><strong>What to notice</strong>: quality of reasoning, how each model handles uncertainty, and whether either refuses or hedges differently.</p>
-</div></div>
-<p><span class="amber">Both models run entirely on your machine. No data is sent anywhere.</span></p>
+<p>Assess the quality of the response.</p>
 </section>
-<section id="ai-adoption-roadmap" class="slide level2 section-divider center">
-<h2>AI Adoption Roadmap</h2>
+<section id="a-larger-model" class="slide level2 center">
+<h2>A Larger Model</h2>
+<p>Now try:</p>
+<pre><code>ollama run gemma4:e4b</code></pre>
+<p>Try the same prompt and assess the response.</p>
 </section>
-<section id="the-sandbox-audit-deploy-pattern" class="slide level2 center">
-<h2>The Sandbox-Audit-Deploy Pattern</h2>
-<p>Before deploying any AI workflow to your team, follow three phases.</p>
-<div class="step-flow">
-<div class="step-card">
-<div class="step-icon">
-<p>🧪</p>
-</div>
-<div class="step-title">
-<ol type="1">
-<li>Sandbox</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>Test with dummy data</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>🔍</p>
-</div>
-<div class="step-title">
-<ol start="2" type="1">
-<li>Audit</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>Review logs and logic</p>
-</div>
-</div>
-<div class="step-card">
-<div class="step-icon">
-<p>🚀</p>
-</div>
-<div class="step-title">
-<ol start="3" type="1">
-<li>Deploy</li>
-</ol>
-</div>
-<div class="step-desc">
-<p>Roll out with monitoring</p>
-</div>
-</div>
-</div>
-<p>Test with synthetic data, review logs and logic, then roll out with weekly monitoring.</p>
-</section>
-<section id="adoption-timeline-from-quick-wins-to-strategic" class="slide level2 center">
-<h2>Adoption Timeline: From Quick Wins to Strategic</h2>
-<p>Each adoption stage maps to a trust level.</p>
-<ol type="1">
-<li><strong>Quick wins</strong> (weeks) — <em>light verification</em>:
+<section id="example-model-sizes-and-ram" class="slide level2 center">
+<h2>Example Model sizes and RAM</h2>
 <ul>
-<li>Chat for research, summarization, drafts</li>
-<li>Upload spreadsheets for ad-hoc analysis</li>
-</ul></li>
-<li><strong>Medium-term</strong> (months) — <em>test-before-deploy</em>:
-<ul>
-<li>Skills for recurring workflows</li>
-<li>MCP integrations and web apps</li>
-</ul></li>
-<li><strong>Strategic</strong> (quarters) — <em>full audit trail</em>:
-<ul>
-<li>Production apps with authentication</li>
-<li>AI usage policy and governance framework</li>
-</ul></li>
-</ol>
+<li>Gemma 4 E2B (Google, ~2B active) — runs on 4GB RAM</li>
+<li>Gemma 4 E4B (Google, ~4B active) — runs on 8GB RAM</li>
+<li>Llama 3.1 8B (Meta) — needs 16GB RAM</li>
+</ul>
 </section>
-<section id="summary" class="slide level2 section-divider center">
-<h2>Summary</h2>
-</section>
-<section id="summary-1" class="slide level2 center">
-<h2>Summary</h2>
-<div class="three-cards">
+<section id="how-small-models-fit-on-a-laptop-quantization" class="slide level2 center">
+<h2>How Small Models Fit on a Laptop: Quantization</h2>
+<p>Full-precision LLMs store each parameter as a 32-bit float. <span class="amber">Quantization</span> shrinks those numbers to 4–8 bits, by rounding on a discrete grid, slashing the memory requirement with surprisingly little quality loss.</p>
+<div class="two-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>Where AI Lives</strong></span></p>
+<p><span class="card-title"><strong>What Quantization Does</strong></span></p>
 <ul>
-<li>Public cloud → VPC-hosted → on-prem</li>
-<li>Match deployment to data sensitivity</li>
-<li>Most work: cloud APIs are fine</li>
+<li>Converts weights from 32-bit (or 16-bit) floats to 4-bit or 8-bit integers (integer=location on the grid)</li>
+<li>A 7B-parameter model: ~14 GB at 16-bit → <span class="amber">~4 GB at 4-bit</span></li>
+<li>Different quantizations ship as different model names, with the default usually being 4-bit</li>
 </ul>
 </div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Working with Agents</strong></span></p>
+<div class="card card-dark">
+<p><span class="card-title"><strong>What You Give Up</strong></span></p>
 <ul>
-<li>Agents can’t grade their own work</li>
-<li>Generator-evaluator separation</li>
-<li>Local models via Ollama for sensitive data</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Adoption</strong></span></p>
-<ul>
-<li>Sandbox → audit → deploy</li>
-<li>Quick wins → medium-term → strategic</li>
-<li>Trust is the bottleneck</li>
+<li>Slight loss in nuance on complex reasoning</li>
+<li>Rare factual errors on edge cases</li>
+<li>For most business tasks (drafting, summarization, code), <span class="amber">the difference is negligible</span></li>
+<li>8-bit is nearly lossless; 4-bit is the sweet spot for laptops</li>
 </ul>
 </div>
 </div>
-<div style="text-align:center; margin-top:1em;">
-<p><span class="amber">Know where AI can live, use the right patterns, adopt in stages.</span></p>
+</section>
+<section id="developer-tooling" class="slide level2 center">
+<h2>Developer Tooling</h2>
+<p>For deployment, another consideration beyond the LLM is the coding harness. A coding agent is <span class="amber">not just an LLM</span> — it’s a harness of tools wrapped around the model.</p>
+<div class="explainer" style="text-align:center;">
+<p>The model is the brain. The harness is everything else. On-prem means building the harness yourself.</p>
 </div>
+</section>
+<section id="the-claude-code-leak" class="slide level2 center">
+<h2>The Claude Code Leak</h2>
+<p>On March 31, 2026, Anthropic accidentally published Claude Code’s full source code via an npm packaging error — making the <span class="amber">architectural complexity</span> of a production coding agent visible for the first time.</p>
+<p>512,000 lines (not all production code), ~40 permission-gated tools (file, terminal, git, web, IDE)</p>
+<p><strong>What happened next</strong></p>
+<ul>
+<li><a href="https://github.com/ultraworkers/claw-code">claw-code</a>: open-source reimplementation became the fastest-growing repo on GitHub</li>
+<li>Provider-agnostic: works with Claude, OpenAI, or <span class="amber">local models via Ollama</span></li>
+<li>Other alternatives: Aider, OpenHands, Continue.dev</li>
+</ul>
 
 
 </section>
