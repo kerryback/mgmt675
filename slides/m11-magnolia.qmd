@@ -19,11 +19,12 @@ format:
 
 ## Materials & Setup
 
-Download these files and add them to a Claude Code session:
+Download these files to the folder in which you use Claude Code:
 
 - [magnolia-financials.xlsx](../files/magnolia-financials.xlsx) --- Financial statements, 2019--2025
 - [magnolia-10k-narrative.md](../files/magnolia-10k-narrative.md) --- MD&A + Risk Factors, 2019--2025
 - [magnolia-news.md](../files/magnolia-news.md) --- Recent news articles (Jul 2025 -- Mar 2026)
+- [magnolia-releases.md](../files/magnolia-releases.md) --- Earnings press releases & transcripts, 2023--2025
 
 ## What We're Doing Today
 

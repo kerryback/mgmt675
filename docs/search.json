@@ -1992,7 +1992,7 @@
     "href": "slides/m11-magnolia.html#materials-setup",
     "title": "Module 11: Valuing Magnolia Oil & Gas",
     "section": "Materials & Setup",
-    "text": "Materials & Setup\nDownload these files and add them to a Claude Code session:\n\nmagnolia-financials.xlsx — Financial statements, 2019–2025\nmagnolia-10k-narrative.md — MD&A + Risk Factors, 2019–2025\nmagnolia-news.md — Recent news articles (Jul 2025 – Mar 2026)"
+    "text": "Materials & Setup\nDownload these files to the folder in which you use Claude Code:\n\nmagnolia-financials.xlsx — Financial statements, 2019–2025\nmagnolia-10k-narrative.md — MD&A + Risk Factors, 2019–2025\nmagnolia-news.md — Recent news articles (Jul 2025 – Mar 2026)\nmagnolia-releases.md — Earnings press releases & transcripts, 2023–2025"
   },
   {
     "objectID": "slides/m11-magnolia.html#what-were-doing-today",
