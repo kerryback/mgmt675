@@ -463,6 +463,57 @@ The agent:
 Seven tool calls across three tools, [none predetermined]{.amber}. The path depends on what the human asks and what the data shows. Note: in practice, the replacement must not be "substantially identical" to the sold security, or the [wash-sale rule]{.amber} disallows the loss. Choosing from a separate Strong Buy list (not ETFs tracking the same index) avoids this.
 :::
 
+## Deploying in a Corporate Environment {.section-divider}
+
+## What Is Docker?
+
+A [Docker container]{.amber} packages your application, its dependencies, and its configuration into a single, portable unit.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Without Docker**]{.card-title}
+
+- "It works on my machine"
+- Install Python, pip, duckdb, anthropic...
+- Manage conflicting library versions
+- Secrets scattered across config files
+:::
+
+:::{.card .card-dark}
+[**With Docker**]{.card-title}
+
+- Identical environment everywhere
+- One command to build, one to run
+- Dependencies frozen in the image
+- Secrets injected at runtime
+:::
+:::
+
+:::{.explainer}
+A container is like a lightweight virtual machine. It runs the same way on a developer's laptop, a test server, or a cloud cluster.
+:::
+
+## Containerizing the Portfolio Agent
+
+```dockerfile
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY portfolio_agent.py .
+
+RUN pip install anthropic duckdb python-dotenv pandas numpy
+
+# Secrets are passed as environment variables at runtime,
+# never baked into the image
+# ANTHROPIC_API_KEY and MOTHERDUCK_TOKEN set at deploy time
+
+CMD ["python", "portfolio_agent.py"]
+```
+
+:::{.explainer}
+The `Dockerfile` is a recipe. `docker build` creates the image; `docker run` starts the container. In production, companies deploy containers via orchestrators like [Kubernetes]{.amber} or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an [isolation boundary]{.amber} for tools like `run_python` — code executes inside the container, not on the host.
+:::
+
 ## Key Takeaways
 
 1. **Tools are JSON Schema** — define what the agent *can* do
