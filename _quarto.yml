@@ -20,6 +20,7 @@ project:
     - slides/m12-rag.qmd
     - slides/m13-agent-sdk.qmd
     - slides/m14-sentiment.qmd
+    - slides/m15-predictive-modeling.qmd
   resources:
     - CNAME
     - .nojekyll
