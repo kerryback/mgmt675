@@ -9,13 +9,7 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Use AI to analyze the Persistence project in the \textit{Sneaker 2013} case (Babson College).  Assume the project is independent of the Sneaker project - the firm can adopt either, none, or both.  You can upload [this Excel workbook], which contains the  tables in the case.
-
-\medskip
-\noindent\textbf{Important:} Analyze only the \textbf{Sneaker} project.  You do not need to analyze the Persistence project.
-
-\medskip
-\noindent\textbf{Important:} Do \textbf{not} upload the case document to any AI tool.  Instead, read the case yourself and describe the decision and the relevant financial data to the AI in your own words.
+Use AI to analyze the Persistence project in the \textit{Sneaker 2013} case (Babson College).  Assume the project is independent of the Sneaker project - the firm can adopt either, none, or both.  
 
 \bigskip
 \noindent\textbf{Requirements.}
@@ -36,5 +30,4 @@ Use AI to analyze the Persistence project in the \textit{Sneaker 2013} case (Bab
 \begin{itemize}
   \item DCF model (\texttt{4A-Model.xlsx})
   \item Summary with sensitivity analysis and recommendation (\texttt{4A-Summary.pdf}, 1--2 pages)
-  \item Screenshots of your AI conversation (\texttt{4A-Screenshots.pdf})
-\end{itemize}
+ \end{itemize}

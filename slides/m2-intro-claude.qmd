@@ -5,6 +5,7 @@ author: "Kerry Back, Rice University"
 format:
   revealjs:
     theme: [default, revealjs-style.scss]
+    highlight-style: monokai
     slide-number: c
     transition: fade
     navigation-mode: linear

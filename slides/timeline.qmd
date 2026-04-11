@@ -1,0 +1,198 @@
+---
+title: "Generative AI Timeline"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    highlight-style: monokai
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-in-header:
+      - text: |
+          <style>
+          .timeline-slide {
+            padding: 0 !important;
+          }
+          .timeline-slide h2 {
+            display: none !important;
+          }
+          .reveal .slides section.timeline-slide {
+            height: 100% !important;
+            padding: 0 !important;
+            justify-content: flex-end !important;
+          }
+          .reveal .slides section.timeline-slide img {
+            max-width: 100% !important;
+            max-height: none !important;
+            width: 100% !important;
+            height: auto !important;
+            flex-shrink: 1 !important;
+            object-fit: contain !important;
+          }
+          .reveal .slides section.timeline-slide p {
+            margin: 0 !important;
+          }
+          .reveal .slides section.timeline-slide .cell {
+            width: 100% !important;
+          }
+          </style>
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## timeline {.timeline-slide background-color="#0f172a"}
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from datetime import datetime, timedelta
+
+# Keep 16:9 aspect ratio to fill the slide
+plt.rcParams['savefig.bbox'] = 'standard'
+
+BG_COLOR = "#0f172a"
+LINE_COLOR = "#3b82f6"
+DOT_COLOR = "#3b82f6"
+TEXT_COLOR = "#e2e8f0"
+HIGHLIGHT_COLOR = "#f59e0b"
+
+def make_timeline(dates, labels, figsize=(19.2, 10.8), fontsize=22):
+    fig, ax = plt.subplots(figsize=figsize, facecolor=BG_COLOR)
+    ax.set_facecolor(BG_COLOR)
+
+    baseline = 0.0
+    ax.axhline(y=baseline, color=LINE_COLOR, linewidth=3.5, alpha=0.6)
+
+    stem_len = 0.04
+    for i, (date, label) in enumerate(zip(dates, labels)):
+        stem_top = baseline + stem_len
+        ax.plot([date, date], [baseline, stem_top], color=LINE_COLOR, linewidth=2, alpha=0.5)
+        ax.plot(date, baseline, "o", color=DOT_COLOR, markersize=12, zorder=5)
+
+        ax.text(
+            date, stem_top + 0.005, label,
+            ha="left", va="bottom",
+            fontsize=fontsize, color=TEXT_COLOR, fontfamily="sans-serif",
+            rotation=55, clip_on=False,
+        )
+
+    ax.spines[:].set_visible(False)
+    ax.yaxis.set_visible(False)
+    ax.xaxis.set_visible(False)
+
+    span = (max(dates) - min(dates)).days
+    pad_days = max(span * 0.06, 30)
+    ax.set_xlim(min(dates) - timedelta(days=pad_days), max(dates) + timedelta(days=pad_days))
+    ax.set_ylim(-0.1, 0.1)
+
+    # Date labels below baseline
+    for date in dates:
+        ax.text(date, baseline - 0.015, date.strftime("%b %Y"),
+                ha="center", va="top", fontsize=24, color=TEXT_COLOR,
+                fontfamily="sans-serif", alpha=0.7)
+
+    # Position axes: bottom=0.60 puts baseline at ~70% from top
+    # leaving room above for rotated labels and below for dates
+    fig.subplots_adjust(left=0.03, right=0.97, bottom=0.60, top=0.70)
+    plt.show()
+
+make_timeline(
+    dates=[
+        datetime(2017, 6, 1), datetime(2018, 6, 1), datetime(2019, 2, 1),
+        datetime(2020, 6, 1), datetime(2021, 6, 1), datetime(2022, 8, 1),
+    ],
+    labels=[
+        '"Attention Is All You Need" — transformers',
+        "GPT-1 (117M params); BERT",
+        "GPT-2 (1.5B params)",
+        "GPT-3 (175B params) — few-shot learning",
+        "DALL·E; GitHub Copilot; LaMDA",
+        "Stable Diffusion; PaLM; Anthropic founded",
+    ],
+)
+```
+
+## timeline {.timeline-slide background-color="#0f172a"}
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+make_timeline(
+    fontsize=18,
+    dates=[
+        datetime(2022, 11, 30), datetime(2023, 1, 15), datetime(2023, 2, 15),
+        datetime(2023, 3, 14), datetime(2023, 7, 15), datetime(2023, 9, 15),
+        datetime(2023, 10, 15), datetime(2023, 11, 10), datetime(2023, 12, 10),
+    ],
+    labels=[
+        "ChatGPT — 100M users in 2 months",
+        "Microsoft invests $10B in OpenAI; Bard",
+        "Meta LLaMA — open-source movement",
+        "GPT-4 (multimodal); Claude 1.0",
+        "Claude 2 (100K context); Llama 2",
+        "Amazon invests $4B in Anthropic",
+        "Mistral 7B — European open-source AI",
+        "GPT-4 Turbo (128K); Altman fired & reinstated",
+        "Google Gemini; Mixtral 8x7B (MoE)",
+    ],
+)
+```
+
+## timeline {.timeline-slide background-color="#0f172a"}
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+make_timeline(
+    fontsize=18,
+    dates=[
+        datetime(2024, 2, 15), datetime(2024, 3, 4), datetime(2024, 4, 18),
+        datetime(2024, 5, 15), datetime(2024, 6, 20), datetime(2024, 7, 23),
+        datetime(2024, 9, 12), datetime(2024, 10, 22), datetime(2024, 12, 10),
+    ],
+    labels=[
+        "Sora announced (text→video); Bard → Gemini",
+        "Claude 3 family (Haiku/Sonnet/Opus, 200K context)",
+        "Llama 3 (8B and 70B)",
+        "Gemini 1.5 Pro (1M context); GPT-4o",
+        "Claude 3.5 Sonnet — surpasses Opus",
+        "Llama 3.1 (405B) — largest open-weight model",
+        "OpenAI o1 — first reasoning model; $6.6B raise",
+        "Claude 3.5 Sonnet updated + computer use",
+        "Sora public; full o1; Gemini 2.0 Flash",
+    ],
+)
+```
+
+## timeline {.timeline-slide background-color="#0f172a"}
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+make_timeline(
+    dates=[
+        datetime(2025, 1, 20), datetime(2025, 2, 15), datetime(2025, 3, 15),
+        datetime(2025, 4, 15), datetime(2025, 5, 15),
+    ],
+    labels=[
+        "DeepSeek R1; Nvidia drops $600B; Stargate ($500B JV)",
+        "Gemini 2.0 Pro + Deep Research; Mistral Small 3",
+        "Claude 3.7 Sonnet (hybrid reasoning); Claude Code; o3-mini",
+        "o3 + o4-mini; Llama 4; Gemini 2.5 Pro",
+        "Claude Sonnet 4 + Opus 4; OpenAI Codex",
+    ],
+)
+```

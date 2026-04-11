@@ -5,6 +5,7 @@ author: "Kerry Back, Rice University"
 format:
   revealjs:
     theme: [default, revealjs-style.scss]
+    highlight-style: monokai
     slide-number: c
     transition: fade
     navigation-mode: linear
@@ -76,7 +77,7 @@ The agent uses the same five tools to answer hundreds of different questions. Yo
 ```{mermaid}
 flowchart LR
     U[User] <-->|conversation| A[Claude Agent]
-    A -->|get_holdings| M[Mock Data]
+    A -->|get_holdings\naccount_id| M[Mock Data]
     A -->|get_target_allocation| M
     A -->|get_analyst_recommendations| M
     A -->|run_sql| DB[(MotherDuck\nSEP + tickers)]
@@ -104,8 +105,13 @@ tools = [
         ),
         "input_schema": {
             "type": "object",
-            "properties": {},
-            "required": [],
+            "properties": {
+                "account_id": {
+                    "type": "string",
+                    "description": "Client account identifier",
+                }
+            },
+            "required": ["account_id"],
         },
     },
     # ... more tools
@@ -113,7 +119,7 @@ tools = [
 ```
 
 :::{.explainer}
-Tools with no required inputs (like `get_holdings`) act as simple lookups. The agent calls them when it needs that data.
+The `account_id` tells the agent [whose]{.amber} portfolio to look up. In a multi-client system, this is how you scope data access to the right account.
 :::
 
 ## The SQL Tool
@@ -329,7 +335,8 @@ The shared `_python_namespace` lets the agent store a DataFrame in one call and 
 def execute_tool(name: str, inputs: dict) -> str:
     """Route a tool call to the appropriate handler."""
     if name == "get_holdings":
-        return json.dumps(HOLDINGS)
+        account_id = inputs["account_id"]
+        return json.dumps(HOLDINGS)  # mock: same data for any account
     elif name == "get_target_allocation":
         return json.dumps(TARGET_ALLOCATION)
     elif name == "get_analyst_recommendations":
@@ -514,6 +521,43 @@ CMD ["python", "portfolio_agent.py"]
 The `Dockerfile` is a recipe. `docker build` creates the image; `docker run` starts the container. In production, companies deploy containers via orchestrators like [Kubernetes]{.amber} or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an [isolation boundary]{.amber} for tools like `run_python` — code executes inside the container, not on the host.
 :::
 
+## Railway: Docker Without the Hassle
+
+[Railway](https://railway.com) handles the Dockerization for you. Push your code and Railway [builds the container, deploys it, and manages secrets]{.amber} — no Dockerfile required.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**What You Do**]{.card-title}
+
+- Connect your GitHub repo
+- Set environment variables (API keys)
+- Push code
+:::
+
+:::{.card .card-dark}
+[**What Railway Does**]{.card-title}
+
+- Detects Python, builds the container
+- Injects secrets at runtime
+- Deploys with HTTPS endpoint
+- Auto-redeploys on each push
+:::
+:::
+
+:::{.explainer}
+Railway is one of several platforms (Render, Fly.io, Koyeb) that abstract away Docker and Kubernetes. You get the benefits of containerization without writing Dockerfiles or managing infrastructure.
+:::
+
+## Live Demo
+
+Our portfolio agent is deployed on Railway:
+
+**[web-production-9f0f9.up.railway.app](https://web-production-9f0f9.up.railway.app)**
+
+:::{.explainer}
+Same code we just walked through — the only additions are a small web server (Flask/FastAPI) to handle HTTP requests and a `requirements.txt` for Railway to install dependencies.
+:::
+
 ## The Claude Agent SDK {.section-divider}
 
 ## From Hand-Rolled to SDK
@@ -555,9 +599,17 @@ from typing import Any
 @tool(
     name="get_holdings",
     description="Retrieve all portfolio holdings with tax lot detail.",
-    input_schema={"type": "object", "properties": {}, "required": []}
+    input_schema={
+        "type": "object",
+        "properties": {
+            "account_id": {"type": "string",
+                           "description": "Client account identifier"}
+        },
+        "required": ["account_id"],
+    }
 )
 async def get_holdings(args: dict[str, Any]) -> dict[str, Any]:
+    account_id = args["account_id"]
     return {"content": [{"type": "text", "text": json.dumps(HOLDINGS)}]}
 
 @tool(

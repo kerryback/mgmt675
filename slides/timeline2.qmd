@@ -1,0 +1,390 @@
+---
+title: "Generative AI Timeline"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    highlight-style: monokai
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-in-header:
+      - text: |
+          <style>
+          .tl-slide {
+            background: #0f172a !important;
+          }
+          .tl-slide h2 {
+            color: #f59e0b !important;
+            font-size: 1.4em !important;
+            border-bottom: 3px solid #f59e0b !important;
+            margin-bottom: 0.6em !important;
+          }
+          .timeline-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 1em;
+          }
+          .timeline-line {
+            position: absolute;
+            bottom: 2.8em;
+            left: 2%;
+            right: 2%;
+            height: 4px;
+            background: #3b82f6;
+            opacity: 0.6;
+          }
+          .timeline-events {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 2%;
+            position: relative;
+          }
+          .tl-event {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            flex: 1;
+          }
+          .tl-label {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            color: #e2e8f0;
+            font-size: 0.52em;
+            line-height: 1.3;
+            white-space: nowrap;
+            padding-bottom: 0.6em;
+          }
+          .tl-stem {
+            width: 2px;
+            height: 2.2em;
+            background: #3b82f6;
+            opacity: 0.5;
+          }
+          .tl-dot {
+            width: 14px;
+            height: 14px;
+            background: #3b82f6;
+            border-radius: 50%;
+            flex-shrink: 0;
+          }
+          .tl-date {
+            color: #e2e8f0;
+            font-size: 0.55em;
+            margin-top: 0.5em;
+            opacity: 0.8;
+            white-space: nowrap;
+          }
+          </style>
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Before ChatGPT: 2017–2022 {.tl-slide}
+
+:::{.timeline-wrap}
+:::{.timeline-line}
+:::
+:::{.timeline-events}
+
+:::{.tl-event}
+[\"Attention Is All You Need\" — transformers]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jun 2017]{.tl-date}
+:::
+
+:::{.tl-event}
+[GPT-1 (117M params); BERT]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jun 2018]{.tl-date}
+:::
+
+:::{.tl-event}
+[GPT-2 (1.5B params)]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Feb 2019]{.tl-date}
+:::
+
+:::{.tl-event}
+[GPT-3 (175B params) — few-shot learning]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jun 2020]{.tl-date}
+:::
+
+:::{.tl-event}
+[DALL·E; GitHub Copilot; LaMDA]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jun 2021]{.tl-date}
+:::
+
+:::{.tl-event}
+[Stable Diffusion; PaLM; Anthropic founded]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Aug 2022]{.tl-date}
+:::
+
+:::
+:::
+
+## After ChatGPT: Nov 2022 – Dec 2023 {.tl-slide}
+
+:::{.timeline-wrap}
+:::{.timeline-line}
+:::
+:::{.timeline-events}
+
+:::{.tl-event}
+[ChatGPT — 100M users in 2 months]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Nov 2022]{.tl-date}
+:::
+
+:::{.tl-event}
+[Microsoft invests $10B in OpenAI; Bard]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jan 2023]{.tl-date}
+:::
+
+:::{.tl-event}
+[Meta LLaMA — open-source movement]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Feb 2023]{.tl-date}
+:::
+
+:::{.tl-event}
+[GPT-4 (multimodal); Claude 1.0]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Mar 2023]{.tl-date}
+:::
+
+:::{.tl-event}
+[Claude 2 (100K context); Llama 2]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jul 2023]{.tl-date}
+:::
+
+:::{.tl-event}
+[Amazon invests $4B in Anthropic]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Sep 2023]{.tl-date}
+:::
+
+:::{.tl-event}
+[Mistral 7B — European open-source AI]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Oct 2023]{.tl-date}
+:::
+
+:::{.tl-event}
+[GPT-4 Turbo (128K); Altman fired & reinstated]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Nov 2023]{.tl-date}
+:::
+
+:::{.tl-event}
+[Google Gemini; Mixtral 8x7B (MoE)]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Dec 2023]{.tl-date}
+:::
+
+:::
+:::
+
+## After ChatGPT: 2024 {.tl-slide}
+
+:::{.timeline-wrap}
+:::{.timeline-line}
+:::
+:::{.timeline-events}
+
+:::{.tl-event}
+[Sora announced (text→video); Bard → Gemini]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Feb 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[Claude 3 family (Haiku/Sonnet/Opus, 200K context)]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Mar 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[Llama 3 (8B and 70B)]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Apr 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[Gemini 1.5 Pro (1M context); GPT-4o]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[May 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[Claude 3.5 Sonnet — surpasses Opus]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jun 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[Llama 3.1 (405B) — largest open-weight model]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jul 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[OpenAI o1 — first reasoning model; $6.6B raise]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Sep 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[Claude 3.5 Sonnet updated + computer use]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Oct 2024]{.tl-date}
+:::
+
+:::{.tl-event}
+[Sora public; full o1; Gemini 2.0 Flash]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Dec 2024]{.tl-date}
+:::
+
+:::
+:::
+
+## After ChatGPT: 2025 {.tl-slide}
+
+:::{.timeline-wrap}
+:::{.timeline-line}
+:::
+:::{.timeline-events}
+
+:::{.tl-event}
+[DeepSeek R1; Nvidia drops $600B; Stargate ($500B JV)]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Jan 2025]{.tl-date}
+:::
+
+:::{.tl-event}
+[Gemini 2.0 Pro + Deep Research; Mistral Small 3]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Feb 2025]{.tl-date}
+:::
+
+:::{.tl-event}
+[Claude 3.7 Sonnet (hybrid reasoning); Claude Code; o3-mini]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Mar 2025]{.tl-date}
+:::
+
+:::{.tl-event}
+[o3 + o4-mini; Llama 4; Gemini 2.5 Pro]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[Apr 2025]{.tl-date}
+:::
+
+:::{.tl-event}
+[Claude Sonnet 4 + Opus 4; OpenAI Codex]{.tl-label}
+:::{.tl-stem}
+:::
+:::{.tl-dot}
+:::
+[May 2025]{.tl-date}
+:::
+
+:::
+:::
