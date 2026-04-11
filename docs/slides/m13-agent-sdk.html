@@ -679,18 +679,176 @@ Kerry Back, Rice University
 <p>The <code>Dockerfile</code> is a recipe. <code>docker build</code> creates the image; <code>docker run</code> starts the container. In production, companies deploy containers via orchestrators like <span class="amber">Kubernetes</span> or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an <span class="amber">isolation boundary</span> for tools like <code>run_python</code> — code executes inside the container, not on the host.</p>
 </div>
 </section>
+<section id="the-claude-agent-sdk" class="slide level2 section-divider center">
+<h2>The Claude Agent SDK</h2>
+</section>
+<section id="from-hand-rolled-to-sdk" class="slide level2 center">
+<h2>From Hand-Rolled to SDK</h2>
+<p>We built the agent loop manually: parse <code>tool_use</code> blocks, route to handlers, feed results back. The <span class="amber">Claude Agent SDK</span> (<code>claude-agent-sdk</code>) handles all of this for you.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a></a><span class="ex">pip</span> install claude-agent-sdk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Raw Messages API (what we built)</strong></span></p>
+<ul>
+<li>You write the <code>while True</code> loop</li>
+<li>You parse tool calls and route them</li>
+<li>You construct <code>tool_result</code> messages</li>
+<li>You manage the message list</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Agent SDK</strong></span></p>
+<ul>
+<li>SDK runs the loop via <code>async for</code></li>
+<li>Tools defined with <code>@tool</code> decorator</li>
+<li>SDK executes tools automatically</li>
+<li>SDK manages sessions and context</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="defining-tools-with-the-sdk" class="slide level2 center">
+<h2>Defining Tools with the SDK</h2>
+<p>The <code>@tool</code> decorator replaces raw JSON Schema:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a><span class="im">from</span> claude_agent_sdk <span class="im">import</span> tool</span>
+<span id="cb16-2"><a></a><span class="im">from</span> typing <span class="im">import</span> Any</span>
+<span id="cb16-3"><a></a></span>
+<span id="cb16-4"><a></a><span class="at">@tool</span>(</span>
+<span id="cb16-5"><a></a>    name<span class="op">=</span><span class="st">"get_holdings"</span>,</span>
+<span id="cb16-6"><a></a>    description<span class="op">=</span><span class="st">"Retrieve all portfolio holdings with tax lot detail."</span>,</span>
+<span id="cb16-7"><a></a>    input_schema<span class="op">=</span>{<span class="st">"type"</span>: <span class="st">"object"</span>, <span class="st">"properties"</span>: {}, <span class="st">"required"</span>: []}</span>
+<span id="cb16-8"><a></a>)</span>
+<span id="cb16-9"><a></a><span class="cf">async</span> <span class="kw">def</span> get_holdings(args: <span class="bu">dict</span>[<span class="bu">str</span>, Any]) <span class="op">-&gt;</span> <span class="bu">dict</span>[<span class="bu">str</span>, Any]:</span>
+<span id="cb16-10"><a></a>    <span class="cf">return</span> {<span class="st">"content"</span>: [{<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: json.dumps(HOLDINGS)}]}</span>
+<span id="cb16-11"><a></a></span>
+<span id="cb16-12"><a></a><span class="at">@tool</span>(</span>
+<span id="cb16-13"><a></a>    name<span class="op">=</span><span class="st">"run_sql"</span>,</span>
+<span id="cb16-14"><a></a>    description<span class="op">=</span><span class="st">"Execute a SQL query against the MotherDuck database."</span>,</span>
+<span id="cb16-15"><a></a>    input_schema<span class="op">=</span>{</span>
+<span id="cb16-16"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb16-17"><a></a>        <span class="st">"properties"</span>: {<span class="st">"sql"</span>: {<span class="st">"type"</span>: <span class="st">"string"</span>}},</span>
+<span id="cb16-18"><a></a>        <span class="st">"required"</span>: [<span class="st">"sql"</span>],</span>
+<span id="cb16-19"><a></a>    }</span>
+<span id="cb16-20"><a></a>)</span>
+<span id="cb16-21"><a></a><span class="cf">async</span> <span class="kw">def</span> run_sql(args: <span class="bu">dict</span>[<span class="bu">str</span>, Any]) <span class="op">-&gt;</span> <span class="bu">dict</span>[<span class="bu">str</span>, Any]:</span>
+<span id="cb16-22"><a></a>    result <span class="op">=</span> run_sql_query(args[<span class="st">"sql"</span>])</span>
+<span id="cb16-23"><a></a>    <span class="cf">return</span> {<span class="st">"content"</span>: [{<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: result}]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>Same tools, same logic — but the decorator registers the tool with the SDK. No manual routing needed.</p>
+</div>
+</section>
+<section id="running-the-agent" class="slide level2 center">
+<h2>Running the Agent</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="im">from</span> claude_agent_sdk <span class="im">import</span> (</span>
+<span id="cb17-2"><a></a>    query, ClaudeAgentOptions, create_sdk_mcp_server,</span>
+<span id="cb17-3"><a></a>    AssistantMessage, ResultMessage</span>
+<span id="cb17-4"><a></a>)</span>
+<span id="cb17-5"><a></a></span>
+<span id="cb17-6"><a></a><span class="co"># Package tools into an MCP server</span></span>
+<span id="cb17-7"><a></a>server <span class="op">=</span> create_sdk_mcp_server(</span>
+<span id="cb17-8"><a></a>    name<span class="op">=</span><span class="st">"portfolio"</span>, version<span class="op">=</span><span class="st">"1.0.0"</span>,</span>
+<span id="cb17-9"><a></a>    tools<span class="op">=</span>[get_holdings, get_target_allocation,</span>
+<span id="cb17-10"><a></a>           get_analyst_recommendations, run_sql, run_python]</span>
+<span id="cb17-11"><a></a>)</span>
+<span id="cb17-12"><a></a></span>
+<span id="cb17-13"><a></a>options <span class="op">=</span> ClaudeAgentOptions(</span>
+<span id="cb17-14"><a></a>    mcp_servers<span class="op">=</span>{<span class="st">"portfolio"</span>: server},</span>
+<span id="cb17-15"><a></a>    system_prompt<span class="op">=</span>SYSTEM_PROMPT,</span>
+<span id="cb17-16"><a></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
+<span id="cb17-17"><a></a>    permission_mode<span class="op">=</span><span class="st">"bypassPermissions"</span>,</span>
+<span id="cb17-18"><a></a>    max_turns<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb17-19"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p><code>create_sdk_mcp_server</code> wraps your <code>@tool</code> functions into an in-process MCP server. The SDK uses the same Model Context Protocol that Claude Desktop and Claude Code use.</p>
+</div>
+</section>
+<section id="the-loop-disappears" class="slide level2 center">
+<h2>The Loop Disappears</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a><span class="im">import</span> asyncio</span>
+<span id="cb18-2"><a></a></span>
+<span id="cb18-3"><a></a><span class="cf">async</span> <span class="kw">def</span> main():</span>
+<span id="cb18-4"><a></a>    <span class="cf">async</span> <span class="cf">for</span> message <span class="kw">in</span> query(</span>
+<span id="cb18-5"><a></a>        prompt<span class="op">=</span><span class="st">"Review the portfolio and find tax-loss candidates"</span>,</span>
+<span id="cb18-6"><a></a>        options<span class="op">=</span>options,</span>
+<span id="cb18-7"><a></a>    ):</span>
+<span id="cb18-8"><a></a>        <span class="cf">if</span> <span class="bu">isinstance</span>(message, AssistantMessage):</span>
+<span id="cb18-9"><a></a>            <span class="cf">for</span> block <span class="kw">in</span> message.content:</span>
+<span id="cb18-10"><a></a>                <span class="cf">if</span> <span class="bu">hasattr</span>(block, <span class="st">"name"</span>):</span>
+<span id="cb18-11"><a></a>                    <span class="bu">print</span>(<span class="ss">f"  [calling </span><span class="sc">{</span>block<span class="sc">.</span>name<span class="sc">}</span><span class="ss">...]"</span>)</span>
+<span id="cb18-12"><a></a></span>
+<span id="cb18-13"><a></a>        <span class="cf">elif</span> <span class="bu">isinstance</span>(message, ResultMessage):</span>
+<span id="cb18-14"><a></a>            <span class="bu">print</span>(message.result)</span>
+<span id="cb18-15"><a></a>            <span class="bu">print</span>(<span class="ss">f"  Cost: $</span><span class="sc">{</span>message<span class="sc">.</span>total_cost_usd<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb18-16"><a></a></span>
+<span id="cb18-17"><a></a>asyncio.run(main())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>No <code>while True</code>. No <code>tool_use_id</code>. No message list management. The SDK handles the entire agentic loop — you just iterate over the messages it yields.</p>
+</div>
+</section>
+<section id="hand-rolled-vs.-sdk" class="slide level2 center">
+<h2>Hand-Rolled vs.&nbsp;SDK</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Hand-Rolled</th>
+<th>Agent SDK</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Agent loop</td>
+<td>~25 lines of <code>while True</code></td>
+<td><code>async for message in query(...)</code></td>
+</tr>
+<tr class="even">
+<td>Tool routing</td>
+<td><code>if/elif</code> dispatch function</td>
+<td>Automatic via <code>@tool</code> decorator</td>
+</tr>
+<tr class="odd">
+<td>Tool definitions</td>
+<td>Raw JSON Schema dicts</td>
+<td><code>@tool</code> decorator</td>
+</tr>
+<tr class="even">
+<td>Error handling</td>
+<td>Manual</td>
+<td>Built-in retries, context compaction</td>
+</tr>
+<tr class="odd">
+<td>Multi-turn</td>
+<td>Manually append to <code>messages</code> list</td>
+<td>SDK manages session state</td>
+</tr>
+<tr class="even">
+<td>Learning value</td>
+<td>See every moving part</td>
+<td>Production-ready abstraction</td>
+</tr>
+</tbody>
+</table>
+<div class="explainer">
+<p>Start with the hand-rolled version to <span class="amber">understand the mechanics</span>. Use the SDK when you want to <span class="amber">ship something</span>.</p>
+</div>
+</section>
 <section id="key-takeaways" class="slide level2 center">
 <h2>Key Takeaways</h2>
 <ol type="1">
 <li><strong>Tools are JSON Schema</strong> — define what the agent <em>can</em> do</li>
 <li><strong>The system prompt</strong> — defines what the agent <em>should</em> do</li>
-<li><strong>The agentic loop</strong> — keep feeding tool results until <code>stop_reason != "tool_use"</code></li>
+<li><strong>The agentic loop</strong> — keep feeding tool results until the agent is done</li>
 <li><strong>Human-in-the-loop</strong> — the user steers; the agent executes</li>
 <li><strong>Chain tools</strong> — <code>run_sql</code> → <code>run_python</code> lets the agent fetch data then analyze it</li>
-<li><strong>Mix real and mock data</strong> — live prices + curated portfolio = fast, compelling demo</li>
+<li><strong>Hand-roll first, SDK second</strong> — understand the mechanics, then use the abstraction</li>
 </ol>
 <div class="explainer">
-<p>About 200 lines of logic (plus data tables). The complexity lives in the <span class="amber">agent’s reasoning</span>, not in your application logic.</p>
+<p>The hand-rolled version is ~200 lines of logic. The SDK version is shorter, but the concepts are identical: tools, system prompt, and an agentic loop.</p>
 </div>
 
 

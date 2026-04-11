@@ -514,15 +514,148 @@ CMD ["python", "portfolio_agent.py"]
 The `Dockerfile` is a recipe. `docker build` creates the image; `docker run` starts the container. In production, companies deploy containers via orchestrators like [Kubernetes]{.amber} or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an [isolation boundary]{.amber} for tools like `run_python` — code executes inside the container, not on the host.
 :::
 
+## The Claude Agent SDK {.section-divider}
+
+## From Hand-Rolled to SDK
+
+We built the agent loop manually: parse `tool_use` blocks, route to handlers, feed results back. The [Claude Agent SDK]{.amber} (`claude-agent-sdk`) handles all of this for you.
+
+```bash
+pip install claude-agent-sdk
+```
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Raw Messages API (what we built)**]{.card-title}
+
+- You write the `while True` loop
+- You parse tool calls and route them
+- You construct `tool_result` messages
+- You manage the message list
+:::
+
+:::{.card .card-dark}
+[**Agent SDK**]{.card-title}
+
+- SDK runs the loop via `async for`
+- Tools defined with `@tool` decorator
+- SDK executes tools automatically
+- SDK manages sessions and context
+:::
+:::
+
+## Defining Tools with the SDK
+
+The `@tool` decorator replaces raw JSON Schema:
+
+```python
+from claude_agent_sdk import tool
+from typing import Any
+
+@tool(
+    name="get_holdings",
+    description="Retrieve all portfolio holdings with tax lot detail.",
+    input_schema={"type": "object", "properties": {}, "required": []}
+)
+async def get_holdings(args: dict[str, Any]) -> dict[str, Any]:
+    return {"content": [{"type": "text", "text": json.dumps(HOLDINGS)}]}
+
+@tool(
+    name="run_sql",
+    description="Execute a SQL query against the MotherDuck database.",
+    input_schema={
+        "type": "object",
+        "properties": {"sql": {"type": "string"}},
+        "required": ["sql"],
+    }
+)
+async def run_sql(args: dict[str, Any]) -> dict[str, Any]:
+    result = run_sql_query(args["sql"])
+    return {"content": [{"type": "text", "text": result}]}
+```
+
+:::{.explainer}
+Same tools, same logic — but the decorator registers the tool with the SDK. No manual routing needed.
+:::
+
+## Running the Agent
+
+```python
+from claude_agent_sdk import (
+    query, ClaudeAgentOptions, create_sdk_mcp_server,
+    AssistantMessage, ResultMessage
+)
+
+# Package tools into an MCP server
+server = create_sdk_mcp_server(
+    name="portfolio", version="1.0.0",
+    tools=[get_holdings, get_target_allocation,
+           get_analyst_recommendations, run_sql, run_python]
+)
+
+options = ClaudeAgentOptions(
+    mcp_servers={"portfolio": server},
+    system_prompt=SYSTEM_PROMPT,
+    model="claude-sonnet-4-6",
+    permission_mode="bypassPermissions",
+    max_turns=20,
+)
+```
+
+:::{.explainer}
+`create_sdk_mcp_server` wraps your `@tool` functions into an in-process MCP server. The SDK uses the same Model Context Protocol that Claude Desktop and Claude Code use.
+:::
+
+## The Loop Disappears
+
+```python
+import asyncio
+
+async def main():
+    async for message in query(
+        prompt="Review the portfolio and find tax-loss candidates",
+        options=options,
+    ):
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if hasattr(block, "name"):
+                    print(f"  [calling {block.name}...]")
+
+        elif isinstance(message, ResultMessage):
+            print(message.result)
+            print(f"  Cost: ${message.total_cost_usd:.4f}")
+
+asyncio.run(main())
+```
+
+:::{.explainer}
+No `while True`. No `tool_use_id`. No message list management. The SDK handles the entire agentic loop — you just iterate over the messages it yields.
+:::
+
+## Hand-Rolled vs. SDK
+
+| | Hand-Rolled | Agent SDK |
+|---|---|---|
+| Agent loop | ~25 lines of `while True` | `async for message in query(...)` |
+| Tool routing | `if/elif` dispatch function | Automatic via `@tool` decorator |
+| Tool definitions | Raw JSON Schema dicts | `@tool` decorator |
+| Error handling | Manual | Built-in retries, context compaction |
+| Multi-turn | Manually append to `messages` list | SDK manages session state |
+| Learning value | See every moving part | Production-ready abstraction |
+
+:::{.explainer}
+Start with the hand-rolled version to [understand the mechanics]{.amber}. Use the SDK when you want to [ship something]{.amber}.
+:::
+
 ## Key Takeaways
 
 1. **Tools are JSON Schema** — define what the agent *can* do
 2. **The system prompt** — defines what the agent *should* do
-3. **The agentic loop** — keep feeding tool results until `stop_reason != "tool_use"`
+3. **The agentic loop** — keep feeding tool results until the agent is done
 4. **Human-in-the-loop** — the user steers; the agent executes
 5. **Chain tools** — `run_sql` → `run_python` lets the agent fetch data then analyze it
-6. **Mix real and mock data** — live prices + curated portfolio = fast, compelling demo
+6. **Hand-roll first, SDK second** — understand the mechanics, then use the abstraction
 
 :::{.explainer}
-About 200 lines of logic (plus data tables). The complexity lives in the [agent's reasoning]{.amber}, not in your application logic.
+The hand-rolled version is ~200 lines of logic. The SDK version is shorter, but the concepts are identical: tools, system prompt, and an agentic loop.
 :::
