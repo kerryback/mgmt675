@@ -17,6 +17,55 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
+## What We've Done
+
+- AI + code tools for financial analysis
+  - Mean-variance optimization, DCF valuation, capital budgeting (NPV, real options)
+  - Deliverables: figures, Excel, Word, PowerPoint, web apps
+- Skills (reusable instructions) and makers & checkers
+- Web scraping (SEC EDGAR, news)
+- Chatbots and agents (FastAPI, deployment)
+- Corporate AI deployment (guardrails, governance)
+- Live cases: Magnolia Oil & Gas (DCF), The Sneaker Project (capital budgeting)
+
+## Where We're Going
+
+:::{.two-cards}
+:::{.card .card-dark}
+[**M12: RAG (Today)**]{.card-title}
+
+- Give AI knowledge it wasn't trained on
+- Chunking, embedding, and vector search
+- Build a 10-K chatbot with source citations
+:::
+
+:::{.card .card-light}
+[**M13: Building Agents with the Claude API**]{.card-title}
+
+- Define tools as JSON Schema
+- The agentic loop: tool calls → results → reasoning
+- Portfolio review agent with live data
+:::
+:::
+
+:::{.two-cards}
+:::{.card .card-light}
+[**M14: Sentiment Analysis**]{.card-title}
+
+- LLMs as sentiment classifiers
+- News and earnings call analysis
+- Trading signals from text
+:::
+
+:::{.card .card-light}
+[**M15: Predictive Modeling**]{.card-title}
+
+- Regression and classification
+- Gradient boosting vs. linear models
+- Neural networks and when to use what
+:::
+:::
+
 ## Beyond Prompting {.section-divider}
 
 ## Three Ways to Give AI Knowledge
