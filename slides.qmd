@@ -22,3 +22,4 @@ Click on a topic to view the slide deck.
 | 12 | <a href="slides/m12-rag.html" target="_blank">Retrieval Augmented Generation</a> | <a href="slides/m12-rag.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 13 | <a href="slides/m13-agent-sdk.html" target="_blank">Building Agents with the Claude API</a> | <a href="slides/m13-agent-sdk.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 14 | <a href="slides/m14-sentiment.html" target="_blank">Sentiment Analysis</a> | <a href="slides/m14-sentiment.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 15 | <a href="slides/m15-predictive-modeling.html" target="_blank">Predictive Modeling</a> | <a href="slides/m15-predictive-modeling.html" target="_blank">{{< fa presentation-screen >}}</a> |

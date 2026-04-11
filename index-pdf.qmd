@@ -78,6 +78,7 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 12. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m12-rag.html)
 13. [Building Agents with the Claude API](https://mgmt675.kerryback.com/slides/m13-agent-sdk.html)
 14. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m14-sentiment.html)
+15. [Predictive Modeling](https://mgmt675.kerryback.com/slides/m15-predictive-modeling.html)
 :::
 ::::
 

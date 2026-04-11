@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Kerry Back, Rice University">
 
-<title>Slides</title>
+<title>Module 15: Predictive Modeling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -61,6 +96,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -110,7 +174,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Slides</h1>
+<h1 class="title">Module 15: Predictive Modeling</h1>
+<p class="subtitle lead">MGMT 675: Generative AI for Finance</p>
 </div>
 
 
@@ -214,10 +279,796 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="slides/m14-sentiment.html" target="_blank">Sentiment Analysis</a></td>
 <td style="text-align: center;"><a href="slides/m14-sentiment.html" target="_blank"><i class="fa-solid fa-presentation-screen" aria-label="presentation-screen"></i></a></td>
 </tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td><a href="slides/m15-predictive-modeling.html" target="_blank">Predictive Modeling</a></td>
+<td style="text-align: center;"><a href="slides/m15-predictive-modeling.html" target="_blank"><i class="fa-solid fa-presentation-screen" aria-label="presentation-screen"></i></a></td>
+</tr>
 </tbody>
 </table>
 
 
+</section>
+<section id="generative-ai-for-financespring-2026" class="level1">
+<h1>Generative AI for FinanceSpring 2026</h1>
+<p><img src="RiceBusiness-transparent-logo-sm.png" class="img-fluid" style="width:40.0%"></p>
+<section id="instructor" class="level3">
+<h3 class="anchored" data-anchor-id="instructor">Instructor</h3>
+<p><a href="https://kerryback.com">Kerry Back</a><br>
+<a href="mailto:kerryback@gmail.com">kerryback@gmail.com</a><br>
+J. Howard Creekmore Professor of Finance and Professor of Economics</p>
+</section>
+<section id="meeting-schedule" class="level3">
+<h3 class="anchored" data-anchor-id="meeting-schedule">Meeting Schedule</h3>
+<p>TTh 12:30 – 2:00<br>
+3/17/2026 – 4/23/2026</p>
+<section id="special-session" class="level5">
+<h5 class="anchored" data-anchor-id="special-session">Special session:</h5>
+<ul>
+<li>Saturday, March 21, 9:00-12:00 - optional Python session</li>
+</ul>
+<p>All sessions will be in McNair 212, including the special session.</p>
+</section>
+</section>
+<section id="course-description" class="level3">
+<h3 class="anchored" data-anchor-id="course-description">Course Description</h3>
+<p>The course is about financial applications of generative AI. We will discuss and use current AI tools but also discuss broader concepts of AI and how they relate to finance. The course will be “hands-on.” We will be working in class on laptops each day.</p>
+<p>We will use Anthropic’s Claude throughout the course. Anthropic has made a number of important innovations that the rest of the industry has followed, including a protocol for connecting AI to tools (Model Context Protocol), coding agents that can execute terminal commands (Claude Code), and code execution in a virtual machine (Claude Cowork). Claude has also generally led all other models in coding tasks for the past two years. We will also briefly look at ChatGPT, Gemini, and other large language models.</p>
+</section>
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h3>
+<ol type="1">
+<li>Use AI coding agents (Claude Code) to perform financial analysis, build visualizations, and generate reports</li>
+<li>Apply AI to core finance tasks: portfolio optimization, DCF valuation, and sentiment-based trading signals</li>
+<li>Connect AI to external data and documents via MCP servers, skills, and retrieval-augmented generation</li>
+<li>Automate multi-step financial workflows with reusable skills, reporting pipelines, and AI agents</li>
+<li>Verify and govern AI-generated analysis using red-teaming, audit protocols, and structured review</li>
+</ol>
+</section>
+<section id="grading" class="level3">
+<h3 class="anchored" data-anchor-id="grading">Grading</h3>
+<p>Grades will be based on six group assignments (15% each) and peer assessments (10%). Groups can consist of no more than five students. Each assignment consists of multiple exercises and will take a nontrivial amount of time to complete. Do not wait until the last minute to get started.</p>
+<p>The assignments are posted on Canvas. An assignment is due each Tuesday at 11:59 pm beginning March 24 and ending April 28 (during exam week).</p>
+</section>
+<section id="claude-accounts" class="level3">
+<h3 class="anchored" data-anchor-id="claude-accounts">Claude Accounts</h3>
+<p>Each student will be reimbursed for a Claude Pro account ($20 per month). The Pro account provides access to Cowork, Claude Code, and the Claude plug-in for Excel.</p>
+</section>
+<section id="slide-decks" class="level3">
+<h3 class="anchored" data-anchor-id="slide-decks">Slide Decks</h3>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ol type="1">
+<li><a href="https://mgmt675.kerryback.com/slides/m1-ai-in-finance.html">Overview</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m2-intro-claude.html">Exploring Claude</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m3-mean-variance.html">Mean-Variance Analysis</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m4-claude.html">Claude Desktop and Claude Code</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m5-skills.html">Sub-Agents and Skills</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m6-makers-checkers.html">Makers and Checkers</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m7-tips.html">Some Claude Tips</a></li>
+</ol>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ol start="8" type="1">
+<li><a href="https://mgmt675.kerryback.com/slides/m8-scraping.html">Web Scraping with AI</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m9-agents.html">Chatbots and Agents</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m10-corporate.html">Corporate AI Deployment</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m11-magnolia.html">Magnolia DCF</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m12-rag.html">Retrieval Augmented Generation</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m13-agent-sdk.html">Building Agents with the Claude API</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m14-sentiment.html">Sentiment Analysis</a></li>
+<li><a href="https://mgmt675.kerryback.com/slides/m15-predictive-modeling.html">Predictive Modeling</a></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="honor-code" class="level3">
+<h3 class="anchored" data-anchor-id="honor-code">Honor Code</h3>
+<p>The Rice University honor code applies to all work in this course.</p>
+</section>
+<section id="disability-accommodations" class="level3">
+<h3 class="anchored" data-anchor-id="disability-accommodations">Disability Accommodations</h3>
+<p>Any student with a documented disability requiring accommodations in this course is encouraged to contact me outside of class. All discussions will remain confidential. Any adjustments or accommodations regarding assignments or the final exam must be made in advance. Students with disabilities should also contact Disability Support Services in the Allen Center.</p>
+</section>
+<section id="what-is-predictive-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-predictive-modeling">What Is Predictive Modeling?</h2>
+<p>Use <span class="amber">historical data</span> to learn a function <span class="math inline">\(f\)</span> that maps features <span class="math inline">\(X\)</span> to a target <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y \approx f(X)\]</span></p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Regression</strong></span></p>
+<ul>
+<li>Target is a continuous number</li>
+<li>Example: predict house prices</li>
+<li>Measure error with MSE, <span class="math inline">\(R^2\)</span></li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Classification</strong></span></p>
+<ul>
+<li>Target is a category (0 or 1, etc.)</li>
+<li>Example: predict loan default</li>
+<li>Measure with accuracy, AUC</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="linear-regression-as-a-prediction-model" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-as-a-prediction-model">Linear Regression as a Prediction Model</h2>
+<p>The simplest <span class="math inline">\(f\)</span>: a weighted sum of features.</p>
+<p><span class="math display">\[\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p\]</span></p>
+<ul>
+<li>Fit by minimizing <span class="amber">sum of squared errors</span> on training data</li>
+<li>Fast, interpretable, strong baseline</li>
+<li>Works well when the true relationship is approximately linear</li>
+</ul>
+<div class="explainer">
+<p>You already know linear regression from statistics. The new idea is to use it as a <span class="amber">prediction machine</span>: fit on known data, then predict for new observations.</p>
+</div>
+</section>
+<section id="linear-regression-in-scikit-learn" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-in-scikit-learn">Linear Regression in scikit-learn</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># X is an n×p array of features, y is an n-vector of targets</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>model.fit(X, y)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict for a single new observation (1×p array)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>new_obs <span class="op">=</span> np.array([[feature1, feature2, ..., featurep]])</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>prediction <span class="op">=</span> model.predict(new_obs)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Predicted value: </span><span class="sc">{</span>prediction[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>Three steps: (1) create the model, (2) <code>fit</code> on data, (3) <code>predict</code> for new inputs. Every scikit-learn model follows this same pattern.</p>
+</div>
+</section>
+<section id="beyond-linear-models" class="level2 section-divider">
+<h2 class="section-divider anchored" data-anchor-id="beyond-linear-models">Beyond Linear Models</h2>
+</section>
+<section id="categories-of-nonlinear-models" class="level2">
+<h2 class="anchored" data-anchor-id="categories-of-nonlinear-models">Categories of Nonlinear Models</h2>
+<div class="four-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Tree-Based</strong></span></p>
+<ul>
+<li>Decision trees</li>
+<li>Random forests</li>
+<li>Gradient boosting</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Neural Networks</strong></span></p>
+<ul>
+<li>Feedforward nets</li>
+<li>Deep learning</li>
+<li>Transformers (LLMs!)</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Kernel Methods</strong></span></p>
+<ul>
+<li>Support vector machines</li>
+<li>Gaussian processes</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Other</strong></span></p>
+<ul>
+<li>K-nearest neighbors</li>
+<li>Naive Bayes</li>
+<li>Ensemble methods</li>
+</ul>
+</div>
+</div>
+<div class="explainer">
+<p>We’ll focus on <span class="amber">gradient boosting</span> — it dominates structured/tabular data tasks and is the most widely used ML method in finance.</p>
+</div>
+</section>
+<section id="what-is-gradient-boosting" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-gradient-boosting">What Is Gradient Boosting?</h2>
+<p>Build a prediction by <span class="amber">adding many small decision trees</span>, each one correcting the errors of the previous ensemble.</p>
+<div class="info-box">
+<p><span class="box-title"><strong>The Intuition</strong></span></p>
+<ol type="1">
+<li>Fit a simple tree to the data</li>
+<li>Compute the <span class="amber">residuals</span> (errors)</li>
+<li>Fit the next tree to predict the residuals</li>
+<li>Add the new tree’s predictions (scaled down) to the running total</li>
+<li>Repeat for hundreds of rounds</li>
+</ol>
+</div>
+<div class="explainer">
+<p>Each tree is weak on its own, but the ensemble is powerful. The “gradient” part means we follow the gradient of the loss function — like gradient descent, but in function space.</p>
+</div>
+</section>
+<section id="gradient-boosting-in-scikit-learn" class="level2">
+<h2 class="anchored" data-anchor-id="gradient-boosting-in-scikit-learn">Gradient Boosting in scikit-learn</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GradientBoostingRegressor(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,     <span class="co"># number of trees</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    max_depth<span class="op">=</span><span class="dv">4</span>,          <span class="co"># depth of each tree</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">0.05</span>,   <span class="co"># shrinkage factor</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>model.fit(X, y)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>prediction <span class="op">=</span> model.predict(new_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>Same <code>fit</code> / <code>predict</code> interface. The key hyperparameters are the number of trees, depth, and learning rate.</p>
+</div>
+</section>
+<section id="regression-example-california-housing" class="level2 section-divider">
+<h2 class="section-divider anchored" data-anchor-id="regression-example-california-housing">Regression Example: California Housing</h2>
+</section>
+<section id="the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-dataset">The Dataset</h2>
+<p>Predict <span class="amber">median house value</span> for California census block groups.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MedInc</td>
+<td>Median income in block group</td>
+</tr>
+<tr class="even">
+<td>HouseAge</td>
+<td>Median house age</td>
+</tr>
+<tr class="odd">
+<td>AveRooms</td>
+<td>Average number of rooms</td>
+</tr>
+<tr class="even">
+<td>AveBedrms</td>
+<td>Average number of bedrooms</td>
+</tr>
+<tr class="odd">
+<td>Population</td>
+<td>Block group population</td>
+</tr>
+<tr class="even">
+<td>AveOccup</td>
+<td>Average household size</td>
+</tr>
+<tr class="odd">
+<td>Latitude</td>
+<td>Block group latitude</td>
+</tr>
+<tr class="even">
+<td>Longitude</td>
+<td>Block group longitude</td>
+</tr>
+</tbody>
+</table>
+<p>Download: <a href="../files/california-housing.csv">california-housing.csv</a> (20,640 observations)</p>
+</section>
+<section id="load-and-inspect" class="level2">
+<h2 class="anchored" data-anchor-id="load-and-inspect">Load and Inspect</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"files/california-housing.csv"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">"MedHouseVal"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"MedHouseVal"</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Features: </span><span class="sc">{</span>X<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">, Observations: </span><span class="sc">{</span>X<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.describe().<span class="bu">round</span>(<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p><code>MedHouseVal</code> is the target (in $100,000s). The 8 remaining columns are features.</p>
+</div>
+</section>
+<section id="fit-both-models" class="level2">
+<h2 class="anchored" data-anchor-id="fit-both-models">Fit Both Models</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear regression</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LinearRegression().fit(X, y)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gradient boosting</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> GradientBoostingRegressor(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">500</span>, max_depth<span class="op">=</span><span class="dv">4</span>, learning_rate<span class="op">=</span><span class="fl">0.05</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>).fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="predict-for-a-new-observation" class="level2">
+<h2 class="anchored" data-anchor-id="predict-for-a-new-observation">Predict for a New Observation</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A hypothetical census block group</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>new_obs <span class="op">=</span> np.array([[<span class="fl">4.5</span>, <span class="dv">30</span>, <span class="fl">5.5</span>, <span class="fl">1.1</span>, <span class="dv">1200</span>, <span class="fl">3.0</span>, <span class="fl">34.0</span>, <span class="op">-</span><span class="fl">118.5</span>]])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>lr_pred <span class="op">=</span> lr.predict(new_obs)[<span class="dv">0</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>gb_pred <span class="op">=</span> gb.predict(new_obs)[<span class="dv">0</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Linear regression: $</span><span class="sc">{</span>lr_pred <span class="op">*</span> <span class="dv">100_000</span><span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gradient boosting: $</span><span class="sc">{</span>gb_pred <span class="op">*</span> <span class="dv">100_000</span><span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>Both models produce a prediction, but which one should we trust? We need a principled way to <span class="amber">compare</span> them.</p>
+</div>
+</section>
+<section id="which-model-is-better" class="level2 section-divider">
+<h2 class="section-divider anchored" data-anchor-id="which-model-is-better">Which Model Is Better?</h2>
+</section>
+<section id="the-problem-with-training-error" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem-with-training-error">The Problem with Training Error</h2>
+<p>If we measure error on the <span class="amber">same data we used to fit</span>, a more complex model will always look better.</p>
+<ul>
+<li>It can memorize the training data (overfitting)</li>
+<li>Training error is an <span class="amber">optimistic</span> estimate of true prediction quality</li>
+<li>We need to test on data the model <span class="amber">has never seen</span></li>
+</ul>
+</section>
+<section id="traintest-split" class="level2">
+<h2 class="anchored" data-anchor-id="traintest-split">Train/Test Split</h2>
+<div class="info-box">
+<p><span class="box-title"><strong>The Solution</strong></span></p>
+<ol type="1">
+<li>Randomly split the data into <span class="amber">training</span> (e.g., 80%) and <span class="amber">test</span> (20%) sets</li>
+<li>Fit both models on the training set only</li>
+<li>Evaluate predictions on the held-out test set</li>
+<li>The model with lower test error generalizes better</li>
+</ol>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Train: </span><span class="sc">{</span>X_train<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, Test: </span><span class="sc">{</span>X_test<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="evaluate-on-the-test-set" class="level2">
+<h2 class="anchored" data-anchor-id="evaluate-on-the-test-set">Evaluate on the Test Set</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit on training data</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> GradientBoostingRegressor(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">500</span>, max_depth<span class="op">=</span><span class="dv">4</span>, learning_rate<span class="op">=</span><span class="fl">0.05</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>).fit(X_train, y_train)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on test data</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>lr_pred <span class="op">=</span> lr.predict(X_test)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>gb_pred <span class="op">=</span> gb.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="compare-results" class="level2">
+<h2 class="anchored" data-anchor-id="compare-results">Compare Results</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear Regression:"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  RMSE = </span><span class="sc">{</span>mean_squared_error(y_test, lr_pred, squared<span class="op">=</span><span class="va">False</span>)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  R²   = </span><span class="sc">{</span>r2_score(y_test, lr_pred)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Gradient Boosting:"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  RMSE = </span><span class="sc">{</span>mean_squared_error(y_test, gb_pred, squared<span class="op">=</span><span class="va">False</span>)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  R²   = </span><span class="sc">{</span>r2_score(y_test, gb_pred)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>RMSE is in the same units as the target ($100k). <span class="math inline">\(R^2\)</span> is the fraction of variance explained. <span class="amber">Lower RMSE and higher <span class="math inline">\(R^2\)</span> on the test set</span> = better generalization.</p>
+</div>
+</section>
+<section id="typical-results" class="level2">
+<h2 class="anchored" data-anchor-id="typical-results">Typical Results</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th style="text-align: center;">Linear Regression</th>
+<th style="text-align: center;">Gradient Boosting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Test RMSE</td>
+<td style="text-align: center;">~0.73</td>
+<td style="text-align: center;">~0.53</td>
+</tr>
+<tr class="even">
+<td>Test <span class="math inline">\(R^2\)</span></td>
+<td style="text-align: center;">~0.58</td>
+<td style="text-align: center;">~0.78</td>
+</tr>
+</tbody>
+</table>
+<div class="explainer">
+<p>Gradient boosting captures <span class="amber">nonlinear patterns</span> — interactions between location, income, and housing characteristics — that linear regression misses.</p>
+</div>
+</section>
+<section id="classification" class="level2 section-divider">
+<h2 class="section-divider anchored" data-anchor-id="classification">Classification</h2>
+</section>
+<section id="from-regression-to-classification" class="level2">
+<h2 class="anchored" data-anchor-id="from-regression-to-classification">From Regression to Classification</h2>
+<p>When the target is <span class="amber">binary</span> (0 or 1), we need classification models.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Logistic Regression</strong></span></p>
+<ul>
+<li>Linear model, but outputs a <span class="amber">probability</span> via the sigmoid function</li>
+<li><span class="math inline">\(P(y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \cdots)}}\)</span></li>
+<li>Classify as 1 if <span class="math inline">\(P &gt; 0.5\)</span>, else 0</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Gradient Boosting Classifier</strong></span></p>
+<ul>
+<li>Same boosting idea, but optimizes <span class="amber">log-loss</span> (cross-entropy)</li>
+<li>Uses softmax to convert raw scores to probabilities</li>
+<li>Handles nonlinear decision boundaries</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="logistic-regression-in-scikit-learn" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-in-scikit-learn">Logistic Regression in scikit-learn</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict class labels</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict probabilities</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>y_prob <span class="op">=</span> model.predict_proba(X_test)[:, <span class="dv">1</span>]  <span class="co"># P(class = 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>Same <code>fit</code>/<code>predict</code> pattern. Use <code>predict_proba</code> to get probabilities instead of hard class labels.</p>
+</div>
+</section>
+<section id="gradient-boosting-for-classification" class="level2">
+<h2 class="anchored" data-anchor-id="gradient-boosting-for-classification">Gradient Boosting for Classification</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingClassifier</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GradientBoostingClassifier(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">300</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    max_depth<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>y_prob <span class="op">=</span> model.predict_proba(X_test)[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>The classifier version automatically uses log-loss and softmax internally. The API is identical to the regressor.</p>
+</div>
+</section>
+<section id="classification-example-breast-cancer" class="level2 section-divider">
+<h2 class="section-divider anchored" data-anchor-id="classification-example-breast-cancer">Classification Example: Breast Cancer</h2>
+</section>
+<section id="the-dataset-1" class="level2">
+<h2 class="anchored" data-anchor-id="the-dataset-1">The Dataset</h2>
+<p>Predict whether a tumor is <span class="amber">malignant (0) or benign (1)</span> from cell nucleus measurements.</p>
+<ul>
+<li>569 observations, 30 features</li>
+<li>Features: radius, texture, perimeter, area, smoothness, etc.</li>
+<li>Each measured as mean, standard error, and worst (largest) value</li>
+</ul>
+<p>Download: <a href="../files/breast-cancer.csv">breast-cancer.csv</a></p>
+<div class="explainer">
+<p>This is a classic ML benchmark. In finance, the same methods apply to credit default, fraud detection, and churn prediction.</p>
+</div>
+</section>
+<section id="load-and-split" class="level2">
+<h2 class="anchored" data-anchor-id="load-and-split">Load and Split</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"files/breast-cancer.csv"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">"target"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"target"</span>]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Train: </span><span class="sc">{</span>X_train<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, Test: </span><span class="sc">{</span>X_test<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Class balance: </span><span class="sc">{</span>y_train<span class="sc">.</span>value_counts()<span class="sc">.</span>to_dict()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="fit-both-classifiers" class="level2">
+<h2 class="anchored" data-anchor-id="fit-both-classifiers">Fit Both Classifiers</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingClassifier</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic regression</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>logit <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">10000</span>).fit(X_train, y_train)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gradient boosting</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>gbc <span class="op">=</span> GradientBoostingClassifier(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">300</span>, max_depth<span class="op">=</span><span class="dv">3</span>, learning_rate<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>).fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="confusion-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h2>
+<p>A confusion matrix shows counts of correct and incorrect predictions.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, ConfusionMatrixDisplay</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, model, name <span class="kw">in</span> [</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    (axes[<span class="dv">0</span>], logit, <span class="st">"Logistic Regression"</span>),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    (axes[<span class="dv">1</span>], gbc, <span class="st">"Gradient Boosting"</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>]:</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    cm <span class="op">=</span> confusion_matrix(y_test, model.predict(X_test))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    ConfusionMatrixDisplay(cm, display_labels<span class="op">=</span>[<span class="st">"Malignant"</span>, <span class="st">"Benign"</span>]).plot(ax<span class="op">=</span>ax)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"files/confusion-matrices.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="reading-a-confusion-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="reading-a-confusion-matrix">Reading a Confusion Matrix</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">Predicted Malignant</th>
+<th style="text-align: center;">Predicted Benign</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Actually Malignant</strong></td>
+<td style="text-align: center;">True Negative</td>
+<td style="text-align: center;"><span class="amber">False Positive</span></td>
+</tr>
+<tr class="even">
+<td><strong>Actually Benign</strong></td>
+<td style="text-align: center;"><span class="amber">False Negative</span></td>
+<td style="text-align: center;">True Positive</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><span class="amber">False positives</span>: predicted benign but actually malignant (dangerous!)</li>
+<li><span class="amber">False negatives</span>: predicted malignant but actually benign (unnecessary worry)</li>
+<li>Overall accuracy = (TP + TN) / total</li>
+</ul>
+</section>
+<section id="roc-curves-and-auc" class="level2">
+<h2 class="anchored" data-anchor-id="roc-curves-and-auc">ROC Curves and AUC</h2>
+<p>The ROC curve plots <span class="amber">true positive rate vs.&nbsp;false positive rate</span> at every probability threshold.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">6</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> model, name <span class="kw">in</span> [(logit, <span class="st">"Logistic Regression"</span>), (gbc, <span class="st">"Gradient Boosting"</span>)]:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    y_prob <span class="op">=</span> model.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    fpr, tpr, _ <span class="op">=</span> roc_curve(y_test, y_prob)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    ax.plot(fpr, tpr, label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> (AUC = </span><span class="sc">{</span>auc(fpr, tpr)<span class="sc">:.3f}</span><span class="ss">)"</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], <span class="st">"k--"</span>, label<span class="op">=</span><span class="st">"Random (AUC = 0.500)"</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"False Positive Rate"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"True Positive Rate"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"ROC Curves"</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"files/roc-curves.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="interpreting-auc" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-auc">Interpreting AUC</h2>
+<ul>
+<li><strong>AUC = 0.5</strong>: model is no better than random guessing</li>
+<li><strong>AUC = 1.0</strong>: model is perfect</li>
+<li><strong>AUC &gt; 0.9</strong>: excellent discrimination</li>
+</ul>
+<div class="info-box">
+<p><span class="box-title"><strong>AUC in Finance</strong></span></p>
+<ul>
+<li>Credit scoring: does the model separate defaults from non-defaults?</li>
+<li>Fraud detection: does it flag fraudulent transactions?</li>
+<li>Higher AUC = more reliable ranking of risky vs.&nbsp;safe cases</li>
+</ul>
+</div>
+</section>
+<section id="neural-networks" class="level2 section-divider">
+<h2 class="section-divider anchored" data-anchor-id="neural-networks">Neural Networks</h2>
+</section>
+<section id="what-is-a-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-neural-network">What Is a Neural Network?</h2>
+<p>A neural network passes inputs through <span class="amber">layers of simple functions</span>, each transforming the data before handing it to the next layer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Neural-Nets-Transparent.png" class="quarto-figure quarto-figure-center figure-img" height="420"></p>
+</figure>
+</div>
+<ul>
+<li><strong>Input layer:</strong> your raw features (<span class="math inline">\(x_1, x_2, \ldots, x_p\)</span>)</li>
+<li><strong>Hidden layers:</strong> neurons that compute weighted sums, then apply a nonlinear function</li>
+<li><strong>Output layer:</strong> produces the final prediction</li>
+</ul>
+<div class="explainer">
+<p>Stacking layers lets the network learn <span class="amber">hierarchical patterns</span> — early layers detect simple relationships, later layers combine them into complex ones.</p>
+</div>
+</section>
+<section id="how-a-single-neuron-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-a-single-neuron-works">How a Single Neuron Works</h2>
+<p>Each neuron computes two things:</p>
+<ol type="1">
+<li>A <span class="amber">weighted sum</span> of its inputs plus a bias:</li>
+</ol>
+<p><span class="math display">\[z = b + w_1 x_1 + w_2 x_2 + \cdots + w_n x_n\]</span></p>
+<ol start="2" type="1">
+<li>An <span class="amber">activation function</span> applied to <span class="math inline">\(z\)</span>:</li>
+</ol>
+<p><span class="math display">\[h = \text{activation}(z)\]</span></p>
+<div class="explainer">
+<p>The weights <span class="math inline">\(w_i\)</span> and bias <span class="math inline">\(b\)</span> are the parameters learned during training. Every neuron has its own set.</p>
+</div>
+</section>
+<section id="activation-functions" class="level2">
+<h2 class="anchored" data-anchor-id="activation-functions">Activation Functions</h2>
+<p>The activation function introduces <span class="amber">nonlinearity</span> — without it, stacking layers would just be another linear model.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>ReLU (hidden layers)</strong></span></p>
+<p><span class="math display">\[h = \max(0,\; z)\]</span></p>
+<ul>
+<li>Outputs <span class="math inline">\(z\)</span> if positive, 0 otherwise</li>
+<li>Simple, fast, and effective</li>
+<li>The default choice for hidden layers</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Sigmoid (output layer)</strong></span></p>
+<p><span class="math display">\[h = \frac{1}{1 + e^{-z}}\]</span></p>
+<ul>
+<li>Squashes any value into <span class="math inline">\((0, 1)\)</span></li>
+<li>Natural for probabilities</li>
+<li>Used in the output layer for binary classification</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="putting-it-together" class="level2">
+<h2 class="anchored" data-anchor-id="putting-it-together">Putting It Together</h2>
+<p>A small network with 2 inputs, one hidden layer of 3 neurons, and 1 output:</p>
+<div class="info-box">
+<p><span class="box-title"><strong>Parameter Count</strong></span></p>
+<ul>
+<li>Hidden layer: each of 3 neurons has 2 weights + 1 bias = <strong>9 parameters</strong></li>
+<li>Output layer: 1 neuron has 3 weights + 1 bias = <strong>4 parameters</strong></li>
+<li>Total: <strong>13 parameters</strong></li>
+</ul>
+</div>
+<div class="explainer">
+<p>Real networks have millions or billions of parameters. GPT-4 has over a <span class="amber">trillion</span>. But the building block is always the same: weighted sum <span class="math inline">\(\rightarrow\)</span> activation.</p>
+</div>
+</section>
+<section id="training-a-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="training-a-neural-network">Training a Neural Network</h2>
+<p>How does the network learn?</p>
+<ol type="1">
+<li><strong>Forward pass</strong> — compute predictions from current weights</li>
+<li><strong>Loss</strong> — measure how wrong the predictions are (MSE for regression, cross-entropy for classification)</li>
+<li><strong>Backpropagation</strong> — compute the gradient of the loss with respect to every weight</li>
+<li><strong>Update</strong> — nudge each weight in the direction that reduces the loss</li>
+<li><strong>Repeat</strong> for many iterations (epochs)</li>
+</ol>
+<div class="explainer">
+<p>This is <span class="amber">gradient descent</span>, the same optimization idea behind gradient boosting — but applied to the network’s weights rather than to adding trees.</p>
+</div>
+</section>
+<section id="why-neural-networks-matter" class="level2">
+<h2 class="anchored" data-anchor-id="why-neural-networks-matter">Why Neural Networks Matter</h2>
+<div class="two-cards">
+<div class="card card-dark">
+<p><span class="card-title"><strong>Deep Learning</strong></span></p>
+<ul>
+<li>Networks with many hidden layers</li>
+<li>Powers image recognition, speech, translation</li>
+<li>Excels when data is <span class="amber">unstructured</span> (images, text, audio)</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Large Language Models</strong></span></p>
+<ul>
+<li>ChatGPT, Claude, Gemini are all neural networks</li>
+<li>Trained on vast text corpora</li>
+<li>The “transformer” is a specialized neural network architecture</li>
+</ul>
+</div>
+</div>
+<div class="explainer">
+<p>For <span class="amber">tabular data</span> (spreadsheets, databases), gradient boosting usually wins. Neural networks shine when the data is high-dimensional and unstructured.</p>
+</div>
+</section>
+<section id="when-to-use-what" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-what">When to Use What</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Data Type</th>
+<th>Best Starting Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tabular / structured</td>
+<td>Gradient boosting</td>
+</tr>
+<tr class="even">
+<td>Images</td>
+<td>Convolutional neural networks</td>
+</tr>
+<tr class="odd">
+<td>Text / documents</td>
+<td>Transformers (LLMs)</td>
+</tr>
+<tr class="even">
+<td>Time series</td>
+<td>Both can work; transformers increasingly popular</td>
+</tr>
+<tr class="odd">
+<td>Small datasets (&lt; 1,000 rows)</td>
+<td>Linear/logistic regression</td>
+</tr>
+</tbody>
+</table>
+<div class="explainer">
+<p>You don’t need to implement neural networks from scratch. The key is knowing <span class="amber">when they’re the right tool</span> and being able to interpret the results.</p>
+</div>
+</section>
+<section id="summary" class="level2 section-divider">
+<h2 class="section-divider anchored" data-anchor-id="summary">Summary</h2>
+</section>
+<section id="what-we-covered" class="level2">
+<h2 class="anchored" data-anchor-id="what-we-covered">What We Covered</h2>
+<div class="four-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Regression</strong></span></p>
+<ul>
+<li>Linear regression baseline</li>
+<li>Gradient boosting for nonlinear patterns</li>
+<li>Evaluate with RMSE and <span class="math inline">\(R^2\)</span></li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Classification</strong></span></p>
+<ul>
+<li>Logistic regression baseline</li>
+<li>Gradient boosting classifier</li>
+<li>Confusion matrices and AUC</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Neural Networks</strong></span></p>
+<ul>
+<li>Neurons, layers, activations</li>
+<li>Training via backpropagation</li>
+<li>Powers deep learning and LLMs</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Key Principle</strong></span></p>
+<ul>
+<li>Always use a train/test split</li>
+<li>Test error measures generalization</li>
+<li>Match model to data type</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="the-ai-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="the-ai-workflow">The AI Workflow</h2>
+<p>You don’t need to memorize scikit-learn syntax. The workflow is:</p>
+<ol type="1">
+<li>Describe your prediction problem to Claude</li>
+<li>Provide or point to your data</li>
+<li>Ask Claude to fit models and compare them</li>
+<li><span class="amber">Understand the results</span> and make decisions</li>
+</ol>
+<div class="explainer">
+<p>AI writes the code. You choose the models, interpret the output, and decide what to do with the predictions.</p>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
