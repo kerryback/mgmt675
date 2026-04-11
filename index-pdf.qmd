@@ -76,7 +76,7 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 10. [Corporate AI Deployment](https://mgmt675.kerryback.com/slides/m10-corporate.html)
 11. [Magnolia DCF](https://mgmt675.kerryback.com/slides/m11-magnolia.html)
 12. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m12-rag.html)
-13. [Predictive Modeling](https://mgmt675.kerryback.com/slides/m13-predictive-modeling.html)
+13. [Building Agents with the Claude API](https://mgmt675.kerryback.com/slides/m13-agent-sdk.html)
 14. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m14-sentiment.html)
 :::
 ::::

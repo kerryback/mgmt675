@@ -20,5 +20,5 @@ Click on a topic to view the slide deck.
 | 10 | <a href="slides/m10-corporate.html" target="_blank">Corporate AI Deployment</a> | <a href="slides/m10-corporate.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 11 | <a href="slides/m11-magnolia.html" target="_blank">Magnolia DCF</a> | <a href="slides/m11-magnolia.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 12 | <a href="slides/m12-rag.html" target="_blank">Retrieval Augmented Generation</a> | <a href="slides/m12-rag.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 13 | <a href="slides/m13-predictive-modeling.html" target="_blank">Predictive Modeling</a> | <a href="slides/m13-predictive-modeling.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 13 | <a href="slides/m13-agent-sdk.html" target="_blank">Building Agents with the Claude API</a> | <a href="slides/m13-agent-sdk.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 14 | <a href="slides/m14-sentiment.html" target="_blank">Sentiment Analysis</a> | <a href="slides/m14-sentiment.html" target="_blank">{{< fa presentation-screen >}}</a> |
