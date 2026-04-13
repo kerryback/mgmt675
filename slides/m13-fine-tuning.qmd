@@ -1,0 +1,337 @@
+---
+title: "Module 13: Fine-Tuning"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    highlight-style: monokai
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## Four Ways to Give AI Knowledge {.smaller}
+
+Prompting and skills customize *how* an LLM responds. But what if you need it to know [private data]{.amber} it wasn't trained on?
+
+| | **Long Context** | **RAG** | **Fine-Tuning** | **Small Language Model** |
+|---|---|---|---|---|
+| **Best for** | Short docs that fit in one prompt | Large or many docs; proprietary facts | Specific tone, format, or domain expertise | Full control, privacy, specialized tasks |
+| **Data freshness** | Real-time (paste it in) | Real-time updates | Stale after training | Stale after training |
+| **Cost to start** | None | Low (no model training) | Medium (GPU hours) | High (training + hosting) |
+| **Cost per query** | High (long prompts are expensive) | Low (only relevant chunks sent) | Low | Low |
+| **Complexity** | None | Moderate (pipeline + vector DB) | High (dataset curation) | Very high (full ML ops) |
+
+## What is Fine-Tuning? {.section-divider}
+
+## What is Fine-Tuning?
+
+A pretrained LLM already knows language. **Fine-tuning** adjusts its weights on a smaller, task-specific dataset so it behaves differently:
+
+- Adopt a specific tone or format (e.g., always respond as a financial analyst)
+- Learn domain terminology and conventions
+- Follow company-specific rules and workflows
+
+:::{.explainer}
+Analogy: a pretrained model is like hiring a smart generalist. Fine-tuning is [specialized on-the-job training]{.amber}.
+:::
+
+## Fine-Tuning vs. Prompting vs. RAG
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Prompting / Skills**]{.card-title}
+
+- Change behavior via instructions
+- No training required
+- Limited by context window
+- Easy to iterate
+:::
+
+:::{.card .card-light}
+[**RAG**]{.card-title}
+
+- Inject external knowledge at query time
+- No model weights changed
+- Answers grounded in retrieved documents
+- Great for factual Q&A
+:::
+
+:::{.card .card-dark}
+[**Fine-Tuning**]{.card-title}
+
+- Change the model's weights
+- Learns patterns, tone, and format
+- Knowledge baked into the model
+- Best for consistent, specialized behavior
+:::
+:::
+
+## When to Fine-Tune
+
+Fine-tuning is worth the effort when:
+
+- You need [consistent behavior]{.amber} across thousands of queries (not one-off tasks)
+- Prompting alone can't capture the nuance (complex formatting, domain jargon, regulatory style)
+- You want lower latency and cost than a large model with a long system prompt
+- You have (or can generate) high-quality training examples
+
+Fine-tuning is **not** the right tool when:
+
+- Your data changes frequently (use RAG instead)
+- You need answers from specific documents (use RAG)
+- A well-crafted prompt already works (keep it simple)
+
+## The Fine-Tuning Process {.section-divider}
+
+## Step 1: Collect Training Data
+
+Training data is a set of **input/output pairs** --- examples of what you want the model to do.
+
+| **Input** | **Output** |
+|---|---|
+| "Summarize this 10-K risk factor..." | "The company faces supply chain risk due to..." |
+| "Classify this earnings call sentence..." | "Positive guidance" |
+| "Write a credit memo for..." | "Credit Assessment: BBB+ ..." |
+
+:::{.explainer}
+Start small. Google's Gemma docs note that behavioral changes can appear with as few as [20 examples]{.amber}. Build from there.
+:::
+
+## Step 2: Choose an Approach
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Full Fine-Tuning**]{.card-title}
+
+- Update **all** model parameters
+- Maximum flexibility
+- Requires significant GPU memory and compute
+- Produces a full copy of the model
+:::
+
+:::{.card .card-dark}
+[**LoRA (Parameter-Efficient)**]{.card-title}
+
+- Freeze the original weights
+- Train only small adapter matrices
+- 10,000x fewer trainable parameters
+- Same quality, fraction of the cost
+:::
+:::
+
+:::{.explainer}
+In practice, almost everyone uses [LoRA]{.amber} or a similar parameter-efficient method. Full fine-tuning is reserved for large-budget projects.
+:::
+
+## LoRA: The Key Idea {.section-divider}
+
+## Why LoRA Works
+
+The LoRA paper (Hu et al., 2021) made a key observation: when you fine-tune a large model, the weight changes have [low intrinsic rank]{.amber}.
+
+The changes needed to adapt a model to a new task live in a much lower-dimensional space than the full parameter space.
+
+This means you don't need to update billions of parameters --- you can capture the same adaptation with far fewer.
+
+## LoRA: How It Works
+
+Instead of learning a full weight update $\Delta W$ (dimensions $d \times d$), decompose it into two small matrices:
+
+$$\Delta W = A \times B$$
+
+where $A$ is $d \times r$ and $B$ is $r \times d$, and $r$ (the rank) is tiny: typically 4, 8, or 16.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Full Fine-Tuning**]{.card-title}
+
+- Update $d^2$ parameters per layer
+- For $d = 4096$: **16.8 million** parameters
+- Full copy of model weights
+:::
+
+:::{.card .card-dark}
+[**LoRA (rank 16)**]{.card-title}
+
+- Update $2 \times d \times r$ parameters per layer
+- For $d = 4096$, $r = 16$: **131,072** parameters
+- 128x reduction per layer
+:::
+:::
+
+## LoRA at Inference Time
+
+During fine-tuning, the original weights are [frozen]{.amber}:
+
+$$y = W_{\text{original}}(x) + A \times B(x)$$
+
+At deployment, merge the adapter into the base weights:
+
+$$W_{\text{new}} = W_{\text{original}} + A \times B$$
+
+- [No inference latency penalty]{.amber} --- the merged model runs at normal speed
+- Adapter files are small (MBs, not GBs)
+- Swap adapters on the same base model for different tasks
+
+## QLoRA: Even More Efficient
+
+**QLoRA** (Dettmers et al., 2023) adds quantization on top of LoRA:
+
+1. Compress base model weights to [4-bit precision]{.amber} (from 16-bit) --- 4x memory savings
+2. Train LoRA adapters on top of the quantized model
+3. Paged optimizers handle memory spikes
+
+:::{.explainer}
+Result: fine-tune a **65B-parameter model on a single 48GB GPU**. Training is ~39% slower due to quantization overhead, but quality is comparable to full-precision LoRA.
+:::
+
+## Popular Fine-Tuning Datasets {.section-divider}
+
+## Datasets for Fine-Tuning {.smaller}
+
+| **Dataset** | **Size** | **Source** | **Description** |
+|---|---|---|---|
+| **Stanford Alpaca** | 52K examples | GPT-3.5 generated | Instruction-following pairs; fine-tuned LLaMA 7B for < $600 |
+| **Databricks Dolly** | 15K examples | Human-written | 7 task types: Q&A, summarization, classification, creative writing |
+| **LIMA** | 1,000 examples | Curated by Meta | "Less Is More for Alignment" --- high quality beats high quantity |
+| **OpenAssistant** | 161K messages | Crowdsourced | Multi-turn conversations in 35 languages with quality ratings |
+| **UltraChat** | 1.5M dialogues | ChatGPT generated | Large-scale multi-round conversations; filtered subset of 200K commonly used |
+
+:::{.explainer}
+LIMA's finding is striking: [1,000 carefully curated examples]{.amber} can outperform 52,000 generated ones. Data quality matters more than quantity.
+:::
+
+## Distillation: LLM → Small Model {.section-divider}
+
+## Why Not Just Use the Big Model?
+
+A powerful pattern: use a large model to [generate training data]{.amber}, then fine-tune a smaller model on it.
+
+Why bother? Why not just use the LLM directly?
+
+:::{.three-cards}
+:::{.card .card-dark}
+[**Cost**]{.card-title}
+
+Large models cost 10--30x more per query than small models
+
+Generate 50K examples once ($200--500), then run the small model [forever]{.amber} at a fraction of the cost
+:::
+
+:::{.card .card-dark}
+[**Speed**]{.card-title}
+
+A 7B model generates responses in 50--200ms on modest hardware
+
+Large API models take 1--5 seconds
+
+Critical for real-time applications
+:::
+
+:::{.card .card-dark}
+[**Privacy**]{.card-title}
+
+A fine-tuned small model runs [entirely on your infrastructure]{.amber}
+
+No data leaves your network
+
+Essential for healthcare, legal, and financial applications (HIPAA, GDPR)
+:::
+:::
+
+## Distillation in Practice
+
+Well-known examples of LLM → small model distillation:
+
+- **Stanford Alpaca**: GPT-3.5 → LLaMA 7B. Cost: $600. Comparable performance on many tasks.
+- **Microsoft Orca**: GPT-4's detailed [reasoning traces]{.amber} (not just answers) → smaller model. Capturing the teacher's thinking process improves quality.
+- **Microsoft Phi**: LLM-generated "textbook quality" synthetic data → 1.3B--3B parameter models that punch far above their weight.
+
+:::{.explainer}
+The pattern works best for [specific, repeatable tasks at scale]{.amber}: classify emails, extract fields, generate reports. For diverse, one-off tasks, just use the LLM directly.
+:::
+
+## Frameworks and Tools {.section-divider}
+
+## Fine-Tuning Frameworks
+
+Google's Gemma documentation lists several popular tools:
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Beginner-Friendly**]{.card-title}
+
+- **Hugging Face + PEFT** --- most popular; LoRA built in
+- **Unsloth** --- 2x faster training, lower memory
+- **Keras** --- familiar API, LoRA support
+:::
+
+:::{.card .card-light}
+[**Production / Scale**]{.card-title}
+
+- **Axolotl** --- config-driven, many model architectures
+- **LLaMA Factory** --- GUI for fine-tuning
+- **Google Cloud Vertex AI** --- managed service, multi-GPU
+:::
+:::
+
+:::{.explainer}
+For most use cases, start with [Hugging Face + PEFT]{.amber} or [Unsloth]{.amber}. Both support LoRA/QLoRA out of the box and have extensive documentation.
+:::
+
+## Step 3: Test Your Model
+
+Google recommends three categories of test cases:
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Success Tests**]{.card-title}
+
+Inputs the model should always handle correctly
+
+- Core use case queries
+- Common variations
+- Expected formats
+:::
+
+:::{.card .card-light}
+[**Failure Tests**]{.card-title}
+
+Inputs the model should [refuse]{.amber} or flag
+
+- Out-of-scope requests
+- Adversarial prompts
+- Requests for confidential data
+:::
+
+:::{.card .card-light}
+[**Boundary Tests**]{.card-title}
+
+Edge cases that test limits
+
+- Ambiguous inputs
+- Missing context
+- Mixed-language queries
+:::
+:::
+
+## Step 4: Deploy
+
+For LoRA-tuned models, deployment is straightforward:
+
+- Deploy the **base model** + the **LoRA adapter** (a small file)
+- Or **merge** the adapter into the base weights for a single model file
+- Serve with standard inference tools (vLLM, TGI, Ollama)
+
+:::{.explainer}
+Multiple LoRA adapters can share a single base model. A compliance adapter, a customer-service adapter, and a research adapter can all run on the [same GPU]{.amber}, swapping adapters per request.
+:::
