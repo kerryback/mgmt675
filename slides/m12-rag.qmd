@@ -188,24 +188,25 @@ Prompting and skills customize *how* an LLM responds. But what if you need it to
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '54px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '64px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
-  D["<b>Documents</b>"] --> CE["<b>Chunk &<br>Embed</b>"]
-  CE --> VDB["<b>Vector DB</b>"]
+  subgraph prep ["Preparation (done first)"]
+    D["<b>Documents</b>"] --> CE["<b>Chunk &<br>Embed</b>"]
+    CE --> VDB["<b>Vector DB</b>"]
+  end
   UQ["<b>User Query</b>"] --> EQ["<b>Embed<br>Query</b>"]
   EQ --> R["<b>Retrieve<br>Matches</b>"]
   VDB --> R
   R -->|"query + context"| LLM["<b>LLM</b>"]
-  LLM --> A["<b>Grounded<br>Answer</b>"]
 
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style prep fill:none,stroke:#3b82f6,stroke-width:4px,stroke-dasharray:12 6,rx:40,ry:40,color:#3b82f6,font-size:40px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
 ```
 
 ## Embeddings: A Concrete Example {.section-divider}

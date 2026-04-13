@@ -429,24 +429,25 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '54px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '64px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
-  D["&lt;b&gt;Documents&lt;/b&gt;"] --&gt; CE["&lt;b&gt;Chunk &amp;&lt;br&gt;Embed&lt;/b&gt;"]
-  CE --&gt; VDB["&lt;b&gt;Vector DB&lt;/b&gt;"]
+  subgraph prep ["Preparation (done first)"]
+    D["&lt;b&gt;Documents&lt;/b&gt;"] --&gt; CE["&lt;b&gt;Chunk &amp;&lt;br&gt;Embed&lt;/b&gt;"]
+    CE --&gt; VDB["&lt;b&gt;Vector DB&lt;/b&gt;"]
+  end
   UQ["&lt;b&gt;User Query&lt;/b&gt;"] --&gt; EQ["&lt;b&gt;Embed&lt;br&gt;Query&lt;/b&gt;"]
   EQ --&gt; R["&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;"]
   VDB --&gt; R
   R --&gt;|"query + context"| LLM["&lt;b&gt;LLM&lt;/b&gt;"]
-  LLM --&gt; A["&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;"]
 
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
-  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style prep fill:none,stroke:#3b82f6,stroke-width:4px,stroke-dasharray:12 6,rx:40,ry:40,color:#3b82f6,font-size:40px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px
 </pre>
 </div>
 <p></p></figure><p></p>
