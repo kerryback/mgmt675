@@ -213,9 +213,59 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="retrieval-augmented-generation" class="slide level2 center">
-<h2>Retrieval Augmented Generation</h2>
-<p>What does the name mean?</p>
+<section id="what-weve-done" class="slide level2 center">
+<h2>What We’ve Done</h2>
+<ul>
+<li>Financial analysis with AI: mean-variance, DCF, Excel</li>
+<li>Email and calendar connectors</li>
+<li>Skills, system prompts, and memory files</li>
+<li>Don’t accept the first draft: critique skill</li>
+<li>Corporate AI deployment: data security, system prompt, logging</li>
+<li>Web scraping</li>
+</ul>
+</section>
+<section id="where-were-going" class="slide level2 center">
+<h2>Where We’re Going</h2>
+<div class="two-cards">
+<div class="card card-dark">
+<p><span class="card-title"><strong>M12: RAG (Today)</strong></span></p>
+<ul>
+<li>Give AI knowledge it wasn’t trained on</li>
+<li>Chunking, embedding, and vector search</li>
+<li>Build a 10-K chatbot with source citations</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>M13: Sentiment Analysis</strong></span></p>
+<ul>
+<li>LLMs as sentiment classifiers</li>
+<li>News and earnings call analysis</li>
+<li>Trading signals from text</li>
+</ul>
+</div>
+</div>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>M14: Building Agents</strong></span></p>
+<ul>
+<li>Define tools as JSON Schema</li>
+<li>The agentic loop: tool calls → results → reasoning</li>
+<li>Portfolio review agent</li>
+<li>Presentation examiner</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>M15: How AI Works</strong></span></p>
+<ul>
+<li>Neural networks</li>
+<li>Embeddings and attention</li>
+<li>Training of LLMs</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="rag-what-does-it-mean" class="slide level2 center">
+<h2>RAG: What Does it Mean?</h2>
 <div class="three-cards">
 <div class="card card-dark">
 <p><span class="card-title"><strong>Retrieval</strong></span></p>
@@ -246,50 +296,66 @@ Kerry Back, Rice University
 </div>
 </div>
 </section>
-<section id="what-weve-done" class="slide level2 center">
-<h2>What We’ve Done</h2>
+<section id="rag-what-does-it-mean-1" class="slide level2 center">
+<h2>RAG: What Does it Mean?</h2>
+<div class="three-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Retrieval</strong></span></p>
+<p>Fetch relevant passages from a knowledge base</p>
 <ul>
-<li>Financial analysis with AI: mean-variance, DCF, capital budgeting, deliverables</li>
-<li>Skills, makers &amp; checkers, web scraping, chatbots &amp; agents</li>
-<li>Corporate AI deployment (guardrails, governance)</li>
-<li>Live cases: Magnolia Oil &amp; Gas, The Sneaker Project</li>
+<li>Search your documents</li>
+<li>Find the most relevant passages</li>
+<li>“Retrieve” what the LLM needs to know</li>
 </ul>
-</section>
-<section id="where-were-going" class="slide level2 center">
-<h2>Where We’re Going</h2>
-<div class="two-cards">
+</div>
 <div class="card card-dark">
-<p><span class="card-title"><strong>M12: RAG (Today)</strong></span></p>
+<p><span class="card-title"><strong>Augmented</strong></span></p>
+<p>Pass retrieved passages alongside the user’s prompt to the LLM</p>
 <ul>
-<li>Give AI knowledge it wasn’t trained on</li>
-<li>Chunking, embedding, and vector search</li>
-<li>Build a 10-K chatbot with source citations</li>
+<li>The prompt is <span class="amber">augmented</span> with context</li>
+<li>LLM sees: your question + relevant excerpts</li>
+<li>No retraining needed</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>M13: Sentiment Analysis</strong></span></p>
+<p><span class="card-title"><strong>Generation</strong></span></p>
+<p>The LLM generates an answer grounded in the retrieved context</p>
 <ul>
-<li>LLMs as sentiment classifiers</li>
-<li>News and earnings call analysis</li>
-<li>Trading signals from text</li>
+<li>This is the “Gen” in Gen AI</li>
+<li>Answer is based on <span class="amber">your documents</span>, not just training data</li>
+<li>Can cite specific sources (with proper metadata)</li>
 </ul>
 </div>
 </div>
-<div class="two-cards">
+</section>
+<section id="rag-what-does-it-mean-2" class="slide level2 center">
+<h2>RAG: What Does it Mean?</h2>
+<div class="three-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>M14: Building Agents</strong></span></p>
+<p><span class="card-title"><strong>Retrieval</strong></span></p>
+<p>Fetch relevant passages from a knowledge base</p>
 <ul>
-<li>Define tools as JSON Schema</li>
-<li>The agentic loop: tool calls → results → reasoning</li>
-<li>Portfolio review agent with live data</li>
+<li>Search your documents</li>
+<li>Find the most relevant passages</li>
+<li>“Retrieve” what the LLM needs to know</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>M15: How AI Works</strong></span></p>
+<p><span class="card-title"><strong>Augmented</strong></span></p>
+<p>Pass retrieved passages alongside the user’s prompt to the LLM</p>
 <ul>
-<li>How LLMs are built and trained</li>
-<li>Embeddings and attention</li>
-<li>Joint optimization of parameters</li>
+<li>The prompt is <span class="amber">augmented</span> with context</li>
+<li>LLM sees: your question + relevant excerpts</li>
+<li>No retraining needed</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Generation</strong></span></p>
+<p>The LLM generates an answer grounded in the retrieved context</p>
+<ul>
+<li>This is the “Gen” in Gen AI</li>
+<li>Answer is based on <span class="amber">your documents</span>, not just training data</li>
+<li>Can cite specific sources (with proper metadata)</li>
 </ul>
 </div>
 </div>
@@ -299,7 +365,7 @@ Kerry Back, Rice University
 </section>
 <section id="four-ways-to-give-ai-knowledge" class="slide level2 smaller center">
 <h2>Four Ways to Give AI Knowledge</h2>
-<p>Prompting and skills customize <em>how</em> an LLM responds. But what if you need it to know things it wasn’t trained on?</p>
+<p>Prompting and skills customize <em>how</em> an LLM responds. But what if you need it to know <span class="amber">private data</span> it wasn’t trained on?</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 20%">
@@ -356,15 +422,6 @@ Kerry Back, Rice University
 </tbody>
 </table>
 </section>
-<section id="what-is-rag" class="slide level2 center">
-<h2>What is RAG?</h2>
-<p><strong>RAG</strong> = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user’s question. The LLM generates an answer <span class="amber">grounded in the retrieved text</span>.</p>
-<ul>
-<li>The LLM’s training data may be stale or lack your proprietary information</li>
-<li>RAG injects current, domain-specific context at query time</li>
-<li>No model weights are changed — the base LLM is used as-is</li>
-</ul>
-</section>
 <section id="the-rag-pipeline" class="slide level2 center">
 <h2>The RAG Pipeline</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
@@ -372,7 +429,7 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '54px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
   D["&lt;b&gt;Documents&lt;/b&gt;"] --&gt; CE["&lt;b&gt;Chunk &amp;&lt;br&gt;Embed&lt;/b&gt;"]
   CE --&gt; VDB["&lt;b&gt;Vector DB&lt;/b&gt;"]
@@ -382,14 +439,14 @@ flowchart LR
   R --&gt;|"query + context"| LLM["&lt;b&gt;LLM&lt;/b&gt;"]
   LLM --&gt; A["&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;"]
 
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
 </pre>
 </div>
 <p></p></figure><p></p>

@@ -18,9 +18,56 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## Retrieval Augmented Generation
+## What We've Done
 
-What does the name mean?
+- Financial analysis with AI: mean-variance, DCF, Excel
+- Email and calendar connectors 
+- Skills, system prompts, and memory files 
+- Don't accept the first draft: critique skill
+- Corporate AI deployment: data security, system prompt, logging 
+- Web scraping 
+
+## Where We're Going
+
+:::{.two-cards}
+:::{.card .card-dark}
+[**M12: RAG (Today)**]{.card-title}
+
+- Give AI knowledge it wasn't trained on
+- Chunking, embedding, and vector search
+- Build a 10-K chatbot with source citations
+:::
+
+:::{.card .card-light}
+[**M13: Sentiment Analysis**]{.card-title}
+
+- LLMs as sentiment classifiers
+- News and earnings call analysis
+- Trading signals from text
+:::
+:::
+
+:::{.two-cards}
+:::{.card .card-light}
+[**M14: Building Agents**]{.card-title}
+
+- Define tools as JSON Schema
+- The agentic loop: tool calls → results → reasoning
+- Portfolio review agent 
+- Presentation examiner
+:::
+
+:::{.card .card-light}
+[**M15: How AI Works**]{.card-title}
+
+- Neural networks
+- Embeddings and attention
+- Training of LLMs
+:::
+:::
+
+
+## RAG: What Does it Mean?
 
 :::{.three-cards}
 :::{.card .card-dark}
@@ -54,56 +101,80 @@ The LLM generates an answer grounded in the retrieved context
 :::
 :::
 
-## What We've Done
+## RAG: What Does it Mean?
 
-- Financial analysis with AI: mean-variance, DCF, capital budgeting, deliverables
-- Skills, makers & checkers, web scraping, chatbots & agents
-- Corporate AI deployment (guardrails, governance)
-- Live cases: Magnolia Oil & Gas, The Sneaker Project
+:::{.three-cards}
+:::{.card .card-light}
+[**Retrieval**]{.card-title}
 
-## Where We're Going
+Fetch relevant passages from a knowledge base
 
-:::{.two-cards}
+- Search your documents
+- Find the most relevant passages
+- "Retrieve" what the LLM needs to know
+:::
+
 :::{.card .card-dark}
-[**M12: RAG (Today)**]{.card-title}
+[**Augmented**]{.card-title}
 
-- Give AI knowledge it wasn't trained on
-- Chunking, embedding, and vector search
-- Build a 10-K chatbot with source citations
+Pass retrieved passages alongside the user's prompt to the LLM
+
+- The prompt is [augmented]{.amber} with context
+- LLM sees: your question + relevant excerpts
+- No retraining needed
 :::
 
 :::{.card .card-light}
-[**M13: Sentiment Analysis**]{.card-title}
+[**Generation**]{.card-title}
 
-- LLMs as sentiment classifiers
-- News and earnings call analysis
-- Trading signals from text
+The LLM generates an answer grounded in the retrieved context
+
+- This is the "Gen" in Gen AI
+- Answer is based on [your documents]{.amber}, not just training data
+- Can cite specific sources (with proper metadata)
 :::
 :::
 
-:::{.two-cards}
+## RAG: What Does it Mean?
+
+:::{.three-cards}
 :::{.card .card-light}
-[**M14: Building Agents**]{.card-title}
+[**Retrieval**]{.card-title}
 
-- Define tools as JSON Schema
-- The agentic loop: tool calls → results → reasoning
-- Portfolio review agent with live data
+Fetch relevant passages from a knowledge base
+
+- Search your documents
+- Find the most relevant passages
+- "Retrieve" what the LLM needs to know
 :::
 
 :::{.card .card-light}
-[**M15: How AI Works**]{.card-title}
+[**Augmented**]{.card-title}
 
-- How LLMs are built and trained
-- Embeddings and attention
-- Joint optimization of parameters
+Pass retrieved passages alongside the user's prompt to the LLM
+
+- The prompt is [augmented]{.amber} with context
+- LLM sees: your question + relevant excerpts
+- No retraining needed
+:::
+
+:::{.card .card-dark}
+[**Generation**]{.card-title}
+
+The LLM generates an answer grounded in the retrieved context
+
+- This is the "Gen" in Gen AI
+- Answer is based on [your documents]{.amber}, not just training data
+- Can cite specific sources (with proper metadata)
 :::
 :::
+
 
 ## Beyond Prompting {.section-divider}
 
 ## Four Ways to Give AI Knowledge {.smaller}
 
-Prompting and skills customize *how* an LLM responds. But what if you need it to know things it wasn't trained on?
+Prompting and skills customize *how* an LLM responds. But what if you need it to know [private data]{.amber} it wasn't trained on?
 
 | | **Long Context** | **RAG** | **Fine-Tuning** | **Small Language Model** |
 |---|---|---|---|---|
@@ -113,19 +184,11 @@ Prompting and skills customize *how* an LLM responds. But what if you need it to
 | **Cost per query** | High (long prompts are expensive) | Low (only relevant chunks sent) | Low | Low |
 | **Complexity** | None | Moderate (pipeline + vector DB) | High (dataset curation) | Very high (full ML ops) |
 
-## What is RAG?
-
-**RAG** = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user's question. The LLM generates an answer [grounded in the retrieved text]{.amber}.
-
-- The LLM's training data may be stale or lack your proprietary information
-- RAG injects current, domain-specific context at query time
-- No model weights are changed --- the base LLM is used as-is
-
 ## The RAG Pipeline
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '54px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
   D["<b>Documents</b>"] --> CE["<b>Chunk &<br>Embed</b>"]
   CE --> VDB["<b>Vector DB</b>"]
@@ -135,14 +198,14 @@ flowchart LR
   R -->|"query + context"| LLM["<b>LLM</b>"]
   LLM --> A["<b>Grounded<br>Answer</b>"]
 
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
-  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
+  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:54px,padding:20px
 ```
 
 ## Embeddings: A Concrete Example {.section-divider}
