@@ -339,6 +339,45 @@ prompt = f"Based on this context:\n{best_chunk}\n\nAnswer: {query}"
 
 The LLM never sees the whole document --- just the [most relevant chunk]{.amber}.
 
+## Where Have You Seen This Before? {.section-divider}
+
+## You Already Use Embeddings
+
+The embed → cosine similarity → retrieve pipeline isn't new. It powers tools you use every day:
+
+| **Product** | **What Gets Embedded** | **What It Does** |
+|---|---|---|
+| **Google Search** | Web pages and queries | Matches query *meaning*, not just keywords (BERT, 2019) |
+| **Spotify** | Songs, playlists, listening history | Discover Weekly, "similar songs" |
+| **Netflix / YouTube** | Movies, watch history | "Because you watched..." recommendations |
+| **iPhone Photos** | Images | Search "beach sunset" with no tags |
+| **Amazon** | Products, purchase history | "Customers who bought this also bought..." |
+| **LinkedIn** | Resumes, job postings | Job/candidate matching beyond keyword overlap |
+
+## Same Math, Different Documents
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Recommendations**]{.card-title}
+
+- Embed songs, movies, or products into vectors
+- Find nearest neighbors by cosine similarity
+- Return the most similar items
+:::
+
+:::{.card .card-dark}
+[**RAG**]{.card-title}
+
+- Embed document chunks into vectors
+- Find nearest neighbors by cosine similarity
+- Return the most relevant passages to the LLM
+:::
+:::
+
+:::{.explainer}
+RAG applies the [same math]{.amber} that powers recommendations and search --- just to documents instead of songs or products.
+:::
+
 ## RAG in Finance {.section-divider}
 
 ## Finance Applications of RAG
@@ -489,37 +528,3 @@ Cite the specific excerpt(s) that support your answer.
 The instruction to say "I don't know" and to cite sources are [critical guardrails]{.amber} against hallucination.
 :::
 
-## Evaluating RAG Quality
-
-How do you know if your RAG pipeline is working?
-
-| **Metric** | **What It Measures** | **How to Test** | **Target** |
-|---|---|---|---|
-| Retrieval precision | Are the retrieved chunks relevant? | Review top-$k$ chunks for 20+ queries | >80% |
-| Answer faithfulness | Is the answer supported by the chunks? | Compare answer claims to source text | >90% |
-| Answer completeness | Did it capture all relevant info? | Check against a known-good answer | >70% |
-| Citation accuracy | Do the citations point to the right source? | Verify each citation manually | >90% |
-
-:::{.explainer}
-Targets are starting benchmarks --- adjust to your use case. Start with [manual evaluation]{.amber} on 20--30 questions before production use.
-:::
-
-## Summary
-
-:::{.two-cards}
-:::{.card .card-light}
-[**RAG**]{.card-title}
-
-- Retrieve, then generate
-- Grounds answers in sources
-- No model training (but pipeline engineering required)
-:::
-
-:::{.card .card-light}
-[**Finance Uses**]{.card-title}
-
-- 10-K analysis
-- Earnings call Q&A
-- Due diligence
-:::
-:::
