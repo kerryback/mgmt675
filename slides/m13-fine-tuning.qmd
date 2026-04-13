@@ -210,6 +210,197 @@ Result: fine-tune a **65B-parameter model on a single 48GB GPU**. Training is ~3
 LIMA's finding is striking: [1,000 carefully curated examples]{.amber} can outperform 52,000 generated ones. Data quality matters more than quantity.
 :::
 
+## Hands-On: Fine-Tuning Gemma {.section-divider}
+
+## What We'll Do
+
+Fine-tune **Google Gemma 3 1B** to classify financial news sentiment using QLoRA.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Setup**]{.card-title}
+
+- Google Colab (free T4 GPU)
+- Hugging Face account (accept Gemma license)
+- ~15 minutes to train
+:::
+
+:::{.card .card-dark}
+[**Stack**]{.card-title}
+
+- `transformers` --- load and run the model
+- `peft` --- apply LoRA adapters
+- `trl` --- supervised fine-tuning trainer
+- `bitsandbytes` --- 4-bit quantization (QLoRA)
+:::
+:::
+
+## Step 1: Install and Login
+
+```python
+# In Google Colab:
+!pip install -q transformers peft trl datasets bitsandbytes accelerate
+
+# Login to Hugging Face (needed for Gemma license)
+from huggingface_hub import login
+login()  # paste your HF token when prompted
+```
+
+You need to accept Google's Gemma license at [huggingface.co/google/gemma-3-1b-it](https://huggingface.co/google/gemma-3-1b-it) before downloading.
+
+## Step 2: Load the Model with QLoRA {.smaller}
+
+```python
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from peft import LoraConfig, get_peft_model
+import torch
+
+# 4-bit quantization config (QLoRA)
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16,
+)
+
+model_id = "google/gemma-3-1b-it"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id, quantization_config=bnb_config, device_map="auto"
+)
+```
+
+The 1B model loads in [~800 MB]{.amber} with 4-bit quantization (vs. ~2 GB at full precision).
+
+## Step 3: Attach LoRA Adapters {.smaller}
+
+```python
+lora_config = LoraConfig(
+    r=16,                          # rank — higher = more capacity
+    lora_alpha=32,                 # scaling factor
+    target_modules="all-linear",   # apply to all linear layers
+    lora_dropout=0.05,
+    task_type="CAUSAL_LM",
+)
+
+model = get_peft_model(model, lora_config)
+model.print_trainable_parameters()
+# trainable params: 3,407,872 || all params: 999,698,432 || trainable%: 0.34%
+```
+
+Only [0.34%]{.amber} of parameters are trainable --- the rest are frozen.
+
+## Step 4: Prepare Training Data {.smaller}
+
+```python
+from datasets import Dataset
+
+# Financial sentiment classification examples
+examples = [
+    {"text": "Revenue surged 23% year over year, beating analyst estimates.",
+     "label": "positive"},
+    {"text": "The company announced 2,000 layoffs amid declining margins.",
+     "label": "negative"},
+    {"text": "Q3 results were in line with expectations, no change to guidance.",
+     "label": "neutral"},
+    # ... add 50-200 more examples
+]
+
+def format_example(example):
+    prompt = f"""Classify the financial sentiment of this text.
+Text: {example['text']}
+Sentiment:"""
+    return {"text": f"{prompt} {example['label']}"}
+
+dataset = Dataset.from_list(examples).map(format_example)
+```
+
+## Step 5: Train {.smaller}
+
+```python
+from trl import SFTConfig, SFTTrainer
+
+training_args = SFTConfig(
+    output_dir="./gemma-finance-sentiment",
+    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    learning_rate=2e-4,
+    max_seq_length=256,
+    logging_steps=10,
+)
+
+trainer = SFTTrainer(
+    model=model,
+    args=training_args,
+    train_dataset=dataset,
+)
+
+trainer.train()
+```
+
+On a Colab T4 GPU, this takes [~10--15 minutes]{.amber} for 200 examples × 3 epochs.
+
+## Step 6: Test the Result {.smaller}
+
+```python
+# Test on a new example the model hasn't seen
+prompt = """Classify the financial sentiment of this text.
+Text: Net income fell 12% as rising input costs squeezed margins.
+Sentiment:"""
+
+inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+outputs = model.generate(**inputs, max_new_tokens=5)
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+# → "... Sentiment: negative"
+```
+
+## Step 7: Save and Share
+
+```python
+# Save the LoRA adapter (just a few MB)
+model.save_pretrained("./gemma-finance-sentiment")
+
+# Later, reload on any machine:
+from peft import PeftModel
+base = AutoModelForCausalLM.from_pretrained(model_id, ...)
+model = PeftModel.from_pretrained(base, "./gemma-finance-sentiment")
+
+# Or merge into a single model file:
+merged = model.merge_and_unload()
+merged.save_pretrained("./gemma-finance-merged")
+```
+
+The adapter is [~14 MB]{.amber}. The full merged model is ~2 GB. Both produce identical results.
+
+## What Just Happened?
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Data**]{.card-title}
+
+~200 labeled examples of financial sentiment
+
+Took minutes to prepare
+:::
+
+:::{.card .card-dark}
+[**Training**]{.card-title}
+
+QLoRA updated 0.34% of parameters
+
+~15 minutes on a free GPU
+
+Total cost: $0
+:::
+
+:::{.card .card-light}
+[**Result**]{.card-title}
+
+A 1B model that classifies financial sentiment in [milliseconds]{.amber}
+
+Runs locally, no API needed
+:::
+:::
+
 ## Distillation: LLM → Small Model {.section-divider}
 
 ## Why Not Just Use the Big Model?
