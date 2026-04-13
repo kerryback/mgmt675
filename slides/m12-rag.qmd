@@ -1,5 +1,5 @@
 ---
-title: "Module 11: Retrieval Augmented Generation"
+title: "Module 12: Retrieval Augmented Generation"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -18,16 +18,48 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
+## Retrieval Augmented Generation
+
+What does the name mean?
+
+:::{.three-cards}
+:::{.card .card-dark}
+[**Retrieval**]{.card-title}
+
+Fetch relevant passages from a knowledge base
+
+- Search your documents
+- Find the most relevant passages
+- "Retrieve" what the LLM needs to know
+:::
+
+:::{.card .card-light}
+[**Augmented**]{.card-title}
+
+Pass retrieved passages alongside the user's prompt to the LLM
+
+- The prompt is [augmented]{.amber} with context
+- LLM sees: your question + relevant excerpts
+- No retraining needed
+:::
+
+:::{.card .card-light}
+[**Generation**]{.card-title}
+
+The LLM generates an answer grounded in the retrieved context
+
+- This is the "Gen" in Gen AI
+- Answer is based on [your documents]{.amber}, not just training data
+- Can cite specific sources (with proper metadata)
+:::
+:::
+
 ## What We've Done
 
-- AI + code tools for financial analysis
-  - Mean-variance optimization, DCF valuation, capital budgeting (NPV, real options)
-  - Deliverables: figures, Excel, Word, PowerPoint, web apps
-- Skills (reusable instructions) and makers & checkers
-- Web scraping (SEC EDGAR, news)
-- Chatbots and agents (FastAPI, deployment)
+- Financial analysis with AI: mean-variance, DCF, capital budgeting, deliverables
+- Skills, makers & checkers, web scraping, chatbots & agents
 - Corporate AI deployment (guardrails, governance)
-- Live cases: Magnolia Oil & Gas (DCF), The Sneaker Project (capital budgeting)
+- Live cases: Magnolia Oil & Gas, The Sneaker Project
 
 ## Where We're Going
 
@@ -41,52 +73,77 @@ format:
 :::
 
 :::{.card .card-light}
-[**M13: Building Agents with the Claude API**]{.card-title}
-
-- Define tools as JSON Schema
-- The agentic loop: tool calls → results → reasoning
-- Portfolio review agent with live data
-:::
-:::
-
-:::{.two-cards}
-:::{.card .card-light}
-[**M14: Sentiment Analysis**]{.card-title}
+[**M13: Sentiment Analysis**]{.card-title}
 
 - LLMs as sentiment classifiers
 - News and earnings call analysis
 - Trading signals from text
 :::
+:::
+
+:::{.two-cards}
+:::{.card .card-light}
+[**M14: Building Agents**]{.card-title}
+
+- Define tools as JSON Schema
+- The agentic loop: tool calls → results → reasoning
+- Portfolio review agent with live data
+:::
 
 :::{.card .card-light}
-[**M15: Predictive Modeling**]{.card-title}
+[**M15: How AI Works**]{.card-title}
 
-- Regression and classification
-- Gradient boosting vs. linear models
-- Neural networks and when to use what
+- How LLMs are built and trained
+- Embeddings and attention
+- Joint optimization of parameters
 :::
 :::
 
 ## Beyond Prompting {.section-divider}
 
-## Three Ways to Give AI Knowledge
+## Four Ways to Give AI Knowledge {.smaller}
 
 Prompting and skills customize *how* an LLM responds. But what if you need it to know things it wasn't trained on?
 
+| | **Long Context** | **RAG** | **Fine-Tuning** | **Small Language Model** |
+|---|---|---|---|---|
+| **Best for** | Short docs that fit in one prompt | Large or many docs; proprietary facts | Specific tone, format, or domain expertise | Full control, privacy, specialized tasks |
+| **Data freshness** | Real-time (paste it in) | Real-time updates | Stale after training | Stale after training |
+| **Cost to start** | None | Low (no model training) | Medium (GPU hours) | High (training + hosting) |
+| **Cost per query** | High (long prompts are expensive) | Low (only relevant chunks sent) | Low | Low |
+| **Complexity** | None | Moderate (pipeline + vector DB) | High (dataset curation) | Very high (full ML ops) |
+
+## What is RAG?
+
+**RAG** = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user's question. The LLM generates an answer [grounded in the retrieved text]{.amber}.
+
+- The LLM's training data may be stale or lack your proprietary information
+- RAG injects current, domain-specific context at query time
+- No model weights are changed --- the base LLM is used as-is
+
+## The RAG Pipeline
+
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
-  RAG["<b>RAG</b>"] ~~~ FT["<b>Fine-Tuning</b>"] ~~~ SLM["<b>Small Language<br>Model</b>"]
+  D["<b>Documents</b>"] --> CE["<b>Chunk &<br>Embed</b>"]
+  CE --> VDB["<b>Vector DB</b>"]
+  UQ["<b>User Query</b>"] --> EQ["<b>Embed<br>Query</b>"]
+  EQ --> R["<b>Retrieve<br>Matches</b>"]
+  VDB --> R
+  R -->|"query + context"| LLM["<b>LLM</b>"]
+  LLM --> A["<b>Grounded<br>Answer</b>"]
 
-  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
 ```
-
-- **RAG**: Up-to-date or proprietary facts; data changes frequently
-- **Fine-Tuning**: Specific tone, format, or domain expertise baked in
-- **Small Language Model**: Full control, privacy, or a highly specialized task
 
 ## Embeddings: A Concrete Example {.section-divider}
 
@@ -94,18 +151,18 @@ flowchart LR
 
 An **embedding model** converts text into a vector of numbers. Words with similar meanings get similar vectors.
 
-Using GloVe (50-dimensional vectors trained on Wikipedia):
+Using GloVe (50-dimensional vectors trained on Wikipedia + Gigaword):
 
 ```python
 import gensim.downloader as api
 model = api.load("glove-wiki-gigaword-50")
 
-model["king"]   # array([ 0.50,  0.68, -0.59,  0.11,  0.05, ...])  50 dims
-model["queen"]  # array([ 0.38,  0.72, -0.63, -0.01,  0.03, ...])
-model["apple"]  # array([-0.39,  0.33,  0.21, -0.58,  0.47, ...])
+model["king"]   # array([ 0.50,  0.69, -0.60, -0.02,  0.60, ...])  50 dims
+model["queen"]  # array([ 0.38,  1.82, -1.26, -0.10,  0.36, ...])
+model["apple"]  # array([ 0.52, -0.83,  0.50,  1.29,  0.12, ...])
 ```
 
-"King" and "queen" have similar vectors. "Apple" is very different.
+"King" and "queen" have similar vectors. "Apple" is very different. (GloVe illustrates the idea; RAG uses more advanced [sentence embeddings]{.amber} we'll see next.)
 
 ## Word Analogies: King -- Man + Woman
 
@@ -117,16 +174,16 @@ $$\vec{\text{king}} - \vec{\text{man}} + \vec{\text{woman}} \approx \vec{\text{q
 result = model.most_similar(
     positive=["king", "woman"], negative=["man"], topn=3
 )
-# [('queen', 0.77), ('monarch', 0.68), ('princess', 0.66)]
+# [('queen', 0.86), ('daughter', 0.77), ('prince', 0.76)]
 ```
 
 The model was never told these relationships --- it learned them from patterns in text.
 
 ## From Words to Sentences
 
-For RAG, we need to embed **entire sentences or paragraphs**, not single words.
+Word vectors capture individual word meaning, but RAG needs to compare the meaning of **entire passages**.
 
-**Sentence-transformers** passes the full text through a transformer and outputs a single vector:
+`sentence-transformers` passes the full text through a transformer and outputs a single vector:
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -144,7 +201,9 @@ How do we measure if two vectors are "close"?  [**Cosine similarity**]{.amber}: 
 
 - **1.0** = identical direction (same meaning)
 - **0.0** = perpendicular (unrelated)
-- **--1.0** = opposite
+- For sentence-transformer models, scores typically fall in [0, 1]{.amber}
+
+## Cosine Similarity in Action
 
 ```python
 from sklearn.metrics.pairwise import cosine_similarity
@@ -154,10 +213,10 @@ chunks = [
     "The company opened 12 new retail locations in Q3.",
     "Net income declined 8% due to rising input costs.",
 ]
-query = "How did profits change?"
+query = "What happened to net income?"
 
 scores = cosine_similarity(model.encode([query]), model.encode(chunks))[0]
-# [0.31, 0.12, 0.68]  ← net income chunk is the best match
+# [0.41, 0.09, 0.54]  ← net income chunk is the best match
 ```
 
 ## Chunking a Document
@@ -207,64 +266,6 @@ prompt = f"Based on this context:\n{best_chunk}\n\nAnswer: {query}"
 
 The LLM never sees the whole document --- just the [most relevant chunk]{.amber}.
 
-## How RAG Works {.section-divider}
-
-## What is RAG?
-
-**RAG** = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user's question. The LLM generates an answer [grounded in the retrieved text]{.amber}.
-
-- The LLM's training data may be stale or lack your proprietary information
-- RAG injects current, domain-specific context at query time
-- No model weights are changed --- the base LLM is used as-is
-
-## The RAG Pipeline
-
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
-flowchart LR
-  D["<b>Documents</b>"] --> CE["<b>Chunk &<br>Embed</b>"]
-  CE --> VDB["<b>Vector DB</b>"]
-  UQ["<b>User Query</b>"] --> R["<b>Retrieve<br>Matches</b>"]
-  VDB --> R
-  R -->|"query + context"| LLM["<b>LLM</b>"]
-  LLM --> A["<b>Grounded<br>Answer</b>"]
-
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-```
-
-## RAG: Key Concepts
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Embeddings**]{.card-title}
-
-- Text converted into numerical vectors
-- Similar meaning → nearby vectors
-- Enables semantic search (not just keyword matching)
-:::
-
-:::{.card .card-light}
-[**Vector Database**]{.card-title}
-
-- Stores document chunks as vectors
-- Fast similarity search
-- Examples: Pinecone, Chroma, FAISS
-:::
-:::
-
-**Chunking**
-
-- Documents are split into small, overlapping pieces (chunks)
-- Chunk size matters: too large = noisy context, too small = lost meaning
-- Typical sizes: 200--1000 tokens per chunk
-
 ## RAG in Finance {.section-divider}
 
 ## Finance Applications of RAG
@@ -293,7 +294,7 @@ flowchart LR
 :::{.column}
 **Strengths**
 
-- No training required
+- No model training required (pipeline engineering is the main cost)
 - Data can be updated in real time
 - Answers are traceable to source pages
 :::
@@ -302,9 +303,13 @@ flowchart LR
 **Limitations**
 
 - Quality depends on retrieval quality
-- Context window limits how much can be passed
 - Chunking can split important context
+- Adds infrastructure cost (embedding API, vector DB hosting) and query latency
 :::
+:::
+
+:::{.explainer}
+**Why not just paste the whole document into the prompt?** Context windows are growing fast (100K--1M tokens), but RAG still wins when you have [many documents]{.amber}, need to keep costs down (long prompts are expensive), or want traceable citations from specific passages.
 :::
 
 ## NotebookLM: RAG Without Code {.section-divider}
@@ -351,11 +356,13 @@ NotebookLM is a practical example of RAG that you can use [today]{.amber}.
 
 ## Under the Hood: Building a RAG Pipeline
 
-For those who want to understand the internals, ask Claude Code to build a RAG pipeline step by step.
+We'll build this together in class. Ask Claude Code to build a RAG pipeline step by step:
 
-1. Install libraries (`langchain`, `chromadb`, an embedding model)
+1. Install libraries (`langchain`, `chromadb`, `sentence-transformers`)
 2. Load and chunk a PDF, embed and store in a vector database
 3. Query the pipeline with finance-specific questions
+
+See the class notebook for the full pipeline code and worked example.
 
 ## Example Questions to Try
 
@@ -367,30 +374,124 @@ Upload a company's 10-K and ask:
 
 Notice how answers are grounded in the actual document --- the key benefit of RAG over plain prompting.
 
-## Exercises {.section-divider}
+## What Can Go Wrong? {.section-divider}
 
-## Exercise 1: NotebookLM Analysis
+## Retrieval Failures
 
-1. Upload 3+ financial documents for the same company into NotebookLM (10-K, earnings transcript, analyst report)
-2. Ask 5+ questions across the documents
-3. Note how citations trace back to specific sources
-4. Submit: Q&A pairs + quality assessment (were answers grounded? any hallucinations?)
+The LLM can only answer from what it retrieves. If retrieval fails, [the answer will be wrong or fabricated]{.amber}.
 
-## Exercise 2: RAG Pipeline
+| **Problem** | **Example** | **Result** |
+|---|---|---|
+| Wrong chunk retrieved | Query about "Apple revenue" retrieves a chunk about Apple's supply chain | Answer discusses supply chain, ignores revenue |
+| Relevant info split across chunks | Revenue in one chunk, costs in another | LLM sees only half the picture |
+| No relevant chunk exists | Question about a topic not in the documents | LLM may hallucinate an answer anyway |
+| Too many chunks retrieved | 20 chunks passed to LLM, mostly noise | Key information buried; LLM confused |
 
-1. Ask Claude Code to build a RAG pipeline that loads a corporate annual report (e.g., Apple 10-K)
-2. Have it chunk and embed the document into a vector database
-3. Ask 5 finance-specific questions and evaluate whether answers are grounded or hallucinated
-4. Submit: code + evaluation
+## Chunking Problems
 
-## Exercise 3: Document Comparison
+How you split documents [dramatically affects]{.amber} retrieval quality:
 
-1. Upload two years of 10-Ks for the same company into NotebookLM
-2. Ask AI to identify the most significant changes in:
-   - Risk factors
-   - Revenue composition
-   - Management guidance and accounting policies
-3. Submit: summary of key changes with source citations
+:::{.two-cards}
+:::{.card .card-light}
+[**Chunks Too Small**]{.card-title}
+
+- "Revenue was $89.5 billion" in one chunk
+- "down 1% year over year" in another
+- Neither chunk alone tells the full story
+- Query matches the wrong fragment
+:::
+
+:::{.card .card-light}
+[**Chunks Too Large**]{.card-title}
+
+- A 3-page chunk covers revenue, costs, risks, and guidance
+- Query about revenue retrieves the whole chunk
+- LLM gets noisy context, may pull from the wrong section
+- Embedding is a [blurry average]{.amber} of many topics
+:::
+:::
+
+## Hallucination Despite Context
+
+Even with good retrieval, the LLM can still go wrong:
+
+- **Over-extrapolation**: "Revenue grew 15%" → LLM infers "the company is doing well" even though the next paragraph discusses a major lawsuit
+- **Confidence without evidence**: LLM generates a precise-sounding answer that isn't supported by the retrieved chunks
+- **Blending sources**: mixes information from different chunks in ways that create false conclusions
+- **Ignoring the context**: especially with long or complex chunks, the LLM may fall back on its training data instead
+
+:::{.explainer}
+RAG [reduces]{.amber} hallucination but does not eliminate it. Always verify critical claims against the source document.
+:::
+
+## Best Practices {.section-divider}
+
+## Chunking Best Practices
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Chunk Size**]{.card-title}
+
+- 200--500 tokens for precise retrieval
+- 500--1000 tokens for more context per chunk
+- Test on your actual queries to find the sweet spot
+- Financial filings: paragraph-level chunks often work best
+:::
+
+:::{.card .card-light}
+[**Overlap**]{.card-title}
+
+- 10--20% overlap between consecutive chunks
+- Ensures sentences at boundaries aren't orphaned
+- Example: 400-token chunks with 80-token overlap
+- Critical for tables and lists that span chunk boundaries
+:::
+:::
+
+:::{.explainer}
+There is no universal best chunk size. The right answer depends on your documents, your questions, and your embedding model. [Test and iterate]{.amber}.
+:::
+
+## Retrieval Best Practices
+
+- **Retrieve more, then re-rank**: pull top 10 chunks, then use a re-ranker to select the best 3--5
+- **Hybrid search**: combine vector similarity (semantic) with keyword search (exact match) --- catches both meaning and specific terms like ticker symbols
+- **Metadata filters**: tag chunks with source, date, section (e.g., "Risk Factors") and filter before similarity search
+- **Query expansion**: rephrase the user's question multiple ways to improve recall
+
+## Prompt Engineering for RAG
+
+The prompt that wraps retrieved chunks matters (pseudocode --- plug into an f-string or template):
+
+```
+Based ONLY on the following excerpts from {company}'s 10-K filing,
+answer the question below. If the excerpts do not contain enough
+information to answer, say "I don't have enough information" ---
+do NOT guess or use outside knowledge.
+
+EXCERPTS: {retrieved_chunks}
+QUESTION: {user_query}
+Cite the specific excerpt(s) that support your answer.
+```
+
+:::{.explainer}
+The instruction to say "I don't know" and to cite sources are [critical guardrails]{.amber} against hallucination.
+:::
+
+## Evaluating RAG Quality
+
+How do you know if your RAG pipeline is working?
+
+| **Metric** | **What It Measures** | **How to Test** | **Target** |
+|---|---|---|---|
+| Retrieval precision | Are the retrieved chunks relevant? | Review top-$k$ chunks for 20+ queries | >80% |
+| Answer faithfulness | Is the answer supported by the chunks? | Compare answer claims to source text | >90% |
+| Answer completeness | Did it capture all relevant info? | Check against a known-good answer | >70% |
+| Citation accuracy | Do the citations point to the right source? | Verify each citation manually | >90% |
+
+:::{.explainer}
+Targets are starting benchmarks --- adjust to your use case. Start with [manual evaluation]{.amber} on 20--30 questions before production use.
+:::
 
 ## Summary
 
@@ -400,7 +501,7 @@ Notice how answers are grounded in the actual document --- the key benefit of RA
 
 - Retrieve, then generate
 - Grounds answers in sources
-- No training required
+- No model training (but pipeline engineering required)
 :::
 
 :::{.card .card-light}
@@ -421,5 +522,5 @@ Notice how answers are grounded in the actual document --- the key benefit of RA
 :::
 
 :::{.explainer style="text-align:center;"}
-[RAG gives AI knowledge it doesn't have --- grounded in your documents, with citations.]{.amber}
+[Try it today: upload Apple's latest 10-K to NotebookLM and ask three questions about it.]{.amber}
 :::

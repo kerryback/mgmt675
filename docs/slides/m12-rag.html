@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 11: Retrieval Augmented Generation</title>
+  <title>Module 12: Retrieval Augmented Generation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -201,7 +201,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 11: Retrieval Augmented Generation</h1>
+  <h1 class="title">Module 12: Retrieval Augmented Generation</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -213,19 +213,46 @@ Kerry Back, Rice University
 </div>
 
 </section>
+<section id="retrieval-augmented-generation" class="slide level2 center">
+<h2>Retrieval Augmented Generation</h2>
+<p>What does the name mean?</p>
+<div class="three-cards">
+<div class="card card-dark">
+<p><span class="card-title"><strong>Retrieval</strong></span></p>
+<p>Fetch relevant passages from a knowledge base</p>
+<ul>
+<li>Search your documents</li>
+<li>Find the most relevant passages</li>
+<li>“Retrieve” what the LLM needs to know</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Augmented</strong></span></p>
+<p>Pass retrieved passages alongside the user’s prompt to the LLM</p>
+<ul>
+<li>The prompt is <span class="amber">augmented</span> with context</li>
+<li>LLM sees: your question + relevant excerpts</li>
+<li>No retraining needed</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Generation</strong></span></p>
+<p>The LLM generates an answer grounded in the retrieved context</p>
+<ul>
+<li>This is the “Gen” in Gen AI</li>
+<li>Answer is based on <span class="amber">your documents</span>, not just training data</li>
+<li>Can cite specific sources (with proper metadata)</li>
+</ul>
+</div>
+</div>
+</section>
 <section id="what-weve-done" class="slide level2 center">
 <h2>What We’ve Done</h2>
 <ul>
-<li>AI + code tools for financial analysis
-<ul>
-<li>Mean-variance optimization, DCF valuation, capital budgeting (NPV, real options)</li>
-<li>Deliverables: figures, Excel, Word, PowerPoint, web apps</li>
-</ul></li>
-<li>Skills (reusable instructions) and makers &amp; checkers</li>
-<li>Web scraping (SEC EDGAR, news)</li>
-<li>Chatbots and agents (FastAPI, deployment)</li>
+<li>Financial analysis with AI: mean-variance, DCF, capital budgeting, deliverables</li>
+<li>Skills, makers &amp; checkers, web scraping, chatbots &amp; agents</li>
 <li>Corporate AI deployment (guardrails, governance)</li>
-<li>Live cases: Magnolia Oil &amp; Gas (DCF), The Sneaker Project (capital budgeting)</li>
+<li>Live cases: Magnolia Oil &amp; Gas, The Sneaker Project</li>
 </ul>
 </section>
 <section id="where-were-going" class="slide level2 center">
@@ -240,29 +267,29 @@ Kerry Back, Rice University
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>M13: Building Agents with the Claude API</strong></span></p>
-<ul>
-<li>Define tools as JSON Schema</li>
-<li>The agentic loop: tool calls → results → reasoning</li>
-<li>Portfolio review agent with live data</li>
-</ul>
-</div>
-</div>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>M14: Sentiment Analysis</strong></span></p>
+<p><span class="card-title"><strong>M13: Sentiment Analysis</strong></span></p>
 <ul>
 <li>LLMs as sentiment classifiers</li>
 <li>News and earnings call analysis</li>
 <li>Trading signals from text</li>
 </ul>
 </div>
+</div>
+<div class="two-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>M15: Predictive Modeling</strong></span></p>
+<p><span class="card-title"><strong>M14: Building Agents</strong></span></p>
 <ul>
-<li>Regression and classification</li>
-<li>Gradient boosting vs.&nbsp;linear models</li>
-<li>Neural networks and when to use what</li>
+<li>Define tools as JSON Schema</li>
+<li>The agentic loop: tool calls → results → reasoning</li>
+<li>Portfolio review agent with live data</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>M15: How AI Works</strong></span></p>
+<ul>
+<li>How LLMs are built and trained</li>
+<li>Embeddings and attention</li>
+<li>Joint optimization of parameters</li>
 </ul>
 </div>
 </div>
@@ -270,32 +297,105 @@ Kerry Back, Rice University
 <section id="beyond-prompting" class="slide level2 section-divider center">
 <h2>Beyond Prompting</h2>
 </section>
-<section id="three-ways-to-give-ai-knowledge" class="slide level2 center">
-<h2>Three Ways to Give AI Knowledge</h2>
+<section id="four-ways-to-give-ai-knowledge" class="slide level2 smaller center">
+<h2>Four Ways to Give AI Knowledge</h2>
 <p>Prompting and skills customize <em>how</em> an LLM responds. But what if you need it to know things it wasn’t trained on?</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Long Context</strong></th>
+<th><strong>RAG</strong></th>
+<th><strong>Fine-Tuning</strong></th>
+<th><strong>Small Language Model</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Best for</strong></td>
+<td>Short docs that fit in one prompt</td>
+<td>Large or many docs; proprietary facts</td>
+<td>Specific tone, format, or domain expertise</td>
+<td>Full control, privacy, specialized tasks</td>
+</tr>
+<tr class="even">
+<td><strong>Data freshness</strong></td>
+<td>Real-time (paste it in)</td>
+<td>Real-time updates</td>
+<td>Stale after training</td>
+<td>Stale after training</td>
+</tr>
+<tr class="odd">
+<td><strong>Cost to start</strong></td>
+<td>None</td>
+<td>Low (no model training)</td>
+<td>Medium (GPU hours)</td>
+<td>High (training + hosting)</td>
+</tr>
+<tr class="even">
+<td><strong>Cost per query</strong></td>
+<td>High (long prompts are expensive)</td>
+<td>Low (only relevant chunks sent)</td>
+<td>Low</td>
+<td>Low</td>
+</tr>
+<tr class="odd">
+<td><strong>Complexity</strong></td>
+<td>None</td>
+<td>Moderate (pipeline + vector DB)</td>
+<td>High (dataset curation)</td>
+<td>Very high (full ML ops)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="what-is-rag" class="slide level2 center">
+<h2>What is RAG?</h2>
+<p><strong>RAG</strong> = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user’s question. The LLM generates an answer <span class="amber">grounded in the retrieved text</span>.</p>
+<ul>
+<li>The LLM’s training data may be stale or lack your proprietary information</li>
+<li>RAG injects current, domain-specific context at query time</li>
+<li>No model weights are changed — the base LLM is used as-is</li>
+</ul>
+</section>
+<section id="the-rag-pipeline" class="slide level2 center">
+<h2>The RAG Pipeline</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '24px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80, 'padding': 20, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
-  RAG["&lt;b&gt;RAG&lt;/b&gt;"] ~~~ FT["&lt;b&gt;Fine-Tuning&lt;/b&gt;"] ~~~ SLM["&lt;b&gt;Small Language&lt;br&gt;Model&lt;/b&gt;"]
+  D["&lt;b&gt;Documents&lt;/b&gt;"] --&gt; CE["&lt;b&gt;Chunk &amp;&lt;br&gt;Embed&lt;/b&gt;"]
+  CE --&gt; VDB["&lt;b&gt;Vector DB&lt;/b&gt;"]
+  UQ["&lt;b&gt;User Query&lt;/b&gt;"] --&gt; EQ["&lt;b&gt;Embed&lt;br&gt;Query&lt;/b&gt;"]
+  EQ --&gt; R["&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;"]
+  VDB --&gt; R
+  R --&gt;|"query + context"| LLM["&lt;b&gt;LLM&lt;/b&gt;"]
+  LLM --&gt; A["&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;"]
 
-  style RAG fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style FT fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
-  style SLM fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:24px,padding:16px
+  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
+  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:36px,padding:20px
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<ul>
-<li><strong>RAG</strong>: Up-to-date or proprietary facts; data changes frequently</li>
-<li><strong>Fine-Tuning</strong>: Specific tone, format, or domain expertise baked in</li>
-<li><strong>Small Language Model</strong>: Full control, privacy, or a highly specialized task</li>
-</ul>
 </section>
 <section id="embeddings-a-concrete-example" class="slide level2 section-divider center">
 <h2>Embeddings: A Concrete Example</h2>
@@ -303,14 +403,14 @@ flowchart LR
 <section id="word-vectors" class="slide level2 center">
 <h2>Word Vectors</h2>
 <p>An <strong>embedding model</strong> converts text into a vector of numbers. Words with similar meanings get similar vectors.</p>
-<p>Using GloVe (50-dimensional vectors trained on Wikipedia):</p>
+<p>Using GloVe (50-dimensional vectors trained on Wikipedia + Gigaword):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> gensim.downloader <span class="im">as</span> api</span>
 <span id="cb1-2"><a></a>model <span class="op">=</span> api.load(<span class="st">"glove-wiki-gigaword-50"</span>)</span>
 <span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a>model[<span class="st">"king"</span>]   <span class="co"># array([ 0.50,  0.68, -0.59,  0.11,  0.05, ...])  50 dims</span></span>
-<span id="cb1-5"><a></a>model[<span class="st">"queen"</span>]  <span class="co"># array([ 0.38,  0.72, -0.63, -0.01,  0.03, ...])</span></span>
-<span id="cb1-6"><a></a>model[<span class="st">"apple"</span>]  <span class="co"># array([-0.39,  0.33,  0.21, -0.58,  0.47, ...])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>“King” and “queen” have similar vectors. “Apple” is very different.</p>
+<span id="cb1-4"><a></a>model[<span class="st">"king"</span>]   <span class="co"># array([ 0.50,  0.69, -0.60, -0.02,  0.60, ...])  50 dims</span></span>
+<span id="cb1-5"><a></a>model[<span class="st">"queen"</span>]  <span class="co"># array([ 0.38,  1.82, -1.26, -0.10,  0.36, ...])</span></span>
+<span id="cb1-6"><a></a>model[<span class="st">"apple"</span>]  <span class="co"># array([ 0.52, -0.83,  0.50,  1.29,  0.12, ...])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>“King” and “queen” have similar vectors. “Apple” is very different. (GloVe illustrates the idea; RAG uses more advanced <span class="amber">sentence embeddings</span> we’ll see next.)</p>
 </section>
 <section id="word-analogies-king-man-woman" class="slide level2 center">
 <h2>Word Analogies: King – Man + Woman</h2>
@@ -319,13 +419,13 @@ flowchart LR
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>result <span class="op">=</span> model.most_similar(</span>
 <span id="cb2-2"><a></a>    positive<span class="op">=</span>[<span class="st">"king"</span>, <span class="st">"woman"</span>], negative<span class="op">=</span>[<span class="st">"man"</span>], topn<span class="op">=</span><span class="dv">3</span></span>
 <span id="cb2-3"><a></a>)</span>
-<span id="cb2-4"><a></a><span class="co"># [('queen', 0.77), ('monarch', 0.68), ('princess', 0.66)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a></a><span class="co"># [('queen', 0.86), ('daughter', 0.77), ('prince', 0.76)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The model was never told these relationships — it learned them from patterns in text.</p>
 </section>
 <section id="from-words-to-sentences" class="slide level2 center">
 <h2>From Words to Sentences</h2>
-<p>For RAG, we need to embed <strong>entire sentences or paragraphs</strong>, not single words.</p>
-<p><strong>Sentence-transformers</strong> passes the full text through a transformer and outputs a single vector:</p>
+<p>Word vectors capture individual word meaning, but RAG needs to compare the meaning of <strong>entire passages</strong>.</p>
+<p><code>sentence-transformers</code> passes the full text through a transformer and outputs a single vector:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
 <span id="cb3-2"><a></a>model <span class="op">=</span> SentenceTransformer(<span class="st">"all-MiniLM-L6-v2"</span>)  <span class="co"># 384 dimensions</span></span>
 <span id="cb3-3"><a></a></span>
@@ -339,8 +439,11 @@ flowchart LR
 <ul>
 <li><strong>1.0</strong> = identical direction (same meaning)</li>
 <li><strong>0.0</strong> = perpendicular (unrelated)</li>
-<li><strong>–1.0</strong> = opposite</li>
+<li>For sentence-transformer models, scores typically fall in <span class="amber">0, 1</span></li>
 </ul>
+</section>
+<section id="cosine-similarity-in-action" class="slide level2 center">
+<h2>Cosine Similarity in Action</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
 <span id="cb4-2"><a></a></span>
 <span id="cb4-3"><a></a>chunks <span class="op">=</span> [</span>
@@ -348,10 +451,10 @@ flowchart LR
 <span id="cb4-5"><a></a>    <span class="st">"The company opened 12 new retail locations in Q3."</span>,</span>
 <span id="cb4-6"><a></a>    <span class="st">"Net income declined 8</span><span class="sc">% d</span><span class="st">ue to rising input costs."</span>,</span>
 <span id="cb4-7"><a></a>]</span>
-<span id="cb4-8"><a></a>query <span class="op">=</span> <span class="st">"How did profits change?"</span></span>
+<span id="cb4-8"><a></a>query <span class="op">=</span> <span class="st">"What happened to net income?"</span></span>
 <span id="cb4-9"><a></a></span>
 <span id="cb4-10"><a></a>scores <span class="op">=</span> cosine_similarity(model.encode([query]), model.encode(chunks))[<span class="dv">0</span>]</span>
-<span id="cb4-11"><a></a><span class="co"># [0.31, 0.12, 0.68]  ← net income chunk is the best match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-11"><a></a><span class="co"># [0.41, 0.09, 0.54]  ← net income chunk is the best match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="chunking-a-document" class="slide level2 center">
 <h2>Chunking a Document</h2>
@@ -393,75 +496,6 @@ flowchart LR
 <span id="cb6-14"><a></a>prompt <span class="op">=</span> <span class="ss">f"Based on this context:</span><span class="ch">\n</span><span class="sc">{</span>best_chunk<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Answer: </span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The LLM never sees the whole document — just the <span class="amber">most relevant chunk</span>.</p>
 </section>
-<section id="how-rag-works" class="slide level2 section-divider center">
-<h2>How RAG Works</h2>
-</section>
-<section id="what-is-rag" class="slide level2 center">
-<h2>What is RAG?</h2>
-<p><strong>RAG</strong> = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user’s question. The LLM generates an answer <span class="amber">grounded in the retrieved text</span>.</p>
-<ul>
-<li>The LLM’s training data may be stale or lack your proprietary information</li>
-<li>RAG injects current, domain-specific context at query time</li>
-<li>No model weights are changed — the base LLM is used as-is</li>
-</ul>
-</section>
-<section id="the-rag-pipeline" class="slide level2 center">
-<h2>The RAG Pipeline</h2>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
-flowchart LR
-  D["&lt;b&gt;Documents&lt;/b&gt;"] --&gt; CE["&lt;b&gt;Chunk &amp;&lt;br&gt;Embed&lt;/b&gt;"]
-  CE --&gt; VDB["&lt;b&gt;Vector DB&lt;/b&gt;"]
-  UQ["&lt;b&gt;User Query&lt;/b&gt;"] --&gt; R["&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;"]
-  VDB --&gt; R
-  R --&gt;|"query + context"| LLM["&lt;b&gt;LLM&lt;/b&gt;"]
-  LLM --&gt; A["&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;"]
-
-  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="rag-key-concepts" class="slide level2 center">
-<h2>RAG: Key Concepts</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Embeddings</strong></span></p>
-<ul>
-<li>Text converted into numerical vectors</li>
-<li>Similar meaning → nearby vectors</li>
-<li>Enables semantic search (not just keyword matching)</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Vector Database</strong></span></p>
-<ul>
-<li>Stores document chunks as vectors</li>
-<li>Fast similarity search</li>
-<li>Examples: Pinecone, Chroma, FAISS</li>
-</ul>
-</div>
-</div>
-<p><strong>Chunking</strong></p>
-<ul>
-<li>Documents are split into small, overlapping pieces (chunks)</li>
-<li>Chunk size matters: too large = noisy context, too small = lost meaning</li>
-<li>Typical sizes: 200–1000 tokens per chunk</li>
-</ul>
-</section>
 <section id="rag-in-finance" class="slide level2 section-divider center">
 <h2>RAG in Finance</h2>
 </section>
@@ -492,7 +526,7 @@ flowchart LR
 <div class="column">
 <p><strong>Strengths</strong></p>
 <ul>
-<li>No training required</li>
+<li>No model training required (pipeline engineering is the main cost)</li>
 <li>Data can be updated in real time</li>
 <li>Answers are traceable to source pages</li>
 </ul>
@@ -500,10 +534,13 @@ flowchart LR
 <p><strong>Limitations</strong></p>
 <ul>
 <li>Quality depends on retrieval quality</li>
-<li>Context window limits how much can be passed</li>
 <li>Chunking can split important context</li>
+<li>Adds infrastructure cost (embedding API, vector DB hosting) and query latency</li>
 </ul>
 </div></div>
+<div class="explainer">
+<p><strong>Why not just paste the whole document into the prompt?</strong> Context windows are growing fast (100K–1M tokens), but RAG still wins when you have <span class="amber">many documents</span>, need to keep costs down (long prompts are expensive), or want traceable citations from specific passages.</p>
+</div>
 </section>
 <section id="notebooklm-rag-without-code" class="slide level2 section-divider center">
 <h2>NotebookLM: RAG Without Code</h2>
@@ -551,12 +588,13 @@ flowchart LR
 </section>
 <section id="under-the-hood-building-a-rag-pipeline" class="slide level2 center">
 <h2>Under the Hood: Building a RAG Pipeline</h2>
-<p>For those who want to understand the internals, ask Claude Code to build a RAG pipeline step by step.</p>
+<p>We’ll build this together in class. Ask Claude Code to build a RAG pipeline step by step:</p>
 <ol type="1">
-<li>Install libraries (<code>langchain</code>, <code>chromadb</code>, an embedding model)</li>
+<li>Install libraries (<code>langchain</code>, <code>chromadb</code>, <code>sentence-transformers</code>)</li>
 <li>Load and chunk a PDF, embed and store in a vector database</li>
 <li>Query the pipeline with finance-specific questions</li>
 </ol>
+<p>See the class notebook for the full pipeline code and worked example.</p>
 </section>
 <section id="example-questions-to-try" class="slide level2 center">
 <h2>Example Questions to Try</h2>
@@ -568,39 +606,187 @@ flowchart LR
 </ul>
 <p>Notice how answers are grounded in the actual document — the key benefit of RAG over plain prompting.</p>
 </section>
-<section id="exercises" class="slide level2 section-divider center">
-<h2>Exercises</h2>
+<section id="what-can-go-wrong" class="slide level2 section-divider center">
+<h2>What Can Go Wrong?</h2>
 </section>
-<section id="exercise-1-notebooklm-analysis" class="slide level2 center">
-<h2>Exercise 1: NotebookLM Analysis</h2>
-<ol type="1">
-<li>Upload 3+ financial documents for the same company into NotebookLM (10-K, earnings transcript, analyst report)</li>
-<li>Ask 5+ questions across the documents</li>
-<li>Note how citations trace back to specific sources</li>
-<li>Submit: Q&amp;A pairs + quality assessment (were answers grounded? any hallucinations?)</li>
-</ol>
+<section id="retrieval-failures" class="slide level2 center">
+<h2>Retrieval Failures</h2>
+<p>The LLM can only answer from what it retrieves. If retrieval fails, <span class="amber">the answer will be wrong or fabricated</span>.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Problem</strong></th>
+<th><strong>Example</strong></th>
+<th><strong>Result</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Wrong chunk retrieved</td>
+<td>Query about “Apple revenue” retrieves a chunk about Apple’s supply chain</td>
+<td>Answer discusses supply chain, ignores revenue</td>
+</tr>
+<tr class="even">
+<td>Relevant info split across chunks</td>
+<td>Revenue in one chunk, costs in another</td>
+<td>LLM sees only half the picture</td>
+</tr>
+<tr class="odd">
+<td>No relevant chunk exists</td>
+<td>Question about a topic not in the documents</td>
+<td>LLM may hallucinate an answer anyway</td>
+</tr>
+<tr class="even">
+<td>Too many chunks retrieved</td>
+<td>20 chunks passed to LLM, mostly noise</td>
+<td>Key information buried; LLM confused</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="exercise-2-rag-pipeline" class="slide level2 center">
-<h2>Exercise 2: RAG Pipeline</h2>
-<ol type="1">
-<li>Ask Claude Code to build a RAG pipeline that loads a corporate annual report (e.g., Apple 10-K)</li>
-<li>Have it chunk and embed the document into a vector database</li>
-<li>Ask 5 finance-specific questions and evaluate whether answers are grounded or hallucinated</li>
-<li>Submit: code + evaluation</li>
-</ol>
-</section>
-<section id="exercise-3-document-comparison" class="slide level2 center">
-<h2>Exercise 3: Document Comparison</h2>
-<ol type="1">
-<li>Upload two years of 10-Ks for the same company into NotebookLM</li>
-<li>Ask AI to identify the most significant changes in:
+<section id="chunking-problems" class="slide level2 center">
+<h2>Chunking Problems</h2>
+<p>How you split documents <span class="amber">dramatically affects</span> retrieval quality:</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Chunks Too Small</strong></span></p>
 <ul>
-<li>Risk factors</li>
-<li>Revenue composition</li>
-<li>Management guidance and accounting policies</li>
-</ul></li>
-<li>Submit: summary of key changes with source citations</li>
-</ol>
+<li>“Revenue was $89.5 billion” in one chunk</li>
+<li>“down 1% year over year” in another</li>
+<li>Neither chunk alone tells the full story</li>
+<li>Query matches the wrong fragment</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Chunks Too Large</strong></span></p>
+<ul>
+<li>A 3-page chunk covers revenue, costs, risks, and guidance</li>
+<li>Query about revenue retrieves the whole chunk</li>
+<li>LLM gets noisy context, may pull from the wrong section</li>
+<li>Embedding is a <span class="amber">blurry average</span> of many topics</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="hallucination-despite-context" class="slide level2 center">
+<h2>Hallucination Despite Context</h2>
+<p>Even with good retrieval, the LLM can still go wrong:</p>
+<ul>
+<li><strong>Over-extrapolation</strong>: “Revenue grew 15%” → LLM infers “the company is doing well” even though the next paragraph discusses a major lawsuit</li>
+<li><strong>Confidence without evidence</strong>: LLM generates a precise-sounding answer that isn’t supported by the retrieved chunks</li>
+<li><strong>Blending sources</strong>: mixes information from different chunks in ways that create false conclusions</li>
+<li><strong>Ignoring the context</strong>: especially with long or complex chunks, the LLM may fall back on its training data instead</li>
+</ul>
+<div class="explainer">
+<p>RAG <span class="amber">reduces</span> hallucination but does not eliminate it. Always verify critical claims against the source document.</p>
+</div>
+</section>
+<section id="best-practices" class="slide level2 section-divider center">
+<h2>Best Practices</h2>
+</section>
+<section id="chunking-best-practices" class="slide level2 center">
+<h2>Chunking Best Practices</h2>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Chunk Size</strong></span></p>
+<ul>
+<li>200–500 tokens for precise retrieval</li>
+<li>500–1000 tokens for more context per chunk</li>
+<li>Test on your actual queries to find the sweet spot</li>
+<li>Financial filings: paragraph-level chunks often work best</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Overlap</strong></span></p>
+<ul>
+<li>10–20% overlap between consecutive chunks</li>
+<li>Ensures sentences at boundaries aren’t orphaned</li>
+<li>Example: 400-token chunks with 80-token overlap</li>
+<li>Critical for tables and lists that span chunk boundaries</li>
+</ul>
+</div>
+</div>
+<div class="explainer">
+<p>There is no universal best chunk size. The right answer depends on your documents, your questions, and your embedding model. <span class="amber">Test and iterate</span>.</p>
+</div>
+</section>
+<section id="retrieval-best-practices" class="slide level2 center">
+<h2>Retrieval Best Practices</h2>
+<ul>
+<li><strong>Retrieve more, then re-rank</strong>: pull top 10 chunks, then use a re-ranker to select the best 3–5</li>
+<li><strong>Hybrid search</strong>: combine vector similarity (semantic) with keyword search (exact match) — catches both meaning and specific terms like ticker symbols</li>
+<li><strong>Metadata filters</strong>: tag chunks with source, date, section (e.g., “Risk Factors”) and filter before similarity search</li>
+<li><strong>Query expansion</strong>: rephrase the user’s question multiple ways to improve recall</li>
+</ul>
+</section>
+<section id="prompt-engineering-for-rag" class="slide level2 center">
+<h2>Prompt Engineering for RAG</h2>
+<p>The prompt that wraps retrieved chunks matters (pseudocode — plug into an f-string or template):</p>
+<pre><code>Based ONLY on the following excerpts from {company}'s 10-K filing,
+answer the question below. If the excerpts do not contain enough
+information to answer, say "I don't have enough information" ---
+do NOT guess or use outside knowledge.
+
+EXCERPTS: {retrieved_chunks}
+QUESTION: {user_query}
+Cite the specific excerpt(s) that support your answer.</code></pre>
+<div class="explainer">
+<p>The instruction to say “I don’t know” and to cite sources are <span class="amber">critical guardrails</span> against hallucination.</p>
+</div>
+</section>
+<section id="evaluating-rag-quality" class="slide level2 center">
+<h2>Evaluating RAG Quality</h2>
+<p>How do you know if your RAG pipeline is working?</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>What It Measures</strong></th>
+<th><strong>How to Test</strong></th>
+<th><strong>Target</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Retrieval precision</td>
+<td>Are the retrieved chunks relevant?</td>
+<td>Review top-<span class="math inline">\(k\)</span> chunks for 20+ queries</td>
+<td>&gt;80%</td>
+</tr>
+<tr class="even">
+<td>Answer faithfulness</td>
+<td>Is the answer supported by the chunks?</td>
+<td>Compare answer claims to source text</td>
+<td>&gt;90%</td>
+</tr>
+<tr class="odd">
+<td>Answer completeness</td>
+<td>Did it capture all relevant info?</td>
+<td>Check against a known-good answer</td>
+<td>&gt;70%</td>
+</tr>
+<tr class="even">
+<td>Citation accuracy</td>
+<td>Do the citations point to the right source?</td>
+<td>Verify each citation manually</td>
+<td>&gt;90%</td>
+</tr>
+</tbody>
+</table>
+<div class="explainer">
+<p>Targets are starting benchmarks — adjust to your use case. Start with <span class="amber">manual evaluation</span> on 20–30 questions before production use.</p>
+</div>
 </section>
 <section id="summary" class="slide level2 center">
 <h2>Summary</h2>
@@ -610,7 +796,7 @@ flowchart LR
 <ul>
 <li>Retrieve, then generate</li>
 <li>Grounds answers in sources</li>
-<li>No training required</li>
+<li>No model training (but pipeline engineering required)</li>
 </ul>
 </div>
 <div class="card card-light">
@@ -631,7 +817,7 @@ flowchart LR
 </div>
 </div>
 <div class="explainer" style="text-align:center;">
-<p><span class="amber">RAG gives AI knowledge it doesn’t have — grounded in your documents, with citations.</span></p>
+<p><span class="amber">Try it today: upload Apple’s latest 10-K to NotebookLM and ask three questions about it.</span></p>
 </div>
 
 
