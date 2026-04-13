@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -195,6 +195,10 @@
   <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
   <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
   <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -425,6 +429,25 @@ Kerry Back, Rice University
 <section id="the-rag-pipeline" class="slide level2 center">
 <h2>The RAG Pipeline</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a></a>%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '64px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%</span>
+<span id="cb1-2"><a></a>flowchart LR</span>
+<span id="cb1-3"><a></a>  subgraph prep ["Preparation (done first)"]</span>
+<span id="cb1-4"><a></a>    D["&lt;b&gt;Documents&lt;/b&gt;"] --&gt; CE["&lt;b&gt;Chunk &amp;&lt;br&gt;Embed&lt;/b&gt;"]</span>
+<span id="cb1-5"><a></a>    CE --&gt; VDB["&lt;b&gt;Vector DB&lt;/b&gt;"]</span>
+<span id="cb1-6"><a></a>  end</span>
+<span id="cb1-7"><a></a>  UQ["&lt;b&gt;User Query&lt;/b&gt;"] --&gt; EQ["&lt;b&gt;Embed&lt;br&gt;Query&lt;/b&gt;"]</span>
+<span id="cb1-8"><a></a>  EQ --&gt; R["&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;"]</span>
+<span id="cb1-9"><a></a>  VDB --&gt; R</span>
+<span id="cb1-10"><a></a>  R --&gt;|"query + context"| LLM["&lt;b&gt;LLM&lt;/b&gt;"]</span>
+<span id="cb1-11"><a></a></span>
+<span id="cb1-12"><a></a>  style prep fill:none,stroke:#3b82f6,stroke-width:4px,stroke-dasharray:12 6,rx:40,ry:40,color:#3b82f6,font-size:40px</span>
+<span id="cb1-13"><a></a>  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px</span>
+<span id="cb1-14"><a></a>  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px</span>
+<span id="cb1-15"><a></a>  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px</span>
+<span id="cb1-16"><a></a>  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px</span>
+<span id="cb1-17"><a></a>  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px</span>
+<span id="cb1-18"><a></a>  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px</span>
+<span id="cb1-19"><a></a>  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -462,33 +485,48 @@ flowchart LR
 <h2>Word Vectors</h2>
 <p>An <strong>embedding model</strong> converts text into a vector of numbers. Words with similar meanings get similar vectors.</p>
 <p>Using GloVe (50-dimensional vectors trained on Wikipedia + Gigaword):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> gensim.downloader <span class="im">as</span> api</span>
-<span id="cb1-2"><a></a>model <span class="op">=</span> api.load(<span class="st">"glove-wiki-gigaword-50"</span>)</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a>model[<span class="st">"king"</span>]   <span class="co"># array([ 0.50,  0.69, -0.60, -0.02,  0.60, ...])  50 dims</span></span>
-<span id="cb1-5"><a></a>model[<span class="st">"queen"</span>]  <span class="co"># array([ 0.38,  1.82, -1.26, -0.10,  0.36, ...])</span></span>
-<span id="cb1-6"><a></a>model[<span class="st">"apple"</span>]  <span class="co"># array([ 0.52, -0.83,  0.50,  1.29,  0.12, ...])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">import</span> gensim.downloader <span class="im">as</span> api</span>
+<span id="cb2-2"><a></a>model <span class="op">=</span> api.load(<span class="st">"glove-wiki-gigaword-50"</span>)</span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a>model[<span class="st">"king"</span>]   <span class="co"># array([ 0.50,  0.69, -0.60, -0.02,  0.60, ...])  50 dims</span></span>
+<span id="cb2-5"><a></a>model[<span class="st">"queen"</span>]  <span class="co"># array([ 0.38,  1.82, -1.26, -0.10,  0.36, ...])</span></span>
+<span id="cb2-6"><a></a>model[<span class="st">"apple"</span>]  <span class="co"># array([ 0.52, -0.83,  0.50,  1.29,  0.12, ...])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>“King” and “queen” have similar vectors. “Apple” is very different. (GloVe illustrates the idea; RAG uses more advanced <span class="amber">sentence embeddings</span> we’ll see next.)</p>
 </section>
 <section id="word-analogies-king-man-woman" class="slide level2 center">
 <h2>Word Analogies: King – Man + Woman</h2>
 <p>Word vectors capture <strong>meaning arithmetically</strong>:</p>
 <p><span class="math display">\[\vec{\text{king}} - \vec{\text{man}} + \vec{\text{woman}} \approx \vec{\text{queen}}\]</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>result <span class="op">=</span> model.most_similar(</span>
-<span id="cb2-2"><a></a>    positive<span class="op">=</span>[<span class="st">"king"</span>, <span class="st">"woman"</span>], negative<span class="op">=</span>[<span class="st">"man"</span>], topn<span class="op">=</span><span class="dv">3</span></span>
-<span id="cb2-3"><a></a>)</span>
-<span id="cb2-4"><a></a><span class="co"># [('queen', 0.86), ('daughter', 0.77), ('prince', 0.76)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>result <span class="op">=</span> model.most_similar(</span>
+<span id="cb3-2"><a></a>    positive<span class="op">=</span>[<span class="st">"king"</span>, <span class="st">"woman"</span>], negative<span class="op">=</span>[<span class="st">"man"</span>], topn<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb3-3"><a></a>)</span>
+<span id="cb3-4"><a></a><span class="co"># [('queen', 0.86), ('daughter', 0.77), ('prince', 0.76)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The model was never told these relationships — it learned them from patterns in text.</p>
 </section>
 <section id="from-words-to-sentences" class="slide level2 center">
 <h2>From Words to Sentences</h2>
 <p>Word vectors capture individual word meaning, but RAG needs to compare the meaning of <strong>entire passages</strong>.</p>
 <p><code>sentence-transformers</code> passes the full text through a transformer and outputs a single vector:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
-<span id="cb3-2"><a></a>model <span class="op">=</span> SentenceTransformer(<span class="st">"all-MiniLM-L6-v2"</span>)  <span class="co"># 384 dimensions</span></span>
-<span id="cb3-3"><a></a></span>
-<span id="cb3-4"><a></a>model.encode(<span class="st">"Revenue grew 15%"</span>)     <span class="co"># one 384-dim vector</span></span>
-<span id="cb3-5"><a></a>model.encode(<span class="st">"How did profits change?"</span>)  <span class="co"># another 384-dim vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f3f54975" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
+<span id="cb4-2"><a></a>model <span class="op">=</span> SentenceTransformer(<span class="st">"all-MiniLM-L6-v2"</span>)  <span class="co"># 384 dimensions</span></span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a>v1 <span class="op">=</span> model.encode(<span class="st">"Revenue grew 15%"</span>)</span>
+<span id="cb4-5"><a></a>v2 <span class="op">=</span> model.encode(<span class="st">"How did profits change?"</span>)</span>
+<span id="cb4-6"><a></a><span class="bu">print</span>(<span class="ss">f"v1 shape: </span><span class="sc">{</span>v1<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">  — one vector per sentence"</span>)</span>
+<span id="cb4-7"><a></a><span class="bu">print</span>(<span class="ss">f"v1[:5]:   </span><span class="sc">{</span>v1[:<span class="dv">5</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss"> ..."</span>)</span>
+<span id="cb4-8"><a></a><span class="bu">print</span>(<span class="ss">f"v2[:5]:   </span><span class="sc">{</span>v2[:<span class="dv">5</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss"> ..."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"e1355a8e929f43d5981efe7ccee74c58","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>v1 shape: (384,)  — one vector per sentence
+v1[:5]:   [ 0.05  0.01  0.01 -0.06  0.05] ...
+v2[:5]:   [ 0.    0.02 -0.01 -0.01  0.04] ...</code></pre>
+</div>
+</div>
 <p>This is <strong>not</strong> an average of word vectors — the transformer considers word order, grammar, and context to produce a single representation.</p>
 </section>
 <section id="cosine-similarity" class="slide level2 center">
@@ -497,61 +535,78 @@ flowchart LR
 <ul>
 <li><strong>1.0</strong> = identical direction (same meaning)</li>
 <li><strong>0.0</strong> = perpendicular (unrelated)</li>
-<li>For sentence-transformer models, scores typically fall in <span class="amber">0, 1</span></li>
+<li><strong>-1.0</strong> = opposite direction</li>
 </ul>
 </section>
 <section id="cosine-similarity-in-action" class="slide level2 center">
 <h2>Cosine Similarity in Action</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
-<span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a>chunks <span class="op">=</span> [</span>
-<span id="cb4-4"><a></a>    <span class="st">"Revenue grew 15% year over year to $4.2 billion."</span>,</span>
-<span id="cb4-5"><a></a>    <span class="st">"The company opened 12 new retail locations in Q3."</span>,</span>
-<span id="cb4-6"><a></a>    <span class="st">"Net income declined 8</span><span class="sc">% d</span><span class="st">ue to rising input costs."</span>,</span>
-<span id="cb4-7"><a></a>]</span>
-<span id="cb4-8"><a></a>query <span class="op">=</span> <span class="st">"What happened to net income?"</span></span>
-<span id="cb4-9"><a></a></span>
-<span id="cb4-10"><a></a>scores <span class="op">=</span> cosine_similarity(model.encode([query]), model.encode(chunks))[<span class="dv">0</span>]</span>
-<span id="cb4-11"><a></a><span class="co"># [0.41, 0.09, 0.54]  ← net income chunk is the best match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="63160dcb" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a>chunks <span class="op">=</span> [</span>
+<span id="cb6-4"><a></a>    <span class="st">"Revenue grew 15% year over year to $4.2 billion."</span>,</span>
+<span id="cb6-5"><a></a>    <span class="st">"The company opened 12 new retail locations in Q3."</span>,</span>
+<span id="cb6-6"><a></a>    <span class="st">"Net income declined 8</span><span class="sc">% d</span><span class="st">ue to rising input costs."</span>,</span>
+<span id="cb6-7"><a></a>]</span>
+<span id="cb6-8"><a></a>query <span class="op">=</span> <span class="st">"What happened to net income?"</span></span>
+<span id="cb6-9"><a></a></span>
+<span id="cb6-10"><a></a>scores <span class="op">=</span> cosine_similarity(model.encode([query]), model.encode(chunks))[<span class="dv">0</span>]</span>
+<span id="cb6-11"><a></a><span class="cf">for</span> chunk, score <span class="kw">in</span> <span class="bu">zip</span>(chunks, scores):</span>
+<span id="cb6-12"><a></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>score<span class="sc">:.2f}</span><span class="ss">  </span><span class="sc">{</span>chunk<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  0.41  Revenue grew 15% year over year to $4.2 billion.
+  0.09  The company opened 12 new retail locations in Q3.
+  0.54  Net income declined 8% due to rising input costs.</code></pre>
+</div>
+</div>
 </section>
 <section id="chunking-a-document" class="slide level2 center">
 <h2>Chunking a Document</h2>
-<p>Before embedding, documents are split into <strong>chunks</strong> — small pieces that each become one vector.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>text <span class="op">=</span> <span class="st">"""Apple reported Q4 revenue of $89.5 billion, down 1% year</span></span>
-<span id="cb5-2"><a></a><span class="st">over year. Services revenue hit an all-time record of $22.3</span></span>
-<span id="cb5-3"><a></a><span class="st">billion. iPhone revenue was $43.8 billion. The company returned</span></span>
-<span id="cb5-4"><a></a><span class="st">over $25 billion to shareholders during the quarter through</span></span>
-<span id="cb5-5"><a></a><span class="st">dividends and share repurchases."""</span></span>
-<span id="cb5-6"><a></a></span>
-<span id="cb5-7"><a></a><span class="co"># Split into chunks of ~50 words with overlap</span></span>
-<span id="cb5-8"><a></a>chunks <span class="op">=</span> [</span>
-<span id="cb5-9"><a></a>    <span class="st">"Apple reported Q4 revenue of $89.5 billion, down 1% year over year. "</span></span>
-<span id="cb5-10"><a></a>    <span class="st">"Services revenue hit an all-time record of $22.3 billion."</span>,</span>
-<span id="cb5-11"><a></a></span>
-<span id="cb5-12"><a></a>    <span class="st">"Services revenue hit an all-time record of $22.3 billion. "</span></span>
-<span id="cb5-13"><a></a>    <span class="st">"iPhone revenue was $43.8 billion."</span>,</span>
-<span id="cb5-14"><a></a></span>
-<span id="cb5-15"><a></a>    <span class="st">"iPhone revenue was $43.8 billion. The company returned over $25 "</span></span>
-<span id="cb5-16"><a></a>    <span class="st">"billion to shareholders through dividends and share repurchases."</span>,</span>
-<span id="cb5-17"><a></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Before embedding, documents are split into <strong>chunks</strong> — small pieces such that each becomes one vector.</p>
+<div id="e73fc39f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>text <span class="op">=</span> <span class="st">"""Apple reported Q4 revenue of $89.5 billion, down 1% year</span></span>
+<span id="cb8-2"><a></a><span class="st">over year. Services revenue hit an all-time record of $22.3</span></span>
+<span id="cb8-3"><a></a><span class="st">billion. iPhone revenue was $43.8 billion. The company returned</span></span>
+<span id="cb8-4"><a></a><span class="st">over $25 billion to shareholders during the quarter through</span></span>
+<span id="cb8-5"><a></a><span class="st">dividends and share repurchases."""</span></span>
+<span id="cb8-6"><a></a></span>
+<span id="cb8-7"><a></a><span class="co"># Split into chunks of ~50 words with overlap</span></span>
+<span id="cb8-8"><a></a>chunks <span class="op">=</span> [</span>
+<span id="cb8-9"><a></a>    <span class="st">"Apple reported Q4 revenue of $89.5 billion, down 1% year over year. "</span></span>
+<span id="cb8-10"><a></a>    <span class="st">"Services revenue hit an all-time record of $22.3 billion."</span>,</span>
+<span id="cb8-11"><a></a></span>
+<span id="cb8-12"><a></a>    <span class="st">"Services revenue hit an all-time record of $22.3 billion. "</span></span>
+<span id="cb8-13"><a></a>    <span class="st">"iPhone revenue was $43.8 billion."</span>,</span>
+<span id="cb8-14"><a></a></span>
+<span id="cb8-15"><a></a>    <span class="st">"iPhone revenue was $43.8 billion. The company returned over $25 "</span></span>
+<span id="cb8-16"><a></a>    <span class="st">"billion to shareholders through dividends and share repurchases."</span>,</span>
+<span id="cb8-17"><a></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Overlap ensures context isn’t lost at chunk boundaries.</p>
 </section>
 <section id="the-full-picture-query-retrieve-generate" class="slide level2 center">
 <h2>The Full Picture: Query → Retrieve → Generate</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="co"># 1. Embed chunks and store in a vector database</span></span>
-<span id="cb6-2"><a></a>chunk_vectors <span class="op">=</span> model.encode(chunks)</span>
-<span id="cb6-3"><a></a></span>
-<span id="cb6-4"><a></a><span class="co"># 2. User asks a question — embed the query with the SAME model</span></span>
-<span id="cb6-5"><a></a>query <span class="op">=</span> <span class="st">"What was Apple's services revenue?"</span></span>
-<span id="cb6-6"><a></a>query_vector <span class="op">=</span> model.encode([query])</span>
-<span id="cb6-7"><a></a></span>
-<span id="cb6-8"><a></a><span class="co"># 3. Find the most similar chunk (cosine similarity)</span></span>
-<span id="cb6-9"><a></a>scores <span class="op">=</span> cosine_similarity(query_vector, chunk_vectors)[<span class="dv">0</span>]</span>
-<span id="cb6-10"><a></a>best_chunk <span class="op">=</span> chunks[scores.argmax()]</span>
-<span id="cb6-11"><a></a><span class="co"># → "...Services revenue hit an all-time record of $22.3 billion..."</span></span>
-<span id="cb6-12"><a></a></span>
-<span id="cb6-13"><a></a><span class="co"># 4. Pass the chunk + question to the LLM</span></span>
-<span id="cb6-14"><a></a>prompt <span class="op">=</span> <span class="ss">f"Based on this context:</span><span class="ch">\n</span><span class="sc">{</span>best_chunk<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Answer: </span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="dac6539f" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="co"># 1. Embed chunks and store in a vector database</span></span>
+<span id="cb9-2"><a></a>chunk_vectors <span class="op">=</span> model.encode(chunks)</span>
+<span id="cb9-3"><a></a></span>
+<span id="cb9-4"><a></a><span class="co"># 2. User asks a question — embed the query with the SAME model</span></span>
+<span id="cb9-5"><a></a>query <span class="op">=</span> <span class="st">"What was Apple's services revenue?"</span></span>
+<span id="cb9-6"><a></a>query_vector <span class="op">=</span> model.encode([query])</span>
+<span id="cb9-7"><a></a></span>
+<span id="cb9-8"><a></a><span class="co"># 3. Find the most similar chunk (cosine similarity)</span></span>
+<span id="cb9-9"><a></a>scores <span class="op">=</span> cosine_similarity(query_vector, chunk_vectors)[<span class="dv">0</span>]</span>
+<span id="cb9-10"><a></a>best_chunk <span class="op">=</span> chunks[scores.argmax()]</span>
+<span id="cb9-11"><a></a><span class="bu">print</span>(<span class="ss">f"Best match (score </span><span class="sc">{</span>scores<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">):"</span>)</span>
+<span id="cb9-12"><a></a><span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>best_chunk<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-13"><a></a></span>
+<span id="cb9-14"><a></a><span class="co"># 4. Pass the chunk + question to the LLM</span></span>
+<span id="cb9-15"><a></a>prompt <span class="op">=</span> <span class="ss">f"Based on this context:</span><span class="ch">\n</span><span class="sc">{</span>best_chunk<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Answer: </span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best match (score 0.79):
+  Apple reported Q4 revenue of $89.5 billion, down 1% year over year. Services revenue hit an all-time record of $22.3 billion.</code></pre>
+</div>
+</div>
 <p>The LLM never sees the whole document — just the <span class="amber">most relevant chunk</span>.</p>
 </section>
 <section id="rag-in-finance" class="slide level2 section-divider center">
@@ -580,89 +635,27 @@ flowchart LR
 </section>
 <section id="rag-strengths-and-limitations" class="slide level2 center">
 <h2>RAG: Strengths and Limitations</h2>
-<div class="two-col">
-<div class="column">
-<p><strong>Strengths</strong></p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Strengths</strong></span></p>
 <ul>
 <li>No model training required (pipeline engineering is the main cost)</li>
 <li>Data can be updated in real time</li>
 <li>Answers are traceable to source pages</li>
 </ul>
-</div><div class="column">
-<p><strong>Limitations</strong></p>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Limitations</strong></span></p>
 <ul>
 <li>Quality depends on retrieval quality</li>
 <li>Chunking can split important context</li>
 <li>Adds infrastructure cost (embedding API, vector DB hosting) and query latency</li>
 </ul>
-</div></div>
+</div>
+</div>
 <div class="explainer">
 <p><strong>Why not just paste the whole document into the prompt?</strong> Context windows are growing fast (100K–1M tokens), but RAG still wins when you have <span class="amber">many documents</span>, need to keep costs down (long prompts are expensive), or want traceable citations from specific passages.</p>
 </div>
-</section>
-<section id="notebooklm-rag-without-code" class="slide level2 section-divider center">
-<h2>NotebookLM: RAG Without Code</h2>
-</section>
-<section id="what-is-notebooklm" class="slide level2 center">
-<h2>What is NotebookLM?</h2>
-<p><strong>Google NotebookLM</strong> is a free, consumer-friendly RAG tool. Upload your documents, and it builds a personal knowledge base you can query with natural language.</p>
-<ul>
-<li>Available at <a href="https://notebooklm.google">notebooklm.google</a></li>
-<li>Upload up to 50 sources: PDFs, Docs, Slides, web pages, YouTube</li>
-<li>Ask questions and get answers with <span class="amber">inline citations</span>; no code required</li>
-</ul>
-</section>
-<section id="notebooklm-features" class="slide level2 center">
-<h2>NotebookLM Features</h2>
-<div class="two-col">
-<div class="column">
-<p><strong>Query &amp; Summarize</strong></p>
-<ul>
-<li>Chat with your documents</li>
-<li>Answers include inline citations</li>
-<li>Generate summaries, FAQs, study guides, timelines, briefing docs</li>
-</ul>
-</div><div class="column">
-<p><strong>Audio Overview</strong></p>
-<ul>
-<li>Generates a podcast-style audio discussion of your sources</li>
-<li>Two AI hosts discuss key points conversationally</li>
-<li>Great for reviewing material on the go</li>
-</ul>
-</div></div>
-<p><strong>Visual Outputs</strong>: Generate slide decks and infographics from your sources — useful for turning research into presentation-ready visuals.</p>
-</section>
-<section id="notebooklm-for-finance" class="slide level2 center">
-<h2>NotebookLM for Finance</h2>
-<ul>
-<li><strong>Earnings analysis</strong>: Upload 10-K/10-Q filings and earnings transcripts, ask comparative questions</li>
-<li><strong>Deal prep</strong>: Load pitch books, CIMs, and contracts for quick reference</li>
-<li><strong>Year-over-year comparison</strong>: Upload two years of 10-Ks, ask AI to identify changes in risk factors, revenue composition, and guidance</li>
-</ul>
-<p>NotebookLM is a practical example of RAG that you can use <span class="amber">today</span>.</p>
-</section>
-<section id="building-a-rag-pipeline" class="slide level2 section-divider center">
-<h2>Building a RAG Pipeline</h2>
-</section>
-<section id="under-the-hood-building-a-rag-pipeline" class="slide level2 center">
-<h2>Under the Hood: Building a RAG Pipeline</h2>
-<p>We’ll build this together in class. Ask Claude Code to build a RAG pipeline step by step:</p>
-<ol type="1">
-<li>Install libraries (<code>langchain</code>, <code>chromadb</code>, <code>sentence-transformers</code>)</li>
-<li>Load and chunk a PDF, embed and store in a vector database</li>
-<li>Query the pipeline with finance-specific questions</li>
-</ol>
-<p>See the class notebook for the full pipeline code and worked example.</p>
-</section>
-<section id="example-questions-to-try" class="slide level2 center">
-<h2>Example Questions to Try</h2>
-<p>Upload a company’s 10-K and ask:</p>
-<ul>
-<li>What was total revenue in the most recent fiscal year?</li>
-<li>What are the main risk factors related to supply chain?</li>
-<li>Summarize management’s outlook for the coming year</li>
-</ul>
-<p>Notice how answers are grounded in the actual document — the key benefit of RAG over plain prompting.</p>
 </section>
 <section id="what-can-go-wrong" class="slide level2 section-divider center">
 <h2>What Can Go Wrong?</h2>
@@ -848,21 +841,13 @@ Cite the specific excerpt(s) that support your answer.</code></pre>
 </section>
 <section id="summary" class="slide level2 center">
 <h2>Summary</h2>
-<div class="three-cards">
+<div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>RAG</strong></span></p>
 <ul>
 <li>Retrieve, then generate</li>
 <li>Grounds answers in sources</li>
 <li>No model training (but pipeline engineering required)</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>NotebookLM</strong></span></p>
-<ul>
-<li>Free RAG without code</li>
-<li>Inline citations</li>
-<li>Audio overviews</li>
 </ul>
 </div>
 <div class="card card-light">
@@ -873,9 +858,6 @@ Cite the specific excerpt(s) that support your answer.</code></pre>
 <li>Due diligence</li>
 </ul>
 </div>
-</div>
-<div class="explainer" style="text-align:center;">
-<p><span class="amber">Try it today: upload Apple’s latest 10-K to NotebookLM and ask three questions about it.</span></p>
 </div>
 
 
@@ -1094,6 +1076,9 @@ Cite the specific excerpt(s) that support your answer.</code></pre>
           RevealZoom
         ]
       });
+    </script>
+    <script type="application/vnd.jupyter.widget-state+json">
+    {"state":{"19fb60a203c545c9a749197240ed3d12":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"1e9086268b794eee94601d7e4431fbd6":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"2d9e8e08c3344537a28c26e6d6578501":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"75d9b94086f4473a9b9777ae20ae42c3":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_b001ff27dba449c1aa6c7ca10fc727fc","placeholder":"​","style":"IPY_MODEL_1e9086268b794eee94601d7e4431fbd6","tabbable":null,"tooltip":null,"value":" 103/103 [00:00&lt;00:00, 3711.36it/s]"}},"846b39119bf54528aa88b852501e1ab6":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"8aff4b78d8d4431285603432f429b300":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_19fb60a203c545c9a749197240ed3d12","placeholder":"​","style":"IPY_MODEL_ac6c4e99e38d46688c5de8a2320802e4","tabbable":null,"tooltip":null,"value":"Loading weights: 100%"}},"9664e0df27e8485096f9f84607836d4b":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_846b39119bf54528aa88b852501e1ab6","max":103,"min":0,"orientation":"horizontal","style":"IPY_MODEL_2d9e8e08c3344537a28c26e6d6578501","tabbable":null,"tooltip":null,"value":103}},"ac6c4e99e38d46688c5de8a2320802e4":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"b001ff27dba449c1aa6c7ca10fc727fc":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"bb933c42cf2942e1b3931a96dedfe239":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"e1355a8e929f43d5981efe7ccee74c58":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_8aff4b78d8d4431285603432f429b300","IPY_MODEL_9664e0df27e8485096f9f84607836d4b","IPY_MODEL_75d9b94086f4473a9b9777ae20ae42c3"],"layout":"IPY_MODEL_bb933c42cf2942e1b3931a96dedfe239","tabbable":null,"tooltip":null}}},"version_major":2,"version_minor":0}
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
