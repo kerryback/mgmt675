@@ -18,8 +18,6 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## What is Fine-Tuning? {.section-divider}
-
 ## What is Fine-Tuning?
 
 A pretrained LLM already knows language. **Fine-tuning** adjusts its weights on a smaller, task-specific dataset so it consistently performs a specific task the way you want:
@@ -78,16 +76,6 @@ Fine-tuning is worth the effort when:
 - You want lower latency and cost than a large model with a long system prompt
 - You have (or can generate) high-quality training examples
 
-## Three Ways to Give AI Knowledge {.smaller}
-
-| | **Long Context** | **RAG** | **Fine-Tuning** |
-|---|---|---|---|
-| **Best for** | Short docs that fit in one prompt | Large or many docs; proprietary facts | Specific tone, format, or domain expertise |
-| **Data freshness** | Real-time (paste it in) | Real-time updates | Stale after training |
-| **Cost to start** | None | Low (no model training) | Medium (GPU hours) |
-| **Cost per query** | High (long prompts are expensive) | Low (only relevant chunks sent) | Low |
-| **Complexity** | None | Moderate (pipeline + vector DB) | High (dataset curation) |
-
 ## Distillation: A Powerful Pattern
 
 One compelling use case for fine-tuning: use a large model to [generate training data]{.amber}, then fine-tune a smaller model on it.
@@ -122,9 +110,9 @@ No data leaves your network (HIPAA, GDPR)
 
 Well-known examples of LLM → small model distillation:
 
-- **Stanford Alpaca**: GPT-3.5 → LLaMA 7B. API cost < $600. Competitive on simple instruction-following, weaker on reasoning.
-- **Microsoft Orca**: GPT-4's detailed [reasoning traces]{.amber} (not just answers) → smaller model. Capturing the teacher's thinking process improves quality.
-- **Microsoft Phi**: LLM-generated "textbook quality" synthetic data → 1.3B--3B parameter models that match much larger models on reasoning benchmarks.
+- [**Stanford Alpaca**](https://crfm.stanford.edu/2023/03/13/alpaca.html){target="_blank"}: GPT-3.5 → LLaMA 7B. API cost < $600. Competitive on simple instruction-following, weaker on reasoning.
+- [**Microsoft Orca**](https://www.microsoft.com/en-us/research/blog/orca-2-teaching-small-language-models-how-to-reason/){target="_blank"}: GPT-4's detailed [reasoning traces]{.amber} (not just answers) → smaller model. Capturing the teacher's thinking process improves quality.
+- [**Microsoft Phi**](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/){target="_blank"}: LLM-generated "textbook quality" synthetic data → 1.3B--3B parameter models that match much larger models on reasoning benchmarks.
 
 :::{.explainer}
 The pattern works best for [specific, repeatable tasks at scale]{.amber}: classify emails, extract fields, generate reports. For diverse, one-off tasks, just use the LLM directly.
@@ -141,12 +129,6 @@ Training data is a set of **input/output pairs** --- examples of what you want t
 | "Summarize this 10-K risk factor..." | "The company faces supply chain risk due to..." |
 | "Classify this earnings call sentence..." | "Positive guidance" |
 | "Write a credit memo for..." | "Credit Assessment: BBB+ ..." |
-
-| **Task Type** | **Typical Dataset Size** |
-|---|---|
-| Simple classification | 100--500 examples |
-| Complex generation | 1K--5K examples |
-| Diverse style / tone | 10K+ examples |
 
 :::{.explainer}
 Start small --- behavioral changes can appear with as few as [20 examples]{.amber}. Meta's LIMA project showed strong results with just 1,000 carefully curated examples. [Quality matters more than quantity]{.amber}.
@@ -203,6 +185,87 @@ Instead of updating an entire weight matrix, LoRA decomposes the update into two
 - Adapter files are just MBs, not GBs
 - At deployment, merge adapters into the base weights --- [no latency penalty]{.amber}
 :::
+:::
+
+## Full Fine-Tuning: Every Connection Updated {.mermaid-small}
+
+```{mermaid}
+graph LR
+  subgraph Layer_k["Layer k"]
+    direction TB
+    A1((" "))
+    A2((" "))
+    A3((" "))
+    A4((" "))
+    A5((" "))
+    A6((" "))
+  end
+  subgraph Layer_k1["Layer k+1"]
+    direction TB
+    B1((" "))
+    B2((" "))
+    B3((" "))
+    B4((" "))
+    B5((" "))
+    B6((" "))
+  end
+  A1 --> B1 & B2 & B3 & B4 & B5 & B6
+  A2 --> B1 & B2 & B3 & B4 & B5 & B6
+  A3 --> B1 & B2 & B3 & B4 & B5 & B6
+  A4 --> B1 & B2 & B3 & B4 & B5 & B6
+  A5 --> B1 & B2 & B3 & B4 & B5 & B6
+  A6 --> B1 & B2 & B3 & B4 & B5 & B6
+
+  linkStyle default stroke:#3b82f6,stroke-width:2px
+  classDef node fill:#3b82f6,stroke:#3b82f6,color:#fff
+```
+
+[**36 trainable connections**]{.amber} --- all weights updated during training.
+
+## LoRA (Rank 2): Low-Rank Update Path {.mermaid-small}
+
+```{mermaid}
+graph LR
+  subgraph Layer_k["Layer k"]
+    direction TB
+    A1((" "))
+    A2((" "))
+    A3((" "))
+    A4((" "))
+    A5((" "))
+    A6((" "))
+  end
+  subgraph Adapter["Adapter"]
+    direction TB
+    R1((" "))
+    R2((" "))
+  end
+  subgraph Layer_k1["Layer k+1"]
+    direction TB
+    B1((" "))
+    B2((" "))
+    B3((" "))
+    B4((" "))
+    B5((" "))
+    B6((" "))
+  end
+  A1 --> R1 & R2
+  A2 --> R1 & R2
+  A3 --> R1 & R2
+  A4 --> R1 & R2
+  A5 --> R1 & R2
+  A6 --> R1 & R2
+  R1 --> B1 & B2 & B3 & B4 & B5 & B6
+  R2 --> B1 & B2 & B3 & B4 & B5 & B6
+
+  linkStyle default stroke:#f59e0b,stroke-width:2px
+  classDef node fill:#f59e0b,stroke:#f59e0b,color:#fff
+```
+
+[**24 trainable connections**]{.amber} through the bottleneck. The original 36 connections remain active but [frozen]{.amber} --- not shown.
+
+:::{.explainer}
+Both paths feed the [same]{.amber} Layer k+1 nodes --- outputs are added element-wise: W × input + BA × input. After training, merge into a single matrix W_new = W + BA with [no inference overhead]{.amber}.
 :::
 
 ## QLoRA: Fine-Tune on a Free GPU

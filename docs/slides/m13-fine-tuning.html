@@ -192,6 +192,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -210,10 +213,7 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="what-is-fine-tuning" class="slide level2 section-divider center">
-<h2>What is Fine-Tuning?</h2>
-</section>
-<section id="what-is-fine-tuning-1" class="slide level2 center">
+<section id="what-is-fine-tuning" class="slide level2 center">
 <h2>What is Fine-Tuning?</h2>
 <p>A pretrained LLM already knows language. <strong>Fine-tuning</strong> adjusts its weights on a smaller, task-specific dataset so it consistently performs a specific task the way you want:</p>
 <ul>
@@ -273,57 +273,6 @@ Kerry Back, Rice University
 <li>You have (or can generate) high-quality training examples</li>
 </ul>
 </section>
-<section id="three-ways-to-give-ai-knowledge" class="slide level2 smaller center">
-<h2>Three Ways to Give AI Knowledge</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th><strong>Long Context</strong></th>
-<th><strong>RAG</strong></th>
-<th><strong>Fine-Tuning</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Best for</strong></td>
-<td>Short docs that fit in one prompt</td>
-<td>Large or many docs; proprietary facts</td>
-<td>Specific tone, format, or domain expertise</td>
-</tr>
-<tr class="even">
-<td><strong>Data freshness</strong></td>
-<td>Real-time (paste it in)</td>
-<td>Real-time updates</td>
-<td>Stale after training</td>
-</tr>
-<tr class="odd">
-<td><strong>Cost to start</strong></td>
-<td>None</td>
-<td>Low (no model training)</td>
-<td>Medium (GPU hours)</td>
-</tr>
-<tr class="even">
-<td><strong>Cost per query</strong></td>
-<td>High (long prompts are expensive)</td>
-<td>Low (only relevant chunks sent)</td>
-<td>Low</td>
-</tr>
-<tr class="odd">
-<td><strong>Complexity</strong></td>
-<td>None</td>
-<td>Moderate (pipeline + vector DB)</td>
-<td>High (dataset curation)</td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="distillation-a-powerful-pattern" class="slide level2 center">
 <h2>Distillation: A Powerful Pattern</h2>
 <p>One compelling use case for fine-tuning: use a large model to <span class="amber">generate training data</span>, then fine-tune a smaller model on it.</p>
@@ -349,9 +298,9 @@ Kerry Back, Rice University
 <h2>Distillation in Practice</h2>
 <p>Well-known examples of LLM → small model distillation:</p>
 <ul>
-<li><strong>Stanford Alpaca</strong>: GPT-3.5 → LLaMA 7B. API cost &lt; $600. Competitive on simple instruction-following, weaker on reasoning.</li>
-<li><strong>Microsoft Orca</strong>: GPT-4’s detailed <span class="amber">reasoning traces</span> (not just answers) → smaller model. Capturing the teacher’s thinking process improves quality.</li>
-<li><strong>Microsoft Phi</strong>: LLM-generated “textbook quality” synthetic data → 1.3B–3B parameter models that match much larger models on reasoning benchmarks.</li>
+<li><a href="https://crfm.stanford.edu/2023/03/13/alpaca.html" target="_blank"><strong>Stanford Alpaca</strong></a>: GPT-3.5 → LLaMA 7B. API cost &lt; $600. Competitive on simple instruction-following, weaker on reasoning.</li>
+<li><a href="https://www.microsoft.com/en-us/research/blog/orca-2-teaching-small-language-models-how-to-reason/" target="_blank"><strong>Microsoft Orca</strong></a>: GPT-4’s detailed <span class="amber">reasoning traces</span> (not just answers) → smaller model. Capturing the teacher’s thinking process improves quality.</li>
+<li><a href="https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/" target="_blank"><strong>Microsoft Phi</strong></a>: LLM-generated “textbook quality” synthetic data → 1.3B–3B parameter models that match much larger models on reasoning benchmarks.</li>
 </ul>
 <div class="explainer">
 <p>The pattern works best for <span class="amber">specific, repeatable tasks at scale</span>: classify emails, extract fields, generate reports. For diverse, one-off tasks, just use the LLM directly.</p>
@@ -386,28 +335,6 @@ Kerry Back, Rice University
 <tr class="odd">
 <td>“Write a credit memo for…”</td>
 <td>“Credit Assessment: BBB+ …”</td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><strong>Task Type</strong></th>
-<th><strong>Typical Dataset Size</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Simple classification</td>
-<td>100–500 examples</td>
-</tr>
-<tr class="even">
-<td>Complex generation</td>
-<td>1K–5K examples</td>
-</tr>
-<tr class="odd">
-<td>Diverse style / tone</td>
-<td>10K+ examples</td>
 </tr>
 </tbody>
 </table>
@@ -466,6 +393,102 @@ Kerry Back, Rice University
 <li>At deployment, merge adapters into the base weights — <span class="amber">no latency penalty</span></li>
 </ul>
 </div>
+</div>
+</section>
+<section id="full-fine-tuning-every-connection-updated" class="slide level2 mermaid-small center">
+<h2>Full Fine-Tuning: Every Connection Updated</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+  subgraph Layer_k["Layer k"]
+    direction TB
+    A1((" "))
+    A2((" "))
+    A3((" "))
+    A4((" "))
+    A5((" "))
+    A6((" "))
+  end
+  subgraph Layer_k1["Layer k+1"]
+    direction TB
+    B1((" "))
+    B2((" "))
+    B3((" "))
+    B4((" "))
+    B5((" "))
+    B6((" "))
+  end
+  A1 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+  A2 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+  A3 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+  A4 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+  A5 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+  A6 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+
+  linkStyle default stroke:#3b82f6,stroke-width:2px
+  classDef node fill:#3b82f6,stroke:#3b82f6,color:#fff
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><span class="amber"><strong>36 trainable connections</strong></span> — all weights updated during training.</p>
+</section>
+<section id="lora-rank-2-low-rank-update-path" class="slide level2 mermaid-small center">
+<h2>LoRA (Rank 2): Low-Rank Update Path</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+  subgraph Layer_k["Layer k"]
+    direction TB
+    A1((" "))
+    A2((" "))
+    A3((" "))
+    A4((" "))
+    A5((" "))
+    A6((" "))
+  end
+  subgraph Adapter["Adapter"]
+    direction TB
+    R1((" "))
+    R2((" "))
+  end
+  subgraph Layer_k1["Layer k+1"]
+    direction TB
+    B1((" "))
+    B2((" "))
+    B3((" "))
+    B4((" "))
+    B5((" "))
+    B6((" "))
+  end
+  A1 --&gt; R1 &amp; R2
+  A2 --&gt; R1 &amp; R2
+  A3 --&gt; R1 &amp; R2
+  A4 --&gt; R1 &amp; R2
+  A5 --&gt; R1 &amp; R2
+  A6 --&gt; R1 &amp; R2
+  R1 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+  R2 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
+
+  linkStyle default stroke:#f59e0b,stroke-width:2px
+  classDef node fill:#f59e0b,stroke:#f59e0b,color:#fff
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><span class="amber"><strong>24 trainable connections</strong></span> through the bottleneck. The original 36 connections remain active but <span class="amber">frozen</span> — not shown.</p>
+<div class="explainer">
+<p>Both paths feed the <span class="amber">same</span> Layer k+1 nodes — outputs are added element-wise: W × input + BA × input. After training, merge into a single matrix W_new = W + BA with <span class="amber">no inference overhead</span>.</p>
 </div>
 </section>
 <section id="qlora-fine-tune-on-a-free-gpu" class="slide level2 center">
