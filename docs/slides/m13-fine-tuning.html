@@ -402,7 +402,7 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#fff', 'primaryTextColor': '#fff', 'lineColor': '#fff', 'clusterBkg': 'transparent', 'clusterBorder': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
 graph TB
   subgraph Layer_k["Layer k"]
     direction LR
@@ -429,19 +429,19 @@ graph TB
   A5 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
   A6 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
 
-  linkStyle default stroke:#fff,stroke-width:2px
-  style A1 fill:#fff,stroke:#fff
-  style A2 fill:#fff,stroke:#fff
-  style A3 fill:#fff,stroke:#fff
-  style A4 fill:#fff,stroke:#fff
-  style A5 fill:#fff,stroke:#fff
-  style A6 fill:#fff,stroke:#fff
-  style B1 fill:#fff,stroke:#fff
-  style B2 fill:#fff,stroke:#fff
-  style B3 fill:#fff,stroke:#fff
-  style B4 fill:#fff,stroke:#fff
-  style B5 fill:#fff,stroke:#fff
-  style B6 fill:#fff,stroke:#fff
+  linkStyle default stroke:#f59e0b,stroke-width:2px
+  style A1 fill:#f59e0b,stroke:#f59e0b
+  style A2 fill:#f59e0b,stroke:#f59e0b
+  style A3 fill:#f59e0b,stroke:#f59e0b
+  style A4 fill:#f59e0b,stroke:#f59e0b
+  style A5 fill:#f59e0b,stroke:#f59e0b
+  style A6 fill:#f59e0b,stroke:#f59e0b
+  style B1 fill:#f59e0b,stroke:#f59e0b
+  style B2 fill:#f59e0b,stroke:#f59e0b
+  style B3 fill:#f59e0b,stroke:#f59e0b
+  style B4 fill:#f59e0b,stroke:#f59e0b
+  style B5 fill:#f59e0b,stroke:#f59e0b
+  style B6 fill:#f59e0b,stroke:#f59e0b
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -513,9 +513,6 @@ graph TB
 </div>
 </div>
 <p><span class="amber"><strong>24 trainable connections</strong></span> through the bottleneck. The original 36 connections remain active but <span class="amber">frozen</span> — not shown.</p>
-<div class="explainer">
-<p>Both paths feed the <span class="amber">same</span> Layer k+1 nodes — outputs are added element-wise: W × input + BA × input. After training, merge into a single matrix W_new = W + BA with <span class="amber">no inference overhead</span>.</p>
-</div>
 </section>
 <section id="qlora-fine-tune-on-a-free-gpu" class="slide level2 center">
 <h2>QLoRA: Fine-Tune on a Free GPU</h2>
