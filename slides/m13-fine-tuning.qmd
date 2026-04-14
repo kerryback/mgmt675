@@ -191,7 +191,7 @@ Instead of updating an entire weight matrix, LoRA decomposes the update into two
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#3b82f6', 'primaryTextColor': '#fff', 'lineColor': '#3b82f6', 'clusterBkg': '#eff6ff', 'clusterBorder': '#3b82f6'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#fff', 'primaryTextColor': '#fff', 'lineColor': '#fff', 'clusterBkg': 'transparent', 'clusterBorder': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
 graph TB
   subgraph Layer_k["Layer k"]
     direction LR
@@ -218,19 +218,19 @@ graph TB
   A5 --> B1 & B2 & B3 & B4 & B5 & B6
   A6 --> B1 & B2 & B3 & B4 & B5 & B6
 
-  linkStyle default stroke:#3b82f6,stroke-width:2px
-  style A1 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style A2 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style A3 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style A4 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style A5 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style A6 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style B1 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style B2 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style B3 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style B4 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style B5 fill:#3b82f6,stroke:#3b82f6,color:#fff
-  style B6 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  linkStyle default stroke:#fff,stroke-width:2px
+  style A1 fill:#fff,stroke:#fff
+  style A2 fill:#fff,stroke:#fff
+  style A3 fill:#fff,stroke:#fff
+  style A4 fill:#fff,stroke:#fff
+  style A5 fill:#fff,stroke:#fff
+  style A6 fill:#fff,stroke:#fff
+  style B1 fill:#fff,stroke:#fff
+  style B2 fill:#fff,stroke:#fff
+  style B3 fill:#fff,stroke:#fff
+  style B4 fill:#fff,stroke:#fff
+  style B5 fill:#fff,stroke:#fff
+  style B6 fill:#fff,stroke:#fff
 ```
 
 [**36 trainable connections**]{.amber} --- all weights updated during training.
@@ -239,7 +239,7 @@ graph TB
 
 ```{mermaid}
 %%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#eff6ff', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#fff', 'primaryTextColor': '#fff', 'lineColor': '#fff', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
 graph TB
   subgraph Layer_k["Layer k"]
     direction LR
@@ -274,20 +274,20 @@ graph TB
   R2 --> B1 & B2 & B3 & B4 & B5 & B6
 
   linkStyle default stroke:#f59e0b,stroke-width:2px
-  style A1 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style A2 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style A3 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style A4 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style A5 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style A6 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style R1 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style R2 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style B1 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style B2 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style B3 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style B4 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style B5 fill:#f59e0b,stroke:#f59e0b,color:#fff
-  style B6 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style A1 fill:#f59e0b,stroke:#f59e0b
+  style A2 fill:#f59e0b,stroke:#f59e0b
+  style A3 fill:#f59e0b,stroke:#f59e0b
+  style A4 fill:#f59e0b,stroke:#f59e0b
+  style A5 fill:#f59e0b,stroke:#f59e0b
+  style A6 fill:#f59e0b,stroke:#f59e0b
+  style R1 fill:#f59e0b,stroke:#f59e0b
+  style R2 fill:#f59e0b,stroke:#f59e0b
+  style B1 fill:#f59e0b,stroke:#f59e0b
+  style B2 fill:#f59e0b,stroke:#f59e0b
+  style B3 fill:#f59e0b,stroke:#f59e0b
+  style B4 fill:#f59e0b,stroke:#f59e0b
+  style B5 fill:#f59e0b,stroke:#f59e0b
+  style B6 fill:#f59e0b,stroke:#f59e0b
 ```
 
 [**24 trainable connections**]{.amber} through the bottleneck. The original 36 connections remain active but [frozen]{.amber} --- not shown.
