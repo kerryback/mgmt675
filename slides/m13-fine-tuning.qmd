@@ -195,21 +195,11 @@ Instead of updating an entire weight matrix, LoRA decomposes the update into two
 graph TB
   subgraph Layer_k["Layer k"]
     direction LR
-    A1((" "))
-    A2((" "))
-    A3((" "))
-    A4((" "))
-    A5((" "))
-    A6((" "))
+    A1((" ")) ~~~ A2((" ")) ~~~ A3((" ")) ~~~ A4((" ")) ~~~ A5((" ")) ~~~ A6((" "))
   end
   subgraph Layer_k1["Layer k+1"]
     direction LR
-    B1((" "))
-    B2((" "))
-    B3((" "))
-    B4((" "))
-    B5((" "))
-    B6((" "))
+    B1((" ")) ~~~ B2((" ")) ~~~ B3((" ")) ~~~ B4((" ")) ~~~ B5((" ")) ~~~ B6((" "))
   end
   A1 --> B1 & B2 & B3 & B4 & B5 & B6
   A2 --> B1 & B2 & B3 & B4 & B5 & B6
@@ -243,12 +233,7 @@ graph TB
 graph TB
   subgraph Layer_k["Layer k"]
     direction LR
-    A1((" "))
-    A2((" "))
-    A3((" "))
-    A4((" "))
-    A5((" "))
-    A6((" "))
+    A1((" ")) ~~~ A2((" ")) ~~~ A3((" ")) ~~~ A4((" ")) ~~~ A5((" ")) ~~~ A6((" "))
   end
   subgraph Adapter["Adapter (rank 2)"]
     direction LR
@@ -257,12 +242,7 @@ graph TB
   end
   subgraph Layer_k1["Layer k+1"]
     direction LR
-    B1((" "))
-    B2((" "))
-    B3((" "))
-    B4((" "))
-    B5((" "))
-    B6((" "))
+    B1((" ")) ~~~ B2((" ")) ~~~ B3((" ")) ~~~ B4((" ")) ~~~ B5((" ")) ~~~ B6((" "))
   end
   A1 --> R1 & R2
   A2 --> R1 & R2
