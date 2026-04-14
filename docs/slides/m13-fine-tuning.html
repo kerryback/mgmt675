@@ -204,71 +204,12 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="four-ways-to-give-ai-knowledge" class="slide level2 smaller center">
-<h2>Four Ways to Give AI Knowledge</h2>
-<p>Prompting and skills customize <em>how</em> an LLM responds. But what if you need it to know <span class="amber">private data</span> it wasn’t trained on?</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th><strong>Long Context</strong></th>
-<th><strong>RAG</strong></th>
-<th><strong>Fine-Tuning</strong></th>
-<th><strong>Small Language Model</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Best for</strong></td>
-<td>Short docs that fit in one prompt</td>
-<td>Large or many docs; proprietary facts</td>
-<td>Specific tone, format, or domain expertise</td>
-<td>Full control, privacy, specialized tasks</td>
-</tr>
-<tr class="even">
-<td><strong>Data freshness</strong></td>
-<td>Real-time (paste it in)</td>
-<td>Real-time updates</td>
-<td>Stale after training</td>
-<td>Stale after training</td>
-</tr>
-<tr class="odd">
-<td><strong>Cost to start</strong></td>
-<td>None</td>
-<td>Low (no model training)</td>
-<td>Medium (GPU hours)</td>
-<td>High (training + hosting)</td>
-</tr>
-<tr class="even">
-<td><strong>Cost per query</strong></td>
-<td>High (long prompts are expensive)</td>
-<td>Low (only relevant chunks sent)</td>
-<td>Low</td>
-<td>Low</td>
-</tr>
-<tr class="odd">
-<td><strong>Complexity</strong></td>
-<td>None</td>
-<td>Moderate (pipeline + vector DB)</td>
-<td>High (dataset curation)</td>
-<td>Very high (full ML ops)</td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="what-is-fine-tuning" class="slide level2 section-divider center">
 <h2>What is Fine-Tuning?</h2>
 </section>
 <section id="what-is-fine-tuning-1" class="slide level2 center">
 <h2>What is Fine-Tuning?</h2>
-<p>A pretrained LLM already knows language. <strong>Fine-tuning</strong> adjusts its weights on a smaller, task-specific dataset so it behaves differently:</p>
+<p>A pretrained LLM already knows language. <strong>Fine-tuning</strong> adjusts its weights on a smaller, task-specific dataset so it consistently performs a specific task the way you want:</p>
 <ul>
 <li>Adopt a specific tone or format (e.g., always respond as a financial analyst)</li>
 <li>Learn domain terminology and conventions</li>
@@ -312,6 +253,12 @@ Kerry Back, Rice University
 </section>
 <section id="when-to-fine-tune" class="slide level2 center">
 <h2>When to Fine-Tune</h2>
+<p>Fine-tuning is <strong>not</strong> the right tool when:</p>
+<ul>
+<li>Your data changes frequently (use RAG instead)</li>
+<li>You need answers from specific documents (use RAG)</li>
+<li>A well-crafted prompt already works (keep it simple)</li>
+</ul>
 <p>Fine-tuning is worth the effort when:</p>
 <ul>
 <li>You need <span class="amber">consistent behavior</span> across thousands of queries (not one-off tasks)</li>
@@ -319,18 +266,96 @@ Kerry Back, Rice University
 <li>You want lower latency and cost than a large model with a long system prompt</li>
 <li>You have (or can generate) high-quality training examples</li>
 </ul>
-<p>Fine-tuning is <strong>not</strong> the right tool when:</p>
+</section>
+<section id="three-ways-to-give-ai-knowledge" class="slide level2 smaller center">
+<h2>Three Ways to Give AI Knowledge</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Long Context</strong></th>
+<th><strong>RAG</strong></th>
+<th><strong>Fine-Tuning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Best for</strong></td>
+<td>Short docs that fit in one prompt</td>
+<td>Large or many docs; proprietary facts</td>
+<td>Specific tone, format, or domain expertise</td>
+</tr>
+<tr class="even">
+<td><strong>Data freshness</strong></td>
+<td>Real-time (paste it in)</td>
+<td>Real-time updates</td>
+<td>Stale after training</td>
+</tr>
+<tr class="odd">
+<td><strong>Cost to start</strong></td>
+<td>None</td>
+<td>Low (no model training)</td>
+<td>Medium (GPU hours)</td>
+</tr>
+<tr class="even">
+<td><strong>Cost per query</strong></td>
+<td>High (long prompts are expensive)</td>
+<td>Low (only relevant chunks sent)</td>
+<td>Low</td>
+</tr>
+<tr class="odd">
+<td><strong>Complexity</strong></td>
+<td>None</td>
+<td>Moderate (pipeline + vector DB)</td>
+<td>High (dataset curation)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="distillation-a-powerful-pattern" class="slide level2 center">
+<h2>Distillation: A Powerful Pattern</h2>
+<p>One compelling use case for fine-tuning: use a large model to <span class="amber">generate training data</span>, then fine-tune a smaller model on it.</p>
+<div class="three-cards">
+<div class="card card-dark">
+<p><span class="card-title"><strong>Cost</strong></span></p>
+<p>Large models cost 10–30x more per query</p>
+<p>Generate training data once, then run the small model at a <span class="amber">fraction of the cost</span></p>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Speed</strong></span></p>
+<p>A fine-tuned small model responds in milliseconds for classification, seconds for generation</p>
+<p>Large API models are 10–50x slower</p>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Privacy</strong></span></p>
+<p>A fine-tuned small model runs <span class="amber">entirely on your infrastructure</span></p>
+<p>No data leaves your network (HIPAA, GDPR)</p>
+</div>
+</div>
+</section>
+<section id="distillation-in-practice" class="slide level2 center">
+<h2>Distillation in Practice</h2>
+<p>Well-known examples of LLM → small model distillation:</p>
 <ul>
-<li>Your data changes frequently (use RAG instead)</li>
-<li>You need answers from specific documents (use RAG)</li>
-<li>A well-crafted prompt already works (keep it simple)</li>
+<li><strong>Stanford Alpaca</strong>: GPT-3.5 → LLaMA 7B. API cost &lt; $600. Competitive on simple instruction-following, weaker on reasoning.</li>
+<li><strong>Microsoft Orca</strong>: GPT-4’s detailed <span class="amber">reasoning traces</span> (not just answers) → smaller model. Capturing the teacher’s thinking process improves quality.</li>
+<li><strong>Microsoft Phi</strong>: LLM-generated “textbook quality” synthetic data → 1.3B–3B parameter models that match much larger models on reasoning benchmarks.</li>
 </ul>
+<div class="explainer">
+<p>The pattern works best for <span class="amber">specific, repeatable tasks at scale</span>: classify emails, extract fields, generate reports. For diverse, one-off tasks, just use the LLM directly.</p>
+</div>
 </section>
 <section id="the-fine-tuning-process" class="slide level2 section-divider center">
 <h2>The Fine-Tuning Process</h2>
 </section>
-<section id="step-1-collect-training-data" class="slide level2 center">
-<h2>Step 1: Collect Training Data</h2>
+<section id="collect-training-data" class="slide level2 center">
+<h2>Collect Training Data</h2>
 <p>Training data is a set of <strong>input/output pairs</strong> — examples of what you want the model to do.</p>
 <table class="caption-top">
 <colgroup>
@@ -358,12 +383,34 @@ Kerry Back, Rice University
 </tr>
 </tbody>
 </table>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><strong>Task Type</strong></th>
+<th><strong>Typical Dataset Size</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Simple classification</td>
+<td>100–500 examples</td>
+</tr>
+<tr class="even">
+<td>Complex generation</td>
+<td>1K–5K examples</td>
+</tr>
+<tr class="odd">
+<td>Diverse style / tone</td>
+<td>10K+ examples</td>
+</tr>
+</tbody>
+</table>
 <div class="explainer">
-<p>Start small. Google’s Gemma docs note that behavioral changes can appear with as few as <span class="amber">20 examples</span>. Build from there.</p>
+<p>Start small — behavioral changes can appear with as few as <span class="amber">20 examples</span>. Meta’s LIMA project showed strong results with just 1,000 carefully curated examples. <span class="amber">Quality matters more than quantity</span>.</p>
 </div>
 </section>
-<section id="step-2-choose-an-approach" class="slide level2 center">
-<h2>Step 2: Choose an Approach</h2>
+<section id="choose-an-approach" class="slide level2 center">
+<h2>Choose an Approach</h2>
 <div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Full Fine-Tuning</strong></span></p>
@@ -379,8 +426,8 @@ Kerry Back, Rice University
 <ul>
 <li>Freeze the original weights</li>
 <li>Train only small adapter matrices</li>
-<li>10,000x fewer trainable parameters</li>
-<li>Same quality, fraction of the cost</li>
+<li>~100x fewer trainable parameters</li>
+<li>Comparable quality on most tasks, fraction of the cost</li>
 </ul>
 </div>
 </div>
@@ -388,118 +435,55 @@ Kerry Back, Rice University
 <p>In practice, almost everyone uses <span class="amber">LoRA</span> or a similar parameter-efficient method. Full fine-tuning is reserved for large-budget projects.</p>
 </div>
 </section>
-<section id="lora-the-key-idea" class="slide level2 section-divider center">
-<h2>LoRA: The Key Idea</h2>
+<section id="how-lora-keeps-it-cheap" class="slide level2 section-divider center">
+<h2>How LoRA Keeps It Cheap</h2>
 </section>
-<section id="why-lora-works" class="slide level2 center">
-<h2>Why LoRA Works</h2>
-<p>The LoRA paper (Hu et al., 2021) made a key observation: when you fine-tune a large model, the weight changes have <span class="amber">low intrinsic rank</span>.</p>
-<p>The changes needed to adapt a model to a new task live in a much lower-dimensional space than the full parameter space.</p>
-<p>This means you don’t need to update billions of parameters — you can capture the same adaptation with far fewer.</p>
-</section>
-<section id="lora-how-it-works" class="slide level2 center">
-<h2>LoRA: How It Works</h2>
-<p>Instead of learning a full weight update <span class="math inline">\(\Delta W\)</span> (dimensions <span class="math inline">\(d \times d\)</span>), decompose it into two small matrices:</p>
-<p><span class="math display">\[\Delta W = A \times B\]</span></p>
-<p>where <span class="math inline">\(A\)</span> is <span class="math inline">\(d \times r\)</span> and <span class="math inline">\(B\)</span> is <span class="math inline">\(r \times d\)</span>, and <span class="math inline">\(r\)</span> (the rank) is tiny: typically 4, 8, or 16.</p>
+<section id="how-lora-works" class="slide level2 center">
+<h2>How LoRA Works</h2>
+<p>The LoRA paper (Hu et al., 2021) observed that the changes needed to adapt a model to a new task are surprisingly simple — they can be captured with a <span class="amber">small number of parameters</span>.</p>
+<p>Instead of updating an entire weight matrix, LoRA decomposes the update into two small matrices. Only these small matrices are trained; the original weights are frozen.</p>
 <div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Full Fine-Tuning</strong></span></p>
 <ul>
-<li>Update <span class="math inline">\(d^2\)</span> parameters per layer</li>
-<li>For <span class="math inline">\(d = 4096\)</span>: <strong>16.8 million</strong> parameters</li>
+<li>Update millions of parameters per layer</li>
+<li>Example: a 4096 × 4096 layer has <strong>16.8 million</strong> parameters</li>
 <li>Full copy of model weights</li>
 </ul>
 </div>
 <div class="card card-dark">
 <p><span class="card-title"><strong>LoRA (rank 16)</strong></span></p>
 <ul>
-<li>Update <span class="math inline">\(2 \times d \times r\)</span> parameters per layer</li>
-<li>For <span class="math inline">\(d = 4096\)</span>, <span class="math inline">\(r = 16\)</span>: <strong>131,072</strong> parameters</li>
-<li>128x reduction per layer</li>
+<li>Update only ~131,000 parameters per layer</li>
+<li><span class="amber">128x reduction</span></li>
+<li>Adapter files are just MBs, not GBs</li>
+<li>At deployment, merge adapters into the base weights — <span class="amber">no latency penalty</span></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="lora-at-inference-time" class="slide level2 center">
-<h2>LoRA at Inference Time</h2>
-<p>During fine-tuning, the original weights are <span class="amber">frozen</span>:</p>
-<p><span class="math display">\[y = W_{\text{original}}(x) + A \times B(x)\]</span></p>
-<p>At deployment, merge the adapter into the base weights:</p>
-<p><span class="math display">\[W_{\text{new}} = W_{\text{original}} + A \times B\]</span></p>
+<section id="qlora-fine-tune-on-a-free-gpu" class="slide level2 center">
+<h2>QLoRA: Fine-Tune on a Free GPU</h2>
+<p><strong>QLoRA</strong> (Dettmers et al., 2023) adds 4-bit quantization on top of LoRA:</p>
 <ul>
-<li><span class="amber">No inference latency penalty</span> — the merged model runs at normal speed</li>
-<li>Adapter files are small (MBs, not GBs)</li>
-<li>Swap adapters on the same base model for different tasks</li>
-</ul>
-</section>
-<section id="qlora-even-more-efficient" class="slide level2 center">
-<h2>QLoRA: Even More Efficient</h2>
-<p><strong>QLoRA</strong> (Dettmers et al., 2023) adds quantization on top of LoRA:</p>
-<ol type="1">
 <li>Compress base model weights to <span class="amber">4-bit precision</span> (from 16-bit) — 4x memory savings</li>
 <li>Train LoRA adapters on top of the quantized model</li>
-<li>Paged optimizers handle memory spikes</li>
-</ol>
+<li>Quality is comparable to full-precision LoRA</li>
+</ul>
 <div class="explainer">
-<p>Result: fine-tune a <strong>65B-parameter model on a single 48GB GPU</strong>. Training is ~39% slower due to quantization overhead, but quality is comparable to full-precision LoRA.</p>
+<p>Result: fine-tune a <strong>70B-parameter model on a single 48GB GPU</strong>. For smaller models like Gemma 1B, QLoRA makes fine-tuning possible on a <span class="amber">free Colab T4</span> (16GB).</p>
 </div>
 </section>
-<section id="popular-fine-tuning-datasets" class="slide level2 section-divider center">
-<h2>Popular Fine-Tuning Datasets</h2>
-</section>
-<section id="datasets-for-fine-tuning" class="slide level2 smaller center">
-<h2>Datasets for Fine-Tuning</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Dataset</strong></th>
-<th><strong>Size</strong></th>
-<th><strong>Source</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Stanford Alpaca</strong></td>
-<td>52K examples</td>
-<td>GPT-3.5 generated</td>
-<td>Instruction-following pairs; fine-tuned LLaMA 7B for &lt; $600</td>
-</tr>
-<tr class="even">
-<td><strong>Databricks Dolly</strong></td>
-<td>15K examples</td>
-<td>Human-written</td>
-<td>7 task types: Q&amp;A, summarization, classification, creative writing</td>
-</tr>
-<tr class="odd">
-<td><strong>LIMA</strong></td>
-<td>1,000 examples</td>
-<td>Curated by Meta</td>
-<td>“Less Is More for Alignment” — high quality beats high quantity</td>
-</tr>
-<tr class="even">
-<td><strong>OpenAssistant</strong></td>
-<td>161K messages</td>
-<td>Crowdsourced</td>
-<td>Multi-turn conversations in 35 languages with quality ratings</td>
-</tr>
-<tr class="odd">
-<td><strong>UltraChat</strong></td>
-<td>1.5M dialogues</td>
-<td>ChatGPT generated</td>
-<td>Large-scale multi-round conversations; filtered subset of 200K commonly used</td>
-</tr>
-</tbody>
-</table>
+<section id="what-can-go-wrong" class="slide level2 center">
+<h2>What Can Go Wrong?</h2>
+<p>Fine-tuning is not risk-free. Issues to watch for:</p>
+<ul>
+<li><strong>Catastrophic forgetting</strong>: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)</li>
+<li><strong>Overfitting</strong>: with too few examples, the model memorizes training data instead of learning patterns — performs great on training-like inputs, fails on anything different</li>
+<li><strong>Maintenance burden</strong>: when the base model gets a new version, you may need to re-fine-tune</li>
+</ul>
 <div class="explainer">
-<p>LIMA’s finding is striking: <span class="amber">1,000 carefully curated examples</span> can outperform 52,000 generated ones. Data quality matters more than quantity.</p>
+<p>LoRA reduces forgetting risk (original weights are frozen), but <span class="amber">always test</span> general capabilities after fine-tuning, not just your target task.</p>
 </div>
 </section>
 <section id="hands-on-fine-tuning-gemma" class="slide level2 section-divider center">
@@ -508,11 +492,12 @@ Kerry Back, Rice University
 <section id="what-well-do" class="slide level2 center">
 <h2>What We’ll Do</h2>
 <p>Fine-tune <strong>Google Gemma 3 1B</strong> to classify financial news sentiment using QLoRA.</p>
+<p>The goal is to see how simple the process is, not to memorize the code. The entire workflow is <span class="amber">a handful of short code blocks</span>.</p>
 <div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Setup</strong></span></p>
 <ul>
-<li>Google Colab (free T4 GPU)</li>
+<li>Google Colab with T4 GPU</li>
 <li>Hugging Face account (accept Gemma license)</li>
 <li>~15 minutes to train</li>
 </ul>
@@ -528,8 +513,8 @@ Kerry Back, Rice University
 </div>
 </div>
 </section>
-<section id="step-1-install-and-login" class="slide level2 center">
-<h2>Step 1: Install and Login</h2>
+<section id="install-and-login" class="slide level2 center">
+<h2>Install and Login</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># In Google Colab:</span></span>
 <span id="cb1-2"><a href=""></a><span class="op">!</span>pip install <span class="op">-</span>q transformers peft trl datasets bitsandbytes accelerate</span>
 <span id="cb1-3"><a href=""></a></span>
@@ -538,8 +523,8 @@ Kerry Back, Rice University
 <span id="cb1-6"><a href=""></a>login()  <span class="co"># paste your HF token when prompted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You need to accept Google’s Gemma license at <a href="https://huggingface.co/google/gemma-3-1b-it">huggingface.co/google/gemma-3-1b-it</a> before downloading.</p>
 </section>
-<section id="step-2-load-the-model-with-qlora" class="slide level2 smaller center">
-<h2>Step 2: Load the Model with QLoRA</h2>
+<section id="load-the-model-with-qlora" class="slide level2 smaller center">
+<h2>Load the Model with QLoRA</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig</span>
 <span id="cb2-2"><a href=""></a><span class="im">from</span> peft <span class="im">import</span> LoraConfig, get_peft_model</span>
 <span id="cb2-3"><a href=""></a><span class="im">import</span> torch</span>
@@ -558,46 +543,48 @@ Kerry Back, Rice University
 <span id="cb2-16"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The 1B model loads in <span class="amber">~800 MB</span> with 4-bit quantization (vs.&nbsp;~2 GB at full precision).</p>
 </section>
-<section id="step-3-attach-lora-adapters" class="slide level2 smaller center">
-<h2>Step 3: Attach LoRA Adapters</h2>
+<section id="attach-lora-adapters" class="slide level2 smaller center">
+<h2>Attach LoRA Adapters</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>lora_config <span class="op">=</span> LoraConfig(</span>
 <span id="cb3-2"><a href=""></a>    r<span class="op">=</span><span class="dv">16</span>,                          <span class="co"># rank — higher = more capacity</span></span>
 <span id="cb3-3"><a href=""></a>    lora_alpha<span class="op">=</span><span class="dv">32</span>,                 <span class="co"># scaling factor</span></span>
-<span id="cb3-4"><a href=""></a>    target_modules<span class="op">=</span><span class="st">"all-linear"</span>,   <span class="co"># apply to all linear layers</span></span>
+<span id="cb3-4"><a href=""></a>    target_modules<span class="op">=</span>[<span class="st">"q_proj"</span>, <span class="st">"v_proj"</span>],  <span class="co"># attention layers only</span></span>
 <span id="cb3-5"><a href=""></a>    lora_dropout<span class="op">=</span><span class="fl">0.05</span>,</span>
 <span id="cb3-6"><a href=""></a>    task_type<span class="op">=</span><span class="st">"CAUSAL_LM"</span>,</span>
 <span id="cb3-7"><a href=""></a>)</span>
 <span id="cb3-8"><a href=""></a></span>
 <span id="cb3-9"><a href=""></a>model <span class="op">=</span> get_peft_model(model, lora_config)</span>
 <span id="cb3-10"><a href=""></a>model.print_trainable_parameters()</span>
-<span id="cb3-11"><a href=""></a><span class="co"># trainable params: 3,407,872 || all params: 999,698,432 || trainable%: 0.34%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Only <span class="amber">0.34%</span> of parameters are trainable — the rest are frozen.</p>
+<span id="cb3-11"><a href=""></a><span class="co"># trainable params: ~800K || all params: ~1B || trainable%: ~0.08%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Less than <span class="amber">0.1%</span> of parameters are trainable — the rest are frozen.</p>
 </section>
-<section id="step-4-prepare-training-data" class="slide level2 smaller center">
-<h2>Step 4: Prepare Training Data</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">from</span> datasets <span class="im">import</span> Dataset</span>
+<section id="prepare-training-data" class="slide level2 smaller center">
+<h2>Prepare Training Data</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
 <span id="cb4-2"><a href=""></a></span>
-<span id="cb4-3"><a href=""></a><span class="co"># Financial sentiment classification examples</span></span>
-<span id="cb4-4"><a href=""></a>examples <span class="op">=</span> [</span>
-<span id="cb4-5"><a href=""></a>    {<span class="st">"text"</span>: <span class="st">"Revenue surged 23% year over year, beating analyst estimates."</span>,</span>
-<span id="cb4-6"><a href=""></a>     <span class="st">"label"</span>: <span class="st">"positive"</span>},</span>
-<span id="cb4-7"><a href=""></a>    {<span class="st">"text"</span>: <span class="st">"The company announced 2,000 layoffs amid declining margins."</span>,</span>
-<span id="cb4-8"><a href=""></a>     <span class="st">"label"</span>: <span class="st">"negative"</span>},</span>
-<span id="cb4-9"><a href=""></a>    {<span class="st">"text"</span>: <span class="st">"Q3 results were in line with expectations, no change to guidance."</span>,</span>
-<span id="cb4-10"><a href=""></a>     <span class="st">"label"</span>: <span class="st">"neutral"</span>},</span>
-<span id="cb4-11"><a href=""></a>    <span class="co"># ... add 50-200 more examples</span></span>
-<span id="cb4-12"><a href=""></a>]</span>
-<span id="cb4-13"><a href=""></a></span>
-<span id="cb4-14"><a href=""></a><span class="kw">def</span> format_example(example):</span>
-<span id="cb4-15"><a href=""></a>    prompt <span class="op">=</span> <span class="ss">f"""Classify the financial sentiment of this text.</span></span>
-<span id="cb4-16"><a href=""></a><span class="ss">Text: </span><span class="sc">{</span>example[<span class="st">'text'</span>]<span class="sc">}</span></span>
-<span id="cb4-17"><a href=""></a><span class="ss">Sentiment:"""</span></span>
-<span id="cb4-18"><a href=""></a>    <span class="cf">return</span> {<span class="st">"text"</span>: <span class="ss">f"</span><span class="sc">{</span>prompt<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>example[<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">"</span>}</span>
+<span id="cb4-3"><a href=""></a><span class="co"># Load Financial PhraseBank — 4,845 sentences labeled by finance experts</span></span>
+<span id="cb4-4"><a href=""></a>dataset <span class="op">=</span> load_dataset(<span class="st">"financial_phrasebank"</span>, <span class="st">"sentences_allagree"</span>,</span>
+<span id="cb4-5"><a href=""></a>                       split<span class="op">=</span><span class="st">"train"</span>, trust_remote_code<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-6"><a href=""></a></span>
+<span id="cb4-7"><a href=""></a><span class="kw">def</span> format_example(example):</span>
+<span id="cb4-8"><a href=""></a>    labels <span class="op">=</span> {<span class="dv">0</span>: <span class="st">"negative"</span>, <span class="dv">1</span>: <span class="st">"neutral"</span>, <span class="dv">2</span>: <span class="st">"positive"</span>}</span>
+<span id="cb4-9"><a href=""></a>    text <span class="op">=</span> example[<span class="st">"sentence"</span>]</span>
+<span id="cb4-10"><a href=""></a>    label <span class="op">=</span> labels[example[<span class="st">"label"</span>]]</span>
+<span id="cb4-11"><a href=""></a>    <span class="co"># Use the model's chat template for proper formatting</span></span>
+<span id="cb4-12"><a href=""></a>    messages <span class="op">=</span> [</span>
+<span id="cb4-13"><a href=""></a>        {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="ss">f"Classify the financial sentiment: </span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">"</span>},</span>
+<span id="cb4-14"><a href=""></a>        {<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"content"</span>: label},</span>
+<span id="cb4-15"><a href=""></a>    ]</span>
+<span id="cb4-16"><a href=""></a>    <span class="cf">return</span> {<span class="st">"text"</span>: tokenizer.apply_chat_template(messages, tokenize<span class="op">=</span><span class="va">False</span>)}</span>
+<span id="cb4-17"><a href=""></a></span>
+<span id="cb4-18"><a href=""></a>dataset <span class="op">=</span> dataset.<span class="bu">map</span>(format_example)</span>
 <span id="cb4-19"><a href=""></a></span>
-<span id="cb4-20"><a href=""></a>dataset <span class="op">=</span> Dataset.from_list(examples).<span class="bu">map</span>(format_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-20"><a href=""></a><span class="co"># Hold out 10% for testing</span></span>
+<span id="cb4-21"><a href=""></a>split <span class="op">=</span> dataset.train_test_split(test_size<span class="op">=</span><span class="fl">0.1</span>, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-22"><a href=""></a>train_data, test_data <span class="op">=</span> split[<span class="st">"train"</span>], split[<span class="st">"test"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="step-5-train" class="slide level2 smaller center">
-<h2>Step 5: Train</h2>
+<section id="train" class="slide level2 smaller center">
+<h2>Train</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="im">from</span> trl <span class="im">import</span> SFTConfig, SFTTrainer</span>
 <span id="cb5-2"><a href=""></a></span>
 <span id="cb5-3"><a href=""></a>training_args <span class="op">=</span> SFTConfig(</span>
@@ -612,26 +599,31 @@ Kerry Back, Rice University
 <span id="cb5-12"><a href=""></a>trainer <span class="op">=</span> SFTTrainer(</span>
 <span id="cb5-13"><a href=""></a>    model<span class="op">=</span>model,</span>
 <span id="cb5-14"><a href=""></a>    args<span class="op">=</span>training_args,</span>
-<span id="cb5-15"><a href=""></a>    train_dataset<span class="op">=</span>dataset,</span>
+<span id="cb5-15"><a href=""></a>    train_dataset<span class="op">=</span>train_data,</span>
 <span id="cb5-16"><a href=""></a>)</span>
 <span id="cb5-17"><a href=""></a></span>
 <span id="cb5-18"><a href=""></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>On a Colab T4 GPU, this takes <span class="amber">~10–15 minutes</span> for 200 examples × 3 epochs.</p>
+<p>On a Colab T4 GPU, this takes <span class="amber">~10–15 minutes</span>.</p>
 </section>
-<section id="step-6-test-the-result" class="slide level2 smaller center">
-<h2>Step 6: Test the Result</h2>
+<section id="test-the-result" class="slide level2 smaller center">
+<h2>Test the Result</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Test on a new example the model hasn't seen</span></span>
-<span id="cb6-2"><a href=""></a>prompt <span class="op">=</span> <span class="st">"""Classify the financial sentiment of this text.</span></span>
-<span id="cb6-3"><a href=""></a><span class="st">Text: Net income fell 12% as rising input costs squeezed margins.</span></span>
-<span id="cb6-4"><a href=""></a><span class="st">Sentiment:"""</span></span>
-<span id="cb6-5"><a href=""></a></span>
-<span id="cb6-6"><a href=""></a>inputs <span class="op">=</span> tokenizer(prompt, return_tensors<span class="op">=</span><span class="st">"pt"</span>).to(model.device)</span>
-<span id="cb6-7"><a href=""></a>outputs <span class="op">=</span> model.generate(<span class="op">**</span>inputs, max_new_tokens<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb6-8"><a href=""></a><span class="bu">print</span>(tokenizer.decode(outputs[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb6-9"><a href=""></a><span class="co"># → "... Sentiment: negative"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href=""></a>messages <span class="op">=</span> [</span>
+<span id="cb6-3"><a href=""></a>    {<span class="st">"role"</span>: <span class="st">"user"</span>,</span>
+<span id="cb6-4"><a href=""></a>     <span class="st">"content"</span>: <span class="st">"Classify the financial sentiment: "</span></span>
+<span id="cb6-5"><a href=""></a>                <span class="st">"Net income fell 12% as rising input costs squeezed margins."</span>},</span>
+<span id="cb6-6"><a href=""></a>]</span>
+<span id="cb6-7"><a href=""></a>inputs <span class="op">=</span> tokenizer.apply_chat_template(messages, return_tensors<span class="op">=</span><span class="st">"pt"</span>,</span>
+<span id="cb6-8"><a href=""></a>                                       add_generation_prompt<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-9"><a href=""></a>inputs <span class="op">=</span> inputs.to(model.device)</span>
+<span id="cb6-10"><a href=""></a>outputs <span class="op">=</span> model.generate(inputs, max_new_tokens<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-11"><a href=""></a><span class="co"># Slice off the prompt to see only the generated tokens</span></span>
+<span id="cb6-12"><a href=""></a><span class="bu">print</span>(tokenizer.decode(outputs[<span class="dv">0</span>][inputs.shape[<span class="op">-</span><span class="dv">1</span>]:],</span>
+<span id="cb6-13"><a href=""></a>                       skip_special_tokens<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb6-14"><a href=""></a><span class="co"># → "negative"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="step-7-save-and-share" class="slide level2 center">
-<h2>Step 7: Save and Share</h2>
+<section id="save-and-share" class="slide level2 center">
+<h2>Save and Share</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Save the LoRA adapter (just a few MB)</span></span>
 <span id="cb7-2"><a href=""></a>model.save_pretrained(<span class="st">"./gemma-finance-sentiment"</span>)</span>
 <span id="cb7-3"><a href=""></a></span>
@@ -643,21 +635,20 @@ Kerry Back, Rice University
 <span id="cb7-9"><a href=""></a><span class="co"># Or merge into a single model file:</span></span>
 <span id="cb7-10"><a href=""></a>merged <span class="op">=</span> model.merge_and_unload()</span>
 <span id="cb7-11"><a href=""></a>merged.save_pretrained(<span class="st">"./gemma-finance-merged"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The adapter is <span class="amber">~14 MB</span>. The full merged model is ~2 GB. Both produce identical results.</p>
+<p>The adapter is <span class="amber">~14 MB</span>. The full merged model is ~2 GB. Both produce functionally equivalent results.</p>
 </section>
 <section id="what-just-happened" class="slide level2 center">
 <h2>What Just Happened?</h2>
 <div class="three-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Data</strong></span></p>
-<p>~200 labeled examples of financial sentiment</p>
-<p>Took minutes to prepare</p>
+<p>4,845 expert-labeled financial sentences</p>
+<p>Loaded in one line from Hugging Face</p>
 </div>
 <div class="card card-dark">
 <p><span class="card-title"><strong>Training</strong></span></p>
-<p>QLoRA updated 0.34% of parameters</p>
-<p>~15 minutes on a free GPU</p>
-<p>Total cost: $0</p>
+<p>QLoRA updated &lt; 0.1% of parameters</p>
+<p>~15 minutes on a Colab GPU</p>
 </div>
 <div class="card card-light">
 <p><span class="card-title"><strong>Result</strong></span></p>
@@ -666,51 +657,11 @@ Kerry Back, Rice University
 </div>
 </div>
 </section>
-<section id="distillation-llm-small-model" class="slide level2 section-divider center">
-<h2>Distillation: LLM → Small Model</h2>
-</section>
-<section id="why-not-just-use-the-big-model" class="slide level2 center">
-<h2>Why Not Just Use the Big Model?</h2>
-<p>A powerful pattern: use a large model to <span class="amber">generate training data</span>, then fine-tune a smaller model on it.</p>
-<p>Why bother? Why not just use the LLM directly?</p>
-<div class="three-cards">
-<div class="card card-dark">
-<p><span class="card-title"><strong>Cost</strong></span></p>
-<p>Large models cost 10–30x more per query than small models</p>
-<p>Generate 50K examples once ($200–500), then run the small model <span class="amber">forever</span> at a fraction of the cost</p>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Speed</strong></span></p>
-<p>A 7B model generates responses in 50–200ms on modest hardware</p>
-<p>Large API models take 1–5 seconds</p>
-<p>Critical for real-time applications</p>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Privacy</strong></span></p>
-<p>A fine-tuned small model runs <span class="amber">entirely on your infrastructure</span></p>
-<p>No data leaves your network</p>
-<p>Essential for healthcare, legal, and financial applications (HIPAA, GDPR)</p>
-</div>
-</div>
-</section>
-<section id="distillation-in-practice" class="slide level2 center">
-<h2>Distillation in Practice</h2>
-<p>Well-known examples of LLM → small model distillation:</p>
-<ul>
-<li><strong>Stanford Alpaca</strong>: GPT-3.5 → LLaMA 7B. Cost: $600. Comparable performance on many tasks.</li>
-<li><strong>Microsoft Orca</strong>: GPT-4’s detailed <span class="amber">reasoning traces</span> (not just answers) → smaller model. Capturing the teacher’s thinking process improves quality.</li>
-<li><strong>Microsoft Phi</strong>: LLM-generated “textbook quality” synthetic data → 1.3B–3B parameter models that punch far above their weight.</li>
-</ul>
-<div class="explainer">
-<p>The pattern works best for <span class="amber">specific, repeatable tasks at scale</span>: classify emails, extract fields, generate reports. For diverse, one-off tasks, just use the LLM directly.</p>
-</div>
-</section>
-<section id="frameworks-and-tools" class="slide level2 section-divider center">
-<h2>Frameworks and Tools</h2>
+<section id="beyond-the-hands-on" class="slide level2 section-divider center">
+<h2>Beyond the Hands-On</h2>
 </section>
 <section id="fine-tuning-frameworks" class="slide level2 center">
 <h2>Fine-Tuning Frameworks</h2>
-<p>Google’s Gemma documentation lists several popular tools:</p>
 <div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Beginner-Friendly</strong></span></p>
@@ -733,9 +684,9 @@ Kerry Back, Rice University
 <p>For most use cases, start with <span class="amber">Hugging Face + PEFT</span> or <span class="amber">Unsloth</span>. Both support LoRA/QLoRA out of the box and have extensive documentation.</p>
 </div>
 </section>
-<section id="step-3-test-your-model" class="slide level2 center">
-<h2>Step 3: Test Your Model</h2>
-<p>Google recommends three categories of test cases:</p>
+<section id="evaluating-your-model" class="slide level2 center">
+<h2>Evaluating Your Model</h2>
+<p>Always test systematically. For the sentiment model, a failure test might be feeding it a non-financial sentence and confirming it refuses to classify. Google recommends three categories:</p>
 <div class="three-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Success Tests</strong></span></p>
@@ -766,13 +717,14 @@ Kerry Back, Rice University
 </div>
 </div>
 </section>
-<section id="step-4-deploy" class="slide level2 center">
-<h2>Step 4: Deploy</h2>
+<section id="deployment-options" class="slide level2 center">
+<h2>Deployment Options</h2>
 <p>For LoRA-tuned models, deployment is straightforward:</p>
 <ul>
 <li>Deploy the <strong>base model</strong> + the <strong>LoRA adapter</strong> (a small file)</li>
 <li>Or <strong>merge</strong> the adapter into the base weights for a single model file</li>
 <li>Serve with standard inference tools (vLLM, TGI, Ollama)</li>
+<li>The sentiment adapter you just trained can be loaded into Ollama and served locally</li>
 </ul>
 <div class="explainer">
 <p>Multiple LoRA adapters can share a single base model. A compliance adapter, a customer-service adapter, and a research adapter can all run on the <span class="amber">same GPU</span>, swapping adapters per request.</p>
