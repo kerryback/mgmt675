@@ -1,0 +1,323 @@
+---
+title: "Module 16: How AI Works"
+subtitle: "MGMT 675: Generative AI for Finance"
+author: "Kerry Back, Rice University"
+format:
+  revealjs:
+    theme: [default, revealjs-style.scss]
+    highlight-style: monokai
+    slide-number: c
+    transition: fade
+    navigation-mode: linear
+    width: 1920
+    height: 1080
+    margin: 0.05
+    center: true
+    include-after-body:
+      - text: |
+          <script src="https://hypothes.is/embed.js" async></script>
+---
+
+## What Is an LLM?
+
+Every AI tool we've used this semester --- Claude, ChatGPT, Gemini --- is built on a [large language model]{.amber}. (Modern versions also handle images and other inputs via similar mechanisms, but we'll focus on text.)
+
+An LLM is a neural network that:
+
+1. Takes a sequence of text as input
+2. Produces a [probability distribution]{.amber} over possible next words
+3. Samples one, appends it, and repeats
+
+:::{.explainer}
+That's it. When Claude writes a paragraph, it is generating one token at a time, each time asking: "given everything so far, what should come next?" A [temperature]{.amber} setting controls the randomness --- low temperature picks near-certain tokens; high temperature allows more creative variation. This is why you get different responses to the same prompt.
+:::
+
+## From Next-Word Prediction to Intelligence
+
+This seems too simple to produce intelligent behavior. But when you train next-word prediction on [trillions of words]{.amber}:
+
+- To predict the next word in a math proof, the model must learn math
+- To predict the next word in a legal brief, it must learn legal reasoning
+- To predict the next word in a financial analysis, it must learn finance
+
+:::{.explainer}
+The training objective is simple. The capabilities that emerge at scale are not. Whether this constitutes "understanding" is debated --- but [the capabilities are real and useful]{.amber}, which is what matters for practitioners.
+:::
+
+## The Four Key Ideas {.section-divider}
+
+## Idea 1: Tokens
+
+LLMs don't process letters or words --- they process [tokens]{.amber}, which are common sub-word chunks.
+
+:::{.info-box}
+[**Example**]{.box-title}
+
+"Embedding" → ["Em", "bed", "ding"]
+
+"unhelpful" → ["un", "help", "ful"]
+
+"chatbot" → ["chat", "bot"]
+:::
+
+- A typical LLM has a vocabulary of ~100,000 tokens
+- Each token is assigned a unique integer ID
+- Claude's context window (e.g., 200K tokens) is measured in these units
+
+:::{.explainer}
+Tokenization is a practical compromise: character-level would be too slow; word-level can't handle new words. Sub-word tokens balance vocabulary size with flexibility.
+:::
+
+## Idea 2: Embeddings
+
+Each token is represented as a [vector]{.amber} --- a list of thousands of numbers.
+
+$$\text{"revenue"} \rightarrow [0.12,\; -0.83,\; 0.45,\; \ldots,\; 0.07]$$
+
+These vectors are [learned during training]{.amber} --- the model discovers that:
+
+- "revenue" and "sales" should have similar vectors (they appear in similar contexts)
+- "revenue" and "basketball" should have different vectors
+
+:::{.explainer}
+Embeddings convert discrete tokens into a continuous space where [meaning is encoded as geometry]{.amber}. Nearby vectors = similar meanings. The embedding vectors are not hand-coded --- they are [learned parameters]{.amber}, trained jointly with the rest of the model.
+:::
+
+## Idea 3: Attention
+
+The core innovation behind modern LLMs. Given a sequence of tokens, [attention]{.amber} lets each token look at every other token and decide what's relevant.
+
+:::{.info-box}
+[**Example**]{.box-title}
+
+"The company reported strong revenue but [warned]{.amber} about supply chain disruptions"
+
+- A simple scan sees "strong revenue" → positive
+- Attention sees that "warned" [modifies the entire sentiment]{.amber} → net negative
+:::
+
+:::{.explainer}
+The weights are determined by [content]{.amber}, not position --- so the model can relate words that are far apart. The next slide explains how.
+:::
+
+## How Attention Works
+
+For each token, the model computes three vectors:
+
+- **Query (Q):** "What am I looking for?"
+- **Key (K):** "What do I contain?"
+- **Value (V):** "What information do I provide?"
+
+Each Query is compared to every Key (via a similarity score). High-similarity pairs get more weight. The output for each token is a [weighted blend]{.amber} of all the Values.
+
+:::{.explainer}
+The Q, K, V matrices are learned parameters --- the model discovers what to attend to during training. In practice, the model runs several attention processes in parallel ([multi-head attention]{.amber}), each learning different types of relationships --- one head for syntax, another for semantics, another for long-range dependencies.
+:::
+
+## Idea 4: The Transformer
+
+The [transformer]{.amber} stacks attention layers into a deep network. Each layer does two things:
+
+1. **Self-attention** --- relate tokens to each other
+2. **Feed-forward network** --- process each token individually
+
+![The original transformer architecture (Vaswani et al., 2017)](images/transformer.png){height=280 fig-align="center"}
+
+Frontier models stack [dozens to over a hundred]{.amber} of these layers.
+
+:::{.explainer}
+Earlier layers capture syntax; deeper layers capture reasoning. By stacking, the same token gets [different representations in different contexts]{.amber} --- "bank" in finance vs. "bank" of a river.
+:::
+
+## Scale
+
+| Model | Parameters | Training Data | Training Cost |
+|---|---|---|---|
+| GPT-2 (2019) | 1.5 billion | 40 GB text | ~$50K |
+| GPT-3 (2020) | 175 billion | 570 GB text | ~$5M |
+| GPT-4 (2023) | undisclosed (rumored >1T) | ~13 trillion tokens | ~$100M |
+| Claude (2024--25) | undisclosed | undisclosed | undisclosed |
+
+:::{.explainer}
+The trend: 100x more parameters and 100x more data every few years. Training a frontier model requires thousands of GPUs running for months. Companies no longer disclose parameter counts, but you access the result for [a few dollars per million tokens]{.amber}.
+:::
+
+## Training: What Gets Optimized
+
+An LLM has two types of learnable parameters, [trained jointly]{.amber} on one objective --- predict the next token:
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Embedding Parameters**]{.card-title}
+
+- The embedding table (token → vector)
+- Hundreds of millions of parameters
+- Learns [what each token means]{.amber}
+:::
+
+:::{.card .card-dark}
+[**Transformer Parameters**]{.card-title}
+
+- Attention weights (Q, K, V per layer)
+- Feed-forward weights per layer
+- Billions to trillions of parameters
+- Learns [how to combine meanings]{.amber}
+:::
+:::
+
+:::{.explainer}
+At each position, the model guesses the next token; the loss penalizes wrong guesses. Both parameter types [evolve together]{.amber}. A single document of 1,000 tokens provides [999 prediction tasks]{.amber} --- multiply by trillions, and you see why the model learns so much.
+:::
+
+## Training in Practice
+
+```{mermaid}
+%%{init: {'theme': 'dark', 'themeVariables': {'fontSize': '30px'}}}%%
+flowchart LR
+    D["Text data"] --> B["Batch"]
+    B --> F["Predict"]
+    F --> L["Loss"]
+    L --> G["Gradients"]
+    G --> U["Update"]
+    U --> F
+```
+
+- Process data in small batches, adjusting parameters after each batch
+- Distributed across [thousands of GPUs]{.amber} running in parallel
+- Training runs continuously for [months]{.amber}
+
+:::{.explainer}
+Each step adjusts billions of parameters simultaneously, making the model slightly better at predicting the next token across all the text it has seen.
+:::
+
+## From Text Predictor to Assistant {.section-divider}
+
+## Pre-Training vs. Fine-Tuning
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Pre-Training**]{.card-title}
+
+- Train on massive text corpora --- web, books, code (trillions of tokens)
+- Objective: predict the next word
+- Result: a model that can [continue any text]{.amber}
+- Knows facts, grammar, reasoning patterns
+- But: will also continue toxic, unhelpful, or wrong text
+:::
+
+:::{.card .card-dark}
+[**Fine-Tuning + RLHF**]{.card-title}
+
+- Train on curated examples of helpful conversations
+- Reinforcement Learning from Human Feedback
+- Human raters rank model outputs
+- Model learns to prefer [helpful, harmless, honest]{.amber} responses
+- Turns a text predictor into an assistant
+:::
+:::
+
+:::{.explainer}
+Pre-training gives the model [knowledge]{.amber}. Fine-tuning gives it [values]{.amber} and [behavior]{.amber}. Without RLHF, a pre-trained model would happily generate harmful content or confidently state falsehoods.
+:::
+
+## RLHF: Teaching the Model to Be Helpful
+
+1. **Supervised fine-tuning:** show the model examples of good conversations
+2. **Reward modeling:** humans compare pairs of responses → train a model that predicts which response humans prefer
+3. **RL optimization:** the language model generates responses, the reward model scores them, and the language model is updated to produce higher-scoring responses
+
+Anthropic uses a variant called [Constitutional AI]{.amber} where the model also critiques its own outputs against a set of principles, reducing the need for human raters.
+
+:::{.explainer}
+This is why Claude refuses harmful requests, admits uncertainty, and follows instructions. The base model learned to mimic text; supervised fine-tuning and RLHF [reshape its behavior]{.amber} toward helpfulness, honesty, and safety --- qualities that were not the objective of pre-training.
+:::
+
+## What This Means for You {.section-divider}
+
+## Connecting to What We've Built
+
+Now you can see the mechanism behind everything we've done this semester:
+
+| What you did | What's happening under the hood |
+|---|---|
+| System prompts and skills (M5) | Shifts the token distribution toward your domain |
+| Makers and checkers (M6) | Counteracts the plausible-but-wrong tendency |
+| RAG pipeline (M12) | Injects documents into context for attention to connect |
+| Sentiment analysis (M13) | Prompts the model to apply sentiment patterns learned during training |
+| Agent with tools (M14) | Model trained to output tool-call tokens; runtime executes them |
+| Different answers each time | Temperature-based sampling from the distribution |
+
+:::{.explainer}
+The architecture explains [why these techniques work]{.amber} --- not just that they work.
+:::
+
+## Why Prompts Matter
+
+The model samples the next token [conditioned on your prompt]{.amber}. More specific context → narrower distribution → better output.
+
+:::{.info-box}
+[**Example**]{.box-title}
+
+**Vague:** "Tell me about Apple's financials" → the model could continue with consumer advice, a Wikipedia summary, or equity analysis. The distribution spreads across all of these.
+
+**Specific:** "As a sell-side equity analyst, write a one-paragraph summary of Apple's Q1 2025 revenue drivers" → the distribution [collapses to a narrow, useful range]{.amber}.
+:::
+
+:::{.explainer}
+System prompts and few-shot examples shift the distribution toward the outputs you want. [Temperature]{.amber} controls how sharply the model commits: at T=0 it always picks the top token (deterministic); at higher T it samples more broadly (creative but riskier). Both prompting and temperature follow directly from how the model generates text.
+:::
+
+## Why Context Windows Matter
+
+The attention mechanism is what gives LLMs their context window:
+
+- Each token attends to [every previous token]{.amber}
+- Cost grows with context length (each new token must attend to all previous tokens) --- long prompts are slower and more expensive
+- Claude's 200K token window ≈ 500 pages of typical prose
+
+:::{.explainer}
+This is why RAG works: you inject relevant documents into the context window, and the attention mechanism [connects your question to the answer]{.amber} in those documents --- even if it's buried on page 47.
+:::
+
+## Why Hallucinations Happen
+
+The model is trained to predict [plausible]{.amber} next tokens, not [true]{.amber} ones.
+
+- If the training data contains conflicting information, the model blends it into its learned parameters
+- If asked about something rare or absent from training data, it generates plausible-sounding text anyway
+- The model has no mechanism to distinguish "I know this" from "this sounds right"
+
+:::{.explainer}
+This is a [fundamental tendency of the architecture]{.amber}, not a simple bug. The model maximizes fluency, not truth. It can be mitigated --- RAG grounds responses in documents, tool use lets the agent check facts, verification protocols catch errors --- but likely not eliminated entirely. This is why the [makers-and-checkers]{.amber} pattern matters.
+:::
+
+## Summary
+
+:::{.three-cards}
+:::{.card .card-light}
+[**Building Blocks**]{.card-title}
+
+- Tokens: sub-word chunks (~100K vocabulary)
+- Embeddings: learned vector representations
+- Attention: relate any token to any other
+- Transformers: stack attention into deep networks
+:::
+
+:::{.card .card-light}
+[**Training**]{.card-title}
+
+- Objective: predict the next token
+- Jointly optimize embeddings + transformer parameters
+- Trillions of tokens, billions to trillions of parameters
+- RLHF turns a predictor into an assistant
+:::
+
+:::{.card .card-light}
+[**Implications**]{.card-title}
+
+- Prompts condition the distribution
+- RAG exploits attention over injected context
+- Tool use is fine-tuned next-token behavior
+- Hallucinations: fluency is not truth
+:::
+:::

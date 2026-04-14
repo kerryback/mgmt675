@@ -34,34 +34,39 @@ format:
 
 :::{.two-cards}
 :::{.card .card-dark}
-[**M12: RAG (Today)**]{.card-title}
+[**M12: RAG**]{.card-title}
 
 - Give AI knowledge it wasn't trained on
 - Chunking, embedding, and vector search
-- Build a 10-K chatbot with source citations
 :::
 
+:::{.card .card-dark}
+[**M13: Fine-Tuning**]{.card-title}
+
+- Customize model behavior with your data
+- LoRA, QLoRA, and distillation
+:::
+:::
+
+:::{.three-cards}
 :::{.card .card-light}
-[**M13: Sentiment Analysis**]{.card-title}
+[**M14: Sentiment Analysis**]{.card-title}
 
 - LLMs as sentiment classifiers
 - News and earnings call analysis
 - Trading signals from text
 :::
-:::
 
-:::{.two-cards}
 :::{.card .card-light}
-[**M14: Building Agents**]{.card-title}
+[**M15: More on Building Agents**]{.card-title}
 
 - Define tools as JSON Schema
-- The agentic loop: tool calls → results → reasoning
-- Portfolio review agent 
-- Presentation examiner
+- The agentic loop
+- Portfolio review agent
 :::
 
 :::{.card .card-light}
-[**M15: How AI Works**]{.card-title}
+[**M16: How AI Works**]{.card-title}
 
 - Neural networks
 - Embeddings and attention
