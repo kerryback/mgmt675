@@ -190,9 +190,11 @@ Instead of updating an entire weight matrix, LoRA decomposes the update into two
 ## Full Fine-Tuning: Every Connection Updated {.mermaid-small}
 
 ```{mermaid}
-graph LR
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#3b82f6', 'primaryTextColor': '#fff', 'lineColor': '#3b82f6', 'clusterBkg': '#eff6ff', 'clusterBorder': '#3b82f6'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+graph TB
   subgraph Layer_k["Layer k"]
-    direction TB
+    direction LR
     A1((" "))
     A2((" "))
     A3((" "))
@@ -201,7 +203,7 @@ graph LR
     A6((" "))
   end
   subgraph Layer_k1["Layer k+1"]
-    direction TB
+    direction LR
     B1((" "))
     B2((" "))
     B3((" "))
@@ -217,7 +219,18 @@ graph LR
   A6 --> B1 & B2 & B3 & B4 & B5 & B6
 
   linkStyle default stroke:#3b82f6,stroke-width:2px
-  classDef node fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style A1 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style A2 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style A3 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style A4 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style A5 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style A6 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style B1 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style B2 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style B3 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style B4 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style B5 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style B6 fill:#3b82f6,stroke:#3b82f6,color:#fff
 ```
 
 [**36 trainable connections**]{.amber} --- all weights updated during training.
@@ -225,9 +238,11 @@ graph LR
 ## LoRA (Rank 2): Low-Rank Update Path {.mermaid-small}
 
 ```{mermaid}
-graph LR
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#eff6ff', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+graph TB
   subgraph Layer_k["Layer k"]
-    direction TB
+    direction LR
     A1((" "))
     A2((" "))
     A3((" "))
@@ -235,13 +250,13 @@ graph LR
     A5((" "))
     A6((" "))
   end
-  subgraph Adapter["Adapter"]
-    direction TB
+  subgraph Adapter["Adapter (rank 2)"]
+    direction LR
     R1((" "))
     R2((" "))
   end
   subgraph Layer_k1["Layer k+1"]
-    direction TB
+    direction LR
     B1((" "))
     B2((" "))
     B3((" "))
@@ -259,7 +274,20 @@ graph LR
   R2 --> B1 & B2 & B3 & B4 & B5 & B6
 
   linkStyle default stroke:#f59e0b,stroke-width:2px
-  classDef node fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style A1 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style A2 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style A3 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style A4 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style A5 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style A6 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style R1 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style R2 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style B1 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style B2 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style B3 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style B4 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style B5 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style B6 fill:#f59e0b,stroke:#f59e0b,color:#fff
 ```
 
 [**24 trainable connections**]{.amber} through the bottleneck. The original 36 connections remain active but [frozen]{.amber} --- not shown.
