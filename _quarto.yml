@@ -36,6 +36,7 @@ project:
     - files/*.md
     - files/*.py
     - files/*.db
+    - files/*.ipynb
     - slides/code/*.py
     - exercises/*.pdf
     - index-pdf.pdf
