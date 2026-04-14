@@ -25,10 +25,12 @@ format:
 
 - Financial analysis with AI: mean-variance, DCF, Excel
 - Email and calendar connectors 
-- Skills, system prompts, and memory files 
+- Skills and memory files 
 - Don't accept the first draft: critique skill
-- Corporate AI deployment: data security, system prompt, logging 
+- Custom chatbots (system prompts) and agents
 - Web scraping 
+- Corporate deployment: data security, system prompt, logging 
+
 
 ## Where We're Going
 
@@ -195,6 +197,7 @@ Prompting and skills customize *how* an LLM responds. But what if you need it to
 ## The RAG Pipeline
 
 ```{mermaid}
+%%| echo: false
 %%| fig-width: 16
 %%{init: {'theme': 'base', 'themeVariables': {'fontSize': '64px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
 flowchart LR
