@@ -337,10 +337,26 @@ Kerry Back, Rice University
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'lineColor': '#f59e0b'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 140, 'padding': 20, 'useMaxWidth': true}}}%%
-flowchart TB
-  A1((" ")) ~~~ A2((" ")) ~~~ A3((" ")) ~~~ A4((" ")) ~~~ A5((" ")) ~~~ A6((" "))
-  B1((" ")) ~~~ B2((" ")) ~~~ B3((" ")) ~~~ B4((" ")) ~~~ B5((" ")) ~~~ B6((" "))
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+graph TB
+  subgraph Layer_k["Layer k"]
+    direction LR
+    A1((" "))
+    A2((" "))
+    A3((" "))
+    A4((" "))
+    A5((" "))
+    A6((" "))
+  end
+  subgraph Layer_k1["Layer k+1"]
+    direction LR
+    B1((" "))
+    B2((" "))
+    B3((" "))
+    B4((" "))
+    B5((" "))
+    B6((" "))
+  end
   A1 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
   A2 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
   A3 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
@@ -367,7 +383,7 @@ flowchart TB
 </div>
 </div>
 </div>
-<p><strong>Layer k</strong> → <strong>Layer k+1</strong>: <span class="amber"><strong>36 trainable connections</strong></span> — all weights updated during training.</p>
+<p><span class="amber"><strong>36 trainable connections</strong></span> — all weights updated during training.</p>
 </section>
 <section id="lora-rank-2-low-rank-update-path" class="slide level2 mermaid-small center">
 <h2>LoRA (Rank 2): Low-Rank Update Path</h2>
@@ -376,11 +392,31 @@ flowchart TB
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'lineColor': '#f59e0b'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 20, 'useMaxWidth': true}}}%%
-flowchart TB
-  A1((" ")) ~~~ A2((" ")) ~~~ A3((" ")) ~~~ A4((" ")) ~~~ A5((" ")) ~~~ A6((" "))
-  R1((" ")) ~~~ R2((" "))
-  B1((" ")) ~~~ B2((" ")) ~~~ B3((" ")) ~~~ B4((" ")) ~~~ B5((" ")) ~~~ B6((" "))
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+graph TB
+  subgraph Layer_k["Layer k"]
+    direction LR
+    A1((" "))
+    A2((" "))
+    A3((" "))
+    A4((" "))
+    A5((" "))
+    A6((" "))
+  end
+  subgraph Adapter["Adapter (rank 2)"]
+    direction LR
+    R1((" "))
+    R2((" "))
+  end
+  subgraph Layer_k1["Layer k+1"]
+    direction LR
+    B1((" "))
+    B2((" "))
+    B3((" "))
+    B4((" "))
+    B5((" "))
+    B6((" "))
+  end
   A1 --&gt; R1 &amp; R2
   A2 --&gt; R1 &amp; R2
   A3 --&gt; R1 &amp; R2
