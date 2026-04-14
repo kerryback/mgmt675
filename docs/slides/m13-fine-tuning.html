@@ -277,8 +277,20 @@ Kerry Back, Rice University
 <p>Start small — behavioral changes can appear with as few as <span class="amber">20 examples</span>. Meta’s LIMA project showed strong results with just 1,000 carefully curated examples. <span class="amber">Quality matters more than quantity</span>.</p>
 </div>
 </section>
-<section id="choose-an-approach" class="slide level2 center">
-<h2>Choose an Approach</h2>
+<section id="what-can-go-wrong" class="slide level2 center">
+<h2>What Can Go Wrong?</h2>
+<p>Fine-tuning is not risk-free. Issues to watch for:</p>
+<ul>
+<li><strong>Catastrophic forgetting</strong>: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)</li>
+<li><strong>Overfitting</strong>: with too few examples, the model memorizes training data instead of learning patterns — performs great on training-like inputs, fails on anything different</li>
+<li><strong>Maintenance burden</strong>: when the base model gets a new version, you may need to re-fine-tune</li>
+</ul>
+</section>
+<section id="lora-low-rank-adaptation" class="slide level2 section-divider center">
+<h2>LoRA: Low-Rank Adaptation</h2>
+</section>
+<section id="full-fine-tuning-vs.-lora" class="slide level2 center">
+<h2>Full Fine-Tuning vs.&nbsp;LoRA</h2>
 <div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Full Fine-Tuning</strong></span></p>
@@ -302,9 +314,6 @@ Kerry Back, Rice University
 <div class="explainer">
 <p>In practice, almost everyone uses <span class="amber">LoRA</span> or a similar parameter-efficient method. Full fine-tuning is reserved for large-budget projects.</p>
 </div>
-</section>
-<section id="how-lora-keeps-it-cheap" class="slide level2 section-divider center">
-<h2>How LoRA Keeps It Cheap</h2>
 </section>
 <section id="how-lora-works" class="slide level2 center">
 <h2>How LoRA Works</h2>
@@ -461,23 +470,8 @@ graph TB
 <p>Result: fine-tune a <strong>70B-parameter model on a single 48GB GPU</strong>. For smaller models like Gemma 1B, QLoRA makes fine-tuning possible on a <span class="amber">free Colab T4</span> (16GB).</p>
 </div>
 </section>
-<section id="what-can-go-wrong" class="slide level2 center">
-<h2>What Can Go Wrong?</h2>
-<p>Fine-tuning is not risk-free. Issues to watch for:</p>
-<ul>
-<li><strong>Catastrophic forgetting</strong>: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)</li>
-<li><strong>Overfitting</strong>: with too few examples, the model memorizes training data instead of learning patterns — performs great on training-like inputs, fails on anything different</li>
-<li><strong>Maintenance burden</strong>: when the base model gets a new version, you may need to re-fine-tune</li>
-</ul>
-<div class="explainer">
-<p>LoRA reduces forgetting risk (original weights are frozen), but <span class="amber">always test</span> general capabilities after fine-tuning, not just your target task.</p>
-</div>
-</section>
-<section id="hands-on-fine-tuning-gemma" class="slide level2 section-divider center">
-<h2>Hands-On: Fine-Tuning Gemma</h2>
-</section>
-<section id="hands-on-notebook" class="slide level2 center">
-<h2>Hands-On Notebook</h2>
+<section id="hands-on-fine-tuning-with-lora" class="slide level2 center">
+<h2>Hands-On: Fine-Tuning with LoRA</h2>
 <p>Fine-tune <strong>Google Gemma 3 1B</strong> to classify financial news sentiment using QLoRA — in a Colab notebook.</p>
 <div class="two-cards">
 <div class="card card-light">

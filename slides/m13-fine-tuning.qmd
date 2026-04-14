@@ -134,7 +134,17 @@ Training data is a set of **input/output pairs** --- examples of what you want t
 Start small --- behavioral changes can appear with as few as [20 examples]{.amber}. Meta's LIMA project showed strong results with just 1,000 carefully curated examples. [Quality matters more than quantity]{.amber}.
 :::
 
-## Choose an Approach
+## What Can Go Wrong?
+
+Fine-tuning is not risk-free. Issues to watch for:
+
+- **Catastrophic forgetting**: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)
+- **Overfitting**: with too few examples, the model memorizes training data instead of learning patterns --- performs great on training-like inputs, fails on anything different
+- **Maintenance burden**: when the base model gets a new version, you may need to re-fine-tune
+
+## LoRA: Low-Rank Adaptation {.section-divider}
+
+## Full Fine-Tuning vs. LoRA
 
 :::{.two-cards}
 :::{.card .card-light}
@@ -159,8 +169,6 @@ Start small --- behavioral changes can appear with as few as [20 examples]{.ambe
 :::{.explainer}
 In practice, almost everyone uses [LoRA]{.amber} or a similar parameter-efficient method. Full fine-tuning is reserved for large-budget projects.
 :::
-
-## How LoRA Keeps It Cheap {.section-divider}
 
 ## How LoRA Works
 
@@ -304,21 +312,7 @@ graph TB
 Result: fine-tune a **70B-parameter model on a single 48GB GPU**. For smaller models like Gemma 1B, QLoRA makes fine-tuning possible on a [free Colab T4]{.amber} (16GB).
 :::
 
-## What Can Go Wrong?
-
-Fine-tuning is not risk-free. Issues to watch for:
-
-- **Catastrophic forgetting**: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)
-- **Overfitting**: with too few examples, the model memorizes training data instead of learning patterns --- performs great on training-like inputs, fails on anything different
-- **Maintenance burden**: when the base model gets a new version, you may need to re-fine-tune
-
-:::{.explainer}
-LoRA reduces forgetting risk (original weights are frozen), but [always test]{.amber} general capabilities after fine-tuning, not just your target task.
-:::
-
-## Hands-On: Fine-Tuning Gemma {.section-divider}
-
-## Hands-On Notebook
+## Hands-On: Fine-Tuning with LoRA
 
 Fine-tune **Google Gemma 3 1B** to classify financial news sentiment using QLoRA --- in a Colab notebook.
 
