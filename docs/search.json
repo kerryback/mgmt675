@@ -1488,14 +1488,14 @@
     "href": "slides.html",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nBuilding Agents with the Claude API\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nPredictive Modeling"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nFine-Tuning\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nMore on Building Agents\n\n\n\n16\nHow AI Works"
   },
   {
     "objectID": "slides.html#course-slides",
     "href": "slides.html#course-slides",
     "title": "Slides",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nBuilding Agents with the Claude API\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nPredictive Modeling"
+    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nFine-Tuning\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nMore on Building Agents\n\n\n\n16\nHow AI Works"
   },
   {
     "objectID": "slides/m2-intro-claude.html#exploring-claude.ai",
@@ -2270,21 +2270,21 @@
   {
     "objectID": "slides/m12-rag.html#what-weve-done",
     "href": "slides/m12-rag.html#what-weve-done",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "What We’ve Done",
-    "text": "What We’ve Done\n\nAI + code tools for financial analysis\n\nMean-variance optimization, DCF valuation, capital budgeting (NPV, real options)\nDeliverables: figures, Excel, Word, PowerPoint, web apps\n\nSkills (reusable instructions) and makers & checkers\nWeb scraping (SEC EDGAR, news)\nChatbots and agents (FastAPI, deployment)\nCorporate AI deployment (guardrails, governance)\nLive cases: Magnolia Oil & Gas (DCF), The Sneaker Project (capital budgeting)"
+    "text": "What We’ve Done\n\nFinancial analysis with AI: mean-variance, DCF, Excel\nEmail and calendar connectors\nSkills, system prompts, and memory files\nDon’t accept the first draft: critique skill\nCorporate AI deployment: data security, system prompt, logging\nWeb scraping"
   },
   {
     "objectID": "slides/m12-rag.html#where-were-going",
     "href": "slides/m12-rag.html#where-were-going",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Where We’re Going",
-    "text": "Where We’re Going\n\n\nM12: RAG (Today)\n\nGive AI knowledge it wasn’t trained on\nChunking, embedding, and vector search\nBuild a 10-K chatbot with source citations\n\n\n\nM13: Building Agents with the Claude API\n\nDefine tools as JSON Schema\nThe agentic loop: tool calls → results → reasoning\nPortfolio review agent with live data\n\n\n\n\n\nM14: Sentiment Analysis\n\nLLMs as sentiment classifiers\nNews and earnings call analysis\nTrading signals from text\n\n\n\nM15: Predictive Modeling\n\nRegression and classification\nGradient boosting vs. linear models\nNeural networks and when to use what"
+    "text": "Where We’re Going\n\n\nM12: RAG\n\nGive AI knowledge it wasn’t trained on\nChunking, embedding, and vector search\n\n\n\nM13: Fine-Tuning\n\nCustomize model behavior with your data\nLoRA, QLoRA, and distillation\n\n\n\n\n\nM14: Sentiment Analysis\n\nLLMs as sentiment classifiers\nNews and earnings call analysis\nTrading signals from text\n\n\n\nM15: More on Building Agents\n\nDefine tools as JSON Schema\nThe agentic loop\nPortfolio review agent\n\n\n\nM16: How AI Works\n\nNeural networks\nEmbeddings and attention\nTraining of LLMs"
   },
   {
     "objectID": "slides/m12-rag.html#beyond-prompting",
     "href": "slides/m12-rag.html#beyond-prompting",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Beyond Prompting",
     "text": "Beyond Prompting"
   },
@@ -2298,51 +2298,51 @@
   {
     "objectID": "slides/m12-rag.html#embeddings-a-concrete-example",
     "href": "slides/m12-rag.html#embeddings-a-concrete-example",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Embeddings: A Concrete Example",
     "text": "Embeddings: A Concrete Example"
   },
   {
     "objectID": "slides/m12-rag.html#word-vectors",
     "href": "slides/m12-rag.html#word-vectors",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Word Vectors",
-    "text": "Word Vectors\nAn embedding model converts text into a vector of numbers. Words with similar meanings get similar vectors.\nUsing GloVe (50-dimensional vectors trained on Wikipedia):\nimport gensim.downloader as api\nmodel = api.load(\"glove-wiki-gigaword-50\")\n\nmodel[\"king\"]   # array([ 0.50,  0.68, -0.59,  0.11,  0.05, ...])  50 dims\nmodel[\"queen\"]  # array([ 0.38,  0.72, -0.63, -0.01,  0.03, ...])\nmodel[\"apple\"]  # array([-0.39,  0.33,  0.21, -0.58,  0.47, ...])\n“King” and “queen” have similar vectors. “Apple” is very different."
+    "text": "Word Vectors\nAn embedding model converts text into a vector of numbers. Words with similar meanings get similar vectors.\nUsing GloVe (50-dimensional vectors trained on Wikipedia + Gigaword):\nimport gensim.downloader as api\nmodel = api.load(\"glove-wiki-gigaword-50\")\n\nmodel[\"king\"]   # array([ 0.50,  0.69, -0.60, -0.02,  0.60, ...])  50 dims\nmodel[\"queen\"]  # array([ 0.38,  1.82, -1.26, -0.10,  0.36, ...])\nmodel[\"apple\"]  # array([ 0.52, -0.83,  0.50,  1.29,  0.12, ...])\n“King” and “queen” have similar vectors. “Apple” is very different. (GloVe illustrates the idea; RAG uses more advanced sentence embeddings we’ll see next.)"
   },
   {
     "objectID": "slides/m12-rag.html#word-analogies-king-man-woman",
     "href": "slides/m12-rag.html#word-analogies-king-man-woman",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Word Analogies: King – Man + Woman",
-    "text": "Word Analogies: King – Man + Woman\nWord vectors capture meaning arithmetically:\n\\[\\vec{\\text{king}} - \\vec{\\text{man}} + \\vec{\\text{woman}} \\approx \\vec{\\text{queen}}\\]\nresult = model.most_similar(\n    positive=[\"king\", \"woman\"], negative=[\"man\"], topn=3\n)\n# [('queen', 0.77), ('monarch', 0.68), ('princess', 0.66)]\nThe model was never told these relationships — it learned them from patterns in text."
+    "text": "Word Analogies: King – Man + Woman\nWord vectors capture meaning arithmetically:\n\\[\\vec{\\text{king}} - \\vec{\\text{man}} + \\vec{\\text{woman}} \\approx \\vec{\\text{queen}}\\]\nresult = model.most_similar(\n    positive=[\"king\", \"woman\"], negative=[\"man\"], topn=3\n)\n# [('queen', 0.86), ('daughter', 0.77), ('prince', 0.76)]\nThe model was never told these relationships — it learned them from patterns in text."
   },
   {
     "objectID": "slides/m12-rag.html#from-words-to-sentences",
     "href": "slides/m12-rag.html#from-words-to-sentences",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "From Words to Sentences",
-    "text": "From Words to Sentences\nFor RAG, we need to embed entire sentences or paragraphs, not single words.\nSentence-transformers passes the full text through a transformer and outputs a single vector:\nfrom sentence_transformers import SentenceTransformer\nmodel = SentenceTransformer(\"all-MiniLM-L6-v2\")  # 384 dimensions\n\nmodel.encode(\"Revenue grew 15%\")     # one 384-dim vector\nmodel.encode(\"How did profits change?\")  # another 384-dim vector\nThis is not an average of word vectors — the transformer considers word order, grammar, and context to produce a single representation."
+    "text": "From Words to Sentences\nWord vectors capture individual word meaning, but RAG needs to compare the meaning of entire passages.\nsentence-transformers passes the full text through a transformer and outputs a single vector:\n\nfrom sentence_transformers import SentenceTransformer\nmodel = SentenceTransformer(\"all-MiniLM-L6-v2\")  # 384 dimensions\n\nv1 = model.encode(\"Revenue grew 15%\")\nv2 = model.encode(\"How did profits change?\")\nprint(f\"v1 shape: {v1.shape}  — one vector per sentence\")\nprint(f\"v1[:5]:   {v1[:5].round(2)} ...\")\nprint(f\"v2[:5]:   {v2[:5].round(2)} ...\")\n\n\n\n\nv1 shape: (384,)  — one vector per sentence\nv1[:5]:   [ 0.05  0.01  0.01 -0.06  0.05] ...\nv2[:5]:   [ 0.    0.02 -0.01 -0.01  0.04] ...\n\n\nThis is not an average of word vectors — the transformer considers word order, grammar, and context to produce a single representation."
   },
   {
     "objectID": "slides/m12-rag.html#cosine-similarity",
     "href": "slides/m12-rag.html#cosine-similarity",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Cosine Similarity",
-    "text": "Cosine Similarity\nHow do we measure if two vectors are “close”? Cosine similarity: the cosine of the angle between them.\n\n1.0 = identical direction (same meaning)\n0.0 = perpendicular (unrelated)\n–1.0 = opposite\n\nfrom sklearn.metrics.pairwise import cosine_similarity\n\nchunks = [\n    \"Revenue grew 15% year over year to $4.2 billion.\",\n    \"The company opened 12 new retail locations in Q3.\",\n    \"Net income declined 8% due to rising input costs.\",\n]\nquery = \"How did profits change?\"\n\nscores = cosine_similarity(model.encode([query]), model.encode(chunks))[0]\n# [0.31, 0.12, 0.68]  ← net income chunk is the best match"
+    "text": "Cosine Similarity\nHow do we measure if two vectors are “close”? Cosine similarity: the cosine of the angle between them.\n\n1.0 = identical direction (same meaning)\n0.0 = perpendicular (unrelated)\n-1.0 = opposite direction"
   },
   {
     "objectID": "slides/m12-rag.html#chunking-a-document",
     "href": "slides/m12-rag.html#chunking-a-document",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Chunking a Document",
-    "text": "Chunking a Document\nBefore embedding, documents are split into chunks — small pieces that each become one vector.\ntext = \"\"\"Apple reported Q4 revenue of $89.5 billion, down 1% year\nover year. Services revenue hit an all-time record of $22.3\nbillion. iPhone revenue was $43.8 billion. The company returned\nover $25 billion to shareholders during the quarter through\ndividends and share repurchases.\"\"\"\n\n# Split into chunks of ~50 words with overlap\nchunks = [\n    \"Apple reported Q4 revenue of $89.5 billion, down 1% year over year. \"\n    \"Services revenue hit an all-time record of $22.3 billion.\",\n\n    \"Services revenue hit an all-time record of $22.3 billion. \"\n    \"iPhone revenue was $43.8 billion.\",\n\n    \"iPhone revenue was $43.8 billion. The company returned over $25 \"\n    \"billion to shareholders through dividends and share repurchases.\",\n]\nOverlap ensures context isn’t lost at chunk boundaries."
+    "text": "Chunking a Document\nBefore embedding, documents are split into chunks — small pieces such that each becomes one vector.\n\ntext = \"\"\"Apple reported Q4 revenue of $89.5 billion, down 1% year\nover year. Services revenue hit an all-time record of $22.3\nbillion. iPhone revenue was $43.8 billion. The company returned\nover $25 billion to shareholders during the quarter through\ndividends and share repurchases.\"\"\"\n\n# Split into chunks of ~50 words with overlap\nchunks = [\n    \"Apple reported Q4 revenue of $89.5 billion, down 1% year over year. \"\n    \"Services revenue hit an all-time record of $22.3 billion.\",\n\n    \"Services revenue hit an all-time record of $22.3 billion. \"\n    \"iPhone revenue was $43.8 billion.\",\n\n    \"iPhone revenue was $43.8 billion. The company returned over $25 \"\n    \"billion to shareholders through dividends and share repurchases.\",\n]\n\nOverlap ensures context isn’t lost at chunk boundaries."
   },
   {
     "objectID": "slides/m12-rag.html#the-full-picture-query-retrieve-generate",
     "href": "slides/m12-rag.html#the-full-picture-query-retrieve-generate",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "The Full Picture: Query → Retrieve → Generate",
-    "text": "The Full Picture: Query → Retrieve → Generate\n# 1. Embed chunks and store in a vector database\nchunk_vectors = model.encode(chunks)\n\n# 2. User asks a question — embed the query with the SAME model\nquery = \"What was Apple's services revenue?\"\nquery_vector = model.encode([query])\n\n# 3. Find the most similar chunk (cosine similarity)\nscores = cosine_similarity(query_vector, chunk_vectors)[0]\nbest_chunk = chunks[scores.argmax()]\n# → \"...Services revenue hit an all-time record of $22.3 billion...\"\n\n# 4. Pass the chunk + question to the LLM\nprompt = f\"Based on this context:\\n{best_chunk}\\n\\nAnswer: {query}\"\nThe LLM never sees the whole document — just the most relevant chunk."
+    "text": "The Full Picture: Query → Retrieve → Generate\n\n# 1. Embed chunks and store in a vector database\nchunk_vectors = model.encode(chunks)\n\n# 2. User asks a question — embed the query with the SAME model\nquery = \"What was Apple's services revenue?\"\nquery_vector = model.encode([query])\n\n# 3. Find the most similar chunk (cosine similarity)\nscores = cosine_similarity(query_vector, chunk_vectors)[0]\nbest_chunk = chunks[scores.argmax()]\nprint(f\"Best match (score {scores.max():.2f}):\")\nprint(f\"  {best_chunk}\")\n\n# 4. Pass the chunk + question to the LLM\nprompt = f\"Based on this context:\\n{best_chunk}\\n\\nAnswer: {query}\"\n\nBest match (score 0.79):\n  Apple reported Q4 revenue of $89.5 billion, down 1% year over year. Services revenue hit an all-time record of $22.3 billion.\n\n\nThe LLM never sees the whole document — just the most relevant chunk."
   },
   {
     "objectID": "slides/m12-rag.html#how-rag-works",
@@ -2354,16 +2354,16 @@
   {
     "objectID": "slides/m12-rag.html#what-is-rag",
     "href": "slides/m12-rag.html#what-is-rag",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "What is RAG?",
     "text": "What is RAG?\nRAG = Retrieval-Augmented Generation. Retrieve relevant documents first, then pass them to the LLM along with the user’s question. The LLM generates an answer grounded in the retrieved text.\n\nThe LLM’s training data may be stale or lack your proprietary information\nRAG injects current, domain-specific context at query time\nNo model weights are changed — the base LLM is used as-is"
   },
   {
     "objectID": "slides/m12-rag.html#the-rag-pipeline",
     "href": "slides/m12-rag.html#the-rag-pipeline",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "The RAG Pipeline",
-    "text": "The RAG Pipeline\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  D[\"&lt;b&gt;Documents&lt;/b&gt;\"] --&gt; CE[\"&lt;b&gt;Chunk &&lt;br&gt;Embed&lt;/b&gt;\"]\n  CE --&gt; VDB[\"&lt;b&gt;Vector DB&lt;/b&gt;\"]\n  UQ[\"&lt;b&gt;User Query&lt;/b&gt;\"] --&gt; R[\"&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;\"]\n  VDB --&gt; R\n  R --&gt;|\"query + context\"| LLM[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n  LLM --&gt; A[\"&lt;b&gt;Grounded&lt;br&gt;Answer&lt;/b&gt;\"]\n\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style A fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px"
+    "text": "The RAG Pipeline\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '64px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  subgraph prep [\"Preparation (done first)\"]\n    D[\"&lt;b&gt;Documents&lt;/b&gt;\"] --&gt; CE[\"&lt;b&gt;Chunk &&lt;br&gt;Embed&lt;/b&gt;\"]\n    CE --&gt; VDB[\"&lt;b&gt;Vector DB&lt;/b&gt;\"]\n  end\n  UQ[\"&lt;b&gt;User Query&lt;/b&gt;\"] --&gt; EQ[\"&lt;b&gt;Embed&lt;br&gt;Query&lt;/b&gt;\"]\n  EQ --&gt; R[\"&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;\"]\n  VDB --&gt; R\n  R --&gt;|\"query + context\"| LLM[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n\n  style prep fill:none,stroke:#3b82f6,stroke-width:4px,stroke-dasharray:12 6,rx:40,ry:40,color:#3b82f6,font-size:40px\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '64px', 'lineWidth': 6}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  subgraph prep [\"Preparation (done first)\"]\n    D[\"&lt;b&gt;Documents&lt;/b&gt;\"] --&gt; CE[\"&lt;b&gt;Chunk &&lt;br&gt;Embed&lt;/b&gt;\"]\n    CE --&gt; VDB[\"&lt;b&gt;Vector DB&lt;/b&gt;\"]\n  end\n  UQ[\"&lt;b&gt;User Query&lt;/b&gt;\"] --&gt; EQ[\"&lt;b&gt;Embed&lt;br&gt;Query&lt;/b&gt;\"]\n  EQ --&gt; R[\"&lt;b&gt;Retrieve&lt;br&gt;Matches&lt;/b&gt;\"]\n  VDB --&gt; R\n  R --&gt;|\"query + context\"| LLM[\"&lt;b&gt;LLM&lt;/b&gt;\"]\n\n  style prep fill:none,stroke:#3b82f6,stroke-width:4px,stroke-dasharray:12 6,rx:40,ry:40,color:#3b82f6,font-size:40px\n  style D fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style CE fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style VDB fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style UQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style EQ fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style R fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px\n  style LLM fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:64px,padding:20px"
   },
   {
     "objectID": "slides/m12-rag.html#rag-key-concepts",
@@ -2375,70 +2375,70 @@
   {
     "objectID": "slides/m12-rag.html#rag-in-finance",
     "href": "slides/m12-rag.html#rag-in-finance",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "RAG in Finance",
     "text": "RAG in Finance"
   },
   {
     "objectID": "slides/m12-rag.html#finance-applications-of-rag",
     "href": "slides/m12-rag.html#finance-applications-of-rag",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Finance Applications of RAG",
     "text": "Finance Applications of RAG\n\n\nDocument Types\n\n10-K/10-Q filings and earnings transcripts\nAnalyst reports and deal documents\nInternal policies and memos\n\n\n\nUse Cases\n\nCompliance Q&A: query regulatory filings, internal policies\nDue diligence: search deal documents with citations\nResearch synthesis: combine multiple sources"
   },
   {
     "objectID": "slides/m12-rag.html#rag-strengths-and-limitations",
     "href": "slides/m12-rag.html#rag-strengths-and-limitations",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "RAG: Strengths and Limitations",
-    "text": "RAG: Strengths and Limitations\n\n\nStrengths\n\nNo training required\nData can be updated in real time\nAnswers are traceable to source pages\n\n\nLimitations\n\nQuality depends on retrieval quality\nContext window limits how much can be passed\nChunking can split important context"
+    "text": "RAG: Strengths and Limitations\n\n\nStrengths\n\nNo model training required (pipeline engineering is the main cost)\nData can be updated in real time\nAnswers are traceable to source pages\n\n\n\nLimitations\n\nQuality depends on retrieval quality\nChunking can split important context\nAdds infrastructure cost (embedding API, vector DB hosting) and query latency\n\n\n\n\nWhy not just paste the whole document into the prompt? Context windows are growing fast (100K–1M tokens), but RAG still wins when you have many documents, need to keep costs down (long prompts are expensive), or want traceable citations from specific passages."
   },
   {
     "objectID": "slides/m12-rag.html#notebooklm-rag-without-code",
     "href": "slides/m12-rag.html#notebooklm-rag-without-code",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "NotebookLM: RAG Without Code",
     "text": "NotebookLM: RAG Without Code"
   },
   {
     "objectID": "slides/m12-rag.html#what-is-notebooklm",
     "href": "slides/m12-rag.html#what-is-notebooklm",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "What is NotebookLM?",
     "text": "What is NotebookLM?\nGoogle NotebookLM is a free, consumer-friendly RAG tool. Upload your documents, and it builds a personal knowledge base you can query with natural language.\n\nAvailable at notebooklm.google\nUpload up to 50 sources: PDFs, Docs, Slides, web pages, YouTube\nAsk questions and get answers with inline citations; no code required"
   },
   {
     "objectID": "slides/m12-rag.html#notebooklm-features",
     "href": "slides/m12-rag.html#notebooklm-features",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "NotebookLM Features",
     "text": "NotebookLM Features\n\n\nQuery & Summarize\n\nChat with your documents\nAnswers include inline citations\nGenerate summaries, FAQs, study guides, timelines, briefing docs\n\n\nAudio Overview\n\nGenerates a podcast-style audio discussion of your sources\nTwo AI hosts discuss key points conversationally\nGreat for reviewing material on the go\n\n\nVisual Outputs: Generate slide decks and infographics from your sources — useful for turning research into presentation-ready visuals."
   },
   {
     "objectID": "slides/m12-rag.html#notebooklm-for-finance",
     "href": "slides/m12-rag.html#notebooklm-for-finance",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "NotebookLM for Finance",
     "text": "NotebookLM for Finance\n\nEarnings analysis: Upload 10-K/10-Q filings and earnings transcripts, ask comparative questions\nDeal prep: Load pitch books, CIMs, and contracts for quick reference\nYear-over-year comparison: Upload two years of 10-Ks, ask AI to identify changes in risk factors, revenue composition, and guidance\n\nNotebookLM is a practical example of RAG that you can use today."
   },
   {
     "objectID": "slides/m12-rag.html#building-a-rag-pipeline",
     "href": "slides/m12-rag.html#building-a-rag-pipeline",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Building a RAG Pipeline",
     "text": "Building a RAG Pipeline"
   },
   {
     "objectID": "slides/m12-rag.html#under-the-hood-building-a-rag-pipeline",
     "href": "slides/m12-rag.html#under-the-hood-building-a-rag-pipeline",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Under the Hood: Building a RAG Pipeline",
-    "text": "Under the Hood: Building a RAG Pipeline\nFor those who want to understand the internals, ask Claude Code to build a RAG pipeline step by step.\n\nInstall libraries (langchain, chromadb, an embedding model)\nLoad and chunk a PDF, embed and store in a vector database\nQuery the pipeline with finance-specific questions"
+    "text": "Under the Hood: Building a RAG Pipeline\nWe’ll build this together in class. Ask Claude Code to build a RAG pipeline step by step:\n\nInstall libraries (langchain, chromadb, sentence-transformers)\nLoad and chunk a PDF, embed and store in a vector database\nQuery the pipeline with finance-specific questions\n\nSee the class notebook for the full pipeline code and worked example."
   },
   {
     "objectID": "slides/m12-rag.html#example-questions-to-try",
     "href": "slides/m12-rag.html#example-questions-to-try",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Example Questions to Try",
     "text": "Example Questions to Try\nUpload a company’s 10-K and ask:\n\nWhat was total revenue in the most recent fiscal year?\nWhat are the main risk factors related to supply chain?\nSummarize management’s outlook for the coming year\n\nNotice how answers are grounded in the actual document — the key benefit of RAG over plain prompting."
   },
@@ -2473,9 +2473,9 @@
   {
     "objectID": "slides/m12-rag.html#summary",
     "href": "slides/m12-rag.html#summary",
-    "title": "Module 11: Retrieval Augmented Generation",
+    "title": "Module 12: Retrieval Augmented Generation",
     "section": "Summary",
-    "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo training required\n\n\n\nNotebookLM\n\nFree RAG without code\nInline citations\nAudio overviews\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence\n\n\n\n\nRAG gives AI knowledge it doesn’t have — grounded in your documents, with citations."
+    "text": "Summary\n\n\nRAG\n\nRetrieve, then generate\nGrounds answers in sources\nNo model training (but pipeline engineering required)\n\n\n\nFinance Uses\n\n10-K analysis\nEarnings call Q&A\nDue diligence"
   },
   {
     "objectID": "slides/m14-sentiment.html#why-news-moves-markets",
@@ -2714,5 +2714,292 @@
     "title": "Module 12: Sentiment Analysis",
     "section": "Key References",
     "text": "Key References\n\n\nLopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? Journal of Finance.\nKirtac & Germano (2024). Sentiment Trading with Large Language Models. Finance Research Letters.\nKim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.\nAraci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.\nWu et al. (2023). BloombergGPT: A Large Language Model for Finance.\nYang et al. (2023). FinGPT: Open-Source Financial Large Language Models.\nFinLlama (2024). Financial Sentiment Analysis for Algorithmic Trading. ICAIF ’24.\nCaldara & Iacoviello (2022). Measuring Geopolitical Risk. AER, 112(4).\nLi et al. (2024). FinDKG: Dynamic Knowledge Graphs with LLMs. ICAIF ’24."
+  },
+  {
+    "objectID": "slides/m12-rag.html#retrieval-augmented-generation",
+    "href": "slides/m12-rag.html#retrieval-augmented-generation",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Retrieval Augmented Generation",
+    "text": "Retrieval Augmented Generation\nWhat does the name mean?\n\n\nRetrieval\nFetch relevant passages from a knowledge base\n\nSearch your documents\nFind the most relevant passages\n“Retrieve” what the LLM needs to know\n\n\n\nAugmented\nPass retrieved passages alongside the user’s prompt to the LLM\n\nThe prompt is augmented with context\nLLM sees: your question + relevant excerpts\nNo retraining needed\n\n\n\nGeneration\nThe LLM generates an answer grounded in the retrieved context\n\nThis is the “Gen” in Gen AI\nAnswer is based on your documents, not just training data\nCan cite specific sources (with proper metadata)"
+  },
+  {
+    "objectID": "slides/m12-rag.html#four-ways-to-give-ai-knowledge",
+    "href": "slides/m12-rag.html#four-ways-to-give-ai-knowledge",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Four Ways to Give AI Knowledge",
+    "text": "Four Ways to Give AI Knowledge\nPrompting and skills customize how an LLM responds. But what if you need it to know private data it wasn’t trained on?\n\n\n\n\n\n\n\n\n\n\n\nLong Context\nRAG\nFine-Tuning\nSmall Language Model\n\n\n\n\nBest for\nShort docs that fit in one prompt\nLarge or many docs; proprietary facts\nSpecific tone, format, or domain expertise\nFull control, privacy, specialized tasks\n\n\nData freshness\nReal-time (paste it in)\nReal-time updates\nStale after training\nStale after training\n\n\nCost to start\nNone\nLow (no model training)\nMedium (GPU hours)\nHigh (training + hosting)\n\n\nCost per query\nHigh (long prompts are expensive)\nLow (only relevant chunks sent)\nLow\nLow\n\n\nComplexity\nNone\nModerate (pipeline + vector DB)\nHigh (dataset curation)\nVery high (full ML ops)"
+  },
+  {
+    "objectID": "slides/m12-rag.html#what-can-go-wrong",
+    "href": "slides/m12-rag.html#what-can-go-wrong",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "What Can Go Wrong?",
+    "text": "What Can Go Wrong?"
+  },
+  {
+    "objectID": "slides/m12-rag.html#retrieval-failures",
+    "href": "slides/m12-rag.html#retrieval-failures",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Retrieval Failures",
+    "text": "Retrieval Failures\nThe LLM can only answer from what it retrieves. If retrieval fails, the answer will be wrong or fabricated.\n\n\n\n\n\n\n\n\nProblem\nExample\nResult\n\n\n\n\nWrong chunk retrieved\nQuery about “Apple revenue” retrieves a chunk about Apple’s supply chain\nAnswer discusses supply chain, ignores revenue\n\n\nRelevant info split across chunks\nRevenue in one chunk, costs in another\nLLM sees only half the picture\n\n\nNo relevant chunk exists\nQuestion about a topic not in the documents\nLLM may hallucinate an answer anyway\n\n\nToo many chunks retrieved\n20 chunks passed to LLM, mostly noise\nKey information buried; LLM confused"
+  },
+  {
+    "objectID": "slides/m12-rag.html#chunking-problems",
+    "href": "slides/m12-rag.html#chunking-problems",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Chunking Problems",
+    "text": "Chunking Problems\nHow you split documents dramatically affects retrieval quality:\n\n\nChunks Too Small\n\n“Revenue was $89.5 billion” in one chunk\n“down 1% year over year” in another\nNeither chunk alone tells the full story\nQuery matches the wrong fragment\n\n\n\nChunks Too Large\n\nA 3-page chunk covers revenue, costs, risks, and guidance\nQuery about revenue retrieves the whole chunk\nLLM gets noisy context, may pull from the wrong section\nEmbedding is a blurry average of many topics"
+  },
+  {
+    "objectID": "slides/m12-rag.html#hallucination-despite-context",
+    "href": "slides/m12-rag.html#hallucination-despite-context",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Hallucination Despite Context",
+    "text": "Hallucination Despite Context\nEven with good retrieval, the LLM can still go wrong:\n\nOver-extrapolation: “Revenue grew 15%” → LLM infers “the company is doing well” even though the next paragraph discusses a major lawsuit\nConfidence without evidence: LLM generates a precise-sounding answer that isn’t supported by the retrieved chunks\nBlending sources: mixes information from different chunks in ways that create false conclusions\nIgnoring the context: especially with long or complex chunks, the LLM may fall back on its training data instead\n\n\nRAG reduces hallucination but does not eliminate it. Always verify critical claims against the source document."
+  },
+  {
+    "objectID": "slides/m12-rag.html#best-practices",
+    "href": "slides/m12-rag.html#best-practices",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Best Practices",
+    "text": "Best Practices"
+  },
+  {
+    "objectID": "slides/m12-rag.html#chunking-best-practices",
+    "href": "slides/m12-rag.html#chunking-best-practices",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Chunking Best Practices",
+    "text": "Chunking Best Practices\n\n\nChunk Size\n\n200–500 tokens for precise retrieval\n500–1000 tokens for more context per chunk\nTest on your actual queries to find the sweet spot\nFinancial filings: paragraph-level chunks often work best\n\n\n\nOverlap\n\n10–20% overlap between consecutive chunks\nEnsures sentences at boundaries aren’t orphaned\nExample: 400-token chunks with 80-token overlap\nCritical for tables and lists that span chunk boundaries\n\n\n\n\nThere is no universal best chunk size. The right answer depends on your documents, your questions, and your embedding model. Test and iterate."
+  },
+  {
+    "objectID": "slides/m12-rag.html#retrieval-best-practices",
+    "href": "slides/m12-rag.html#retrieval-best-practices",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Retrieval Best Practices",
+    "text": "Retrieval Best Practices\n\nRetrieve more, then re-rank: pull top 10 chunks, then use a re-ranker to select the best 3–5\nHybrid search: combine vector similarity (semantic) with keyword search (exact match) — catches both meaning and specific terms like ticker symbols\nMetadata filters: tag chunks with source, date, section (e.g., “Risk Factors”) and filter before similarity search\nQuery expansion: rephrase the user’s question multiple ways to improve recall"
+  },
+  {
+    "objectID": "slides/m12-rag.html#prompt-engineering-for-rag",
+    "href": "slides/m12-rag.html#prompt-engineering-for-rag",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Prompt Engineering for RAG",
+    "text": "Prompt Engineering for RAG\nThe prompt that wraps retrieved chunks matters (pseudocode — plug into an f-string or template):\nBased ONLY on the following excerpts from {company}'s 10-K filing,\nanswer the question below. If the excerpts do not contain enough\ninformation to answer, say \"I don't have enough information\" ---\ndo NOT guess or use outside knowledge.\n\nEXCERPTS: {retrieved_chunks}\nQUESTION: {user_query}\nCite the specific excerpt(s) that support your answer.\n\nThe instruction to say “I don’t know” and to cite sources are critical guardrails against hallucination."
+  },
+  {
+    "objectID": "slides/m12-rag.html#evaluating-rag-quality",
+    "href": "slides/m12-rag.html#evaluating-rag-quality",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Evaluating RAG Quality",
+    "text": "Evaluating RAG Quality\nHow do you know if your RAG pipeline is working?\n\n\n\n\n\n\n\n\n\nMetric\nWhat It Measures\nHow to Test\nTarget\n\n\n\n\nRetrieval precision\nAre the retrieved chunks relevant?\nReview top-\\(k\\) chunks for 20+ queries\n&gt;80%\n\n\nAnswer faithfulness\nIs the answer supported by the chunks?\nCompare answer claims to source text\n&gt;90%\n\n\nAnswer completeness\nDid it capture all relevant info?\nCheck against a known-good answer\n&gt;70%\n\n\nCitation accuracy\nDo the citations point to the right source?\nVerify each citation manually\n&gt;90%\n\n\n\n\nTargets are starting benchmarks — adjust to your use case. Start with manual evaluation on 20–30 questions before production use."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#what-is-an-llm",
+    "href": "slides/m15-how-it-works.html#what-is-an-llm",
+    "title": "Module 15: How AI Works",
+    "section": "What Is an LLM?",
+    "text": "What Is an LLM?\nEvery AI tool we’ve used this semester — Claude, ChatGPT, Gemini — is built on a large language model. (Modern versions also handle images and other inputs via similar mechanisms, but we’ll focus on text.)\nAn LLM is a neural network that:\n\nTakes a sequence of text as input\nProduces a probability distribution over possible next words\nSamples one, appends it, and repeats\n\n\nThat’s it. When Claude writes a paragraph, it is generating one token at a time, each time asking: “given everything so far, what should come next?” A temperature setting controls the randomness — low temperature picks near-certain tokens; high temperature allows more creative variation. This is why you get different responses to the same prompt."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#from-next-word-prediction-to-intelligence",
+    "href": "slides/m15-how-it-works.html#from-next-word-prediction-to-intelligence",
+    "title": "Module 15: How AI Works",
+    "section": "From Next-Word Prediction to Intelligence",
+    "text": "From Next-Word Prediction to Intelligence\nThis seems too simple to produce intelligent behavior. But when you train next-word prediction on trillions of words:\n\nTo predict the next word in a math proof, the model must learn math\nTo predict the next word in a legal brief, it must learn legal reasoning\nTo predict the next word in a financial analysis, it must learn finance\n\n\nThe training objective is simple. The capabilities that emerge at scale are not. Whether this constitutes “understanding” is debated — but the capabilities are real and useful, which is what matters for practitioners."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#the-four-key-ideas",
+    "href": "slides/m15-how-it-works.html#the-four-key-ideas",
+    "title": "Module 15: How AI Works",
+    "section": "The Four Key Ideas",
+    "text": "The Four Key Ideas"
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#idea-1-tokens",
+    "href": "slides/m15-how-it-works.html#idea-1-tokens",
+    "title": "Module 15: How AI Works",
+    "section": "Idea 1: Tokens",
+    "text": "Idea 1: Tokens\nLLMs don’t process letters or words — they process tokens, which are common sub-word chunks.\n\nExample\n“Embedding” → [“Em”, “bed”, “ding”]\n“unhelpful” → [“un”, “help”, “ful”]\n“chatbot” → [“chat”, “bot”]\n\n\nA typical LLM has a vocabulary of ~100,000 tokens\nEach token is assigned a unique integer ID\nClaude’s context window (e.g., 200K tokens) is measured in these units\n\n\nTokenization is a practical compromise: character-level would be too slow; word-level can’t handle new words. Sub-word tokens balance vocabulary size with flexibility."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#idea-2-embeddings",
+    "href": "slides/m15-how-it-works.html#idea-2-embeddings",
+    "title": "Module 15: How AI Works",
+    "section": "Idea 2: Embeddings",
+    "text": "Idea 2: Embeddings\nEach token is represented as a vector — a list of thousands of numbers.\n\\[\\text{\"revenue\"} \\rightarrow [0.12,\\; -0.83,\\; 0.45,\\; \\ldots,\\; 0.07]\\]\nThese vectors are learned during training — the model discovers that:\n\n“revenue” and “sales” should have similar vectors (they appear in similar contexts)\n“revenue” and “basketball” should have different vectors\n\n\nEmbeddings convert discrete tokens into a continuous space where meaning is encoded as geometry. Nearby vectors = similar meanings. The embedding vectors are not hand-coded — they are learned parameters, trained jointly with the rest of the model."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#idea-3-attention",
+    "href": "slides/m15-how-it-works.html#idea-3-attention",
+    "title": "Module 15: How AI Works",
+    "section": "Idea 3: Attention",
+    "text": "Idea 3: Attention\nThe core innovation behind modern LLMs. Given a sequence of tokens, attention lets each token look at every other token and decide what’s relevant.\n\nExample\n“The company reported strong revenue but warned about supply chain disruptions”\n\nA simple scan sees “strong revenue” → positive\nAttention sees that “warned” modifies the entire sentiment → net negative\n\n\n\nThe weights are determined by content, not position — so the model can relate words that are far apart. The next slide explains how."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#how-attention-works",
+    "href": "slides/m15-how-it-works.html#how-attention-works",
+    "title": "Module 15: How AI Works",
+    "section": "How Attention Works",
+    "text": "How Attention Works\nFor each token, the model computes three vectors:\n\nQuery (Q): “What am I looking for?”\nKey (K): “What do I contain?”\nValue (V): “What information do I provide?”\n\nEach Query is compared to every Key (via a similarity score). High-similarity pairs get more weight. The output for each token is a weighted blend of all the Values.\n\nThe Q, K, V matrices are learned parameters — the model discovers what to attend to during training. In practice, the model runs several attention processes in parallel (multi-head attention), each learning different types of relationships — one head for syntax, another for semantics, another for long-range dependencies."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#idea-4-the-transformer",
+    "href": "slides/m15-how-it-works.html#idea-4-the-transformer",
+    "title": "Module 15: How AI Works",
+    "section": "Idea 4: The Transformer",
+    "text": "Idea 4: The Transformer\nThe transformer stacks attention layers into a deep network. Each layer does two things:\n\nSelf-attention — relate tokens to each other\nFeed-forward network — process each token individually\n\n\n\n\nThe original transformer architecture (Vaswani et al., 2017)\n\n\nFrontier models stack dozens to over a hundred of these layers.\n\nEarlier layers capture syntax; deeper layers capture reasoning. By stacking, the same token gets different representations in different contexts — “bank” in finance vs. “bank” of a river."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#scale",
+    "href": "slides/m15-how-it-works.html#scale",
+    "title": "Module 15: How AI Works",
+    "section": "Scale",
+    "text": "Scale\n\n\n\n\n\n\n\n\n\nModel\nParameters\nTraining Data\nTraining Cost\n\n\n\n\nGPT-2 (2019)\n1.5 billion\n40 GB text\n~$50K\n\n\nGPT-3 (2020)\n175 billion\n570 GB text\n~$5M\n\n\nGPT-4 (2023)\nundisclosed (rumored &gt;1T)\n~13 trillion tokens\n~$100M\n\n\nClaude (2024–25)\nundisclosed\nundisclosed\nundisclosed\n\n\n\n\nThe trend: 100x more parameters and 100x more data every few years. Training a frontier model requires thousands of GPUs running for months. Companies no longer disclose parameter counts, but you access the result for a few dollars per million tokens."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#training-what-gets-optimized",
+    "href": "slides/m15-how-it-works.html#training-what-gets-optimized",
+    "title": "Module 15: How AI Works",
+    "section": "Training: What Gets Optimized",
+    "text": "Training: What Gets Optimized\nAn LLM has two types of learnable parameters, trained jointly on one objective — predict the next token:\n\n\nEmbedding Parameters\n\nThe embedding table (token → vector)\nHundreds of millions of parameters\nLearns what each token means\n\n\n\nTransformer Parameters\n\nAttention weights (Q, K, V per layer)\nFeed-forward weights per layer\nBillions to trillions of parameters\nLearns how to combine meanings\n\n\n\n\nAt each position, the model guesses the next token; the loss penalizes wrong guesses. Both parameter types evolve together. A single document of 1,000 tokens provides 999 prediction tasks — multiply by trillions, and you see why the model learns so much."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#training-in-practice",
+    "href": "slides/m15-how-it-works.html#training-in-practice",
+    "title": "Module 15: How AI Works",
+    "section": "Training in Practice",
+    "text": "Training in Practice\n\n\n\n\n\n%%{init: {'theme': 'dark', 'themeVariables': {'fontSize': '20px'}}}%%\nflowchart LR\n    D[\"Text data\"] --&gt; B[\"Batch\"]\n    B --&gt; F[\"Predict\"]\n    F --&gt; L[\"Loss\"]\n    L --&gt; G[\"Gradients\"]\n    G --&gt; U[\"Update\"]\n    U --&gt; F\n\n\n\n\n\n\n\nProcess data in small batches, adjusting parameters after each batch\nDistributed across thousands of GPUs running in parallel\nTraining runs continuously for months\n\n\nEach step adjusts billions of parameters simultaneously, making the model slightly better at predicting the next token across all the text it has seen."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#from-text-predictor-to-assistant",
+    "href": "slides/m15-how-it-works.html#from-text-predictor-to-assistant",
+    "title": "Module 15: How AI Works",
+    "section": "From Text Predictor to Assistant",
+    "text": "From Text Predictor to Assistant"
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#pre-training-vs.-fine-tuning",
+    "href": "slides/m15-how-it-works.html#pre-training-vs.-fine-tuning",
+    "title": "Module 15: How AI Works",
+    "section": "Pre-Training vs. Fine-Tuning",
+    "text": "Pre-Training vs. Fine-Tuning\n\n\nPre-Training\n\nTrain on massive text corpora — web, books, code (trillions of tokens)\nObjective: predict the next word\nResult: a model that can continue any text\nKnows facts, grammar, reasoning patterns\nBut: will also continue toxic, unhelpful, or wrong text\n\n\n\nFine-Tuning + RLHF\n\nTrain on curated examples of helpful conversations\nReinforcement Learning from Human Feedback\nHuman raters rank model outputs\nModel learns to prefer helpful, harmless, honest responses\nTurns a text predictor into an assistant\n\n\n\n\nPre-training gives the model knowledge. Fine-tuning gives it values and behavior. Without RLHF, a pre-trained model would happily generate harmful content or confidently state falsehoods."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#rlhf-teaching-the-model-to-be-helpful",
+    "href": "slides/m15-how-it-works.html#rlhf-teaching-the-model-to-be-helpful",
+    "title": "Module 15: How AI Works",
+    "section": "RLHF: Teaching the Model to Be Helpful",
+    "text": "RLHF: Teaching the Model to Be Helpful\n\nSupervised fine-tuning: show the model examples of good conversations\nReward modeling: humans compare pairs of responses → train a model that predicts which response humans prefer\nRL optimization: the language model generates responses, the reward model scores them, and the language model is updated to produce higher-scoring responses\n\nAnthropic uses a variant called Constitutional AI where the model also critiques its own outputs against a set of principles, reducing the need for human raters.\n\nThis is why Claude refuses harmful requests, admits uncertainty, and follows instructions. The base model learned to mimic text; supervised fine-tuning and RLHF reshape its behavior toward helpfulness, honesty, and safety — qualities that were not the objective of pre-training."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#what-this-means-for-you",
+    "href": "slides/m15-how-it-works.html#what-this-means-for-you",
+    "title": "Module 15: How AI Works",
+    "section": "What This Means for You",
+    "text": "What This Means for You"
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#connecting-to-what-weve-built",
+    "href": "slides/m15-how-it-works.html#connecting-to-what-weve-built",
+    "title": "Module 15: How AI Works",
+    "section": "Connecting to What We’ve Built",
+    "text": "Connecting to What We’ve Built\nNow you can see the mechanism behind everything we’ve done this semester:\n\n\n\n\n\n\n\nWhat you did\nWhat’s happening under the hood\n\n\n\n\nSystem prompts and skills (M5)\nShifts the token distribution toward your domain\n\n\nMakers and checkers (M6)\nCounteracts the plausible-but-wrong tendency\n\n\nRAG pipeline (M12)\nInjects documents into context for attention to connect\n\n\nSentiment analysis (M13)\nPrompts the model to apply sentiment patterns learned during training\n\n\nAgent with tools (M14)\nModel trained to output tool-call tokens; runtime executes them\n\n\nDifferent answers each time\nTemperature-based sampling from the distribution\n\n\n\n\nThe architecture explains why these techniques work — not just that they work."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#why-prompts-matter",
+    "href": "slides/m15-how-it-works.html#why-prompts-matter",
+    "title": "Module 15: How AI Works",
+    "section": "Why Prompts Matter",
+    "text": "Why Prompts Matter\nThe model samples the next token conditioned on your prompt. More specific context → narrower distribution → better output.\n\nExample\nVague: “Tell me about Apple’s financials” → the model could continue with consumer advice, a Wikipedia summary, or equity analysis. The distribution spreads across all of these.\nSpecific: “As a sell-side equity analyst, write a one-paragraph summary of Apple’s Q1 2025 revenue drivers” → the distribution collapses to a narrow, useful range.\n\n\nSystem prompts and few-shot examples shift the distribution toward the outputs you want. Temperature controls how sharply the model commits: at T=0 it always picks the top token (deterministic); at higher T it samples more broadly (creative but riskier). Both prompting and temperature follow directly from how the model generates text."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#why-context-windows-matter",
+    "href": "slides/m15-how-it-works.html#why-context-windows-matter",
+    "title": "Module 15: How AI Works",
+    "section": "Why Context Windows Matter",
+    "text": "Why Context Windows Matter\nThe attention mechanism is what gives LLMs their context window:\n\nEach token attends to every previous token\nCost grows with context length (each new token must attend to all previous tokens) — long prompts are slower and more expensive\nClaude’s 200K token window ≈ 500 pages of typical prose\n\n\nThis is why RAG works: you inject relevant documents into the context window, and the attention mechanism connects your question to the answer in those documents — even if it’s buried on page 47."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#why-hallucinations-happen",
+    "href": "slides/m15-how-it-works.html#why-hallucinations-happen",
+    "title": "Module 15: How AI Works",
+    "section": "Why Hallucinations Happen",
+    "text": "Why Hallucinations Happen\nThe model is trained to predict plausible next tokens, not true ones.\n\nIf the training data contains conflicting information, the model blends it into its learned parameters\nIf asked about something rare or absent from training data, it generates plausible-sounding text anyway\nThe model has no mechanism to distinguish “I know this” from “this sounds right”\n\n\nThis is a fundamental tendency of the architecture, not a simple bug. The model maximizes fluency, not truth. It can be mitigated — RAG grounds responses in documents, tool use lets the agent check facts, verification protocols catch errors — but likely not eliminated entirely. This is why the makers-and-checkers pattern matters."
+  },
+  {
+    "objectID": "slides/m15-how-it-works.html#summary",
+    "href": "slides/m15-how-it-works.html#summary",
+    "title": "Module 15: How AI Works",
+    "section": "Summary",
+    "text": "Summary\n\n\nBuilding Blocks\n\nTokens: sub-word chunks (~100K vocabulary)\nEmbeddings: learned vector representations\nAttention: relate any token to any other\nTransformers: stack attention into deep networks\n\n\n\nTraining\n\nObjective: predict the next token\nJointly optimize embeddings + transformer parameters\nTrillions of tokens, billions to trillions of parameters\nRLHF turns a predictor into an assistant\n\n\n\nImplications\n\nPrompts condition the distribution\nRAG exploits attention over injected context\nTool use is fine-tuned next-token behavior\nHallucinations: fluency is not truth"
+  },
+  {
+    "objectID": "slides/m12-rag.html#cosine-similarity-in-action",
+    "href": "slides/m12-rag.html#cosine-similarity-in-action",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Cosine Similarity in Action",
+    "text": "Cosine Similarity in Action\n\nfrom sklearn.metrics.pairwise import cosine_similarity\n\nchunks = [\n    \"Revenue grew 15% year over year to $4.2 billion.\",\n    \"The company opened 12 new retail locations in Q3.\",\n    \"Net income declined 8% due to rising input costs.\",\n]\nquery = \"What happened to net income?\"\n\nscores = cosine_similarity(model.encode([query]), model.encode(chunks))[0]\nfor chunk, score in zip(chunks, scores):\n    print(f\"  {score:.2f}  {chunk}\")\n\n  0.41  Revenue grew 15% year over year to $4.2 billion.\n  0.09  The company opened 12 new retail locations in Q3.\n  0.54  Net income declined 8% due to rising input costs."
+  },
+  {
+    "objectID": "slides/m12-rag.html#rag-what-does-it-mean",
+    "href": "slides/m12-rag.html#rag-what-does-it-mean",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "RAG: What Does it Mean?",
+    "text": "RAG: What Does it Mean?\n\n\nRetrieval\nFetch relevant passages from a knowledge base\n\nSearch your documents\nFind the most relevant passages\n“Retrieve” what the LLM needs to know\n\n\n\nAugmented\nPass retrieved passages alongside the user’s prompt to the LLM\n\nThe prompt is augmented with context\nLLM sees: your question + relevant excerpts\nNo retraining needed\n\n\n\nGeneration\nThe LLM generates an answer grounded in the retrieved context\n\nThis is the “Gen” in Gen AI\nAnswer is based on your documents, not just training data\nCan cite specific sources (with proper metadata)"
+  },
+  {
+    "objectID": "slides/m12-rag.html#rag-what-does-it-mean-1",
+    "href": "slides/m12-rag.html#rag-what-does-it-mean-1",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "RAG: What Does it Mean?",
+    "text": "RAG: What Does it Mean?\n\n\nRetrieval\nFetch relevant passages from a knowledge base\n\nSearch your documents\nFind the most relevant passages\n“Retrieve” what the LLM needs to know\n\n\n\nAugmented\nPass retrieved passages alongside the user’s prompt to the LLM\n\nThe prompt is augmented with context\nLLM sees: your question + relevant excerpts\nNo retraining needed\n\n\n\nGeneration\nThe LLM generates an answer grounded in the retrieved context\n\nThis is the “Gen” in Gen AI\nAnswer is based on your documents, not just training data\nCan cite specific sources (with proper metadata)"
+  },
+  {
+    "objectID": "slides/m12-rag.html#rag-what-does-it-mean-2",
+    "href": "slides/m12-rag.html#rag-what-does-it-mean-2",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "RAG: What Does it Mean?",
+    "text": "RAG: What Does it Mean?\n\n\nRetrieval\nFetch relevant passages from a knowledge base\n\nSearch your documents\nFind the most relevant passages\n“Retrieve” what the LLM needs to know\n\n\n\nAugmented\nPass retrieved passages alongside the user’s prompt to the LLM\n\nThe prompt is augmented with context\nLLM sees: your question + relevant excerpts\nNo retraining needed\n\n\n\nGeneration\nThe LLM generates an answer grounded in the retrieved context\n\nThis is the “Gen” in Gen AI\nAnswer is based on your documents, not just training data\nCan cite specific sources (with proper metadata)"
+  },
+  {
+    "objectID": "slides/m12-rag.html#where-have-you-seen-this-before",
+    "href": "slides/m12-rag.html#where-have-you-seen-this-before",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Where Have You Seen This Before?",
+    "text": "Where Have You Seen This Before?"
+  },
+  {
+    "objectID": "slides/m12-rag.html#you-already-use-embeddings",
+    "href": "slides/m12-rag.html#you-already-use-embeddings",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "You Already Use Embeddings",
+    "text": "You Already Use Embeddings\nThe embed → cosine similarity → retrieve pipeline isn’t new. It powers tools you use every day:\n\n\n\n\n\n\n\n\nProduct\nWhat Gets Embedded\nWhat It Does\n\n\n\n\nGoogle Search\nWeb pages and queries\nMatches query meaning, not just keywords (BERT, 2019)\n\n\nSpotify\nSongs, playlists, listening history\nDiscover Weekly, “similar songs”\n\n\nNetflix / YouTube\nMovies, watch history\n“Because you watched…” recommendations\n\n\niPhone Photos\nImages\nSearch “beach sunset” with no tags\n\n\nAmazon\nProducts, purchase history\n“Customers who bought this also bought…”\n\n\nLinkedIn\nResumes, job postings\nJob/candidate matching beyond keyword overlap"
+  },
+  {
+    "objectID": "slides/m12-rag.html#same-math-different-documents",
+    "href": "slides/m12-rag.html#same-math-different-documents",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "Same Math, Different Documents",
+    "text": "Same Math, Different Documents\n\n\nRecommendations\n\nEmbed songs, movies, or products into vectors\nFind nearest neighbors by cosine similarity\nReturn the most similar items\n\n\n\nRAG\n\nEmbed document chunks into vectors\nFind nearest neighbors by cosine similarity\nReturn the most relevant passages to the LLM\n\n\n\n\nRAG applies the same math that powers recommendations and search — just to documents instead of songs or products."
+  },
+  {
+    "objectID": "slides/m12-rag.html#how-are-word-embeddings-trained",
+    "href": "slides/m12-rag.html#how-are-word-embeddings-trained",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "How Are Word Embeddings Trained?",
+    "text": "How Are Word Embeddings Trained?\nThe model reads billions of sentences and learns: words that appear in similar contexts get similar vectors.\n\n“The company’s revenue grew 15% year over year”\n“The company’s income grew 15% year over year”\n“The company’s profit grew 15% year over year”\n\nRevenue, income, and profit fill the same blank — so the model pushes their vectors close together.\n\nOptimization objective: given a word, predict its neighbors (or vice versa). The vectors are the learned parameters — adjusted millions of times until the predictions are accurate."
+  },
+  {
+    "objectID": "slides/m12-rag.html#how-are-sentence-embeddings-trained",
+    "href": "slides/m12-rag.html#how-are-sentence-embeddings-trained",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "How Are Sentence Embeddings Trained?",
+    "text": "How Are Sentence Embeddings Trained?\nWord embeddings only capture individual words. For RAG, we need to compare whole sentences. But the model can’t memorize every possible sentence.\nContrastive learning on sentence pairs:\n\n\n\nSentence A\nSentence B\nLabel\n\n\n\n\n“Revenue rose 15%”\n“Sales increased significantly”\nSimilar\n\n\n“Revenue rose 15%”\n“The CEO resigned yesterday”\nDissimilar\n\n\n\nObjective: adjust the model so that similar pairs have high cosine similarity and dissimilar pairs have low cosine similarity."
+  },
+  {
+    "objectID": "slides/m12-rag.html#from-sentence-to-vector-the-algorithm",
+    "href": "slides/m12-rag.html#from-sentence-to-vector-the-algorithm",
+    "title": "Module 12: Retrieval Augmented Generation",
+    "section": "From Sentence to Vector: The Algorithm",
+    "text": "From Sentence to Vector: The Algorithm\nHow does a new, never-seen sentence become a single vector?\n\nTokenize — split the sentence into tokens (subword pieces)\nTransformer — each token passes through attention layers that consider every other token in the sentence\nPool — average the contextualized token vectors into one sentence vector\n\n\nThe transformer is the key: it means “bank” gets a different vector in “river bank” vs. “bank account” because attention incorporates the surrounding words before pooling."
   }
 ]

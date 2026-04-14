@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17c909d5fd25ae21b861c0c7a49b2096.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="m14-sentiment_files/libs/clipboard/clipboard.min.js"></script>
+<script src="m14-sentiment_files/libs/quarto-html/tabby.min.js"></script>
+<script src="m14-sentiment_files/libs/quarto-html/popper.min.js"></script>
+<script src="m14-sentiment_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="m14-sentiment_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="m14-sentiment_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="m14-sentiment_files/libs/quarto-html/quarto-syntax-highlighting-17c909d5fd25ae21b861c0c7a49b2096.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 12: Sentiment Analysis</title>
+  <title>Module 14: Sentiment Analysis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="m14-sentiment_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="m14-sentiment_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -28,18 +28,77 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2; background-color: #2e3440; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #75715e; } /* Annotation */
+    code span.at { color: #f92672; } /* Attribute */
+    code span.bn { color: #ae81ff; } /* BaseN */
+    code span.bu { color: #66d9ef; } /* BuiltIn */
+    code span.cf { color: #f92672; } /* ControlFlow */
+    code span.ch { color: #e6db74; } /* Char */
+    code span.cn { color: #ae81ff; } /* Constant */
+    code span.co { color: #75715e; } /* Comment */
+    code span.cv { color: #75715e; } /* CommentVar */
+    code span.do { color: #75715e; } /* Documentation */
+    code span.dt { color: #66d9ef; font-style: italic; } /* DataType */
+    code span.dv { color: #ae81ff; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #a6e22e; font-weight: bold; } /* Extension */
+    code span.fl { color: #ae81ff; } /* Float */
+    code span.fu { color: #a6e22e; } /* Function */
+    code span.im { color: #f92672; } /* Import */
+    code span.in { color: #f1fa8c; } /* Information */
+    code span.kw { color: #f92672; } /* Keyword */
+    code span.op { color: #f8f8f2; } /* Operator */
+    code span.ot { color: #a6e22e; } /* Other */
+    code span.pp { color: #f92672; } /* Preprocessor */
+    code span.re { color: #75715e; } /* RegionMarker */
+    code span.sc { color: #ae81ff; } /* SpecialChar */
+    code span.ss { color: #e6db74; } /* SpecialString */
+    code span.st { color: #e6db74; } /* String */
+    code span.va { color: #f8f8f2; } /* Variable */
+    code span.vs { color: #e6db74; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7962e9a1e656f6ad8e3bc59a1f2b5254.css">
-  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <script async="" src="https://hypothes.is/embed.js"></script>
-  <script>
-    window.document.addEventListener("DOMContentLoaded", function (_event) {
-      document.body.classList.add('hypothesis-enabled');
-    });
-  </script>
+  <link rel="stylesheet" href="m14-sentiment_files/libs/revealjs/dist/theme/quarto-7962e9a1e656f6ad8e3bc59a1f2b5254.css">
+  <link href="m14-sentiment_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="m14-sentiment_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="m14-sentiment_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="m14-sentiment_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -127,16 +186,16 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <script src="m14-sentiment_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="m14-sentiment_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="m14-sentiment_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 12: Sentiment Analysis</h1>
+  <h1 class="title">Module 14: Sentiment Analysis</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -156,6 +215,223 @@ Kerry Back, Rice University
 <li>Quantitative firms began automating this with simple keyword rules in the 2000s</li>
 <li><span class="amber">LLMs now understand nuance, context, and implication</span> — a qualitative leap</li>
 </ul>
+</section>
+<section id="a-simple-idea-count-positive-and-negative-words" class="slide level2 center">
+<h2>A Simple Idea: Count Positive and Negative Words</h2>
+<p>The earliest approach — <span class="amber">bag of words</span> — just counts words from predefined lists:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Positive words</strong></th>
+<th><strong>Negative words</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>good, strong, growth, profit, beat, surge, upgrade</td>
+<td>bad, weak, loss, decline, miss, plunge, downgrade</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Headline:</strong> “Apple revenue beats estimates, shares surge 5%”</p>
+<ul>
+<li>Positive words: <em>beats</em>, <em>surge</em> → score = +2</li>
+<li>Negative words: none → score = 0</li>
+<li>Verdict: <span class="amber">positive</span> ✓</li>
+</ul>
+<p>This works for simple cases. But …</p>
+</section>
+<section id="where-bag-of-words-fails" class="slide level2 center">
+<h2>Where Bag of Words Fails</h2>
+<p><strong>“Despite strong revenue, the company warned about supply chain disruptions”</strong></p>
+<ul>
+<li>Positive words: <em>strong</em> → score = +1</li>
+<li>Negative words: <em>warned</em>, <em>disruptions</em> → score = $-$2</li>
+<li>Bag-of-words verdict: <span class="amber">negative</span></li>
+<li>Actual meaning: <span class="amber">mixed, leaning negative</span> — the word <em>despite</em> signals that the strength is being <span class="amber">dismissed</span></li>
+</ul>
+<p><strong>“The company did not report a loss”</strong></p>
+<ul>
+<li>Bag of words sees <em>loss</em> → <span class="amber">negative</span></li>
+<li>Actual meaning: <span class="amber">positive</span> — negation reverses the sentiment</li>
+</ul>
+<p><strong>“Shares fell less than feared after earnings miss”</strong></p>
+<ul>
+<li>Bag of words sees <em>fell</em>, <em>miss</em>, <em>feared</em> → <span class="amber">very negative</span></li>
+<li>Actual meaning: <span class="amber">mildly positive</span> — the stock held up better than expected</li>
+</ul>
+</section>
+<section id="another-problem-words-mean-different-things-in-finance" class="slide level2 center">
+<h2>Another Problem: Words Mean Different Things in Finance</h2>
+<p>A general-purpose word list treats these words as negative:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Word</strong></th>
+<th><strong>General meaning</strong></th>
+<th><strong>Financial meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>liability</td>
+<td>negative</td>
+<td><span class="amber">neutral</span> — a balance sheet line item</td>
+</tr>
+<tr class="even">
+<td>capital</td>
+<td>neutral</td>
+<td><span class="amber">positive</span> — resources for growth</td>
+</tr>
+<tr class="odd">
+<td>tax</td>
+<td>negative</td>
+<td><span class="amber">neutral</span> — routine expense</td>
+</tr>
+<tr class="even">
+<td>risk</td>
+<td>negative</td>
+<td><span class="amber">neutral</span> — every investment has risk</td>
+</tr>
+<tr class="odd">
+<td>outstanding</td>
+<td>positive</td>
+<td><span class="amber">neutral</span> — shares outstanding</td>
+</tr>
+<tr class="even">
+<td>volatile</td>
+<td>negative</td>
+<td><span class="amber">neutral/positive</span> — opportunities for traders</td>
+</tr>
+</tbody>
+</table>
+<p>Using a general dictionary on financial text produces <span class="amber">systematic errors</span>.</p>
+</section>
+<section id="the-loughran-mcdonald-dictionary" class="slide level2 center">
+<h2>The Loughran-McDonald Dictionary</h2>
+<p>Loughran &amp; McDonald (2011) built word lists <span class="amber">specifically for financial text</span> by reading thousands of 10-K filings.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Negative words (2,355)</strong></span></p>
+<ul>
+<li><em>impairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower</em></li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Positive words (354)</strong></span></p>
+<ul>
+<li><em>achieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile</em></li>
+</ul>
+</div>
+</div>
+<p>Also includes: <strong>uncertainty</strong> (297 words), <strong>litigious</strong> (903 words), <strong>constraining</strong> (184 words), <strong>superfluous</strong> (56 words)</p>
+<div class="explainer">
+<p>Notice the asymmetry: <span class="amber">7<span class="math inline">\(\times\)</span> more negative words than positive</span>. Financial disclosures are legally required to discuss risks, so negative language is far more varied.</p>
+</div>
+</section>
+<section id="still-just-counting-words" class="slide level2 center">
+<h2>Still Just Counting Words</h2>
+<p>Even with a finance-specific dictionary, the method is still bag of words:</p>
+<p><strong>“Revenue growth was <span class="amber">strong</span> but management issued <span class="amber">cautious</span> guidance for next quarter”</strong></p>
+<ul>
+<li>L-M score: +1 (strong) <span class="math inline">\(-\)</span> 1 (cautious) = 0 → <span class="amber">neutral</span></li>
+<li>A human reads this as: <span class="amber">negative</span> — guidance matters more than trailing results</li>
+</ul>
+<p>The dictionary can’t handle:</p>
+<ul>
+<li><strong>Word order and grammar</strong> — “not profitable” vs.&nbsp;“profitable”</li>
+<li><strong>Context</strong> — “strong” revenue vs.&nbsp;“strong” headwinds</li>
+<li><strong>Relative importance</strong> — forward guidance outweighs backward-looking results</li>
+<li><strong>Hedging language</strong> — “we remain <em>cautiously optimistic</em>”</li>
+</ul>
+<p>We need models that understand <span class="amber">sentences, not just words</span>.</p>
+</section>
+<section id="try-it-finbert-via-huggingface" class="slide level2 center">
+<h2>Try It: FinBERT via HuggingFace</h2>
+<p><span class="amber">FinBERT</span> (Araci, 2019) is a neural network trained to understand financial sentences — not just count words. You can call it with no installs:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a>API_URL <span class="op">=</span> <span class="st">"https://api-inference.huggingface.co/models/ProsusAI/finbert"</span></span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a>headlines <span class="op">=</span> [</span>
+<span id="cb1-6"><a href=""></a>    <span class="st">"Apple revenue beats estimates, shares surge 5%"</span>,</span>
+<span id="cb1-7"><a href=""></a>    <span class="st">"Despite strong revenue, the company warned about supply chain disruptions"</span>,</span>
+<span id="cb1-8"><a href=""></a>    <span class="st">"The company did not report a loss"</span>,</span>
+<span id="cb1-9"><a href=""></a>    <span class="st">"Shares fell less than feared after earnings miss"</span>,</span>
+<span id="cb1-10"><a href=""></a>]</span>
+<span id="cb1-11"><a href=""></a></span>
+<span id="cb1-12"><a href=""></a>response <span class="op">=</span> requests.post(API_URL, json<span class="op">=</span>{<span class="st">"inputs"</span>: headlines})</span>
+<span id="cb1-13"><a href=""></a>results <span class="op">=</span> response.json()</span>
+<span id="cb1-14"><a href=""></a></span>
+<span id="cb1-15"><a href=""></a><span class="cf">for</span> headline, scores <span class="kw">in</span> <span class="bu">zip</span>(headlines, results):</span>
+<span id="cb1-16"><a href=""></a>    best <span class="op">=</span> <span class="bu">max</span>(scores, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">"score"</span>])</span>
+<span id="cb1-17"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>best[<span class="st">'label'</span>]<span class="sc">:&gt;8s}</span><span class="ss"> (</span><span class="sc">{</span>best[<span class="st">'score'</span>]<span class="sc">:.0%}</span><span class="ss">)  </span><span class="sc">{</span>headline<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>FinBERT returns three probabilities (positive, negative, neutral) for each headline. It understands <em>despite</em>, negation, and context — things bag of words cannot do.</p>
+</div>
+</section>
+<section id="comparing-the-three-approaches" class="slide level2 center">
+<h2>Comparing the Three Approaches</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Headline</strong></th>
+<th><strong>Bag of Words</strong></th>
+<th><strong>L-M Dictionary</strong></th>
+<th><strong>FinBERT</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Apple revenue beats estimates”</td>
+<td>positive ✓</td>
+<td>positive ✓</td>
+<td>positive ✓</td>
+</tr>
+<tr class="even">
+<td>“Despite strong revenue, warned about disruptions”</td>
+<td>negative</td>
+<td>neutral</td>
+<td><span class="amber">negative ✓</span></td>
+</tr>
+<tr class="odd">
+<td>“The company did not report a loss”</td>
+<td>negative ✗</td>
+<td>negative ✗</td>
+<td><span class="amber">positive ✓</span></td>
+</tr>
+<tr class="even">
+<td>“Shares fell less than feared”</td>
+<td>very negative ✗</td>
+<td>negative ✗</td>
+<td><span class="amber">neutral/positive ✓</span></td>
+</tr>
+<tr class="odd">
+<td>“Revenue growth was strong but guidance was cautious”</td>
+<td>neutral</td>
+<td>neutral</td>
+<td><span class="amber">negative ✓</span></td>
+</tr>
+</tbody>
+</table>
+<div class="explainer">
+<p>Simple headlines are easy for everyone. The harder cases — negation, hedging, contrast — are where <span class="amber">contextual models</span> earn their keep.</p>
+</div>
 </section>
 <section id="the-evolution-of-text-based-trading" class="slide level2 center">
 <h2>The Evolution of Text-Based Trading</h2>
@@ -272,13 +548,138 @@ Kerry Back, Rice University
 </div>
 </div>
 </section>
-<section id="fine-tuning-concepts" class="slide level2 center">
-<h2>Fine-Tuning Concepts</h2>
+<section id="fine-tuning-the-idea" class="slide level2 center">
+<h2>Fine-Tuning: The Idea</h2>
+<p><strong>Fine-tuning</strong> = take a pre-trained model (trained on general text) and continue training on <span class="amber">your domain-specific data</span>.</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Full Fine-Tuning</strong></span></p>
 <ul>
-<li><strong>Fine-tuning</strong>: Take a pre-trained model, continue training on domain-specific data</li>
-<li><strong>LoRA</strong> (Low-Rank Adaptation): Update only a small fraction of model weights — dramatically reduces cost and GPU requirements</li>
-<li><strong>Small language models</strong> (1–10B parameters): privacy (data stays local), speed (5–10ms inference), specialization</li>
+<li>Update <span class="amber">all</span> model weights</li>
+<li>Llama 7B = 7 billion parameters to optimize</li>
+<li>Requires multiple high-end GPUs</li>
+<li>Cost: thousands of dollars per run</li>
 </ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>LoRA Fine-Tuning</strong></span></p>
+<ul>
+<li>Update <span class="amber">only small added matrices</span></li>
+<li>Llama 7B with LoRA = ~4 million trainable parameters</li>
+<li>Runs on a single GPU</li>
+<li>Cost: <span class="amber">under $300</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="what-is-lora" class="slide level2 center">
+<h2>What Is LoRA?</h2>
+<p><strong>LoRA</strong> = Low-Rank Adaptation (Hu et al., 2021)</p>
+<p>A neural network layer computes <span class="math inline">\(\mathbf{y} = \mathbf{W}\mathbf{x}\)</span>, where <span class="math inline">\(\mathbf{W}\)</span> is a large weight matrix (e.g., <span class="math inline">\(4096 \times 4096 = 16.8\)</span>M parameters).</p>
+<p>Fine-tuning changes <span class="math inline">\(\mathbf{W}\)</span> to <span class="math inline">\(\mathbf{W} + \Delta\mathbf{W}\)</span>. LoRA’s insight: the update <span class="math inline">\(\Delta\mathbf{W}\)</span> doesn’t need 16.8M free parameters. Instead, <span class="amber">decompose it into two small matrices</span>:</p>
+<p><span class="math display">\[\Delta\mathbf{W} = \mathbf{B}\mathbf{A}\]</span></p>
+<p>where <span class="math inline">\(\mathbf{B}\)</span> is <span class="math inline">\(4096 \times r\)</span> and <span class="math inline">\(\mathbf{A}\)</span> is <span class="math inline">\(r \times 4096\)</span>, with <span class="math inline">\(r\)</span> (the <span class="amber">rank</span>) typically 8 or 16.</p>
+<div class="explainer">
+<p>With <span class="math inline">\(r = 8\)</span>: trainable parameters = $4096 + 8 = $ <span class="amber">65,536</span> instead of 16.8 million. That’s a 256<span class="math inline">\(\times\)</span> reduction for this one layer.</p>
+</div>
+</section>
+<section id="why-low-rank" class="slide level2 center">
+<h2>Why “Low Rank”?</h2>
+<p>A <span class="math inline">\(4096 \times 4096\)</span> matrix can represent <span class="math inline">\(16.8\)</span>M independent directions of change. But the research finding is that fine-tuning adjustments <span class="amber">live in a much smaller subspace</span>.</p>
+<div class="info-box">
+<p><span class="box-title"><strong>Analogy</strong></span></p>
+<p>Imagine you have a detailed road map of the U.S. (millions of roads). To adapt it for a delivery route, you don’t redraw every road — you just highlight <span class="amber">a few paths</span>. The rank <span class="math inline">\(r\)</span> is how many paths you’re allowed to highlight.</p>
+</div>
+<ul>
+<li><span class="math inline">\(r = 8\)</span>: the update can express 8 independent directions of change</li>
+<li>The original weights <span class="math inline">\(\mathbf{W}\)</span> (frozen) provide the general knowledge</li>
+<li><span class="math inline">\(\mathbf{B}\mathbf{A}\)</span> (trained) provides the <span class="amber">domain-specific adjustment</span></li>
+</ul>
+</section>
+<section id="which-weights-get-lora" class="slide level2 center">
+<h2>Which Weights Get LoRA?</h2>
+<p>A transformer has many weight matrices. LoRA is typically applied to the <span class="amber">attention layers</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><strong>Matrix</strong></th>
+<th><strong>Role</strong></th>
+<th><strong>LoRA applied?</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{W}_Q\)</span> (query)</td>
+<td>“What am I looking for?”</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{W}_K\)</span> (key)</td>
+<td>“What do I contain?”</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{W}_V\)</span> (value)</td>
+<td>“What information do I carry?”</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{W}_O\)</span> (output)</td>
+<td>Combines attention heads</td>
+<td>Sometimes</td>
+</tr>
+<tr class="odd">
+<td>Feed-forward layers</td>
+<td>Process each position</td>
+<td>Sometimes</td>
+</tr>
+</tbody>
+</table>
+<div class="explainer">
+<p>The attention matrices control <span class="amber">how the model relates words to each other</span> — exactly what needs to change when adapting from general text to financial text. The pre-trained feed-forward layers (general knowledge) are often left frozen.</p>
+</div>
+</section>
+<section id="lora-in-practice-fingpt" class="slide level2 center">
+<h2>LoRA in Practice: FinGPT</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">from</span> peft <span class="im">import</span> LoraConfig, get_peft_model</span>
+<span id="cb2-2"><a href=""></a></span>
+<span id="cb2-3"><a href=""></a>config <span class="op">=</span> LoraConfig(</span>
+<span id="cb2-4"><a href=""></a>    r<span class="op">=</span><span class="dv">8</span>,                          <span class="co"># rank: 8 directions of adaptation</span></span>
+<span id="cb2-5"><a href=""></a>    lora_alpha<span class="op">=</span><span class="dv">32</span>,                <span class="co"># scaling factor</span></span>
+<span id="cb2-6"><a href=""></a>    target_modules<span class="op">=</span>[<span class="st">"q_proj"</span>, <span class="st">"v_proj"</span>],  <span class="co"># which matrices to adapt</span></span>
+<span id="cb2-7"><a href=""></a>    lora_dropout<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb2-8"><a href=""></a>)</span>
+<span id="cb2-9"><a href=""></a></span>
+<span id="cb2-10"><a href=""></a>model <span class="op">=</span> get_peft_model(base_model, config)</span>
+<span id="cb2-11"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Trainable parameters: </span><span class="sc">{</span>model<span class="sc">.</span>num_parameters(only_trainable<span class="op">=</span><span class="va">True</span>)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb2-12"><a href=""></a><span class="co"># → ~4.2 million (vs. 7 billion total)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>FinGPT used this approach to fine-tune Llama on financial sentiment data for under $300, producing a model that <span class="amber">outperforms FinBERT</span> at a fraction of BloombergGPT’s cost.</p>
+</div>
+</section>
+<section id="small-language-models" class="slide level2 center">
+<h2>Small Language Models</h2>
+<p><strong>Small language models</strong> (1–10B parameters) trained or fine-tuned for finance:</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Advantages</strong></span></p>
+<ul>
+<li><span class="amber">Privacy</span>: data never leaves your infrastructure</li>
+<li><span class="amber">Speed</span>: 5–10ms inference on a single GPU</li>
+<li><span class="amber">Cost</span>: one-time fine-tuning, then free inference</li>
+<li><span class="amber">Specialization</span>: tuned for exactly your task</li>
+</ul>
+</div>
+<div class="card card-light">
+<p><span class="card-title"><strong>Examples</strong></span></p>
+<ul>
+<li><strong>FinBERT</strong>: 110M params, sentiment classification</li>
+<li><strong>FinLlama</strong>: Llama 7B + LoRA, trading signals</li>
+<li><strong>FinGPT</strong>: open-source, multiple base models</li>
+<li>Custom BERT models trained on internal data</li>
+</ul>
+</div>
+</div>
 <p>Why this matters for trading: <span class="amber">FinBERT processes headlines in milliseconds; GPT-4 takes seconds.</span></p>
 </section>
 <section id="what-the-research-shows" class="slide level2 section-divider center">
@@ -713,40 +1114,6 @@ flowchart LR
 </ul>
 <p>The moat is shifting from <span class="amber">speed of access</span> to <span class="amber">depth of understanding</span>.</p>
 </section>
-<section id="exercises" class="slide level2 section-divider center">
-<h2>Exercises</h2>
-</section>
-<section id="exercise-1-headline-sentiment-classification" class="slide level2 center">
-<h2>Exercise 1: Headline Sentiment Classification</h2>
-<ol type="1">
-<li>Collect 20 recent financial headlines and have Claude classify sentiment, magnitude, and relevance for each.</li>
-<li>Compare classifications to actual stock price movements over the following day and calculate accuracy.</li>
-<li>Submit: spreadsheet with headlines, classifications, prices, and accuracy.</li>
-</ol>
-</section>
-<section id="exercise-2-earnings-call-analysis" class="slide level2 center">
-<h2>Exercise 2: Earnings Call Analysis</h2>
-<ol type="1">
-<li>Download an earnings call transcript (e.g., from Seeking Alpha)</li>
-<li>Ask Claude to:
-<ul>
-<li>Rate management tone ($-$5 to +5)</li>
-<li>Identify forward-looking statements that differ from consensus</li>
-<li>Flag hedging language</li>
-</ul></li>
-<li>Compare to the stock’s post-earnings move</li>
-<li>Submit: transcript excerpt + Claude’s analysis + stock movement + reflection</li>
-</ol>
-</section>
-<section id="exercise-3-finbert-comparison-bonus" class="slide level2 center">
-<h2>Exercise 3: FinBERT Comparison (Bonus)</h2>
-<ol type="1">
-<li>Run the same 20 headlines through FinBERT (via HuggingFace)</li>
-<li>Compare FinBERT’s classifications to Claude’s</li>
-<li>Which handles nuance better? Where does each fail?</li>
-<li>Submit: side-by-side comparison + analysis</li>
-</ol>
-</section>
 <section id="summary" class="slide level2 center">
 <h2>Summary</h2>
 <div class="two-cards">
@@ -787,7 +1154,6 @@ flowchart LR
 </ul>
 </div>
 
-
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -797,19 +1163,19 @@ flowchart LR
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="m14-sentiment_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

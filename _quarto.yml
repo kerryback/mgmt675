@@ -18,9 +18,9 @@ project:
     - slides/m10-corporate.qmd
     - slides/m11-magnolia.qmd
     - slides/m12-rag.qmd
-    - slides/m13-agent-sdk.qmd
-    - slides/m14-sentiment.qmd
-    - slides/m15-predictive-modeling.qmd
+    - slides/m13-sentiment.qmd
+    - slides/m14-agent-sdk.qmd
+    - slides/m15-how-it-works.qmd
   resources:
     - CNAME
     - .nojekyll
