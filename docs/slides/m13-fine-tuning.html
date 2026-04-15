@@ -303,17 +303,6 @@ Kerry Back, Rice University
 <p>So <span class="amber">high cosine similarity</span> <span class="math inline">\(\Leftrightarrow\)</span> small angle <span class="math inline">\(\Leftrightarrow\)</span> normalized vectors are <span class="amber">close together</span>.</p>
 </div>
 </section>
-<section id="why-this-matters-for-ai" class="slide level2 center">
-<h2>Why This Matters for AI</h2>
-<p>In LLMs, words and sentences are represented as high-dimensional vectors (<span class="amber">embeddings</span>). Cosine similarity measures how related two meanings are:</p>
-<ul>
-<li>“profit” and “earnings” → high cosine similarity (similar direction)</li>
-<li>“profit” and “banana” → low cosine similarity (different directions)</li>
-</ul>
-<div class="explainer">
-<p>Fine-tuning adjusts these embedding vectors so that domain-specific relationships are captured. For example, after fine-tuning on financial text, “liability” moves <span class="amber">closer to</span> neutral accounting terms and <span class="amber">farther from</span> negative-sentiment words.</p>
-</div>
-</section>
 <section id="biases-and-weights" class="slide level2 section-divider center">
 <h2>Biases and Weights</h2>
 </section>

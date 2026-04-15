@@ -158,16 +158,6 @@ $$d^2 = 2 - 2\cos\theta$$
 So [high cosine similarity]{.amber} $\Leftrightarrow$ small angle $\Leftrightarrow$ normalized vectors are [close together]{.amber}.
 :::
 
-## Why This Matters for AI
-
-In LLMs, words and sentences are represented as high-dimensional vectors ([embeddings]{.amber}). Cosine similarity measures how related two meanings are:
-
-- "profit" and "earnings" → high cosine similarity (similar direction)
-- "profit" and "banana" → low cosine similarity (different directions)
-
-:::{.explainer}
-Fine-tuning adjusts these embedding vectors so that domain-specific relationships are captured. For example, after fine-tuning on financial text, "liability" moves [closer to]{.amber} neutral accounting terms and [farther from]{.amber} negative-sentiment words.
-:::
 
 ## Biases and Weights {.section-divider}
 
