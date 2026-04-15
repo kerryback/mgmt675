@@ -276,7 +276,7 @@ Each of the 6 nodes in layer k+1 receives input from all 6 nodes in layer k, so 
 
 ## LoRA (Rank 2): Low-Rank Update Path
 
-![](images/lora-diagram.png){fig-align="center" width="55%" .nostretch}
+![](images/lora-diagram.png){fig-align="center" width="42%" .nostretch}
 
 :::{.explainer}
 The original 36 direct connections remain active but [frozen]{.amber} (not shown). At real scale (4096 × 4096 layers, rank 16): [131K vs. 16.8M]{.amber} trainable parameters --- a 128× reduction.
