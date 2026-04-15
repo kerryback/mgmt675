@@ -488,83 +488,14 @@ graph TB
 </section>
 <section id="lora-rank-2-low-rank-update-path" class="slide level2 center">
 <h2>LoRA (Rank 2): Low-Rank Update Path</h2>
-<div class="columns">
-<div class="column" style="width:55%;">
-<div class="cell" data-reveal="true" data-fig-width="7" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 40, 'rankSpacing': 60, 'padding': 12, 'useMaxWidth': true}}}%%
-graph TB
-  subgraph layer_k[" "]
-    direction LR
-    LK["Layer k"]:::label
-    A1((" "))
-    A2((" "))
-    A3((" "))
-    A4((" "))
-    A5((" "))
-    A6((" "))
-  end
-  subgraph adapter[" "]
-    direction LR
-    AD["Adapter (rank 2)"]:::label
-    R1((" "))
-    R2((" "))
-  end
-  subgraph layer_k1[" "]
-    direction LR
-    LK1["Layer k+1"]:::label
-    B1((" "))
-    B2((" "))
-    B3((" "))
-    B4((" "))
-    B5((" "))
-    B6((" "))
-  end
-  A1 --&gt; R1 &amp; R2
-  A2 --&gt; R1 &amp; R2
-  A3 --&gt; R1 &amp; R2
-  A4 --&gt; R1 &amp; R2
-  A5 --&gt; R1 &amp; R2
-  A6 --&gt; R1 &amp; R2
-  R1 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-  R2 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-
-  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold
-  linkStyle default stroke:#f59e0b,stroke-width:2px
-  style A1 fill:#f59e0b,stroke:#f59e0b
-  style A2 fill:#f59e0b,stroke:#f59e0b
-  style A3 fill:#f59e0b,stroke:#f59e0b
-  style A4 fill:#f59e0b,stroke:#f59e0b
-  style A5 fill:#f59e0b,stroke:#f59e0b
-  style A6 fill:#f59e0b,stroke:#f59e0b
-  style R1 fill:#f59e0b,stroke:#f59e0b
-  style R2 fill:#f59e0b,stroke:#f59e0b
-  style B1 fill:#f59e0b,stroke:#f59e0b
-  style B2 fill:#f59e0b,stroke:#f59e0b
-  style B3 fill:#f59e0b,stroke:#f59e0b
-  style B4 fill:#f59e0b,stroke:#f59e0b
-  style B5 fill:#f59e0b,stroke:#f59e0b
-  style B6 fill:#f59e0b,stroke:#f59e0b
-</pre>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/lora-diagram.png" class="quarto-figure quarto-figure-center" style="width:55.0%"></p>
+</figure>
 </div>
-<p></p></figure><p></p>
+<div class="explainer">
+<p>The original 36 direct connections remain active but <span class="amber">frozen</span> (not shown). At real scale (4096 × 4096 layers, rank 16): <span class="amber">131K vs.&nbsp;16.8M</span> trainable parameters — a 128× reduction.</p>
 </div>
-</div>
-</div>
-</div><div class="column" style="width:45%;">
-<div style="font-size: 0.78em; margin-top: 1em;">
-<p><span class="amber"><strong>24 trainable connections</strong></span> through the bottleneck:</p>
-<ul>
-<li><span class="amber"><strong>Matrix A</strong></span> (layer k → adapter): 6 × 2 = <strong>12 parameters</strong></li>
-<li><span class="amber"><strong>Matrix B</strong></span> (adapter → layer k+1): 2 × 6 = <strong>12 parameters</strong></li>
-</ul>
-<p>The original <span class="amber">36 connections</span> remain active but <span class="amber">frozen</span> — not shown.</p>
-<p>vs.&nbsp;full fine-tuning: <strong>24 vs.&nbsp;36</strong> trainable parameters (33% reduction). At real scale (4096 × 4096 layers, rank 16): <strong>131K vs.&nbsp;16.8M</strong> — a <span class="amber">128× reduction</span>.</p>
-</div>
-</div></div>
 </section>
 <section id="lora-the-math" class="slide level2 center">
 <h2>LoRA: The Math</h2>
