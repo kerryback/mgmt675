@@ -319,6 +319,8 @@ graph TB
   style B4 fill:#f59e0b,stroke:#f59e0b
   style B5 fill:#f59e0b,stroke:#f59e0b
   style B6 fill:#f59e0b,stroke:#f59e0b
+  style Layer_k fill:transparent,stroke:#f59e0b,color:#fff
+  style Layer_k1 fill:transparent,stroke:#f59e0b,color:#fff
 ```
 
 [**36 trainable connections**]{.amber} --- all weights updated during training.
@@ -376,6 +378,9 @@ graph TB
   style B4 fill:#f59e0b,stroke:#f59e0b
   style B5 fill:#f59e0b,stroke:#f59e0b
   style B6 fill:#f59e0b,stroke:#f59e0b
+  style Layer_k fill:transparent,stroke:#f59e0b,color:#fff
+  style Adapter fill:transparent,stroke:#f59e0b,color:#fff
+  style Layer_k1 fill:transparent,stroke:#f59e0b,color:#fff
 ```
 
 [**24 trainable connections**]{.amber} through the bottleneck. The original 36 connections remain active but [frozen]{.amber} --- not shown.
