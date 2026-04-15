@@ -42,7 +42,20 @@ The earliest approach --- [bag of words]{.amber} --- just counts words from pred
 
 This works for simple cases. But ...
 
-## Where Bag of Words Fails
+## Problem 1: Words Mean Different Things in Finance
+
+A general-purpose word list treats these words as negative:
+
+| **Word** | **General meaning** | **Financial meaning** |
+|---|---|---|
+| liability | negative | [neutral]{.amber} --- a balance sheet line item |
+| capital | neutral | [positive]{.amber} --- resources for growth |
+| risk | negative | [neutral]{.amber} --- every investment has risk |
+| outstanding | positive | [neutral]{.amber} --- shares outstanding |
+
+Using a general dictionary on financial text produces [systematic errors]{.amber}.
+
+## Problem 2: Context Matters
 
 **"Despite strong revenue, the company warned about supply chain disruptions"**
 
@@ -51,30 +64,7 @@ This works for simple cases. But ...
 - Bag-of-words verdict: [negative]{.amber}
 - Actual meaning: [mixed, leaning negative]{.amber} --- the word *despite* signals that the strength is being [dismissed]{.amber}
 
-**"The company did not report a loss"**
-
-- Bag of words sees *loss* → [negative]{.amber}
-- Actual meaning: [positive]{.amber} --- negation reverses the sentiment
-
-**"Shares fell less than feared after earnings miss"**
-
-- Bag of words sees *fell*, *miss*, *feared* → [very negative]{.amber}
-- Actual meaning: [mildly positive]{.amber} --- the stock held up better than expected
-
-## Another Problem: Words Mean Different Things in Finance
-
-A general-purpose word list treats these words as negative:
-
-| **Word** | **General meaning** | **Financial meaning** |
-|---|---|---|
-| liability | negative | [neutral]{.amber} --- a balance sheet line item |
-| capital | neutral | [positive]{.amber} --- resources for growth |
-| tax | negative | [neutral]{.amber} --- routine expense |
-| risk | negative | [neutral]{.amber} --- every investment has risk |
-| outstanding | positive | [neutral]{.amber} --- shares outstanding |
-| volatile | negative | [neutral/positive]{.amber} --- opportunities for traders |
-
-Using a general dictionary on financial text produces [systematic errors]{.amber}.
+Bag of words can't handle word order, negation ("not profitable" vs. "profitable"), or relative importance (forward guidance outweighs trailing results). We need models that understand [sentences, not just words]{.amber}.
 
 ## The Loughran-McDonald Dictionary
 
@@ -99,24 +89,6 @@ Also includes: **uncertainty** (297 words), **litigious** (903 words), **constra
 :::{.explainer}
 Notice the asymmetry: [7$\times$ more negative words than positive]{.amber}. Financial disclosures are legally required to discuss risks, so negative language is far more varied.
 :::
-
-## Still Just Counting Words
-
-Even with a finance-specific dictionary, the method is still bag of words:
-
-**"Revenue growth was [strong]{.amber} but management issued [cautious]{.amber} guidance for next quarter"**
-
-- L-M score: +1 (strong) $-$ 1 (cautious) = 0 → [neutral]{.amber}
-- A human reads this as: [negative]{.amber} --- guidance matters more than trailing results
-
-The dictionary can't handle:
-
-- **Word order and grammar** --- "not profitable" vs. "profitable"
-- **Context** --- "strong" revenue vs. "strong" headwinds
-- **Relative importance** --- forward guidance outweighs backward-looking results
-- **Hedging language** --- "we remain *cautiously optimistic*"
-
-We need models that understand [sentences, not just words]{.amber}.
 
 ## Try It: FinBERT via HuggingFace
 
@@ -238,97 +210,6 @@ General-purpose LLMs can classify financial sentiment [with zero training data]{
 - Cost: $2.50--10/M input tokens (varies by model)
 - Data leaves your infrastructure
 :::
-:::
-
-## Fine-Tuning: The Idea
-
-**Fine-tuning** = take a pre-trained model (trained on general text) and continue training on [your domain-specific data]{.amber}.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Full Fine-Tuning**]{.card-title}
-
-- Update [all]{.amber} model weights
-- Llama 7B = 7 billion parameters to optimize
-- Requires multiple high-end GPUs
-- Cost: thousands of dollars per run
-:::
-
-:::{.card .card-dark}
-[**LoRA Fine-Tuning**]{.card-title}
-
-- Update [only small added matrices]{.amber}
-- Llama 7B with LoRA = ~4 million trainable parameters
-- Runs on a single GPU
-- Cost: [under $300]{.amber}
-:::
-:::
-
-## What Is LoRA?
-
-**LoRA** = Low-Rank Adaptation (Hu et al., 2021)
-
-A neural network layer computes $\mathbf{y} = \mathbf{W}\mathbf{x}$, where $\mathbf{W}$ is a large weight matrix (e.g., $4096 \times 4096 = 16.8$M parameters).
-
-Fine-tuning changes $\mathbf{W}$ to $\mathbf{W} + \Delta\mathbf{W}$. LoRA's insight: the update $\Delta\mathbf{W}$ doesn't need 16.8M free parameters. Instead, [decompose it into two small matrices]{.amber}:
-
-$$\Delta\mathbf{W} = \mathbf{B}\mathbf{A}$$
-
-where $\mathbf{B}$ is $4096 \times r$ and $\mathbf{A}$ is $r \times 4096$, with $r$ (the [rank]{.amber}) typically 8 or 16.
-
-:::{.explainer}
-With $r = 8$: trainable parameters = $4096 \times 8 + 8 \times 4096 = $ [65,536]{.amber} instead of 16.8 million. That's a 256$\times$ reduction for this one layer.
-:::
-
-## Why "Low Rank"?
-
-A $4096 \times 4096$ matrix can represent $16.8$M independent directions of change. But the research finding is that fine-tuning adjustments [live in a much smaller subspace]{.amber}.
-
-:::{.info-box}
-[**Analogy**]{.box-title}
-
-Imagine you have a detailed road map of the U.S. (millions of roads). To adapt it for a delivery route, you don't redraw every road --- you just highlight [a few paths]{.amber}. The rank $r$ is how many paths you're allowed to highlight.
-:::
-
-- $r = 8$: the update can express 8 independent directions of change
-- The original weights $\mathbf{W}$ (frozen) provide the general knowledge
-- $\mathbf{B}\mathbf{A}$ (trained) provides the [domain-specific adjustment]{.amber}
-
-## Which Weights Get LoRA?
-
-A transformer has many weight matrices. LoRA is typically applied to the [attention layers]{.amber}:
-
-| **Matrix** | **Role** | **LoRA applied?** |
-|---|---|---|
-| $\mathbf{W}_Q$ (query) | "What am I looking for?" | Yes |
-| $\mathbf{W}_K$ (key) | "What do I contain?" | Yes |
-| $\mathbf{W}_V$ (value) | "What information do I carry?" | Yes |
-| $\mathbf{W}_O$ (output) | Combines attention heads | Sometimes |
-| Feed-forward layers | Process each position | Sometimes |
-
-:::{.explainer}
-The attention matrices control [how the model relates words to each other]{.amber} --- exactly what needs to change when adapting from general text to financial text. The pre-trained feed-forward layers (general knowledge) are often left frozen.
-:::
-
-## LoRA in Practice: FinGPT
-
-```python
-from peft import LoraConfig, get_peft_model
-
-config = LoraConfig(
-    r=8,                          # rank: 8 directions of adaptation
-    lora_alpha=32,                # scaling factor
-    target_modules=["q_proj", "v_proj"],  # which matrices to adapt
-    lora_dropout=0.05,
-)
-
-model = get_peft_model(base_model, config)
-print(f"Trainable parameters: {model.num_parameters(only_trainable=True):,}")
-# → ~4.2 million (vs. 7 billion total)
-```
-
-:::{.explainer}
-FinGPT used this approach to fine-tune Llama on financial sentiment data for under $300, producing a model that [outperforms FinBERT]{.amber} at a fraction of BloombergGPT's cost.
 :::
 
 ## Small Language Models

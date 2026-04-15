@@ -251,28 +251,8 @@ Kerry Back, Rice University
 </ul>
 <p>This works for simple cases. But …</p>
 </section>
-<section id="where-bag-of-words-fails" class="slide level2 center">
-<h2>Where Bag of Words Fails</h2>
-<p><strong>“Despite strong revenue, the company warned about supply chain disruptions”</strong></p>
-<ul>
-<li>Positive words: <em>strong</em> → score = +1</li>
-<li>Negative words: <em>warned</em>, <em>disruptions</em> → score = $-$2</li>
-<li>Bag-of-words verdict: <span class="amber">negative</span></li>
-<li>Actual meaning: <span class="amber">mixed, leaning negative</span> — the word <em>despite</em> signals that the strength is being <span class="amber">dismissed</span></li>
-</ul>
-<p><strong>“The company did not report a loss”</strong></p>
-<ul>
-<li>Bag of words sees <em>loss</em> → <span class="amber">negative</span></li>
-<li>Actual meaning: <span class="amber">positive</span> — negation reverses the sentiment</li>
-</ul>
-<p><strong>“Shares fell less than feared after earnings miss”</strong></p>
-<ul>
-<li>Bag of words sees <em>fell</em>, <em>miss</em>, <em>feared</em> → <span class="amber">very negative</span></li>
-<li>Actual meaning: <span class="amber">mildly positive</span> — the stock held up better than expected</li>
-</ul>
-</section>
-<section id="another-problem-words-mean-different-things-in-finance" class="slide level2 center">
-<h2>Another Problem: Words Mean Different Things in Finance</h2>
+<section id="problem-1-words-mean-different-things-in-finance" class="slide level2 center">
+<h2>Problem 1: Words Mean Different Things in Finance</h2>
 <p>A general-purpose word list treats these words as negative:</p>
 <table class="caption-top">
 <colgroup>
@@ -299,28 +279,29 @@ Kerry Back, Rice University
 <td><span class="amber">positive</span> — resources for growth</td>
 </tr>
 <tr class="odd">
-<td>tax</td>
-<td>negative</td>
-<td><span class="amber">neutral</span> — routine expense</td>
-</tr>
-<tr class="even">
 <td>risk</td>
 <td>negative</td>
 <td><span class="amber">neutral</span> — every investment has risk</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>outstanding</td>
 <td>positive</td>
 <td><span class="amber">neutral</span> — shares outstanding</td>
 </tr>
-<tr class="even">
-<td>volatile</td>
-<td>negative</td>
-<td><span class="amber">neutral/positive</span> — opportunities for traders</td>
-</tr>
 </tbody>
 </table>
 <p>Using a general dictionary on financial text produces <span class="amber">systematic errors</span>.</p>
+</section>
+<section id="problem-2-context-matters" class="slide level2 center">
+<h2>Problem 2: Context Matters</h2>
+<p><strong>“Despite strong revenue, the company warned about supply chain disruptions”</strong></p>
+<ul>
+<li>Positive words: <em>strong</em> → score = +1</li>
+<li>Negative words: <em>warned</em>, <em>disruptions</em> → score = $-$2</li>
+<li>Bag-of-words verdict: <span class="amber">negative</span></li>
+<li>Actual meaning: <span class="amber">mixed, leaning negative</span> — the word <em>despite</em> signals that the strength is being <span class="amber">dismissed</span></li>
+</ul>
+<p>Bag of words can’t handle word order, negation (“not profitable” vs.&nbsp;“profitable”), or relative importance (forward guidance outweighs trailing results). We need models that understand <span class="amber">sentences, not just words</span>.</p>
 </section>
 <section id="the-loughran-mcdonald-dictionary" class="slide level2 center">
 <h2>The Loughran-McDonald Dictionary</h2>
@@ -343,23 +324,6 @@ Kerry Back, Rice University
 <div class="explainer">
 <p>Notice the asymmetry: <span class="amber">7<span class="math inline">\(\times\)</span> more negative words than positive</span>. Financial disclosures are legally required to discuss risks, so negative language is far more varied.</p>
 </div>
-</section>
-<section id="still-just-counting-words" class="slide level2 center">
-<h2>Still Just Counting Words</h2>
-<p>Even with a finance-specific dictionary, the method is still bag of words:</p>
-<p><strong>“Revenue growth was <span class="amber">strong</span> but management issued <span class="amber">cautious</span> guidance for next quarter”</strong></p>
-<ul>
-<li>L-M score: +1 (strong) <span class="math inline">\(-\)</span> 1 (cautious) = 0 → <span class="amber">neutral</span></li>
-<li>A human reads this as: <span class="amber">negative</span> — guidance matters more than trailing results</li>
-</ul>
-<p>The dictionary can’t handle:</p>
-<ul>
-<li><strong>Word order and grammar</strong> — “not profitable” vs.&nbsp;“profitable”</li>
-<li><strong>Context</strong> — “strong” revenue vs.&nbsp;“strong” headwinds</li>
-<li><strong>Relative importance</strong> — forward guidance outweighs backward-looking results</li>
-<li><strong>Hedging language</strong> — “we remain <em>cautiously optimistic</em>”</li>
-</ul>
-<p>We need models that understand <span class="amber">sentences, not just words</span>.</p>
 </section>
 <section id="try-it-finbert-via-huggingface" class="slide level2 center">
 <h2>Try It: FinBERT via HuggingFace</h2>
@@ -552,115 +516,6 @@ Kerry Back, Rice University
 <li>Data leaves your infrastructure</li>
 </ul>
 </div>
-</div>
-</section>
-<section id="fine-tuning-the-idea" class="slide level2 center">
-<h2>Fine-Tuning: The Idea</h2>
-<p><strong>Fine-tuning</strong> = take a pre-trained model (trained on general text) and continue training on <span class="amber">your domain-specific data</span>.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Full Fine-Tuning</strong></span></p>
-<ul>
-<li>Update <span class="amber">all</span> model weights</li>
-<li>Llama 7B = 7 billion parameters to optimize</li>
-<li>Requires multiple high-end GPUs</li>
-<li>Cost: thousands of dollars per run</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>LoRA Fine-Tuning</strong></span></p>
-<ul>
-<li>Update <span class="amber">only small added matrices</span></li>
-<li>Llama 7B with LoRA = ~4 million trainable parameters</li>
-<li>Runs on a single GPU</li>
-<li>Cost: <span class="amber">under $300</span></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="what-is-lora" class="slide level2 center">
-<h2>What Is LoRA?</h2>
-<p><strong>LoRA</strong> = Low-Rank Adaptation (Hu et al., 2021)</p>
-<p>A neural network layer computes <span class="math inline">\(\mathbf{y} = \mathbf{W}\mathbf{x}\)</span>, where <span class="math inline">\(\mathbf{W}\)</span> is a large weight matrix (e.g., <span class="math inline">\(4096 \times 4096 = 16.8\)</span>M parameters).</p>
-<p>Fine-tuning changes <span class="math inline">\(\mathbf{W}\)</span> to <span class="math inline">\(\mathbf{W} + \Delta\mathbf{W}\)</span>. LoRA’s insight: the update <span class="math inline">\(\Delta\mathbf{W}\)</span> doesn’t need 16.8M free parameters. Instead, <span class="amber">decompose it into two small matrices</span>:</p>
-<p><span class="math display">\[\Delta\mathbf{W} = \mathbf{B}\mathbf{A}\]</span></p>
-<p>where <span class="math inline">\(\mathbf{B}\)</span> is <span class="math inline">\(4096 \times r\)</span> and <span class="math inline">\(\mathbf{A}\)</span> is <span class="math inline">\(r \times 4096\)</span>, with <span class="math inline">\(r\)</span> (the <span class="amber">rank</span>) typically 8 or 16.</p>
-<div class="explainer">
-<p>With <span class="math inline">\(r = 8\)</span>: trainable parameters = $4096 + 8 = $ <span class="amber">65,536</span> instead of 16.8 million. That’s a 256<span class="math inline">\(\times\)</span> reduction for this one layer.</p>
-</div>
-</section>
-<section id="why-low-rank" class="slide level2 center">
-<h2>Why “Low Rank”?</h2>
-<p>A <span class="math inline">\(4096 \times 4096\)</span> matrix can represent <span class="math inline">\(16.8\)</span>M independent directions of change. But the research finding is that fine-tuning adjustments <span class="amber">live in a much smaller subspace</span>.</p>
-<div class="info-box">
-<p><span class="box-title"><strong>Analogy</strong></span></p>
-<p>Imagine you have a detailed road map of the U.S. (millions of roads). To adapt it for a delivery route, you don’t redraw every road — you just highlight <span class="amber">a few paths</span>. The rank <span class="math inline">\(r\)</span> is how many paths you’re allowed to highlight.</p>
-</div>
-<ul>
-<li><span class="math inline">\(r = 8\)</span>: the update can express 8 independent directions of change</li>
-<li>The original weights <span class="math inline">\(\mathbf{W}\)</span> (frozen) provide the general knowledge</li>
-<li><span class="math inline">\(\mathbf{B}\mathbf{A}\)</span> (trained) provides the <span class="amber">domain-specific adjustment</span></li>
-</ul>
-</section>
-<section id="which-weights-get-lora" class="slide level2 center">
-<h2>Which Weights Get LoRA?</h2>
-<p>A transformer has many weight matrices. LoRA is typically applied to the <span class="amber">attention layers</span>:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><strong>Matrix</strong></th>
-<th><strong>Role</strong></th>
-<th><strong>LoRA applied?</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\mathbf{W}_Q\)</span> (query)</td>
-<td>“What am I looking for?”</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\mathbf{W}_K\)</span> (key)</td>
-<td>“What do I contain?”</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\mathbf{W}_V\)</span> (value)</td>
-<td>“What information do I carry?”</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\mathbf{W}_O\)</span> (output)</td>
-<td>Combines attention heads</td>
-<td>Sometimes</td>
-</tr>
-<tr class="odd">
-<td>Feed-forward layers</td>
-<td>Process each position</td>
-<td>Sometimes</td>
-</tr>
-</tbody>
-</table>
-<div class="explainer">
-<p>The attention matrices control <span class="amber">how the model relates words to each other</span> — exactly what needs to change when adapting from general text to financial text. The pre-trained feed-forward layers (general knowledge) are often left frozen.</p>
-</div>
-</section>
-<section id="lora-in-practice-fingpt" class="slide level2 center">
-<h2>LoRA in Practice: FinGPT</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> peft <span class="im">import</span> LoraConfig, get_peft_model</span>
-<span id="cb2-2"><a></a></span>
-<span id="cb2-3"><a></a>config <span class="op">=</span> LoraConfig(</span>
-<span id="cb2-4"><a></a>    r<span class="op">=</span><span class="dv">8</span>,                          <span class="co"># rank: 8 directions of adaptation</span></span>
-<span id="cb2-5"><a></a>    lora_alpha<span class="op">=</span><span class="dv">32</span>,                <span class="co"># scaling factor</span></span>
-<span id="cb2-6"><a></a>    target_modules<span class="op">=</span>[<span class="st">"q_proj"</span>, <span class="st">"v_proj"</span>],  <span class="co"># which matrices to adapt</span></span>
-<span id="cb2-7"><a></a>    lora_dropout<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span id="cb2-8"><a></a>)</span>
-<span id="cb2-9"><a></a></span>
-<span id="cb2-10"><a></a>model <span class="op">=</span> get_peft_model(base_model, config)</span>
-<span id="cb2-11"><a></a><span class="bu">print</span>(<span class="ss">f"Trainable parameters: </span><span class="sc">{</span>model<span class="sc">.</span>num_parameters(only_trainable<span class="op">=</span><span class="va">True</span>)<span class="sc">:,}</span><span class="ss">"</span>)</span>
-<span id="cb2-12"><a></a><span class="co"># → ~4.2 million (vs. 7 billion total)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p>FinGPT used this approach to fine-tune Llama on financial sentiment data for under $300, producing a model that <span class="amber">outperforms FinBERT</span> at a fraction of BloombergGPT’s cost.</p>
 </div>
 </section>
 <section id="small-language-models" class="slide level2 center">
