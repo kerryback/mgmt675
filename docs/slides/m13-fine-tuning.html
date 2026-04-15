@@ -334,12 +334,12 @@ graph LR
   end
   subgraph Hidden["Hidden Layer"]
     direction TB
-    H1(("h₁"))
-    H2(("h₂"))
+    H1(("y₁"))
+    H2(("y₂"))
   end
   subgraph Output[" "]
     direction TB
-    Y(("y"))
+    Y(("z"))
   end
   X1 --&gt; H1 &amp; H2
   X2 --&gt; H1 &amp; H2
@@ -365,7 +365,7 @@ graph LR
 <section id="how-a-neuron-decides" class="slide level2 center">
 <h2>How a Neuron Decides</h2>
 <p>Each neuron in the hidden layer computes a <span class="amber">weighted sum</span> of its inputs plus a bias:</p>
-<p><span class="math display">\[h = b + w_1 x_1 + w_2 x_2 + w_3 x_3\]</span></p>
+<p><span class="math display">\[y = b + w_1 x_1 + w_2 x_2 + w_3 x_3\]</span></p>
 <p>The neuron “fires” (produces a positive output) only if this sum is positive:</p>
 <ul>
 <li>The <span class="amber">weights</span> <span class="math inline">\(w_1, w_2, w_3\)</span> determine <span class="amber">which inputs matter and how much</span></li>

@@ -185,12 +185,12 @@ graph LR
   end
   subgraph Hidden["Hidden Layer"]
     direction TB
-    H1(("h₁"))
-    H2(("h₂"))
+    H1(("y₁"))
+    H2(("y₂"))
   end
   subgraph Output[" "]
     direction TB
-    Y(("y"))
+    Y(("z"))
   end
   X1 --> H1 & H2
   X2 --> H1 & H2
@@ -213,7 +213,7 @@ A **fully connected** network: every input connects to every neuron in the next 
 
 Each neuron in the hidden layer computes a [weighted sum]{.amber} of its inputs plus a bias:
 
-$$h = b + w_1 x_1 + w_2 x_2 + w_3 x_3$$
+$$y = b + w_1 x_1 + w_2 x_2 + w_3 x_3$$
 
 The neuron "fires" (produces a positive output) only if this sum is positive:
 
