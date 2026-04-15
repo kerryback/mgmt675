@@ -276,56 +276,13 @@ Instead of updating an entire weight matrix, LoRA decomposes the update into two
 :::
 :::
 
-## Full Fine-Tuning: Every Connection Updated {.mermaid-small}
+## Original Model
 
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
-graph TB
-  subgraph layer_k[" "]
-    direction LR
-    LK["Layer k"]:::label
-    A1((" "))
-    A2((" "))
-    A3((" "))
-    A4((" "))
-    A5((" "))
-    A6((" "))
-  end
-  subgraph layer_k1[" "]
-    direction LR
-    LK1["Layer k+1"]:::label
-    B1((" "))
-    B2((" "))
-    B3((" "))
-    B4((" "))
-    B5((" "))
-    B6((" "))
-  end
-  A1 --> B1 & B2 & B3 & B4 & B5 & B6
-  A2 --> B1 & B2 & B3 & B4 & B5 & B6
-  A3 --> B1 & B2 & B3 & B4 & B5 & B6
-  A4 --> B1 & B2 & B3 & B4 & B5 & B6
-  A5 --> B1 & B2 & B3 & B4 & B5 & B6
-  A6 --> B1 & B2 & B3 & B4 & B5 & B6
+![](images/original-model-diagram.png){fig-align="center" width="55%" .nostretch}
 
-  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold
-  linkStyle default stroke:#f59e0b,stroke-width:2px
-  style A1 fill:#f59e0b,stroke:#f59e0b
-  style A2 fill:#f59e0b,stroke:#f59e0b
-  style A3 fill:#f59e0b,stroke:#f59e0b
-  style A4 fill:#f59e0b,stroke:#f59e0b
-  style A5 fill:#f59e0b,stroke:#f59e0b
-  style A6 fill:#f59e0b,stroke:#f59e0b
-  style B1 fill:#f59e0b,stroke:#f59e0b
-  style B2 fill:#f59e0b,stroke:#f59e0b
-  style B3 fill:#f59e0b,stroke:#f59e0b
-  style B4 fill:#f59e0b,stroke:#f59e0b
-  style B5 fill:#f59e0b,stroke:#f59e0b
-  style B6 fill:#f59e0b,stroke:#f59e0b
-```
-
-[**36 trainable connections**]{.amber} --- all weights updated during training.
+:::{.explainer}
+Each of the 6 nodes in layer k+1 receives input from all 6 nodes in layer k, so the [weight matrix]{.amber} has 6 × 6 = [36 coefficients]{.amber}. Each node also has a [bias]{.amber}, adding 6 more parameters --- [42 total]{.amber} per layer. Full fine-tuning means retraining all 42.
+:::
 
 ## LoRA (Rank 2): Low-Rank Update Path
 

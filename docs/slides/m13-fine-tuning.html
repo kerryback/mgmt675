@@ -428,63 +428,16 @@ graph LR
 </div>
 </div>
 </section>
-<section id="full-fine-tuning-every-connection-updated" class="slide level2 mermaid-small center">
-<h2>Full Fine-Tuning: Every Connection Updated</h2>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
-graph TB
-  subgraph layer_k[" "]
-    direction LR
-    LK["Layer k"]:::label
-    A1((" "))
-    A2((" "))
-    A3((" "))
-    A4((" "))
-    A5((" "))
-    A6((" "))
-  end
-  subgraph layer_k1[" "]
-    direction LR
-    LK1["Layer k+1"]:::label
-    B1((" "))
-    B2((" "))
-    B3((" "))
-    B4((" "))
-    B5((" "))
-    B6((" "))
-  end
-  A1 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-  A2 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-  A3 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-  A4 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-  A5 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-  A6 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
-
-  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold
-  linkStyle default stroke:#f59e0b,stroke-width:2px
-  style A1 fill:#f59e0b,stroke:#f59e0b
-  style A2 fill:#f59e0b,stroke:#f59e0b
-  style A3 fill:#f59e0b,stroke:#f59e0b
-  style A4 fill:#f59e0b,stroke:#f59e0b
-  style A5 fill:#f59e0b,stroke:#f59e0b
-  style A6 fill:#f59e0b,stroke:#f59e0b
-  style B1 fill:#f59e0b,stroke:#f59e0b
-  style B2 fill:#f59e0b,stroke:#f59e0b
-  style B3 fill:#f59e0b,stroke:#f59e0b
-  style B4 fill:#f59e0b,stroke:#f59e0b
-  style B5 fill:#f59e0b,stroke:#f59e0b
-  style B6 fill:#f59e0b,stroke:#f59e0b
-</pre>
+<section id="original-model" class="slide level2 center">
+<h2>Original Model</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/original-model-diagram.png" class="quarto-figure quarto-figure-center" style="width:55.0%"></p>
+</figure>
 </div>
-<p></p></figure><p></p>
+<div class="explainer">
+<p>Each of the 6 nodes in layer k+1 receives input from all 6 nodes in layer k, so the <span class="amber">weight matrix</span> has 6 × 6 = <span class="amber">36 coefficients</span>. Each node also has a <span class="amber">bias</span>, adding 6 more parameters — <span class="amber">42 total</span> per layer. Full fine-tuning means retraining all 42.</p>
 </div>
-</div>
-</div>
-<p><span class="amber"><strong>36 trainable connections</strong></span> — all weights updated during training.</p>
 </section>
 <section id="lora-rank-2-low-rank-update-path" class="slide level2 center">
 <h2>LoRA (Rank 2): Low-Rank Update Path</h2>
