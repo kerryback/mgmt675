@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5C: Stock Analysis in Colab"
+title: "Exercise 5C: Valuation of Magnolia Oil & Gas"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,19 +9,44 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-In Google Colab, use Gemini to write code that:
+Perform a complete DCF valuation of Magnolia Oil \& Gas (ticker: MGY) using AI as your analyst.
 
-1. Downloads daily price data for three stocks of your choice from Yahoo Finance (at least one year of data)
-2. Computes daily returns
-3. Produces the following outputs:
-    (a) A **boxplot** of daily returns for the three stocks
-    (b) A **summary statistics table**: mean, standard deviation, min, max, skewness, kurtosis
-    (c) A **correlation matrix heatmap**
+\bigskip
+\noindent\textbf{Background.}
+In the Module 11 slides we walked through a valuation of Magnolia as a class exercise. Now your group will produce a full, polished valuation on your own. You will provide Claude with the same data files we used in class and ask it to build a discounted-cash-flow model with sensitivity analysis.
 
-Save the notebook to Google Drive.
+\bigskip
+\noindent\textbf{Data files.}
+Download the following files from the course website:
+
+\begin{itemize}
+  \item \href{https://mgmt675.kerryback.com/files/magnolia-financials.xlsx}{magnolia-financials.xlsx} --- Financial statements, 2019--2025
+  \item \href{https://mgmt675.kerryback.com/files/magnolia-10k-narrative.md}{magnolia-10k-narrative.md} --- MD\&A and Risk Factors, 2019--2025
+  \item \href{https://mgmt675.kerryback.com/files/magnolia-news.md}{magnolia-news.md} --- Recent news articles (Jul 2025 -- Mar 2026)
+  \item \href{https://mgmt675.kerryback.com/files/magnolia-releases.md}{magnolia-releases.md} --- Earnings press releases and transcripts, 2023--2025
+\end{itemize}
+
+Place all four files in the folder where you use Claude Code.
+
+\medskip
+\noindent\textbf{Note on file size.} The \texttt{magnolia-10k-narrative.md} file is too large to paste into a single prompt. \textbf{Use Code mode in Claude Desktop for this exercise.} In Code mode, Claude reads files from your folder on demand rather than loading the entire file into the context window at once. If you use Chat mode instead, you will need to split the file into two or three parts and upload them in successive messages.
+
+\bigskip
+\noindent\textbf{Requirements.}
+Your valuation should include the following components. You do not need to do them in separate prompts --- let the conversation with Claude flow naturally.
+
+\begin{enumerate}
+  \item \textbf{Business overview:} What does Magnolia do? What drives its revenue? What are the key risks?
+  \item \textbf{Historical analysis:} Revenue, margins, free cash flow, and balance sheet trends (2019--2025).
+  \item \textbf{Assumptions:} Revenue growth rate, operating margins, PP\&E as a proportion of revenue, depreciation as a percent of PP\&E, WACC, and terminal value methodology. (Capex is the plug: the investment needed to bring PP\&E to the target level after depreciation.) Justify each assumption using the data.
+  \item \textbf{DCF model:} Projected free cash flows (5 years), terminal value, enterprise value, and per-share equity value.
+  \item \textbf{Sensitivity analysis:} A table showing how the per-share value changes with different growth rates and discount rates (or terminal multiples).
+  \item \textbf{Market comparison:} Compare your estimated value to Magnolia's current stock price. What would have to be true for the market price to be correct?
+\end{enumerate}
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Colab notebook (`5C-Notebook.ipynb`)
-- Screenshot of the outputs (`5C-Screenshot.png`)
+\begin{itemize}
+  \item A valuation report (\texttt{5C-Valuation.pdf}) containing all six components above.
+\end{itemize}

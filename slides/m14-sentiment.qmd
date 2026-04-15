@@ -21,81 +21,210 @@ execute:
   warning: false
 ---
 
-## Why News Moves Markets
+## Trading on Sentiment {.section-divider}
 
-Asset prices reflect expectations. News changes expectations. The trader who [understands news faster and more accurately]{.amber} captures the profit.
+## Sentiment of What?
 
-- Earnings surprises, Fed announcements, M&A rumors, FDA decisions, geopolitical shocks
-- Quantitative firms began automating this with simple keyword rules in the 2000s
-- [LLMs now understand nuance, context, and implication]{.amber} --- a qualitative leap
+Traders extract sentiment from many text sources. Each differs in [volume, speed, and signal quality]{.amber}:
 
-## A Simple Idea: Count Positive and Negative Words
+| **Source** | **Volume** | **Speed** | **Signal** |
+|---|---|---|---|
+| News headlines | High | Seconds--minutes | Strong, well-studied |
+| Full news articles | High | Minutes--hours | Richer context |
+| Social media (Twitter, StockTwits) | Very high | Real-time | Noisy but fast |
+| Earnings call transcripts | Low (quarterly) | Hours--days | High quality |
+| Financial statements (10-K, 10-Q) | Low (quarterly) | Days--weeks | Deep fundamentals |
 
-The earliest approach --- [bag of words]{.amber} --- just counts words from predefined lists:
+The academic evidence now covers all of these.
 
-| **Positive words** | **Negative words** |
-|---|---|
-| good, strong, growth, profit, beat, surge, upgrade | bad, weak, loss, decline, miss, plunge, downgrade |
+## News Headlines
 
-**Headline:** "Apple revenue beats estimates, shares surge 5%"
+Lopez-Lira & Tang (2023), accepted at the *Journal of Finance*.
 
-- Positive words: *beats*, *surge* → score = +2
-- Negative words: none → score = 0
-- Verdict: [positive]{.amber} ✓
+- GPT-3.5 / GPT-4 classify 67,586 headlines for 4,123 stocks (Oct 2021--Dec 2023)
+- **Speed**: overnight news → trade at [next-day market open]{.amber}, exit at close (single-day hold)
+- **Performance**: GPT-4 long-short [Sharpe ratio 3.28]{.amber}
 
-This works for simple cases. But ...
+:::{.explainer}
+Forecasting ability [increases with model size]{.amber}: GPT-4 >> GPT-3.5 >> GPT-3 --- financial reasoning is an "emerging capability" of larger LLMs. But the Sharpe ratio [declined from 6.5 to 1.2]{.amber} as the sample extended from 2021 to 2024, consistent with more traders adopting the same approach.
+:::
 
-## Problem 1: Words Mean Different Things in Finance
+## News Articles
 
-A general-purpose word list treats these words as negative:
+Kirtac & Germano (2024), *Finance Research Letters*. 965,375 U.S. financial news articles (2010--2023).
 
-| **Word** | **General meaning** | **Financial meaning** |
+- **Speed**: news before 6 AM → trade at [same-day open]{.amber}; news 6 AM--4 PM → trade at [same-day close]{.amber}; news after 4 PM → trade at [next-day open]{.amber}
+- Long top 20% sentiment, short bottom 20%, daily rebalanced
+
+| **Method** | **Accuracy** | **Long-Short Sharpe** |
 |---|---|---|
-| liability | negative | [neutral]{.amber} --- a balance sheet line item |
-| capital | neutral | [positive]{.amber} --- resources for growth |
-| risk | negative | [neutral]{.amber} --- every investment has risk |
-| outstanding | positive | [neutral]{.amber} --- shares outstanding |
+| Loughran-McDonald dictionary | 50.1% | 1.23 |
+| FinBERT | 72.2% | 2.07 |
+| OPT (GPT-3 family) | [74.4%]{.amber} | [3.05]{.amber} |
 
-Using a general dictionary on financial text produces [systematic errors]{.amber}.
+## News Articles: Fine-Tuned Small Models
 
-## Problem 2: Context Matters
+FinLlama (2024), ICAIF Conference. 204,017 articles for S&P 500 stocks (2015--2021).
 
-**"Despite strong revenue, the company warned about supply chain disruptions"**
+- **Model**: Llama 2 7B fine-tuned with LoRA (4.2M trainable parameters)
+- **Speed**: [daily rebalancing]{.amber} based on sentiment scores
+- Long top 35%, short bottom 35%
+- **Performance**: Sharpe ratio [2.4]{.amber}, annualized return [45%]{.amber}
 
-- Positive words: *strong* → score = +1
-- Negative words: *warned*, *disruptions* → score = $-$2
-- Bag-of-words verdict: [negative]{.amber}
-- Actual meaning: [mixed, leaning negative]{.amber} --- the word *despite* signals that the strength is being [dismissed]{.amber}
+:::{.explainer}
+A fine-tuned 7B model [outperforms FinBERT by 44.7%]{.amber} in cumulative returns --- and runs on a single GPU at a fraction of GPT-4's cost.
+:::
 
-Bag of words can't handle word order, negation ("not profitable" vs. "profitable"), or relative importance (forward guidance outweighs trailing results). We need models that understand [sentences, not just words]{.amber}.
+## Social Media
 
-## The Loughran-McDonald Dictionary
+Cookson, Lu, Mullins & Niessner (2024), "The Social Signal," *Journal of Financial Economics*.
 
-Loughran & McDonald (2011) built word lists [specifically for financial text]{.amber} by reading thousands of 10-K filings.
+- **Sources**: Twitter, StockTwits, and Seeking Alpha
+- **Speed**: social media sentiment predicts [next-day returns]{.amber} (one-to-two-day window)
+- Social media [sentiment]{.amber} predicts positive returns; social media [attention]{.amber} predicts negative returns --- the two signals go in opposite directions
+
+:::{.explainer}
+Informativeness [deteriorated significantly]{.amber} after the Jan 2021 GameStop short squeeze, concentrated among messages by new users. Platform quality matters.
+:::
+
+## Earnings Calls and Financial Statements
 
 :::{.two-cards}
 :::{.card .card-light}
-[**Negative words (2,355)**]{.card-title}
+[Earnings Call Summaries]{.card-title}
 
-- *impairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower*
+Kim, Muhn & Nikolaev (2024), U. Chicago Booth
+
+- GPT summarizes 10-K filings and earnings call transcripts to < 1/5 original length
+- Summary sentiment is [more predictive]{.amber} of stock returns than original-document sentiment
+- Two-day event window around filing date
 :::
 
 :::{.card .card-light}
-[**Positive words (354)**]{.card-title}
+[Financial Statement Analysis]{.card-title}
 
-- *achieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile*
+Kim, Muhn & Nikolaev (2024), U. Chicago Booth
+
+- GPT-4 given only anonymized financial statements
+- Predicts earnings direction with [60% accuracy]{.amber} vs. 53% for human analysts
+- Long-short alpha [> 12% per year]{.amber}
 :::
 :::
-
-Also includes: **uncertainty** (297 words), **litigious** (903 words), **constraining** (184 words), **superfluous** (56 words)
 
 :::{.explainer}
-Notice the asymmetry: [7$\times$ more negative words than positive]{.amber}. Financial disclosures are legally required to discuss risks, so negative language is far more varied.
+These are the slowest strategies --- [days to weeks]{.amber} after filings. But the alpha is large because the analysis is deep, not fast.
 :::
 
-## Try It: FinBERT {.smaller}
+## Multi-Source Agents
 
-[FinBERT]{.amber} (Araci, 2019) is a neural network trained to understand financial sentences --- not just count words.
+MarketSenseAI 2.0 (2025): a GPT-4o multi-agent system that combines news, SEC filings, earnings calls, price data, and macro reports.
+
+- **Speed**: [monthly rebalancing]{.amber} --- the slowest strategy we've seen, but the most comprehensive
+- **Performance (S&P 100, 2023--2024)**: cumulative return [125.9%]{.amber} vs. 73.5% benchmark; Sharpe [2.76]{.amber}
+- **Performance (S&P 500, 2024)**: cumulative return [48.7%]{.amber} vs. 25.6% benchmark; alpha [17.6%]{.amber}
+
+:::{.explainer}
+Monthly rebalancing is the most realistic for practical implementation --- and the returns are still extraordinary.
+:::
+
+## Summary: Source, Speed, and Performance
+
+| **Paper** | **Source** | **Trade Delay** | **Sharpe** |
+|---|---|---|---|
+| Lopez-Lira & Tang (2023) | News headlines | Next-day open | 3.28 |
+| Kirtac & Germano (2024) | News articles | Same-day or next-day | 3.05 |
+| FinLlama (2024) | News articles | Daily | 2.40 |
+| Cookson et al. (2024) | Social media | Next day | --- |
+| Kim et al. (2024) | Earnings calls / 10-Ks | 2-day event window | --- |
+| MarketSenseAI (2025) | Multi-source | Monthly | 2.76 |
+
+:::{.explainer}
+The highest Sharpe ratios require the [fastest execution and highest turnover]{.amber}. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer.
+:::
+
+## Alpha Decay
+
+As more firms adopt LLM-based analysis, alpha from news sentiment [decays faster]{.amber}:
+
+- Lopez-Lira & Tang document the decline: Sharpe [6.5 → 1.2]{.amber} as their sample extends from 2021 to 2024
+- More sophisticated signals (tone analysis, cross-sector propagation, multi-source) retain more alpha
+- The arms race: better NLP → alpha captured → faster decay → need even better NLP
+
+The moat is shifting from [speed of access]{.amber} to [depth of understanding]{.amber}.
+
+## Sentiment Classification Methods {.section-divider}
+
+## Bag of Words
+
+The earliest approach: count words from predefined positive/negative lists.
+
+**"Apple revenue beats estimates, shares surge 5%"** → *beats* (+1), *surge* (+1) → positive ✓
+
+But bag-of-words fails on:
+
+- **Negation**: "did [not]{.amber} report a loss" → counts *loss* as negative ✗
+- **Hedging**: "[despite]{.amber} strong revenue, warned about disruptions" → counts *strong* as positive ✗
+- **Domain language**: *liability*, *outstanding*, *capital* have different meanings in finance
+
+Loughran & McDonald (2011) improved this with finance-specific word lists (2,355 negative, 354 positive words from 10-K filings) --- but the fundamental limitation remains: [words are not sentences]{.amber}.
+
+## How BERT Learns Language
+
+**BERT** (Bidirectional Encoder Representations from Transformers) is trained in two stages:
+
+:::{.two-cards}
+:::{.card .card-light}
+[Stage 1: Pre-Training]{.card-title}
+
+- **Masked language model**: hide 15% of words, predict them from context
+- "The company reported strong `[MASK]`" → *earnings* (not *losses*)
+- Learns grammar, meaning, and relationships from [millions of sentences]{.amber}
+- No human labels needed
+:::
+
+:::{.card .card-dark}
+[Stage 2: Fine-Tuning]{.card-title}
+
+- Add a classification layer on top of the pre-trained model
+- Train on [labeled examples]{.amber}: sentence → positive / negative / neutral
+- Only a few thousand examples needed (Financial PhraseBank: 4,840 sentences)
+- The pre-trained knowledge transfers to the new task
+:::
+:::
+
+:::{.explainer}
+The key insight: BERT reads [both directions]{.amber} simultaneously. "Bank" means something different in "river bank" vs. "bank earnings" --- BERT uses the full context to decide.
+:::
+
+## FinBERT: BERT for Finance
+
+**FinBERT** (Araci, 2019) = BERT pre-trained on financial text, then fine-tuned for 3-class sentiment.
+
+- 110M parameters
+- Fine-tuned on Financial PhraseBank (4,840 labeled sentences)
+- [~87% accuracy]{.amber} on financial sentiment (14 pp above vanilla BERT)
+- Inference: [~5 ms]{.amber} per sentence on GPU
+
+:::{.explainer}
+FinBERT became the [standard baseline]{.amber} for financial NLP. It's fast enough for real-time trading and accurate enough for most headline classification. Open source: `ProsusAI/finbert` on HuggingFace.
+:::
+
+## How LLMs Classify Sentiment
+
+Large language models (GPT-4, Claude, Gemini) classify sentiment with [zero training data]{.amber} --- just a well-crafted prompt:
+
+> *"Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning."*
+
+Why this works:
+
+- Pre-trained on trillions of tokens including financial text
+- Understands nuance: "despite strong revenue, guidance was weak" → [negative]{.amber}
+- Handles sarcasm, hedging, implicit sentiment
+- Can classify sentiment, extract events, and summarize [in a single prompt]{.amber}
+
+The tradeoff: [500 ms -- 5 s per API call]{.amber} vs. 5 ms for FinBERT. For real-time trading, use FinBERT for high-confidence cases and route low-confidence cases to an LLM.
+
+## Try It: FinBERT {.smaller}
 
 ```{python}
 #| output-location: fragment
@@ -123,468 +252,21 @@ for headline, scores in zip(headlines, results):
 
 ## Try It Yourself
 
-Compare bag of words, Loughran-McDonald, and FinBERT on a variety of sentences --- including negation, hedging, and finance-specific language.
+Compare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences --- including negation, hedging, and finance-specific language.
 
 <a href="https://colab.research.google.com/github/kerryback/mgmt675/blob/main/files/sentiment.ipynb" target="_blank" style="display: inline-block; margin-top: 0.5em; padding: 0.5em 1.2em; background: #f59e0b; color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.9em; text-decoration: none;">Open in Google Colab →</a>
-
-## Comparing the Three Approaches
-
-| **Headline** | **Bag of Words** | **L-M Dictionary** | **FinBERT** |
-|---|---|---|---|
-| "Apple revenue beats estimates" | positive ✓ | positive ✓ | positive ✓ |
-| "Despite strong revenue, warned about disruptions" | negative | neutral | [negative ✓]{.amber} |
-| "The company did not report a loss" | negative ✗ | negative ✗ | [positive ✓]{.amber} |
-| "Shares fell less than feared" | very negative ✗ | negative ✗ | [neutral/positive ✓]{.amber} |
-| "Revenue growth was strong but guidance was cautious" | neutral | neutral | [negative ✓]{.amber} |
-
-:::{.explainer}
-Simple headlines are easy for everyone. The harder cases --- negation, hedging, contrast --- are where [contextual models]{.amber} earn their keep.
-:::
-
-## The Evolution of Text-Based Trading
-
-| **Era** | **Method** | **Capability** |
-|---------|-----------|---------------|
-| Pre-2010 | Keyword matching | Count positive/negative words |
-| 2011 | Loughran-McDonald dictionary | Finance-specific word lists |
-| 2018--19 | BERT / FinBERT | Contextual understanding of sentences |
-| 2023 | GPT-3.5 / GPT-4 | Zero-shot reasoning about market impact |
-| 2024--26 | Fine-tuned SLMs + agents | Domain-optimized, multi-step analysis |
-
-## The Models {.section-divider}
-
-## FinBERT: The First Financial Sentiment Model
-
-**FinBERT** (Araci, 2019) = BERT pre-trained on financial text and fine-tuned for 3-class sentiment (positive / negative / neutral).
-
-:::{.two-cards}
-:::{.card .card-light}
-[Architecture]{.card-title}
-
-- 110M parameters (BERT-base)
-- Fine-tuned on Financial PhraseBank (4,840 labeled sentences)
-- Open source: `ProsusAI/finbert` on HuggingFace
-:::
-
-:::{.card .card-light}
-[Performance]{.card-title}
-
-- ~87% accuracy on Financial PhraseBank
-- 14 pp improvement over vanilla BERT
-- Became the standard baseline for financial NLP
-:::
-:::
-
-## BloombergGPT and FinGPT
-
-:::{.two-cards}
-:::{.card .card-light}
-[BloombergGPT (2023)]{.card-title}
-
-- 50B parameters; ~$10M training cost
-- Trained on Bloomberg's FinPile (363B tokens) + 345B tokens of general text
-- [Proprietary]{.amber} --- weights not released
-:::
-
-:::{.card .card-light}
-[FinGPT (2023)]{.card-title}
-
-- Open-source (AI4Finance Foundation)
-- Fine-tunes Llama, Falcon, etc. with LoRA
-- Training cost: [under $300]{.amber}
-:::
-:::
-
-:::{style="text-align:center;"}
-[BloombergGPT proved the concept; FinGPT democratized it.]{.amber}
-:::
-
-## GPT-4 and General-Purpose LLMs
-
-General-purpose LLMs can classify financial sentiment [with zero training data]{.amber} --- just a well-crafted prompt.
-
-:::{.two-cards}
-:::{.card .card-light}
-[Strengths]{.card-title}
-
-- Understands: "despite strong revenue, guidance was weak" → [negative]{.amber}
-- Handles sarcasm, hedging, implicit sentiment
-- Sentiment + event classification + summarization in one model
-:::
-
-:::{.card .card-light}
-[Weaknesses]{.card-title}
-
-- Latency: 500ms--5s per API call
-- Cost: $2.50--10/M input tokens (varies by model)
-- Data leaves your infrastructure
-:::
-:::
-
-## Small Language Models
-
-**Small language models** (1--10B parameters) trained or fine-tuned for finance:
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Advantages**]{.card-title}
-
-- [Privacy]{.amber}: data never leaves your infrastructure
-- [Speed]{.amber}: 5--10ms inference on a single GPU
-- [Cost]{.amber}: one-time fine-tuning, then free inference
-- [Specialization]{.amber}: tuned for exactly your task
-:::
-
-:::{.card .card-light}
-[**Examples**]{.card-title}
-
-- **FinBERT**: 110M params, sentiment classification
-- **FinLlama**: Llama 7B + LoRA, trading signals
-- **FinGPT**: open-source, multiple base models
-- Custom BERT models trained on internal data
-:::
-:::
-
-Why this matters for trading: [FinBERT processes headlines in milliseconds; GPT-4 takes seconds.]{.amber}
-
-## What the Research Shows {.section-divider}
-
-## Can ChatGPT Forecast Stock Prices?
-
-Lopez-Lira & Tang (2023). Accepted at the *Journal of Finance*.
-
-- 67,586 headlines for 4,138 companies (Oct 2021--Dec 2022)
-- Long-short strategies: overnight [Sharpe ratio 2.97]{.amber}, intraday [Sharpe ratio 2.63]{.amber}
-- Forecasting ability [increases with model size]{.amber} --- financial reasoning is an "emerging capability" of larger LLMs
-
-## LLMs vs. Traditional Sentiment Analysis
-
-Kirtac & Germano (2024), *Finance Research Letters*. 965,375 U.S. financial news articles.
-
-| **Method** | **Sentiment Accuracy** | **Long-Short Sharpe** |
-|-----------|----------------------|---------------------|
-| Loughran-McDonald dictionary | 50.1% | 1.23 |
-| FinBERT | 72.2% | 2.07 |
-| OPT (GPT-3 family) | [74.4%]{.amber} | [3.05]{.amber} |
-
-Traditional bag-of-words methods are now [effectively obsolete]{.amber} for this task.
-
-## More Key Results
-
-:::{.two-cards}
-:::{.card .card-light}
-[GPT-4 vs. Human Analysts]{.card-title}
-
-- Kim, Muhn & Nikolaev (2024), Chicago Booth
-- GPT-4 given only anonymized financial statements
-- [Outperforms the median human analyst]{.amber} at predicting earnings direction
-:::
-
-:::{.card .card-light}
-[Fine-Tuned Small Models]{.card-title}
-
-- FinLlama (2024, Imperial College)
-- Llama 2 7B fine-tuned with LoRA (4.2M trainable params)
-- Outperforms FinBERT by [44.7%]{.amber} in cumulative returns
-:::
-:::
-
-## Multi-Agent Trading Systems
-
-**MarketSenseAI 2.0** (2025): GPT-4 + RAG multi-agent system.
-
-- [125.9% cumulative returns]{.amber} vs. 73.5% for S&P 100
-
-## How It Works: Implementation {.section-divider}
-
-## The News Trading Pipeline
-
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  A["<b>Data<br>Ingestion</b>"] --> B["<b>Entity<br>Resolution</b>"]
-  B --> C["<b>Sentiment<br>Extraction</b>"]
-  C --> D["<b>Signal<br>Construction</b>"]
-  D --> E["<b>Trade<br>Execution</b>"]
-
-  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-```
-
-:::{.two-col}
-::::{.column}
-- **Data ingestion**: Reuters, Bloomberg, SEC filings
-- **Entity resolution**: "Apple" → AAPL
-- **Sentiment extraction**: The LLM's core job
-::::
-
-::::{.column}
-- **Signal construction**: Aggregate, weight, normalize
-- **Trade execution**: Route orders
-- [The LLM replaces steps 2 and 3]{.amber}
-::::
-:::
-
-## What the LLM Extracts
-
-Sentiment is more than positive/negative. A production system classifies along multiple dimensions:
-
-| **Dimension** | **Question** | **Example** |
-|-------------|------------|-----------|
-| Polarity | Positive, negative, or neutral? | "Revenue beat estimates" → positive |
-| Magnitude | How strong? | "Slight miss" vs. "catastrophic failure" |
-| Relevance | Is this market-moving? | Routine board meeting → low |
-
-:::{style="text-align:center;"}
-[LLMs handle all dimensions in a single prompt; traditional methods handle only polarity.]{.amber}
-:::
-
-## The Cascade Architecture {.shrink}
-
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
-flowchart LR
-  A["<b>All Headlines</b>"] --> B["<b>FinBERT</b><br><i>~5ms</i>"]
-  B -->|"high conf."| C["<b>Immediate Signal</b>"]
-  B -->|"low conf."| D["<b>GPT-4</b><br><i>~1-5s</i>"]
-  D --> E["<b>Enhanced Signal</b>"]
-
-  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-```
-
-:::{.two-cards}
-:::{.card .card-light}
-[Fine-Tuned Small Model]{.card-title}
-
-- FinBERT, FinLlama, custom BERT
-- Inference: [5--10ms]{.amber} on GPU
-- Deterministic; runs on your infra
-:::
-
-:::{.card .card-light}
-[General-Purpose LLM]{.card-title}
-
-- GPT-4, Claude, Gemini
-- Inference: [500ms--5s]{.amber} via API
-- Zero labeled data needed
-:::
-:::
-
-**Best Practice**: Fast path (~5ms) for high-confidence; slow path (~1--5s) for low-confidence; batch reprocessing end-of-day.
-
-## Latency and Alpha Decay
-
-**Alpha decay** = the rate at which a signal's profitability diminishes as the market incorporates the information.
-
-| **Strategy** | **Latency Budget** | **Model** |
-|-------------|-------------------|---------|
-| HFT / market making | <1ms | Keyword lookup |
-| Low-latency systematic | 1--100ms | FinBERT |
-| Event-driven | 100ms--5s | FinBERT + LLM |
-| Daily systematic | Minutes--hours | Full LLM pipeline |
-| Fundamental | Hours--days | Deep LLM analysis |
-
-You don't need to be the fastest --- you need to be [fast enough for the alpha you're targeting]{.amber}.
-
-## Event-Driven Strategies {.section-divider}
-
-## Types of News Events
-
-:::{.two-cards}
-:::{.card .card-light}
-[Scheduled Events]{.card-title}
-
-- **Earnings**: Compare actuals to consensus; analyze management tone
-- **Fed / central bank**: Single word changes carry enormous implications
-- **Economic data**: CPI, jobs reports, PMI
-:::
-
-:::{.card .card-light}
-[Unscheduled Events]{.card-title}
-
-- **M&A**: Assess deal likelihood and regulatory risk
-- **FDA decisions**: Binary, high-impact
-- **Geopolitical**: Sanctions, trade policy, elections
-:::
-:::
-
-[The tone of an earnings call often matters more for returns than the reported numbers.]{.amber}
-
-## Earnings Call Analysis
-
-**The Prompt**
-
-"Rate management's tone from $-$5 (very bearish) to +5 (very bullish). Explain your reasoning. Identify forward-looking statements that differ from consensus."
-
-- The LLM processes the entire transcript (8,000--15,000 tokens)
-- Detects hedging: "We're *pleased* with results but *expect headwinds* in Q4" → net negative
-- Traditional keyword methods would flag "pleased" as positive
-
-:::{style="text-align:center;"}
-[This is where LLMs provide the greatest edge over traditional NLP.]{.amber}
-:::
-
-## Beyond Company Sentiment: Geopolitical Risk {.section-divider}
-
-## The Propagation Problem {.shrink}
-
-Most LLM trading research focuses on [company-level]{.amber} sentiment. The real competitive advantage: understanding how [macro events propagate across sectors]{.amber}.
-
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  A["<b>Conflict</b>"] --> B["<b>Oil<br>prices ↑</b>"]
-  B --> C["<b>Energy<br>stocks ↑</b>"]
-  B --> D["<b>Fertilizer<br>costs ↑</b>"]
-  D --> E["<b>Food<br>prices ↑</b>"]
-  E --> F["<b>Staples<br>margins ↓</b>"]
-
-  style A fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style F fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-```
-
-- "Russia invades Ukraine" --- which sectors benefit? Which suffer?
-- Multi-hop causal reasoning:
-  - **1st order**: Oil prices rise → energy stocks up
-  - **2nd order**: Fertilizer costs rise → agriculture costs up
-  - **3rd order**: Food prices rise → consumer staples margins squeezed
-
-## Measuring Geopolitical Risk
-
-:::{.two-cards}
-:::{.card .card-light}
-[Caldara-Iacoviello GPR Index]{.card-title}
-
-- Published in *AER* (2022)
-- Counts articles in 10 newspapers across 8 categories
-- Available for 44 countries since 1900
-:::
-
-:::{.card .card-light}
-[BlackRock BGRI]{.card-title}
-
-- Neural network NLP on brokerage reports + news
-- For each risk, identifies the [3 most sensitive assets]{.amber}
-- The industry gold standard
-:::
-:::
-
-## Knowledge Graphs: Mapping Shock Propagation
-
-A **knowledge graph** maps entities (firms, sectors, commodities) and their relationships. Combined with an LLM, it enables multi-hop reasoning about how shocks propagate.
-
-:::{.two-cards}
-:::{.card .card-light}
-[FinDKG (Li et al., 2024)]{.card-title}
-
-- Fine-tuned LLM builds a [dynamic]{.amber} knowledge graph from financial news
-- Outperforms thematic ETFs at identifying sector themes
-- Open source
-:::
-
-:::{.card .card-light}
-[Supply Chain Mapping]{.card-title}
-
-- LLMs extract multi-tier supplier networks from text
-- Map 3,000+ firms and 11,000+ supply links
-- Predict how disruptions cascade through supply chains
-:::
-:::
-
-## Industry Adoption and Risks {.section-divider}
-
-## Who Is Doing This?
-
-:::{.two-cards}
-:::{.card .card-light}
-[Hedge Funds]{.card-title}
-
-- **Bridgewater**: $2B AI fund using OpenAI, Anthropic, Perplexity
-- **Two Sigma**: NLP for 10+ years
-- **Numerai**: Crowdsourced AI fund, $550M AUM
-:::
-
-:::{.card .card-light}
-[Platforms]{.card-title}
-
-- **Bloomberg**: BloombergGPT, terminal-integrated NLP
-- **RavenPack**: Structured sentiment signals
-- **Kensho**: Acquired by S&P Global for $550M
-:::
-:::
-
-**Permutable AI**: LLM-based trading live Oct 2024 --- [20.6% return, Sharpe ratio 2.85]{.amber}.
-
-## Cautionary Tales
-
-| **Event** | **What Happened** | **Impact** |
-|----------|------------------|----------|
-| AP Twitter Hack (2013) | Fake "White House explosions" tweet | S&P 500 lost $136B in seconds |
-| Alpha Arena | ChatGPT trading competition | 63% loss |
-| IMF Warning | AI trading increases volatility | Regulatory scrutiny |
-
-:::{style="text-align:center;"}
-[The competitive edge is real, but so are the risks.]{.amber}
-:::
-
-## The Crowding Problem
-
-As more firms adopt the same LLM-based analysis, alpha from news sentiment decays faster.
-
-- Lopez-Lira & Tang document declining returns as LLM adoption rises --- consistent with the Efficient Market Hypothesis
-- More sophisticated signals (tone analysis, cross-sector propagation) retain more alpha
-- The arms race: better NLP → alpha captured → faster decay → need even better NLP
-
-The moat is shifting from [speed of access]{.amber} to [depth of understanding]{.amber}.
-
-## Summary
-
-:::{.two-cards}
-:::{.card .card-light}
-[What We Know]{.card-title}
-
-- LLMs dramatically outperform dictionaries (50% → 74% accuracy)
-- GPT-4 can match or beat human analysts
-- Fine-tuned small models compete at a fraction of cost
-:::
-
-:::{.card .card-light}
-[What to Watch]{.card-title}
-
-- Alpha decay as adoption increases
-- Adversarial attacks and manipulation
-- Crowding risk: correlated AI trades → systemic instability
-:::
-:::
-
-:::{style="text-align:center; margin-top:0.5em;"}
-[The value of LLMs in trading is not just speed --- it is depth of understanding.]{.amber}
-:::
 
 ## Key References
 
 :::{style="font-size:0.7em;"}
 - Lopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? *Journal of Finance*.
 - Kirtac & Germano (2024). Sentiment Trading with Large Language Models. *Finance Research Letters*.
+- Cookson, Lu, Mullins & Niessner (2024). The Social Signal. *Journal of Financial Economics*.
+- Kim, Muhn & Nikolaev (2024). Bloated Disclosures: Can ChatGPT Help Investors Process Information?
 - Kim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.
+- Fatouros, Metaxas, Soldatos & Kyriazis (2025). MarketSenseAI 2.0.
+- Gupta, Raghunath, Buddaraju, Krishnasamy & Mitra (2024). FinLlama. ICAIF '24.
 - Araci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.
-- Wu et al. (2023). BloombergGPT: A Large Language Model for Finance.
-- Yang et al. (2023). FinGPT: Open-Source Financial Large Language Models.
-- FinLlama (2024). Financial Sentiment Analysis for Algorithmic Trading. ICAIF '24.
-- Caldara & Iacoviello (2022). Measuring Geopolitical Risk. *AER*, 112(4).
-- Li et al. (2024). FinDKG: Dynamic Knowledge Graphs with LLMs. ICAIF '24.
+- Loughran & McDonald (2011). When Is a Liability Not a Liability? *Journal of Finance*.
+- Chen, Kelly & Xiu (2023). Expected Returns and Large Language Models. NBER Working Paper 31502.
 :::

@@ -192,9 +192,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
   
   <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -217,122 +214,314 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="why-news-moves-markets" class="slide level2 center">
-<h2>Why News Moves Markets</h2>
-<p>Asset prices reflect expectations. News changes expectations. The trader who <span class="amber">understands news faster and more accurately</span> captures the profit.</p>
-<ul>
-<li>Earnings surprises, Fed announcements, M&amp;A rumors, FDA decisions, geopolitical shocks</li>
-<li>Quantitative firms began automating this with simple keyword rules in the 2000s</li>
-<li><span class="amber">LLMs now understand nuance, context, and implication</span> — a qualitative leap</li>
-</ul>
+<section id="trading-on-sentiment" class="slide level2 section-divider center">
+<h2>Trading on Sentiment</h2>
 </section>
-<section id="a-simple-idea-count-positive-and-negative-words" class="slide level2 center">
-<h2>A Simple Idea: Count Positive and Negative Words</h2>
-<p>The earliest approach — <span class="amber">bag of words</span> — just counts words from predefined lists:</p>
+<section id="sentiment-of-what" class="slide level2 center">
+<h2>Sentiment of What?</h2>
+<p>Traders extract sentiment from many text sources. Each differs in <span class="amber">volume, speed, and signal quality</span>:</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Positive words</strong></th>
-<th><strong>Negative words</strong></th>
+<th><strong>Source</strong></th>
+<th><strong>Volume</strong></th>
+<th><strong>Speed</strong></th>
+<th><strong>Signal</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>good, strong, growth, profit, beat, surge, upgrade</td>
-<td>bad, weak, loss, decline, miss, plunge, downgrade</td>
+<td>News headlines</td>
+<td>High</td>
+<td>Seconds–minutes</td>
+<td>Strong, well-studied</td>
+</tr>
+<tr class="even">
+<td>Full news articles</td>
+<td>High</td>
+<td>Minutes–hours</td>
+<td>Richer context</td>
+</tr>
+<tr class="odd">
+<td>Social media (Twitter, StockTwits)</td>
+<td>Very high</td>
+<td>Real-time</td>
+<td>Noisy but fast</td>
+</tr>
+<tr class="even">
+<td>Earnings call transcripts</td>
+<td>Low (quarterly)</td>
+<td>Hours–days</td>
+<td>High quality</td>
+</tr>
+<tr class="odd">
+<td>Financial statements (10-K, 10-Q)</td>
+<td>Low (quarterly)</td>
+<td>Days–weeks</td>
+<td>Deep fundamentals</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Headline:</strong> “Apple revenue beats estimates, shares surge 5%”</p>
-<ul>
-<li>Positive words: <em>beats</em>, <em>surge</em> → score = +2</li>
-<li>Negative words: none → score = 0</li>
-<li>Verdict: <span class="amber">positive</span> ✓</li>
-</ul>
-<p>This works for simple cases. But …</p>
+<p>The academic evidence now covers all of these.</p>
 </section>
-<section id="problem-1-words-mean-different-things-in-finance" class="slide level2 center">
-<h2>Problem 1: Words Mean Different Things in Finance</h2>
-<p>A general-purpose word list treats these words as negative:</p>
+<section id="news-headlines" class="slide level2 center">
+<h2>News Headlines</h2>
+<p>Lopez-Lira &amp; Tang (2023), accepted at the <em>Journal of Finance</em>.</p>
+<ul>
+<li>GPT-3.5 / GPT-4 classify 67,586 headlines for 4,123 stocks (Oct 2021–Dec 2023)</li>
+<li><strong>Speed</strong>: overnight news → trade at <span class="amber">next-day market open</span>, exit at close (single-day hold)</li>
+<li><strong>Performance</strong>: GPT-4 long-short <span class="amber">Sharpe ratio 3.28</span></li>
+</ul>
+<div class="explainer">
+<p>Forecasting ability <span class="amber">increases with model size</span>: GPT-4 &gt;&gt; GPT-3.5 &gt;&gt; GPT-3 — financial reasoning is an “emerging capability” of larger LLMs. But the Sharpe ratio <span class="amber">declined from 6.5 to 1.2</span> as the sample extended from 2021 to 2024, consistent with more traders adopting the same approach.</p>
+</div>
+</section>
+<section id="news-articles" class="slide level2 center">
+<h2>News Articles</h2>
+<p>Kirtac &amp; Germano (2024), <em>Finance Research Letters</em>. 965,375 U.S. financial news articles (2010–2023).</p>
+<ul>
+<li><strong>Speed</strong>: news before 6 AM → trade at <span class="amber">same-day open</span>; news 6 AM–4 PM → trade at <span class="amber">same-day close</span>; news after 4 PM → trade at <span class="amber">next-day open</span></li>
+<li>Long top 20% sentiment, short bottom 20%, daily rebalanced</li>
+</ul>
 <table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
-<th><strong>Word</strong></th>
-<th><strong>General meaning</strong></th>
-<th><strong>Financial meaning</strong></th>
+<th><strong>Method</strong></th>
+<th><strong>Accuracy</strong></th>
+<th><strong>Long-Short Sharpe</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>liability</td>
-<td>negative</td>
-<td><span class="amber">neutral</span> — a balance sheet line item</td>
+<td>Loughran-McDonald dictionary</td>
+<td>50.1%</td>
+<td>1.23</td>
 </tr>
 <tr class="even">
-<td>capital</td>
-<td>neutral</td>
-<td><span class="amber">positive</span> — resources for growth</td>
+<td>FinBERT</td>
+<td>72.2%</td>
+<td>2.07</td>
 </tr>
 <tr class="odd">
-<td>risk</td>
-<td>negative</td>
-<td><span class="amber">neutral</span> — every investment has risk</td>
-</tr>
-<tr class="even">
-<td>outstanding</td>
-<td>positive</td>
-<td><span class="amber">neutral</span> — shares outstanding</td>
+<td>OPT (GPT-3 family)</td>
+<td><span class="amber">74.4%</span></td>
+<td><span class="amber">3.05</span></td>
 </tr>
 </tbody>
 </table>
-<p>Using a general dictionary on financial text produces <span class="amber">systematic errors</span>.</p>
 </section>
-<section id="problem-2-context-matters" class="slide level2 center">
-<h2>Problem 2: Context Matters</h2>
-<p><strong>“Despite strong revenue, the company warned about supply chain disruptions”</strong></p>
+<section id="news-articles-fine-tuned-small-models" class="slide level2 center">
+<h2>News Articles: Fine-Tuned Small Models</h2>
+<p>FinLlama (2024), ICAIF Conference. 204,017 articles for S&amp;P 500 stocks (2015–2021).</p>
 <ul>
-<li>Positive words: <em>strong</em> → score = +1</li>
-<li>Negative words: <em>warned</em>, <em>disruptions</em> → score = $-$2</li>
-<li>Bag-of-words verdict: <span class="amber">negative</span></li>
-<li>Actual meaning: <span class="amber">mixed, leaning negative</span> — the word <em>despite</em> signals that the strength is being <span class="amber">dismissed</span></li>
+<li><strong>Model</strong>: Llama 2 7B fine-tuned with LoRA (4.2M trainable parameters)</li>
+<li><strong>Speed</strong>: <span class="amber">daily rebalancing</span> based on sentiment scores</li>
+<li>Long top 35%, short bottom 35%</li>
+<li><strong>Performance</strong>: Sharpe ratio <span class="amber">2.4</span>, annualized return <span class="amber">45%</span></li>
 </ul>
-<p>Bag of words can’t handle word order, negation (“not profitable” vs.&nbsp;“profitable”), or relative importance (forward guidance outweighs trailing results). We need models that understand <span class="amber">sentences, not just words</span>.</p>
+<div class="explainer">
+<p>A fine-tuned 7B model <span class="amber">outperforms FinBERT by 44.7%</span> in cumulative returns — and runs on a single GPU at a fraction of GPT-4’s cost.</p>
+</div>
 </section>
-<section id="the-loughran-mcdonald-dictionary" class="slide level2 center">
-<h2>The Loughran-McDonald Dictionary</h2>
-<p>Loughran &amp; McDonald (2011) built word lists <span class="amber">specifically for financial text</span> by reading thousands of 10-K filings.</p>
+<section id="social-media" class="slide level2 center">
+<h2>Social Media</h2>
+<p>Cookson, Lu, Mullins &amp; Niessner (2024), “The Social Signal,” <em>Journal of Financial Economics</em>.</p>
+<ul>
+<li><strong>Sources</strong>: Twitter, StockTwits, and Seeking Alpha</li>
+<li><strong>Speed</strong>: social media sentiment predicts <span class="amber">next-day returns</span> (one-to-two-day window)</li>
+<li>Social media <span class="amber">sentiment</span> predicts positive returns; social media <span class="amber">attention</span> predicts negative returns — the two signals go in opposite directions</li>
+</ul>
+<div class="explainer">
+<p>Informativeness <span class="amber">deteriorated significantly</span> after the Jan 2021 GameStop short squeeze, concentrated among messages by new users. Platform quality matters.</p>
+</div>
+</section>
+<section id="earnings-calls-and-financial-statements" class="slide level2 center">
+<h2>Earnings Calls and Financial Statements</h2>
 <div class="two-cards">
 <div class="card card-light">
-<p><span class="card-title"><strong>Negative words (2,355)</strong></span></p>
+<p><span class="card-title">Earnings Call Summaries</span></p>
+<p>Kim, Muhn &amp; Nikolaev (2024), U. Chicago Booth</p>
 <ul>
-<li><em>impairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower</em></li>
+<li>GPT summarizes 10-K filings and earnings call transcripts to &lt; 1/5 original length</li>
+<li>Summary sentiment is <span class="amber">more predictive</span> of stock returns than original-document sentiment</li>
+<li>Two-day event window around filing date</li>
 </ul>
 </div>
 <div class="card card-light">
-<p><span class="card-title"><strong>Positive words (354)</strong></span></p>
+<p><span class="card-title">Financial Statement Analysis</span></p>
+<p>Kim, Muhn &amp; Nikolaev (2024), U. Chicago Booth</p>
 <ul>
-<li><em>achieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile</em></li>
+<li>GPT-4 given only anonymized financial statements</li>
+<li>Predicts earnings direction with <span class="amber">60% accuracy</span> vs.&nbsp;53% for human analysts</li>
+<li>Long-short alpha <span class="amber">&gt; 12% per year</span></li>
 </ul>
 </div>
 </div>
-<p>Also includes: <strong>uncertainty</strong> (297 words), <strong>litigious</strong> (903 words), <strong>constraining</strong> (184 words), <strong>superfluous</strong> (56 words)</p>
 <div class="explainer">
-<p>Notice the asymmetry: <span class="amber">7<span class="math inline">\(\times\)</span> more negative words than positive</span>. Financial disclosures are legally required to discuss risks, so negative language is far more varied.</p>
+<p>These are the slowest strategies — <span class="amber">days to weeks</span> after filings. But the alpha is large because the analysis is deep, not fast.</p>
 </div>
+</section>
+<section id="multi-source-agents" class="slide level2 center">
+<h2>Multi-Source Agents</h2>
+<p>MarketSenseAI 2.0 (2025): a GPT-4o multi-agent system that combines news, SEC filings, earnings calls, price data, and macro reports.</p>
+<ul>
+<li><strong>Speed</strong>: <span class="amber">monthly rebalancing</span> — the slowest strategy we’ve seen, but the most comprehensive</li>
+<li><strong>Performance (S&amp;P 100, 2023–2024)</strong>: cumulative return <span class="amber">125.9%</span> vs.&nbsp;73.5% benchmark; Sharpe <span class="amber">2.76</span></li>
+<li><strong>Performance (S&amp;P 500, 2024)</strong>: cumulative return <span class="amber">48.7%</span> vs.&nbsp;25.6% benchmark; alpha <span class="amber">17.6%</span></li>
+</ul>
+<div class="explainer">
+<p>Monthly rebalancing is the most realistic for practical implementation — and the returns are still extraordinary.</p>
+</div>
+</section>
+<section id="summary-source-speed-and-performance" class="slide level2 center">
+<h2>Summary: Source, Speed, and Performance</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Paper</strong></th>
+<th><strong>Source</strong></th>
+<th><strong>Trade Delay</strong></th>
+<th><strong>Sharpe</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lopez-Lira &amp; Tang (2023)</td>
+<td>News headlines</td>
+<td>Next-day open</td>
+<td>3.28</td>
+</tr>
+<tr class="even">
+<td>Kirtac &amp; Germano (2024)</td>
+<td>News articles</td>
+<td>Same-day or next-day</td>
+<td>3.05</td>
+</tr>
+<tr class="odd">
+<td>FinLlama (2024)</td>
+<td>News articles</td>
+<td>Daily</td>
+<td>2.40</td>
+</tr>
+<tr class="even">
+<td>Cookson et al.&nbsp;(2024)</td>
+<td>Social media</td>
+<td>Next day</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Kim et al.&nbsp;(2024)</td>
+<td>Earnings calls / 10-Ks</td>
+<td>2-day event window</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>MarketSenseAI (2025)</td>
+<td>Multi-source</td>
+<td>Monthly</td>
+<td>2.76</td>
+</tr>
+</tbody>
+</table>
+<div class="explainer">
+<p>The highest Sharpe ratios require the <span class="amber">fastest execution and highest turnover</span>. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer.</p>
+</div>
+</section>
+<section id="alpha-decay" class="slide level2 center">
+<h2>Alpha Decay</h2>
+<p>As more firms adopt LLM-based analysis, alpha from news sentiment <span class="amber">decays faster</span>:</p>
+<ul>
+<li>Lopez-Lira &amp; Tang document the decline: Sharpe <span class="amber">6.5 → 1.2</span> as their sample extends from 2021 to 2024</li>
+<li>More sophisticated signals (tone analysis, cross-sector propagation, multi-source) retain more alpha</li>
+<li>The arms race: better NLP → alpha captured → faster decay → need even better NLP</li>
+</ul>
+<p>The moat is shifting from <span class="amber">speed of access</span> to <span class="amber">depth of understanding</span>.</p>
+</section>
+<section id="sentiment-classification-methods" class="slide level2 section-divider center">
+<h2>Sentiment Classification Methods</h2>
+</section>
+<section id="bag-of-words" class="slide level2 center">
+<h2>Bag of Words</h2>
+<p>The earliest approach: count words from predefined positive/negative lists.</p>
+<p><strong>“Apple revenue beats estimates, shares surge 5%”</strong> → <em>beats</em> (+1), <em>surge</em> (+1) → positive ✓</p>
+<p>But bag-of-words fails on:</p>
+<ul>
+<li><strong>Negation</strong>: “did <span class="amber">not</span> report a loss” → counts <em>loss</em> as negative ✗</li>
+<li><strong>Hedging</strong>: “<span class="amber">despite</span> strong revenue, warned about disruptions” → counts <em>strong</em> as positive ✗</li>
+<li><strong>Domain language</strong>: <em>liability</em>, <em>outstanding</em>, <em>capital</em> have different meanings in finance</li>
+</ul>
+<p>Loughran &amp; McDonald (2011) improved this with finance-specific word lists (2,355 negative, 354 positive words from 10-K filings) — but the fundamental limitation remains: <span class="amber">words are not sentences</span>.</p>
+</section>
+<section id="how-bert-learns-language" class="slide level2 center">
+<h2>How BERT Learns Language</h2>
+<p><strong>BERT</strong> (Bidirectional Encoder Representations from Transformers) is trained in two stages:</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title">Stage 1: Pre-Training</span></p>
+<ul>
+<li><strong>Masked language model</strong>: hide 15% of words, predict them from context</li>
+<li>“The company reported strong <code>[MASK]</code>” → <em>earnings</em> (not <em>losses</em>)</li>
+<li>Learns grammar, meaning, and relationships from <span class="amber">millions of sentences</span></li>
+<li>No human labels needed</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title">Stage 2: Fine-Tuning</span></p>
+<ul>
+<li>Add a classification layer on top of the pre-trained model</li>
+<li>Train on <span class="amber">labeled examples</span>: sentence → positive / negative / neutral</li>
+<li>Only a few thousand examples needed (Financial PhraseBank: 4,840 sentences)</li>
+<li>The pre-trained knowledge transfers to the new task</li>
+</ul>
+</div>
+</div>
+<div class="explainer">
+<p>The key insight: BERT reads <span class="amber">both directions</span> simultaneously. “Bank” means something different in “river bank” vs.&nbsp;“bank earnings” — BERT uses the full context to decide.</p>
+</div>
+</section>
+<section id="finbert-bert-for-finance" class="slide level2 center">
+<h2>FinBERT: BERT for Finance</h2>
+<p><strong>FinBERT</strong> (Araci, 2019) = BERT pre-trained on financial text, then fine-tuned for 3-class sentiment.</p>
+<ul>
+<li>110M parameters</li>
+<li>Fine-tuned on Financial PhraseBank (4,840 labeled sentences)</li>
+<li><span class="amber">~87% accuracy</span> on financial sentiment (14 pp above vanilla BERT)</li>
+<li>Inference: <span class="amber">~5 ms</span> per sentence on GPU</li>
+</ul>
+<div class="explainer">
+<p>FinBERT became the <span class="amber">standard baseline</span> for financial NLP. It’s fast enough for real-time trading and accurate enough for most headline classification. Open source: <code>ProsusAI/finbert</code> on HuggingFace.</p>
+</div>
+</section>
+<section id="how-llms-classify-sentiment" class="slide level2 center">
+<h2>How LLMs Classify Sentiment</h2>
+<p>Large language models (GPT-4, Claude, Gemini) classify sentiment with <span class="amber">zero training data</span> — just a well-crafted prompt:</p>
+<blockquote>
+<p><em>“Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning.”</em></p>
+</blockquote>
+<p>Why this works:</p>
+<ul>
+<li>Pre-trained on trillions of tokens including financial text</li>
+<li>Understands nuance: “despite strong revenue, guidance was weak” → <span class="amber">negative</span></li>
+<li>Handles sarcasm, hedging, implicit sentiment</li>
+<li>Can classify sentiment, extract events, and summarize <span class="amber">in a single prompt</span></li>
+</ul>
+<p>The tradeoff: <span class="amber">500 ms – 5 s per API call</span> vs.&nbsp;5 ms for FinBERT. For real-time trading, use FinBERT for high-confidence cases and route low-confidence cases to an LLM.</p>
 </section>
 <section id="try-it-finbert" class="slide level2 smaller center">
 <h2>Try It: FinBERT</h2>
-<p><span class="amber">FinBERT</span> (Araci, 2019) is a neural network trained to understand financial sentences — not just count words.</p>
-<div id="269e74bf" class="cell" data-execution_count="1">
+<div id="0c8ac95d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> warnings</span>
 <span id="cb1-2"><a></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
 <span id="cb1-3"><a></a><span class="im">import</span> logging</span>
@@ -357,7 +546,7 @@ Kerry Back, Rice University
 <div class="cell fragment" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"61a4e087b2744168a0737295a178e7b9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"69fe3b71e41a47ea9fc2fe4f43f00f63","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -370,696 +559,8 @@ negative (97%)  Shares fell less than feared after earnings miss</code></pre>
 </section>
 <section id="try-it-yourself" class="slide level2 center">
 <h2>Try It Yourself</h2>
-<p>Compare bag of words, Loughran-McDonald, and FinBERT on a variety of sentences — including negation, hedging, and finance-specific language.</p>
+<p>Compare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences — including negation, hedging, and finance-specific language.</p>
 <p><a href="https://colab.research.google.com/github/kerryback/mgmt675/blob/main/files/sentiment.ipynb" target="_blank" style="display: inline-block; margin-top: 0.5em; padding: 0.5em 1.2em; background: #f59e0b; color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.9em; text-decoration: none;">Open in Google Colab →</a></p>
-</section>
-<section id="comparing-the-three-approaches" class="slide level2 center">
-<h2>Comparing the Three Approaches</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Headline</strong></th>
-<th><strong>Bag of Words</strong></th>
-<th><strong>L-M Dictionary</strong></th>
-<th><strong>FinBERT</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>“Apple revenue beats estimates”</td>
-<td>positive ✓</td>
-<td>positive ✓</td>
-<td>positive ✓</td>
-</tr>
-<tr class="even">
-<td>“Despite strong revenue, warned about disruptions”</td>
-<td>negative</td>
-<td>neutral</td>
-<td><span class="amber">negative ✓</span></td>
-</tr>
-<tr class="odd">
-<td>“The company did not report a loss”</td>
-<td>negative ✗</td>
-<td>negative ✗</td>
-<td><span class="amber">positive ✓</span></td>
-</tr>
-<tr class="even">
-<td>“Shares fell less than feared”</td>
-<td>very negative ✗</td>
-<td>negative ✗</td>
-<td><span class="amber">neutral/positive ✓</span></td>
-</tr>
-<tr class="odd">
-<td>“Revenue growth was strong but guidance was cautious”</td>
-<td>neutral</td>
-<td>neutral</td>
-<td><span class="amber">negative ✓</span></td>
-</tr>
-</tbody>
-</table>
-<div class="explainer">
-<p>Simple headlines are easy for everyone. The harder cases — negation, hedging, contrast — are where <span class="amber">contextual models</span> earn their keep.</p>
-</div>
-</section>
-<section id="the-evolution-of-text-based-trading" class="slide level2 center">
-<h2>The Evolution of Text-Based Trading</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 31%">
-<col style="width: 42%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Era</strong></th>
-<th><strong>Method</strong></th>
-<th><strong>Capability</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Pre-2010</td>
-<td>Keyword matching</td>
-<td>Count positive/negative words</td>
-</tr>
-<tr class="even">
-<td>2011</td>
-<td>Loughran-McDonald dictionary</td>
-<td>Finance-specific word lists</td>
-</tr>
-<tr class="odd">
-<td>2018–19</td>
-<td>BERT / FinBERT</td>
-<td>Contextual understanding of sentences</td>
-</tr>
-<tr class="even">
-<td>2023</td>
-<td>GPT-3.5 / GPT-4</td>
-<td>Zero-shot reasoning about market impact</td>
-</tr>
-<tr class="odd">
-<td>2024–26</td>
-<td>Fine-tuned SLMs + agents</td>
-<td>Domain-optimized, multi-step analysis</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="the-models" class="slide level2 section-divider center">
-<h2>The Models</h2>
-</section>
-<section id="finbert-the-first-financial-sentiment-model" class="slide level2 center">
-<h2>FinBERT: The First Financial Sentiment Model</h2>
-<p><strong>FinBERT</strong> (Araci, 2019) = BERT pre-trained on financial text and fine-tuned for 3-class sentiment (positive / negative / neutral).</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">Architecture</span></p>
-<ul>
-<li>110M parameters (BERT-base)</li>
-<li>Fine-tuned on Financial PhraseBank (4,840 labeled sentences)</li>
-<li>Open source: <code>ProsusAI/finbert</code> on HuggingFace</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">Performance</span></p>
-<ul>
-<li>~87% accuracy on Financial PhraseBank</li>
-<li>14 pp improvement over vanilla BERT</li>
-<li>Became the standard baseline for financial NLP</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="bloomberggpt-and-fingpt" class="slide level2 center">
-<h2>BloombergGPT and FinGPT</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">BloombergGPT (2023)</span></p>
-<ul>
-<li>50B parameters; ~$10M training cost</li>
-<li>Trained on Bloomberg’s FinPile (363B tokens) + 345B tokens of general text</li>
-<li><span class="amber">Proprietary</span> — weights not released</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">FinGPT (2023)</span></p>
-<ul>
-<li>Open-source (AI4Finance Foundation)</li>
-<li>Fine-tunes Llama, Falcon, etc. with LoRA</li>
-<li>Training cost: <span class="amber">under $300</span></li>
-</ul>
-</div>
-</div>
-<div style="text-align:center;">
-<p><span class="amber">BloombergGPT proved the concept; FinGPT democratized it.</span></p>
-</div>
-</section>
-<section id="gpt-4-and-general-purpose-llms" class="slide level2 center">
-<h2>GPT-4 and General-Purpose LLMs</h2>
-<p>General-purpose LLMs can classify financial sentiment <span class="amber">with zero training data</span> — just a well-crafted prompt.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">Strengths</span></p>
-<ul>
-<li>Understands: “despite strong revenue, guidance was weak” → <span class="amber">negative</span></li>
-<li>Handles sarcasm, hedging, implicit sentiment</li>
-<li>Sentiment + event classification + summarization in one model</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">Weaknesses</span></p>
-<ul>
-<li>Latency: 500ms–5s per API call</li>
-<li>Cost: $2.50–10/M input tokens (varies by model)</li>
-<li>Data leaves your infrastructure</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="small-language-models" class="slide level2 center">
-<h2>Small Language Models</h2>
-<p><strong>Small language models</strong> (1–10B parameters) trained or fine-tuned for finance:</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Advantages</strong></span></p>
-<ul>
-<li><span class="amber">Privacy</span>: data never leaves your infrastructure</li>
-<li><span class="amber">Speed</span>: 5–10ms inference on a single GPU</li>
-<li><span class="amber">Cost</span>: one-time fine-tuning, then free inference</li>
-<li><span class="amber">Specialization</span>: tuned for exactly your task</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>Examples</strong></span></p>
-<ul>
-<li><strong>FinBERT</strong>: 110M params, sentiment classification</li>
-<li><strong>FinLlama</strong>: Llama 7B + LoRA, trading signals</li>
-<li><strong>FinGPT</strong>: open-source, multiple base models</li>
-<li>Custom BERT models trained on internal data</li>
-</ul>
-</div>
-</div>
-<p>Why this matters for trading: <span class="amber">FinBERT processes headlines in milliseconds; GPT-4 takes seconds.</span></p>
-</section>
-<section id="what-the-research-shows" class="slide level2 section-divider center">
-<h2>What the Research Shows</h2>
-</section>
-<section id="can-chatgpt-forecast-stock-prices" class="slide level2 center">
-<h2>Can ChatGPT Forecast Stock Prices?</h2>
-<p>Lopez-Lira &amp; Tang (2023). Accepted at the <em>Journal of Finance</em>.</p>
-<ul>
-<li>67,586 headlines for 4,138 companies (Oct 2021–Dec 2022)</li>
-<li>Long-short strategies: overnight <span class="amber">Sharpe ratio 2.97</span>, intraday <span class="amber">Sharpe ratio 2.63</span></li>
-<li>Forecasting ability <span class="amber">increases with model size</span> — financial reasoning is an “emerging capability” of larger LLMs</li>
-</ul>
-</section>
-<section id="llms-vs.-traditional-sentiment-analysis" class="slide level2 center">
-<h2>LLMs vs.&nbsp;Traditional Sentiment Analysis</h2>
-<p>Kirtac &amp; Germano (2024), <em>Finance Research Letters</em>. 965,375 U.S. financial news articles.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><strong>Method</strong></th>
-<th><strong>Sentiment Accuracy</strong></th>
-<th><strong>Long-Short Sharpe</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Loughran-McDonald dictionary</td>
-<td>50.1%</td>
-<td>1.23</td>
-</tr>
-<tr class="even">
-<td>FinBERT</td>
-<td>72.2%</td>
-<td>2.07</td>
-</tr>
-<tr class="odd">
-<td>OPT (GPT-3 family)</td>
-<td><span class="amber">74.4%</span></td>
-<td><span class="amber">3.05</span></td>
-</tr>
-</tbody>
-</table>
-<p>Traditional bag-of-words methods are now <span class="amber">effectively obsolete</span> for this task.</p>
-</section>
-<section id="more-key-results" class="slide level2 center">
-<h2>More Key Results</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">GPT-4 vs.&nbsp;Human Analysts</span></p>
-<ul>
-<li>Kim, Muhn &amp; Nikolaev (2024), Chicago Booth</li>
-<li>GPT-4 given only anonymized financial statements</li>
-<li><span class="amber">Outperforms the median human analyst</span> at predicting earnings direction</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">Fine-Tuned Small Models</span></p>
-<ul>
-<li>FinLlama (2024, Imperial College)</li>
-<li>Llama 2 7B fine-tuned with LoRA (4.2M trainable params)</li>
-<li>Outperforms FinBERT by <span class="amber">44.7%</span> in cumulative returns</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="multi-agent-trading-systems" class="slide level2 center">
-<h2>Multi-Agent Trading Systems</h2>
-<p><strong>MarketSenseAI 2.0</strong> (2025): GPT-4 + RAG multi-agent system.</p>
-<ul>
-<li><span class="amber">125.9% cumulative returns</span> vs.&nbsp;73.5% for S&amp;P 100</li>
-</ul>
-</section>
-<section id="how-it-works-implementation" class="slide level2 section-divider center">
-<h2>How It Works: Implementation</h2>
-</section>
-<section id="the-news-trading-pipeline" class="slide level2 center">
-<h2>The News Trading Pipeline</h2>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%</span>
-<span id="cb3-2"><a></a>flowchart LR</span>
-<span id="cb3-3"><a></a>  A["&lt;b&gt;Data&lt;br&gt;Ingestion&lt;/b&gt;"] --&gt; B["&lt;b&gt;Entity&lt;br&gt;Resolution&lt;/b&gt;"]</span>
-<span id="cb3-4"><a></a>  B --&gt; C["&lt;b&gt;Sentiment&lt;br&gt;Extraction&lt;/b&gt;"]</span>
-<span id="cb3-5"><a></a>  C --&gt; D["&lt;b&gt;Signal&lt;br&gt;Construction&lt;/b&gt;"]</span>
-<span id="cb3-6"><a></a>  D --&gt; E["&lt;b&gt;Trade&lt;br&gt;Execution&lt;/b&gt;"]</span>
-<span id="cb3-7"><a></a></span>
-<span id="cb3-8"><a></a>  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb3-9"><a></a>  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb3-10"><a></a>  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb3-11"><a></a>  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb3-12"><a></a>  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  A["&lt;b&gt;Data&lt;br&gt;Ingestion&lt;/b&gt;"] --&gt; B["&lt;b&gt;Entity&lt;br&gt;Resolution&lt;/b&gt;"]
-  B --&gt; C["&lt;b&gt;Sentiment&lt;br&gt;Extraction&lt;/b&gt;"]
-  C --&gt; D["&lt;b&gt;Signal&lt;br&gt;Construction&lt;/b&gt;"]
-  D --&gt; E["&lt;b&gt;Trade&lt;br&gt;Execution&lt;/b&gt;"]
-
-  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<div class="two-col">
-<div class="column">
-<ul>
-<li><strong>Data ingestion</strong>: Reuters, Bloomberg, SEC filings</li>
-<li><strong>Entity resolution</strong>: “Apple” → AAPL</li>
-<li><strong>Sentiment extraction</strong>: The LLM’s core job</li>
-</ul>
-</div><div class="column">
-<ul>
-<li><strong>Signal construction</strong>: Aggregate, weight, normalize</li>
-<li><strong>Trade execution</strong>: Route orders</li>
-<li><span class="amber">The LLM replaces steps 2 and 3</span></li>
-</ul>
-</div></div>
-</section>
-<section id="what-the-llm-extracts" class="slide level2 center">
-<h2>What the LLM Extracts</h2>
-<p>Sentiment is more than positive/negative. A production system classifies along multiple dimensions:</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 36%">
-<col style="width: 33%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Dimension</strong></th>
-<th><strong>Question</strong></th>
-<th><strong>Example</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Polarity</td>
-<td>Positive, negative, or neutral?</td>
-<td>“Revenue beat estimates” → positive</td>
-</tr>
-<tr class="even">
-<td>Magnitude</td>
-<td>How strong?</td>
-<td>“Slight miss” vs.&nbsp;“catastrophic failure”</td>
-</tr>
-<tr class="odd">
-<td>Relevance</td>
-<td>Is this market-moving?</td>
-<td>Routine board meeting → low</td>
-</tr>
-</tbody>
-</table>
-<div style="text-align:center;">
-<p><span class="amber">LLMs handle all dimensions in a single prompt; traditional methods handle only polarity.</span></p>
-</div>
-</section>
-<section id="the-cascade-architecture" class="slide level2 shrink center">
-<h2>The Cascade Architecture</h2>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a></a>%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%</span>
-<span id="cb4-2"><a></a>flowchart LR</span>
-<span id="cb4-3"><a></a>  A["&lt;b&gt;All Headlines&lt;/b&gt;"] --&gt; B["&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;"]</span>
-<span id="cb4-4"><a></a>  B --&gt;|"high conf."| C["&lt;b&gt;Immediate Signal&lt;/b&gt;"]</span>
-<span id="cb4-5"><a></a>  B --&gt;|"low conf."| D["&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;"]</span>
-<span id="cb4-6"><a></a>  D --&gt; E["&lt;b&gt;Enhanced Signal&lt;/b&gt;"]</span>
-<span id="cb4-7"><a></a></span>
-<span id="cb4-8"><a></a>  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
-<span id="cb4-9"><a></a>  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
-<span id="cb4-10"><a></a>  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
-<span id="cb4-11"><a></a>  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
-<span id="cb4-12"><a></a>  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%
-flowchart LR
-  A["&lt;b&gt;All Headlines&lt;/b&gt;"] --&gt; B["&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;"]
-  B --&gt;|"high conf."| C["&lt;b&gt;Immediate Signal&lt;/b&gt;"]
-  B --&gt;|"low conf."| D["&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;"]
-  D --&gt; E["&lt;b&gt;Enhanced Signal&lt;/b&gt;"]
-
-  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">Fine-Tuned Small Model</span></p>
-<ul>
-<li>FinBERT, FinLlama, custom BERT</li>
-<li>Inference: <span class="amber">5–10ms</span> on GPU</li>
-<li>Deterministic; runs on your infra</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">General-Purpose LLM</span></p>
-<ul>
-<li>GPT-4, Claude, Gemini</li>
-<li>Inference: <span class="amber">500ms–5s</span> via API</li>
-<li>Zero labeled data needed</li>
-</ul>
-</div>
-</div>
-<p><strong>Best Practice</strong>: Fast path (~5ms) for high-confidence; slow path (~1–5s) for low-confidence; batch reprocessing end-of-day.</p>
-</section>
-<section id="latency-and-alpha-decay" class="slide level2 center">
-<h2>Latency and Alpha Decay</h2>
-<p><strong>Alpha decay</strong> = the rate at which a signal’s profitability diminishes as the market incorporates the information.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><strong>Strategy</strong></th>
-<th><strong>Latency Budget</strong></th>
-<th><strong>Model</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>HFT / market making</td>
-<td>&lt;1ms</td>
-<td>Keyword lookup</td>
-</tr>
-<tr class="even">
-<td>Low-latency systematic</td>
-<td>1–100ms</td>
-<td>FinBERT</td>
-</tr>
-<tr class="odd">
-<td>Event-driven</td>
-<td>100ms–5s</td>
-<td>FinBERT + LLM</td>
-</tr>
-<tr class="even">
-<td>Daily systematic</td>
-<td>Minutes–hours</td>
-<td>Full LLM pipeline</td>
-</tr>
-<tr class="odd">
-<td>Fundamental</td>
-<td>Hours–days</td>
-<td>Deep LLM analysis</td>
-</tr>
-</tbody>
-</table>
-<p>You don’t need to be the fastest — you need to be <span class="amber">fast enough for the alpha you’re targeting</span>.</p>
-</section>
-<section id="event-driven-strategies" class="slide level2 section-divider center">
-<h2>Event-Driven Strategies</h2>
-</section>
-<section id="types-of-news-events" class="slide level2 center">
-<h2>Types of News Events</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">Scheduled Events</span></p>
-<ul>
-<li><strong>Earnings</strong>: Compare actuals to consensus; analyze management tone</li>
-<li><strong>Fed / central bank</strong>: Single word changes carry enormous implications</li>
-<li><strong>Economic data</strong>: CPI, jobs reports, PMI</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">Unscheduled Events</span></p>
-<ul>
-<li><strong>M&amp;A</strong>: Assess deal likelihood and regulatory risk</li>
-<li><strong>FDA decisions</strong>: Binary, high-impact</li>
-<li><strong>Geopolitical</strong>: Sanctions, trade policy, elections</li>
-</ul>
-</div>
-</div>
-<p><span class="amber">The tone of an earnings call often matters more for returns than the reported numbers.</span></p>
-</section>
-<section id="earnings-call-analysis" class="slide level2 center">
-<h2>Earnings Call Analysis</h2>
-<p><strong>The Prompt</strong></p>
-<p>“Rate management’s tone from $-$5 (very bearish) to +5 (very bullish). Explain your reasoning. Identify forward-looking statements that differ from consensus.”</p>
-<ul>
-<li>The LLM processes the entire transcript (8,000–15,000 tokens)</li>
-<li>Detects hedging: “We’re <em>pleased</em> with results but <em>expect headwinds</em> in Q4” → net negative</li>
-<li>Traditional keyword methods would flag “pleased” as positive</li>
-</ul>
-<div style="text-align:center;">
-<p><span class="amber">This is where LLMs provide the greatest edge over traditional NLP.</span></p>
-</div>
-</section>
-<section id="beyond-company-sentiment-geopolitical-risk" class="slide level2 section-divider center">
-<h2>Beyond Company Sentiment: Geopolitical Risk</h2>
-</section>
-<section id="the-propagation-problem" class="slide level2 shrink center">
-<h2>The Propagation Problem</h2>
-<p>Most LLM trading research focuses on <span class="amber">company-level</span> sentiment. The real competitive advantage: understanding how <span class="amber">macro events propagate across sectors</span>.</p>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a></a>%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%</span>
-<span id="cb5-2"><a></a>flowchart LR</span>
-<span id="cb5-3"><a></a>  A["&lt;b&gt;Conflict&lt;/b&gt;"] --&gt; B["&lt;b&gt;Oil&lt;br&gt;prices ↑&lt;/b&gt;"]</span>
-<span id="cb5-4"><a></a>  B --&gt; C["&lt;b&gt;Energy&lt;br&gt;stocks ↑&lt;/b&gt;"]</span>
-<span id="cb5-5"><a></a>  B --&gt; D["&lt;b&gt;Fertilizer&lt;br&gt;costs ↑&lt;/b&gt;"]</span>
-<span id="cb5-6"><a></a>  D --&gt; E["&lt;b&gt;Food&lt;br&gt;prices ↑&lt;/b&gt;"]</span>
-<span id="cb5-7"><a></a>  E --&gt; F["&lt;b&gt;Staples&lt;br&gt;margins ↓&lt;/b&gt;"]</span>
-<span id="cb5-8"><a></a></span>
-<span id="cb5-9"><a></a>  style A fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb5-10"><a></a>  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb5-11"><a></a>  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb5-12"><a></a>  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb5-13"><a></a>  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
-<span id="cb5-14"><a></a>  style F fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%
-flowchart LR
-  A["&lt;b&gt;Conflict&lt;/b&gt;"] --&gt; B["&lt;b&gt;Oil&lt;br&gt;prices ↑&lt;/b&gt;"]
-  B --&gt; C["&lt;b&gt;Energy&lt;br&gt;stocks ↑&lt;/b&gt;"]
-  B --&gt; D["&lt;b&gt;Fertilizer&lt;br&gt;costs ↑&lt;/b&gt;"]
-  D --&gt; E["&lt;b&gt;Food&lt;br&gt;prices ↑&lt;/b&gt;"]
-  E --&gt; F["&lt;b&gt;Staples&lt;br&gt;margins ↓&lt;/b&gt;"]
-
-  style A fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-  style F fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<ul>
-<li>“Russia invades Ukraine” — which sectors benefit? Which suffer?</li>
-<li>Multi-hop causal reasoning:
-<ul>
-<li><strong>1st order</strong>: Oil prices rise → energy stocks up</li>
-<li><strong>2nd order</strong>: Fertilizer costs rise → agriculture costs up</li>
-<li><strong>3rd order</strong>: Food prices rise → consumer staples margins squeezed</li>
-</ul></li>
-</ul>
-</section>
-<section id="measuring-geopolitical-risk" class="slide level2 center">
-<h2>Measuring Geopolitical Risk</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">Caldara-Iacoviello GPR Index</span></p>
-<ul>
-<li>Published in <em>AER</em> (2022)</li>
-<li>Counts articles in 10 newspapers across 8 categories</li>
-<li>Available for 44 countries since 1900</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">BlackRock BGRI</span></p>
-<ul>
-<li>Neural network NLP on brokerage reports + news</li>
-<li>For each risk, identifies the <span class="amber">3 most sensitive assets</span></li>
-<li>The industry gold standard</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="knowledge-graphs-mapping-shock-propagation" class="slide level2 center">
-<h2>Knowledge Graphs: Mapping Shock Propagation</h2>
-<p>A <strong>knowledge graph</strong> maps entities (firms, sectors, commodities) and their relationships. Combined with an LLM, it enables multi-hop reasoning about how shocks propagate.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">FinDKG (Li et al., 2024)</span></p>
-<ul>
-<li>Fine-tuned LLM builds a <span class="amber">dynamic</span> knowledge graph from financial news</li>
-<li>Outperforms thematic ETFs at identifying sector themes</li>
-<li>Open source</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">Supply Chain Mapping</span></p>
-<ul>
-<li>LLMs extract multi-tier supplier networks from text</li>
-<li>Map 3,000+ firms and 11,000+ supply links</li>
-<li>Predict how disruptions cascade through supply chains</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="industry-adoption-and-risks" class="slide level2 section-divider center">
-<h2>Industry Adoption and Risks</h2>
-</section>
-<section id="who-is-doing-this" class="slide level2 center">
-<h2>Who Is Doing This?</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">Hedge Funds</span></p>
-<ul>
-<li><strong>Bridgewater</strong>: $2B AI fund using OpenAI, Anthropic, Perplexity</li>
-<li><strong>Two Sigma</strong>: NLP for 10+ years</li>
-<li><strong>Numerai</strong>: Crowdsourced AI fund, $550M AUM</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">Platforms</span></p>
-<ul>
-<li><strong>Bloomberg</strong>: BloombergGPT, terminal-integrated NLP</li>
-<li><strong>RavenPack</strong>: Structured sentiment signals</li>
-<li><strong>Kensho</strong>: Acquired by S&amp;P Global for $550M</li>
-</ul>
-</div>
-</div>
-<p><strong>Permutable AI</strong>: LLM-based trading live Oct 2024 — <span class="amber">20.6% return, Sharpe ratio 2.85</span>.</p>
-</section>
-<section id="cautionary-tales" class="slide level2 center">
-<h2>Cautionary Tales</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 47%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Event</strong></th>
-<th><strong>What Happened</strong></th>
-<th><strong>Impact</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>AP Twitter Hack (2013)</td>
-<td>Fake “White House explosions” tweet</td>
-<td>S&amp;P 500 lost $136B in seconds</td>
-</tr>
-<tr class="even">
-<td>Alpha Arena</td>
-<td>ChatGPT trading competition</td>
-<td>63% loss</td>
-</tr>
-<tr class="odd">
-<td>IMF Warning</td>
-<td>AI trading increases volatility</td>
-<td>Regulatory scrutiny</td>
-</tr>
-</tbody>
-</table>
-<div style="text-align:center;">
-<p><span class="amber">The competitive edge is real, but so are the risks.</span></p>
-</div>
-</section>
-<section id="the-crowding-problem" class="slide level2 center">
-<h2>The Crowding Problem</h2>
-<p>As more firms adopt the same LLM-based analysis, alpha from news sentiment decays faster.</p>
-<ul>
-<li>Lopez-Lira &amp; Tang document declining returns as LLM adoption rises — consistent with the Efficient Market Hypothesis</li>
-<li>More sophisticated signals (tone analysis, cross-sector propagation) retain more alpha</li>
-<li>The arms race: better NLP → alpha captured → faster decay → need even better NLP</li>
-</ul>
-<p>The moat is shifting from <span class="amber">speed of access</span> to <span class="amber">depth of understanding</span>.</p>
-</section>
-<section id="summary" class="slide level2 center">
-<h2>Summary</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title">What We Know</span></p>
-<ul>
-<li>LLMs dramatically outperform dictionaries (50% → 74% accuracy)</li>
-<li>GPT-4 can match or beat human analysts</li>
-<li>Fine-tuned small models compete at a fraction of cost</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title">What to Watch</span></p>
-<ul>
-<li>Alpha decay as adoption increases</li>
-<li>Adversarial attacks and manipulation</li>
-<li>Crowding risk: correlated AI trades → systemic instability</li>
-</ul>
-</div>
-</div>
-<div style="text-align:center; margin-top:0.5em;">
-<p><span class="amber">The value of LLMs in trading is not just speed — it is depth of understanding.</span></p>
-</div>
 </section>
 <section id="key-references" class="slide level2 center">
 <h2>Key References</h2>
@@ -1067,13 +568,14 @@ flowchart LR
 <ul>
 <li>Lopez-Lira &amp; Tang (2023). Can ChatGPT Forecast Stock Price Movements? <em>Journal of Finance</em>.</li>
 <li>Kirtac &amp; Germano (2024). Sentiment Trading with Large Language Models. <em>Finance Research Letters</em>.</li>
+<li>Cookson, Lu, Mullins &amp; Niessner (2024). The Social Signal. <em>Journal of Financial Economics</em>.</li>
+<li>Kim, Muhn &amp; Nikolaev (2024). Bloated Disclosures: Can ChatGPT Help Investors Process Information?</li>
 <li>Kim, Muhn &amp; Nikolaev (2024). Financial Statement Analysis with Large Language Models.</li>
+<li>Fatouros, Metaxas, Soldatos &amp; Kyriazis (2025). MarketSenseAI 2.0.</li>
+<li>Gupta, Raghunath, Buddaraju, Krishnasamy &amp; Mitra (2024). FinLlama. ICAIF ’24.</li>
 <li>Araci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.</li>
-<li>Wu et al.&nbsp;(2023). BloombergGPT: A Large Language Model for Finance.</li>
-<li>Yang et al.&nbsp;(2023). FinGPT: Open-Source Financial Large Language Models.</li>
-<li>FinLlama (2024). Financial Sentiment Analysis for Algorithmic Trading. ICAIF ’24.</li>
-<li>Caldara &amp; Iacoviello (2022). Measuring Geopolitical Risk. <em>AER</em>, 112(4).</li>
-<li>Li et al.&nbsp;(2024). FinDKG: Dynamic Knowledge Graphs with LLMs. ICAIF ’24.</li>
+<li>Loughran &amp; McDonald (2011). When Is a Liability Not a Liability? <em>Journal of Finance</em>.</li>
+<li>Chen, Kelly &amp; Xiu (2023). Expected Returns and Large Language Models. NBER Working Paper 31502.</li>
 </ul>
 </div>
 
@@ -1295,7 +797,7 @@ flowchart LR
       });
     </script>
     <script type="application/vnd.jupyter.widget-state+json">
-    {"state":{"0efa43a6a8d042578223f22cf39de417":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"3cb73e4576b54140b6858d22d1e68678":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"3f38ff73ff3b4677a3f163510f6c2da1":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"491fc116ffe1435d8850464ef5e459c6":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_f9aa8c798a4b47169e58c774c8cd8b3a","placeholder":"​","style":"IPY_MODEL_3f38ff73ff3b4677a3f163510f6c2da1","tabbable":null,"tooltip":null,"value":"Loading weights: 100%"}},"4f55e7f81add47a6b3eac88743891acc":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"61a4e087b2744168a0737295a178e7b9":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_491fc116ffe1435d8850464ef5e459c6","IPY_MODEL_ea66aedef6f94f23a85a8e433edd1e54","IPY_MODEL_cfbe75bb17ed4b04976150f956556b40"],"layout":"IPY_MODEL_3cb73e4576b54140b6858d22d1e68678","tabbable":null,"tooltip":null}},"855fd6d8aca94473af89624db33984b5":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"cfbe75bb17ed4b04976150f956556b40":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_ef36b5eb3f534604b738551b64e4b9ef","placeholder":"​","style":"IPY_MODEL_4f55e7f81add47a6b3eac88743891acc","tabbable":null,"tooltip":null,"value":" 201/201 [00:00&lt;00:00, 14294.40it/s]"}},"ea66aedef6f94f23a85a8e433edd1e54":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_0efa43a6a8d042578223f22cf39de417","max":201,"min":0,"orientation":"horizontal","style":"IPY_MODEL_855fd6d8aca94473af89624db33984b5","tabbable":null,"tooltip":null,"value":201}},"ef36b5eb3f534604b738551b64e4b9ef":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"f9aa8c798a4b47169e58c774c8cd8b3a":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}}},"version_major":2,"version_minor":0}
+    {"state":{"05d89e985e40492cadad5dc155a85aaa":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"118d7b8ba438492d90069fbee1cd3966":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_05d89e985e40492cadad5dc155a85aaa","placeholder":"​","style":"IPY_MODEL_5554aa6fc6b24b1d8265aa03a5c07741","tabbable":null,"tooltip":null,"value":" 201/201 [00:00&lt;00:00, 15911.20it/s]"}},"4c2a099246c24e0d997e701b1a126d3c":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_60aef0ef45be430f8b545db31337aece","placeholder":"​","style":"IPY_MODEL_affa77a4adc844358c6d979f84c638bf","tabbable":null,"tooltip":null,"value":"Loading weights: 100%"}},"5554aa6fc6b24b1d8265aa03a5c07741":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"58b34853b96347e9bcd380191c25c9d9":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"60aef0ef45be430f8b545db31337aece":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"69fe3b71e41a47ea9fc2fe4f43f00f63":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_4c2a099246c24e0d997e701b1a126d3c","IPY_MODEL_836c067dfdf44659977bffb88cde898d","IPY_MODEL_118d7b8ba438492d90069fbee1cd3966"],"layout":"IPY_MODEL_d51c0637d19f41aeb75b8a09ce511250","tabbable":null,"tooltip":null}},"836c067dfdf44659977bffb88cde898d":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_58b34853b96347e9bcd380191c25c9d9","max":201,"min":0,"orientation":"horizontal","style":"IPY_MODEL_8e5ad688660a4e35bfa4c09e6a66bab8","tabbable":null,"tooltip":null,"value":201}},"8e5ad688660a4e35bfa4c09e6a66bab8":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"affa77a4adc844358c6d979f84c638bf":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"d51c0637d19f41aeb75b8a09ce511250":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}}},"version_major":2,"version_minor":0}
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {

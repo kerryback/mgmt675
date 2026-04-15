@@ -140,298 +140,130 @@
     "text": "Summary\n\n\nBuilding Blocks\n\nTokens: sub-word chunks (~100K vocabulary)\nEmbeddings: learned vector representations\nAttention: relate any token to any other\nTransformers: stack attention into deep networks\n\n\n\nTraining\n\nObjective: predict the next token\nJointly optimize embeddings + transformer parameters\nTrillions of tokens, billions to trillions of parameters\nRLHF turns a predictor into an assistant\n\n\n\nImplications\n\nPrompts condition the distribution\nRAG exploits attention over injected context\nTool use is fine-tuned next-token behavior\nHallucinations: fluency is not truth"
   },
   {
-    "objectID": "slides/m14-sentiment.html#why-news-moves-markets",
-    "href": "slides/m14-sentiment.html#why-news-moves-markets",
+    "objectID": "slides/m14-sentiment.html#trading-on-sentiment",
+    "href": "slides/m14-sentiment.html#trading-on-sentiment",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Why News Moves Markets",
-    "text": "Why News Moves Markets\nAsset prices reflect expectations. News changes expectations. The trader who understands news faster and more accurately captures the profit.\n\nEarnings surprises, Fed announcements, M&A rumors, FDA decisions, geopolitical shocks\nQuantitative firms began automating this with simple keyword rules in the 2000s\nLLMs now understand nuance, context, and implication — a qualitative leap"
+    "section": "Trading on Sentiment",
+    "text": "Trading on Sentiment"
   },
   {
-    "objectID": "slides/m14-sentiment.html#a-simple-idea-count-positive-and-negative-words",
-    "href": "slides/m14-sentiment.html#a-simple-idea-count-positive-and-negative-words",
+    "objectID": "slides/m14-sentiment.html#sentiment-of-what",
+    "href": "slides/m14-sentiment.html#sentiment-of-what",
     "title": "Module 14: Sentiment Analysis",
-    "section": "A Simple Idea: Count Positive and Negative Words",
-    "text": "A Simple Idea: Count Positive and Negative Words\nThe earliest approach — bag of words — just counts words from predefined lists:\n\n\n\n\n\n\n\nPositive words\nNegative words\n\n\n\n\ngood, strong, growth, profit, beat, surge, upgrade\nbad, weak, loss, decline, miss, plunge, downgrade\n\n\n\nHeadline: “Apple revenue beats estimates, shares surge 5%”\n\nPositive words: beats, surge → score = +2\nNegative words: none → score = 0\nVerdict: positive ✓\n\nThis works for simple cases. But …"
+    "section": "Sentiment of What?",
+    "text": "Sentiment of What?\nTraders extract sentiment from many text sources. Each differs in volume, speed, and signal quality:\n\n\n\n\n\n\n\n\n\nSource\nVolume\nSpeed\nSignal\n\n\n\n\nNews headlines\nHigh\nSeconds–minutes\nStrong, well-studied\n\n\nFull news articles\nHigh\nMinutes–hours\nRicher context\n\n\nSocial media (Twitter, StockTwits)\nVery high\nReal-time\nNoisy but fast\n\n\nEarnings call transcripts\nLow (quarterly)\nHours–days\nHigh quality\n\n\nFinancial statements (10-K, 10-Q)\nLow (quarterly)\nDays–weeks\nDeep fundamentals\n\n\n\nThe academic evidence now covers all of these."
   },
   {
-    "objectID": "slides/m14-sentiment.html#where-bag-of-words-fails",
-    "href": "slides/m14-sentiment.html#where-bag-of-words-fails",
+    "objectID": "slides/m14-sentiment.html#news-headlines",
+    "href": "slides/m14-sentiment.html#news-headlines",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Where Bag of Words Fails",
-    "text": "Where Bag of Words Fails\n“Despite strong revenue, the company warned about supply chain disruptions”\n\nPositive words: strong → score = +1\nNegative words: warned, disruptions → score = $-$2\nBag-of-words verdict: negative\nActual meaning: mixed, leaning negative — the word despite signals that the strength is being dismissed\n\n“The company did not report a loss”\n\nBag of words sees loss → negative\nActual meaning: positive — negation reverses the sentiment\n\n“Shares fell less than feared after earnings miss”\n\nBag of words sees fell, miss, feared → very negative\nActual meaning: mildly positive — the stock held up better than expected"
+    "section": "News Headlines",
+    "text": "News Headlines\nLopez-Lira & Tang (2023), accepted at the Journal of Finance.\n\nGPT-3.5 / GPT-4 classify 67,586 headlines for 4,123 stocks (Oct 2021–Dec 2023)\nSpeed: overnight news → trade at next-day market open, exit at close (single-day hold)\nPerformance: GPT-4 long-short Sharpe ratio 3.28\n\n\nForecasting ability increases with model size: GPT-4 &gt;&gt; GPT-3.5 &gt;&gt; GPT-3 — financial reasoning is an “emerging capability” of larger LLMs. But the Sharpe ratio declined from 6.5 to 1.2 as the sample extended from 2021 to 2024, consistent with more traders adopting the same approach."
   },
   {
-    "objectID": "slides/m14-sentiment.html#another-problem-words-mean-different-things-in-finance",
-    "href": "slides/m14-sentiment.html#another-problem-words-mean-different-things-in-finance",
+    "objectID": "slides/m14-sentiment.html#news-articles",
+    "href": "slides/m14-sentiment.html#news-articles",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Another Problem: Words Mean Different Things in Finance",
-    "text": "Another Problem: Words Mean Different Things in Finance\nA general-purpose word list treats these words as negative:\n\n\n\n\n\n\n\n\nWord\nGeneral meaning\nFinancial meaning\n\n\n\n\nliability\nnegative\nneutral — a balance sheet line item\n\n\ncapital\nneutral\npositive — resources for growth\n\n\ntax\nnegative\nneutral — routine expense\n\n\nrisk\nnegative\nneutral — every investment has risk\n\n\noutstanding\npositive\nneutral — shares outstanding\n\n\nvolatile\nnegative\nneutral/positive — opportunities for traders\n\n\n\nUsing a general dictionary on financial text produces systematic errors."
+    "section": "News Articles",
+    "text": "News Articles\nKirtac & Germano (2024), Finance Research Letters. 965,375 U.S. financial news articles (2010–2023).\n\nSpeed: news before 6 AM → trade at same-day open; news 6 AM–4 PM → trade at same-day close; news after 4 PM → trade at next-day open\nLong top 20% sentiment, short bottom 20%, daily rebalanced\n\n\n\n\nMethod\nAccuracy\nLong-Short Sharpe\n\n\n\n\nLoughran-McDonald dictionary\n50.1%\n1.23\n\n\nFinBERT\n72.2%\n2.07\n\n\nOPT (GPT-3 family)\n74.4%\n3.05"
   },
   {
-    "objectID": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
-    "href": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
+    "objectID": "slides/m14-sentiment.html#news-articles-fine-tuned-small-models",
+    "href": "slides/m14-sentiment.html#news-articles-fine-tuned-small-models",
     "title": "Module 14: Sentiment Analysis",
-    "section": "The Loughran-McDonald Dictionary",
-    "text": "The Loughran-McDonald Dictionary\nLoughran & McDonald (2011) built word lists specifically for financial text by reading thousands of 10-K filings.\n\n\nNegative words (2,355)\n\nimpairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower\n\n\n\nPositive words (354)\n\nachieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile\n\n\n\nAlso includes: uncertainty (297 words), litigious (903 words), constraining (184 words), superfluous (56 words)\n\nNotice the asymmetry: 7\\(\\times\\) more negative words than positive. Financial disclosures are legally required to discuss risks, so negative language is far more varied."
+    "section": "News Articles: Fine-Tuned Small Models",
+    "text": "News Articles: Fine-Tuned Small Models\nFinLlama (2024), ICAIF Conference. 204,017 articles for S&P 500 stocks (2015–2021).\n\nModel: Llama 2 7B fine-tuned with LoRA (4.2M trainable parameters)\nSpeed: daily rebalancing based on sentiment scores\nLong top 35%, short bottom 35%\nPerformance: Sharpe ratio 2.4, annualized return 45%\n\n\nA fine-tuned 7B model outperforms FinBERT by 44.7% in cumulative returns — and runs on a single GPU at a fraction of GPT-4’s cost."
   },
   {
-    "objectID": "slides/m14-sentiment.html#still-just-counting-words",
-    "href": "slides/m14-sentiment.html#still-just-counting-words",
+    "objectID": "slides/m14-sentiment.html#social-media",
+    "href": "slides/m14-sentiment.html#social-media",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Still Just Counting Words",
-    "text": "Still Just Counting Words\nEven with a finance-specific dictionary, the method is still bag of words:\n“Revenue growth was strong but management issued cautious guidance for next quarter”\n\nL-M score: +1 (strong) \\(-\\) 1 (cautious) = 0 → neutral\nA human reads this as: negative — guidance matters more than trailing results\n\nThe dictionary can’t handle:\n\nWord order and grammar — “not profitable” vs. “profitable”\nContext — “strong” revenue vs. “strong” headwinds\nRelative importance — forward guidance outweighs backward-looking results\nHedging language — “we remain cautiously optimistic”\n\nWe need models that understand sentences, not just words."
+    "section": "Social Media",
+    "text": "Social Media\nCookson, Lu, Mullins & Niessner (2024), “The Social Signal,” Journal of Financial Economics.\n\nSources: Twitter, StockTwits, and Seeking Alpha\nSpeed: social media sentiment predicts next-day returns (one-to-two-day window)\nSocial media sentiment predicts positive returns; social media attention predicts negative returns — the two signals go in opposite directions\n\n\nInformativeness deteriorated significantly after the Jan 2021 GameStop short squeeze, concentrated among messages by new users. Platform quality matters."
   },
   {
-    "objectID": "slides/m14-sentiment.html#try-it-finbert-via-huggingface",
-    "href": "slides/m14-sentiment.html#try-it-finbert-via-huggingface",
+    "objectID": "slides/m14-sentiment.html#earnings-calls-and-financial-statements",
+    "href": "slides/m14-sentiment.html#earnings-calls-and-financial-statements",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Try It: FinBERT via HuggingFace",
-    "text": "Try It: FinBERT via HuggingFace\nFinBERT (Araci, 2019) is a neural network trained to understand financial sentences — not just count words. You can call it with no installs:\nimport requests\n\nAPI_URL = \"https://api-inference.huggingface.co/models/ProsusAI/finbert\"\n\nheadlines = [\n    \"Apple revenue beats estimates, shares surge 5%\",\n    \"Despite strong revenue, the company warned about supply chain disruptions\",\n    \"The company did not report a loss\",\n    \"Shares fell less than feared after earnings miss\",\n]\n\nresponse = requests.post(API_URL, json={\"inputs\": headlines})\nresults = response.json()\n\nfor headline, scores in zip(headlines, results):\n    best = max(scores, key=lambda x: x[\"score\"])\n    print(f\"{best['label']:&gt;8s} ({best['score']:.0%})  {headline}\")\n\nFinBERT returns three probabilities (positive, negative, neutral) for each headline. It understands despite, negation, and context — things bag of words cannot do."
+    "section": "Earnings Calls and Financial Statements",
+    "text": "Earnings Calls and Financial Statements\n\n\nEarnings Call Summaries\nKim, Muhn & Nikolaev (2024), U. Chicago Booth\n\nGPT summarizes 10-K filings and earnings call transcripts to &lt; 1/5 original length\nSummary sentiment is more predictive of stock returns than original-document sentiment\nTwo-day event window around filing date\n\n\n\nFinancial Statement Analysis\nKim, Muhn & Nikolaev (2024), U. Chicago Booth\n\nGPT-4 given only anonymized financial statements\nPredicts earnings direction with 60% accuracy vs. 53% for human analysts\nLong-short alpha &gt; 12% per year\n\n\n\n\nThese are the slowest strategies — days to weeks after filings. But the alpha is large because the analysis is deep, not fast."
   },
   {
-    "objectID": "slides/m14-sentiment.html#comparing-the-three-approaches",
-    "href": "slides/m14-sentiment.html#comparing-the-three-approaches",
+    "objectID": "slides/m14-sentiment.html#multi-source-agents",
+    "href": "slides/m14-sentiment.html#multi-source-agents",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Comparing the Three Approaches",
-    "text": "Comparing the Three Approaches\n\n\n\n\n\n\n\n\n\nHeadline\nBag of Words\nL-M Dictionary\nFinBERT\n\n\n\n\n“Apple revenue beats estimates”\npositive ✓\npositive ✓\npositive ✓\n\n\n“Despite strong revenue, warned about disruptions”\nnegative\nneutral\nnegative ✓\n\n\n“The company did not report a loss”\nnegative ✗\nnegative ✗\npositive ✓\n\n\n“Shares fell less than feared”\nvery negative ✗\nnegative ✗\nneutral/positive ✓\n\n\n“Revenue growth was strong but guidance was cautious”\nneutral\nneutral\nnegative ✓\n\n\n\n\nSimple headlines are easy for everyone. The harder cases — negation, hedging, contrast — are where contextual models earn their keep."
+    "section": "Multi-Source Agents",
+    "text": "Multi-Source Agents\nMarketSenseAI 2.0 (2025): a GPT-4o multi-agent system that combines news, SEC filings, earnings calls, price data, and macro reports.\n\nSpeed: monthly rebalancing — the slowest strategy we’ve seen, but the most comprehensive\nPerformance (S&P 100, 2023–2024): cumulative return 125.9% vs. 73.5% benchmark; Sharpe 2.76\nPerformance (S&P 500, 2024): cumulative return 48.7% vs. 25.6% benchmark; alpha 17.6%\n\n\nMonthly rebalancing is the most realistic for practical implementation — and the returns are still extraordinary."
   },
   {
-    "objectID": "slides/m14-sentiment.html#the-evolution-of-text-based-trading",
-    "href": "slides/m14-sentiment.html#the-evolution-of-text-based-trading",
+    "objectID": "slides/m14-sentiment.html#summary-source-speed-and-performance",
+    "href": "slides/m14-sentiment.html#summary-source-speed-and-performance",
     "title": "Module 14: Sentiment Analysis",
-    "section": "The Evolution of Text-Based Trading",
-    "text": "The Evolution of Text-Based Trading\n\n\n\n\n\n\n\n\nEra\nMethod\nCapability\n\n\n\n\nPre-2010\nKeyword matching\nCount positive/negative words\n\n\n2011\nLoughran-McDonald dictionary\nFinance-specific word lists\n\n\n2018–19\nBERT / FinBERT\nContextual understanding of sentences\n\n\n2023\nGPT-3.5 / GPT-4\nZero-shot reasoning about market impact\n\n\n2024–26\nFine-tuned SLMs + agents\nDomain-optimized, multi-step analysis"
+    "section": "Summary: Source, Speed, and Performance",
+    "text": "Summary: Source, Speed, and Performance\n\n\n\n\n\n\n\n\n\nPaper\nSource\nTrade Delay\nSharpe\n\n\n\n\nLopez-Lira & Tang (2023)\nNews headlines\nNext-day open\n3.28\n\n\nKirtac & Germano (2024)\nNews articles\nSame-day or next-day\n3.05\n\n\nFinLlama (2024)\nNews articles\nDaily\n2.40\n\n\nCookson et al. (2024)\nSocial media\nNext day\n—\n\n\nKim et al. (2024)\nEarnings calls / 10-Ks\n2-day event window\n—\n\n\nMarketSenseAI (2025)\nMulti-source\nMonthly\n2.76\n\n\n\n\nThe highest Sharpe ratios require the fastest execution and highest turnover. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer."
   },
   {
-    "objectID": "slides/m14-sentiment.html#the-models",
-    "href": "slides/m14-sentiment.html#the-models",
+    "objectID": "slides/m14-sentiment.html#alpha-decay",
+    "href": "slides/m14-sentiment.html#alpha-decay",
     "title": "Module 14: Sentiment Analysis",
-    "section": "The Models",
-    "text": "The Models"
+    "section": "Alpha Decay",
+    "text": "Alpha Decay\nAs more firms adopt LLM-based analysis, alpha from news sentiment decays faster:\n\nLopez-Lira & Tang document the decline: Sharpe 6.5 → 1.2 as their sample extends from 2021 to 2024\nMore sophisticated signals (tone analysis, cross-sector propagation, multi-source) retain more alpha\nThe arms race: better NLP → alpha captured → faster decay → need even better NLP\n\nThe moat is shifting from speed of access to depth of understanding."
   },
   {
-    "objectID": "slides/m14-sentiment.html#finbert-the-first-financial-sentiment-model",
-    "href": "slides/m14-sentiment.html#finbert-the-first-financial-sentiment-model",
+    "objectID": "slides/m14-sentiment.html#sentiment-classification-methods",
+    "href": "slides/m14-sentiment.html#sentiment-classification-methods",
     "title": "Module 14: Sentiment Analysis",
-    "section": "FinBERT: The First Financial Sentiment Model",
-    "text": "FinBERT: The First Financial Sentiment Model\nFinBERT (Araci, 2019) = BERT pre-trained on financial text and fine-tuned for 3-class sentiment (positive / negative / neutral).\n\n\nArchitecture\n\n110M parameters (BERT-base)\nFine-tuned on Financial PhraseBank (4,840 labeled sentences)\nOpen source: ProsusAI/finbert on HuggingFace\n\n\n\nPerformance\n\n~87% accuracy on Financial PhraseBank\n14 pp improvement over vanilla BERT\nBecame the standard baseline for financial NLP"
+    "section": "Sentiment Classification Methods",
+    "text": "Sentiment Classification Methods"
   },
   {
-    "objectID": "slides/m14-sentiment.html#bloomberggpt-and-fingpt",
-    "href": "slides/m14-sentiment.html#bloomberggpt-and-fingpt",
+    "objectID": "slides/m14-sentiment.html#bag-of-words",
+    "href": "slides/m14-sentiment.html#bag-of-words",
     "title": "Module 14: Sentiment Analysis",
-    "section": "BloombergGPT and FinGPT",
-    "text": "BloombergGPT and FinGPT\n\n\nBloombergGPT (2023)\n\n50B parameters; ~$10M training cost\nTrained on Bloomberg’s FinPile (363B tokens) + 345B tokens of general text\nProprietary — weights not released\n\n\n\nFinGPT (2023)\n\nOpen-source (AI4Finance Foundation)\nFine-tunes Llama, Falcon, etc. with LoRA\nTraining cost: under $300\n\n\n\n\nBloombergGPT proved the concept; FinGPT democratized it."
+    "section": "Bag of Words",
+    "text": "Bag of Words\nThe earliest approach: count words from predefined positive/negative lists.\n“Apple revenue beats estimates, shares surge 5%” → beats (+1), surge (+1) → positive ✓\nBut bag-of-words fails on:\n\nNegation: “did not report a loss” → counts loss as negative ✗\nHedging: “despite strong revenue, warned about disruptions” → counts strong as positive ✗\nDomain language: liability, outstanding, capital have different meanings in finance\n\nLoughran & McDonald (2011) improved this with finance-specific word lists (2,355 negative, 354 positive words from 10-K filings) — but the fundamental limitation remains: words are not sentences."
   },
   {
-    "objectID": "slides/m14-sentiment.html#gpt-4-and-general-purpose-llms",
-    "href": "slides/m14-sentiment.html#gpt-4-and-general-purpose-llms",
+    "objectID": "slides/m14-sentiment.html#how-bert-learns-language",
+    "href": "slides/m14-sentiment.html#how-bert-learns-language",
     "title": "Module 14: Sentiment Analysis",
-    "section": "GPT-4 and General-Purpose LLMs",
-    "text": "GPT-4 and General-Purpose LLMs\nGeneral-purpose LLMs can classify financial sentiment with zero training data — just a well-crafted prompt.\n\n\nStrengths\n\nUnderstands: “despite strong revenue, guidance was weak” → negative\nHandles sarcasm, hedging, implicit sentiment\nSentiment + event classification + summarization in one model\n\n\n\nWeaknesses\n\nLatency: 500ms–5s per API call\nCost: $2.50–10/M input tokens (varies by model)\nData leaves your infrastructure"
+    "section": "How BERT Learns Language",
+    "text": "How BERT Learns Language\nBERT (Bidirectional Encoder Representations from Transformers) is trained in two stages:\n\n\nStage 1: Pre-Training\n\nMasked language model: hide 15% of words, predict them from context\n“The company reported strong [MASK]” → earnings (not losses)\nLearns grammar, meaning, and relationships from millions of sentences\nNo human labels needed\n\n\n\nStage 2: Fine-Tuning\n\nAdd a classification layer on top of the pre-trained model\nTrain on labeled examples: sentence → positive / negative / neutral\nOnly a few thousand examples needed (Financial PhraseBank: 4,840 sentences)\nThe pre-trained knowledge transfers to the new task\n\n\n\n\nThe key insight: BERT reads both directions simultaneously. “Bank” means something different in “river bank” vs. “bank earnings” — BERT uses the full context to decide."
   },
   {
-    "objectID": "slides/m14-sentiment.html#fine-tuning-the-idea",
-    "href": "slides/m14-sentiment.html#fine-tuning-the-idea",
+    "objectID": "slides/m14-sentiment.html#finbert-bert-for-finance",
+    "href": "slides/m14-sentiment.html#finbert-bert-for-finance",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Fine-Tuning: The Idea",
-    "text": "Fine-Tuning: The Idea\nFine-tuning = take a pre-trained model (trained on general text) and continue training on your domain-specific data.\n\n\nFull Fine-Tuning\n\nUpdate all model weights\nLlama 7B = 7 billion parameters to optimize\nRequires multiple high-end GPUs\nCost: thousands of dollars per run\n\n\n\nLoRA Fine-Tuning\n\nUpdate only small added matrices\nLlama 7B with LoRA = ~4 million trainable parameters\nRuns on a single GPU\nCost: under $300"
+    "section": "FinBERT: BERT for Finance",
+    "text": "FinBERT: BERT for Finance\nFinBERT (Araci, 2019) = BERT pre-trained on financial text, then fine-tuned for 3-class sentiment.\n\n110M parameters\nFine-tuned on Financial PhraseBank (4,840 labeled sentences)\n~87% accuracy on financial sentiment (14 pp above vanilla BERT)\nInference: ~5 ms per sentence on GPU\n\n\nFinBERT became the standard baseline for financial NLP. It’s fast enough for real-time trading and accurate enough for most headline classification. Open source: ProsusAI/finbert on HuggingFace."
   },
   {
-    "objectID": "slides/m14-sentiment.html#what-is-lora",
-    "href": "slides/m14-sentiment.html#what-is-lora",
+    "objectID": "slides/m14-sentiment.html#how-llms-classify-sentiment",
+    "href": "slides/m14-sentiment.html#how-llms-classify-sentiment",
     "title": "Module 14: Sentiment Analysis",
-    "section": "What Is LoRA?",
-    "text": "What Is LoRA?\nLoRA = Low-Rank Adaptation (Hu et al., 2021)\nA neural network layer computes \\(\\mathbf{y} = \\mathbf{W}\\mathbf{x}\\), where \\(\\mathbf{W}\\) is a large weight matrix (e.g., \\(4096 \\times 4096 = 16.8\\)M parameters).\nFine-tuning changes \\(\\mathbf{W}\\) to \\(\\mathbf{W} + \\Delta\\mathbf{W}\\). LoRA’s insight: the update \\(\\Delta\\mathbf{W}\\) doesn’t need 16.8M free parameters. Instead, decompose it into two small matrices:\n\\[\\Delta\\mathbf{W} = \\mathbf{B}\\mathbf{A}\\]\nwhere \\(\\mathbf{B}\\) is \\(4096 \\times r\\) and \\(\\mathbf{A}\\) is \\(r \\times 4096\\), with \\(r\\) (the rank) typically 8 or 16.\n\nWith \\(r = 8\\): trainable parameters = $4096 + 8 = $ 65,536 instead of 16.8 million. That’s a 256\\(\\times\\) reduction for this one layer."
+    "section": "How LLMs Classify Sentiment",
+    "text": "How LLMs Classify Sentiment\nLarge language models (GPT-4, Claude, Gemini) classify sentiment with zero training data — just a well-crafted prompt:\n\n“Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning.”\n\nWhy this works:\n\nPre-trained on trillions of tokens including financial text\nUnderstands nuance: “despite strong revenue, guidance was weak” → negative\nHandles sarcasm, hedging, implicit sentiment\nCan classify sentiment, extract events, and summarize in a single prompt\n\nThe tradeoff: 500 ms – 5 s per API call vs. 5 ms for FinBERT. For real-time trading, use FinBERT for high-confidence cases and route low-confidence cases to an LLM."
   },
   {
-    "objectID": "slides/m14-sentiment.html#why-low-rank",
-    "href": "slides/m14-sentiment.html#why-low-rank",
+    "objectID": "slides/m14-sentiment.html#try-it-finbert",
+    "href": "slides/m14-sentiment.html#try-it-finbert",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Why “Low Rank”?",
-    "text": "Why “Low Rank”?\nA \\(4096 \\times 4096\\) matrix can represent \\(16.8\\)M independent directions of change. But the research finding is that fine-tuning adjustments live in a much smaller subspace.\n\nAnalogy\nImagine you have a detailed road map of the U.S. (millions of roads). To adapt it for a delivery route, you don’t redraw every road — you just highlight a few paths. The rank \\(r\\) is how many paths you’re allowed to highlight.\n\n\n\\(r = 8\\): the update can express 8 independent directions of change\nThe original weights \\(\\mathbf{W}\\) (frozen) provide the general knowledge\n\\(\\mathbf{B}\\mathbf{A}\\) (trained) provides the domain-specific adjustment"
+    "section": "Try It: FinBERT",
+    "text": "Try It: FinBERT\n\nimport warnings\nwarnings.filterwarnings(\"ignore\")\nimport logging\nlogging.disable(logging.WARNING)\n\nfrom transformers import pipeline\n\npipe = pipeline(\"text-classification\", model=\"ProsusAI/finbert\", top_k=None)\n\nheadlines = [\n    \"Apple revenue beats estimates, shares surge 5%\",\n    \"Despite strong revenue, the company warned about supply chain disruptions\",\n    \"The company did not report a loss\",\n    \"Shares fell less than feared after earnings miss\",\n]\n\nresults = pipe(headlines)\nfor headline, scores in zip(headlines, results):\n    best = max(scores, key=lambda x: x[\"score\"])\n    print(f\"{best['label']:&gt;8s} ({best['score']:.0%})  {headline}\")\n\n\n\n\n\n\npositive (92%)  Apple revenue beats estimates, shares surge 5%\nnegative (97%)  Despite strong revenue, the company warned about supply chain disruptions\n neutral (89%)  The company did not report a loss\nnegative (97%)  Shares fell less than feared after earnings miss"
   },
   {
-    "objectID": "slides/m14-sentiment.html#which-weights-get-lora",
-    "href": "slides/m14-sentiment.html#which-weights-get-lora",
+    "objectID": "slides/m14-sentiment.html#try-it-yourself",
+    "href": "slides/m14-sentiment.html#try-it-yourself",
     "title": "Module 14: Sentiment Analysis",
-    "section": "Which Weights Get LoRA?",
-    "text": "Which Weights Get LoRA?\nA transformer has many weight matrices. LoRA is typically applied to the attention layers:\n\n\n\nMatrix\nRole\nLoRA applied?\n\n\n\n\n\\(\\mathbf{W}_Q\\) (query)\n“What am I looking for?”\nYes\n\n\n\\(\\mathbf{W}_K\\) (key)\n“What do I contain?”\nYes\n\n\n\\(\\mathbf{W}_V\\) (value)\n“What information do I carry?”\nYes\n\n\n\\(\\mathbf{W}_O\\) (output)\nCombines attention heads\nSometimes\n\n\nFeed-forward layers\nProcess each position\nSometimes\n\n\n\n\nThe attention matrices control how the model relates words to each other — exactly what needs to change when adapting from general text to financial text. The pre-trained feed-forward layers (general knowledge) are often left frozen."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#lora-in-practice-fingpt",
-    "href": "slides/m14-sentiment.html#lora-in-practice-fingpt",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "LoRA in Practice: FinGPT",
-    "text": "LoRA in Practice: FinGPT\nfrom peft import LoraConfig, get_peft_model\n\nconfig = LoraConfig(\n    r=8,                          # rank: 8 directions of adaptation\n    lora_alpha=32,                # scaling factor\n    target_modules=[\"q_proj\", \"v_proj\"],  # which matrices to adapt\n    lora_dropout=0.05,\n)\n\nmodel = get_peft_model(base_model, config)\nprint(f\"Trainable parameters: {model.num_parameters(only_trainable=True):,}\")\n# → ~4.2 million (vs. 7 billion total)\n\nFinGPT used this approach to fine-tune Llama on financial sentiment data for under $300, producing a model that outperforms FinBERT at a fraction of BloombergGPT’s cost."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#small-language-models",
-    "href": "slides/m14-sentiment.html#small-language-models",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Small Language Models",
-    "text": "Small Language Models\nSmall language models (1–10B parameters) trained or fine-tuned for finance:\n\n\nAdvantages\n\nPrivacy: data never leaves your infrastructure\nSpeed: 5–10ms inference on a single GPU\nCost: one-time fine-tuning, then free inference\nSpecialization: tuned for exactly your task\n\n\n\nExamples\n\nFinBERT: 110M params, sentiment classification\nFinLlama: Llama 7B + LoRA, trading signals\nFinGPT: open-source, multiple base models\nCustom BERT models trained on internal data\n\n\n\nWhy this matters for trading: FinBERT processes headlines in milliseconds; GPT-4 takes seconds."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#what-the-research-shows",
-    "href": "slides/m14-sentiment.html#what-the-research-shows",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "What the Research Shows",
-    "text": "What the Research Shows"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#can-chatgpt-forecast-stock-prices",
-    "href": "slides/m14-sentiment.html#can-chatgpt-forecast-stock-prices",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Can ChatGPT Forecast Stock Prices?",
-    "text": "Can ChatGPT Forecast Stock Prices?\nLopez-Lira & Tang (2023). Accepted at the Journal of Finance.\n\n67,586 headlines for 4,138 companies (Oct 2021–Dec 2022)\nLong-short strategies: overnight Sharpe ratio 2.97, intraday Sharpe ratio 2.63\nForecasting ability increases with model size — financial reasoning is an “emerging capability” of larger LLMs"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#llms-vs.-traditional-sentiment-analysis",
-    "href": "slides/m14-sentiment.html#llms-vs.-traditional-sentiment-analysis",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "LLMs vs. Traditional Sentiment Analysis",
-    "text": "LLMs vs. Traditional Sentiment Analysis\nKirtac & Germano (2024), Finance Research Letters. 965,375 U.S. financial news articles.\n\n\n\nMethod\nSentiment Accuracy\nLong-Short Sharpe\n\n\n\n\nLoughran-McDonald dictionary\n50.1%\n1.23\n\n\nFinBERT\n72.2%\n2.07\n\n\nOPT (GPT-3 family)\n74.4%\n3.05\n\n\n\nTraditional bag-of-words methods are now effectively obsolete for this task."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#more-key-results",
-    "href": "slides/m14-sentiment.html#more-key-results",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "More Key Results",
-    "text": "More Key Results\n\n\nGPT-4 vs. Human Analysts\n\nKim, Muhn & Nikolaev (2024), Chicago Booth\nGPT-4 given only anonymized financial statements\nOutperforms the median human analyst at predicting earnings direction\n\n\n\nFine-Tuned Small Models\n\nFinLlama (2024, Imperial College)\nLlama 2 7B fine-tuned with LoRA (4.2M trainable params)\nOutperforms FinBERT by 44.7% in cumulative returns"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#multi-agent-trading-systems",
-    "href": "slides/m14-sentiment.html#multi-agent-trading-systems",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Multi-Agent Trading Systems",
-    "text": "Multi-Agent Trading Systems\nMarketSenseAI 2.0 (2025): GPT-4 + RAG multi-agent system.\n\n125.9% cumulative returns vs. 73.5% for S&P 100"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#how-it-works-implementation",
-    "href": "slides/m14-sentiment.html#how-it-works-implementation",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "How It Works: Implementation",
-    "text": "How It Works: Implementation"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#the-news-trading-pipeline",
-    "href": "slides/m14-sentiment.html#the-news-trading-pipeline",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "The News Trading Pipeline",
-    "text": "The News Trading Pipeline\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;Data&lt;br&gt;Ingestion&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;Entity&lt;br&gt;Resolution&lt;/b&gt;\"]\n  B --&gt; C[\"&lt;b&gt;Sentiment&lt;br&gt;Extraction&lt;/b&gt;\"]\n  C --&gt; D[\"&lt;b&gt;Signal&lt;br&gt;Construction&lt;/b&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Trade&lt;br&gt;Execution&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n\n\nData ingestion: Reuters, Bloomberg, SEC filings\nEntity resolution: “Apple” → AAPL\nSentiment extraction: The LLM’s core job\n\n\n\nSignal construction: Aggregate, weight, normalize\nTrade execution: Route orders\nThe LLM replaces steps 2 and 3"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#what-the-llm-extracts",
-    "href": "slides/m14-sentiment.html#what-the-llm-extracts",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "What the LLM Extracts",
-    "text": "What the LLM Extracts\nSentiment is more than positive/negative. A production system classifies along multiple dimensions:\n\n\n\n\n\n\n\n\nDimension\nQuestion\nExample\n\n\n\n\nPolarity\nPositive, negative, or neutral?\n“Revenue beat estimates” → positive\n\n\nMagnitude\nHow strong?\n“Slight miss” vs. “catastrophic failure”\n\n\nRelevance\nIs this market-moving?\nRoutine board meeting → low\n\n\n\n\nLLMs handle all dimensions in a single prompt; traditional methods handle only polarity."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#the-cascade-architecture",
-    "href": "slides/m14-sentiment.html#the-cascade-architecture",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "The Cascade Architecture",
-    "text": "The Cascade Architecture\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;All Headlines&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;\"]\n  B --&gt;|\"high conf.\"| C[\"&lt;b&gt;Immediate Signal&lt;/b&gt;\"]\n  B --&gt;|\"low conf.\"| D[\"&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Enhanced Signal&lt;/b&gt;\"]\n\n  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px\n\n\n\n\n\n\n\n\nFine-Tuned Small Model\n\nFinBERT, FinLlama, custom BERT\nInference: 5–10ms on GPU\nDeterministic; runs on your infra\n\n\n\nGeneral-Purpose LLM\n\nGPT-4, Claude, Gemini\nInference: 500ms–5s via API\nZero labeled data needed\n\n\n\nBest Practice: Fast path (~5ms) for high-confidence; slow path (~1–5s) for low-confidence; batch reprocessing end-of-day."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#latency-and-alpha-decay",
-    "href": "slides/m14-sentiment.html#latency-and-alpha-decay",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Latency and Alpha Decay",
-    "text": "Latency and Alpha Decay\nAlpha decay = the rate at which a signal’s profitability diminishes as the market incorporates the information.\n\n\n\nStrategy\nLatency Budget\nModel\n\n\n\n\nHFT / market making\n&lt;1ms\nKeyword lookup\n\n\nLow-latency systematic\n1–100ms\nFinBERT\n\n\nEvent-driven\n100ms–5s\nFinBERT + LLM\n\n\nDaily systematic\nMinutes–hours\nFull LLM pipeline\n\n\nFundamental\nHours–days\nDeep LLM analysis\n\n\n\nYou don’t need to be the fastest — you need to be fast enough for the alpha you’re targeting."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#event-driven-strategies",
-    "href": "slides/m14-sentiment.html#event-driven-strategies",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Event-Driven Strategies",
-    "text": "Event-Driven Strategies"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#types-of-news-events",
-    "href": "slides/m14-sentiment.html#types-of-news-events",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Types of News Events",
-    "text": "Types of News Events\n\n\nScheduled Events\n\nEarnings: Compare actuals to consensus; analyze management tone\nFed / central bank: Single word changes carry enormous implications\nEconomic data: CPI, jobs reports, PMI\n\n\n\nUnscheduled Events\n\nM&A: Assess deal likelihood and regulatory risk\nFDA decisions: Binary, high-impact\nGeopolitical: Sanctions, trade policy, elections\n\n\n\nThe tone of an earnings call often matters more for returns than the reported numbers."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#earnings-call-analysis",
-    "href": "slides/m14-sentiment.html#earnings-call-analysis",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Earnings Call Analysis",
-    "text": "Earnings Call Analysis\nThe Prompt\n“Rate management’s tone from $-$5 (very bearish) to +5 (very bullish). Explain your reasoning. Identify forward-looking statements that differ from consensus.”\n\nThe LLM processes the entire transcript (8,000–15,000 tokens)\nDetects hedging: “We’re pleased with results but expect headwinds in Q4” → net negative\nTraditional keyword methods would flag “pleased” as positive\n\n\nThis is where LLMs provide the greatest edge over traditional NLP."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#beyond-company-sentiment-geopolitical-risk",
-    "href": "slides/m14-sentiment.html#beyond-company-sentiment-geopolitical-risk",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Beyond Company Sentiment: Geopolitical Risk",
-    "text": "Beyond Company Sentiment: Geopolitical Risk"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#the-propagation-problem",
-    "href": "slides/m14-sentiment.html#the-propagation-problem",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "The Propagation Problem",
-    "text": "The Propagation Problem\nMost LLM trading research focuses on company-level sentiment. The real competitive advantage: understanding how macro events propagate across sectors.\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%\nflowchart LR\n  A[\"&lt;b&gt;Conflict&lt;/b&gt;\"] --&gt; B[\"&lt;b&gt;Oil&lt;br&gt;prices ↑&lt;/b&gt;\"]\n  B --&gt; C[\"&lt;b&gt;Energy&lt;br&gt;stocks ↑&lt;/b&gt;\"]\n  B --&gt; D[\"&lt;b&gt;Fertilizer&lt;br&gt;costs ↑&lt;/b&gt;\"]\n  D --&gt; E[\"&lt;b&gt;Food&lt;br&gt;prices ↑&lt;/b&gt;\"]\n  E --&gt; F[\"&lt;b&gt;Staples&lt;br&gt;margins ↓&lt;/b&gt;\"]\n\n  style A fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n  style F fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px\n\n\n\n\n\n\n\n“Russia invades Ukraine” — which sectors benefit? Which suffer?\nMulti-hop causal reasoning:\n\n1st order: Oil prices rise → energy stocks up\n2nd order: Fertilizer costs rise → agriculture costs up\n3rd order: Food prices rise → consumer staples margins squeezed"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#measuring-geopolitical-risk",
-    "href": "slides/m14-sentiment.html#measuring-geopolitical-risk",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Measuring Geopolitical Risk",
-    "text": "Measuring Geopolitical Risk\n\n\nCaldara-Iacoviello GPR Index\n\nPublished in AER (2022)\nCounts articles in 10 newspapers across 8 categories\nAvailable for 44 countries since 1900\n\n\n\nBlackRock BGRI\n\nNeural network NLP on brokerage reports + news\nFor each risk, identifies the 3 most sensitive assets\nThe industry gold standard"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#knowledge-graphs-mapping-shock-propagation",
-    "href": "slides/m14-sentiment.html#knowledge-graphs-mapping-shock-propagation",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Knowledge Graphs: Mapping Shock Propagation",
-    "text": "Knowledge Graphs: Mapping Shock Propagation\nA knowledge graph maps entities (firms, sectors, commodities) and their relationships. Combined with an LLM, it enables multi-hop reasoning about how shocks propagate.\n\n\nFinDKG (Li et al., 2024)\n\nFine-tuned LLM builds a dynamic knowledge graph from financial news\nOutperforms thematic ETFs at identifying sector themes\nOpen source\n\n\n\nSupply Chain Mapping\n\nLLMs extract multi-tier supplier networks from text\nMap 3,000+ firms and 11,000+ supply links\nPredict how disruptions cascade through supply chains"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#industry-adoption-and-risks",
-    "href": "slides/m14-sentiment.html#industry-adoption-and-risks",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Industry Adoption and Risks",
-    "text": "Industry Adoption and Risks"
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#who-is-doing-this",
-    "href": "slides/m14-sentiment.html#who-is-doing-this",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Who Is Doing This?",
-    "text": "Who Is Doing This?\n\n\nHedge Funds\n\nBridgewater: $2B AI fund using OpenAI, Anthropic, Perplexity\nTwo Sigma: NLP for 10+ years\nNumerai: Crowdsourced AI fund, $550M AUM\n\n\n\nPlatforms\n\nBloomberg: BloombergGPT, terminal-integrated NLP\nRavenPack: Structured sentiment signals\nKensho: Acquired by S&P Global for $550M\n\n\n\nPermutable AI: LLM-based trading live Oct 2024 — 20.6% return, Sharpe ratio 2.85."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#cautionary-tales",
-    "href": "slides/m14-sentiment.html#cautionary-tales",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Cautionary Tales",
-    "text": "Cautionary Tales\n\n\n\n\n\n\n\n\nEvent\nWhat Happened\nImpact\n\n\n\n\nAP Twitter Hack (2013)\nFake “White House explosions” tweet\nS&P 500 lost $136B in seconds\n\n\nAlpha Arena\nChatGPT trading competition\n63% loss\n\n\nIMF Warning\nAI trading increases volatility\nRegulatory scrutiny\n\n\n\n\nThe competitive edge is real, but so are the risks."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#the-crowding-problem",
-    "href": "slides/m14-sentiment.html#the-crowding-problem",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "The Crowding Problem",
-    "text": "The Crowding Problem\nAs more firms adopt the same LLM-based analysis, alpha from news sentiment decays faster.\n\nLopez-Lira & Tang document declining returns as LLM adoption rises — consistent with the Efficient Market Hypothesis\nMore sophisticated signals (tone analysis, cross-sector propagation) retain more alpha\nThe arms race: better NLP → alpha captured → faster decay → need even better NLP\n\nThe moat is shifting from speed of access to depth of understanding."
-  },
-  {
-    "objectID": "slides/m14-sentiment.html#summary",
-    "href": "slides/m14-sentiment.html#summary",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Summary",
-    "text": "Summary\n\n\nWhat We Know\n\nLLMs dramatically outperform dictionaries (50% → 74% accuracy)\nGPT-4 can match or beat human analysts\nFine-tuned small models compete at a fraction of cost\n\n\n\nWhat to Watch\n\nAlpha decay as adoption increases\nAdversarial attacks and manipulation\nCrowding risk: correlated AI trades → systemic instability\n\n\n\n\nThe value of LLMs in trading is not just speed — it is depth of understanding."
+    "section": "Try It Yourself",
+    "text": "Try It Yourself\nCompare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences — including negation, hedging, and finance-specific language.\nOpen in Google Colab →"
   },
   {
     "objectID": "slides/m14-sentiment.html#key-references",
     "href": "slides/m14-sentiment.html#key-references",
     "title": "Module 14: Sentiment Analysis",
     "section": "Key References",
-    "text": "Key References\n\n\nLopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? Journal of Finance.\nKirtac & Germano (2024). Sentiment Trading with Large Language Models. Finance Research Letters.\nKim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.\nAraci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.\nWu et al. (2023). BloombergGPT: A Large Language Model for Finance.\nYang et al. (2023). FinGPT: Open-Source Financial Large Language Models.\nFinLlama (2024). Financial Sentiment Analysis for Algorithmic Trading. ICAIF ’24.\nCaldara & Iacoviello (2022). Measuring Geopolitical Risk. AER, 112(4).\nLi et al. (2024). FinDKG: Dynamic Knowledge Graphs with LLMs. ICAIF ’24."
+    "text": "Key References\n\n\nLopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? Journal of Finance.\nKirtac & Germano (2024). Sentiment Trading with Large Language Models. Finance Research Letters.\nCookson, Lu, Mullins & Niessner (2024). The Social Signal. Journal of Financial Economics.\nKim, Muhn & Nikolaev (2024). Bloated Disclosures: Can ChatGPT Help Investors Process Information?\nKim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.\nFatouros, Metaxas, Soldatos & Kyriazis (2025). MarketSenseAI 2.0.\nGupta, Raghunath, Buddaraju, Krishnasamy & Mitra (2024). FinLlama. ICAIF ’24.\nAraci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.\nLoughran & McDonald (2011). When Is a Liability Not a Liability? Journal of Finance.\nChen, Kelly & Xiu (2023). Expected Returns and Large Language Models. NBER Working Paper 31502."
   },
   {
     "objectID": "slides/m12-rag.html#what-weve-done",
@@ -2443,18 +2275,67 @@
     "text": "Collect Training Data\nTraining data is a set of input/output pairs — examples of what you want the model to do.\n\n\n\n\n\n\n\nInput\nOutput\n\n\n\n\n“Summarize this 10-K risk factor…”\n“The company faces supply chain risk due to…”\n\n\n“Classify this earnings call sentence…”\n“Positive guidance”\n\n\n“Write a credit memo for…”\n“Credit Assessment: BBB+ …”\n\n\n\n\nStart small — behavioral changes can appear with as few as 20 examples. Meta’s LIMA project showed strong results with just 1,000 carefully curated examples. Quality matters more than quantity."
   },
   {
-    "objectID": "slides/m13-fine-tuning.html#choose-an-approach",
-    "href": "slides/m13-fine-tuning.html#choose-an-approach",
+    "objectID": "slides/m13-fine-tuning.html#what-can-go-wrong",
+    "href": "slides/m13-fine-tuning.html#what-can-go-wrong",
     "title": "Module 13: Fine-Tuning",
-    "section": "Choose an Approach",
-    "text": "Choose an Approach\n\n\nFull Fine-Tuning\n\nUpdate all model parameters\nMaximum flexibility\nRequires significant GPU memory and compute\nProduces a full copy of the model\n\n\n\nLoRA (Parameter-Efficient)\n\nFreeze the original weights\nTrain only small adapter matrices\n~100x fewer trainable parameters\nComparable quality on most tasks, fraction of the cost\n\n\n\n\nIn practice, almost everyone uses LoRA or a similar parameter-efficient method. Full fine-tuning is reserved for large-budget projects."
+    "section": "What Can Go Wrong?",
+    "text": "What Can Go Wrong?\nFine-tuning is not risk-free. Issues to watch for:\n\nCatastrophic forgetting: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)\nOverfitting: with too few examples, the model memorizes training data instead of learning patterns — performs great on training-like inputs, fails on anything different\nMaintenance burden: when the base model gets a new version, you may need to re-fine-tune"
   },
   {
-    "objectID": "slides/m13-fine-tuning.html#how-lora-keeps-it-cheap",
-    "href": "slides/m13-fine-tuning.html#how-lora-keeps-it-cheap",
+    "objectID": "slides/m13-fine-tuning.html#cosine-similarity",
+    "href": "slides/m13-fine-tuning.html#cosine-similarity",
     "title": "Module 13: Fine-Tuning",
-    "section": "How LoRA Keeps It Cheap",
-    "text": "How LoRA Keeps It Cheap"
+    "section": "Cosine Similarity",
+    "text": "Cosine Similarity"
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#cosine-similarity-vs.-distance",
+    "href": "slides/m13-fine-tuning.html#cosine-similarity-vs.-distance",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Cosine Similarity vs. Distance",
+    "text": "Cosine Similarity vs. Distance\n\nThe cosine similarity between two vectors is the cosine of the angle between them. It measures direction, not magnitude.\n\n\n\n\n\nIf we normalize vectors to unit length (project them onto the unit circle), the squared Euclidean distance between them is:\n\\[d^2 = 2 - 2\\cos\\theta\\]\nSo high cosine similarity \\(\\Leftrightarrow\\) small angle \\(\\Leftrightarrow\\) normalized vectors are close together."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#why-this-matters-for-ai",
+    "href": "slides/m13-fine-tuning.html#why-this-matters-for-ai",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Why This Matters for AI",
+    "text": "Why This Matters for AI\nIn LLMs, words and sentences are represented as high-dimensional vectors (embeddings). Cosine similarity measures how related two meanings are:\n\n“profit” and “earnings” → high cosine similarity (similar direction)\n“profit” and “banana” → low cosine similarity (different directions)\n\n\nFine-tuning adjusts these embedding vectors so that domain-specific relationships are captured. For example, after fine-tuning on financial text, “liability” moves closer to neutral accounting terms and farther from negative-sentiment words."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#biases-and-weights",
+    "href": "slides/m13-fine-tuning.html#biases-and-weights",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Biases and Weights",
+    "text": "Biases and Weights"
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#a-simple-neural-network",
+    "href": "slides/m13-fine-tuning.html#a-simple-neural-network",
+    "title": "Module 13: Fine-Tuning",
+    "section": "A Simple Neural Network",
+    "text": "A Simple Neural Network\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#0f172a', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 140, 'padding': 20, 'useMaxWidth': true}}}%%\ngraph LR\n  subgraph Inputs[\" \"]\n    direction TB\n    X1((\"x₁\"))\n    X2((\"x₂\"))\n    X3((\"x₃\"))\n  end\n  subgraph Hidden[\"Hidden Layer\"]\n    direction TB\n    H1((\"y₁\"))\n    H2((\"y₂\"))\n  end\n  subgraph Output[\" \"]\n    direction TB\n    Y((\"z\"))\n  end\n  X1 --&gt; H1 & H2\n  X2 --&gt; H1 & H2\n  X3 --&gt; H1 & H2\n  H1 --&gt; Y\n  H2 --&gt; Y\n\n  style X1 fill:#3b82f6,stroke:#3b82f6,color:#fff\n  style X2 fill:#3b82f6,stroke:#3b82f6,color:#fff\n  style X3 fill:#3b82f6,stroke:#3b82f6,color:#fff\n  style H1 fill:#f59e0b,stroke:#f59e0b,color:#fff\n  style H2 fill:#f59e0b,stroke:#f59e0b,color:#fff\n  style Y fill:#0f172a,stroke:#0f172a,color:#fff\n  linkStyle default stroke:#334155,stroke-width:2px\n\n\n\n\n\n\nA fully connected network: every input connects to every neuron in the next layer."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#how-a-neuron-decides",
+    "href": "slides/m13-fine-tuning.html#how-a-neuron-decides",
+    "title": "Module 13: Fine-Tuning",
+    "section": "How a Neuron Decides",
+    "text": "How a Neuron Decides\nEach neuron in the hidden layer computes a weighted sum of its inputs plus a bias:\n\\[y = b + w_1 x_1 + w_2 x_2 + w_3 x_3\\]\nThe neuron “fires” (produces a positive output) only if this sum is positive:\n\nThe weights \\(w_1, w_2, w_3\\) determine which inputs matter and how much\nThe bias \\(b\\) sets the threshold — how large the weighted inputs must be before the neuron activates\n\n\nIf the weights are positive, the neuron fires when the inputs are large enough. The bias \\(b\\) controls how large — a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#lora-low-rank-adaptation",
+    "href": "slides/m13-fine-tuning.html#lora-low-rank-adaptation",
+    "title": "Module 13: Fine-Tuning",
+    "section": "LoRA: Low-Rank Adaptation",
+    "text": "LoRA: Low-Rank Adaptation"
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#full-fine-tuning-vs.-lora",
+    "href": "slides/m13-fine-tuning.html#full-fine-tuning-vs.-lora",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Full Fine-Tuning vs. LoRA",
+    "text": "Full Fine-Tuning vs. LoRA\n\n\nFull Fine-Tuning\n\nUpdate all model parameters\nMaximum flexibility\nRequires significant GPU memory and compute\nProduces a full copy of the model\n\n\n\nLoRA (Parameter-Efficient)\n\nFreeze the original weights\nTrain only small adapter matrices\n~100x fewer trainable parameters\nComparable quality on most tasks, fraction of the cost\n\n\n\n\nIn practice, almost everyone uses LoRA or a similar parameter-efficient method. Full fine-tuning is reserved for large-budget projects."
   },
   {
     "objectID": "slides/m13-fine-tuning.html#how-lora-works",
@@ -2468,14 +2349,21 @@
     "href": "slides/m13-fine-tuning.html#full-fine-tuning-every-connection-updated",
     "title": "Module 13: Fine-Tuning",
     "section": "Full Fine-Tuning: Every Connection Updated",
-    "text": "Full Fine-Tuning: Every Connection Updated\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%\ngraph TB\n  subgraph Layer_k[\"Layer k\"]\n    direction LR\n    A1((\" \")) ~~~ A2((\" \")) ~~~ A3((\" \")) ~~~ A4((\" \")) ~~~ A5((\" \")) ~~~ A6((\" \"))\n  end\n  subgraph Layer_k1[\"Layer k+1\"]\n    direction LR\n    B1((\" \")) ~~~ B2((\" \")) ~~~ B3((\" \")) ~~~ B4((\" \")) ~~~ B5((\" \")) ~~~ B6((\" \"))\n  end\n  A1 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A2 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A3 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A4 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A5 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A6 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n\n  linkStyle default stroke:#f59e0b,stroke-width:2px\n  style A1 fill:#f59e0b,stroke:#f59e0b\n  style A2 fill:#f59e0b,stroke:#f59e0b\n  style A3 fill:#f59e0b,stroke:#f59e0b\n  style A4 fill:#f59e0b,stroke:#f59e0b\n  style A5 fill:#f59e0b,stroke:#f59e0b\n  style A6 fill:#f59e0b,stroke:#f59e0b\n  style B1 fill:#f59e0b,stroke:#f59e0b\n  style B2 fill:#f59e0b,stroke:#f59e0b\n  style B3 fill:#f59e0b,stroke:#f59e0b\n  style B4 fill:#f59e0b,stroke:#f59e0b\n  style B5 fill:#f59e0b,stroke:#f59e0b\n  style B6 fill:#f59e0b,stroke:#f59e0b\n\n\n\n\n\n\n36 trainable connections — all weights updated during training."
+    "text": "Full Fine-Tuning: Every Connection Updated\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%\ngraph TB\n  subgraph layer_k[\" \"]\n    direction LR\n    LK[\"Layer k\"]:::label\n    A1((\" \"))\n    A2((\" \"))\n    A3((\" \"))\n    A4((\" \"))\n    A5((\" \"))\n    A6((\" \"))\n  end\n  subgraph layer_k1[\" \"]\n    direction LR\n    LK1[\"Layer k+1\"]:::label\n    B1((\" \"))\n    B2((\" \"))\n    B3((\" \"))\n    B4((\" \"))\n    B5((\" \"))\n    B6((\" \"))\n  end\n  A1 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A2 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A3 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A4 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A5 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A6 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n\n  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold\n  linkStyle default stroke:#f59e0b,stroke-width:2px\n  style A1 fill:#f59e0b,stroke:#f59e0b\n  style A2 fill:#f59e0b,stroke:#f59e0b\n  style A3 fill:#f59e0b,stroke:#f59e0b\n  style A4 fill:#f59e0b,stroke:#f59e0b\n  style A5 fill:#f59e0b,stroke:#f59e0b\n  style A6 fill:#f59e0b,stroke:#f59e0b\n  style B1 fill:#f59e0b,stroke:#f59e0b\n  style B2 fill:#f59e0b,stroke:#f59e0b\n  style B3 fill:#f59e0b,stroke:#f59e0b\n  style B4 fill:#f59e0b,stroke:#f59e0b\n  style B5 fill:#f59e0b,stroke:#f59e0b\n  style B6 fill:#f59e0b,stroke:#f59e0b\n\n\n\n\n\n\n36 trainable connections — all weights updated during training."
   },
   {
     "objectID": "slides/m13-fine-tuning.html#lora-rank-2-low-rank-update-path",
     "href": "slides/m13-fine-tuning.html#lora-rank-2-low-rank-update-path",
     "title": "Module 13: Fine-Tuning",
     "section": "LoRA (Rank 2): Low-Rank Update Path",
-    "text": "LoRA (Rank 2): Low-Rank Update Path\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#fff', 'primaryTextColor': '#fff', 'lineColor': '#fff', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%\ngraph TB\n  subgraph Layer_k[\"Layer k\"]\n    direction LR\n    A1((\" \")) ~~~ A2((\" \")) ~~~ A3((\" \")) ~~~ A4((\" \")) ~~~ A5((\" \")) ~~~ A6((\" \"))\n  end\n  subgraph Adapter[\"Adapter (rank 2)\"]\n    direction LR\n    R1((\" \"))\n    R2((\" \"))\n  end\n  subgraph Layer_k1[\"Layer k+1\"]\n    direction LR\n    B1((\" \")) ~~~ B2((\" \")) ~~~ B3((\" \")) ~~~ B4((\" \")) ~~~ B5((\" \")) ~~~ B6((\" \"))\n  end\n  A1 --&gt; R1 & R2\n  A2 --&gt; R1 & R2\n  A3 --&gt; R1 & R2\n  A4 --&gt; R1 & R2\n  A5 --&gt; R1 & R2\n  A6 --&gt; R1 & R2\n  R1 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  R2 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n\n  linkStyle default stroke:#f59e0b,stroke-width:2px\n  style A1 fill:#f59e0b,stroke:#f59e0b\n  style A2 fill:#f59e0b,stroke:#f59e0b\n  style A3 fill:#f59e0b,stroke:#f59e0b\n  style A4 fill:#f59e0b,stroke:#f59e0b\n  style A5 fill:#f59e0b,stroke:#f59e0b\n  style A6 fill:#f59e0b,stroke:#f59e0b\n  style R1 fill:#f59e0b,stroke:#f59e0b\n  style R2 fill:#f59e0b,stroke:#f59e0b\n  style B1 fill:#f59e0b,stroke:#f59e0b\n  style B2 fill:#f59e0b,stroke:#f59e0b\n  style B3 fill:#f59e0b,stroke:#f59e0b\n  style B4 fill:#f59e0b,stroke:#f59e0b\n  style B5 fill:#f59e0b,stroke:#f59e0b\n  style B6 fill:#f59e0b,stroke:#f59e0b\n\n\n\n\n\n\n24 trainable connections through the bottleneck. The original 36 connections remain active but frozen — not shown."
+    "text": "LoRA (Rank 2): Low-Rank Update Path\n\n\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 40, 'rankSpacing': 60, 'padding': 12, 'useMaxWidth': true}}}%%\ngraph TB\n  subgraph layer_k[\" \"]\n    direction LR\n    LK[\"Layer k\"]:::label\n    A1((\" \"))\n    A2((\" \"))\n    A3((\" \"))\n    A4((\" \"))\n    A5((\" \"))\n    A6((\" \"))\n  end\n  subgraph adapter[\" \"]\n    direction LR\n    AD[\"Adapter (rank 2)\"]:::label\n    R1((\" \"))\n    R2((\" \"))\n  end\n  subgraph layer_k1[\" \"]\n    direction LR\n    LK1[\"Layer k+1\"]:::label\n    B1((\" \"))\n    B2((\" \"))\n    B3((\" \"))\n    B4((\" \"))\n    B5((\" \"))\n    B6((\" \"))\n  end\n  A1 --&gt; R1 & R2\n  A2 --&gt; R1 & R2\n  A3 --&gt; R1 & R2\n  A4 --&gt; R1 & R2\n  A5 --&gt; R1 & R2\n  A6 --&gt; R1 & R2\n  R1 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  R2 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n\n  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold\n  linkStyle default stroke:#f59e0b,stroke-width:2px\n  style A1 fill:#f59e0b,stroke:#f59e0b\n  style A2 fill:#f59e0b,stroke:#f59e0b\n  style A3 fill:#f59e0b,stroke:#f59e0b\n  style A4 fill:#f59e0b,stroke:#f59e0b\n  style A5 fill:#f59e0b,stroke:#f59e0b\n  style A6 fill:#f59e0b,stroke:#f59e0b\n  style R1 fill:#f59e0b,stroke:#f59e0b\n  style R2 fill:#f59e0b,stroke:#f59e0b\n  style B1 fill:#f59e0b,stroke:#f59e0b\n  style B2 fill:#f59e0b,stroke:#f59e0b\n  style B3 fill:#f59e0b,stroke:#f59e0b\n  style B4 fill:#f59e0b,stroke:#f59e0b\n  style B5 fill:#f59e0b,stroke:#f59e0b\n  style B6 fill:#f59e0b,stroke:#f59e0b\n\n\n\n\n\n\n\n\n24 trainable connections through the bottleneck:\n\nMatrix A (layer k → adapter): 6 × 2 = 12 parameters\nMatrix B (adapter → layer k+1): 2 × 6 = 12 parameters\n\nThe original 36 connections remain active but frozen — not shown.\nvs. full fine-tuning: 24 vs. 36 trainable parameters (33% reduction). At real scale (4096 × 4096 layers, rank 16): 131K vs. 16.8M — a 128× reduction."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#lora-the-math",
+    "href": "slides/m13-fine-tuning.html#lora-the-math",
+    "title": "Module 13: Fine-Tuning",
+    "section": "LoRA: The Math",
+    "text": "LoRA: The Math\nLoRA trains two small matrices per layer. The adapter path is purely linear — no activation function in between:\n\n\nMatrix A has dimensions rank × input size (compresses down)\nMatrix B has dimensions output size × rank (expands back up)\nThe product \\(B \\times A\\) has the same dimensions as the original weight matrix \\(W\\)\n\n\nAt inference, merge the adapter into the original weights:\n\\[W' = W + B \\times A\\]\n\nBecause the adapter path is linear (just two matrix multiplications, no activation function), the product \\(B \\times A\\) is itself a matrix that can be added directly to \\(W\\). The merged model has the same architecture and speed as the original — the adapter disappears into the weights."
   },
   {
     "objectID": "slides/m13-fine-tuning.html#qlora-fine-tune-on-a-free-gpu",
@@ -2485,25 +2373,11 @@
     "text": "QLoRA: Fine-Tune on a Free GPU\nQLoRA (Dettmers et al., 2023) adds 4-bit quantization on top of LoRA:\n\nCompress base model weights to 4-bit precision (from 16-bit) — 4x memory savings\nTrain LoRA adapters on top of the quantized model\nQuality is comparable to full-precision LoRA\n\n\nResult: fine-tune a 70B-parameter model on a single 48GB GPU. For smaller models like Gemma 1B, QLoRA makes fine-tuning possible on a free Colab T4 (16GB)."
   },
   {
-    "objectID": "slides/m13-fine-tuning.html#what-can-go-wrong",
-    "href": "slides/m13-fine-tuning.html#what-can-go-wrong",
+    "objectID": "slides/m13-fine-tuning.html#hands-on-fine-tuning-with-lora",
+    "href": "slides/m13-fine-tuning.html#hands-on-fine-tuning-with-lora",
     "title": "Module 13: Fine-Tuning",
-    "section": "What Can Go Wrong?",
-    "text": "What Can Go Wrong?\nFine-tuning is not risk-free. Issues to watch for:\n\nCatastrophic forgetting: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)\nOverfitting: with too few examples, the model memorizes training data instead of learning patterns — performs great on training-like inputs, fails on anything different\nMaintenance burden: when the base model gets a new version, you may need to re-fine-tune\n\n\nLoRA reduces forgetting risk (original weights are frozen), but always test general capabilities after fine-tuning, not just your target task."
-  },
-  {
-    "objectID": "slides/m13-fine-tuning.html#hands-on-fine-tuning-gemma",
-    "href": "slides/m13-fine-tuning.html#hands-on-fine-tuning-gemma",
-    "title": "Module 13: Fine-Tuning",
-    "section": "Hands-On: Fine-Tuning Gemma",
-    "text": "Hands-On: Fine-Tuning Gemma"
-  },
-  {
-    "objectID": "slides/m13-fine-tuning.html#hands-on-notebook",
-    "href": "slides/m13-fine-tuning.html#hands-on-notebook",
-    "title": "Module 13: Fine-Tuning",
-    "section": "Hands-On Notebook",
-    "text": "Hands-On Notebook\nFine-tune Google Gemma 3 1B to classify financial news sentiment using QLoRA — in a Colab notebook.\n\n\nWhat You’ll Do\n\nLoad Gemma 1B with 4-bit quantization\nAttach LoRA adapters (&lt; 0.1% of parameters)\nTrain on 4,845 expert-labeled financial sentences\nTest on new examples\n\n\n\nWhat You’ll Need\n\nGoogle Colab with T4 GPU (free tier)\nA Hugging Face account and access token\nAccept Google’s Gemma license\n~15 minutes to train\n\n\n\nOpen in Google Colab →"
+    "section": "Hands-On: Fine-Tuning with LoRA",
+    "text": "Hands-On: Fine-Tuning with LoRA\nFine-tune Google Gemma 3 1B to classify financial news sentiment using QLoRA — in a Colab notebook.\n\n\nWhat You’ll Do\n\nLoad Gemma 1B with 4-bit quantization\nAttach LoRA adapters (&lt; 0.1% of parameters)\nTrain on 4,845 expert-labeled financial sentences\nTest on new examples\n\n\n\nWhat You’ll Need\n\nGoogle Colab with T4 GPU (free tier)\nA Hugging Face account and access token\nAccept Google’s Gemma license\n~15 minutes to train\n\n\n\nOpen in Google Colab →"
   },
   {
     "objectID": "slides/m15-agent-sdk.html#live-demo-portfolio-analysis-agent",

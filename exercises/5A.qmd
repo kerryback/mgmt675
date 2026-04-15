@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5A: Financial Data with MCP"
+title: "Exercise 5A: Build a RAG Chatbot"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,18 +9,48 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Install the Alpha Vantage or Financial Modeling Prep MCP server in Claude Desktop. Use it to retrieve financial data for a company of your choice (e.g., income statement, balance sheet, or stock prices for the last 5 years).
+Build a RAG chatbot that answers questions about a corporate annual report.
 
-Ask Claude to:
+\bigskip
+\noindent\textbf{Background.}
+Retrieval-Augmented Generation (RAG) grounds an LLM's answers in actual documents. The pipeline has three stages: (1) chunk and embed a document into a vector database, (2) embed the user's query and retrieve the most relevant chunks, and (3) pass the retrieved chunks plus the query to an LLM for a grounded answer.
 
-(a) Retrieve the data using the MCP server tools
-(b) Analyze trends (e.g., revenue growth, margin changes, debt levels)
-(c) Produce a formatted summary table in Excel
+\bigskip
+\noindent\textbf{What the finished app should do.}
+
+\begin{enumerate}
+  \item Load a corporate 10-K or annual report PDF (e.g., download one from the SEC's EDGAR system).
+  \item Let the user type a question about the document.
+  \item Return an answer that is grounded in the actual text of the document, with a citation showing which part(s) of the document the answer came from.
+\end{enumerate}
+
+Under the hood, the app will use \texttt{sentence-transformers} to embed the document and the query, a vector database to find the most relevant passages, and the OpenRouter API to generate answers. You do not need to know how to build any of this yourself --- ask Claude to build it for you.
+
+\bigskip
+\noindent\textbf{Setup.}
+
+\begin{enumerate}
+  \item Sign up at \href{https://openrouter.ai}{openrouter.ai} and copy your API key. Free models include\\
+\texttt{nvidia/nemotron-3-super-120b-a12b:free}\\
+and others listed at \href{https://openrouter.ai/models}{openrouter.ai/models}.
+  \item Give Claude a prompt like: \emph{``Build me a RAG chatbot in Python. It should load a PDF, chunk and embed it using sentence-transformers, store the embeddings in a vector database, and let me ask questions that are answered via API calls to a free model on OpenRouter. Each answer should cite which chunks were used. Here is my OpenRouter API key: ...''}
+  \item Claude will generate the code, install dependencies, and walk you through running it.
+\end{enumerate}
+
+\bigskip
+\noindent\textbf{Suggested questions to test.}
+
+\begin{itemize}
+  \item What was total revenue in the most recent fiscal year?
+  \item What are the main risk factors related to competition?
+  \item Summarize management's outlook for the coming year.
+  \item How much did the company spend on research and development?
+\end{itemize}
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Excel summary (`5A-Summary.xlsx`)
-- Screenshot showing the MCP server in your config (`5A-Config.png`)
-- Screenshot showing Claude using the MCP tools (`5A-Tools.png`)
-- Screenshot of the final output (`5A-Output.png`)
+\begin{itemize}
+  \item Code (\texttt{5A-Code.zip}) --- your complete RAG app
+  \item A document (\texttt{5A-QA.pdf}) containing at least 5 question-answer pairs from your chatbot, with your assessment of each answer: was it grounded in the document? Accurate? Any hallucinations?
+\end{itemize}

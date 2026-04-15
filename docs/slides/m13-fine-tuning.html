@@ -486,14 +486,16 @@ graph TB
 </div>
 <p><span class="amber"><strong>36 trainable connections</strong></span> — all weights updated during training.</p>
 </section>
-<section id="lora-rank-2-low-rank-update-path" class="slide level2 mermaid-small center">
+<section id="lora-rank-2-low-rank-update-path" class="slide level2 center">
 <h2>LoRA (Rank 2): Low-Rank Update Path</h2>
-<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell" data-reveal="true" data-fig-width="7" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 40, 'rankSpacing': 60, 'padding': 12, 'useMaxWidth': true}}}%%
 graph TB
   subgraph layer_k[" "]
     direction LR
@@ -552,7 +554,33 @@ graph TB
 </div>
 </div>
 </div>
-<p><span class="amber"><strong>24 trainable connections</strong></span> through the bottleneck. The original 36 connections remain active but <span class="amber">frozen</span> — not shown.</p>
+</div><div class="column" style="width:45%;">
+<div style="font-size: 0.78em; margin-top: 1em;">
+<p><span class="amber"><strong>24 trainable connections</strong></span> through the bottleneck:</p>
+<ul>
+<li><span class="amber"><strong>Matrix A</strong></span> (layer k → adapter): 6 × 2 = <strong>12 parameters</strong></li>
+<li><span class="amber"><strong>Matrix B</strong></span> (adapter → layer k+1): 2 × 6 = <strong>12 parameters</strong></li>
+</ul>
+<p>The original <span class="amber">36 connections</span> remain active but <span class="amber">frozen</span> — not shown.</p>
+<p>vs.&nbsp;full fine-tuning: <strong>24 vs.&nbsp;36</strong> trainable parameters (33% reduction). At real scale (4096 × 4096 layers, rank 16): <strong>131K vs.&nbsp;16.8M</strong> — a <span class="amber">128× reduction</span>.</p>
+</div>
+</div></div>
+</section>
+<section id="lora-the-math" class="slide level2 center">
+<h2>LoRA: The Math</h2>
+<p>LoRA trains two small matrices per layer. The adapter path is <span class="amber">purely linear</span> — no activation function in between:</p>
+<div style="font-size: 0.85em;">
+<ul>
+<li>Matrix <strong>A</strong> has dimensions <span class="amber">rank × input size</span> (compresses down)</li>
+<li>Matrix <strong>B</strong> has dimensions <span class="amber">output size × rank</span> (expands back up)</li>
+<li>The product <span class="math inline">\(B \times A\)</span> has the <span class="amber">same dimensions</span> as the original weight matrix <span class="math inline">\(W\)</span></li>
+</ul>
+</div>
+<p>At inference, merge the adapter into the original weights:</p>
+<p><span class="math display">\[W' = W + B \times A\]</span></p>
+<div class="explainer">
+<p>Because the adapter path is linear (just two matrix multiplications, no activation function), the product <span class="math inline">\(B \times A\)</span> is itself a matrix that can be added directly to <span class="math inline">\(W\)</span>. The merged model has the <span class="amber">same architecture and speed</span> as the original — the adapter disappears into the weights.</p>
+</div>
 </section>
 <section id="qlora-fine-tune-on-a-free-gpu" class="slide level2 center">
 <h2>QLoRA: Fine-Tune on a Free GPU</h2>

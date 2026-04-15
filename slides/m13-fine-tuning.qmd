@@ -328,66 +328,33 @@ graph TB
 
 [**36 trainable connections**]{.amber} --- all weights updated during training.
 
-## LoRA (Rank 2): Low-Rank Update Path {.mermaid-small}
+## LoRA (Rank 2): Low-Rank Update Path
 
-```{mermaid}
-%%| fig-width: 16
-%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
-graph TB
-  subgraph layer_k[" "]
-    direction LR
-    LK["Layer k"]:::label
-    A1((" "))
-    A2((" "))
-    A3((" "))
-    A4((" "))
-    A5((" "))
-    A6((" "))
-  end
-  subgraph adapter[" "]
-    direction LR
-    AD["Adapter (rank 2)"]:::label
-    R1((" "))
-    R2((" "))
-  end
-  subgraph layer_k1[" "]
-    direction LR
-    LK1["Layer k+1"]:::label
-    B1((" "))
-    B2((" "))
-    B3((" "))
-    B4((" "))
-    B5((" "))
-    B6((" "))
-  end
-  A1 --> R1 & R2
-  A2 --> R1 & R2
-  A3 --> R1 & R2
-  A4 --> R1 & R2
-  A5 --> R1 & R2
-  A6 --> R1 & R2
-  R1 --> B1 & B2 & B3 & B4 & B5 & B6
-  R2 --> B1 & B2 & B3 & B4 & B5 & B6
+![](images/lora-diagram.png){fig-align="center" width="55%" .nostretch}
 
-  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold
-  linkStyle default stroke:#f59e0b,stroke-width:2px
-  style A1 fill:#f59e0b,stroke:#f59e0b
-  style A2 fill:#f59e0b,stroke:#f59e0b
-  style A3 fill:#f59e0b,stroke:#f59e0b
-  style A4 fill:#f59e0b,stroke:#f59e0b
-  style A5 fill:#f59e0b,stroke:#f59e0b
-  style A6 fill:#f59e0b,stroke:#f59e0b
-  style R1 fill:#f59e0b,stroke:#f59e0b
-  style R2 fill:#f59e0b,stroke:#f59e0b
-  style B1 fill:#f59e0b,stroke:#f59e0b
-  style B2 fill:#f59e0b,stroke:#f59e0b
-  style B3 fill:#f59e0b,stroke:#f59e0b
-  style B4 fill:#f59e0b,stroke:#f59e0b
-  style B5 fill:#f59e0b,stroke:#f59e0b
-  style B6 fill:#f59e0b,stroke:#f59e0b
-```
+:::{.explainer}
+The original 36 direct connections remain active but [frozen]{.amber} (not shown). At real scale (4096 × 4096 layers, rank 16): [131K vs. 16.8M]{.amber} trainable parameters --- a 128× reduction.
+:::
 
-[**24 trainable connections**]{.amber} through the bottleneck. The original 36 connections remain active but [frozen]{.amber} --- not shown.
+## LoRA: The Math
+
+LoRA trains two small matrices per layer. The adapter path is [purely linear]{.amber} --- no activation function in between:
+
+:::{style="font-size: 0.85em;"}
+
+- Matrix **A** has dimensions [rank × input size]{.amber} (compresses down)
+- Matrix **B** has dimensions [output size × rank]{.amber} (expands back up)
+- The product $B \times A$ has the [same dimensions]{.amber} as the original weight matrix $W$
+
+:::
+
+At inference, merge the adapter into the original weights:
+
+$$W' = W + B \times A$$
+
+:::{.explainer}
+Because the adapter path is linear (just two matrix multiplications, no activation function), the product $B \times A$ is itself a matrix that can be added directly to $W$. The merged model has the [same architecture and speed]{.amber} as the original --- the adapter disappears into the weights.
+:::
 
 ## QLoRA: Fine-Tune on a Free GPU
 

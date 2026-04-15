@@ -46,9 +46,9 @@ Click on an exercise to download the PDF.
 
 | | | |
 |:-:|----------|:-:|
-| 5A | [Financial Data with MCP](exercises/5A.pdf) | [{{< fa file-pdf >}}](exercises/5A.pdf) |
-| 5B | [NotebookLM Financial Analysis](exercises/5B.pdf) | [{{< fa file-pdf >}}](exercises/5B.pdf) |
-| 5C | [Stock Analysis in Colab](exercises/5C.pdf) | [{{< fa file-pdf >}}](exercises/5C.pdf) |
+| 5A | [Build a RAG Chatbot](exercises/5A.pdf) | [{{< fa file-pdf >}}](exercises/5A.pdf) |
+| 5B | [Small Model vs. Frontier Model](exercises/5B.pdf) | [{{< fa file-pdf >}}](exercises/5B.pdf) |
+| 5C | [Valuation of Magnolia Oil & Gas](exercises/5C.pdf) | [{{< fa file-pdf >}}](exercises/5C.pdf) |
 
 ### Week 6: AI in Trading and Markets (due April 28)
 

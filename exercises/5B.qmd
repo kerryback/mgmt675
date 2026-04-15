@@ -1,5 +1,5 @@
 ---
-title: "Exercise 5B: NotebookLM Financial Analysis"
+title: "Exercise 5B: Small Model vs. Frontier Model"
 subtitle: "MGMT 675: Generative AI for Finance"
 format:
   pdf:
@@ -9,21 +9,38 @@ format:
         \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
 ---
 
-Upload at least three financial documents for the same company into Google NotebookLM. Good combinations include:
+Install a small open-source model locally and compare its output to a frontier model on a finance prompt.
 
-- A 10-K filing
-- An earnings call transcript
-- An analyst report or press release
+\bigskip
+\noindent\textbf{Background.}
+As we discussed in the Module 10 slides, companies sometimes run open-source models on their own infrastructure for data-security or cost reasons. \href{https://ollama.com}{Ollama} lets you run these models on your laptop with a single command. In this exercise you will install Google's Gemma 4 2B model via Ollama and compare its answer to a frontier model (Claude).
 
-Ask at least **5 questions** about the company's financial performance, strategy, and risk factors. For each answer:
+\bigskip
+\noindent\textbf{Setup.}
 
-- Note how NotebookLM **cites specific sources** (which document, which section)
-- Evaluate whether the answer is **grounded** in the documents or potentially **hallucinated**
-- Rate the answer quality (accurate / partially accurate / inaccurate)
+Download and install Ollama from \href{https://ollama.com}{ollama.com}. Then open a terminal and run:
+
+\begin{verbatim}
+  ollama run gemma4:e2b
+\end{verbatim}
+
+This downloads the model (about 1.6 GB) and opens a chat session. Type your prompt directly in the terminal.
+
+\bigskip
+\noindent\textbf{The prompt.}
+
+Give this prompt to both Gemma 4 2B and Claude:
+
+\begin{quote}
+\itshape
+A private equity firm is evaluating a manufacturing company with \$50M in revenue, 12\% EBITDA margins, and 8\% annual revenue growth. Comparable transactions have been done at 7--9x EBITDA. What is a reasonable valuation range, and what are the top three risks you would flag before proceeding?
+\end{quote}
 
 \bigskip
 \noindent\textbf{Deliverables.}
 
-- Q&A pairs with citations and quality ratings (`5B-QA.pdf`)
-- Brief assessment of NotebookLM's reliability for financial analysis (half page, included in the same PDF)
-- Screenshot of the NotebookLM interface showing sources and a sample answer (`5B-Screenshot.png`)
+\begin{itemize}
+  \item A screenshot of the Gemma 4 response (\texttt{5B-Gemma.png})
+  \item A screenshot of the Claude response (\texttt{5B-Claude.png})
+  \item A short write-up (1 page max, \texttt{5B-Comparison.pdf}) comparing the two responses: Which was more detailed? More accurate? Did either miss important points? Would the small model be "good enough" for this task?
+\end{itemize}
