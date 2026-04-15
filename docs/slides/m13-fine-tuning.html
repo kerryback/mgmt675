@@ -429,10 +429,11 @@ graph LR
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
 graph TB
-  subgraph Layer_k["Layer k"]
+  subgraph layer_k[" "]
     direction LR
+    LK["Layer k"]:::label
     A1((" "))
     A2((" "))
     A3((" "))
@@ -440,8 +441,9 @@ graph TB
     A5((" "))
     A6((" "))
   end
-  subgraph Layer_k1["Layer k+1"]
+  subgraph layer_k1[" "]
     direction LR
+    LK1["Layer k+1"]:::label
     B1((" "))
     B2((" "))
     B3((" "))
@@ -456,6 +458,7 @@ graph TB
   A5 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
   A6 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
 
+  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold
   linkStyle default stroke:#f59e0b,stroke-width:2px
   style A1 fill:#f59e0b,stroke:#f59e0b
   style A2 fill:#f59e0b,stroke:#f59e0b
@@ -469,8 +472,6 @@ graph TB
   style B4 fill:#f59e0b,stroke:#f59e0b
   style B5 fill:#f59e0b,stroke:#f59e0b
   style B6 fill:#f59e0b,stroke:#f59e0b
-  style Layer_k fill:transparent,stroke:#f59e0b,color:#fff
-  style Layer_k1 fill:transparent,stroke:#f59e0b,color:#fff
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -486,10 +487,11 @@ graph TB
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%
 graph TB
-  subgraph Layer_k["Layer k"]
+  subgraph layer_k[" "]
     direction LR
+    LK["Layer k"]:::label
     A1((" "))
     A2((" "))
     A3((" "))
@@ -497,13 +499,15 @@ graph TB
     A5((" "))
     A6((" "))
   end
-  subgraph Adapter["Adapter (rank 2)"]
+  subgraph adapter[" "]
     direction LR
+    AD["Adapter (rank 2)"]:::label
     R1((" "))
     R2((" "))
   end
-  subgraph Layer_k1["Layer k+1"]
+  subgraph layer_k1[" "]
     direction LR
+    LK1["Layer k+1"]:::label
     B1((" "))
     B2((" "))
     B3((" "))
@@ -520,6 +524,7 @@ graph TB
   R1 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
   R2 --&gt; B1 &amp; B2 &amp; B3 &amp; B4 &amp; B5 &amp; B6
 
+  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold
   linkStyle default stroke:#f59e0b,stroke-width:2px
   style A1 fill:#f59e0b,stroke:#f59e0b
   style A2 fill:#f59e0b,stroke:#f59e0b
@@ -535,9 +540,6 @@ graph TB
   style B4 fill:#f59e0b,stroke:#f59e0b
   style B5 fill:#f59e0b,stroke:#f59e0b
   style B6 fill:#f59e0b,stroke:#f59e0b
-  style Layer_k fill:transparent,stroke:#f59e0b,color:#fff
-  style Adapter fill:transparent,stroke:#f59e0b,color:#fff
-  style Layer_k1 fill:transparent,stroke:#f59e0b,color:#fff
 </pre>
 </div>
 <p></p></figure><p></p>
