@@ -2303,13 +2303,6 @@
     "text": "Cosine Similarity vs. Distance\n\nThe cosine similarity between two vectors is the cosine of the angle between them. It measures direction, not magnitude.\n\n\n\n\n\nIf we normalize vectors to unit length (project them onto the unit circle), the squared Euclidean distance between them is:\n\\[d^2 = 2 - 2\\cos\\theta\\]\nSo high cosine similarity \\(\\Leftrightarrow\\) small angle \\(\\Leftrightarrow\\) normalized vectors are close together."
   },
   {
-    "objectID": "slides/m13-fine-tuning.html#why-this-matters-for-ai",
-    "href": "slides/m13-fine-tuning.html#why-this-matters-for-ai",
-    "title": "Module 13: Fine-Tuning",
-    "section": "Why This Matters for AI",
-    "text": "Why This Matters for AI\nIn LLMs, words and sentences are represented as high-dimensional vectors (embeddings). Cosine similarity measures how related two meanings are:\n\n“profit” and “earnings” → high cosine similarity (similar direction)\n“profit” and “banana” → low cosine similarity (different directions)\n\n\nFine-tuning adjusts these embedding vectors so that domain-specific relationships are captured. For example, after fine-tuning on financial text, “liability” moves closer to neutral accounting terms and farther from negative-sentiment words."
-  },
-  {
     "objectID": "slides/m13-fine-tuning.html#biases-and-weights",
     "href": "slides/m13-fine-tuning.html#biases-and-weights",
     "title": "Module 13: Fine-Tuning",
@@ -2352,11 +2345,11 @@
     "text": "How LoRA Works\nThe LoRA paper (Hu et al., 2021) observed that the changes needed to adapt a model to a new task are surprisingly simple — they can be captured with a small number of parameters.\nInstead of updating an entire weight matrix, LoRA decomposes the update into two small matrices. Only these small matrices are trained; the original weights are frozen.\n\n\nFull Fine-Tuning\n\nUpdate millions of parameters per layer\nExample: a 4096 × 4096 layer has 16.8 million parameters\nFull copy of model weights\n\n\n\nLoRA (rank 16)\n\nUpdate only ~131,000 parameters per layer\n128x reduction\nAdapter files are just MBs, not GBs\nAt deployment, merge adapters into the base weights — no latency penalty"
   },
   {
-    "objectID": "slides/m13-fine-tuning.html#full-fine-tuning-every-connection-updated",
-    "href": "slides/m13-fine-tuning.html#full-fine-tuning-every-connection-updated",
+    "objectID": "slides/m13-fine-tuning.html#original-model",
+    "href": "slides/m13-fine-tuning.html#original-model",
     "title": "Module 13: Fine-Tuning",
-    "section": "Full Fine-Tuning: Every Connection Updated",
-    "text": "Full Fine-Tuning: Every Connection Updated\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '42px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 120, 'padding': 20, 'useMaxWidth': true}}}%%\ngraph TB\n  subgraph layer_k[\" \"]\n    direction LR\n    LK[\"Layer k\"]:::label\n    A1((\" \"))\n    A2((\" \"))\n    A3((\" \"))\n    A4((\" \"))\n    A5((\" \"))\n    A6((\" \"))\n  end\n  subgraph layer_k1[\" \"]\n    direction LR\n    LK1[\"Layer k+1\"]:::label\n    B1((\" \"))\n    B2((\" \"))\n    B3((\" \"))\n    B4((\" \"))\n    B5((\" \"))\n    B6((\" \"))\n  end\n  A1 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A2 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A3 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A4 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A5 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  A6 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n\n  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold\n  linkStyle default stroke:#f59e0b,stroke-width:2px\n  style A1 fill:#f59e0b,stroke:#f59e0b\n  style A2 fill:#f59e0b,stroke:#f59e0b\n  style A3 fill:#f59e0b,stroke:#f59e0b\n  style A4 fill:#f59e0b,stroke:#f59e0b\n  style A5 fill:#f59e0b,stroke:#f59e0b\n  style A6 fill:#f59e0b,stroke:#f59e0b\n  style B1 fill:#f59e0b,stroke:#f59e0b\n  style B2 fill:#f59e0b,stroke:#f59e0b\n  style B3 fill:#f59e0b,stroke:#f59e0b\n  style B4 fill:#f59e0b,stroke:#f59e0b\n  style B5 fill:#f59e0b,stroke:#f59e0b\n  style B6 fill:#f59e0b,stroke:#f59e0b\n\n\n\n\n\n\n36 trainable connections — all weights updated during training."
+    "section": "Original Model",
+    "text": "Original Model\n\n\n\n\n\n\nEach of the 6 nodes in layer k+1 receives input from all 6 nodes in layer k, so the weight matrix has 6 × 6 = 36 coefficients. Each node also has a bias, adding 6 more parameters — 42 total per layer. Full fine-tuning means retraining all 42."
   },
   {
     "objectID": "slides/m13-fine-tuning.html#lora-rank-2-low-rank-update-path",
