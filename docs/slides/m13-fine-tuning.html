@@ -291,11 +291,17 @@ Kerry Back, Rice University
 </section>
 <section id="cosine-similarity-vs.-distance" class="slide level2 center">
 <h2>Cosine Similarity vs.&nbsp;Distance</h2>
+<div style="font-size: 0.85em;">
 <p>The <span class="amber">cosine similarity</span> between two vectors is the cosine of the angle between them. It measures direction, not magnitude.</p>
-
-<img data-src="images/cosine-similarity.png" style="width:85.0%" class="r-stretch"><p>If we normalize vectors to <span class="amber">unit length</span> (project them onto the unit circle), the squared Euclidean distance between them is:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/cosine-similarity.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+<p>If we normalize vectors to <span class="amber">unit length</span> (project them onto the unit circle), the squared Euclidean distance between them is:</p>
 <p><span class="math display">\[d^2 = 2 - 2\cos\theta\]</span></p>
 <p>So <span class="amber">high cosine similarity</span> <span class="math inline">\(\Leftrightarrow\)</span> small angle <span class="math inline">\(\Leftrightarrow\)</span> normalized vectors are <span class="amber">close together</span>.</p>
+</div>
 </section>
 <section id="why-this-matters-for-ai" class="slide level2 center">
 <h2>Why This Matters for AI</h2>

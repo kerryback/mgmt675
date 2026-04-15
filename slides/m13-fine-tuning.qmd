@@ -146,15 +146,17 @@ Fine-tuning is not risk-free. Issues to watch for:
 
 ## Cosine Similarity vs. Distance
 
+:::{style="font-size: 0.85em;"}
 The [cosine similarity]{.amber} between two vectors is the cosine of the angle between them. It measures direction, not magnitude.
 
-![](images/cosine-similarity.png){width=85%}
+![](images/cosine-similarity.png){fig-align="center" width="80%" .nostretch}
 
 If we normalize vectors to [unit length]{.amber} (project them onto the unit circle), the squared Euclidean distance between them is:
 
 $$d^2 = 2 - 2\cos\theta$$
 
 So [high cosine similarity]{.amber} $\Leftrightarrow$ small angle $\Leftrightarrow$ normalized vectors are [close together]{.amber}.
+:::
 
 ## Why This Matters for AI
 
