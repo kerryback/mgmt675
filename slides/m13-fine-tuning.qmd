@@ -146,10 +146,10 @@ Fine-tuning is not risk-free. Issues to watch for:
 
 ## Cosine Similarity vs. Distance
 
-:::{style="font-size: 0.85em;"}
+:::{style="font-size: 0.75em;"}
 The [cosine similarity]{.amber} between two vectors is the cosine of the angle between them. It measures direction, not magnitude.
 
-![](images/cosine-similarity.png){fig-align="center" width="80%" .nostretch}
+![](images/cosine-similarity.png){fig-align="center" width="65%" .nostretch}
 
 If we normalize vectors to [unit length]{.amber} (project them onto the unit circle), the squared Euclidean distance between them is:
 
