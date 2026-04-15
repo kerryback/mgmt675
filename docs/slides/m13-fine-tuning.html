@@ -286,6 +286,89 @@ Kerry Back, Rice University
 <li><strong>Maintenance burden</strong>: when the base model gets a new version, you may need to re-fine-tune</li>
 </ul>
 </section>
+<section id="cosine-similarity" class="slide level2 section-divider center">
+<h2>Cosine Similarity</h2>
+</section>
+<section id="cosine-similarity-vs.-distance" class="slide level2 center">
+<h2>Cosine Similarity vs.&nbsp;Distance</h2>
+<p>The <span class="amber">cosine similarity</span> between two vectors is the cosine of the angle between them. It measures direction, not magnitude.</p>
+
+<img data-src="images/cosine-similarity.png" style="width:85.0%" class="r-stretch"><p>If we normalize vectors to <span class="amber">unit length</span> (project them onto the unit circle), the squared Euclidean distance between them is:</p>
+<p><span class="math display">\[d^2 = 2 - 2\cos\theta\]</span></p>
+<p>So <span class="amber">high cosine similarity</span> <span class="math inline">\(\Leftrightarrow\)</span> small angle <span class="math inline">\(\Leftrightarrow\)</span> normalized vectors are <span class="amber">close together</span>.</p>
+</section>
+<section id="why-this-matters-for-ai" class="slide level2 center">
+<h2>Why This Matters for AI</h2>
+<p>In LLMs, words and sentences are represented as high-dimensional vectors (<span class="amber">embeddings</span>). Cosine similarity measures how related two meanings are:</p>
+<ul>
+<li>“profit” and “earnings” → high cosine similarity (similar direction)</li>
+<li>“profit” and “banana” → low cosine similarity (different directions)</li>
+</ul>
+<div class="explainer">
+<p>Fine-tuning adjusts these embedding vectors so that domain-specific relationships are captured. For example, after fine-tuning on financial text, “liability” moves <span class="amber">closer to</span> neutral accounting terms and <span class="amber">farther from</span> negative-sentiment words.</p>
+</div>
+</section>
+<section id="biases-and-weights" class="slide level2 section-divider center">
+<h2>Biases and Weights</h2>
+</section>
+<section id="a-simple-neural-network" class="slide level2 mermaid-small center">
+<h2>A Simple Neural Network</h2>
+<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#0f172a', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 140, 'padding': 20, 'useMaxWidth': true}}}%%
+graph LR
+  subgraph Inputs[" "]
+    direction TB
+    X1(("x₁"))
+    X2(("x₂"))
+    X3(("x₃"))
+  end
+  subgraph Hidden["Hidden Layer"]
+    direction TB
+    H1(("h₁"))
+    H2(("h₂"))
+  end
+  subgraph Output[" "]
+    direction TB
+    Y(("y"))
+  end
+  X1 --&gt; H1 &amp; H2
+  X2 --&gt; H1 &amp; H2
+  X3 --&gt; H1 &amp; H2
+  H1 --&gt; Y
+  H2 --&gt; Y
+
+  style X1 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style X2 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style X3 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style H1 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style H2 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style Y fill:#0f172a,stroke:#0f172a,color:#fff
+  linkStyle default stroke:#334155,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>A <strong>fully connected</strong> network: every input connects to every neuron in the next layer.</p>
+</section>
+<section id="how-a-neuron-decides" class="slide level2 center">
+<h2>How a Neuron Decides</h2>
+<p>Each neuron in the hidden layer computes a <span class="amber">weighted sum</span> of its inputs plus a bias:</p>
+<p><span class="math display">\[h = b + w_1 x_1 + w_2 x_2 + w_3 x_3\]</span></p>
+<p>The neuron “fires” (produces a positive output) only if this sum is positive:</p>
+<ul>
+<li>The <span class="amber">weights</span> <span class="math inline">\(w_1, w_2, w_3\)</span> determine <span class="amber">which inputs matter and how much</span></li>
+<li>The <span class="amber">bias</span> <span class="math inline">\(b\)</span> sets the <span class="amber">threshold</span> — how large the weighted inputs must be before the neuron activates</li>
+</ul>
+<div class="explainer">
+<p>If the weights are positive, the neuron fires when the inputs are large enough. The bias <span class="math inline">\(b\)</span> controls <span class="amber">how large</span> — a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases.</p>
+</div>
+</section>
 <section id="lora-low-rank-adaptation" class="slide level2 section-divider center">
 <h2>LoRA: Low-Rank Adaptation</h2>
 </section>

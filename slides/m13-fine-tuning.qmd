@@ -142,6 +142,86 @@ Fine-tuning is not risk-free. Issues to watch for:
 - **Overfitting**: with too few examples, the model memorizes training data instead of learning patterns --- performs great on training-like inputs, fails on anything different
 - **Maintenance burden**: when the base model gets a new version, you may need to re-fine-tune
 
+## Cosine Similarity {.section-divider}
+
+## Cosine Similarity vs. Distance
+
+The [cosine similarity]{.amber} between two vectors is the cosine of the angle between them. It measures direction, not magnitude.
+
+![](images/cosine-similarity.png){width=85%}
+
+If we normalize vectors to [unit length]{.amber} (project them onto the unit circle), the squared Euclidean distance between them is:
+
+$$d^2 = 2 - 2\cos\theta$$
+
+So [high cosine similarity]{.amber} $\Leftrightarrow$ small angle $\Leftrightarrow$ normalized vectors are [close together]{.amber}.
+
+## Why This Matters for AI
+
+In LLMs, words and sentences are represented as high-dimensional vectors ([embeddings]{.amber}). Cosine similarity measures how related two meanings are:
+
+- "profit" and "earnings" → high cosine similarity (similar direction)
+- "profit" and "banana" → low cosine similarity (different directions)
+
+:::{.explainer}
+Fine-tuning adjusts these embedding vectors so that domain-specific relationships are captured. For example, after fine-tuning on financial text, "liability" moves [closer to]{.amber} neutral accounting terms and [farther from]{.amber} negative-sentiment words.
+:::
+
+## Biases and Weights {.section-divider}
+
+## A Simple Neural Network {.mermaid-small}
+
+```{mermaid}
+%%| fig-width: 16
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#0f172a', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 140, 'padding': 20, 'useMaxWidth': true}}}%%
+graph LR
+  subgraph Inputs[" "]
+    direction TB
+    X1(("x₁"))
+    X2(("x₂"))
+    X3(("x₃"))
+  end
+  subgraph Hidden["Hidden Layer"]
+    direction TB
+    H1(("h₁"))
+    H2(("h₂"))
+  end
+  subgraph Output[" "]
+    direction TB
+    Y(("y"))
+  end
+  X1 --> H1 & H2
+  X2 --> H1 & H2
+  X3 --> H1 & H2
+  H1 --> Y
+  H2 --> Y
+
+  style X1 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style X2 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style X3 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style H1 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style H2 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style Y fill:#0f172a,stroke:#0f172a,color:#fff
+  linkStyle default stroke:#334155,stroke-width:2px
+```
+
+A **fully connected** network: every input connects to every neuron in the next layer.
+
+## How a Neuron Decides
+
+Each neuron in the hidden layer computes a [weighted sum]{.amber} of its inputs plus a bias:
+
+$$h = b + w_1 x_1 + w_2 x_2 + w_3 x_3$$
+
+The neuron "fires" (produces a positive output) only if this sum is positive:
+
+- The [weights]{.amber} $w_1, w_2, w_3$ determine [which inputs matter and how much]{.amber}
+- The [bias]{.amber} $b$ sets the [threshold]{.amber} --- how large the weighted inputs must be before the neuron activates
+
+:::{.explainer}
+If the weights are positive, the neuron fires when the inputs are large enough. The bias $b$ controls [how large]{.amber} --- a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases.
+:::
+
 ## LoRA: Low-Rank Adaptation {.section-divider}
 
 ## Full Fine-Tuning vs. LoRA
