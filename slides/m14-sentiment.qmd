@@ -138,9 +138,7 @@ Monthly rebalancing is the most realistic for practical implementation --- and t
 | Kim et al. (2024) | Earnings calls / 10-Ks | 2-day event window | --- |
 | MarketSenseAI (2025) | Multi-source | Monthly | 2.76 |
 
-:::{.explainer}
 The highest Sharpe ratios require the [fastest execution and highest turnover]{.amber}. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer.
-:::
 
 ## Alpha Decay
 
@@ -166,7 +164,31 @@ But bag-of-words fails on:
 - **Hedging**: "[despite]{.amber} strong revenue, warned about disruptions" → counts *strong* as positive ✗
 - **Domain language**: *liability*, *outstanding*, *capital* have different meanings in finance
 
-Loughran & McDonald (2011) improved this with finance-specific word lists (2,355 negative, 354 positive words from 10-K filings) --- but the fundamental limitation remains: [words are not sentences]{.amber}.
+Loughran & McDonald (2011) improved this with finance-specific word lists --- but the fundamental limitation remains: [words are not sentences]{.amber}.
+
+## The Loughran-McDonald Dictionary
+
+Loughran & McDonald (2011) built word lists [specifically for financial text]{.amber} by reading thousands of 10-K filings.
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Negative words (2,355)**]{.card-title}
+
+- *impairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower*
+:::
+
+:::{.card .card-light}
+[**Positive words (354)**]{.card-title}
+
+- *achieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile*
+:::
+:::
+
+New categories: **uncertainty** (297 words), **litigious** (903 words), **constraining** (184 words), **superfluous** (56 words)
+
+:::{.explainer}
+Notice the asymmetry: [7$\times$ more negative words than positive]{.amber}. Financial disclosures are legally required to discuss risks, so negative language is far more varied.
+:::
 
 ## How BERT Learns Language
 
@@ -211,7 +233,7 @@ FinBERT became the [standard baseline]{.amber} for financial NLP. It's fast enou
 
 ## How LLMs Classify Sentiment
 
-Large language models (GPT-4, Claude, Gemini) classify sentiment with [zero training data]{.amber} --- just a well-crafted prompt:
+Large language models (GPT-4, Claude, Gemini) classify sentiment with [no task-specific training]{.amber} --- just a well-crafted prompt:
 
 > *"Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning."*
 
@@ -252,7 +274,9 @@ for headline, scores in zip(headlines, results):
 
 ## Try It Yourself
 
-Compare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences --- including negation, hedging, and finance-specific language.
+1. **Try it locally:** Ask Claude to use FinBERT to determine the sentiment of "Despite record revenue, management issued cautious guidance citing tariff uncertainty."
+
+2. **Try it on Colab:** Compare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences --- including negation, hedging, and finance-specific language.
 
 <a href="https://colab.research.google.com/github/kerryback/mgmt675/blob/main/files/sentiment.ipynb" target="_blank" style="display: inline-block; margin-top: 0.5em; padding: 0.5em 1.2em; background: #f59e0b; color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.9em; text-decoration: none;">Open in Google Colab →</a>
 

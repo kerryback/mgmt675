@@ -200,7 +200,7 @@
     "href": "slides/m14-sentiment.html#summary-source-speed-and-performance",
     "title": "Module 14: Sentiment Analysis",
     "section": "Summary: Source, Speed, and Performance",
-    "text": "Summary: Source, Speed, and Performance\n\n\n\n\n\n\n\n\n\nPaper\nSource\nTrade Delay\nSharpe\n\n\n\n\nLopez-Lira & Tang (2023)\nNews headlines\nNext-day open\n3.28\n\n\nKirtac & Germano (2024)\nNews articles\nSame-day or next-day\n3.05\n\n\nFinLlama (2024)\nNews articles\nDaily\n2.40\n\n\nCookson et al. (2024)\nSocial media\nNext day\n—\n\n\nKim et al. (2024)\nEarnings calls / 10-Ks\n2-day event window\n—\n\n\nMarketSenseAI (2025)\nMulti-source\nMonthly\n2.76\n\n\n\n\nThe highest Sharpe ratios require the fastest execution and highest turnover. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer."
+    "text": "Summary: Source, Speed, and Performance\n\n\n\n\n\n\n\n\n\nPaper\nSource\nTrade Delay\nSharpe\n\n\n\n\nLopez-Lira & Tang (2023)\nNews headlines\nNext-day open\n3.28\n\n\nKirtac & Germano (2024)\nNews articles\nSame-day or next-day\n3.05\n\n\nFinLlama (2024)\nNews articles\nDaily\n2.40\n\n\nCookson et al. (2024)\nSocial media\nNext day\n—\n\n\nKim et al. (2024)\nEarnings calls / 10-Ks\n2-day event window\n—\n\n\nMarketSenseAI (2025)\nMulti-source\nMonthly\n2.76\n\n\n\nThe highest Sharpe ratios require the fastest execution and highest turnover. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer."
   },
   {
     "objectID": "slides/m14-sentiment.html#alpha-decay",
@@ -221,7 +221,14 @@
     "href": "slides/m14-sentiment.html#bag-of-words",
     "title": "Module 14: Sentiment Analysis",
     "section": "Bag of Words",
-    "text": "Bag of Words\nThe earliest approach: count words from predefined positive/negative lists.\n“Apple revenue beats estimates, shares surge 5%” → beats (+1), surge (+1) → positive ✓\nBut bag-of-words fails on:\n\nNegation: “did not report a loss” → counts loss as negative ✗\nHedging: “despite strong revenue, warned about disruptions” → counts strong as positive ✗\nDomain language: liability, outstanding, capital have different meanings in finance\n\nLoughran & McDonald (2011) improved this with finance-specific word lists (2,355 negative, 354 positive words from 10-K filings) — but the fundamental limitation remains: words are not sentences."
+    "text": "Bag of Words\nThe earliest approach: count words from predefined positive/negative lists.\n“Apple revenue beats estimates, shares surge 5%” → beats (+1), surge (+1) → positive ✓\nBut bag-of-words fails on:\n\nNegation: “did not report a loss” → counts loss as negative ✗\nHedging: “despite strong revenue, warned about disruptions” → counts strong as positive ✗\nDomain language: liability, outstanding, capital have different meanings in finance\n\nLoughran & McDonald (2011) improved this with finance-specific word lists — but the fundamental limitation remains: words are not sentences."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
+    "href": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "The Loughran-McDonald Dictionary",
+    "text": "The Loughran-McDonald Dictionary\nLoughran & McDonald (2011) built word lists specifically for financial text by reading thousands of 10-K filings.\n\n\nNegative words (2,355)\n\nimpairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower\n\n\n\nPositive words (354)\n\nachieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile\n\n\n\nNew categories: uncertainty (297 words), litigious (903 words), constraining (184 words), superfluous (56 words)\n\nNotice the asymmetry: 7\\(\\times\\) more negative words than positive. Financial disclosures are legally required to discuss risks, so negative language is far more varied."
   },
   {
     "objectID": "slides/m14-sentiment.html#how-bert-learns-language",
@@ -242,7 +249,7 @@
     "href": "slides/m14-sentiment.html#how-llms-classify-sentiment",
     "title": "Module 14: Sentiment Analysis",
     "section": "How LLMs Classify Sentiment",
-    "text": "How LLMs Classify Sentiment\nLarge language models (GPT-4, Claude, Gemini) classify sentiment with zero training data — just a well-crafted prompt:\n\n“Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning.”\n\nWhy this works:\n\nPre-trained on trillions of tokens including financial text\nUnderstands nuance: “despite strong revenue, guidance was weak” → negative\nHandles sarcasm, hedging, implicit sentiment\nCan classify sentiment, extract events, and summarize in a single prompt\n\nThe tradeoff: 500 ms – 5 s per API call vs. 5 ms for FinBERT. For real-time trading, use FinBERT for high-confidence cases and route low-confidence cases to an LLM."
+    "text": "How LLMs Classify Sentiment\nLarge language models (GPT-4, Claude, Gemini) classify sentiment with no task-specific training — just a well-crafted prompt:\n\n“Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning.”\n\nWhy this works:\n\nPre-trained on trillions of tokens including financial text\nUnderstands nuance: “despite strong revenue, guidance was weak” → negative\nHandles sarcasm, hedging, implicit sentiment\nCan classify sentiment, extract events, and summarize in a single prompt\n\nThe tradeoff: 500 ms – 5 s per API call vs. 5 ms for FinBERT. For real-time trading, use FinBERT for high-confidence cases and route low-confidence cases to an LLM."
   },
   {
     "objectID": "slides/m14-sentiment.html#try-it-finbert",
@@ -256,7 +263,7 @@
     "href": "slides/m14-sentiment.html#try-it-yourself",
     "title": "Module 14: Sentiment Analysis",
     "section": "Try It Yourself",
-    "text": "Try It Yourself\nCompare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences — including negation, hedging, and finance-specific language.\nOpen in Google Colab →"
+    "text": "Try It Yourself\n\nTry it locally: Ask Claude to use FinBERT to determine the sentiment of “Despite record revenue, management issued cautious guidance citing tariff uncertainty.”\nTry it on Colab: Compare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences — including negation, hedging, and finance-specific language.\n\nOpen in Google Colab →"
   },
   {
     "objectID": "slides/m14-sentiment.html#key-references",
@@ -2321,7 +2328,7 @@
     "href": "slides/m13-fine-tuning.html#how-a-neuron-decides",
     "title": "Module 13: Fine-Tuning",
     "section": "How a Neuron Decides",
-    "text": "How a Neuron Decides\nEach neuron in the hidden layer computes a weighted sum of its inputs plus a bias:\n\\[y = b + w_1 x_1 + w_2 x_2 + w_3 x_3\\]\nThe neuron “fires” (produces a positive output) only if this sum is positive:\n\nThe weights \\(w_1, w_2, w_3\\) determine which inputs matter and how much\nThe bias \\(b\\) sets the threshold — how large the weighted inputs must be before the neuron activates\n\n\nIf the weights are positive, the neuron fires when the inputs are large enough. The bias \\(b\\) controls how large — a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases."
+    "text": "How a Neuron Decides\nEach neuron in the hidden layer computes a weighted sum of its inputs plus a bias:\n\\[\\hat{y} = b + w_1 x_1 + w_2 x_2 + w_3 x_3\\]\nThe neuron “fires” (produces a nonzero output) only if this sum is positive:\n\nThe weights \\(w_1, w_2, w_3\\) determine which inputs matter and how much\nThe bias \\(b\\) sets the threshold — how large the weighted inputs must be before the neuron activates\n\n\nIf the weights are positive, the neuron fires when the inputs are large enough. The bias \\(b\\) controls how large — a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases."
   },
   {
     "objectID": "slides/m13-fine-tuning.html#lora-low-rank-adaptation",
@@ -2356,7 +2363,7 @@
     "href": "slides/m13-fine-tuning.html#lora-rank-2-low-rank-update-path",
     "title": "Module 13: Fine-Tuning",
     "section": "LoRA (Rank 2): Low-Rank Update Path",
-    "text": "LoRA (Rank 2): Low-Rank Update Path\n\n\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#fff', 'lineColor': '#f59e0b', 'clusterBkg': '#78350f', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 40, 'rankSpacing': 60, 'padding': 12, 'useMaxWidth': true}}}%%\ngraph TB\n  subgraph layer_k[\" \"]\n    direction LR\n    LK[\"Layer k\"]:::label\n    A1((\" \"))\n    A2((\" \"))\n    A3((\" \"))\n    A4((\" \"))\n    A5((\" \"))\n    A6((\" \"))\n  end\n  subgraph adapter[\" \"]\n    direction LR\n    AD[\"Adapter (rank 2)\"]:::label\n    R1((\" \"))\n    R2((\" \"))\n  end\n  subgraph layer_k1[\" \"]\n    direction LR\n    LK1[\"Layer k+1\"]:::label\n    B1((\" \"))\n    B2((\" \"))\n    B3((\" \"))\n    B4((\" \"))\n    B5((\" \"))\n    B6((\" \"))\n  end\n  A1 --&gt; R1 & R2\n  A2 --&gt; R1 & R2\n  A3 --&gt; R1 & R2\n  A4 --&gt; R1 & R2\n  A5 --&gt; R1 & R2\n  A6 --&gt; R1 & R2\n  R1 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n  R2 --&gt; B1 & B2 & B3 & B4 & B5 & B6\n\n  classDef label fill:none,stroke:none,color:#fff,font-size:36px,font-weight:bold\n  linkStyle default stroke:#f59e0b,stroke-width:2px\n  style A1 fill:#f59e0b,stroke:#f59e0b\n  style A2 fill:#f59e0b,stroke:#f59e0b\n  style A3 fill:#f59e0b,stroke:#f59e0b\n  style A4 fill:#f59e0b,stroke:#f59e0b\n  style A5 fill:#f59e0b,stroke:#f59e0b\n  style A6 fill:#f59e0b,stroke:#f59e0b\n  style R1 fill:#f59e0b,stroke:#f59e0b\n  style R2 fill:#f59e0b,stroke:#f59e0b\n  style B1 fill:#f59e0b,stroke:#f59e0b\n  style B2 fill:#f59e0b,stroke:#f59e0b\n  style B3 fill:#f59e0b,stroke:#f59e0b\n  style B4 fill:#f59e0b,stroke:#f59e0b\n  style B5 fill:#f59e0b,stroke:#f59e0b\n  style B6 fill:#f59e0b,stroke:#f59e0b\n\n\n\n\n\n\n\n\n24 trainable connections through the bottleneck:\n\nMatrix A (layer k → adapter): 6 × 2 = 12 parameters\nMatrix B (adapter → layer k+1): 2 × 6 = 12 parameters\n\nThe original 36 connections remain active but frozen — not shown.\nvs. full fine-tuning: 24 vs. 36 trainable parameters (33% reduction). At real scale (4096 × 4096 layers, rank 16): 131K vs. 16.8M — a 128× reduction."
+    "text": "LoRA (Rank 2): Low-Rank Update Path\n\n\n\n\n\n\nThe original 36 direct connections remain active but frozen (not shown). At real scale (4096 × 4096 layers, rank 16): 131K vs. 16.8M trainable parameters — a 128× reduction."
   },
   {
     "objectID": "slides/m13-fine-tuning.html#lora-the-math",

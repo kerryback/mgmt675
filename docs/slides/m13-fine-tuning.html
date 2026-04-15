@@ -365,8 +365,8 @@ graph LR
 <section id="how-a-neuron-decides" class="slide level2 center">
 <h2>How a Neuron Decides</h2>
 <p>Each neuron in the hidden layer computes a <span class="amber">weighted sum</span> of its inputs plus a bias:</p>
-<p><span class="math display">\[y = b + w_1 x_1 + w_2 x_2 + w_3 x_3\]</span></p>
-<p>The neuron “fires” (produces a positive output) only if this sum is positive:</p>
+<p><span class="math display">\[\hat{y} = b + w_1 x_1 + w_2 x_2 + w_3 x_3\]</span></p>
+<p>The neuron “fires” (produces a nonzero output) only if this sum is positive:</p>
 <ul>
 <li>The <span class="amber">weights</span> <span class="math inline">\(w_1, w_2, w_3\)</span> determine <span class="amber">which inputs matter and how much</span></li>
 <li>The <span class="amber">bias</span> <span class="math inline">\(b\)</span> sets the <span class="amber">threshold</span> — how large the weighted inputs must be before the neuron activates</li>

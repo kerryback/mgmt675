@@ -213,9 +213,9 @@ A **fully connected** network: every input connects to every neuron in the next 
 
 Each neuron in the hidden layer computes a [weighted sum]{.amber} of its inputs plus a bias:
 
-$$y = b + w_1 x_1 + w_2 x_2 + w_3 x_3$$
+$$\hat{y} = b + w_1 x_1 + w_2 x_2 + w_3 x_3$$
 
-The neuron "fires" (produces a positive output) only if this sum is positive:
+The neuron "fires" (produces a nonzero output) only if this sum is positive:
 
 - The [weights]{.amber} $w_1, w_2, w_3$ determine [which inputs matter and how much]{.amber}
 - The [bias]{.amber} $b$ sets the [threshold]{.amber} --- how large the weighted inputs must be before the neuron activates
@@ -237,7 +237,6 @@ If the weights are positive, the neuron fires when the inputs are large enough. 
 - Requires significant GPU memory and compute
 - Produces a full copy of the model
 :::
-
 :::{.card .card-dark}
 [**LoRA (Parameter-Efficient)**]{.card-title}
 
