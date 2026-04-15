@@ -16,6 +16,9 @@ format:
     include-after-body:
       - text: |
           <script src="https://hypothes.is/embed.js" async></script>
+execute:
+  echo: true
+  warning: false
 ---
 
 ## Why News Moves Markets
@@ -90,14 +93,20 @@ Also includes: **uncertainty** (297 words), **litigious** (903 words), **constra
 Notice the asymmetry: [7$\times$ more negative words than positive]{.amber}. Financial disclosures are legally required to discuss risks, so negative language is far more varied.
 :::
 
-## Try It: FinBERT via HuggingFace
+## Try It: FinBERT {.smaller}
 
-[FinBERT]{.amber} (Araci, 2019) is a neural network trained to understand financial sentences --- not just count words. You can call it with no installs:
+[FinBERT]{.amber} (Araci, 2019) is a neural network trained to understand financial sentences --- not just count words.
 
-```python
-import requests
+```{python}
+#| output-location: fragment
+import warnings
+warnings.filterwarnings("ignore")
+import logging
+logging.disable(logging.WARNING)
 
-API_URL = "https://api-inference.huggingface.co/models/ProsusAI/finbert"
+from transformers import pipeline
+
+pipe = pipeline("text-classification", model="ProsusAI/finbert", top_k=None)
 
 headlines = [
     "Apple revenue beats estimates, shares surge 5%",
@@ -106,17 +115,11 @@ headlines = [
     "Shares fell less than feared after earnings miss",
 ]
 
-response = requests.post(API_URL, json={"inputs": headlines})
-results = response.json()
-
+results = pipe(headlines)
 for headline, scores in zip(headlines, results):
     best = max(scores, key=lambda x: x["score"])
     print(f"{best['label']:>8s} ({best['score']:.0%})  {headline}")
 ```
-
-:::{.explainer}
-FinBERT returns three probabilities (positive, negative, neutral) for each headline. It understands *despite*, negation, and context --- things bag of words cannot do.
-:::
 
 ## Comparing the Three Approaches
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -195,6 +195,10 @@
   <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
   <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
   <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -325,28 +329,43 @@ Kerry Back, Rice University
 <p>Notice the asymmetry: <span class="amber">7<span class="math inline">\(\times\)</span> more negative words than positive</span>. Financial disclosures are legally required to discuss risks, so negative language is far more varied.</p>
 </div>
 </section>
-<section id="try-it-finbert-via-huggingface" class="slide level2 center">
-<h2>Try It: FinBERT via HuggingFace</h2>
-<p><span class="amber">FinBERT</span> (Araci, 2019) is a neural network trained to understand financial sentences — not just count words. You can call it with no installs:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> requests</span>
-<span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a>API_URL <span class="op">=</span> <span class="st">"https://api-inference.huggingface.co/models/ProsusAI/finbert"</span></span>
-<span id="cb1-4"><a></a></span>
-<span id="cb1-5"><a></a>headlines <span class="op">=</span> [</span>
-<span id="cb1-6"><a></a>    <span class="st">"Apple revenue beats estimates, shares surge 5%"</span>,</span>
-<span id="cb1-7"><a></a>    <span class="st">"Despite strong revenue, the company warned about supply chain disruptions"</span>,</span>
-<span id="cb1-8"><a></a>    <span class="st">"The company did not report a loss"</span>,</span>
-<span id="cb1-9"><a></a>    <span class="st">"Shares fell less than feared after earnings miss"</span>,</span>
-<span id="cb1-10"><a></a>]</span>
-<span id="cb1-11"><a></a></span>
-<span id="cb1-12"><a></a>response <span class="op">=</span> requests.post(API_URL, json<span class="op">=</span>{<span class="st">"inputs"</span>: headlines})</span>
-<span id="cb1-13"><a></a>results <span class="op">=</span> response.json()</span>
-<span id="cb1-14"><a></a></span>
-<span id="cb1-15"><a></a><span class="cf">for</span> headline, scores <span class="kw">in</span> <span class="bu">zip</span>(headlines, results):</span>
-<span id="cb1-16"><a></a>    best <span class="op">=</span> <span class="bu">max</span>(scores, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">"score"</span>])</span>
-<span id="cb1-17"><a></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>best[<span class="st">'label'</span>]<span class="sc">:&gt;8s}</span><span class="ss"> (</span><span class="sc">{</span>best[<span class="st">'score'</span>]<span class="sc">:.0%}</span><span class="ss">)  </span><span class="sc">{</span>headline<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p>FinBERT returns three probabilities (positive, negative, neutral) for each headline. It understands <em>despite</em>, negation, and context — things bag of words cannot do.</p>
+<section id="try-it-finbert" class="slide level2 smaller center">
+<h2>Try It: FinBERT</h2>
+<p><span class="amber">FinBERT</span> (Araci, 2019) is a neural network trained to understand financial sentences — not just count words.</p>
+<div id="40b52d3c" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> warnings</span>
+<span id="cb1-2"><a></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
+<span id="cb1-3"><a></a><span class="im">import</span> logging</span>
+<span id="cb1-4"><a></a>logging.disable(logging.WARNING)</span>
+<span id="cb1-5"><a></a></span>
+<span id="cb1-6"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb1-7"><a></a></span>
+<span id="cb1-8"><a></a>pipe <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"ProsusAI/finbert"</span>, top_k<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb1-9"><a></a></span>
+<span id="cb1-10"><a></a>headlines <span class="op">=</span> [</span>
+<span id="cb1-11"><a></a>    <span class="st">"Apple revenue beats estimates, shares surge 5%"</span>,</span>
+<span id="cb1-12"><a></a>    <span class="st">"Despite strong revenue, the company warned about supply chain disruptions"</span>,</span>
+<span id="cb1-13"><a></a>    <span class="st">"The company did not report a loss"</span>,</span>
+<span id="cb1-14"><a></a>    <span class="st">"Shares fell less than feared after earnings miss"</span>,</span>
+<span id="cb1-15"><a></a>]</span>
+<span id="cb1-16"><a></a></span>
+<span id="cb1-17"><a></a>results <span class="op">=</span> pipe(headlines)</span>
+<span id="cb1-18"><a></a><span class="cf">for</span> headline, scores <span class="kw">in</span> <span class="bu">zip</span>(headlines, results):</span>
+<span id="cb1-19"><a></a>    best <span class="op">=</span> <span class="bu">max</span>(scores, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">"score"</span>])</span>
+<span id="cb1-20"><a></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>best[<span class="st">'label'</span>]<span class="sc">:&gt;8s}</span><span class="ss"> (</span><span class="sc">{</span>best[<span class="st">'score'</span>]<span class="sc">:.0%}</span><span class="ss">)  </span><span class="sc">{</span>headline<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"25ed57152d604f22ab19a40fe09ff13f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>positive (92%)  Apple revenue beats estimates, shares surge 5%
+negative (97%)  Despite strong revenue, the company warned about supply chain disruptions
+ neutral (89%)  The company did not report a loss
+negative (97%)  Shares fell less than feared after earnings miss</code></pre>
+</div>
 </div>
 </section>
 <section id="comparing-the-three-approaches" class="slide level2 center">
@@ -620,6 +639,18 @@ Kerry Back, Rice University
 <section id="the-news-trading-pipeline" class="slide level2 center">
 <h2>The News Trading Pipeline</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 120, 'padding': 24, 'useMaxWidth': true}}}%%</span>
+<span id="cb3-2"><a></a>flowchart LR</span>
+<span id="cb3-3"><a></a>  A["&lt;b&gt;Data&lt;br&gt;Ingestion&lt;/b&gt;"] --&gt; B["&lt;b&gt;Entity&lt;br&gt;Resolution&lt;/b&gt;"]</span>
+<span id="cb3-4"><a></a>  B --&gt; C["&lt;b&gt;Sentiment&lt;br&gt;Extraction&lt;/b&gt;"]</span>
+<span id="cb3-5"><a></a>  C --&gt; D["&lt;b&gt;Signal&lt;br&gt;Construction&lt;/b&gt;"]</span>
+<span id="cb3-6"><a></a>  D --&gt; E["&lt;b&gt;Trade&lt;br&gt;Execution&lt;/b&gt;"]</span>
+<span id="cb3-7"><a></a></span>
+<span id="cb3-8"><a></a>  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb3-9"><a></a>  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb3-10"><a></a>  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb3-11"><a></a>  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb3-12"><a></a>  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -698,6 +729,18 @@ flowchart LR
 <section id="the-cascade-architecture" class="slide level2 shrink center">
 <h2>The Cascade Architecture</h2>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a></a>%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '22px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 80, 'padding': 16, 'useMaxWidth': true}}}%%</span>
+<span id="cb4-2"><a></a>flowchart LR</span>
+<span id="cb4-3"><a></a>  A["&lt;b&gt;All Headlines&lt;/b&gt;"] --&gt; B["&lt;b&gt;FinBERT&lt;/b&gt;&lt;br&gt;&lt;i&gt;~5ms&lt;/i&gt;"]</span>
+<span id="cb4-4"><a></a>  B --&gt;|"high conf."| C["&lt;b&gt;Immediate Signal&lt;/b&gt;"]</span>
+<span id="cb4-5"><a></a>  B --&gt;|"low conf."| D["&lt;b&gt;GPT-4&lt;/b&gt;&lt;br&gt;&lt;i&gt;~1-5s&lt;/i&gt;"]</span>
+<span id="cb4-6"><a></a>  D --&gt; E["&lt;b&gt;Enhanced Signal&lt;/b&gt;"]</span>
+<span id="cb4-7"><a></a></span>
+<span id="cb4-8"><a></a>  style A fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
+<span id="cb4-9"><a></a>  style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
+<span id="cb4-10"><a></a>  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
+<span id="cb4-11"><a></a>  style D fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span>
+<span id="cb4-12"><a></a>  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:22px,padding:14px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -826,6 +869,20 @@ flowchart LR
 <h2>The Propagation Problem</h2>
 <p>Most LLM trading research focuses on <span class="amber">company-level</span> sentiment. The real competitive advantage: understanding how <span class="amber">macro events propagate across sectors</span>.</p>
 <div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a></a>%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '28px'}, 'flowchart': {'nodeSpacing': 60, 'rankSpacing': 100, 'padding': 24, 'useMaxWidth': true}}}%%</span>
+<span id="cb5-2"><a></a>flowchart LR</span>
+<span id="cb5-3"><a></a>  A["&lt;b&gt;Conflict&lt;/b&gt;"] --&gt; B["&lt;b&gt;Oil&lt;br&gt;prices ↑&lt;/b&gt;"]</span>
+<span id="cb5-4"><a></a>  B --&gt; C["&lt;b&gt;Energy&lt;br&gt;stocks ↑&lt;/b&gt;"]</span>
+<span id="cb5-5"><a></a>  B --&gt; D["&lt;b&gt;Fertilizer&lt;br&gt;costs ↑&lt;/b&gt;"]</span>
+<span id="cb5-6"><a></a>  D --&gt; E["&lt;b&gt;Food&lt;br&gt;prices ↑&lt;/b&gt;"]</span>
+<span id="cb5-7"><a></a>  E --&gt; F["&lt;b&gt;Staples&lt;br&gt;margins ↓&lt;/b&gt;"]</span>
+<span id="cb5-8"><a></a></span>
+<span id="cb5-9"><a></a>  style A fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb5-10"><a></a>  style B fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb5-11"><a></a>  style C fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb5-12"><a></a>  style D fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb5-13"><a></a>  style E fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span>
+<span id="cb5-14"><a></a>  style F fill:#eff6ff,stroke:#0f172a,stroke-width:2px,color:#0f172a,font-size:28px,padding:20px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -1231,6 +1288,9 @@ flowchart LR
           RevealZoom
         ]
       });
+    </script>
+    <script type="application/vnd.jupyter.widget-state+json">
+    {"state":{"09d6f1057a3f41b3af9e0c249cd1dec6":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"1e1806fac42349a68efbeb83e83f2c6b":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"25ed57152d604f22ab19a40fe09ff13f":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_43f28ac4677f41eaa9708ad1a2f0c628","IPY_MODEL_ccb262fe2f5e4ce2b10fb4fad0f881c7","IPY_MODEL_2b3cd1fb3e754106a5197e219f20a09e"],"layout":"IPY_MODEL_8fc528a85a31427d8f67b36b1350aaa8","tabbable":null,"tooltip":null}},"2b3cd1fb3e754106a5197e219f20a09e":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_1e1806fac42349a68efbeb83e83f2c6b","placeholder":"​","style":"IPY_MODEL_e8c13939035b412eac29c2daab5bbc85","tabbable":null,"tooltip":null,"value":" 201/201 [00:00&lt;00:00, 15616.18it/s]"}},"43f28ac4677f41eaa9708ad1a2f0c628":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_f622a8b48e1b446d81db42185b08f567","placeholder":"​","style":"IPY_MODEL_9c3ef0ee8f454851bf4185420cf8b8f8","tabbable":null,"tooltip":null,"value":"Loading weights: 100%"}},"794e1beddb804dccb286adafda275069":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"8fc528a85a31427d8f67b36b1350aaa8":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"9c3ef0ee8f454851bf4185420cf8b8f8":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"ccb262fe2f5e4ce2b10fb4fad0f881c7":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_09d6f1057a3f41b3af9e0c249cd1dec6","max":201,"min":0,"orientation":"horizontal","style":"IPY_MODEL_794e1beddb804dccb286adafda275069","tabbable":null,"tooltip":null,"value":201}},"e8c13939035b412eac29c2daab5bbc85":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"f622a8b48e1b446d81db42185b08f567":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}}},"version_major":2,"version_minor":0}
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
