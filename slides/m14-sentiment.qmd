@@ -121,6 +121,12 @@ for headline, scores in zip(headlines, results):
     print(f"{best['label']:>8s} ({best['score']:.0%})  {headline}")
 ```
 
+## Try It Yourself
+
+Compare bag of words, Loughran-McDonald, and FinBERT on a variety of sentences --- including negation, hedging, and finance-specific language.
+
+<a href="https://colab.research.google.com/github/kerryback/mgmt675/blob/main/files/sentiment.ipynb" target="_blank" style="display: inline-block; margin-top: 0.5em; padding: 0.5em 1.2em; background: #f59e0b; color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.9em; text-decoration: none;">Open in Google Colab →</a>
+
 ## Comparing the Three Approaches
 
 | **Headline** | **Bag of Words** | **L-M Dictionary** | **FinBERT** |
