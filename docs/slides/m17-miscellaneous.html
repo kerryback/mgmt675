@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
-  <title>Module 13: Fine-Tuning</title>
+  <title>Miscellaneous 4/16/2026</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -127,13 +127,16 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Module 13: Fine-Tuning</h1>
+  <h1 class="title">Miscellaneous 4/16/2026</h1>
   <p class="subtitle">MGMT 675: Generative AI for Finance</p>
 
 <div class="quarto-title-authors">
@@ -145,271 +148,211 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="what-is-fine-tuning" class="slide level2 center">
-<h2>What is Fine-Tuning?</h2>
-<p>A pretrained LLM already knows language. <strong>Fine-tuning</strong> adjusts its weights on a smaller, task-specific dataset so it consistently performs a specific task the way you want:</p>
+<section id="claude" class="slide level2 section-divider center">
+<h2>Claude</h2>
+</section>
+<section id="claude-desktop" class="slide level2 center">
+<h2>Claude Desktop</h2>
+<p>Claude Desktop has three modes: <span class="amber">Chat</span>, <span class="amber">Cowork</span>, and <span class="amber">Code</span>. In all three, prompts go to and responses come from the cloud. The modes differ in <span class="amber">where Python execution happens</span>.</p>
 <ul>
-<li>Adopt a specific tone or format (e.g., always respond as a financial analyst)</li>
-<li>Learn domain terminology and conventions</li>
-<li>Follow company-specific rules and workflows</li>
+<li><span class="amber"><strong>Chat</strong></span>: Python runs on Anthropic’s servers. Only libraries pre-installed by Anthropic. No internet access from Python (sandboxed).</li>
+<li><span class="amber"><strong>Cowork</strong></span>: Python runs on your computer. Any libraries you want. No internet access from Python (sandboxed).</li>
+<li><span class="amber"><strong>Code</strong></span>: Python runs on your computer. Any libraries you want. Internet available.</li>
 </ul>
 <div class="explainer">
-<p>Analogy: a pretrained model is like hiring a smart generalist. Fine-tuning is <span class="amber">specialized on-the-job training</span>.</p>
+<p>Code mode is the most powerful but also the most permissive — Claude can read/write files, run shell commands, and access the internet. Use it when you need full control; use Chat or Cowork for safer exploration.</p>
 </div>
 </section>
-<section id="fine-tuning-vs.-prompting-vs.-rag" class="slide level2 center">
-<h2>Fine-Tuning vs.&nbsp;Prompting vs.&nbsp;RAG</h2>
-<div class="three-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Prompting / Skills</strong></span></p>
-<ul>
-<li>Change behavior via instructions</li>
-<li>No training required</li>
-<li>Limited by context window</li>
-<li>Easy to iterate</li>
-</ul>
-</div>
-<div class="card card-light">
-<p><span class="card-title"><strong>RAG</strong></span></p>
-<ul>
-<li>Inject external knowledge at query time</li>
-<li>No model weights changed</li>
-<li>Answers grounded in retrieved documents</li>
-<li>Great for factual Q&amp;A</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Fine-Tuning</strong></span></p>
-<ul>
-<li>Change the model’s weights</li>
-<li>Learns patterns, tone, and format</li>
-<li>Knowledge baked into the model</li>
-<li>Best for consistent, specialized behavior</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="when-to-fine-tune" class="slide level2 center">
-<h2>When to Fine-Tune</h2>
-<p>Fine-tuning is <strong>not</strong> the right tool when:</p>
-<ul>
-<li>Your data changes frequently (use RAG instead)</li>
-<li>You need answers from specific documents (use RAG)</li>
-<li>A well-crafted prompt already works (keep it simple)</li>
-</ul>
-<p>Fine-tuning is worth the effort when:</p>
-<ul>
-<li>You need <span class="amber">consistent behavior</span> across thousands of queries (not one-off tasks)</li>
-<li>Prompting alone can’t capture the nuance (complex formatting, domain jargon, regulatory style)</li>
-<li>You want lower latency and cost than a large model with a long system prompt</li>
-<li>You have (or can generate) high-quality training examples</li>
-</ul>
-</section>
-<section id="distillation-a-powerful-pattern" class="slide level2 center">
-<h2>Distillation: A Powerful Pattern</h2>
-<p>One compelling use case for fine-tuning: use a large model to <span class="amber">generate training data</span>, then fine-tune a smaller model on it.</p>
-<div class="three-cards">
-<div class="card card-dark">
-<p><span class="card-title"><strong>Cost</strong></span></p>
-<p>Large models cost 10–30x more per query</p>
-<p>Generate training data once, then run the small model at a <span class="amber">fraction of the cost</span></p>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Speed</strong></span></p>
-<p>A fine-tuned small model responds in milliseconds for classification, seconds for generation</p>
-<p>Large API models are 10–50x slower</p>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Privacy</strong></span></p>
-<p>A fine-tuned small model runs <span class="amber">entirely on your infrastructure</span></p>
-<p>No data leaves your network (HIPAA, GDPR)</p>
-</div>
-</div>
-</section>
-<section id="distillation-in-practice" class="slide level2 center">
-<h2>Distillation in Practice</h2>
-<p>Well-known examples of LLM → small model distillation:</p>
-<ul>
-<li><a href="https://crfm.stanford.edu/2023/03/13/alpaca.html" target="_blank"><strong>Stanford Alpaca</strong></a>: GPT-3.5 → LLaMA 7B. API cost &lt; $600. Competitive on simple instruction-following, weaker on reasoning.</li>
-<li><a href="https://www.microsoft.com/en-us/research/blog/orca-2-teaching-small-language-models-how-to-reason/" target="_blank"><strong>Microsoft Orca</strong></a>: GPT-4’s detailed <span class="amber">reasoning traces</span> (not just answers) → smaller model. Capturing the teacher’s thinking process improves quality.</li>
-<li><a href="https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/" target="_blank"><strong>Microsoft Phi</strong></a>: LLM-generated “textbook quality” synthetic data → 1.3B–3B parameter models that match much larger models on reasoning benchmarks.</li>
-</ul>
-<div class="explainer">
-<p>The pattern works best for <span class="amber">specific, repeatable tasks at scale</span>: classify emails, extract fields, generate reports. For diverse, one-off tasks, just use the LLM directly.</p>
-</div>
-</section>
-<section id="the-fine-tuning-process" class="slide level2 section-divider center">
-<h2>The Fine-Tuning Process</h2>
-</section>
-<section id="collect-training-data" class="slide level2 center">
-<h2>Collect Training Data</h2>
-<p>Training data is a set of <strong>input/output pairs</strong> — examples of what you want the model to do.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Input</strong></th>
-<th><strong>Output</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>“Summarize this 10-K risk factor…”</td>
-<td>“The company faces supply chain risk due to…”</td>
-</tr>
-<tr class="even">
-<td>“Classify this earnings call sentence…”</td>
-<td>“Positive guidance”</td>
-</tr>
-<tr class="odd">
-<td>“Write a credit memo for…”</td>
-<td>“Credit Assessment: BBB+ …”</td>
-</tr>
-</tbody>
-</table>
-<div class="explainer">
-<p>Start small — behavioral changes can appear with as few as <span class="amber">20 examples</span>. Meta’s LIMA project showed strong results with just 1,000 carefully curated examples. <span class="amber">Quality matters more than quantity</span>.</p>
-</div>
-</section>
-<section id="what-can-go-wrong" class="slide level2 center">
-<h2>What Can Go Wrong?</h2>
-<p>Fine-tuning is not risk-free. Issues to watch for:</p>
-<ul>
-<li><strong>Catastrophic forgetting</strong>: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)</li>
-<li><strong>Overfitting</strong>: with too few examples, the model memorizes training data instead of learning patterns — performs great on training-like inputs, fails on anything different</li>
-<li><strong>Maintenance burden</strong>: when the base model gets a new version, you may need to re-fine-tune</li>
-</ul>
-</section>
-<section id="lora-low-rank-adaptation" class="slide level2 section-divider center">
-<h2>LoRA: Low-Rank Adaptation</h2>
-</section>
-<section id="full-fine-tuning-vs.-lora" class="slide level2 center">
-<h2>Full Fine-Tuning vs.&nbsp;LoRA</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Full Fine-Tuning</strong></span></p>
-<ul>
-<li>Update <strong>all</strong> model parameters</li>
-<li>Maximum flexibility</li>
-<li>Requires significant GPU memory and compute</li>
-<li>Produces a full copy of the model</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>LoRA (Parameter-Efficient)</strong></span></p>
-<ul>
-<li>Freeze the original weights</li>
-<li>Train only small adapter matrices</li>
-<li>~100x fewer trainable parameters</li>
-<li>Comparable quality on most tasks, fraction of the cost</li>
-</ul>
-</div>
-</div>
-<div class="explainer">
-<p>In practice, almost everyone uses <span class="amber">LoRA</span> or a similar parameter-efficient method. Full fine-tuning is reserved for large-budget projects.</p>
-</div>
-</section>
-<section id="how-lora-works" class="slide level2 center">
-<h2>How LoRA Works</h2>
-<p>The LoRA paper (Hu et al., 2021) observed that the changes needed to adapt a model to a new task are surprisingly simple — they can be captured with a <span class="amber">small number of parameters</span>.</p>
-<p>Instead of updating an entire weight matrix, LoRA decomposes the update into two small matrices. Only these small matrices are trained; the original weights are frozen.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Full Fine-Tuning</strong></span></p>
-<ul>
-<li>Update millions of parameters per layer</li>
-<li>Example: a 4096 × 4096 layer has <strong>16.8 million</strong> parameters</li>
-<li>Full copy of model weights</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>LoRA (rank 16)</strong></span></p>
-<ul>
-<li>Update only ~131,000 parameters per layer</li>
-<li><span class="amber">128x reduction</span></li>
-<li>Adapter files are just MBs, not GBs</li>
-<li>At deployment, merge adapters into the base weights — <span class="amber">no latency penalty</span></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="original-model" class="slide level2 center">
-<h2>Original Model</h2>
+<section id="vs-code-visual-studio-code" class="slide level2 center">
+<h2>VS Code (Visual Studio Code)</h2>
+<p>Download VS Code from <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>. Install and open it.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/original-model-diagram.png" class="quarto-figure quarto-figure-center" style="width:55.0%"></p>
+<p><img data-src="images/vscode-extensions.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
 </figure>
 </div>
 <div class="explainer">
-<p>Each of the 6 nodes in layer k+1 receives input from all 6 nodes in layer k, so the <span class="amber">weight matrix</span> has 6 × 6 = <span class="amber">36 coefficients</span>. Each node also has a <span class="amber">bias</span>, adding 6 more parameters — <span class="amber">42 total</span> per layer. Full fine-tuning means retraining all 42.</p>
+<p>Click the <span class="amber">Extensions icon</span> in the left sidebar (four squares), search for <strong>“claude code”</strong>, and install the one published by <strong>Anthropic</strong> (look for the verified checkmark). The extension ID is <code>anthropic.claude-code</code>.</p>
 </div>
 </section>
-<section id="lora-rank-2-low-rank-update-path" class="slide level2 center">
-<h2>LoRA (Rank 2): Low-Rank Update Path</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/lora-diagram.png" class="quarto-figure quarto-figure-center" style="width:42.0%"></p>
-</figure>
+<section id="using-claude-code-in-vs-code" class="slide level2 center">
+<h2>Using Claude Code in VS Code</h2>
+<ol type="1">
+<li>Click the <span class="amber">Claude icon</span> in the left activity bar to open the Claude Code panel</li>
+<li>Click <span class="amber"><strong>+ New Session</strong></span> to start a conversation</li>
+<li>You can open <span class="amber">multiple sessions</span> to work on different tasks in parallel</li>
+</ol>
+<div class="explainer">
+<p>You can also open Claude Code from the command palette: press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac) and type “Claude”.</p>
+</div>
+</section>
+<section id="try-it-a-single-prompt-three-files" class="slide level2 center">
+<h2>Try It: A Single Prompt, Three Files</h2>
+<p>Ask Claude Code:</p>
+<blockquote>
+<p><em>Calculate and plot the P/E ratios of the Magnificent 7 stocks over the past 3 years. Save the chart as a PNG. Write a Word document ranking the stocks by current P/E with a brief investment commentary.</em></p>
+</blockquote>
+<p>Claude will create:</p>
+<ul>
+<li>A <span class="amber"><strong>Python script</strong></span> (<code>.py</code>) that fetches data, computes ratios, and generates the outputs</li>
+<li>A <span class="amber"><strong>chart</strong></span> (<code>.png</code>) visualizing P/E ratios over time</li>
+<li>A <span class="amber"><strong>Word document</strong></span> (<code>.docx</code>) with analysis and commentary</li>
+</ul>
+<div class="explainer">
+<p>This is a good test of Claude Code’s capabilities. If something doesn’t work, just tell Claude what went wrong — it will read the error and fix it.</p>
+</div>
+</section>
+<section id="slash-commands" class="slide level2 center">
+<h2>Slash Commands</h2>
+<div style="font-size: 0.82em;">
+<p>Type <code>/</code> in Claude Code to see all available commands. The most useful:</p>
+<ul>
+<li><span class="amber"><strong>/resume</strong></span> — resume a previous conversation by name or ID, picking up where you left off</li>
+<li><span class="amber"><strong>/rewind</strong></span> — undo Claude’s code changes and revert the conversation to an earlier point</li>
+<li><span class="amber"><strong>/btw</strong></span> — ask a quick side question without adding it to the conversation history</li>
+<li><span class="amber"><strong>/diff</strong></span> — open an interactive diff viewer to review all uncommitted changes</li>
+<li><span class="amber"><strong>/plan</strong></span> — enter read-only planning mode so Claude designs a strategy before making changes</li>
+<li><span class="amber"><strong>/model</strong></span> — switch models on the fly (e.g., from Sonnet to Opus for harder tasks)</li>
+<li><span class="amber"><strong>/cost</strong></span> — check real-time token usage and spending</li>
+</ul>
 </div>
 <div class="explainer">
-<p>The original 36 direct connections remain active but <span class="amber">frozen</span> (not shown). At real scale (4096 × 4096 layers, rank 16): <span class="amber">131K vs.&nbsp;16.8M</span> trainable parameters — a 128× reduction.</p>
+<p>If you install (or ask Claude to install) the <strong>critique</strong> skill, you can prompt <code>/critique filename</code> to get a multi-perspective review of your work.</p>
 </div>
 </section>
-<section id="lora-the-math" class="slide level2 center">
-<h2>LoRA: The Math</h2>
-<p>LoRA trains two small matrices per layer. The adapter path is <span class="amber">purely linear</span> — no activation function in between:</p>
+<section id="jupyter-notebooks-and-colab" class="slide level2 section-divider center">
+<h2>Jupyter Notebooks and Colab</h2>
+</section>
+<section id="jupyter-notebooks" class="slide level2 center">
+<h2>Jupyter Notebooks</h2>
+<p>A Jupyter notebook (<code>.ipynb</code>) is a document with two types of cells:</p>
+<ul>
+<li><span class="amber"><strong>Code cells</strong></span> — write and run Python (or R, Julia, etc.). Output appears directly below the cell.</li>
+<li><span class="amber"><strong>Text cells</strong></span> — written in <span class="amber">Markdown</span>, a simple formatting language. Use <code># Heading</code>, <code>**bold**</code>, <code>*italic*</code>, bullet lists, LaTeX math (<code>$E[r]$</code>), etc.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/jupyter-notebook.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</section>
+<section id="google-colab" class="slide level2 center">
+<h2>Google Colab</h2>
+<p><a href="https://colab.research.google.com" target="_blank">Google Colab</a> is a free, cloud-hosted Jupyter notebook environment — no installation required.</p>
+<ul>
+<li>Access via your browser, notebooks are saved to Google Drive</li>
+<li>Free access to GPUs and TPUs for machine learning</li>
+<li>Can install whatever libraries you want</li>
+<li>Share notebooks like Google Docs</li>
+</ul>
+<p><span class="amber"><strong>Gemini in Colab</strong></span>: Google’s AI assistant is built into Colab. It can generate code, explain errors, and autocomplete — similar to Claude Code but inside the notebook.</p>
+<div class="explainer">
+<p>Colab is ideal for quick experiments and for running code that needs a GPU (e.g., fine-tuning). For longer projects with many files, VS Code + Claude Code is more powerful.</p>
+</div>
+</section>
+<section id="vs-code" class="slide level2 center">
+<h2>VS Code</h2>
 <div style="font-size: 0.85em;">
+<p>To work with Jupyter notebooks locally in VS Code:</p>
+<ol type="1">
+<li>Open <span class="amber">Extensions</span> (four squares icon) and install:
 <ul>
-<li>Matrix <strong>A</strong> has dimensions <span class="amber">rank × input size</span> (compresses down)</li>
-<li>Matrix <strong>B</strong> has dimensions <span class="amber">output size × rank</span> (expands back up)</li>
-<li>The product <span class="math inline">\(B \times A\)</span> has the <span class="amber">same dimensions</span> as the original weight matrix <span class="math inline">\(W\)</span></li>
-</ul>
-</div>
-<p>At inference, merge the adapter into the original weights:</p>
-<p><span class="math display">\[W' = W + B \times A\]</span></p>
-<div class="explainer">
-<p>Because the adapter path is linear (just two matrix multiplications, no activation function), the product <span class="math inline">\(B \times A\)</span> is itself a matrix that can be added directly to <span class="math inline">\(W\)</span>. The merged model has the <span class="amber">same architecture and speed</span> as the original — the adapter disappears into the weights.</p>
+<li><strong>Python</strong> (by Microsoft) — Python language support</li>
+<li><strong>Jupyter</strong> (by Microsoft) — notebook support in VS Code</li>
+</ul></li>
+<li>Create a new file with the <code>.ipynb</code> extension, or open an existing notebook</li>
+</ol>
+<p>Then ask Claude Code:</p>
+<blockquote>
+<p><em>Generate a Jupyter notebook with text and code cells explaining how to calculate the tangency portfolio when there are no short sales constraints.</em></p>
+</blockquote>
+<p>Claude will create the <code>.ipynb</code> file with explanatory markdown cells and working Python code.</p>
 </div>
 </section>
-<section id="qlora-fine-tune-on-a-free-gpu" class="slide level2 center">
-<h2>QLoRA: Fine-Tune on a Free GPU</h2>
-<p><strong>QLoRA</strong> (Dettmers et al., 2023) adds 4-bit quantization on top of LoRA:</p>
-<ul>
-<li>Compress base model weights to <span class="amber">4-bit precision</span> (from 16-bit) — 4x memory savings</li>
-<li>Train LoRA adapters on top of the quantized model</li>
-<li>Quality is comparable to full-precision LoRA</li>
-</ul>
-<div class="explainer">
-<p>Result: fine-tune a <strong>70B-parameter model on a single 48GB GPU</strong>. For smaller models like Gemma 1B, QLoRA makes fine-tuning possible on a <span class="amber">free Colab T4</span> (16GB).</p>
+<section id="python-workshop" class="slide level2 center">
+<h2>Python Workshop</h2>
+<p>For a hands-on introduction to Python for finance, visit:</p>
+<div style="font-size: 1.2em; text-align: center; margin-top: 1em;">
+<p><a href="https://workshop.kerryback.com" target="_blank"><strong>workshop.kerryback.com</strong></a></p>
 </div>
 </section>
-<section id="hands-on-fine-tuning-with-lora" class="slide level2 center">
-<h2>Hands-On: Fine-Tuning with LoRA</h2>
-<p>Fine-tune <strong>Google Gemma 3 1B</strong> to classify financial news sentiment using QLoRA — in a Colab notebook.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>What You’ll Do</strong></span></p>
+<section id="cosine-similarity" class="slide level2 section-divider center">
+<h2>Cosine Similarity</h2>
+</section>
+<section id="cosine-similarity-vs.-distance" class="slide level2 center">
+<h2>Cosine Similarity vs.&nbsp;Distance</h2>
+<div style="font-size: 0.75em;">
+<p>The <span class="amber">cosine similarity</span> between two vectors is the cosine of the angle between them. It measures direction, not magnitude.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/cosine-similarity.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
+</figure>
+</div>
+<p>If we normalize vectors to <span class="amber">unit length</span> (project them onto the unit circle), the squared Euclidean distance between them is:</p>
+<p><span class="math display">\[d^2 = 2 - 2\cos\theta\]</span></p>
+<p>So <span class="amber">high cosine similarity</span> <span class="math inline">\(\Leftrightarrow\)</span> small angle <span class="math inline">\(\Leftrightarrow\)</span> normalized vectors are <span class="amber">close together</span>.</p>
+</div>
+</section>
+<section id="biases-and-weights" class="slide level2 section-divider center">
+<h2>Biases and Weights</h2>
+</section>
+<section id="a-simple-neural-network" class="slide level2 mermaid-small center">
+<h2>A Simple Neural Network</h2>
+<div class="cell" data-reveal="true" data-fig-width="16" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#0f172a', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 140, 'padding': 20, 'useMaxWidth': true}}}%%
+graph LR
+  subgraph Inputs[" "]
+    direction TB
+    X1(("x₁"))
+    X2(("x₂"))
+    X3(("x₃"))
+  end
+  subgraph Hidden["Hidden Layer"]
+    direction TB
+    H1(("y₁"))
+    H2(("y₂"))
+  end
+  subgraph Output[" "]
+    direction TB
+    Y(("z"))
+  end
+  X1 --&gt; H1 &amp; H2
+  X2 --&gt; H1 &amp; H2
+  X3 --&gt; H1 &amp; H2
+  H1 --&gt; Y
+  H2 --&gt; Y
+
+  style X1 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style X2 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style X3 fill:#3b82f6,stroke:#3b82f6,color:#fff
+  style H1 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style H2 fill:#f59e0b,stroke:#f59e0b,color:#fff
+  style Y fill:#0f172a,stroke:#0f172a,color:#fff
+  linkStyle default stroke:#334155,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>A <strong>fully connected</strong> network: every input connects to every neuron in the next layer.</p>
+</section>
+<section id="how-a-neuron-decides" class="slide level2 center">
+<h2>How a Neuron Decides</h2>
+<p>Each neuron in the hidden layer computes a <span class="amber">weighted sum</span> of its inputs plus a bias:</p>
+<p><span class="math display">\[\hat{y} = b + w_1 x_1 + w_2 x_2 + w_3 x_3\]</span></p>
+<p>The neuron “fires” (produces a nonzero output) only if this sum is positive:</p>
 <ul>
-<li>Load Gemma 1B with 4-bit quantization</li>
-<li>Attach LoRA adapters (&lt; 0.1% of parameters)</li>
-<li>Train on 4,845 expert-labeled financial sentences</li>
-<li>Test on new examples</li>
+<li>The <span class="amber">weights</span> <span class="math inline">\(w_1, w_2, w_3\)</span> determine <span class="amber">which inputs matter and how much</span></li>
+<li>The <span class="amber">bias</span> <span class="math inline">\(b\)</span> sets the <span class="amber">threshold</span> — how large the weighted inputs must be before the neuron activates</li>
 </ul>
+<div class="explainer">
+<p>If the weights are positive, the neuron fires when the inputs are large enough. The bias <span class="math inline">\(b\)</span> controls <span class="amber">how large</span> — a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases.</p>
 </div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>What You’ll Need</strong></span></p>
-<ul>
-<li>Google Colab with T4 GPU (free tier)</li>
-<li>A Hugging Face account and access token</li>
-<li>Accept Google’s Gemma license</li>
-<li>~15 minutes to train</li>
-</ul>
-</div>
-</div>
-<p><a href="https://colab.research.google.com/github/kerryback/mgmt675/blob/main/files/fine-tuning-gemma.ipynb" target="_blank" style="display: inline-block; margin-top: 0.5em; padding: 0.5em 1.2em; background: #f59e0b; color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.9em; text-decoration: none;">Open in Google Colab →</a></p>
 
 
 </section>

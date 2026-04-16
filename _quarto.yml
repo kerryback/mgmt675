@@ -19,6 +19,7 @@ project:
     - slides/m11-magnolia.qmd
     - slides/m12-rag.qmd
     - slides/m13-fine-tuning.qmd
+    - slides/m17-miscellaneous.qmd
     - slides/m14-sentiment.qmd
     - slides/m15-agent-sdk.qmd
     - slides/m16-how-it-works.qmd
