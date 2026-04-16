@@ -166,6 +166,20 @@ Download VS Code from [code.visualstudio.com](https://code.visualstudio.com){tar
 Click the [Extensions icon]{.amber} in the left sidebar (four squares), search for **"claude code"**, and install the one published by **Anthropic** (look for the verified checkmark). The extension ID is `anthropic.claude-code`.
 :::
 
+## Using Claude Code in VS Code
+
+:::{style="font-size: 0.85em;"}
+1. Click the [Claude icon]{.amber} in the left activity bar to open the Claude Code panel
+2. Click [**+ New Session**]{.amber} to start a conversation
+3. To open additional sessions in separate tabs, click the [open-in-new-tab icon]{.amber} (square with arrow) at the top of the Claude panel
+
+Each tab is an independent conversation. Use multiple tabs to work on different tasks in parallel --- e.g., one for coding, one for questions.
+:::
+
+:::{.explainer}
+You can also open Claude Code from the command palette: press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) and type "Claude".
+:::
+
 ## Slash Commands
 
 :::{style="font-size: 0.82em;"}
