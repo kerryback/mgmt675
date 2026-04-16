@@ -4,7 +4,7 @@
     "href": "slides/m16-how-it-works.html#what-is-an-llm",
     "title": "Module 16: How AI Works",
     "section": "What Is an LLM?",
-    "text": "What Is an LLM?\nEvery AI tool we’ve used this semester — Claude, ChatGPT, Gemini — is built on a large language model. (Modern versions also handle images and other inputs via similar mechanisms, but we’ll focus on text.)\nAn LLM is a neural network that:\n\nTakes a sequence of text as input\nProduces a probability distribution over possible next words\nSamples one, appends it, and repeats\n\n\nThat’s it. When Claude writes a paragraph, it is generating one token at a time, each time asking: “given everything so far, what should come next?” A temperature setting controls the randomness — low temperature picks near-certain tokens; high temperature allows more creative variation. This is why you get different responses to the same prompt."
+    "text": "What Is an LLM?\nEvery AI tool we’ve used this semester — Claude, ChatGPT, Gemini — is built on a large language model. (Modern versions also handle images and other inputs via similar mechanisms, but we’ll focus on text.)\nAn LLM is a neural network that:\n\nTakes a sequence of text as input\nProduces a probability distribution over possible next words\nSamples one, appends it, and repeats\n\n\nThat’s it. When Claude writes a paragraph, it is generating one token at a time, each time asking: “given everything so far, what should come next?” The next slide explains how the model samples from that distribution — and how you can control the randomness."
   },
   {
     "objectID": "slides/m16-how-it-works.html#from-next-word-prediction-to-intelligence",
@@ -12,6 +12,20 @@
     "title": "Module 16: How AI Works",
     "section": "From Next-Word Prediction to Intelligence",
     "text": "From Next-Word Prediction to Intelligence\nThis seems too simple to produce intelligent behavior. But when you train next-word prediction on trillions of words:\n\nTo predict the next word in a math proof, the model must learn math\nTo predict the next word in a legal brief, it must learn legal reasoning\nTo predict the next word in a financial analysis, it must learn finance\n\n\nThe training objective is simple. The capabilities that emerge at scale are not. Whether this constitutes “understanding” is debated — but the capabilities are real and useful, which is what matters for practitioners."
+  },
+  {
+    "objectID": "slides/m16-how-it-works.html#sampling-from-the-distribution",
+    "href": "slides/m16-how-it-works.html#sampling-from-the-distribution",
+    "title": "Module 16: How AI Works",
+    "section": "Sampling from the Distribution",
+    "text": "Sampling from the Distribution\nAt each step, the model outputs a probability for every token in its vocabulary (~100,000 tokens). How does it pick one?\n\nTemperature: scales the probabilities before sampling. At T=0, always pick the most likely token (deterministic). Higher T flattens the distribution → more randomness and creativity; lower T sharpens it → more focused and predictable.\nTop-k: only consider the k most probable tokens (e.g., k=50), set all others to zero, then sample. Prevents the model from picking very unlikely tokens.\nTop-p (nucleus sampling): only consider the smallest set of tokens whose cumulative probability ≥ p (e.g., p=0.9). Adapts automatically — when the model is confident, few tokens qualify; when uncertain, more are included.\n\n\nThese parameters interact. In practice, providers combine them: e.g., Claude uses temperature + top-p together. Lower temperature + lower top-p = safe, predictable output (good for structured tasks like extraction). Higher temperature + higher top-p = varied, creative output (good for brainstorming). This is why the same prompt gives different answers each time — and why you can tune that behavior."
+  },
+  {
+    "objectID": "slides/m16-how-it-works.html#the-precisionexploration-tradeoff",
+    "href": "slides/m16-how-it-works.html#the-precisionexploration-tradeoff",
+    "title": "Module 16: How AI Works",
+    "section": "The Precision–Exploration Tradeoff",
+    "text": "The Precision–Exploration Tradeoff\nThere is no single “right” temperature. Within a single response, the model faces competing needs:\n\n\nPrecision\n\nLow temperature / tight top-p\nBest when the next token is highly constrained — syntax, formulas, known facts\nPicking the top token avoids errors\n\n\n\nExploration\n\nHigher temperature / wider top-p\nBest when the task requires creativity or search — brainstorming, novel arguments, complex reasoning\nDiversity helps the model find better paths\n\n\n\nBut temperature is set once for the whole response — so every generation is a compromise.\n\nZhang et al. (2025) call this the precision–exploration conflict. They showed that models generating code improved dramatically when trained on their own best outputs sampled at varied temperatures — capturing the benefits of both precision and exploration. The insight generalizes: the optimal sampling strategy varies token by token, not just task by task."
   },
   {
     "objectID": "slides/m16-how-it-works.html#the-four-key-ideas",
@@ -1276,16 +1290,9 @@
   {
     "objectID": "slides.html",
     "href": "slides.html",
-    "title": "Slides",
+    "title": "Slide Decks",
     "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nFine-Tuning\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nMore on Building Agents\n\n\n\n16\nHow AI Works"
-  },
-  {
-    "objectID": "slides.html#course-slides",
-    "href": "slides.html#course-slides",
-    "title": "Slides",
-    "section": "",
-    "text": "Click on a topic to view the slide deck.\n\n\n\n\n\n\n\n\n#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nFine-Tuning\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nMore on Building Agents\n\n\n\n16\nHow AI Works"
+    "text": "#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nFine-Tuning\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nMore on Building Agents\n\n\n\n16\nHow AI Works"
   },
   {
     "objectID": "index.html",
@@ -2287,6 +2294,69 @@
     "title": "Module 13: Fine-Tuning",
     "section": "What Can Go Wrong?",
     "text": "What Can Go Wrong?\nFine-tuning is not risk-free. Issues to watch for:\n\nCatastrophic forgetting: the model loses general capabilities it had before fine-tuning (e.g., it classifies sentiment perfectly but can no longer summarize)\nOverfitting: with too few examples, the model memorizes training data instead of learning patterns — performs great on training-like inputs, fails on anything different\nMaintenance burden: when the base model gets a new version, you may need to re-fine-tune"
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#claude",
+    "href": "slides/m13-fine-tuning.html#claude",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Claude",
+    "text": "Claude"
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#claude-desktop",
+    "href": "slides/m13-fine-tuning.html#claude-desktop",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Claude Desktop",
+    "text": "Claude Desktop\nClaude Desktop has three modes: Chat, Cowork, and Code. In all three, prompts go to and responses come from the cloud. The modes differ in where Python execution happens.\n\nChat: Python runs on Anthropic’s servers. Only libraries pre-installed by Anthropic. No internet access from Python (sandboxed).\nCowork: Python runs on your computer. Any libraries you want. No internet access from Python (sandboxed).\nCode: Python runs on your computer. Any libraries you want. Internet available.\n\n\nCode mode is the most powerful but also the most permissive — Claude can read/write files, run shell commands, and access the internet. Use it when you need full control; use Chat or Cowork for safer exploration."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#vs-code-visual-studio-code",
+    "href": "slides/m13-fine-tuning.html#vs-code-visual-studio-code",
+    "title": "Module 13: Fine-Tuning",
+    "section": "VS Code (Visual Studio Code)",
+    "text": "VS Code (Visual Studio Code)\nDownload VS Code from code.visualstudio.com. Install and open it.\n\n\n\n\n\n\nClick the Extensions icon in the left sidebar (four squares), search for “claude code”, and install the one published by Anthropic (look for the verified checkmark). The extension ID is anthropic.claude-code."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#slash-commands",
+    "href": "slides/m13-fine-tuning.html#slash-commands",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Slash Commands",
+    "text": "Slash Commands\n\nType / in Claude Code to see all available commands. The most useful:\n\n/resume — resume a previous conversation by name or ID, picking up where you left off\n/rewind — undo Claude’s code changes and revert the conversation to an earlier point\n/btw — ask a quick side question without adding it to the conversation history\n/diff — open an interactive diff viewer to review all uncommitted changes\n/plan — enter read-only planning mode so Claude designs a strategy before making changes\n/model — switch models on the fly (e.g., from Sonnet to Opus for harder tasks)\n/cost — check real-time token usage and spending\n\n\n\nIf you install (or ask Claude to install) the critique skill, you can prompt /critique filename to get a multi-perspective review of your work."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#jupyter-notebooks-and-colab",
+    "href": "slides/m13-fine-tuning.html#jupyter-notebooks-and-colab",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Jupyter Notebooks and Colab",
+    "text": "Jupyter Notebooks and Colab"
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#jupyter-notebooks",
+    "href": "slides/m13-fine-tuning.html#jupyter-notebooks",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Jupyter Notebooks",
+    "text": "Jupyter Notebooks\nA Jupyter notebook (.ipynb) is a document with two types of cells:\n\nCode cells — write and run Python (or R, Julia, etc.). Output appears directly below the cell.\nText cells — written in Markdown, a simple formatting language. Use # Heading, **bold**, *italic*, bullet lists, LaTeX math ($E[r]$), etc."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#google-colab",
+    "href": "slides/m13-fine-tuning.html#google-colab",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Google Colab",
+    "text": "Google Colab\nGoogle Colab is a free, cloud-hosted Jupyter notebook environment — no installation required.\n\nRuns in your browser, notebooks are saved to Google Drive\nFree access to GPUs and TPUs for machine learning\nPre-installed libraries: numpy, pandas, scikit-learn, matplotlib, transformers, …\nShare notebooks like Google Docs\n\nGemini in Colab: Google’s AI assistant is built into Colab. It can generate code, explain errors, and autocomplete — similar to Claude Code but inside the notebook.\n\nColab is ideal for quick experiments and for running code that needs a GPU (e.g., fine-tuning). For longer projects with many files, VS Code + Claude Code is more powerful."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#vs-code",
+    "href": "slides/m13-fine-tuning.html#vs-code",
+    "title": "Module 13: Fine-Tuning",
+    "section": "VS Code",
+    "text": "VS Code\n\nTo work with Jupyter notebooks locally in VS Code:\n\nOpen Extensions (four squares icon) and install:\n\nPython (by Microsoft) — Python language support\nJupyter (by Microsoft) — notebook support in VS Code\n\nCreate a new file with the .ipynb extension, or open an existing notebook\n\nThen ask Claude Code:\n\nGenerate a Jupyter notebook with text and code cells explaining how to calculate the tangency portfolio when there are no short sales constraints.\n\nClaude will create the .ipynb file with explanatory markdown cells and working Python code."
+  },
+  {
+    "objectID": "slides/m13-fine-tuning.html#python-workshop",
+    "href": "slides/m13-fine-tuning.html#python-workshop",
+    "title": "Module 13: Fine-Tuning",
+    "section": "Python Workshop",
+    "text": "Python Workshop\nFor a hands-on introduction to Python for finance, visit:\n\nworkshop.kerryback.com"
   },
   {
     "objectID": "slides/m13-fine-tuning.html#cosine-similarity",

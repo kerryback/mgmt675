@@ -158,7 +158,7 @@ Kerry Back, Rice University
 <li>Samples one, appends it, and repeats</li>
 </ol>
 <div class="explainer">
-<p>That’s it. When Claude writes a paragraph, it is generating one token at a time, each time asking: “given everything so far, what should come next?” A <span class="amber">temperature</span> setting controls the randomness — low temperature picks near-certain tokens; high temperature allows more creative variation. This is why you get different responses to the same prompt.</p>
+<p>That’s it. When Claude writes a paragraph, it is generating one token at a time, each time asking: “given everything so far, what should come next?” The next slide explains how the model <span class="amber">samples</span> from that distribution — and how you can control the randomness.</p>
 </div>
 </section>
 <section id="from-next-word-prediction-to-intelligence" class="slide level2 center">
@@ -171,6 +171,44 @@ Kerry Back, Rice University
 </ul>
 <div class="explainer">
 <p>The training objective is simple. The capabilities that emerge at scale are not. Whether this constitutes “understanding” is debated — but <span class="amber">the capabilities are real and useful</span>, which is what matters for practitioners.</p>
+</div>
+</section>
+<section id="sampling-from-the-distribution" class="slide level2 center">
+<h2>Sampling from the Distribution</h2>
+<p>At each step, the model outputs a probability for <span class="amber">every token in its vocabulary</span> (~100,000 tokens). How does it pick one?</p>
+<ul>
+<li><strong>Temperature:</strong> scales the probabilities before sampling. At T=0, always pick the most likely token (deterministic). Higher T flattens the distribution → more randomness and creativity; lower T sharpens it → more focused and predictable.</li>
+<li><strong>Top-k:</strong> only consider the <span class="amber">k most probable</span> tokens (e.g., k=50), set all others to zero, then sample. Prevents the model from picking very unlikely tokens.</li>
+<li><strong>Top-p (nucleus sampling):</strong> only consider the smallest set of tokens whose cumulative probability ≥ p (e.g., p=0.9). Adapts automatically — when the model is confident, few tokens qualify; when uncertain, more are included.</li>
+</ul>
+<div class="explainer">
+<p>These parameters interact. In practice, providers combine them: e.g., Claude uses temperature + top-p together. <span class="amber">Lower temperature + lower top-p</span> = safe, predictable output (good for structured tasks like extraction). <span class="amber">Higher temperature + higher top-p</span> = varied, creative output (good for brainstorming). This is why the same prompt gives different answers each time — and why you can tune that behavior.</p>
+</div>
+</section>
+<section id="the-precisionexploration-tradeoff" class="slide level2 center">
+<h2>The Precision–Exploration Tradeoff</h2>
+<p>There is no single “right” temperature. Within a <span class="amber">single response</span>, the model faces competing needs:</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Precision</strong></span></p>
+<ul>
+<li>Low temperature / tight top-p</li>
+<li>Best when the next token is <span class="amber">highly constrained</span> — syntax, formulas, known facts</li>
+<li>Picking the top token avoids errors</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Exploration</strong></span></p>
+<ul>
+<li>Higher temperature / wider top-p</li>
+<li>Best when the task requires <span class="amber">creativity or search</span> — brainstorming, novel arguments, complex reasoning</li>
+<li>Diversity helps the model find better paths</li>
+</ul>
+</div>
+</div>
+<p>But temperature is set once for the whole response — so <span class="amber">every generation is a compromise</span>.</p>
+<div class="explainer">
+<p><a href="https://arxiv.org/abs/2604.01193">Zhang et al.&nbsp;(2025)</a> call this the <span class="amber">precision–exploration conflict</span>. They showed that models generating code improved dramatically when trained on their own best outputs sampled at varied temperatures — capturing the benefits of both precision and exploration. The insight generalizes: the optimal sampling strategy <span class="amber">varies token by token</span>, not just task by task.</p>
 </div>
 </section>
 <section id="the-four-key-ideas" class="slide level2 section-divider center">
