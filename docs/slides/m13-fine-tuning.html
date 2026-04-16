@@ -320,6 +320,7 @@ Kerry Back, Rice University
 <ul>
 <li><span class="amber"><strong>/resume</strong></span> — resume a previous conversation by name or ID, picking up where you left off</li>
 <li><span class="amber"><strong>/rewind</strong></span> — undo Claude’s code changes and revert the conversation to an earlier point</li>
+<li><span class="amber"><strong>/btw</strong></span> — ask a quick side question without adding it to the conversation history</li>
 <li><span class="amber"><strong>/diff</strong></span> — open an interactive diff viewer to review all uncommitted changes</li>
 <li><span class="amber"><strong>/plan</strong></span> — enter read-only planning mode so Claude designs a strategy before making changes</li>
 <li><span class="amber"><strong>/model</strong></span> — switch models on the fly (e.g., from Sonnet to Opus for harder tasks)</li>
@@ -328,6 +329,62 @@ Kerry Back, Rice University
 </div>
 <div class="explainer">
 <p>If you install (or ask Claude to install) the <strong>critique</strong> skill, you can prompt <code>/critique filename</code> to get a multi-perspective review of your work.</p>
+</div>
+</section>
+<section id="jupyter-notebooks-and-colab" class="slide level2 section-divider center">
+<h2>Jupyter Notebooks and Colab</h2>
+</section>
+<section id="jupyter-notebooks" class="slide level2 center">
+<h2>Jupyter Notebooks</h2>
+<p>A Jupyter notebook (<code>.ipynb</code>) is a document with two types of cells:</p>
+<ul>
+<li><span class="amber"><strong>Code cells</strong></span> — write and run Python (or R, Julia, etc.). Output appears directly below the cell.</li>
+<li><span class="amber"><strong>Text cells</strong></span> — written in <span class="amber">Markdown</span>, a simple formatting language. Use <code># Heading</code>, <code>**bold**</code>, <code>*italic*</code>, bullet lists, LaTeX math (<code>$E[r]$</code>), etc.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/jupyter-notebook.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</section>
+<section id="google-colab" class="slide level2 center">
+<h2>Google Colab</h2>
+<p><a href="https://colab.research.google.com" target="_blank">Google Colab</a> is a free, cloud-hosted Jupyter notebook environment — no installation required.</p>
+<ul>
+<li>Runs in your browser, notebooks are saved to Google Drive</li>
+<li>Free access to GPUs and TPUs for machine learning</li>
+<li>Pre-installed libraries: numpy, pandas, scikit-learn, matplotlib, transformers, …</li>
+<li>Share notebooks like Google Docs</li>
+</ul>
+<p><span class="amber"><strong>Gemini in Colab</strong></span>: Google’s AI assistant is built into Colab. It can generate code, explain errors, and autocomplete — similar to Claude Code but inside the notebook.</p>
+<div class="explainer">
+<p>Colab is ideal for quick experiments and for running code that needs a GPU (e.g., fine-tuning). For longer projects with many files, VS Code + Claude Code is more powerful.</p>
+</div>
+</section>
+<section id="vs-code" class="slide level2 center">
+<h2>VS Code</h2>
+<div style="font-size: 0.85em;">
+<p>To work with Jupyter notebooks locally in VS Code:</p>
+<ol type="1">
+<li>Open <span class="amber">Extensions</span> (four squares icon) and install:
+<ul>
+<li><strong>Python</strong> (by Microsoft) — Python language support</li>
+<li><strong>Jupyter</strong> (by Microsoft) — notebook support in VS Code</li>
+</ul></li>
+<li>Create a new file with the <code>.ipynb</code> extension, or open an existing notebook</li>
+</ol>
+<p>Then ask Claude Code:</p>
+<blockquote>
+<p><em>Generate a Jupyter notebook with text and code cells explaining how to calculate the tangency portfolio when there are no short sales constraints.</em></p>
+</blockquote>
+<p>Claude will create the <code>.ipynb</code> file with explanatory markdown cells and working Python code.</p>
+</div>
+</section>
+<section id="python-workshop" class="slide level2 center">
+<h2>Python Workshop</h2>
+<p>For a hands-on introduction to Python for finance, visit:</p>
+<div style="font-size: 1.2em; text-align: center; margin-top: 1em;">
+<p><a href="https://workshop.kerryback.com" target="_blank"><strong>workshop.kerryback.com</strong></a></p>
 </div>
 </section>
 <section id="cosine-similarity" class="slide level2 section-divider center">

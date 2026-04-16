@@ -173,6 +173,7 @@ Type `/` in Claude Code to see all available commands. The most useful:
 
 - [**/resume**]{.amber} --- resume a previous conversation by name or ID, picking up where you left off
 - [**/rewind**]{.amber} --- undo Claude's code changes and revert the conversation to an earlier point
+- [**/btw**]{.amber} --- ask a quick side question without adding it to the conversation history
 - [**/diff**]{.amber} --- open an interactive diff viewer to review all uncommitted changes
 - [**/plan**]{.amber} --- enter read-only planning mode so Claude designs a strategy before making changes
 - [**/model**]{.amber} --- switch models on the fly (e.g., from Sonnet to Opus for harder tasks)
@@ -181,6 +182,57 @@ Type `/` in Claude Code to see all available commands. The most useful:
 
 :::{.explainer}
 If you install (or ask Claude to install) the **critique** skill, you can prompt `/critique filename` to get a multi-perspective review of your work.
+:::
+
+## Jupyter Notebooks and Colab {.section-divider}
+
+## Jupyter Notebooks
+
+A Jupyter notebook (`.ipynb`) is a document with two types of cells:
+
+- [**Code cells**]{.amber} --- write and run Python (or R, Julia, etc.). Output appears directly below the cell.
+- [**Text cells**]{.amber} --- written in [Markdown]{.amber}, a simple formatting language. Use `# Heading`, `**bold**`, `*italic*`, bullet lists, LaTeX math (`$E[r]$`), etc.
+
+![](images/jupyter-notebook.png){fig-align="center" width="70%" .nostretch}
+
+## Google Colab
+
+[Google Colab](https://colab.research.google.com){target="_blank"} is a free, cloud-hosted Jupyter notebook environment --- no installation required.
+
+- Runs in your browser, notebooks are saved to Google Drive
+- Free access to GPUs and TPUs for machine learning
+- Pre-installed libraries: numpy, pandas, scikit-learn, matplotlib, transformers, ...
+- Share notebooks like Google Docs
+
+[**Gemini in Colab**]{.amber}: Google's AI assistant is built into Colab. It can generate code, explain errors, and autocomplete --- similar to Claude Code but inside the notebook.
+
+:::{.explainer}
+Colab is ideal for quick experiments and for running code that needs a GPU (e.g., fine-tuning). For longer projects with many files, VS Code + Claude Code is more powerful.
+:::
+
+## VS Code
+
+:::{style="font-size: 0.85em;"}
+To work with Jupyter notebooks locally in VS Code:
+
+1. Open [Extensions]{.amber} (four squares icon) and install:
+   - **Python** (by Microsoft) --- Python language support
+   - **Jupyter** (by Microsoft) --- notebook support in VS Code
+2. Create a new file with the `.ipynb` extension, or open an existing notebook
+
+Then ask Claude Code:
+
+> *Generate a Jupyter notebook with text and code cells explaining how to calculate the tangency portfolio when there are no short sales constraints.*
+
+Claude will create the `.ipynb` file with explanatory markdown cells and working Python code.
+:::
+
+## Python Workshop
+
+For a hands-on introduction to Python for finance, visit:
+
+:::{style="font-size: 1.2em; text-align: center; margin-top: 1em;"}
+[**workshop.kerryback.com**](https://workshop.kerryback.com){target="_blank"}
 :::
 
 ## Cosine Similarity {.section-divider}
