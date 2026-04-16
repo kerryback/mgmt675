@@ -286,6 +286,50 @@ Kerry Back, Rice University
 <li><strong>Maintenance burden</strong>: when the base model gets a new version, you may need to re-fine-tune</li>
 </ul>
 </section>
+<section id="claude" class="slide level2 section-divider center">
+<h2>Claude</h2>
+</section>
+<section id="claude-desktop" class="slide level2 center">
+<h2>Claude Desktop</h2>
+<p>Claude Desktop has three modes: <span class="amber">Chat</span>, <span class="amber">Cowork</span>, and <span class="amber">Code</span>. In all three, prompts go to and responses come from the cloud. The modes differ in <span class="amber">where Python execution happens</span>.</p>
+<ul>
+<li><span class="amber"><strong>Chat</strong></span>: Python runs on Anthropic’s servers. Only libraries pre-installed by Anthropic. No internet access from Python (sandboxed).</li>
+<li><span class="amber"><strong>Cowork</strong></span>: Python runs on your computer. Any libraries you want. No internet access from Python (sandboxed).</li>
+<li><span class="amber"><strong>Code</strong></span>: Python runs on your computer. Any libraries you want. Internet available.</li>
+</ul>
+<div class="explainer">
+<p>Code mode is the most powerful but also the most permissive — Claude can read/write files, run shell commands, and access the internet. Use it when you need full control; use Chat or Cowork for safer exploration.</p>
+</div>
+</section>
+<section id="vs-code-visual-studio-code" class="slide level2 center">
+<h2>VS Code (Visual Studio Code)</h2>
+<p>Download VS Code from <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>. Install and open it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/vscode-extensions.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
+</figure>
+</div>
+<div class="explainer">
+<p>Click the <span class="amber">Extensions icon</span> in the left sidebar (four squares), search for <strong>“claude code”</strong>, and install the one published by <strong>Anthropic</strong> (look for the verified checkmark). The extension ID is <code>anthropic.claude-code</code>.</p>
+</div>
+</section>
+<section id="slash-commands" class="slide level2 center">
+<h2>Slash Commands</h2>
+<div style="font-size: 0.82em;">
+<p>Type <code>/</code> in Claude Code to see all available commands. The most useful:</p>
+<ul>
+<li><span class="amber"><strong>/resume</strong></span> — resume a previous conversation by name or ID, picking up where you left off</li>
+<li><span class="amber"><strong>/rewind</strong></span> — undo Claude’s code changes and revert the conversation to an earlier point</li>
+<li><span class="amber"><strong>/diff</strong></span> — open an interactive diff viewer to review all uncommitted changes</li>
+<li><span class="amber"><strong>/plan</strong></span> — enter read-only planning mode so Claude designs a strategy before making changes</li>
+<li><span class="amber"><strong>/model</strong></span> — switch models on the fly (e.g., from Sonnet to Opus for harder tasks)</li>
+<li><span class="amber"><strong>/cost</strong></span> — check real-time token usage and spending</li>
+</ul>
+</div>
+<div class="explainer">
+<p>If you install (or ask Claude to install) the <strong>critique</strong> skill, you can prompt <code>/critique filename</code> to get a multi-perspective review of your work.</p>
+</div>
+</section>
 <section id="cosine-similarity" class="slide level2 section-divider center">
 <h2>Cosine Similarity</h2>
 </section>

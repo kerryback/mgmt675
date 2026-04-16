@@ -142,6 +142,47 @@ Fine-tuning is not risk-free. Issues to watch for:
 - **Overfitting**: with too few examples, the model memorizes training data instead of learning patterns --- performs great on training-like inputs, fails on anything different
 - **Maintenance burden**: when the base model gets a new version, you may need to re-fine-tune
 
+## Claude {.section-divider}
+
+## Claude Desktop
+
+Claude Desktop has three modes: [Chat]{.amber}, [Cowork]{.amber}, and [Code]{.amber}. In all three, prompts go to and responses come from the cloud. The modes differ in [where Python execution happens]{.amber}.
+
+- [**Chat**]{.amber}: Python runs on Anthropic's servers. Only libraries pre-installed by Anthropic. No internet access from Python (sandboxed).
+- [**Cowork**]{.amber}: Python runs on your computer. Any libraries you want. No internet access from Python (sandboxed).
+- [**Code**]{.amber}: Python runs on your computer. Any libraries you want. Internet available.
+
+:::{.explainer}
+Code mode is the most powerful but also the most permissive --- Claude can read/write files, run shell commands, and access the internet. Use it when you need full control; use Chat or Cowork for safer exploration.
+:::
+
+## VS Code (Visual Studio Code)
+
+Download VS Code from [code.visualstudio.com](https://code.visualstudio.com){target="_blank"}. Install and open it.
+
+![](images/vscode-extensions.png){fig-align="center" width="65%" .nostretch}
+
+:::{.explainer}
+Click the [Extensions icon]{.amber} in the left sidebar (four squares), search for **"claude code"**, and install the one published by **Anthropic** (look for the verified checkmark). The extension ID is `anthropic.claude-code`.
+:::
+
+## Slash Commands
+
+:::{style="font-size: 0.82em;"}
+Type `/` in Claude Code to see all available commands. The most useful:
+
+- [**/resume**]{.amber} --- resume a previous conversation by name or ID, picking up where you left off
+- [**/rewind**]{.amber} --- undo Claude's code changes and revert the conversation to an earlier point
+- [**/diff**]{.amber} --- open an interactive diff viewer to review all uncommitted changes
+- [**/plan**]{.amber} --- enter read-only planning mode so Claude designs a strategy before making changes
+- [**/model**]{.amber} --- switch models on the fly (e.g., from Sonnet to Opus for harder tasks)
+- [**/cost**]{.amber} --- check real-time token usage and spending
+:::
+
+:::{.explainer}
+If you install (or ask Claude to install) the **critique** skill, you can prompt `/critique filename` to get a multi-perspective review of your work.
+:::
+
 ## Cosine Similarity {.section-divider}
 
 ## Cosine Similarity vs. Distance
