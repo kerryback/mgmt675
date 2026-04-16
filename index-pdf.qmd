@@ -77,10 +77,10 @@ Each student will be reimbursed for a Claude Pro account ($20 per month).  The P
 11. [Magnolia DCF](https://mgmt675.kerryback.com/slides/m11-magnolia.html)
 12. [Retrieval Augmented Generation](https://mgmt675.kerryback.com/slides/m12-rag.html)
 13. [Fine-Tuning](https://mgmt675.kerryback.com/slides/m13-fine-tuning.html)
-17. [Miscellaneous 4/16/2026](https://mgmt675.kerryback.com/slides/m17-miscellaneous.html)
 14. [Sentiment Analysis](https://mgmt675.kerryback.com/slides/m14-sentiment.html)
 15. [More on Building Agents](https://mgmt675.kerryback.com/slides/m15-agent-sdk.html)
 16. [How AI Works](https://mgmt675.kerryback.com/slides/m16-how-it-works.html)
+17. [Miscellaneous 4/16/2026](https://mgmt675.kerryback.com/slides/m17-miscellaneous.html)
 :::
 ::::
 
