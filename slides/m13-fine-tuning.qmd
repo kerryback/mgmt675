@@ -176,6 +176,22 @@ Click the [Extensions icon]{.amber} in the left sidebar (four squares), search f
 You can also open Claude Code from the command palette: press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) and type "Claude".
 :::
 
+## Try It: A Single Prompt, Three Files
+
+Ask Claude Code:
+
+> *Calculate and plot the P/E ratios of the Magnificent 7 stocks over the past 3 years. Save the chart as a PNG. Write a Word document ranking the stocks by current P/E with a brief investment commentary.*
+
+Claude will create:
+
+- A [**Python script**]{.amber} (`.py`) that fetches data, computes ratios, and generates the outputs
+- A [**chart**]{.amber} (`.png`) visualizing P/E ratios over time
+- A [**Word document**]{.amber} (`.docx`) with analysis and commentary
+
+:::{.explainer}
+This is a good test of Claude Code's capabilities. If something doesn't work, just tell Claude what went wrong --- it will read the error and fix it.
+:::
+
 ## Slash Commands
 
 :::{style="font-size: 0.82em;"}
