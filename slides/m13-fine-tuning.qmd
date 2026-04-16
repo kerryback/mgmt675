@@ -199,7 +199,7 @@ A Jupyter notebook (`.ipynb`) is a document with two types of cells:
 
 [Google Colab](https://colab.research.google.com){target="_blank"} is a free, cloud-hosted Jupyter notebook environment --- no installation required.
 
-- Runs in your browser, notebooks are saved to Google Drive
+- Access via your browser, notebooks are saved to Google Drive
 - Free access to GPUs and TPUs for machine learning
 - Pre-installed libraries: numpy, pandas, scikit-learn, matplotlib, transformers, ...
 - Share notebooks like Google Docs
