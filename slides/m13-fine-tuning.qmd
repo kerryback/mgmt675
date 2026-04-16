@@ -201,7 +201,7 @@ A Jupyter notebook (`.ipynb`) is a document with two types of cells:
 
 - Access via your browser, notebooks are saved to Google Drive
 - Free access to GPUs and TPUs for machine learning
-- Pre-installed libraries: numpy, pandas, scikit-learn, matplotlib, transformers, ...
+- Can install whatever libraries you want
 - Share notebooks like Google Docs
 
 [**Gemini in Colab**]{.amber}: Google's AI assistant is built into Colab. It can generate code, explain errors, and autocomplete --- similar to Claude Code but inside the notebook.
