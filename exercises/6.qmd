@@ -1,0 +1,12 @@
+---
+title: "Exercise 6: Wealth Management Agent"
+subtitle: "MGMT 675: Generative AI for Finance"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \PassOptionsToPackage{colorlinks=true,urlcolor=blue,linkcolor=blue}{hyperref}
+---
+
+Design and build an AI agent for a wealth manager who chooses stocks to buy and sell based on analyst recommendations and who seeks to maintain targeted sector exposures and to minimize capital gains taxes.  The agent should relieve the manager of the repetitive work needed to develop a trading plan.  Deploy the app on Railway.  Submit a pdf of a sample report from the agent along with a link to the Railway app.

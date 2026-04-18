@@ -1320,14 +1320,14 @@
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nCapital Budgeting Case Analysis\n\n\n\n4B\nData Agent\n\n\n\n4C\nOptions Data Dashboard\n\n\n\n\n\n\n\n\n\n\n5A\nBuild a RAG Chatbot\n\n\n\n5B\nSmall Model vs. Frontier Model\n\n\n\n5C\nValuation of Magnolia Oil & Gas\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nCapital Budgeting Case Analysis\n\n\n\n4B\nData Agent\n\n\n\n4C\nOptions Data Dashboard\n\n\n\n\n\n\n\n\n\n\n5A\nBuild a RAG Chatbot\n\n\n\n5B\nSmall Model vs. Frontier Model\n\n\n\n5C\nValuation of Magnolia Oil & Gas\n\n\n\n\n\n\n\n\n\n\n6\nWealth Management Agent"
   },
   {
     "objectID": "assignments.html#course-assignments",
     "href": "assignments.html#course-assignments",
     "title": "Assignments",
     "section": "",
-    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nCapital Budgeting Case Analysis\n\n\n\n4B\nData Agent\n\n\n\n4C\nOptions Data Dashboard\n\n\n\n\n\n\n\n\n\n\n5A\nBuild a RAG Chatbot\n\n\n\n5B\nSmall Model vs. Frontier Model\n\n\n\n5C\nValuation of Magnolia Oil & Gas\n\n\n\n\n\n\n\n\n\n\n6A\nHeadline Sentiment Classification\n\n\n\n6B\nEarnings Call Analysis\n\n\n\n6C\nBuild a Database Skill"
+    "text": "All assignments are group projects (up to five students per group). Each week’s exercises are due on Tuesday at 11:59 pm. Upload your zip file to Canvas.\nClick on an exercise to download the PDF.\n\n\n\n\n\n1A\nAI Use Cases in Finance\n\n\n\n1B\nInteractive Bond Pricing App\n\n\n\n1C\nAI as a Thinking Partner\n\n\n\n\n\n\n\n\n\n\n2A\nTangency Portfolio\n\n\n\n2B\nLoan Portfolio Risk Analysis\n\n\n\n2C\nM&A Due Diligence\n\n\n\n2D\nPortfolio Consolidation\n\n\n\n\n\n\n\n\n\n\n3A\nTwo-Stage DCF Model\n\n\n\n3B\nMonte Carlo Valuation\n\n\n\n3C\nCapital Budgeting with Option Value\n\n\n\n3D\nBuild a Finance Analysis Skill\n\n\n\n\n\n\n\n\n\n\n4A\nCapital Budgeting Case Analysis\n\n\n\n4B\nData Agent\n\n\n\n4C\nOptions Data Dashboard\n\n\n\n\n\n\n\n\n\n\n5A\nBuild a RAG Chatbot\n\n\n\n5B\nSmall Model vs. Frontier Model\n\n\n\n5C\nValuation of Magnolia Oil & Gas\n\n\n\n\n\n\n\n\n\n\n6\nWealth Management Agent"
   },
   {
     "objectID": "index.html",
@@ -2464,18 +2464,60 @@
     "text": "How a Neuron Decides\nEach neuron in the hidden layer computes a weighted sum of its inputs plus a bias:\n\\[\\hat{y} = b + w_1 x_1 + w_2 x_2 + w_3 x_3\\]\nThe neuron “fires” (produces a nonzero output) only if this sum is positive:\n\nThe weights \\(w_1, w_2, w_3\\) determine which inputs matter and how much\nThe bias \\(b\\) sets the threshold — how large the weighted inputs must be before the neuron activates\n\n\nIf the weights are positive, the neuron fires when the inputs are large enough. The bias \\(b\\) controls how large — a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases."
   },
   {
-    "objectID": "slides/m15-agent-sdk.html#live-demo-portfolio-analysis-agent",
-    "href": "slides/m15-agent-sdk.html#live-demo-portfolio-analysis-agent",
+    "objectID": "slides/m15-agent-sdk.html#how-tool-use-works",
+    "href": "slides/m15-agent-sdk.html#how-tool-use-works",
     "title": "Module 15: More on Building Agents",
-    "section": "Live Demo: Portfolio Analysis Agent",
-    "text": "Live Demo: Portfolio Analysis Agent\nweb-production-9f0f9.up.railway.app\nLet’s try some questions:\n\n“Review the portfolio — what’s the current sector allocation vs. target?”\n“Find tax-loss harvesting opportunities in Technology”\n“Harvest the INTC losses. What should I buy to replace the exposure?”\n\n\nWatch how the agent chooses different tools depending on the question. It’s not running a script — it’s reasoning about what information it needs."
+    "section": "How Tool Use Works",
+    "text": "How Tool Use Works"
   },
   {
-    "objectID": "slides/m15-agent-sdk.html#what-tools-would-an-agent-need-to-do-this",
-    "href": "slides/m15-agent-sdk.html#what-tools-would-an-agent-need-to-do-this",
+    "objectID": "slides/m15-agent-sdk.html#the-big-picture",
+    "href": "slides/m15-agent-sdk.html#the-big-picture",
     "title": "Module 15: More on Building Agents",
-    "section": "What Tools Would an Agent Need to Do This?",
-    "text": "What Tools Would an Agent Need to Do This?"
+    "section": "The Big Picture",
+    "text": "The Big Picture\nAn LLM by itself can only read and write text. It can’t look up stock prices, query a database, or run calculations. Tools give it those abilities — but the mechanism is simpler than you might expect.\n\n\n\n\n\n%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%\nflowchart LR\n    Y[\"You\"] --&gt;|\"define tools +\\nsend prompt\"| API[\"Claude API\"]\n    API --&gt;|\"I want to call\\nget_price(ticker='AAPL')\"| Y\n    Y --&gt;|\"here's the result:\\n$198.50\"| API\n    API --&gt;|\"Apple's current\\nprice is $198.50\"| Y\n\n\n\n\n\n\nThree things make this work:\n\nYou define tools — name, description, and input parameters\nThe LLM decides to use one — it responds with a structured tool call instead of text\nYou execute it and send the result back — the LLM then incorporates the result into its answer\n\n\nThe LLM never runs the tool itself. It just asks you to run it by outputting a specially formatted response. Your code does the actual work."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#step-1-defining-a-tool",
+    "href": "slides/m15-agent-sdk.html#step-1-defining-a-tool",
+    "title": "Module 15: More on Building Agents",
+    "section": "Step 1: Defining a Tool",
+    "text": "Step 1: Defining a Tool\nA tool definition tells the LLM what’s available. It’s a JSON object with three parts:\n{\n    \"name\": \"get_stock_price\",\n    \"description\": \"Get the current price for a stock ticker symbol.\",\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"ticker\": {\n                \"type\": \"string\",\n                \"description\": \"Stock ticker (e.g., 'AAPL')\",\n            }\n        },\n        \"required\": [\"ticker\"],\n    },\n}\n\nname — how the LLM refers to the tool\ndescription — the LLM reads this to decide when to use the tool\ninput_schema — what parameters the tool accepts\n\n\nThe description is critical. The LLM has no other way to know what a tool does. A vague description → the LLM won’t use the tool at the right time. A clear, specific description → reliable tool selection."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#step-2-the-llm-asks-to-use-a-tool",
+    "href": "slides/m15-agent-sdk.html#step-2-the-llm-asks-to-use-a-tool",
+    "title": "Module 15: More on Building Agents",
+    "section": "Step 2: The LLM Asks to Use a Tool",
+    "text": "Step 2: The LLM Asks to Use a Tool\nYou send your prompt along with the tool definitions. If the LLM decides it needs a tool, it doesn’t reply with text — instead it responds with a structured tool call:\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-6\",\n    tools=tools,              # ← your tool definitions\n    messages=[{\"role\": \"user\", \"content\": \"What's Apple's price?\"}],\n)\n\n# response.stop_reason == \"tool_use\"  (not \"end_turn\")\n# response.content contains:\n#   { \"type\": \"tool_use\",\n#     \"name\": \"get_stock_price\",\n#     \"input\": {\"ticker\": \"AAPL\"} }\n\nThe key signal is stop_reason. If it’s \"tool_use\", the LLM is pausing and waiting for you to execute the tool and send back the result. If it’s \"end_turn\", the LLM is done talking."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#step-3-you-execute-and-send-the-result-back",
+    "href": "slides/m15-agent-sdk.html#step-3-you-execute-and-send-the-result-back",
+    "title": "Module 15: More on Building Agents",
+    "section": "Step 3: You Execute and Send the Result Back",
+    "text": "Step 3: You Execute and Send the Result Back\nYour code runs the actual function, then sends the result back as a new message:\n# 1. Look up the price (your code, your data source)\nprice = get_stock_price(\"AAPL\")   # returns 198.50\n\n# 2. Send the result back to the LLM\nmessages.append({\"role\": \"assistant\", \"content\": response.content})\nmessages.append({\"role\": \"user\", \"content\": [{\n    \"type\": \"tool_result\",\n    \"tool_use_id\": block.id,       # links result to the request\n    \"content\": f'{{\"price\": {price}}}',\n}]})\n\n# 3. Call the API again — now the LLM has the data\nresponse = client.messages.create(model=..., tools=tools, messages=messages)\n# → \"Apple's current stock price is $198.50.\"\n\nThe LLM sees the result as if someone answered its question. It then uses that data to compose its final response. The LLM never had access to your pricing API — it only saw the result you chose to send back."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#the-agent-loop",
+    "href": "slides/m15-agent-sdk.html#the-agent-loop",
+    "title": "Module 15: More on Building Agents",
+    "section": "The Agent Loop",
+    "text": "The Agent Loop\nWhat if the LLM needs multiple tools to answer a question? You just keep going until it stops asking:\n\n\n\n\n\n%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%\nflowchart TB\n    A[\"Send prompt + tool definitions\"] --&gt; B[\"Get response\"]\n    B --&gt; C{\"stop_reason?\"}\n    C --&gt;|\"tool_use\"| D[\"Execute the tool\"]\n    D --&gt; E[\"Send result back\"]\n    E --&gt; B\n    C --&gt;|\"end_turn\"| F[\"Display final answer\"]\n\n\n\n\n\n\nThis is the agentic loop — the pattern behind every AI agent. The LLM decides what information it needs, asks for it one tool at a time, and stops when it has enough to answer.\n\nA single question like “compare AAPL and MSFT returns” might trigger: get_price(\"AAPL\") → get_price(\"MSFT\") → run_python(correlation code) → final answer. The LLM chooses the sequence based on the question."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#portfolio-analysis-agent",
+    "href": "slides/m15-agent-sdk.html#portfolio-analysis-agent",
+    "title": "Module 15: More on Building Agents",
+    "section": "Portfolio Analysis Agent",
+    "text": "Portfolio Analysis Agent"
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#live-demo",
+    "href": "slides/m15-agent-sdk.html#live-demo",
+    "title": "Module 15: More on Building Agents",
+    "section": "Live Demo",
+    "text": "Live Demo\nweb-production-9f0f9.up.railway.app\nLet’s try some questions:\n\n“Review the portfolio — what’s the current sector allocation vs. target?”\n“Find tax-loss harvesting opportunities in Technology”\n“Harvest the INTC losses. What should I buy to replace the exposure?”\n\n\nWatch how the agent chooses different tools depending on the question. It’s not running a script — it’s reasoning about what information it needs."
   },
   {
     "objectID": "slides/m15-agent-sdk.html#five-tools-three-types",
@@ -2485,32 +2527,11 @@
     "text": "Five Tools, Three Types\n\n\n\n\n\n%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%\nflowchart LR\n    U[User] &lt;--&gt;|conversation| A[Claude Agent]\n    A --&gt;|get_holdings\\naccount_id| M[Mock Data]\n    A --&gt;|get_target_allocation| M\n    A --&gt;|get_analyst_recommendations| M\n    A --&gt;|run_sql| DB[(MotherDuck\\nSEP + tickers)]\n    A --&gt;|run_python| P[Python\\nRuntime]\n\n\n\n\n\n\n\n\nData Lookup\n\nget_holdings\nget_target_allocation\nget_analyst_recommendations\nReturn structured data (JSON)\n\n\n\nDatabase Query\n\nrun_sql\nAgent writes its own SQL\nExecutes against a live database\nReturns query results\n\n\n\nComputation\n\nrun_python\nAgent writes Python code\nComputes analytics on retrieved data\nPersistent namespace across calls"
   },
   {
-    "objectID": "slides/m15-agent-sdk.html#why-an-agent-not-a-script",
-    "href": "slides/m15-agent-sdk.html#why-an-agent-not-a-script",
+    "objectID": "slides/m15-agent-sdk.html#building-the-tools",
+    "href": "slides/m15-agent-sdk.html#building-the-tools",
     "title": "Module 15: More on Building Agents",
-    "section": "Why an Agent, Not a Script?",
-    "text": "Why an Agent, Not a Script?\n\n\nA Script\n\nFixed sequence of steps\nSame analysis every time\nCan’t handle follow-up questions\nNew analysis = new code\n\n\n\nAn Agent\n\nChooses tools based on context\nDifferent path for each question\nConversational — remembers context\nNew analysis = just ask\n\n\n\n\nThe agent uses the same five tools to answer hundreds of different questions. You write the tools once; the agent figures out how to combine them."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#providing-tools-to-an-agent",
-    "href": "slides/m15-agent-sdk.html#providing-tools-to-an-agent",
-    "title": "Module 15: More on Building Agents",
-    "section": "Providing Tools to an Agent",
-    "text": "Providing Tools to an Agent"
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#tool-type-1-data-lookup",
-    "href": "slides/m15-agent-sdk.html#tool-type-1-data-lookup",
-    "title": "Module 15: More on Building Agents",
-    "section": "Tool Type 1: Data Lookup",
-    "text": "Tool Type 1: Data Lookup\nThe simplest tools return data from a known source. The agent provides parameters; you return results.\n{\n    \"name\": \"get_portfolio\",\n    \"description\": (\n        \"Retrieve a client's portfolio with all data pre-computed. \"\n        \"Returns total_portfolio_value, sector_summary with current \"\n        \"and target weights, and holdings with prices, analyst \"\n        \"ratings, market values, and unrealized gains/losses.\"\n    ),\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"account_id\": {\n                \"type\": \"string\",\n                \"description\": \"Client account identifier\",\n            }\n        },\n        \"required\": [\"account_id\"],\n    },\n}\n\nEach tool has a name, description, and input_schema. The description tells the agent when and why to use the tool."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#implementing-a-data-lookup-tool",
-    "href": "slides/m15-agent-sdk.html#implementing-a-data-lookup-tool",
-    "title": "Module 15: More on Building Agents",
-    "section": "Implementing a Data Lookup Tool",
-    "text": "Implementing a Data Lookup Tool\nBehind the scenes, the tool enriches raw data and returns pre-computed results:\ndef get_portfolio(account_id: str) -&gt; str:\n    enriched = []\n    for h in HOLDINGS:\n        price = STOCK_DATA[h[\"ticker\"]][\"price\"]\n        total_shares = sum(lot[\"shares\"] for lot in h[\"lots\"])\n        total_cost = sum(lot[\"shares\"] * lot[\"cost_basis\"]\n                         for lot in h[\"lots\"])\n        market_value = total_shares * price\n        enriched.append({\n            \"ticker\": h[\"ticker\"],\n            \"sector\": h[\"sector\"],\n            \"analyst_rating\": ANALYST_RATINGS[h[\"ticker\"]],\n            \"current_price\": price,\n            \"market_value\": market_value,\n            \"unrealized_gl\": market_value - total_cost,\n            \"lots\": h[\"lots\"],\n        })\n    # Pre-compute sector weights so the agent never does math\n    total_mv = sum(p[\"market_value\"] for p in enriched)\n    sector_summary = ...  # current vs. target weights, diffs\n    return json.dumps({\n        \"total_portfolio_value\": total_mv,\n        \"sector_summary\": sector_summary,\n        \"holdings\": enriched,\n    })\n\nThe tool does all the arithmetic — weights, gains/losses, differences. The agent just reads and presents values. In production, this would query a real portfolio management system."
+    "section": "Building the Tools",
+    "text": "Building the Tools"
   },
   {
     "objectID": "slides/m15-agent-sdk.html#tool-type-2-database-query",
@@ -2555,8 +2576,8 @@
     "text": "The Tool Router\nAll tools are connected through a single dispatch function:\ndef execute_tool(name: str, inputs: dict) -&gt; str:\n    \"\"\"Route a tool call to the appropriate handler.\"\"\"\n    if name == \"get_holdings\":\n        return json.dumps(HOLDINGS)\n    elif name == \"get_target_allocation\":\n        return json.dumps(TARGET_ALLOCATION)\n    elif name == \"get_analyst_recommendations\":\n        sector = inputs[\"sector\"]\n        recs = STRONG_BUY.get(sector, [])\n        return json.dumps({\"sector\": sector, \"strong_buy\": recs})\n    elif name == \"run_sql\":\n        return run_sql_query(inputs[\"sql\"])\n    elif name == \"run_python\":\n        return run_python_code(inputs[\"code\"])\n\nThis is your code — you control what each tool does. The agent only sees the tool’s name, description, and the result you return."
   },
   {
-    "objectID": "slides/m15-agent-sdk.html#the-agent-loop",
-    "href": "slides/m15-agent-sdk.html#the-agent-loop",
+    "objectID": "slides/m15-agent-sdk.html#the-agent-loop-1",
+    "href": "slides/m15-agent-sdk.html#the-agent-loop-1",
     "title": "Module 15: More on Building Agents",
     "section": "The Agent Loop",
     "text": "The Agent Loop"
@@ -2588,48 +2609,6 @@
     "title": "Module 15: More on Building Agents",
     "section": "How the Pieces Fit Together",
     "text": "How the Pieces Fit Together\n\n\n\n\n\n%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%\nflowchart TB\n    SP[\"System Prompt\\n(strategy & expertise)\"] --&gt; Agent\n    TD[\"Tool Definitions\\n(JSON Schema)\"] --&gt; Agent\n    Agent --&gt;|\"tool_use\"| Router[\"Tool Router\\n(your code)\"]\n    Router --&gt;|\"tool_result\"| Agent\n    Agent --&gt;|\"stop_reason ≠ tool_use\"| Response[\"Final Response\\nto User\"]\n\n\n\n\n\n\n\nYou provide three things: a system prompt (domain expertise), tool definitions (capabilities), and tool implementations (what actually runs). The agent loop connects them."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#the-claude-agent-sdk",
-    "href": "slides/m15-agent-sdk.html#the-claude-agent-sdk",
-    "title": "Module 15: More on Building Agents",
-    "section": "The Claude Agent SDK",
-    "text": "The Claude Agent SDK"
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#from-hand-rolled-to-sdk",
-    "href": "slides/m15-agent-sdk.html#from-hand-rolled-to-sdk",
-    "title": "Module 15: More on Building Agents",
-    "section": "From Hand-Rolled to SDK",
-    "text": "From Hand-Rolled to SDK\nWe built the agent loop manually: parse tool_use blocks, route to handlers, feed results back. The Claude Agent SDK (claude-agent-sdk) handles all of this for you.\npip install claude-agent-sdk\n\n\nRaw Messages API (what we built)\n\nYou write the while True loop\nYou parse tool calls and route them\nYou construct tool_result messages\nYou manage the message list\n\n\n\nAgent SDK\n\nSDK runs the loop via async for\nTools defined with @tool decorator\nSDK executes tools automatically\nSDK manages sessions and context"
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#defining-tools-with-the-sdk",
-    "href": "slides/m15-agent-sdk.html#defining-tools-with-the-sdk",
-    "title": "Module 15: More on Building Agents",
-    "section": "Defining Tools with the SDK",
-    "text": "Defining Tools with the SDK\nThe @tool decorator replaces raw JSON Schema:\nfrom claude_agent_sdk import tool\nfrom typing import Any\n\n@tool(\n    name=\"get_holdings\",\n    description=\"Retrieve all portfolio holdings with tax lot detail.\",\n    input_schema={\n        \"type\": \"object\",\n        \"properties\": {\n            \"account_id\": {\"type\": \"string\",\n                           \"description\": \"Client account identifier\"}\n        },\n        \"required\": [\"account_id\"],\n    }\n)\nasync def get_holdings(args: dict[str, Any]) -&gt; dict[str, Any]:\n    account_id = args[\"account_id\"]\n    return {\"content\": [{\"type\": \"text\", \"text\": json.dumps(HOLDINGS)}]}\n\n@tool(\n    name=\"run_sql\",\n    description=\"Execute a SQL query against the MotherDuck database.\",\n    input_schema={\n        \"type\": \"object\",\n        \"properties\": {\"sql\": {\"type\": \"string\"}},\n        \"required\": [\"sql\"],\n    }\n)\nasync def run_sql(args: dict[str, Any]) -&gt; dict[str, Any]:\n    result = run_sql_query(args[\"sql\"])\n    return {\"content\": [{\"type\": \"text\", \"text\": result}]}\n\nSame tools, same logic — but the decorator registers the tool with the SDK. No manual routing needed."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#running-the-agent",
-    "href": "slides/m15-agent-sdk.html#running-the-agent",
-    "title": "Module 15: More on Building Agents",
-    "section": "Running the Agent",
-    "text": "Running the Agent\nfrom claude_agent_sdk import (\n    query, ClaudeAgentOptions, create_sdk_mcp_server,\n    AssistantMessage, ResultMessage\n)\n\n# Package tools into an MCP server\nserver = create_sdk_mcp_server(\n    name=\"portfolio\", version=\"1.0.0\",\n    tools=[get_holdings, get_target_allocation,\n           get_analyst_recommendations, run_sql, run_python]\n)\n\noptions = ClaudeAgentOptions(\n    mcp_servers={\"portfolio\": server},\n    system_prompt=SYSTEM_PROMPT,\n    model=\"claude-sonnet-4-6\",\n    permission_mode=\"bypassPermissions\",\n    max_turns=20,\n)\n\ncreate_sdk_mcp_server wraps your @tool functions into an in-process MCP server. The SDK uses the same Model Context Protocol that Claude Desktop and Claude Code use."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#the-loop-disappears",
-    "href": "slides/m15-agent-sdk.html#the-loop-disappears",
-    "title": "Module 15: More on Building Agents",
-    "section": "The Loop Disappears",
-    "text": "The Loop Disappears\nimport asyncio\n\nasync def main():\n    async for message in query(\n        prompt=\"Review the portfolio and find tax-loss candidates\",\n        options=options,\n    ):\n        if isinstance(message, AssistantMessage):\n            for block in message.content:\n                if hasattr(block, \"name\"):\n                    print(f\"  [calling {block.name}...]\")\n\n        elif isinstance(message, ResultMessage):\n            print(message.result)\n            print(f\"  Cost: ${message.total_cost_usd:.4f}\")\n\nasyncio.run(main())\n\nNo while True. No tool_use_id. No message list management. The SDK handles the entire agentic loop — you just iterate over the messages it yields."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#hand-rolled-vs.-sdk",
-    "href": "slides/m15-agent-sdk.html#hand-rolled-vs.-sdk",
-    "title": "Module 15: More on Building Agents",
-    "section": "Hand-Rolled vs. SDK",
-    "text": "Hand-Rolled vs. SDK\n\n\n\n\n\n\n\n\n\nHand-Rolled\nAgent SDK\n\n\n\n\nAgent loop\n~25 lines of while True\nasync for message in query(...)\n\n\nTool routing\nif/elif dispatch function\nAutomatic via @tool decorator\n\n\nTool definitions\nRaw JSON Schema dicts\n@tool decorator\n\n\nError handling\nManual\nBuilt-in retries, context compaction\n\n\nMulti-turn\nManually append to messages list\nSDK manages session state\n\n\nLearning value\nSee every moving part\nProduction-ready abstraction\n\n\n\n\nStart with the hand-rolled version to understand the mechanics. Use the SDK when you want to ship something."
   },
   {
     "objectID": "slides/m15-agent-sdk.html#deploying-the-agent",
@@ -2664,41 +2643,6 @@
     "href": "slides/m15-agent-sdk.html#key-takeaways",
     "title": "Module 15: More on Building Agents",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\n\nStart with the demo — see what an agent can do before building one\nIdentify the tools — what capabilities does the agent need?\nThree tool types — data lookup, database query, computation\nDescriptions matter — the agent decides which tools to use based on descriptions\nThe agentic loop — keep feeding tool results until the agent is done\nDeploy with Docker — containerize for production; Railway makes it easy\n\n\nThe hand-rolled version is ~200 lines of logic. The SDK version is shorter, but the concepts are identical: tools, system prompt, and an agentic loop."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#example-presentation-examiner",
-    "href": "slides/m15-agent-sdk.html#example-presentation-examiner",
-    "title": "Module 15: More on Building Agents",
-    "section": "Example: Presentation Examiner",
-    "text": "Example: Presentation Examiner"
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#what-we-want-to-build",
-    "href": "slides/m15-agent-sdk.html#what-we-want-to-build",
-    "title": "Module 15: More on Building Agents",
-    "section": "What We Want to Build",
-    "text": "What We Want to Build\nAn AI-powered presentation exam: students upload slides, present them by voice, answer revised follow-up questions, and receive automated grades.\n\n\nStudent Experience\n\nUpload a PDF slide deck\nPresent slides to an AI examiner (voice)\nAnswer 3 revised exam questions\nReceive scores and written feedback\n\n\n\nInstructor Experience\n\nCreate assignments with prompts and rubrics\nUpload reference materials and solution keys\nEnroll students via single-use magic links (no passwords)\nReview grades and export results\n\n\n\n\nThe AI replaces the live examiner. It listens to the presentation, revises its questions based on what was said, and grades three dimensions: slides, presentation, and Q&A. Scales to hundreds of students with immediate, consistent feedback."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#how-the-exam-flows",
-    "href": "slides/m15-agent-sdk.html#how-the-exam-flows",
-    "title": "Module 15: More on Building Agents",
-    "section": "How the Exam Flows",
-    "text": "How the Exam Flows\nA FastAPI web application orchestrates a five-phase pipeline:\n\n\n\n\n\n\n\n\nPhase\nWhat Happens\nAPI Used\n\n\n\n\n1. Analysis\nExtract slide text, generate 3 questions\nClaude Sonnet\n\n\n2. Presentation\nStudent presents; AI listens silently\nElevenLabs\n\n\n3. Revision\nRevise questions based on what student said\nClaude Sonnet\n\n\n4. Q&A\nAI asks revised questions; student answers\nElevenLabs\n\n\n5. Grading\nScore slides + presentation + Q&A, generate feedback\nGPT-4.1\n\n\n\n\nThe voice phases (2 and 4) connect back to the app via webhooks — when ElevenLabs signals a session ended, the app fetches the transcript, advances the phase, and kicks off the next step as a background task. This is not an agentic loop — it’s an orchestrated pipeline where each phase always triggers the next. Match the architecture to the problem: use an agent loop when the path depends on the question; use a pipeline when the steps are known in advance."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#refining-with-automated-testing",
-    "href": "slides/m15-agent-sdk.html#refining-with-automated-testing",
-    "title": "Module 15: More on Building Agents",
-    "section": "Refining with Automated Testing",
-    "text": "Refining with Automated Testing\nHow do you know the grading is fair and consistent? Build a synthetic agent that generates slide decks, presentations, and Q&A transcripts at controlled quality levels, runs them through the full pipeline, and checks that grades track intended quality.\nIllustrative results (10 scenarios × 4 quality levels):\n\nAverage scores by intended quality level:\n  excellent : 3.75/4.0  (n=10)\n  good      : 3.20/4.0  (n=10)\n  mediocre  : 2.45/4.0  (n=10)\n  poor      : 1.80/4.0  (n=10)\n\n\nWhat It Generates\n\n10 finance scenarios (DCF, LBO, M&A, etc.)\nSlide decks at 4 quality levels\nPresentation transcripts (confident → confused)\nQ&A answers (insightful → evasive)\n\n\n\nWhat It Validates\n\nDo excellent submissions score higher than poor ones?\nAre grades consistent across similar quality levels?\nDoes the full pipeline complete without errors?\nDoes the feedback match the grade?\n\n\n\n\nChange a prompt or grading rubric, re-run the synthetic agent, and see whether results improved or regressed. This is test-driven refinement — the same idea as automated regression testing, applied to AI behavior."
-  },
-  {
-    "objectID": "slides/m15-agent-sdk.html#presentation-examiner",
-    "href": "slides/m15-agent-sdk.html#presentation-examiner",
-    "title": "Module 15: More on Building Agents",
-    "section": "Presentation Examiner",
-    "text": "Presentation Examiner\npresentation.rice-business.org"
+    "text": "Key Takeaways\n\nTools are just descriptions — name, description, input schema. The LLM reads them to decide what to call\nThe LLM never runs tools — it outputs a structured request; your code executes it\nThe agentic loop — keep feeding tool results back until the LLM stops asking\nDescriptions matter — the LLM decides which tools to use based on descriptions\nThree tool types — data lookup, database query, computation\nDeploy with Docker — containerize for production; Railway makes it easy\n\n\nThe entire agent is ~200 lines of Python. The hard part isn’t the code — it’s designing good tools with clear descriptions and a system prompt that encodes your domain expertise."
   }
 ]

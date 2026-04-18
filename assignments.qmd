@@ -54,6 +54,4 @@ Click on an exercise to download the PDF.
 
 | | | |
 |:-:|----------|:-:|
-| 6A | [Headline Sentiment Classification](exercises/6A.pdf) | [{{< fa file-pdf >}}](exercises/6A.pdf) |
-| 6B | [Earnings Call Analysis](exercises/6B.pdf) | [{{< fa file-pdf >}}](exercises/6B.pdf) |
-| 6C | [Build a Database Skill](exercises/6C.pdf) | [{{< fa file-pdf >}}](exercises/6C.pdf) |
+| 6 | [Wealth Management Agent](exercises/6.pdf) | [{{< fa file-pdf >}}](exercises/6.pdf) |
