@@ -18,7 +18,131 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## Live Demo: Portfolio Analysis Agent
+## How Tool Use Works {.section-divider}
+
+## The Big Picture
+
+An LLM by itself can only [read and write text]{.amber}. It can't look up stock prices, query a database, or run calculations. Tools give it those abilities --- but the mechanism is simpler than you might expect.
+
+```{mermaid}
+%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
+flowchart LR
+    Y["You"] -->|"define tools +\nsend prompt"| API["Claude API"]
+    API -->|"I want to call\nget_price(ticker='AAPL')"| Y
+    Y -->|"here's the result:\n$198.50"| API
+    API -->|"Apple's current\nprice is $198.50"| Y
+```
+
+Three things make this work:
+
+1. **You define tools** --- name, description, and input parameters
+2. **The LLM decides to use one** --- it responds with a structured tool call instead of text
+3. **You execute it and send the result back** --- the LLM then incorporates the result into its answer
+
+:::{.explainer}
+The LLM never runs the tool itself. It just [asks you to run it]{.amber} by outputting a specially formatted response. Your code does the actual work.
+:::
+
+## Step 1: Defining a Tool
+
+A tool definition tells the LLM [what's available]{.amber}. It's a JSON object with three parts:
+
+```python
+{
+    "name": "get_stock_price",
+    "description": "Get the current price for a stock ticker symbol.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "ticker": {
+                "type": "string",
+                "description": "Stock ticker (e.g., 'AAPL')",
+            }
+        },
+        "required": ["ticker"],
+    },
+}
+```
+
+- **name** --- how the LLM refers to the tool
+- **description** --- the LLM reads this to decide [when]{.amber} to use the tool
+- **input_schema** --- what parameters the tool accepts
+
+:::{.explainer}
+The description is critical. The LLM has no other way to know what a tool does. A vague description → the LLM won't use the tool at the right time. A clear, specific description → reliable tool selection.
+:::
+
+## Step 2: The LLM Asks to Use a Tool
+
+You send your prompt along with the tool definitions. If the LLM decides it needs a tool, it [doesn't reply with text]{.amber} --- instead it responds with a structured tool call:
+
+```python
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    tools=tools,              # ← your tool definitions
+    messages=[{"role": "user", "content": "What's Apple's price?"}],
+)
+
+# response.stop_reason == "tool_use"  (not "end_turn")
+# response.content contains:
+#   { "type": "tool_use",
+#     "name": "get_stock_price",
+#     "input": {"ticker": "AAPL"} }
+```
+
+:::{.explainer}
+The key signal is `stop_reason`. If it's `"tool_use"`, the LLM is [pausing]{.amber} and waiting for you to execute the tool and send back the result. If it's `"end_turn"`, the LLM is done talking.
+:::
+
+## Step 3: You Execute and Send the Result Back
+
+Your code runs the actual function, then sends the result back as a new message:
+
+```python
+# 1. Look up the price (your code, your data source)
+price = get_stock_price("AAPL")   # returns 198.50
+
+# 2. Send the result back to the LLM
+messages.append({"role": "assistant", "content": response.content})
+messages.append({"role": "user", "content": [{
+    "type": "tool_result",
+    "tool_use_id": block.id,       # links result to the request
+    "content": f'{{"price": {price}}}',
+}]})
+
+# 3. Call the API again — now the LLM has the data
+response = client.messages.create(model=..., tools=tools, messages=messages)
+# → "Apple's current stock price is $198.50."
+```
+
+:::{.explainer}
+The LLM sees the result as if someone answered its question. It then uses that data to compose its final response. The LLM [never had access]{.amber} to your pricing API --- it only saw the result you chose to send back.
+:::
+
+## The Agent Loop
+
+What if the LLM needs [multiple tools]{.amber} to answer a question? You just keep going until it stops asking:
+
+```{mermaid}
+%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
+flowchart TB
+    A["Send prompt + tool definitions"] --> B["Get response"]
+    B --> C{"stop_reason?"}
+    C -->|"tool_use"| D["Execute the tool"]
+    D --> E["Send result back"]
+    E --> B
+    C -->|"end_turn"| F["Display final answer"]
+```
+
+This is the [agentic loop]{.amber} --- the pattern behind every AI agent. The LLM decides what information it needs, asks for it one tool at a time, and stops when it has enough to answer.
+
+:::{.explainer}
+A single question like "compare AAPL and MSFT returns" might trigger: `get_price("AAPL")` → `get_price("MSFT")` → `run_python(correlation code)` → final answer. The LLM [chooses the sequence]{.amber} based on the question.
+:::
+
+## Portfolio Analysis Agent {.section-divider}
+
+## Live Demo
 
 **[web-production-9f0f9.up.railway.app](https://web-production-9f0f9.up.railway.app)**
 
@@ -31,8 +155,6 @@ Let's try some questions:
 :::{.explainer}
 Watch how the agent [chooses different tools]{.amber} depending on the question. It's not running a script --- it's reasoning about what information it needs.
 :::
-
-## What Tools Would an Agent Need to Do This? {.section-divider}
 
 ## Five Tools, Three Types
 
@@ -76,99 +198,7 @@ flowchart LR
 :::
 :::
 
-## Why an Agent, Not a Script?
-
-:::{.two-cards}
-:::{.card .card-light}
-[**A Script**]{.card-title}
-
-- Fixed sequence of steps
-- Same analysis every time
-- Can't handle follow-up questions
-- New analysis = new code
-:::
-
-:::{.card .card-dark}
-[**An Agent**]{.card-title}
-
-- Chooses tools based on context
-- Different path for each question
-- Conversational --- remembers context
-- New analysis = just ask
-:::
-:::
-
-:::{.explainer}
-The agent uses the same five tools to answer hundreds of different questions. You write the tools once; the agent figures out how to combine them.
-:::
-
-## Providing Tools to an Agent {.section-divider}
-
-## Tool Type 1: Data Lookup
-
-The simplest tools [return data from a known source]{.amber}. The agent provides parameters; you return results.
-
-```python
-{
-    "name": "get_portfolio",
-    "description": (
-        "Retrieve a client's portfolio with all data pre-computed. "
-        "Returns total_portfolio_value, sector_summary with current "
-        "and target weights, and holdings with prices, analyst "
-        "ratings, market values, and unrealized gains/losses."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "account_id": {
-                "type": "string",
-                "description": "Client account identifier",
-            }
-        },
-        "required": ["account_id"],
-    },
-}
-```
-
-:::{.explainer}
-Each tool has a `name`, `description`, and `input_schema`. The description tells the agent [when and why]{.amber} to use the tool.
-:::
-
-## Implementing a Data Lookup Tool
-
-Behind the scenes, the tool enriches raw data and returns [pre-computed]{.amber} results:
-
-```python
-def get_portfolio(account_id: str) -> str:
-    enriched = []
-    for h in HOLDINGS:
-        price = STOCK_DATA[h["ticker"]]["price"]
-        total_shares = sum(lot["shares"] for lot in h["lots"])
-        total_cost = sum(lot["shares"] * lot["cost_basis"]
-                         for lot in h["lots"])
-        market_value = total_shares * price
-        enriched.append({
-            "ticker": h["ticker"],
-            "sector": h["sector"],
-            "analyst_rating": ANALYST_RATINGS[h["ticker"]],
-            "current_price": price,
-            "market_value": market_value,
-            "unrealized_gl": market_value - total_cost,
-            "lots": h["lots"],
-        })
-    # Pre-compute sector weights so the agent never does math
-    total_mv = sum(p["market_value"] for p in enriched)
-    sector_summary = ...  # current vs. target weights, diffs
-    return json.dumps({
-        "total_portfolio_value": total_mv,
-        "sector_summary": sector_summary,
-        "holdings": enriched,
-    })
-```
-
-:::{.explainer}
-The tool does [all the arithmetic]{.amber} --- weights, gains/losses, differences. The agent just reads and presents values. In production, this would query a real portfolio management system.
-:::
+## Building the Tools {.section-divider}
 
 ## Tool Type 2: Database Query
 
@@ -441,147 +471,6 @@ flowchart TB
 You provide [three things]{.amber}: a system prompt (domain expertise), tool definitions (capabilities), and tool implementations (what actually runs). The agent loop connects them.
 :::
 
-## The Claude Agent SDK {.section-divider}
-
-## From Hand-Rolled to SDK
-
-We built the agent loop manually: parse `tool_use` blocks, route to handlers, feed results back. The [Claude Agent SDK]{.amber} (`claude-agent-sdk`) handles all of this for you.
-
-```bash
-pip install claude-agent-sdk
-```
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Raw Messages API (what we built)**]{.card-title}
-
-- You write the `while True` loop
-- You parse tool calls and route them
-- You construct `tool_result` messages
-- You manage the message list
-:::
-
-:::{.card .card-dark}
-[**Agent SDK**]{.card-title}
-
-- SDK runs the loop via `async for`
-- Tools defined with `@tool` decorator
-- SDK executes tools automatically
-- SDK manages sessions and context
-:::
-:::
-
-## Defining Tools with the SDK
-
-The `@tool` decorator replaces raw JSON Schema:
-
-```python
-from claude_agent_sdk import tool
-from typing import Any
-
-@tool(
-    name="get_holdings",
-    description="Retrieve all portfolio holdings with tax lot detail.",
-    input_schema={
-        "type": "object",
-        "properties": {
-            "account_id": {"type": "string",
-                           "description": "Client account identifier"}
-        },
-        "required": ["account_id"],
-    }
-)
-async def get_holdings(args: dict[str, Any]) -> dict[str, Any]:
-    account_id = args["account_id"]
-    return {"content": [{"type": "text", "text": json.dumps(HOLDINGS)}]}
-
-@tool(
-    name="run_sql",
-    description="Execute a SQL query against the MotherDuck database.",
-    input_schema={
-        "type": "object",
-        "properties": {"sql": {"type": "string"}},
-        "required": ["sql"],
-    }
-)
-async def run_sql(args: dict[str, Any]) -> dict[str, Any]:
-    result = run_sql_query(args["sql"])
-    return {"content": [{"type": "text", "text": result}]}
-```
-
-:::{.explainer}
-Same tools, same logic --- but the decorator registers the tool with the SDK. No manual routing needed.
-:::
-
-## Running the Agent
-
-```python
-from claude_agent_sdk import (
-    query, ClaudeAgentOptions, create_sdk_mcp_server,
-    AssistantMessage, ResultMessage
-)
-
-# Package tools into an MCP server
-server = create_sdk_mcp_server(
-    name="portfolio", version="1.0.0",
-    tools=[get_holdings, get_target_allocation,
-           get_analyst_recommendations, run_sql, run_python]
-)
-
-options = ClaudeAgentOptions(
-    mcp_servers={"portfolio": server},
-    system_prompt=SYSTEM_PROMPT,
-    model="claude-sonnet-4-6",
-    permission_mode="bypassPermissions",
-    max_turns=20,
-)
-```
-
-:::{.explainer}
-`create_sdk_mcp_server` wraps your `@tool` functions into an in-process MCP server. The SDK uses the same Model Context Protocol that Claude Desktop and Claude Code use.
-:::
-
-## The Loop Disappears
-
-```python
-import asyncio
-
-async def main():
-    async for message in query(
-        prompt="Review the portfolio and find tax-loss candidates",
-        options=options,
-    ):
-        if isinstance(message, AssistantMessage):
-            for block in message.content:
-                if hasattr(block, "name"):
-                    print(f"  [calling {block.name}...]")
-
-        elif isinstance(message, ResultMessage):
-            print(message.result)
-            print(f"  Cost: ${message.total_cost_usd:.4f}")
-
-asyncio.run(main())
-```
-
-:::{.explainer}
-No `while True`. No `tool_use_id`. No message list management. The SDK handles the entire agentic loop --- you just iterate over the messages it yields.
-:::
-
-## Hand-Rolled vs. SDK
-
-| | Hand-Rolled | Agent SDK |
-|---|---|---|
-| Agent loop | ~25 lines of `while True` | `async for message in query(...)` |
-| Tool routing | `if/elif` dispatch function | Automatic via `@tool` decorator |
-| Tool definitions | Raw JSON Schema dicts | `@tool` decorator |
-| Error handling | Manual | Built-in retries, context compaction |
-| Multi-turn | Manually append to `messages` list | SDK manages session state |
-| Learning value | See every moving part | Production-ready abstraction |
-
-:::{.explainer}
-Start with the hand-rolled version to [understand the mechanics]{.amber}. Use the SDK when you want to [ship something]{.amber}.
-:::
-
 ## Deploying the Agent {.section-divider}
 
 ## What Is Docker?
@@ -662,101 +551,14 @@ Railway is one of several platforms (Render, Fly.io, Koyeb) that abstract away D
 
 ## Key Takeaways
 
-1. **Start with the demo** --- see what an agent can do before building one
-2. **Identify the tools** --- what capabilities does the agent need?
-3. **Three tool types** --- data lookup, database query, computation
-4. **Descriptions matter** --- the agent decides which tools to use based on descriptions
-5. **The agentic loop** --- keep feeding tool results until the agent is done
+1. **Tools are just descriptions** --- name, description, input schema. The LLM reads them to decide what to call
+2. **The LLM never runs tools** --- it outputs a structured request; your code executes it
+3. **The agentic loop** --- keep feeding tool results back until the LLM stops asking
+4. **Descriptions matter** --- the LLM decides which tools to use based on descriptions
+5. **Three tool types** --- data lookup, database query, computation
 6. **Deploy with Docker** --- containerize for production; Railway makes it easy
 
 :::{.explainer}
-The hand-rolled version is ~200 lines of logic. The SDK version is shorter, but the concepts are identical: tools, system prompt, and an agentic loop.
+The entire agent is ~200 lines of Python. The hard part isn't the code --- it's designing good tools with clear descriptions and a system prompt that encodes your domain expertise.
 :::
 
-## Example: Presentation Examiner {.section-divider}
-
-## What We Want to Build
-
-An AI-powered [presentation exam]{.amber}: students upload slides, present them by voice, answer revised follow-up questions, and receive automated grades.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Student Experience**]{.card-title}
-
-- Upload a PDF slide deck
-- Present slides to an AI examiner (voice)
-- Answer 3 revised exam questions
-- Receive scores and written feedback
-:::
-
-:::{.card .card-dark}
-[**Instructor Experience**]{.card-title}
-
-- Create assignments with prompts and rubrics
-- Upload reference materials and solution keys
-- Enroll students via single-use magic links (no passwords)
-- Review grades and export results
-:::
-:::
-
-:::{.explainer}
-The AI replaces the [live examiner]{.amber}. It [listens]{.amber} to the presentation, [revises]{.amber} its questions based on what was said, and [grades]{.amber} three dimensions: slides, presentation, and Q&A. Scales to hundreds of students with immediate, consistent feedback.
-:::
-
-## How the Exam Flows
-
-A [FastAPI web application]{.amber} orchestrates a five-phase pipeline:
-
-| Phase | What Happens | API Used |
-|---|---|---|
-| 1. Analysis | Extract slide text, generate 3 questions | Claude Sonnet |
-| 2. Presentation | Student presents; AI listens silently | ElevenLabs |
-| 3. Revision | Revise questions based on what student said | Claude Sonnet |
-| 4. Q&A | AI asks revised questions; student answers | ElevenLabs |
-| 5. Grading | Score slides + presentation + Q&A, generate feedback | GPT-4.1 |
-
-:::{.explainer}
-The voice phases (2 and 4) connect back to the app via [webhooks]{.amber} --- when ElevenLabs signals a session ended, the app fetches the transcript, advances the phase, and kicks off the next step as a background task. This is not an agentic loop --- it's an [orchestrated pipeline]{.amber} where each phase always triggers the next. Match the architecture to the problem: use an agent loop when the path depends on the question; use a pipeline when the steps are known in advance.
-:::
-
-## Refining with Automated Testing
-
-How do you know the grading is [fair and consistent]{.amber}? Build a **synthetic agent** that generates slide decks, presentations, and Q&A transcripts at [controlled quality levels]{.amber}, runs them through the full pipeline, and checks that grades track intended quality.
-
-```text
-Illustrative results (10 scenarios × 4 quality levels):
-
-Average scores by intended quality level:
-  excellent : 3.75/4.0  (n=10)
-  good      : 3.20/4.0  (n=10)
-  mediocre  : 2.45/4.0  (n=10)
-  poor      : 1.80/4.0  (n=10)
-```
-
-:::{.two-cards}
-:::{.card .card-light}
-[**What It Generates**]{.card-title}
-
-- 10 finance scenarios (DCF, LBO, M&A, etc.)
-- Slide decks at 4 quality levels
-- Presentation transcripts (confident → confused)
-- Q&A answers (insightful → evasive)
-:::
-
-:::{.card .card-dark}
-[**What It Validates**]{.card-title}
-
-- Do excellent submissions score higher than poor ones?
-- Are grades consistent across similar quality levels?
-- Does the full pipeline complete without errors?
-- Does the feedback match the grade?
-:::
-:::
-
-:::{.explainer}
-Change a prompt or grading rubric, re-run the synthetic agent, and see whether results improved or regressed. This is [test-driven refinement]{.amber} --- the same idea as automated regression testing, applied to AI behavior.
-:::
-
-## Presentation Examiner
-
-**[presentation.rice-business.org](https://presentation.rice-business.org)**

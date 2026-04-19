@@ -213,8 +213,136 @@ Kerry Back, Rice University
 </div>
 
 </section>
-<section id="live-demo-portfolio-analysis-agent" class="slide level2 center">
-<h2>Live Demo: Portfolio Analysis Agent</h2>
+<section id="how-tool-use-works" class="slide level2 section-divider center">
+<h2>How Tool Use Works</h2>
+</section>
+<section id="the-big-picture" class="slide level2 center">
+<h2>The Big Picture</h2>
+<p>An LLM by itself can only <span class="amber">read and write text</span>. It can’t look up stock prices, query a database, or run calculations. Tools give it those abilities — but the mechanism is simpler than you might expect.</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
+flowchart LR
+    Y["You"] --&gt;|"define tools +\nsend prompt"| API["Claude API"]
+    API --&gt;|"I want to call\nget_price(ticker='AAPL')"| Y
+    Y --&gt;|"here's the result:\n$198.50"| API
+    API --&gt;|"Apple's current\nprice is $198.50"| Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Three things make this work:</p>
+<ol type="1">
+<li><strong>You define tools</strong> — name, description, and input parameters</li>
+<li><strong>The LLM decides to use one</strong> — it responds with a structured tool call instead of text</li>
+<li><strong>You execute it and send the result back</strong> — the LLM then incorporates the result into its answer</li>
+</ol>
+<div class="explainer">
+<p>The LLM never runs the tool itself. It just <span class="amber">asks you to run it</span> by outputting a specially formatted response. Your code does the actual work.</p>
+</div>
+</section>
+<section id="step-1-defining-a-tool" class="slide level2 center">
+<h2>Step 1: Defining a Tool</h2>
+<p>A tool definition tells the LLM <span class="amber">what’s available</span>. It’s a JSON object with three parts:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>{</span>
+<span id="cb1-2"><a></a>    <span class="st">"name"</span>: <span class="st">"get_stock_price"</span>,</span>
+<span id="cb1-3"><a></a>    <span class="st">"description"</span>: <span class="st">"Get the current price for a stock ticker symbol."</span>,</span>
+<span id="cb1-4"><a></a>    <span class="st">"input_schema"</span>: {</span>
+<span id="cb1-5"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb1-6"><a></a>        <span class="st">"properties"</span>: {</span>
+<span id="cb1-7"><a></a>            <span class="st">"ticker"</span>: {</span>
+<span id="cb1-8"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
+<span id="cb1-9"><a></a>                <span class="st">"description"</span>: <span class="st">"Stock ticker (e.g., 'AAPL')"</span>,</span>
+<span id="cb1-10"><a></a>            }</span>
+<span id="cb1-11"><a></a>        },</span>
+<span id="cb1-12"><a></a>        <span class="st">"required"</span>: [<span class="st">"ticker"</span>],</span>
+<span id="cb1-13"><a></a>    },</span>
+<span id="cb1-14"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>name</strong> — how the LLM refers to the tool</li>
+<li><strong>description</strong> — the LLM reads this to decide <span class="amber">when</span> to use the tool</li>
+<li><strong>input_schema</strong> — what parameters the tool accepts</li>
+</ul>
+<div class="explainer">
+<p>The description is critical. The LLM has no other way to know what a tool does. A vague description → the LLM won’t use the tool at the right time. A clear, specific description → reliable tool selection.</p>
+</div>
+</section>
+<section id="step-2-the-llm-asks-to-use-a-tool" class="slide level2 center">
+<h2>Step 2: The LLM Asks to Use a Tool</h2>
+<p>You send your prompt along with the tool definitions. If the LLM decides it needs a tool, it <span class="amber">doesn’t reply with text</span> — instead it responds with a structured tool call:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>response <span class="op">=</span> client.messages.create(</span>
+<span id="cb2-2"><a></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
+<span id="cb2-3"><a></a>    tools<span class="op">=</span>tools,              <span class="co"># ← your tool definitions</span></span>
+<span id="cb2-4"><a></a>    messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"What's Apple's price?"</span>}],</span>
+<span id="cb2-5"><a></a>)</span>
+<span id="cb2-6"><a></a></span>
+<span id="cb2-7"><a></a><span class="co"># response.stop_reason == "tool_use"  (not "end_turn")</span></span>
+<span id="cb2-8"><a></a><span class="co"># response.content contains:</span></span>
+<span id="cb2-9"><a></a><span class="co">#   { "type": "tool_use",</span></span>
+<span id="cb2-10"><a></a><span class="co">#     "name": "get_stock_price",</span></span>
+<span id="cb2-11"><a></a><span class="co">#     "input": {"ticker": "AAPL"} }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>The key signal is <code>stop_reason</code>. If it’s <code>"tool_use"</code>, the LLM is <span class="amber">pausing</span> and waiting for you to execute the tool and send back the result. If it’s <code>"end_turn"</code>, the LLM is done talking.</p>
+</div>
+</section>
+<section id="step-3-you-execute-and-send-the-result-back" class="slide level2 center">
+<h2>Step 3: You Execute and Send the Result Back</h2>
+<p>Your code runs the actual function, then sends the result back as a new message:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="co"># 1. Look up the price (your code, your data source)</span></span>
+<span id="cb3-2"><a></a>price <span class="op">=</span> get_stock_price(<span class="st">"AAPL"</span>)   <span class="co"># returns 198.50</span></span>
+<span id="cb3-3"><a></a></span>
+<span id="cb3-4"><a></a><span class="co"># 2. Send the result back to the LLM</span></span>
+<span id="cb3-5"><a></a>messages.append({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"content"</span>: response.content})</span>
+<span id="cb3-6"><a></a>messages.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: [{</span>
+<span id="cb3-7"><a></a>    <span class="st">"type"</span>: <span class="st">"tool_result"</span>,</span>
+<span id="cb3-8"><a></a>    <span class="st">"tool_use_id"</span>: block.<span class="bu">id</span>,       <span class="co"># links result to the request</span></span>
+<span id="cb3-9"><a></a>    <span class="st">"content"</span>: <span class="ss">f'</span><span class="ch">{{</span><span class="ss">"price": </span><span class="sc">{</span>price<span class="sc">}</span><span class="ch">}}</span><span class="ss">'</span>,</span>
+<span id="cb3-10"><a></a>}]})</span>
+<span id="cb3-11"><a></a></span>
+<span id="cb3-12"><a></a><span class="co"># 3. Call the API again — now the LLM has the data</span></span>
+<span id="cb3-13"><a></a>response <span class="op">=</span> client.messages.create(model<span class="op">=</span>..., tools<span class="op">=</span>tools, messages<span class="op">=</span>messages)</span>
+<span id="cb3-14"><a></a><span class="co"># → "Apple's current stock price is $198.50."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="explainer">
+<p>The LLM sees the result as if someone answered its question. It then uses that data to compose its final response. The LLM <span class="amber">never had access</span> to your pricing API — it only saw the result you chose to send back.</p>
+</div>
+</section>
+<section id="the-agent-loop" class="slide level2 center">
+<h2>The Agent Loop</h2>
+<p>What if the LLM needs <span class="amber">multiple tools</span> to answer a question? You just keep going until it stops asking:</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
+flowchart TB
+    A["Send prompt + tool definitions"] --&gt; B["Get response"]
+    B --&gt; C{"stop_reason?"}
+    C --&gt;|"tool_use"| D["Execute the tool"]
+    D --&gt; E["Send result back"]
+    E --&gt; B
+    C --&gt;|"end_turn"| F["Display final answer"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>This is the <span class="amber">agentic loop</span> — the pattern behind every AI agent. The LLM decides what information it needs, asks for it one tool at a time, and stops when it has enough to answer.</p>
+<div class="explainer">
+<p>A single question like “compare AAPL and MSFT returns” might trigger: <code>get_price("AAPL")</code> → <code>get_price("MSFT")</code> → <code>run_python(correlation code)</code> → final answer. The LLM <span class="amber">chooses the sequence</span> based on the question.</p>
+</div>
+</section>
+<section id="portfolio-analysis-agent" class="slide level2 section-divider center">
+<h2>Portfolio Analysis Agent</h2>
+</section>
+<section id="live-demo" class="slide level2 center">
+<h2>Live Demo</h2>
 <p><strong><a href="https://web-production-9f0f9.up.railway.app">web-production-9f0f9.up.railway.app</a></strong></p>
 <p>Let’s try some questions:</p>
 <ul>
@@ -225,9 +353,6 @@ Kerry Back, Rice University
 <div class="explainer">
 <p>Watch how the agent <span class="amber">chooses different tools</span> depending on the question. It’s not running a script — it’s reasoning about what information it needs.</p>
 </div>
-</section>
-<section id="what-tools-would-an-agent-need-to-do-this" class="slide level2 section-divider center">
-<h2>What Tools Would an Agent Need to Do This?</h2>
 </section>
 <section id="five-tools-three-types" class="slide level2 center">
 <h2>Five Tools, Three Types</h2>
@@ -280,139 +405,55 @@ flowchart LR
 </div>
 </div>
 </section>
-<section id="why-an-agent-not-a-script" class="slide level2 center">
-<h2>Why an Agent, Not a Script?</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>A Script</strong></span></p>
-<ul>
-<li>Fixed sequence of steps</li>
-<li>Same analysis every time</li>
-<li>Can’t handle follow-up questions</li>
-<li>New analysis = new code</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>An Agent</strong></span></p>
-<ul>
-<li>Chooses tools based on context</li>
-<li>Different path for each question</li>
-<li>Conversational — remembers context</li>
-<li>New analysis = just ask</li>
-</ul>
-</div>
-</div>
-<div class="explainer">
-<p>The agent uses the same five tools to answer hundreds of different questions. You write the tools once; the agent figures out how to combine them.</p>
-</div>
-</section>
-<section id="providing-tools-to-an-agent" class="slide level2 section-divider center">
-<h2>Providing Tools to an Agent</h2>
-</section>
-<section id="tool-type-1-data-lookup" class="slide level2 center">
-<h2>Tool Type 1: Data Lookup</h2>
-<p>The simplest tools <span class="amber">return data from a known source</span>. The agent provides parameters; you return results.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>{</span>
-<span id="cb1-2"><a></a>    <span class="st">"name"</span>: <span class="st">"get_portfolio"</span>,</span>
-<span id="cb1-3"><a></a>    <span class="st">"description"</span>: (</span>
-<span id="cb1-4"><a></a>        <span class="st">"Retrieve a client's portfolio with all data pre-computed. "</span></span>
-<span id="cb1-5"><a></a>        <span class="st">"Returns total_portfolio_value, sector_summary with current "</span></span>
-<span id="cb1-6"><a></a>        <span class="st">"and target weights, and holdings with prices, analyst "</span></span>
-<span id="cb1-7"><a></a>        <span class="st">"ratings, market values, and unrealized gains/losses."</span></span>
-<span id="cb1-8"><a></a>    ),</span>
-<span id="cb1-9"><a></a>    <span class="st">"input_schema"</span>: {</span>
-<span id="cb1-10"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
-<span id="cb1-11"><a></a>        <span class="st">"properties"</span>: {</span>
-<span id="cb1-12"><a></a>            <span class="st">"account_id"</span>: {</span>
-<span id="cb1-13"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
-<span id="cb1-14"><a></a>                <span class="st">"description"</span>: <span class="st">"Client account identifier"</span>,</span>
-<span id="cb1-15"><a></a>            }</span>
-<span id="cb1-16"><a></a>        },</span>
-<span id="cb1-17"><a></a>        <span class="st">"required"</span>: [<span class="st">"account_id"</span>],</span>
-<span id="cb1-18"><a></a>    },</span>
-<span id="cb1-19"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p>Each tool has a <code>name</code>, <code>description</code>, and <code>input_schema</code>. The description tells the agent <span class="amber">when and why</span> to use the tool.</p>
-</div>
-</section>
-<section id="implementing-a-data-lookup-tool" class="slide level2 center">
-<h2>Implementing a Data Lookup Tool</h2>
-<p>Behind the scenes, the tool enriches raw data and returns <span class="amber">pre-computed</span> results:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="kw">def</span> get_portfolio(account_id: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb2-2"><a></a>    enriched <span class="op">=</span> []</span>
-<span id="cb2-3"><a></a>    <span class="cf">for</span> h <span class="kw">in</span> HOLDINGS:</span>
-<span id="cb2-4"><a></a>        price <span class="op">=</span> STOCK_DATA[h[<span class="st">"ticker"</span>]][<span class="st">"price"</span>]</span>
-<span id="cb2-5"><a></a>        total_shares <span class="op">=</span> <span class="bu">sum</span>(lot[<span class="st">"shares"</span>] <span class="cf">for</span> lot <span class="kw">in</span> h[<span class="st">"lots"</span>])</span>
-<span id="cb2-6"><a></a>        total_cost <span class="op">=</span> <span class="bu">sum</span>(lot[<span class="st">"shares"</span>] <span class="op">*</span> lot[<span class="st">"cost_basis"</span>]</span>
-<span id="cb2-7"><a></a>                         <span class="cf">for</span> lot <span class="kw">in</span> h[<span class="st">"lots"</span>])</span>
-<span id="cb2-8"><a></a>        market_value <span class="op">=</span> total_shares <span class="op">*</span> price</span>
-<span id="cb2-9"><a></a>        enriched.append({</span>
-<span id="cb2-10"><a></a>            <span class="st">"ticker"</span>: h[<span class="st">"ticker"</span>],</span>
-<span id="cb2-11"><a></a>            <span class="st">"sector"</span>: h[<span class="st">"sector"</span>],</span>
-<span id="cb2-12"><a></a>            <span class="st">"analyst_rating"</span>: ANALYST_RATINGS[h[<span class="st">"ticker"</span>]],</span>
-<span id="cb2-13"><a></a>            <span class="st">"current_price"</span>: price,</span>
-<span id="cb2-14"><a></a>            <span class="st">"market_value"</span>: market_value,</span>
-<span id="cb2-15"><a></a>            <span class="st">"unrealized_gl"</span>: market_value <span class="op">-</span> total_cost,</span>
-<span id="cb2-16"><a></a>            <span class="st">"lots"</span>: h[<span class="st">"lots"</span>],</span>
-<span id="cb2-17"><a></a>        })</span>
-<span id="cb2-18"><a></a>    <span class="co"># Pre-compute sector weights so the agent never does math</span></span>
-<span id="cb2-19"><a></a>    total_mv <span class="op">=</span> <span class="bu">sum</span>(p[<span class="st">"market_value"</span>] <span class="cf">for</span> p <span class="kw">in</span> enriched)</span>
-<span id="cb2-20"><a></a>    sector_summary <span class="op">=</span> ...  <span class="co"># current vs. target weights, diffs</span></span>
-<span id="cb2-21"><a></a>    <span class="cf">return</span> json.dumps({</span>
-<span id="cb2-22"><a></a>        <span class="st">"total_portfolio_value"</span>: total_mv,</span>
-<span id="cb2-23"><a></a>        <span class="st">"sector_summary"</span>: sector_summary,</span>
-<span id="cb2-24"><a></a>        <span class="st">"holdings"</span>: enriched,</span>
-<span id="cb2-25"><a></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p>The tool does <span class="amber">all the arithmetic</span> — weights, gains/losses, differences. The agent just reads and presents values. In production, this would query a real portfolio management system.</p>
-</div>
+<section id="building-the-tools" class="slide level2 section-divider center">
+<h2>Building the Tools</h2>
 </section>
 <section id="tool-type-2-database-query" class="slide level2 center">
 <h2>Tool Type 2: Database Query</h2>
 <p>The most powerful pattern: let the agent <span class="amber">write its own queries</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>{</span>
-<span id="cb3-2"><a></a>    <span class="st">"name"</span>: <span class="st">"run_sql"</span>,</span>
-<span id="cb3-3"><a></a>    <span class="st">"description"</span>: (</span>
-<span id="cb3-4"><a></a>        <span class="st">"Execute a SQL query against the MotherDuck database.</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb3-5"><a></a>        <span class="st">"Available tables:</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb3-6"><a></a>        <span class="st">"  - sep: daily stock prices (ticker, date, close, closeadj, ...)</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb3-7"><a></a>        <span class="st">"  - tickers: stock metadata (ticker, name, sector, industry, ...)</span><span class="ch">\n\n</span><span class="st">"</span></span>
-<span id="cb3-8"><a></a>        <span class="st">"Use closeadj for return calculations (adjusted for splits/dividends)."</span></span>
-<span id="cb3-9"><a></a>    ),</span>
-<span id="cb3-10"><a></a>    <span class="st">"input_schema"</span>: {</span>
-<span id="cb3-11"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
-<span id="cb3-12"><a></a>        <span class="st">"properties"</span>: {</span>
-<span id="cb3-13"><a></a>            <span class="st">"sql"</span>: {</span>
-<span id="cb3-14"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
-<span id="cb3-15"><a></a>                <span class="st">"description"</span>: <span class="st">"The SQL query to execute"</span>,</span>
-<span id="cb3-16"><a></a>            }</span>
-<span id="cb3-17"><a></a>        },</span>
-<span id="cb3-18"><a></a>        <span class="st">"required"</span>: [<span class="st">"sql"</span>],</span>
-<span id="cb3-19"><a></a>    },</span>
-<span id="cb3-20"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>{</span>
+<span id="cb4-2"><a></a>    <span class="st">"name"</span>: <span class="st">"run_sql"</span>,</span>
+<span id="cb4-3"><a></a>    <span class="st">"description"</span>: (</span>
+<span id="cb4-4"><a></a>        <span class="st">"Execute a SQL query against the MotherDuck database.</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb4-5"><a></a>        <span class="st">"Available tables:</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb4-6"><a></a>        <span class="st">"  - sep: daily stock prices (ticker, date, close, closeadj, ...)</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb4-7"><a></a>        <span class="st">"  - tickers: stock metadata (ticker, name, sector, industry, ...)</span><span class="ch">\n\n</span><span class="st">"</span></span>
+<span id="cb4-8"><a></a>        <span class="st">"Use closeadj for return calculations (adjusted for splits/dividends)."</span></span>
+<span id="cb4-9"><a></a>    ),</span>
+<span id="cb4-10"><a></a>    <span class="st">"input_schema"</span>: {</span>
+<span id="cb4-11"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb4-12"><a></a>        <span class="st">"properties"</span>: {</span>
+<span id="cb4-13"><a></a>            <span class="st">"sql"</span>: {</span>
+<span id="cb4-14"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
+<span id="cb4-15"><a></a>                <span class="st">"description"</span>: <span class="st">"The SQL query to execute"</span>,</span>
+<span id="cb4-16"><a></a>            }</span>
+<span id="cb4-17"><a></a>        },</span>
+<span id="cb4-18"><a></a>        <span class="st">"required"</span>: [<span class="st">"sql"</span>],</span>
+<span id="cb4-19"><a></a>    },</span>
+<span id="cb4-20"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The description tells the agent what tables and columns exist. The agent composes SQL on the fly — correlations, drawdowns, returns — whatever the analysis requires.</p>
 </div>
 </section>
 <section id="implementing-a-database-query-tool" class="slide level2 center">
 <h2>Implementing a Database Query Tool</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">import</span> duckdb</span>
-<span id="cb4-2"><a></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
-<span id="cb4-3"><a></a><span class="im">import</span> os</span>
-<span id="cb4-4"><a></a></span>
-<span id="cb4-5"><a></a>load_dotenv(<span class="st">"path/to/.env"</span>)</span>
-<span id="cb4-6"><a></a></span>
-<span id="cb4-7"><a></a><span class="kw">def</span> run_sql_query(sql: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb4-8"><a></a>    <span class="co">"""Execute SQL against MotherDuck, return JSON."""</span></span>
-<span id="cb4-9"><a></a>    token <span class="op">=</span> os.getenv(<span class="st">"MOTHERDUCK_TOKEN"</span>)</span>
-<span id="cb4-10"><a></a>    conn <span class="op">=</span> duckdb.<span class="ex">connect</span>(<span class="ss">f"md:ndl?motherduck_token=</span><span class="sc">{</span>token<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-11"><a></a>    <span class="cf">try</span>:</span>
-<span id="cb4-12"><a></a>        df <span class="op">=</span> conn.execute(sql).fetchdf()</span>
-<span id="cb4-13"><a></a>        <span class="cf">return</span> df.to_json(orient<span class="op">=</span><span class="st">"records"</span>, date_format<span class="op">=</span><span class="st">"iso"</span>)</span>
-<span id="cb4-14"><a></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb4-15"><a></a>        <span class="cf">return</span> json.dumps({<span class="st">"error"</span>: <span class="bu">str</span>(e)})</span>
-<span id="cb4-16"><a></a>    <span class="cf">finally</span>:</span>
-<span id="cb4-17"><a></a>        conn.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">import</span> duckdb</span>
+<span id="cb5-2"><a></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb5-3"><a></a><span class="im">import</span> os</span>
+<span id="cb5-4"><a></a></span>
+<span id="cb5-5"><a></a>load_dotenv(<span class="st">"path/to/.env"</span>)</span>
+<span id="cb5-6"><a></a></span>
+<span id="cb5-7"><a></a><span class="kw">def</span> run_sql_query(sql: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb5-8"><a></a>    <span class="co">"""Execute SQL against MotherDuck, return JSON."""</span></span>
+<span id="cb5-9"><a></a>    token <span class="op">=</span> os.getenv(<span class="st">"MOTHERDUCK_TOKEN"</span>)</span>
+<span id="cb5-10"><a></a>    conn <span class="op">=</span> duckdb.<span class="ex">connect</span>(<span class="ss">f"md:ndl?motherduck_token=</span><span class="sc">{</span>token<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-11"><a></a>    <span class="cf">try</span>:</span>
+<span id="cb5-12"><a></a>        df <span class="op">=</span> conn.execute(sql).fetchdf()</span>
+<span id="cb5-13"><a></a>        <span class="cf">return</span> df.to_json(orient<span class="op">=</span><span class="st">"records"</span>, date_format<span class="op">=</span><span class="st">"iso"</span>)</span>
+<span id="cb5-14"><a></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb5-15"><a></a>        <span class="cf">return</span> json.dumps({<span class="st">"error"</span>: <span class="bu">str</span>(e)})</span>
+<span id="cb5-16"><a></a>    <span class="cf">finally</span>:</span>
+<span id="cb5-17"><a></a>        conn.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The agent writes SQL; your function executes it and returns a JSON string. The agent never has direct database access — you control <span class="amber">what runs and how</span>.</p>
 </div>
@@ -420,49 +461,49 @@ flowchart LR
 <section id="tool-type-3-computation" class="slide level2 center">
 <h2>Tool Type 3: Computation</h2>
 <p>Let the agent <span class="amber">write and execute code</span> on data it has already retrieved:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>{</span>
-<span id="cb5-2"><a></a>    <span class="st">"name"</span>: <span class="st">"run_python"</span>,</span>
-<span id="cb5-3"><a></a>    <span class="st">"description"</span>: (</span>
-<span id="cb5-4"><a></a>        <span class="st">"Execute Python code and return printed output. "</span></span>
-<span id="cb5-5"><a></a>        <span class="st">"pandas, numpy, and json are available. "</span></span>
-<span id="cb5-6"><a></a>        <span class="st">"The namespace persists across calls."</span></span>
-<span id="cb5-7"><a></a>    ),</span>
-<span id="cb5-8"><a></a>    <span class="st">"input_schema"</span>: {</span>
-<span id="cb5-9"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
-<span id="cb5-10"><a></a>        <span class="st">"properties"</span>: {</span>
-<span id="cb5-11"><a></a>            <span class="st">"code"</span>: {</span>
-<span id="cb5-12"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
-<span id="cb5-13"><a></a>                <span class="st">"description"</span>: <span class="st">"Python code to execute."</span>,</span>
-<span id="cb5-14"><a></a>            }</span>
-<span id="cb5-15"><a></a>        },</span>
-<span id="cb5-16"><a></a>        <span class="st">"required"</span>: [<span class="st">"code"</span>],</span>
-<span id="cb5-17"><a></a>    },</span>
-<span id="cb5-18"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>{</span>
+<span id="cb6-2"><a></a>    <span class="st">"name"</span>: <span class="st">"run_python"</span>,</span>
+<span id="cb6-3"><a></a>    <span class="st">"description"</span>: (</span>
+<span id="cb6-4"><a></a>        <span class="st">"Execute Python code and return printed output. "</span></span>
+<span id="cb6-5"><a></a>        <span class="st">"pandas, numpy, and json are available. "</span></span>
+<span id="cb6-6"><a></a>        <span class="st">"The namespace persists across calls."</span></span>
+<span id="cb6-7"><a></a>    ),</span>
+<span id="cb6-8"><a></a>    <span class="st">"input_schema"</span>: {</span>
+<span id="cb6-9"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb6-10"><a></a>        <span class="st">"properties"</span>: {</span>
+<span id="cb6-11"><a></a>            <span class="st">"code"</span>: {</span>
+<span id="cb6-12"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
+<span id="cb6-13"><a></a>                <span class="st">"description"</span>: <span class="st">"Python code to execute."</span>,</span>
+<span id="cb6-14"><a></a>            }</span>
+<span id="cb6-15"><a></a>        },</span>
+<span id="cb6-16"><a></a>        <span class="st">"required"</span>: [<span class="st">"code"</span>],</span>
+<span id="cb6-17"><a></a>    },</span>
+<span id="cb6-18"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>This enables multi-tool chains: <code>run_sql</code> fetches prices → <code>run_python</code> computes correlations. The agent decides <span class="amber">what</span> to compute based on the question.</p>
 </div>
 </section>
 <section id="implementing-a-computation-tool" class="slide level2 center">
 <h2>Implementing a Computation Tool</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> io, sys</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a>_python_namespace <span class="op">=</span> {}  <span class="co"># persists across calls</span></span>
-<span id="cb6-4"><a></a></span>
-<span id="cb6-5"><a></a><span class="kw">def</span> run_python_code(code: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb6-6"><a></a>    <span class="co">"""Execute Python code, return printed output."""</span></span>
-<span id="cb6-7"><a></a>    <span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb6-8"><a></a>    _python_namespace.update({<span class="st">"pd"</span>: pd, <span class="st">"np"</span>: np, <span class="st">"json"</span>: json})</span>
-<span id="cb6-9"><a></a></span>
-<span id="cb6-10"><a></a>    old_stdout <span class="op">=</span> sys.stdout</span>
-<span id="cb6-11"><a></a>    sys.stdout <span class="op">=</span> buf <span class="op">=</span> io.StringIO()</span>
-<span id="cb6-12"><a></a>    <span class="cf">try</span>:</span>
-<span id="cb6-13"><a></a>        <span class="bu">exec</span>(code, _python_namespace)</span>
-<span id="cb6-14"><a></a>        output <span class="op">=</span> buf.getvalue()</span>
-<span id="cb6-15"><a></a>        <span class="cf">return</span> output <span class="cf">if</span> output <span class="cf">else</span> <span class="st">"(no output)"</span></span>
-<span id="cb6-16"><a></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb6-17"><a></a>        <span class="cf">return</span> <span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb6-18"><a></a>    <span class="cf">finally</span>:</span>
-<span id="cb6-19"><a></a>        sys.stdout <span class="op">=</span> old_stdout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">import</span> io, sys</span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a>_python_namespace <span class="op">=</span> {}  <span class="co"># persists across calls</span></span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a><span class="kw">def</span> run_python_code(code: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb7-6"><a></a>    <span class="co">"""Execute Python code, return printed output."""</span></span>
+<span id="cb7-7"><a></a>    <span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb7-8"><a></a>    _python_namespace.update({<span class="st">"pd"</span>: pd, <span class="st">"np"</span>: np, <span class="st">"json"</span>: json})</span>
+<span id="cb7-9"><a></a></span>
+<span id="cb7-10"><a></a>    old_stdout <span class="op">=</span> sys.stdout</span>
+<span id="cb7-11"><a></a>    sys.stdout <span class="op">=</span> buf <span class="op">=</span> io.StringIO()</span>
+<span id="cb7-12"><a></a>    <span class="cf">try</span>:</span>
+<span id="cb7-13"><a></a>        <span class="bu">exec</span>(code, _python_namespace)</span>
+<span id="cb7-14"><a></a>        output <span class="op">=</span> buf.getvalue()</span>
+<span id="cb7-15"><a></a>        <span class="cf">return</span> output <span class="cf">if</span> output <span class="cf">else</span> <span class="st">"(no output)"</span></span>
+<span id="cb7-16"><a></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb7-17"><a></a>        <span class="cf">return</span> <span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb7-18"><a></a>    <span class="cf">finally</span>:</span>
+<span id="cb7-19"><a></a>        sys.stdout <span class="op">=</span> old_stdout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The shared <code>_python_namespace</code> lets the agent store a DataFrame in one call and use it in the next — e.g., fetch prices, then compute a correlation matrix.</p>
 </div>
@@ -470,24 +511,24 @@ flowchart LR
 <section id="contextual-tools" class="slide level2 center">
 <h2>Contextual Tools</h2>
 <p>Some tools are only useful <span class="amber">after other tools</span> have been called:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>{</span>
-<span id="cb7-2"><a></a>    <span class="st">"name"</span>: <span class="st">"get_analyst_recommendations"</span>,</span>
-<span id="cb7-3"><a></a>    <span class="st">"description"</span>: (</span>
-<span id="cb7-4"><a></a>        <span class="st">"Get stocks rated 'Strong Buy' for a given sector. "</span></span>
-<span id="cb7-5"><a></a>        <span class="st">"Use this to find replacement candidates when tax-loss "</span></span>
-<span id="cb7-6"><a></a>        <span class="st">"harvesting creates a need to replenish sector exposure."</span></span>
-<span id="cb7-7"><a></a>    ),</span>
-<span id="cb7-8"><a></a>    <span class="st">"input_schema"</span>: {</span>
-<span id="cb7-9"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
-<span id="cb7-10"><a></a>        <span class="st">"properties"</span>: {</span>
-<span id="cb7-11"><a></a>            <span class="st">"sector"</span>: {</span>
-<span id="cb7-12"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
-<span id="cb7-13"><a></a>                <span class="st">"description"</span>: <span class="st">"The sector (e.g., 'Technology')"</span>,</span>
-<span id="cb7-14"><a></a>            }</span>
-<span id="cb7-15"><a></a>        },</span>
-<span id="cb7-16"><a></a>        <span class="st">"required"</span>: [<span class="st">"sector"</span>],</span>
-<span id="cb7-17"><a></a>    },</span>
-<span id="cb7-18"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>{</span>
+<span id="cb8-2"><a></a>    <span class="st">"name"</span>: <span class="st">"get_analyst_recommendations"</span>,</span>
+<span id="cb8-3"><a></a>    <span class="st">"description"</span>: (</span>
+<span id="cb8-4"><a></a>        <span class="st">"Get stocks rated 'Strong Buy' for a given sector. "</span></span>
+<span id="cb8-5"><a></a>        <span class="st">"Use this to find replacement candidates when tax-loss "</span></span>
+<span id="cb8-6"><a></a>        <span class="st">"harvesting creates a need to replenish sector exposure."</span></span>
+<span id="cb8-7"><a></a>    ),</span>
+<span id="cb8-8"><a></a>    <span class="st">"input_schema"</span>: {</span>
+<span id="cb8-9"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb8-10"><a></a>        <span class="st">"properties"</span>: {</span>
+<span id="cb8-11"><a></a>            <span class="st">"sector"</span>: {</span>
+<span id="cb8-12"><a></a>                <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
+<span id="cb8-13"><a></a>                <span class="st">"description"</span>: <span class="st">"The sector (e.g., 'Technology')"</span>,</span>
+<span id="cb8-14"><a></a>            }</span>
+<span id="cb8-15"><a></a>        },</span>
+<span id="cb8-16"><a></a>        <span class="st">"required"</span>: [<span class="st">"sector"</span>],</span>
+<span id="cb8-17"><a></a>    },</span>
+<span id="cb8-18"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The agent only calls this <span class="amber">after</span> identifying a harvest opportunity — it doesn’t blindly fetch recommendations for every sector. The description guides the agent on <span class="amber">when</span> to use the tool.</p>
 </div>
@@ -495,99 +536,99 @@ flowchart LR
 <section id="the-tool-router" class="slide level2 center">
 <h2>The Tool Router</h2>
 <p>All tools are connected through a single dispatch function:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="kw">def</span> execute_tool(name: <span class="bu">str</span>, inputs: <span class="bu">dict</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb8-2"><a></a>    <span class="co">"""Route a tool call to the appropriate handler."""</span></span>
-<span id="cb8-3"><a></a>    <span class="cf">if</span> name <span class="op">==</span> <span class="st">"get_holdings"</span>:</span>
-<span id="cb8-4"><a></a>        <span class="cf">return</span> json.dumps(HOLDINGS)</span>
-<span id="cb8-5"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"get_target_allocation"</span>:</span>
-<span id="cb8-6"><a></a>        <span class="cf">return</span> json.dumps(TARGET_ALLOCATION)</span>
-<span id="cb8-7"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"get_analyst_recommendations"</span>:</span>
-<span id="cb8-8"><a></a>        sector <span class="op">=</span> inputs[<span class="st">"sector"</span>]</span>
-<span id="cb8-9"><a></a>        recs <span class="op">=</span> STRONG_BUY.get(sector, [])</span>
-<span id="cb8-10"><a></a>        <span class="cf">return</span> json.dumps({<span class="st">"sector"</span>: sector, <span class="st">"strong_buy"</span>: recs})</span>
-<span id="cb8-11"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"run_sql"</span>:</span>
-<span id="cb8-12"><a></a>        <span class="cf">return</span> run_sql_query(inputs[<span class="st">"sql"</span>])</span>
-<span id="cb8-13"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"run_python"</span>:</span>
-<span id="cb8-14"><a></a>        <span class="cf">return</span> run_python_code(inputs[<span class="st">"code"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="kw">def</span> execute_tool(name: <span class="bu">str</span>, inputs: <span class="bu">dict</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb9-2"><a></a>    <span class="co">"""Route a tool call to the appropriate handler."""</span></span>
+<span id="cb9-3"><a></a>    <span class="cf">if</span> name <span class="op">==</span> <span class="st">"get_holdings"</span>:</span>
+<span id="cb9-4"><a></a>        <span class="cf">return</span> json.dumps(HOLDINGS)</span>
+<span id="cb9-5"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"get_target_allocation"</span>:</span>
+<span id="cb9-6"><a></a>        <span class="cf">return</span> json.dumps(TARGET_ALLOCATION)</span>
+<span id="cb9-7"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"get_analyst_recommendations"</span>:</span>
+<span id="cb9-8"><a></a>        sector <span class="op">=</span> inputs[<span class="st">"sector"</span>]</span>
+<span id="cb9-9"><a></a>        recs <span class="op">=</span> STRONG_BUY.get(sector, [])</span>
+<span id="cb9-10"><a></a>        <span class="cf">return</span> json.dumps({<span class="st">"sector"</span>: sector, <span class="st">"strong_buy"</span>: recs})</span>
+<span id="cb9-11"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"run_sql"</span>:</span>
+<span id="cb9-12"><a></a>        <span class="cf">return</span> run_sql_query(inputs[<span class="st">"sql"</span>])</span>
+<span id="cb9-13"><a></a>    <span class="cf">elif</span> name <span class="op">==</span> <span class="st">"run_python"</span>:</span>
+<span id="cb9-14"><a></a>        <span class="cf">return</span> run_python_code(inputs[<span class="st">"code"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>This is your code — you control what each tool does. The agent only sees the tool’s name, description, and the result you return.</p>
 </div>
 </section>
-<section id="the-agent-loop" class="slide level2 section-divider center">
+<section id="the-agent-loop-1" class="slide level2 section-divider center">
 <h2>The Agent Loop</h2>
 </section>
 <section id="the-core-pattern" class="slide level2 center">
 <h2>The Core Pattern</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">import</span> anthropic</span>
-<span id="cb9-2"><a></a></span>
-<span id="cb9-3"><a></a>client <span class="op">=</span> anthropic.Anthropic()</span>
-<span id="cb9-4"><a></a>messages <span class="op">=</span> []</span>
-<span id="cb9-5"><a></a></span>
-<span id="cb9-6"><a></a><span class="co"># User says something</span></span>
-<span id="cb9-7"><a></a>messages.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: user_input})</span>
-<span id="cb9-8"><a></a></span>
-<span id="cb9-9"><a></a><span class="co"># Agent loop: keep going until it stops calling tools</span></span>
-<span id="cb9-10"><a></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb9-11"><a></a>    response <span class="op">=</span> client.messages.create(</span>
-<span id="cb9-12"><a></a>        model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb9-13"><a></a>        system<span class="op">=</span>SYSTEM_PROMPT,</span>
-<span id="cb9-14"><a></a>        tools<span class="op">=</span>tools,</span>
-<span id="cb9-15"><a></a>        messages<span class="op">=</span>messages,</span>
-<span id="cb9-16"><a></a>        max_tokens<span class="op">=</span><span class="dv">4096</span>,</span>
-<span id="cb9-17"><a></a>    )</span>
-<span id="cb9-18"><a></a></span>
-<span id="cb9-19"><a></a>    <span class="cf">if</span> response.stop_reason <span class="op">==</span> <span class="st">"tool_use"</span>:</span>
-<span id="cb9-20"><a></a>        <span class="co"># Agent wants to call tools — execute and feed results back</span></span>
-<span id="cb9-21"><a></a>        ...</span>
-<span id="cb9-22"><a></a>    <span class="cf">else</span>:</span>
-<span id="cb9-23"><a></a>        <span class="co"># Agent is done — display its response</span></span>
-<span id="cb9-24"><a></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">import</span> anthropic</span>
+<span id="cb10-2"><a></a></span>
+<span id="cb10-3"><a></a>client <span class="op">=</span> anthropic.Anthropic()</span>
+<span id="cb10-4"><a></a>messages <span class="op">=</span> []</span>
+<span id="cb10-5"><a></a></span>
+<span id="cb10-6"><a></a><span class="co"># User says something</span></span>
+<span id="cb10-7"><a></a>messages.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: user_input})</span>
+<span id="cb10-8"><a></a></span>
+<span id="cb10-9"><a></a><span class="co"># Agent loop: keep going until it stops calling tools</span></span>
+<span id="cb10-10"><a></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb10-11"><a></a>    response <span class="op">=</span> client.messages.create(</span>
+<span id="cb10-12"><a></a>        model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
+<span id="cb10-13"><a></a>        system<span class="op">=</span>SYSTEM_PROMPT,</span>
+<span id="cb10-14"><a></a>        tools<span class="op">=</span>tools,</span>
+<span id="cb10-15"><a></a>        messages<span class="op">=</span>messages,</span>
+<span id="cb10-16"><a></a>        max_tokens<span class="op">=</span><span class="dv">4096</span>,</span>
+<span id="cb10-17"><a></a>    )</span>
+<span id="cb10-18"><a></a></span>
+<span id="cb10-19"><a></a>    <span class="cf">if</span> response.stop_reason <span class="op">==</span> <span class="st">"tool_use"</span>:</span>
+<span id="cb10-20"><a></a>        <span class="co"># Agent wants to call tools — execute and feed results back</span></span>
+<span id="cb10-21"><a></a>        ...</span>
+<span id="cb10-22"><a></a>    <span class="cf">else</span>:</span>
+<span id="cb10-23"><a></a>        <span class="co"># Agent is done — display its response</span></span>
+<span id="cb10-24"><a></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The key insight: the loop keeps running until the agent has all the information it needs. It might call 1 tool or 5.</p>
 </div>
 </section>
 <section id="handling-tool-calls" class="slide level2 center">
 <h2>Handling Tool Calls</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="cf">if</span> response.stop_reason <span class="op">==</span> <span class="st">"tool_use"</span>:</span>
-<span id="cb10-2"><a></a>    <span class="co"># Save the assistant's message (contains tool_use blocks)</span></span>
-<span id="cb10-3"><a></a>    messages.append({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"content"</span>: response.content})</span>
-<span id="cb10-4"><a></a></span>
-<span id="cb10-5"><a></a>    <span class="co"># Execute each tool and collect results</span></span>
-<span id="cb10-6"><a></a>    tool_results <span class="op">=</span> []</span>
-<span id="cb10-7"><a></a>    <span class="cf">for</span> block <span class="kw">in</span> response.content:</span>
-<span id="cb10-8"><a></a>        <span class="cf">if</span> block.<span class="bu">type</span> <span class="op">==</span> <span class="st">"tool_use"</span>:</span>
-<span id="cb10-9"><a></a>            result <span class="op">=</span> execute_tool(block.name, block.<span class="bu">input</span>)</span>
-<span id="cb10-10"><a></a>            tool_results.append({</span>
-<span id="cb10-11"><a></a>                <span class="st">"type"</span>: <span class="st">"tool_result"</span>,</span>
-<span id="cb10-12"><a></a>                <span class="st">"tool_use_id"</span>: block.<span class="bu">id</span>,</span>
-<span id="cb10-13"><a></a>                <span class="st">"content"</span>: result,</span>
-<span id="cb10-14"><a></a>            })</span>
-<span id="cb10-15"><a></a></span>
-<span id="cb10-16"><a></a>    <span class="co"># Send results back to the agent</span></span>
-<span id="cb10-17"><a></a>    messages.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: tool_results})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="cf">if</span> response.stop_reason <span class="op">==</span> <span class="st">"tool_use"</span>:</span>
+<span id="cb11-2"><a></a>    <span class="co"># Save the assistant's message (contains tool_use blocks)</span></span>
+<span id="cb11-3"><a></a>    messages.append({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"content"</span>: response.content})</span>
+<span id="cb11-4"><a></a></span>
+<span id="cb11-5"><a></a>    <span class="co"># Execute each tool and collect results</span></span>
+<span id="cb11-6"><a></a>    tool_results <span class="op">=</span> []</span>
+<span id="cb11-7"><a></a>    <span class="cf">for</span> block <span class="kw">in</span> response.content:</span>
+<span id="cb11-8"><a></a>        <span class="cf">if</span> block.<span class="bu">type</span> <span class="op">==</span> <span class="st">"tool_use"</span>:</span>
+<span id="cb11-9"><a></a>            result <span class="op">=</span> execute_tool(block.name, block.<span class="bu">input</span>)</span>
+<span id="cb11-10"><a></a>            tool_results.append({</span>
+<span id="cb11-11"><a></a>                <span class="st">"type"</span>: <span class="st">"tool_result"</span>,</span>
+<span id="cb11-12"><a></a>                <span class="st">"tool_use_id"</span>: block.<span class="bu">id</span>,</span>
+<span id="cb11-13"><a></a>                <span class="st">"content"</span>: result,</span>
+<span id="cb11-14"><a></a>            })</span>
+<span id="cb11-15"><a></a></span>
+<span id="cb11-16"><a></a>    <span class="co"># Send results back to the agent</span></span>
+<span id="cb11-17"><a></a>    messages.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: tool_results})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The <code>tool_use_id</code> links each result to the corresponding call. The agent can make <span class="amber">multiple tool calls</span> in one turn.</p>
 </div>
 </section>
 <section id="the-system-prompt" class="slide level2 center">
 <h2>The System Prompt</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>SYSTEM_PROMPT <span class="op">=</span> <span class="st">"""</span><span class="ch">\</span></span>
-<span id="cb11-2"><a></a><span class="st">You are a portfolio analyst assistant. You help review a client</span></span>
-<span id="cb11-3"><a></a><span class="st">portfolio, identify tax-loss harvesting opportunities, and</span></span>
-<span id="cb11-4"><a></a><span class="st">recommend replacement securities.</span></span>
-<span id="cb11-5"><a></a></span>
-<span id="cb11-6"><a></a><span class="st">When harvesting losses, sell the lots with the largest unrealized</span></span>
-<span id="cb11-7"><a></a><span class="st">loss first (highest cost basis relative to current price) using</span></span>
-<span id="cb11-8"><a></a><span class="st">specific lot identification for maximum tax benefit.</span></span>
-<span id="cb11-9"><a></a></span>
-<span id="cb11-10"><a></a><span class="st">When recommending a replacement, compute return correlations</span></span>
-<span id="cb11-11"><a></a><span class="st">between the stock being sold and each Strong Buy candidate,</span></span>
-<span id="cb11-12"><a></a><span class="st">then recommend the most highly correlated candidate.</span></span>
-<span id="cb11-13"><a></a></span>
-<span id="cb11-14"><a></a><span class="st">When writing SQL, use closeadj for return calculations, alias</span></span>
-<span id="cb11-15"><a></a><span class="st">tables (e.g., SELECT s.close FROM sep s), and cast date</span></span>
-<span id="cb11-16"><a></a><span class="st">(s.date::DATE) for comparisons.</span></span>
-<span id="cb11-17"><a></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a>SYSTEM_PROMPT <span class="op">=</span> <span class="st">"""</span><span class="ch">\</span></span>
+<span id="cb12-2"><a></a><span class="st">You are a portfolio analyst assistant. You help review a client</span></span>
+<span id="cb12-3"><a></a><span class="st">portfolio, identify tax-loss harvesting opportunities, and</span></span>
+<span id="cb12-4"><a></a><span class="st">recommend replacement securities.</span></span>
+<span id="cb12-5"><a></a></span>
+<span id="cb12-6"><a></a><span class="st">When harvesting losses, sell the lots with the largest unrealized</span></span>
+<span id="cb12-7"><a></a><span class="st">loss first (highest cost basis relative to current price) using</span></span>
+<span id="cb12-8"><a></a><span class="st">specific lot identification for maximum tax benefit.</span></span>
+<span id="cb12-9"><a></a></span>
+<span id="cb12-10"><a></a><span class="st">When recommending a replacement, compute return correlations</span></span>
+<span id="cb12-11"><a></a><span class="st">between the stock being sold and each Strong Buy candidate,</span></span>
+<span id="cb12-12"><a></a><span class="st">then recommend the most highly correlated candidate.</span></span>
+<span id="cb12-13"><a></a></span>
+<span id="cb12-14"><a></a><span class="st">When writing SQL, use closeadj for return calculations, alias</span></span>
+<span id="cb12-15"><a></a><span class="st">tables (e.g., SELECT s.close FROM sep s), and cast date</span></span>
+<span id="cb12-16"><a></a><span class="st">(s.date::DATE) for comparisons.</span></span>
+<span id="cb12-17"><a></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The system prompt gives the agent its <span class="amber">strategy</span> — domain expertise that guides tool selection. The tools define what the agent <span class="amber">can</span> do; the system prompt defines what it <span class="amber">should</span> do.</p>
 </div>
@@ -614,172 +655,6 @@ flowchart TB
 </div>
 <div class="explainer">
 <p>You provide <span class="amber">three things</span>: a system prompt (domain expertise), tool definitions (capabilities), and tool implementations (what actually runs). The agent loop connects them.</p>
-</div>
-</section>
-<section id="the-claude-agent-sdk" class="slide level2 section-divider center">
-<h2>The Claude Agent SDK</h2>
-</section>
-<section id="from-hand-rolled-to-sdk" class="slide level2 center">
-<h2>From Hand-Rolled to SDK</h2>
-<p>We built the agent loop manually: parse <code>tool_use</code> blocks, route to handlers, feed results back. The <span class="amber">Claude Agent SDK</span> (<code>claude-agent-sdk</code>) handles all of this for you.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="ex">pip</span> install claude-agent-sdk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Raw Messages API (what we built)</strong></span></p>
-<ul>
-<li>You write the <code>while True</code> loop</li>
-<li>You parse tool calls and route them</li>
-<li>You construct <code>tool_result</code> messages</li>
-<li>You manage the message list</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Agent SDK</strong></span></p>
-<ul>
-<li>SDK runs the loop via <code>async for</code></li>
-<li>Tools defined with <code>@tool</code> decorator</li>
-<li>SDK executes tools automatically</li>
-<li>SDK manages sessions and context</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="defining-tools-with-the-sdk" class="slide level2 center">
-<h2>Defining Tools with the SDK</h2>
-<p>The <code>@tool</code> decorator replaces raw JSON Schema:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a><span class="im">from</span> claude_agent_sdk <span class="im">import</span> tool</span>
-<span id="cb13-2"><a></a><span class="im">from</span> typing <span class="im">import</span> Any</span>
-<span id="cb13-3"><a></a></span>
-<span id="cb13-4"><a></a><span class="at">@tool</span>(</span>
-<span id="cb13-5"><a></a>    name<span class="op">=</span><span class="st">"get_holdings"</span>,</span>
-<span id="cb13-6"><a></a>    description<span class="op">=</span><span class="st">"Retrieve all portfolio holdings with tax lot detail."</span>,</span>
-<span id="cb13-7"><a></a>    input_schema<span class="op">=</span>{</span>
-<span id="cb13-8"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
-<span id="cb13-9"><a></a>        <span class="st">"properties"</span>: {</span>
-<span id="cb13-10"><a></a>            <span class="st">"account_id"</span>: {<span class="st">"type"</span>: <span class="st">"string"</span>,</span>
-<span id="cb13-11"><a></a>                           <span class="st">"description"</span>: <span class="st">"Client account identifier"</span>}</span>
-<span id="cb13-12"><a></a>        },</span>
-<span id="cb13-13"><a></a>        <span class="st">"required"</span>: [<span class="st">"account_id"</span>],</span>
-<span id="cb13-14"><a></a>    }</span>
-<span id="cb13-15"><a></a>)</span>
-<span id="cb13-16"><a></a><span class="cf">async</span> <span class="kw">def</span> get_holdings(args: <span class="bu">dict</span>[<span class="bu">str</span>, Any]) <span class="op">-&gt;</span> <span class="bu">dict</span>[<span class="bu">str</span>, Any]:</span>
-<span id="cb13-17"><a></a>    account_id <span class="op">=</span> args[<span class="st">"account_id"</span>]</span>
-<span id="cb13-18"><a></a>    <span class="cf">return</span> {<span class="st">"content"</span>: [{<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: json.dumps(HOLDINGS)}]}</span>
-<span id="cb13-19"><a></a></span>
-<span id="cb13-20"><a></a><span class="at">@tool</span>(</span>
-<span id="cb13-21"><a></a>    name<span class="op">=</span><span class="st">"run_sql"</span>,</span>
-<span id="cb13-22"><a></a>    description<span class="op">=</span><span class="st">"Execute a SQL query against the MotherDuck database."</span>,</span>
-<span id="cb13-23"><a></a>    input_schema<span class="op">=</span>{</span>
-<span id="cb13-24"><a></a>        <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
-<span id="cb13-25"><a></a>        <span class="st">"properties"</span>: {<span class="st">"sql"</span>: {<span class="st">"type"</span>: <span class="st">"string"</span>}},</span>
-<span id="cb13-26"><a></a>        <span class="st">"required"</span>: [<span class="st">"sql"</span>],</span>
-<span id="cb13-27"><a></a>    }</span>
-<span id="cb13-28"><a></a>)</span>
-<span id="cb13-29"><a></a><span class="cf">async</span> <span class="kw">def</span> run_sql(args: <span class="bu">dict</span>[<span class="bu">str</span>, Any]) <span class="op">-&gt;</span> <span class="bu">dict</span>[<span class="bu">str</span>, Any]:</span>
-<span id="cb13-30"><a></a>    result <span class="op">=</span> run_sql_query(args[<span class="st">"sql"</span>])</span>
-<span id="cb13-31"><a></a>    <span class="cf">return</span> {<span class="st">"content"</span>: [{<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: result}]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p>Same tools, same logic — but the decorator registers the tool with the SDK. No manual routing needed.</p>
-</div>
-</section>
-<section id="running-the-agent" class="slide level2 center">
-<h2>Running the Agent</h2>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a><span class="im">from</span> claude_agent_sdk <span class="im">import</span> (</span>
-<span id="cb14-2"><a></a>    query, ClaudeAgentOptions, create_sdk_mcp_server,</span>
-<span id="cb14-3"><a></a>    AssistantMessage, ResultMessage</span>
-<span id="cb14-4"><a></a>)</span>
-<span id="cb14-5"><a></a></span>
-<span id="cb14-6"><a></a><span class="co"># Package tools into an MCP server</span></span>
-<span id="cb14-7"><a></a>server <span class="op">=</span> create_sdk_mcp_server(</span>
-<span id="cb14-8"><a></a>    name<span class="op">=</span><span class="st">"portfolio"</span>, version<span class="op">=</span><span class="st">"1.0.0"</span>,</span>
-<span id="cb14-9"><a></a>    tools<span class="op">=</span>[get_holdings, get_target_allocation,</span>
-<span id="cb14-10"><a></a>           get_analyst_recommendations, run_sql, run_python]</span>
-<span id="cb14-11"><a></a>)</span>
-<span id="cb14-12"><a></a></span>
-<span id="cb14-13"><a></a>options <span class="op">=</span> ClaudeAgentOptions(</span>
-<span id="cb14-14"><a></a>    mcp_servers<span class="op">=</span>{<span class="st">"portfolio"</span>: server},</span>
-<span id="cb14-15"><a></a>    system_prompt<span class="op">=</span>SYSTEM_PROMPT,</span>
-<span id="cb14-16"><a></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
-<span id="cb14-17"><a></a>    permission_mode<span class="op">=</span><span class="st">"bypassPermissions"</span>,</span>
-<span id="cb14-18"><a></a>    max_turns<span class="op">=</span><span class="dv">20</span>,</span>
-<span id="cb14-19"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p><code>create_sdk_mcp_server</code> wraps your <code>@tool</code> functions into an in-process MCP server. The SDK uses the same Model Context Protocol that Claude Desktop and Claude Code use.</p>
-</div>
-</section>
-<section id="the-loop-disappears" class="slide level2 center">
-<h2>The Loop Disappears</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a><span class="im">import</span> asyncio</span>
-<span id="cb15-2"><a></a></span>
-<span id="cb15-3"><a></a><span class="cf">async</span> <span class="kw">def</span> main():</span>
-<span id="cb15-4"><a></a>    <span class="cf">async</span> <span class="cf">for</span> message <span class="kw">in</span> query(</span>
-<span id="cb15-5"><a></a>        prompt<span class="op">=</span><span class="st">"Review the portfolio and find tax-loss candidates"</span>,</span>
-<span id="cb15-6"><a></a>        options<span class="op">=</span>options,</span>
-<span id="cb15-7"><a></a>    ):</span>
-<span id="cb15-8"><a></a>        <span class="cf">if</span> <span class="bu">isinstance</span>(message, AssistantMessage):</span>
-<span id="cb15-9"><a></a>            <span class="cf">for</span> block <span class="kw">in</span> message.content:</span>
-<span id="cb15-10"><a></a>                <span class="cf">if</span> <span class="bu">hasattr</span>(block, <span class="st">"name"</span>):</span>
-<span id="cb15-11"><a></a>                    <span class="bu">print</span>(<span class="ss">f"  [calling </span><span class="sc">{</span>block<span class="sc">.</span>name<span class="sc">}</span><span class="ss">...]"</span>)</span>
-<span id="cb15-12"><a></a></span>
-<span id="cb15-13"><a></a>        <span class="cf">elif</span> <span class="bu">isinstance</span>(message, ResultMessage):</span>
-<span id="cb15-14"><a></a>            <span class="bu">print</span>(message.result)</span>
-<span id="cb15-15"><a></a>            <span class="bu">print</span>(<span class="ss">f"  Cost: $</span><span class="sc">{</span>message<span class="sc">.</span>total_cost_usd<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb15-16"><a></a></span>
-<span id="cb15-17"><a></a>asyncio.run(main())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="explainer">
-<p>No <code>while True</code>. No <code>tool_use_id</code>. No message list management. The SDK handles the entire agentic loop — you just iterate over the messages it yields.</p>
-</div>
-</section>
-<section id="hand-rolled-vs.-sdk" class="slide level2 center">
-<h2>Hand-Rolled vs.&nbsp;SDK</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Hand-Rolled</th>
-<th>Agent SDK</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Agent loop</td>
-<td>~25 lines of <code>while True</code></td>
-<td><code>async for message in query(...)</code></td>
-</tr>
-<tr class="even">
-<td>Tool routing</td>
-<td><code>if/elif</code> dispatch function</td>
-<td>Automatic via <code>@tool</code> decorator</td>
-</tr>
-<tr class="odd">
-<td>Tool definitions</td>
-<td>Raw JSON Schema dicts</td>
-<td><code>@tool</code> decorator</td>
-</tr>
-<tr class="even">
-<td>Error handling</td>
-<td>Manual</td>
-<td>Built-in retries, context compaction</td>
-</tr>
-<tr class="odd">
-<td>Multi-turn</td>
-<td>Manually append to <code>messages</code> list</td>
-<td>SDK manages session state</td>
-</tr>
-<tr class="even">
-<td>Learning value</td>
-<td>See every moving part</td>
-<td>Production-ready abstraction</td>
-</tr>
-</tbody>
-</table>
-<div class="explainer">
-<p>Start with the hand-rolled version to <span class="amber">understand the mechanics</span>. Use the SDK when you want to <span class="amber">ship something</span>.</p>
 </div>
 </section>
 <section id="deploying-the-agent" class="slide level2 section-divider center">
@@ -814,18 +689,18 @@ flowchart TB
 </section>
 <section id="containerizing-the-portfolio-agent" class="slide level2 center">
 <h2>Containerizing the Portfolio Agent</h2>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb16-1"><a></a><span class="kw">FROM</span> python:3.12-slim</span>
-<span id="cb16-2"><a></a></span>
-<span id="cb16-3"><a></a><span class="kw">WORKDIR</span> /app</span>
-<span id="cb16-4"><a></a><span class="kw">COPY</span> portfolio_agent.py .</span>
-<span id="cb16-5"><a></a></span>
-<span id="cb16-6"><a></a><span class="kw">RUN</span> <span class="ex">pip</span> install anthropic duckdb python-dotenv pandas numpy</span>
-<span id="cb16-7"><a></a></span>
-<span id="cb16-8"><a></a><span class="co"># Secrets are passed as environment variables at runtime,</span></span>
-<span id="cb16-9"><a></a><span class="co"># never baked into the image</span></span>
-<span id="cb16-10"><a></a><span class="co"># ANTHROPIC_API_KEY and MOTHERDUCK_TOKEN set at deploy time</span></span>
-<span id="cb16-11"><a></a></span>
-<span id="cb16-12"><a></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"portfolio_agent.py"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb13-1"><a></a><span class="kw">FROM</span> python:3.12-slim</span>
+<span id="cb13-2"><a></a></span>
+<span id="cb13-3"><a></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb13-4"><a></a><span class="kw">COPY</span> portfolio_agent.py .</span>
+<span id="cb13-5"><a></a></span>
+<span id="cb13-6"><a></a><span class="kw">RUN</span> <span class="ex">pip</span> install anthropic duckdb python-dotenv pandas numpy</span>
+<span id="cb13-7"><a></a></span>
+<span id="cb13-8"><a></a><span class="co"># Secrets are passed as environment variables at runtime,</span></span>
+<span id="cb13-9"><a></a><span class="co"># never baked into the image</span></span>
+<span id="cb13-10"><a></a><span class="co"># ANTHROPIC_API_KEY and MOTHERDUCK_TOKEN set at deploy time</span></span>
+<span id="cb13-11"><a></a></span>
+<span id="cb13-12"><a></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"portfolio_agent.py"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="explainer">
 <p>The <code>Dockerfile</code> is a recipe. <code>docker build</code> creates the image; <code>docker run</code> starts the container. In production, companies deploy containers via orchestrators like <span class="amber">Kubernetes</span> or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an <span class="amber">isolation boundary</span> for tools like <code>run_python</code> — code executes inside the container, not on the host.</p>
 </div>
@@ -859,132 +734,16 @@ flowchart TB
 <section id="key-takeaways" class="slide level2 center">
 <h2>Key Takeaways</h2>
 <ol type="1">
-<li><strong>Start with the demo</strong> — see what an agent can do before building one</li>
-<li><strong>Identify the tools</strong> — what capabilities does the agent need?</li>
+<li><strong>Tools are just descriptions</strong> — name, description, input schema. The LLM reads them to decide what to call</li>
+<li><strong>The LLM never runs tools</strong> — it outputs a structured request; your code executes it</li>
+<li><strong>The agentic loop</strong> — keep feeding tool results back until the LLM stops asking</li>
+<li><strong>Descriptions matter</strong> — the LLM decides which tools to use based on descriptions</li>
 <li><strong>Three tool types</strong> — data lookup, database query, computation</li>
-<li><strong>Descriptions matter</strong> — the agent decides which tools to use based on descriptions</li>
-<li><strong>The agentic loop</strong> — keep feeding tool results until the agent is done</li>
 <li><strong>Deploy with Docker</strong> — containerize for production; Railway makes it easy</li>
 </ol>
 <div class="explainer">
-<p>The hand-rolled version is ~200 lines of logic. The SDK version is shorter, but the concepts are identical: tools, system prompt, and an agentic loop.</p>
+<p>The entire agent is ~200 lines of Python. The hard part isn’t the code — it’s designing good tools with clear descriptions and a system prompt that encodes your domain expertise.</p>
 </div>
-</section>
-<section id="example-presentation-examiner" class="slide level2 section-divider center">
-<h2>Example: Presentation Examiner</h2>
-</section>
-<section id="what-we-want-to-build" class="slide level2 center">
-<h2>What We Want to Build</h2>
-<p>An AI-powered <span class="amber">presentation exam</span>: students upload slides, present them by voice, answer revised follow-up questions, and receive automated grades.</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Student Experience</strong></span></p>
-<ul>
-<li>Upload a PDF slide deck</li>
-<li>Present slides to an AI examiner (voice)</li>
-<li>Answer 3 revised exam questions</li>
-<li>Receive scores and written feedback</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Instructor Experience</strong></span></p>
-<ul>
-<li>Create assignments with prompts and rubrics</li>
-<li>Upload reference materials and solution keys</li>
-<li>Enroll students via single-use magic links (no passwords)</li>
-<li>Review grades and export results</li>
-</ul>
-</div>
-</div>
-<div class="explainer">
-<p>The AI replaces the <span class="amber">live examiner</span>. It <span class="amber">listens</span> to the presentation, <span class="amber">revises</span> its questions based on what was said, and <span class="amber">grades</span> three dimensions: slides, presentation, and Q&amp;A. Scales to hundreds of students with immediate, consistent feedback.</p>
-</div>
-</section>
-<section id="how-the-exam-flows" class="slide level2 center">
-<h2>How the Exam Flows</h2>
-<p>A <span class="amber">FastAPI web application</span> orchestrates a five-phase pipeline:</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Phase</th>
-<th>What Happens</th>
-<th>API Used</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1. Analysis</td>
-<td>Extract slide text, generate 3 questions</td>
-<td>Claude Sonnet</td>
-</tr>
-<tr class="even">
-<td>2. Presentation</td>
-<td>Student presents; AI listens silently</td>
-<td>ElevenLabs</td>
-</tr>
-<tr class="odd">
-<td>3. Revision</td>
-<td>Revise questions based on what student said</td>
-<td>Claude Sonnet</td>
-</tr>
-<tr class="even">
-<td>4. Q&amp;A</td>
-<td>AI asks revised questions; student answers</td>
-<td>ElevenLabs</td>
-</tr>
-<tr class="odd">
-<td>5. Grading</td>
-<td>Score slides + presentation + Q&amp;A, generate feedback</td>
-<td>GPT-4.1</td>
-</tr>
-</tbody>
-</table>
-<div class="explainer">
-<p>The voice phases (2 and 4) connect back to the app via <span class="amber">webhooks</span> — when ElevenLabs signals a session ended, the app fetches the transcript, advances the phase, and kicks off the next step as a background task. This is not an agentic loop — it’s an <span class="amber">orchestrated pipeline</span> where each phase always triggers the next. Match the architecture to the problem: use an agent loop when the path depends on the question; use a pipeline when the steps are known in advance.</p>
-</div>
-</section>
-<section id="refining-with-automated-testing" class="slide level2 center">
-<h2>Refining with Automated Testing</h2>
-<p>How do you know the grading is <span class="amber">fair and consistent</span>? Build a <strong>synthetic agent</strong> that generates slide decks, presentations, and Q&amp;A transcripts at <span class="amber">controlled quality levels</span>, runs them through the full pipeline, and checks that grades track intended quality.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb17-1"><a></a>Illustrative results (10 scenarios × 4 quality levels):</span>
-<span id="cb17-2"><a></a></span>
-<span id="cb17-3"><a></a>Average scores by intended quality level:</span>
-<span id="cb17-4"><a></a>  excellent : 3.75/4.0  (n=10)</span>
-<span id="cb17-5"><a></a>  good      : 3.20/4.0  (n=10)</span>
-<span id="cb17-6"><a></a>  mediocre  : 2.45/4.0  (n=10)</span>
-<span id="cb17-7"><a></a>  poor      : 1.80/4.0  (n=10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>What It Generates</strong></span></p>
-<ul>
-<li>10 finance scenarios (DCF, LBO, M&amp;A, etc.)</li>
-<li>Slide decks at 4 quality levels</li>
-<li>Presentation transcripts (confident → confused)</li>
-<li>Q&amp;A answers (insightful → evasive)</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>What It Validates</strong></span></p>
-<ul>
-<li>Do excellent submissions score higher than poor ones?</li>
-<li>Are grades consistent across similar quality levels?</li>
-<li>Does the full pipeline complete without errors?</li>
-<li>Does the feedback match the grade?</li>
-</ul>
-</div>
-</div>
-<div class="explainer">
-<p>Change a prompt or grading rubric, re-run the synthetic agent, and see whether results improved or regressed. This is <span class="amber">test-driven refinement</span> — the same idea as automated regression testing, applied to AI behavior.</p>
-</div>
-</section>
-<section id="presentation-examiner" class="slide level2 center">
-<h2>Presentation Examiner</h2>
-<p><strong><a href="https://presentation.rice-business.org">presentation.rice-business.org</a></strong></p>
 
 
 </section>
