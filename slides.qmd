@@ -19,6 +19,7 @@ title: Slide Decks
 | 12 | <a href="slides/m12-rag.html" target="_blank">Retrieval Augmented Generation</a> | <a href="slides/m12-rag.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 13 | <a href="slides/m13-fine-tuning.html" target="_blank">Fine-Tuning</a> | <a href="slides/m13-fine-tuning.html" target="_blank">{{< fa presentation-screen >}}</a> |
 | 14 | <a href="slides/m14-sentiment.html" target="_blank">Sentiment Analysis</a> | <a href="slides/m14-sentiment.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 15 | <a href="slides/m15-agent-sdk.html" target="_blank">More on Building Agents</a> | <a href="slides/m15-agent-sdk.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 16 | <a href="slides/m16-how-it-works.html" target="_blank">How AI Works</a> | <a href="slides/m16-how-it-works.html" target="_blank">{{< fa presentation-screen >}}</a> |
-| 17 | <a href="slides/m17-miscellaneous.html" target="_blank">Miscellaneous 4/16/2026</a> | <a href="slides/m17-miscellaneous.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 15 | <a href="slides/m15-agents-tools.html" target="_blank">Agents and Tools</a> | <a href="slides/m15-agents-tools.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 16 | <a href="slides/m16-agent-landscape.html" target="_blank">The Agent Landscape</a> | <a href="slides/m16-agent-landscape.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 17 | <a href="slides/m17-how-it-works.html" target="_blank">How AI Works</a> | <a href="slides/m17-how-it-works.html" target="_blank">{{< fa presentation-screen >}}</a> |
+| 18 | <a href="slides/m18-miscellaneous.html" target="_blank">Miscellaneous 4/16/2026</a> | <a href="slides/m18-miscellaneous.html" target="_blank">{{< fa presentation-screen >}}</a> |

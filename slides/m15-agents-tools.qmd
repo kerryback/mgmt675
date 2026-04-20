@@ -1,5 +1,5 @@
 ---
-title: "Module 15: More on Building Agents"
+title: "Module 15: Agents and Tools"
 subtitle: "MGMT 675: Generative AI for Finance"
 author: "Kerry Back, Rice University"
 format:
@@ -140,65 +140,55 @@ This is the [agentic loop]{.amber} --- the pattern behind every AI agent. The LL
 A single question like "compare AAPL and MSFT returns" might trigger: `get_price("AAPL")` → `get_price("MSFT")` → `run_python(correlation code)` → final answer. The LLM [chooses the sequence]{.amber} based on the question.
 :::
 
-## Portfolio Analysis Agent {.section-divider}
+## Three Types of Tools {.section-divider}
 
-## Live Demo
+## Tool Type 1: Data Lookup
 
-**[web-production-9f0f9.up.railway.app](https://web-production-9f0f9.up.railway.app)**
+The simplest pattern: the agent asks for data, your function [returns it]{.amber}.
 
-Let's try some questions:
-
-- "Review the portfolio --- what's the current sector allocation vs. target?"
-- "Find tax-loss harvesting opportunities in Technology"
-- "Harvest the INTC losses. What should I buy to replace the exposure?"
-
-:::{.explainer}
-Watch how the agent [chooses different tools]{.amber} depending on the question. It's not running a script --- it's reasoning about what information it needs.
-:::
-
-## Five Tools, Three Types
-
-```{mermaid}
-%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
-flowchart LR
-    U[User] <-->|conversation| A[Claude Agent]
-    A -->|get_holdings\naccount_id| M[Mock Data]
-    A -->|get_target_allocation| M
-    A -->|get_analyst_recommendations| M
-    A -->|run_sql| DB[(MotherDuck\nSEP + tickers)]
-    A -->|run_python| P[Python\nRuntime]
+```python
+{
+    "name": "get_holdings",
+    "description": (
+        "Get the current holdings for a client portfolio. "
+        "Returns a list of positions with ticker, shares, "
+        "cost basis, and current market value."
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "account_id": {
+                "type": "string",
+                "description": "The client account identifier",
+            }
+        },
+        "required": ["account_id"],
+    },
+}
 ```
 
-:::{.three-cards}
-:::{.card .card-light}
-[**Data Lookup**]{.card-title}
-
-- `get_holdings`
-- `get_target_allocation`
-- `get_analyst_recommendations`
-- Return structured data (JSON)
+:::{.explainer}
+Data lookup tools are the building blocks. The agent calls them to gather information before reasoning about it. Your implementation can hit a database, an API, a file --- the agent doesn't know or care.
 :::
 
-:::{.card .card-light}
-[**Database Query**]{.card-title}
+## Implementing a Data Lookup Tool
 
-- `run_sql`
-- Agent writes its own SQL
-- Executes against a live database
-- Returns query results
+```python
+def get_holdings(account_id: str) -> str:
+    """Return portfolio holdings as JSON."""
+    holdings = db.query(
+        "SELECT ticker, shares, cost_basis, market_value "
+        "FROM positions WHERE account_id = ?",
+        [account_id],
+    )
+    return json.dumps(holdings)
+```
+
+The agent sees only the JSON result --- it never touches your database directly.
+
+:::{.explainer}
+This is the [security model]{.amber} of tool use. The agent can only access what your tool functions expose. You control the boundary.
 :::
-
-:::{.card .card-light}
-[**Computation**]{.card-title}
-
-- `run_python`
-- Agent writes Python code
-- Computes analytics on retrieved data
-- Persistent namespace across calls
-:::
-:::
-
-## Building the Tools {.section-divider}
 
 ## Tool Type 2: Database Query
 
@@ -431,28 +421,27 @@ The `tool_use_id` links each result to the corresponding call. The agent can mak
 
 ## The System Prompt
 
+The system prompt gives the agent its [domain expertise]{.amber} and strategy:
+
 ```python
 SYSTEM_PROMPT = """\
-You are a portfolio analyst assistant. You help review a client
-portfolio, identify tax-loss harvesting opportunities, and
-recommend replacement securities.
+You are a financial research assistant. You help analysts
+investigate companies, compare securities, and prepare reports.
 
-When harvesting losses, sell the lots with the largest unrealized
-loss first (highest cost basis relative to current price) using
-specific lot identification for maximum tax benefit.
+When analyzing returns, always use adjusted close prices to
+account for splits and dividends. When comparing companies,
+pull at least 12 months of data unless the user specifies
+otherwise.
 
-When recommending a replacement, compute return correlations
-between the stock being sold and each Strong Buy candidate,
-then recommend the most highly correlated candidate.
+When writing SQL, alias tables (e.g., SELECT s.close FROM
+sep s) and cast dates (s.date::DATE) for comparisons.
 
-When writing SQL, use closeadj for return calculations, alias
-tables (e.g., SELECT s.close FROM sep s), and cast date
-(s.date::DATE) for comparisons.
+Always show your reasoning before giving a recommendation.
 """
 ```
 
 :::{.explainer}
-The system prompt gives the agent its [strategy]{.amber} --- domain expertise that guides tool selection. The tools define what the agent [can]{.amber} do; the system prompt defines what it [should]{.amber} do.
+The tools define what the agent [can]{.amber} do; the system prompt defines what it [should]{.amber} do and how it should think about the domain. This is where you encode expertise that isn't in the tool definitions.
 :::
 
 ## How the Pieces Fit Together
@@ -501,13 +490,13 @@ A [Docker container]{.amber} packages your application, its dependencies, and it
 A container is like a lightweight virtual machine. It runs the same way on a developer's laptop, a test server, or a cloud cluster.
 :::
 
-## Containerizing the Portfolio Agent
+## Containerizing an Agent
 
 ```dockerfile
 FROM python:3.12-slim
 
 WORKDIR /app
-COPY portfolio_agent.py .
+COPY agent.py .
 
 RUN pip install anthropic duckdb python-dotenv pandas numpy
 
@@ -515,7 +504,7 @@ RUN pip install anthropic duckdb python-dotenv pandas numpy
 # never baked into the image
 # ANTHROPIC_API_KEY and MOTHERDUCK_TOKEN set at deploy time
 
-CMD ["python", "portfolio_agent.py"]
+CMD ["python", "agent.py"]
 ```
 
 :::{.explainer}
