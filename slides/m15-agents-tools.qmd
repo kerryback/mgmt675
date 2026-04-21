@@ -233,7 +233,7 @@ This is the [security model]{.amber} of tool use. The agent can only access what
 
 ## Step 2: Describe the Tool to the LLM
 
-The LLM can't inspect your code. You have to [tell it]{.amber} what each tool does via a JSON definition:
+The LLM can't inspect your code. You have to [tell it]{.amber} what each tool does via a JSON definition with three parts:
 
 ```python
 {
@@ -241,12 +241,7 @@ The LLM can't inspect your code. You have to [tell it]{.amber} what each tool do
     "description": "Get the current price for a stock ticker symbol.",
     "input_schema": {
         "type": "object",
-        "properties": {
-            "ticker": {
-                "type": "string",
-                "description": "Stock ticker (e.g., 'AAPL')",
-            }
-        },
+        "properties": {"ticker": {"type": "string"}},
         "required": ["ticker"],
     },
 }
@@ -254,7 +249,7 @@ The LLM can't inspect your code. You have to [tell it]{.amber} what each tool do
 
 - **name** --- how the LLM refers to the tool
 - **description** --- the LLM reads this to decide [when]{.amber} to use it
-- **input_schema** --- what parameters the tool accepts
+- **input_schema** --- what parameters the tool accepts (JSON Schema)
 
 :::{.explainer}
 The description is critical. The LLM has no other way to know what a tool does. A vague description means the LLM won't use it at the right time. A clear, specific description means reliable tool selection.
@@ -262,7 +257,7 @@ The description is critical. The LLM has no other way to know what a tool does. 
 
 ## Step 3: The LLM Requests a Tool
 
-You send your prompt along with the tool definitions. If the LLM decides it needs a tool, it [doesn't reply with text]{.amber} --- instead it responds with a structured tool call:
+You send your prompt plus tool definitions. If the LLM needs a tool, it responds with a structured tool call instead of text:
 
 ```python
 response = client.messages.create(
@@ -272,44 +267,34 @@ response = client.messages.create(
 )
 ```
 
-The `tools` parameter passes your tool definitions. If the LLM decides it needs a tool, `response.stop_reason` will be `"tool_use"` (not `"end_turn"`), and `response.content` will contain:
+The response has a `stop_reason` field: `"tool_use"` means the LLM is pausing to request a tool; `"end_turn"` means it's done. When it's a tool call, `response.content` will contain:
 
 ```python
 {"type": "tool_use", "name": "get_stock_price", "input": {"ticker": "AAPL"}}
 ```
 
-:::{.explainer}
-The key signal is `stop_reason`. If it's `"tool_use"`, the LLM is [pausing]{.amber} and waiting for you to execute the tool and send back the result. If it's `"end_turn"`, the LLM is done talking.
-:::
-
 ## Steps 4 & 5: Execute and Report the Result
 
-Your code runs the actual function, then sends the result back as a new message:
-
-Your code executes the function and appends the result to the conversation. The `tool_use_id` links the result back to the LLM's request.
+Your code executes the function and appends the result to the conversation. The `tool_use_id` links the result back to the LLM's request. Then you call the API again --- now the LLM has the data.
 
 ```python
 price = get_stock_price("AAPL")
-
 messages.append({"role": "assistant", "content": response.content})
 messages.append({"role": "user", "content": [{
     "type": "tool_result",
     "tool_use_id": block.id,
     "content": price,
 }]})
-
 response = client.messages.create(model=..., tools=tools, messages=messages)
 ```
-
-Then you call the API again. Now the LLM has the data and can compose its answer.
 
 :::{.explainer}
 The LLM sees the result as if someone answered its question. It [never had access]{.amber} to your pricing API --- it only saw the result you chose to send back.
 :::
 
-## Step 6: The LLM Decides What's Next
+## Step 6: The LLM Decides What's Next {.mermaid-compact}
 
-The LLM now has the tool result. It either [calls another tool]{.amber} or provides a final answer:
+The LLM now has the tool result. It either [calls another tool]{.amber} or provides a final answer. This loop continues until the LLM has enough information.
 
 ```{mermaid}
 %%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
@@ -322,416 +307,6 @@ flowchart TB
     C -->|"end_turn"| F["Display final answer"]
 ```
 
-This is the [agentic loop]{.amber}. The LLM decides what information it needs, asks for it one tool at a time, and stops when it has enough to answer.
+This is the [agentic loop]{.amber} --- the pattern behind every AI agent. A question like "compare AAPL and MSFT returns" might trigger multiple tool calls in sequence. The LLM [chooses the sequence]{.amber} based on the question.
 
-:::{.explainer}
-A single question like "compare AAPL and MSFT returns" might trigger: `get_stock_price("AAPL")` then `get_stock_price("MSFT")` then `run_python(comparison code)` then final answer. The LLM [chooses the sequence]{.amber} based on the question.
-:::
-
-## Three Types of Tools {.section-divider}
-
-## Tool Type 1: Data Lookup
-
-The simplest pattern: the agent asks for data, your function [returns it]{.amber}.
-
-```python
-{
-    "name": "get_holdings",
-    "description": (
-        "Get the current holdings for a client portfolio. "
-        "Returns a list of positions with ticker, shares, "
-        "cost basis, and current market value."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "account_id": {
-                "type": "string",
-                "description": "The client account identifier",
-            }
-        },
-        "required": ["account_id"],
-    },
-}
-```
-
-:::{.explainer}
-Data lookup tools are the building blocks. The agent calls them to gather information before reasoning about it. Your implementation can hit a database, an API, a file --- the agent doesn't know or care.
-:::
-
-## Implementing a Data Lookup Tool
-
-```python
-def get_holdings(account_id: str) -> str:
-    """Return portfolio holdings as JSON."""
-    holdings = db.query(
-        "SELECT ticker, shares, cost_basis, market_value "
-        "FROM positions WHERE account_id = ?",
-        [account_id],
-    )
-    return json.dumps(holdings)
-```
-
-The agent sees only the JSON result --- it never touches your database directly.
-
-:::{.explainer}
-This is the [security model]{.amber} of tool use. The agent can only access what your tool functions expose. You control the boundary.
-:::
-
-## Tool Type 2: Database Query
-
-The most powerful pattern: let the agent [write its own queries]{.amber}.
-
-```python
-{
-    "name": "run_sql",
-    "description": (
-        "Execute a SQL query against the MotherDuck database.\n"
-        "Available tables:\n"
-        "  - sep: daily stock prices (ticker, date, close, closeadj, ...)\n"
-        "  - tickers: stock metadata (ticker, name, sector, industry, ...)\n\n"
-        "Use closeadj for return calculations (adjusted for splits/dividends)."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "sql": {
-                "type": "string",
-                "description": "The SQL query to execute",
-            }
-        },
-        "required": ["sql"],
-    },
-}
-```
-
-:::{.explainer}
-The description tells the agent what tables and columns exist. The agent composes SQL on the fly --- correlations, drawdowns, returns --- whatever the analysis requires.
-:::
-
-## Implementing a Database Query Tool
-
-```python
-import duckdb
-from dotenv import load_dotenv
-import os
-
-load_dotenv("path/to/.env")
-
-def run_sql_query(sql: str) -> str:
-    """Execute SQL against MotherDuck, return JSON."""
-    token = os.getenv("MOTHERDUCK_TOKEN")
-    conn = duckdb.connect(f"md:ndl?motherduck_token={token}")
-    try:
-        df = conn.execute(sql).fetchdf()
-        return df.to_json(orient="records", date_format="iso")
-    except Exception as e:
-        return json.dumps({"error": str(e)})
-    finally:
-        conn.close()
-```
-
-:::{.explainer}
-The agent writes SQL; your function executes it and returns a JSON string. The agent never has direct database access --- you control [what runs and how]{.amber}.
-:::
-
-## Tool Type 3: Computation
-
-Let the agent [write and execute code]{.amber} on data it has already retrieved:
-
-```python
-{
-    "name": "run_python",
-    "description": (
-        "Execute Python code and return printed output. "
-        "pandas, numpy, and json are available. "
-        "The namespace persists across calls."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "code": {
-                "type": "string",
-                "description": "Python code to execute.",
-            }
-        },
-        "required": ["code"],
-    },
-}
-```
-
-:::{.explainer}
-This enables multi-tool chains: `run_sql` fetches prices → `run_python` computes correlations. The agent decides [what]{.amber} to compute based on the question.
-:::
-
-## Implementing a Computation Tool
-
-The `_python_namespace` dictionary persists across calls, so the agent can store a DataFrame in one call and use it in the next.
-
-```python
-import io, sys
-
-_python_namespace = {}
-
-def run_python_code(code: str) -> str:
-    """Execute Python code, return printed output."""
-    import numpy as np, pandas as pd
-    _python_namespace.update({"pd": pd, "np": np, "json": json})
-
-    old_stdout = sys.stdout
-    sys.stdout = buf = io.StringIO()
-    try:
-        exec(code, _python_namespace)
-        output = buf.getvalue()
-        return output if output else "(no output)"
-    except Exception as e:
-        return f"Error: {e}"
-    finally:
-        sys.stdout = old_stdout
-```
-
-:::{.explainer}
-This enables chains like: fetch prices with `run_sql`, then compute a correlation matrix with `run_python` --- the data carries over between calls.
-:::
-
-## Contextual Tools
-
-Some tools are only useful [after other tools]{.amber} have been called:
-
-```python
-{
-    "name": "get_analyst_recommendations",
-    "description": (
-        "Get stocks rated 'Strong Buy' for a given sector. "
-        "Use this to find replacement candidates when tax-loss "
-        "harvesting creates a need to replenish sector exposure."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "sector": {
-                "type": "string",
-                "description": "The sector (e.g., 'Technology')",
-            }
-        },
-        "required": ["sector"],
-    },
-}
-```
-
-:::{.explainer}
-The agent only calls this [after]{.amber} identifying a harvest opportunity --- it doesn't blindly fetch recommendations for every sector. The description guides the agent on [when]{.amber} to use the tool.
-:::
-
-## The Tool Router
-
-All tools are connected through a single dispatch function:
-
-```python
-def execute_tool(name: str, inputs: dict) -> str:
-    """Route a tool call to the appropriate handler."""
-    if name == "get_holdings":
-        return json.dumps(HOLDINGS)
-    elif name == "get_target_allocation":
-        return json.dumps(TARGET_ALLOCATION)
-    elif name == "get_analyst_recommendations":
-        sector = inputs["sector"]
-        recs = STRONG_BUY.get(sector, [])
-        return json.dumps({"sector": sector, "strong_buy": recs})
-    elif name == "run_sql":
-        return run_sql_query(inputs["sql"])
-    elif name == "run_python":
-        return run_python_code(inputs["code"])
-```
-
-:::{.explainer}
-This is your code --- you control what each tool does. The agent only sees the tool's name, description, and the result you return.
-:::
-
-## The Agent Loop {.section-divider}
-
-## The Core Pattern
-
-Add the user's message, then loop: call the API, check `stop_reason`, and either execute tools or break.
-
-```python
-import anthropic
-
-client = anthropic.Anthropic()
-messages = []
-messages.append({"role": "user", "content": user_input})
-
-while True:
-    response = client.messages.create(
-        model="claude-sonnet-4-6",
-        system=SYSTEM_PROMPT,
-        tools=tools,
-        messages=messages,
-        max_tokens=4096,
-    )
-
-    if response.stop_reason == "tool_use":
-        ...
-    else:
-        break
-```
-
-If `stop_reason` is `"tool_use"`, the agent wants to call tools --- execute them and feed results back. Otherwise, the agent is done and you display its response.
-
-:::{.explainer}
-The loop keeps running until the agent has all the information it needs. It might call 1 tool or 5.
-:::
-
-## Handling Tool Calls
-
-First, save the assistant's response (which contains the tool call requests). Then execute each tool, collect the results, and append them back to the conversation.
-
-```python
-if response.stop_reason == "tool_use":
-    messages.append({"role": "assistant", "content": response.content})
-
-    tool_results = []
-    for block in response.content:
-        if block.type == "tool_use":
-            result = execute_tool(block.name, block.input)
-            tool_results.append({
-                "type": "tool_result",
-                "tool_use_id": block.id,
-                "content": result,
-            })
-
-    messages.append({"role": "user", "content": tool_results})
-```
-
-The `tool_use_id` links each result to the corresponding request. The agent can make [multiple tool calls]{.amber} in a single turn.
-
-## The System Prompt
-
-The system prompt gives the agent its [domain expertise]{.amber} and strategy:
-
-```python
-SYSTEM_PROMPT = """\
-You are a financial research assistant. You help analysts
-investigate companies, compare securities, and prepare reports.
-
-When analyzing returns, always use adjusted close prices to
-account for splits and dividends. When comparing companies,
-pull at least 12 months of data unless the user specifies
-otherwise.
-
-When writing SQL, alias tables (e.g., SELECT s.close FROM
-sep s) and cast dates (s.date::DATE) for comparisons.
-
-Always show your reasoning before giving a recommendation.
-"""
-```
-
-:::{.explainer}
-The tools define what the agent [can]{.amber} do; the system prompt defines what it [should]{.amber} do and how it should think about the domain. This is where you encode expertise that isn't in the tool definitions.
-:::
-
-## How the Pieces Fit Together
-
-```{mermaid}
-%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
-flowchart TB
-    SP["System Prompt\n(strategy & expertise)"] --> Agent
-    TD["Tool Definitions\n(JSON Schema)"] --> Agent
-    Agent -->|"tool_use"| Router["Tool Router\n(your code)"]
-    Router -->|"tool_result"| Agent
-    Agent -->|"stop_reason ≠ tool_use"| Response["Final Response\nto User"]
-```
-
-:::{.explainer}
-You provide [three things]{.amber}: a system prompt (domain expertise), tool definitions (capabilities), and tool implementations (what actually runs). The agent loop connects them.
-:::
-
-## Deploying the Agent {.section-divider}
-
-## What Is Docker?
-
-A [Docker container]{.amber} packages your application, its dependencies, and its configuration into a single, portable unit.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Without Docker**]{.card-title}
-
-- "It works on my machine"
-- Install Python, pip, duckdb, anthropic...
-- Manage conflicting library versions
-- Secrets scattered across config files
-:::
-
-:::{.card .card-dark}
-[**With Docker**]{.card-title}
-
-- Identical environment everywhere
-- One command to build, one to run
-- Dependencies frozen in the image
-- Secrets injected at runtime
-:::
-:::
-
-:::{.explainer}
-A container is like a lightweight virtual machine. It runs the same way on a developer's laptop, a test server, or a cloud cluster.
-:::
-
-## Containerizing an Agent
-
-```dockerfile
-FROM python:3.12-slim
-
-WORKDIR /app
-COPY agent.py .
-
-RUN pip install anthropic duckdb python-dotenv pandas numpy
-
-CMD ["python", "agent.py"]
-```
-
-Secrets like `ANTHROPIC_API_KEY` and `MOTHERDUCK_TOKEN` are passed as environment variables at runtime, never baked into the image.
-
-:::{.explainer}
-The `Dockerfile` is a recipe. `docker build` creates the image; `docker run` starts the container. In production, companies deploy containers via orchestrators like [Kubernetes]{.amber} or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an [isolation boundary]{.amber} for tools like `run_python` --- the agent can run Python code safely because it executes inside the container, not on your company's servers.
-:::
-
-## Railway: Docker Without the Hassle
-
-[Railway](https://railway.com) handles the Dockerization for you. Push your code and Railway [builds the container, deploys it, and manages secrets]{.amber} --- no Dockerfile required.
-
-:::{.two-cards}
-:::{.card .card-light}
-[**What You Do**]{.card-title}
-
-- Connect your GitHub repo
-- Set environment variables (API keys)
-- Push code
-:::
-
-:::{.card .card-dark}
-[**What Railway Does**]{.card-title}
-
-- Detects Python, builds the container
-- Injects secrets at runtime
-- Deploys with HTTPS endpoint
-- Auto-redeploys on each push
-:::
-:::
-
-:::{.explainer}
-Railway is one of several platforms (Render, Fly.io, Koyeb) that abstract away Docker and Kubernetes. You get the benefits of containerization without writing Dockerfiles or managing infrastructure.
-:::
-
-## Key Takeaways
-
-1. **Tools are just descriptions** --- name, description, input schema. The LLM reads them to decide what to call
-2. **The LLM never runs tools** --- it outputs a structured request; your code executes it
-3. **The agentic loop** --- keep feeding tool results back until the LLM stops asking
-4. **Descriptions matter** --- the LLM decides which tools to use based on descriptions
-5. **Three tool types** --- data lookup, database query, computation
-6. **Deploy with Docker** --- containerize for production; Railway makes it easy
-
-:::{.explainer}
-The entire agent is ~200 lines of Python. The hard part isn't the code --- it's designing good tools with clear descriptions and a system prompt that encodes your domain expertise.
-:::
 
