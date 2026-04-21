@@ -267,15 +267,15 @@ You send your prompt along with the tool definitions. If the LLM decides it need
 ```python
 response = client.messages.create(
     model="claude-sonnet-4-6",
-    tools=tools,              # ← your tool definitions
+    tools=tools,
     messages=[{"role": "user", "content": "What's Apple's price?"}],
 )
+```
 
-# response.stop_reason == "tool_use"  (not "end_turn")
-# response.content contains:
-#   { "type": "tool_use",
-#     "name": "get_stock_price",
-#     "input": {"ticker": "AAPL"} }
+The `tools` parameter passes your tool definitions. If the LLM decides it needs a tool, `response.stop_reason` will be `"tool_use"` (not `"end_turn"`), and `response.content` will contain:
+
+```python
+{"type": "tool_use", "name": "get_stock_price", "input": {"ticker": "AAPL"}}
 ```
 
 :::{.explainer}
@@ -286,21 +286,22 @@ The key signal is `stop_reason`. If it's `"tool_use"`, the LLM is [pausing]{.amb
 
 Your code runs the actual function, then sends the result back as a new message:
 
-```python
-# Step 4: Execute the tool (your code, your data source)
-price = get_stock_price("AAPL")   # returns '{"ticker": "AAPL", "price": 198.50}'
+Your code executes the function and appends the result to the conversation. The `tool_use_id` links the result back to the LLM's request.
 
-# Step 5: Send the result back to the LLM
+```python
+price = get_stock_price("AAPL")
+
 messages.append({"role": "assistant", "content": response.content})
 messages.append({"role": "user", "content": [{
     "type": "tool_result",
-    "tool_use_id": block.id,       # links result to the request
+    "tool_use_id": block.id,
     "content": price,
 }]})
 
-# Call the API again — now the LLM has the data
 response = client.messages.create(model=..., tools=tools, messages=messages)
 ```
+
+Then you call the API again. Now the LLM has the data and can compose its answer.
 
 :::{.explainer}
 The LLM sees the result as if someone answered its question. It [never had access]{.amber} to your pricing API --- it only saw the result you chose to send back.
@@ -465,10 +466,12 @@ This enables multi-tool chains: `run_sql` fetches prices → `run_python` comput
 
 ## Implementing a Computation Tool
 
+The `_python_namespace` dictionary persists across calls, so the agent can store a DataFrame in one call and use it in the next.
+
 ```python
 import io, sys
 
-_python_namespace = {}  # persists across calls
+_python_namespace = {}
 
 def run_python_code(code: str) -> str:
     """Execute Python code, return printed output."""
@@ -488,7 +491,7 @@ def run_python_code(code: str) -> str:
 ```
 
 :::{.explainer}
-The shared `_python_namespace` lets the agent store a DataFrame in one call and use it in the next --- e.g., fetch prices, then compute a correlation matrix.
+This enables chains like: fetch prices with `run_sql`, then compute a correlation matrix with `run_python` --- the data carries over between calls.
 :::
 
 ## Contextual Tools
@@ -549,16 +552,15 @@ This is your code --- you control what each tool does. The agent only sees the t
 
 ## The Core Pattern
 
+Add the user's message, then loop: call the API, check `stop_reason`, and either execute tools or break.
+
 ```python
 import anthropic
 
 client = anthropic.Anthropic()
 messages = []
-
-# User says something
 messages.append({"role": "user", "content": user_input})
 
-# Agent loop: keep going until it stops calling tools
 while True:
     response = client.messages.create(
         model="claude-sonnet-4-6",
@@ -569,25 +571,25 @@ while True:
     )
 
     if response.stop_reason == "tool_use":
-        # Agent wants to call tools — execute and feed results back
         ...
     else:
-        # Agent is done — display its response
         break
 ```
 
+If `stop_reason` is `"tool_use"`, the agent wants to call tools --- execute them and feed results back. Otherwise, the agent is done and you display its response.
+
 :::{.explainer}
-The key insight: the loop keeps running until the agent has all the information it needs. It might call 1 tool or 5.
+The loop keeps running until the agent has all the information it needs. It might call 1 tool or 5.
 :::
 
 ## Handling Tool Calls
 
+First, save the assistant's response (which contains the tool call requests). Then execute each tool, collect the results, and append them back to the conversation.
+
 ```python
 if response.stop_reason == "tool_use":
-    # Save the assistant's message (contains tool_use blocks)
     messages.append({"role": "assistant", "content": response.content})
 
-    # Execute each tool and collect results
     tool_results = []
     for block in response.content:
         if block.type == "tool_use":
@@ -598,13 +600,10 @@ if response.stop_reason == "tool_use":
                 "content": result,
             })
 
-    # Send results back to the agent
     messages.append({"role": "user", "content": tool_results})
 ```
 
-:::{.explainer}
-The `tool_use_id` links each result to the corresponding call. The agent can make [multiple tool calls]{.amber} in one turn.
-:::
+The `tool_use_id` links each result to the corresponding request. The agent can make [multiple tool calls]{.amber} in a single turn.
 
 ## The System Prompt
 
@@ -687,12 +686,10 @@ COPY agent.py .
 
 RUN pip install anthropic duckdb python-dotenv pandas numpy
 
-# Secrets are passed as environment variables at runtime,
-# never baked into the image
-# ANTHROPIC_API_KEY and MOTHERDUCK_TOKEN set at deploy time
-
 CMD ["python", "agent.py"]
 ```
+
+Secrets like `ANTHROPIC_API_KEY` and `MOTHERDUCK_TOKEN` are passed as environment variables at runtime, never baked into the image.
 
 :::{.explainer}
 The `Dockerfile` is a recipe. `docker build` creates the image; `docker run` starts the container. In production, companies deploy containers via orchestrators like [Kubernetes]{.amber} or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an [isolation boundary]{.amber} for tools like `run_python` --- the agent can run Python code safely because it executes inside the container, not on your company's servers.
