@@ -1,136 +1,290 @@
 [
   {
-    "objectID": "slides/m14-sentiment.html#trading-on-sentiment",
-    "href": "slides/m14-sentiment.html#trading-on-sentiment",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Trading on Sentiment",
-    "text": "Trading on Sentiment"
+    "objectID": "slides/m15-agent-sdk.html#how-tool-use-works",
+    "href": "slides/m15-agent-sdk.html#how-tool-use-works",
+    "title": "Module 15: More on Building Agents",
+    "section": "How Tool Use Works",
+    "text": "How Tool Use Works"
   },
   {
-    "objectID": "slides/m14-sentiment.html#sentiment-of-what",
-    "href": "slides/m14-sentiment.html#sentiment-of-what",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Sentiment of What?",
-    "text": "Sentiment of What?\nTraders extract sentiment from many text sources. Each differs in volume, speed, and signal quality:\n\n\n\n\n\n\n\n\n\nSource\nVolume\nSpeed\nSignal\n\n\n\n\nNews headlines\nHigh\nSeconds–minutes\nStrong, well-studied\n\n\nFull news articles\nHigh\nMinutes–hours\nRicher context\n\n\nSocial media (Twitter, StockTwits)\nVery high\nReal-time\nNoisy but fast\n\n\nEarnings call transcripts\nLow (quarterly)\nHours–days\nHigh quality\n\n\nFinancial statements (10-K, 10-Q)\nLow (quarterly)\nDays–weeks\nDeep fundamentals\n\n\n\nThe academic evidence now covers all of these."
+    "objectID": "slides/m15-agent-sdk.html#the-big-picture",
+    "href": "slides/m15-agent-sdk.html#the-big-picture",
+    "title": "Module 15: More on Building Agents",
+    "section": "The Big Picture",
+    "text": "The Big Picture\nAn LLM by itself can only read and write text. It can’t look up stock prices, query a database, or run calculations. Tools give it those abilities — but the mechanism is simpler than you might expect.\n\n\n\n\n\n%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%\nflowchart LR\n    Y[\"You\"] --&gt;|\"define tools +\\nsend prompt\"| API[\"Claude API\"]\n    API --&gt;|\"I want to call\\nget_price(ticker='AAPL')\"| Y\n    Y --&gt;|\"here's the result:\\n$198.50\"| API\n    API --&gt;|\"Apple's current\\nprice is $198.50\"| Y\n\n\n\n\n\n\nThree things make this work:\n\nYou define tools — name, description, and input parameters\nThe LLM decides to use one — it responds with a structured tool call instead of text\nYou execute it and send the result back — the LLM then incorporates the result into its answer\n\n\nThe LLM never runs the tool itself. It just asks you to run it by outputting a specially formatted response. Your code does the actual work."
   },
   {
-    "objectID": "slides/m14-sentiment.html#news-headlines",
-    "href": "slides/m14-sentiment.html#news-headlines",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "News Headlines",
-    "text": "News Headlines\nLopez-Lira & Tang (2023), accepted at the Journal of Finance.\n\nGPT-3.5 / GPT-4 classify 67,586 headlines for 4,123 stocks (Oct 2021–Dec 2023)\nSpeed: overnight news → trade at next-day market open, exit at close (single-day hold)\nPerformance: GPT-4 long-short Sharpe ratio 3.28\n\n\nForecasting ability increases with model size: GPT-4 &gt;&gt; GPT-3.5 &gt;&gt; GPT-3 — financial reasoning is an “emerging capability” of larger LLMs. But the Sharpe ratio declined from 6.5 to 1.2 as the sample extended from 2021 to 2024, consistent with more traders adopting the same approach."
+    "objectID": "slides/m15-agent-sdk.html#step-1-defining-a-tool",
+    "href": "slides/m15-agent-sdk.html#step-1-defining-a-tool",
+    "title": "Module 15: More on Building Agents",
+    "section": "Step 1: Defining a Tool",
+    "text": "Step 1: Defining a Tool\nA tool definition tells the LLM what’s available. It’s a JSON object with three parts:\n{\n    \"name\": \"get_stock_price\",\n    \"description\": \"Get the current price for a stock ticker symbol.\",\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"ticker\": {\n                \"type\": \"string\",\n                \"description\": \"Stock ticker (e.g., 'AAPL')\",\n            }\n        },\n        \"required\": [\"ticker\"],\n    },\n}\n\nname — how the LLM refers to the tool\ndescription — the LLM reads this to decide when to use the tool\ninput_schema — what parameters the tool accepts\n\n\nThe description is critical. The LLM has no other way to know what a tool does. A vague description → the LLM won’t use the tool at the right time. A clear, specific description → reliable tool selection."
   },
   {
-    "objectID": "slides/m14-sentiment.html#news-articles",
-    "href": "slides/m14-sentiment.html#news-articles",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "News Articles",
-    "text": "News Articles\nKirtac & Germano (2024), Finance Research Letters. 965,375 U.S. financial news articles (2010–2023).\n\nSpeed: news before 6 AM → trade at same-day open; news 6 AM–4 PM → trade at same-day close; news after 4 PM → trade at next-day open\nLong top 20% sentiment, short bottom 20%, daily rebalanced\n\n\n\n\nMethod\nAccuracy\nLong-Short Sharpe\n\n\n\n\nLoughran-McDonald dictionary\n50.1%\n1.23\n\n\nFinBERT\n72.2%\n2.07\n\n\nOPT (GPT-3 family)\n74.4%\n3.05"
+    "objectID": "slides/m15-agent-sdk.html#step-2-the-llm-asks-to-use-a-tool",
+    "href": "slides/m15-agent-sdk.html#step-2-the-llm-asks-to-use-a-tool",
+    "title": "Module 15: More on Building Agents",
+    "section": "Step 2: The LLM Asks to Use a Tool",
+    "text": "Step 2: The LLM Asks to Use a Tool\nYou send your prompt along with the tool definitions. If the LLM decides it needs a tool, it doesn’t reply with text — instead it responds with a structured tool call:\nresponse = client.messages.create(\n    model=\"claude-sonnet-4-6\",\n    tools=tools,              # ← your tool definitions\n    messages=[{\"role\": \"user\", \"content\": \"What's Apple's price?\"}],\n)\n\n# response.stop_reason == \"tool_use\"  (not \"end_turn\")\n# response.content contains:\n#   { \"type\": \"tool_use\",\n#     \"name\": \"get_stock_price\",\n#     \"input\": {\"ticker\": \"AAPL\"} }\n\nThe key signal is stop_reason. If it’s \"tool_use\", the LLM is pausing and waiting for you to execute the tool and send back the result. If it’s \"end_turn\", the LLM is done talking."
   },
   {
-    "objectID": "slides/m14-sentiment.html#news-articles-fine-tuned-small-models",
-    "href": "slides/m14-sentiment.html#news-articles-fine-tuned-small-models",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "News Articles: Fine-Tuned Small Models",
-    "text": "News Articles: Fine-Tuned Small Models\nFinLlama (2024), ICAIF Conference. 204,017 articles for S&P 500 stocks (2015–2021).\n\nModel: Llama 2 7B fine-tuned with LoRA (4.2M trainable parameters)\nSpeed: daily rebalancing based on sentiment scores\nLong top 35%, short bottom 35%\nPerformance: Sharpe ratio 2.4, annualized return 45%\n\n\nA fine-tuned 7B model outperforms FinBERT by 44.7% in cumulative returns — and runs on a single GPU at a fraction of GPT-4’s cost."
+    "objectID": "slides/m15-agent-sdk.html#step-3-you-execute-and-send-the-result-back",
+    "href": "slides/m15-agent-sdk.html#step-3-you-execute-and-send-the-result-back",
+    "title": "Module 15: More on Building Agents",
+    "section": "Step 3: You Execute and Send the Result Back",
+    "text": "Step 3: You Execute and Send the Result Back\nYour code runs the actual function, then sends the result back as a new message:\n# 1. Look up the price (your code, your data source)\nprice = get_stock_price(\"AAPL\")   # returns 198.50\n\n# 2. Send the result back to the LLM\nmessages.append({\"role\": \"assistant\", \"content\": response.content})\nmessages.append({\"role\": \"user\", \"content\": [{\n    \"type\": \"tool_result\",\n    \"tool_use_id\": block.id,       # links result to the request\n    \"content\": f'{{\"price\": {price}}}',\n}]})\n\n# 3. Call the API again — now the LLM has the data\nresponse = client.messages.create(model=..., tools=tools, messages=messages)\n# → \"Apple's current stock price is $198.50.\"\n\nThe LLM sees the result as if someone answered its question. It then uses that data to compose its final response. The LLM never had access to your pricing API — it only saw the result you chose to send back."
   },
   {
-    "objectID": "slides/m14-sentiment.html#social-media",
-    "href": "slides/m14-sentiment.html#social-media",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Social Media",
-    "text": "Social Media\nCookson, Lu, Mullins & Niessner (2024), “The Social Signal,” Journal of Financial Economics.\n\nSources: Twitter, StockTwits, and Seeking Alpha\nSpeed: social media sentiment predicts next-day returns (one-to-two-day window)\nSocial media sentiment predicts positive returns; social media attention predicts negative returns — the two signals go in opposite directions\n\n\nInformativeness deteriorated significantly after the Jan 2021 GameStop short squeeze, concentrated among messages by new users. Platform quality matters."
+    "objectID": "slides/m15-agent-sdk.html#the-agent-loop",
+    "href": "slides/m15-agent-sdk.html#the-agent-loop",
+    "title": "Module 15: More on Building Agents",
+    "section": "The Agent Loop",
+    "text": "The Agent Loop\nWhat if the LLM needs multiple tools to answer a question? You just keep going until it stops asking:\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvbbbb{mermaid} %%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%% flowchart TB     A[\"Send prompt + tool definitions\"] --&gt; B[\"Get response\"]     B --&gt; C{\"stop_reason?\"}     C --&gt;|\"tool_use\"| D[\"Execute the tool\"]     D --&gt; E[\"Send result back\"]     E --&gt; B     C --&gt;|\"end_turn\"| F[\"Display final answer\"]\nThis is the agentic loop — the pattern behind every AI agent. The LLM decides what information it needs, asks for it one tool at a time, and stops when it has enough to answer.\n\nA single question like “compare AAPL and MSFT returns” might trigger: get_price(\"AAPL\") → get_price(\"MSFT\") → run_python(correlation code) → final answer. The LLM chooses the sequence based on the question."
   },
   {
-    "objectID": "slides/m14-sentiment.html#earnings-calls-and-financial-statements",
-    "href": "slides/m14-sentiment.html#earnings-calls-and-financial-statements",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Earnings Calls and Financial Statements",
-    "text": "Earnings Calls and Financial Statements\n\n\nEarnings Call Summaries\nKim, Muhn & Nikolaev (2024), U. Chicago Booth\n\nGPT summarizes 10-K filings and earnings call transcripts to &lt; 1/5 original length\nSummary sentiment is more predictive of stock returns than original-document sentiment\nTwo-day event window around filing date\n\n\n\nFinancial Statement Analysis\nKim, Muhn & Nikolaev (2024), U. Chicago Booth\n\nGPT-4 given only anonymized financial statements\nPredicts earnings direction with 60% accuracy vs. 53% for human analysts\nLong-short alpha &gt; 12% per year\n\n\n\n\nThese are the slowest strategies — days to weeks after filings. But the alpha is large because the analysis is deep, not fast."
+    "objectID": "slides/m15-agent-sdk.html#three-types-of-tools",
+    "href": "slides/m15-agent-sdk.html#three-types-of-tools",
+    "title": "Module 15: More on Building Agents",
+    "section": "Three Types of Tools",
+    "text": "Three Types of Tools"
   },
   {
-    "objectID": "slides/m14-sentiment.html#multi-source-agents",
-    "href": "slides/m14-sentiment.html#multi-source-agents",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Multi-Source Agents",
-    "text": "Multi-Source Agents\nMarketSenseAI 2.0 (2025): a GPT-4o multi-agent system that combines news, SEC filings, earnings calls, price data, and macro reports.\n\nSpeed: monthly rebalancing — the slowest strategy we’ve seen, but the most comprehensive\nPerformance (S&P 100, 2023–2024): cumulative return 125.9% vs. 73.5% benchmark; Sharpe 2.76\nPerformance (S&P 500, 2024): cumulative return 48.7% vs. 25.6% benchmark; alpha 17.6%\n\n\nMonthly rebalancing is the most realistic for practical implementation — and the returns are still extraordinary."
+    "objectID": "slides/m15-agent-sdk.html#tool-type-1-data-lookup",
+    "href": "slides/m15-agent-sdk.html#tool-type-1-data-lookup",
+    "title": "Module 15: More on Building Agents",
+    "section": "Tool Type 1: Data Lookup",
+    "text": "Tool Type 1: Data Lookup\nThe simplest pattern: the agent asks for data, your function returns it.\n{\n    \"name\": \"get_holdings\",\n    \"description\": (\n        \"Get the current holdings for a client portfolio. \"\n        \"Returns a list of positions with ticker, shares, \"\n        \"cost basis, and current market value.\"\n    ),\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"account_id\": {\n                \"type\": \"string\",\n                \"description\": \"The client account identifier\",\n            }\n        },\n        \"required\": [\"account_id\"],\n    },\n}\n\nData lookup tools are the building blocks. The agent calls them to gather information before reasoning about it. Your implementation can hit a database, an API, a file — the agent doesn’t know or care."
   },
   {
-    "objectID": "slides/m14-sentiment.html#summary-source-speed-and-performance",
-    "href": "slides/m14-sentiment.html#summary-source-speed-and-performance",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Summary: Source, Speed, and Performance",
-    "text": "Summary: Source, Speed, and Performance\n\n\n\n\n\n\n\n\n\nPaper\nSource\nTrade Delay\nSharpe\n\n\n\n\nLopez-Lira & Tang (2023)\nNews headlines\nNext-day open\n3.28\n\n\nKirtac & Germano (2024)\nNews articles\nSame-day or next-day\n3.05\n\n\nFinLlama (2024)\nNews articles\nDaily\n2.40\n\n\nCookson et al. (2024)\nSocial media\nNext day\n—\n\n\nKim et al. (2024)\nEarnings calls / 10-Ks\n2-day event window\n—\n\n\nMarketSenseAI (2025)\nMulti-source\nMonthly\n2.76\n\n\n\nThe highest Sharpe ratios require the fastest execution and highest turnover. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer."
+    "objectID": "slides/m15-agent-sdk.html#implementing-a-data-lookup-tool",
+    "href": "slides/m15-agent-sdk.html#implementing-a-data-lookup-tool",
+    "title": "Module 15: More on Building Agents",
+    "section": "Implementing a Data Lookup Tool",
+    "text": "Implementing a Data Lookup Tool\ndef get_holdings(account_id: str) -&gt; str:\n    \"\"\"Return portfolio holdings as JSON.\"\"\"\n    holdings = db.query(\n        \"SELECT ticker, shares, cost_basis, market_value \"\n        \"FROM positions WHERE account_id = ?\",\n        [account_id],\n    )\n    return json.dumps(holdings)\nThe agent sees only the JSON result — it never touches your database directly.\n\nThis is the security model of tool use. The agent can only access what your tool functions expose. You control the boundary."
   },
   {
-    "objectID": "slides/m14-sentiment.html#alpha-decay",
-    "href": "slides/m14-sentiment.html#alpha-decay",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Alpha Decay",
-    "text": "Alpha Decay\nAs more firms adopt LLM-based analysis, alpha from news sentiment decays faster:\n\nLopez-Lira & Tang document the decline: Sharpe 6.5 → 1.2 as their sample extends from 2021 to 2024\nMore sophisticated signals (tone analysis, cross-sector propagation, multi-source) retain more alpha\nThe arms race: better NLP → alpha captured → faster decay → need even better NLP\n\nThe moat is shifting from speed of access to depth of understanding."
+    "objectID": "slides/m15-agent-sdk.html#tool-type-2-database-query",
+    "href": "slides/m15-agent-sdk.html#tool-type-2-database-query",
+    "title": "Module 15: More on Building Agents",
+    "section": "Tool Type 2: Database Query",
+    "text": "Tool Type 2: Database Query\nThe most powerful pattern: let the agent write its own queries.\n{\n    \"name\": \"run_sql\",\n    \"description\": (\n        \"Execute a SQL query against the MotherDuck database.\\n\"\n        \"Available tables:\\n\"\n        \"  - sep: daily stock prices (ticker, date, close, closeadj, ...)\\n\"\n        \"  - tickers: stock metadata (ticker, name, sector, industry, ...)\\n\\n\"\n        \"Use closeadj for return calculations (adjusted for splits/dividends).\"\n    ),\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"sql\": {\n                \"type\": \"string\",\n                \"description\": \"The SQL query to execute\",\n            }\n        },\n        \"required\": [\"sql\"],\n    },\n}\n\nThe description tells the agent what tables and columns exist. The agent composes SQL on the fly — correlations, drawdowns, returns — whatever the analysis requires."
   },
   {
-    "objectID": "slides/m14-sentiment.html#sentiment-classification-methods",
-    "href": "slides/m14-sentiment.html#sentiment-classification-methods",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Sentiment Classification Methods",
-    "text": "Sentiment Classification Methods"
+    "objectID": "slides/m15-agent-sdk.html#implementing-a-database-query-tool",
+    "href": "slides/m15-agent-sdk.html#implementing-a-database-query-tool",
+    "title": "Module 15: More on Building Agents",
+    "section": "Implementing a Database Query Tool",
+    "text": "Implementing a Database Query Tool\nimport duckdb\nfrom dotenv import load_dotenv\nimport os\n\nload_dotenv(\"path/to/.env\")\n\ndef run_sql_query(sql: str) -&gt; str:\n    \"\"\"Execute SQL against MotherDuck, return JSON.\"\"\"\n    token = os.getenv(\"MOTHERDUCK_TOKEN\")\n    conn = duckdb.connect(f\"md:ndl?motherduck_token={token}\")\n    try:\n        df = conn.execute(sql).fetchdf()\n        return df.to_json(orient=\"records\", date_format=\"iso\")\n    except Exception as e:\n        return json.dumps({\"error\": str(e)})\n    finally:\n        conn.close()\n\nThe agent writes SQL; your function executes it and returns a JSON string. The agent never has direct database access — you control what runs and how."
   },
   {
-    "objectID": "slides/m14-sentiment.html#bag-of-words",
-    "href": "slides/m14-sentiment.html#bag-of-words",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Bag of Words",
-    "text": "Bag of Words\nThe earliest approach: count words from predefined positive/negative lists.\n“Apple revenue beats estimates, shares surge 5%” → beats (+1), surge (+1) → positive ✓\nBut bag-of-words fails on:\n\nNegation: “did not report a loss” → counts loss as negative ✗\nHedging: “despite strong revenue, warned about disruptions” → counts strong as positive ✗\nDomain language: liability, outstanding, capital have different meanings in finance\n\nLoughran & McDonald (2011) improved this with finance-specific word lists — but the fundamental limitation remains: words are not sentences."
+    "objectID": "slides/m15-agent-sdk.html#tool-type-3-computation",
+    "href": "slides/m15-agent-sdk.html#tool-type-3-computation",
+    "title": "Module 15: More on Building Agents",
+    "section": "Tool Type 3: Computation",
+    "text": "Tool Type 3: Computation\nLet the agent write and execute code on data it has already retrieved:\n{\n    \"name\": \"run_python\",\n    \"description\": (\n        \"Execute Python code and return printed output. \"\n        \"pandas, numpy, and json are available. \"\n        \"The namespace persists across calls.\"\n    ),\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"code\": {\n                \"type\": \"string\",\n                \"description\": \"Python code to execute.\",\n            }\n        },\n        \"required\": [\"code\"],\n    },\n}\n\nThis enables multi-tool chains: run_sql fetches prices → run_python computes correlations. The agent decides what to compute based on the question."
   },
   {
-    "objectID": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
-    "href": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "The Loughran-McDonald Dictionary",
-    "text": "The Loughran-McDonald Dictionary\nLoughran & McDonald (2011) built word lists specifically for financial text by reading thousands of 10-K filings.\n\n\nNegative words (2,355)\n\nimpairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower\n\n\n\nPositive words (354)\n\nachieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile\n\n\n\nNew categories: uncertainty (297 words), litigious (903 words), constraining (184 words), superfluous (56 words)\n\nNotice the asymmetry: 7\\(\\times\\) more negative words than positive. Financial disclosures are legally required to discuss risks, so negative language is far more varied."
+    "objectID": "slides/m15-agent-sdk.html#implementing-a-computation-tool",
+    "href": "slides/m15-agent-sdk.html#implementing-a-computation-tool",
+    "title": "Module 15: More on Building Agents",
+    "section": "Implementing a Computation Tool",
+    "text": "Implementing a Computation Tool\nimport io, sys\n\n_python_namespace = {}  # persists across calls\n\ndef run_python_code(code: str) -&gt; str:\n    \"\"\"Execute Python code, return printed output.\"\"\"\n    import numpy as np, pandas as pd\n    _python_namespace.update({\"pd\": pd, \"np\": np, \"json\": json})\n\n    old_stdout = sys.stdout\n    sys.stdout = buf = io.StringIO()\n    try:\n        exec(code, _python_namespace)\n        output = buf.getvalue()\n        return output if output else \"(no output)\"\n    except Exception as e:\n        return f\"Error: {e}\"\n    finally:\n        sys.stdout = old_stdout\n\nThe shared _python_namespace lets the agent store a DataFrame in one call and use it in the next — e.g., fetch prices, then compute a correlation matrix."
   },
   {
-    "objectID": "slides/m14-sentiment.html#how-bert-learns-language",
-    "href": "slides/m14-sentiment.html#how-bert-learns-language",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "How BERT Learns Language",
-    "text": "How BERT Learns Language\nBERT (Bidirectional Encoder Representations from Transformers) is trained in two stages:\n\n\nStage 1: Pre-Training\n\nMasked language model: hide 15% of words, predict them from context\n“The company reported strong [MASK]” → earnings (not losses)\nLearns grammar, meaning, and relationships from millions of sentences\nNo human labels needed\n\n\n\nStage 2: Fine-Tuning\n\nAdd a classification layer on top of the pre-trained model\nTrain on labeled examples: sentence → positive / negative / neutral\nOnly a few thousand examples needed (Financial PhraseBank: 4,840 sentences)\nThe pre-trained knowledge transfers to the new task\n\n\n\n\nThe key insight: BERT reads both directions simultaneously. “Bank” means something different in “river bank” vs. “bank earnings” — BERT uses the full context to decide."
+    "objectID": "slides/m15-agent-sdk.html#contextual-tools",
+    "href": "slides/m15-agent-sdk.html#contextual-tools",
+    "title": "Module 15: More on Building Agents",
+    "section": "Contextual Tools",
+    "text": "Contextual Tools\nSome tools are only useful after other tools have been called:\n{\n    \"name\": \"get_analyst_recommendations\",\n    \"description\": (\n        \"Get stocks rated 'Strong Buy' for a given sector. \"\n        \"Use this to find replacement candidates when tax-loss \"\n        \"harvesting creates a need to replenish sector exposure.\"\n    ),\n    \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"sector\": {\n                \"type\": \"string\",\n                \"description\": \"The sector (e.g., 'Technology')\",\n            }\n        },\n        \"required\": [\"sector\"],\n    },\n}\n\nThe agent only calls this after identifying a harvest opportunity — it doesn’t blindly fetch recommendations for every sector. The description guides the agent on when to use the tool."
   },
   {
-    "objectID": "slides/m14-sentiment.html#finbert-bert-for-finance",
-    "href": "slides/m14-sentiment.html#finbert-bert-for-finance",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "FinBERT: BERT for Finance",
-    "text": "FinBERT: BERT for Finance\nFinBERT (Araci, 2019) = BERT pre-trained on financial text, then fine-tuned for 3-class sentiment.\n\n110M parameters\nFine-tuned on Financial PhraseBank (4,840 labeled sentences)\n~87% accuracy on financial sentiment (14 pp above vanilla BERT)\nInference: ~5 ms per sentence on GPU\n\n\nFinBERT became the standard baseline for financial NLP. It’s fast enough for real-time trading and accurate enough for most headline classification. Open source: ProsusAI/finbert on HuggingFace."
+    "objectID": "slides/m15-agent-sdk.html#the-tool-router",
+    "href": "slides/m15-agent-sdk.html#the-tool-router",
+    "title": "Module 15: More on Building Agents",
+    "section": "The Tool Router",
+    "text": "The Tool Router\nAll tools are connected through a single dispatch function:\ndef execute_tool(name: str, inputs: dict) -&gt; str:\n    \"\"\"Route a tool call to the appropriate handler.\"\"\"\n    if name == \"get_holdings\":\n        return json.dumps(HOLDINGS)\n    elif name == \"get_target_allocation\":\n        return json.dumps(TARGET_ALLOCATION)\n    elif name == \"get_analyst_recommendations\":\n        sector = inputs[\"sector\"]\n        recs = STRONG_BUY.get(sector, [])\n        return json.dumps({\"sector\": sector, \"strong_buy\": recs})\n    elif name == \"run_sql\":\n        return run_sql_query(inputs[\"sql\"])\n    elif name == \"run_python\":\n        return run_python_code(inputs[\"code\"])\n\nThis is your code — you control what each tool does. The agent only sees the tool’s name, description, and the result you return."
   },
   {
-    "objectID": "slides/m14-sentiment.html#how-llms-classify-sentiment",
-    "href": "slides/m14-sentiment.html#how-llms-classify-sentiment",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "How LLMs Classify Sentiment",
-    "text": "How LLMs Classify Sentiment\nLarge language models (GPT-4, Claude, Gemini) classify sentiment with no task-specific training — just a well-crafted prompt:\n\n“Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning.”\n\nWhy this works:\n\nPre-trained on trillions of tokens including financial text\nUnderstands nuance: “despite strong revenue, guidance was weak” → negative\nHandles sarcasm, hedging, implicit sentiment\nCan classify sentiment, extract events, and summarize in a single prompt\n\nThe tradeoff: 500 ms – 5 s per API call vs. 5 ms for FinBERT. For real-time trading, use FinBERT for high-confidence cases and route low-confidence cases to an LLM."
+    "objectID": "slides/m15-agent-sdk.html#the-agent-loop-1",
+    "href": "slides/m15-agent-sdk.html#the-agent-loop-1",
+    "title": "Module 15: More on Building Agents",
+    "section": "The Agent Loop",
+    "text": "The Agent Loop"
   },
   {
-    "objectID": "slides/m14-sentiment.html#try-it-finbert",
-    "href": "slides/m14-sentiment.html#try-it-finbert",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Try It: FinBERT",
-    "text": "Try It: FinBERT\n\nimport warnings\nwarnings.filterwarnings(\"ignore\")\nimport logging\nlogging.disable(logging.WARNING)\n\nfrom transformers import pipeline\n\npipe = pipeline(\"text-classification\", model=\"ProsusAI/finbert\", top_k=None)\n\nheadlines = [\n    \"Apple revenue beats estimates, shares surge 5%\",\n    \"Despite strong revenue, the company warned about supply chain disruptions\",\n    \"The company did not report a loss\",\n    \"Shares fell less than feared after earnings miss\",\n]\n\nresults = pipe(headlines)\nfor headline, scores in zip(headlines, results):\n    best = max(scores, key=lambda x: x[\"score\"])\n    print(f\"{best['label']:&gt;8s} ({best['score']:.0%})  {headline}\")\n\n\n\n\n\n\npositive (92%)  Apple revenue beats estimates, shares surge 5%\nnegative (97%)  Despite strong revenue, the company warned about supply chain disruptions\n neutral (89%)  The company did not report a loss\nnegative (97%)  Shares fell less than feared after earnings miss"
+    "objectID": "slides/m15-agent-sdk.html#the-core-pattern",
+    "href": "slides/m15-agent-sdk.html#the-core-pattern",
+    "title": "Module 15: More on Building Agents",
+    "section": "The Core Pattern",
+    "text": "The Core Pattern\nimport anthropic\n\nclient = anthropic.Anthropic()\nmessages = []\n\n# User says something\nmessages.append({\"role\": \"user\", \"content\": user_input})\n\n# Agent loop: keep going until it stops calling tools\nwhile True:\n    response = client.messages.create(\n        model=\"claude-sonnet-4-6\",\n        system=SYSTEM_PROMPT,\n        tools=tools,\n        messages=messages,\n        max_tokens=4096,\n    )\n\n    if response.stop_reason == \"tool_use\":\n        # Agent wants to call tools — execute and feed results back\n        ...\n    else:\n        # Agent is done — display its response\n        break\n\nThe key insight: the loop keeps running until the agent has all the information it needs. It might call 1 tool or 5."
   },
   {
-    "objectID": "slides/m14-sentiment.html#try-it-yourself",
-    "href": "slides/m14-sentiment.html#try-it-yourself",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Try It Yourself",
-    "text": "Try It Yourself\n\nTry it locally: Ask Claude to use FinBERT to determine the sentiment of “Despite record revenue, management issued cautious guidance citing tariff uncertainty.”\nTry it on Colab: Compare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences — including negation, hedging, and finance-specific language.\n\nOpen in Google Colab →"
+    "objectID": "slides/m15-agent-sdk.html#handling-tool-calls",
+    "href": "slides/m15-agent-sdk.html#handling-tool-calls",
+    "title": "Module 15: More on Building Agents",
+    "section": "Handling Tool Calls",
+    "text": "Handling Tool Calls\nif response.stop_reason == \"tool_use\":\n    # Save the assistant's message (contains tool_use blocks)\n    messages.append({\"role\": \"assistant\", \"content\": response.content})\n\n    # Execute each tool and collect results\n    tool_results = []\n    for block in response.content:\n        if block.type == \"tool_use\":\n            result = execute_tool(block.name, block.input)\n            tool_results.append({\n                \"type\": \"tool_result\",\n                \"tool_use_id\": block.id,\n                \"content\": result,\n            })\n\n    # Send results back to the agent\n    messages.append({\"role\": \"user\", \"content\": tool_results})\n\nThe tool_use_id links each result to the corresponding call. The agent can make multiple tool calls in one turn."
   },
   {
-    "objectID": "slides/m14-sentiment.html#key-references",
-    "href": "slides/m14-sentiment.html#key-references",
-    "title": "Module 14: Sentiment Analysis",
-    "section": "Key References",
-    "text": "Key References\n\n\nLopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? Journal of Finance.\nKirtac & Germano (2024). Sentiment Trading with Large Language Models. Finance Research Letters.\nCookson, Lu, Mullins & Niessner (2024). The Social Signal. Journal of Financial Economics.\nKim, Muhn & Nikolaev (2024). Bloated Disclosures: Can ChatGPT Help Investors Process Information?\nKim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.\nFatouros, Metaxas, Soldatos & Kyriazis (2025). MarketSenseAI 2.0.\nGupta, Raghunath, Buddaraju, Krishnasamy & Mitra (2024). FinLlama. ICAIF ’24.\nAraci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.\nLoughran & McDonald (2011). When Is a Liability Not a Liability? Journal of Finance.\nChen, Kelly & Xiu (2023). Expected Returns and Large Language Models. NBER Working Paper 31502."
+    "objectID": "slides/m15-agent-sdk.html#the-system-prompt",
+    "href": "slides/m15-agent-sdk.html#the-system-prompt",
+    "title": "Module 15: More on Building Agents",
+    "section": "The System Prompt",
+    "text": "The System Prompt\nThe system prompt gives the agent its domain expertise and strategy:\nSYSTEM_PROMPT = \"\"\"\\\nYou are a financial research assistant. You help analysts\ninvestigate companies, compare securities, and prepare reports.\n\nWhen analyzing returns, always use adjusted close prices to\naccount for splits and dividends. When comparing companies,\npull at least 12 months of data unless the user specifies\notherwise.\n\nWhen writing SQL, alias tables (e.g., SELECT s.close FROM\nsep s) and cast dates (s.date::DATE) for comparisons.\n\nAlways show your reasoning before giving a recommendation.\n\"\"\"\n\nThe tools define what the agent can do; the system prompt defines what it should do and how it should think about the domain. This is where you encode expertise that isn’t in the tool definitions."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#how-the-pieces-fit-together",
+    "href": "slides/m15-agent-sdk.html#how-the-pieces-fit-together",
+    "title": "Module 15: More on Building Agents",
+    "section": "How the Pieces Fit Together",
+    "text": "How the Pieces Fit Together\n\n\n\n\n\n%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%\nflowchart TB\n    SP[\"System Prompt\\n(strategy & expertise)\"] --&gt; Agent\n    TD[\"Tool Definitions\\n(JSON Schema)\"] --&gt; Agent\n    Agent --&gt;|\"tool_use\"| Router[\"Tool Router\\n(your code)\"]\n    Router --&gt;|\"tool_result\"| Agent\n    Agent --&gt;|\"stop_reason ≠ tool_use\"| Response[\"Final Response\\nto User\"]\n\n\n\n\n\n\n\nYou provide three things: a system prompt (domain expertise), tool definitions (capabilities), and tool implementations (what actually runs). The agent loop connects them."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#deploying-the-agent",
+    "href": "slides/m15-agent-sdk.html#deploying-the-agent",
+    "title": "Module 15: More on Building Agents",
+    "section": "Deploying the Agent",
+    "text": "Deploying the Agent"
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#what-is-docker",
+    "href": "slides/m15-agent-sdk.html#what-is-docker",
+    "title": "Module 15: More on Building Agents",
+    "section": "What Is Docker?",
+    "text": "What Is Docker?\nA Docker container packages your application, its dependencies, and its configuration into a single, portable unit.\n\n\nWithout Docker\n\n“It works on my machine”\nInstall Python, pip, duckdb, anthropic…\nManage conflicting library versions\nSecrets scattered across config files\n\n\n\nWith Docker\n\nIdentical environment everywhere\nOne command to build, one to run\nDependencies frozen in the image\nSecrets injected at runtime\n\n\n\n\nA container is like a lightweight virtual machine. It runs the same way on a developer’s laptop, a test server, or a cloud cluster."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#containerizing-an-agent",
+    "href": "slides/m15-agent-sdk.html#containerizing-an-agent",
+    "title": "Module 15: More on Building Agents",
+    "section": "Containerizing an Agent",
+    "text": "Containerizing an Agent\nFROM python:3.12-slim\n\nWORKDIR /app\nCOPY agent.py .\n\nRUN pip install anthropic duckdb python-dotenv pandas numpy\n\n# Secrets are passed as environment variables at runtime,\n# never baked into the image\n# ANTHROPIC_API_KEY and MOTHERDUCK_TOKEN set at deploy time\n\nCMD [\"python\", \"agent.py\"]\n\nThe Dockerfile is a recipe. docker build creates the image; docker run starts the container. In production, companies deploy containers via orchestrators like Kubernetes or AWS ECS, which handle scaling, restarts, and secret management. The container also provides an isolation boundary for tools like run_python — code executes inside the container, not on the host."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#railway-docker-without-the-hassle",
+    "href": "slides/m15-agent-sdk.html#railway-docker-without-the-hassle",
+    "title": "Module 15: More on Building Agents",
+    "section": "Railway: Docker Without the Hassle",
+    "text": "Railway: Docker Without the Hassle\nRailway handles the Dockerization for you. Push your code and Railway builds the container, deploys it, and manages secrets — no Dockerfile required.\n\n\nWhat You Do\n\nConnect your GitHub repo\nSet environment variables (API keys)\nPush code\n\n\n\nWhat Railway Does\n\nDetects Python, builds the container\nInjects secrets at runtime\nDeploys with HTTPS endpoint\nAuto-redeploys on each push\n\n\n\n\nRailway is one of several platforms (Render, Fly.io, Koyeb) that abstract away Docker and Kubernetes. You get the benefits of containerization without writing Dockerfiles or managing infrastructure."
+  },
+  {
+    "objectID": "slides/m15-agent-sdk.html#key-takeaways",
+    "href": "slides/m15-agent-sdk.html#key-takeaways",
+    "title": "Module 15: More on Building Agents",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nTools are just descriptions — name, description, input schema. The LLM reads them to decide what to call\nThe LLM never runs tools — it outputs a structured request; your code executes it\nThe agentic loop — keep feeding tool results back until the LLM stops asking\nDescriptions matter — the LLM decides which tools to use based on descriptions\nThree tool types — data lookup, database query, computation\nDeploy with Docker — containerize for production; Railway makes it easy\n\n\nThe entire agent is ~200 lines of Python. The hard part isn’t the code — it’s designing good tools with clear descriptions and a system prompt that encodes your domain expertise."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#claude",
+    "href": "slides/m17-miscellaneous.html#claude",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Claude",
+    "text": "Claude"
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#claude-desktop",
+    "href": "slides/m17-miscellaneous.html#claude-desktop",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Claude Desktop",
+    "text": "Claude Desktop\nClaude Desktop has three modes: Chat, Cowork, and Code. In all three, prompts go to and responses come from the cloud. The modes differ in where Python execution happens.\n\nChat: Python runs on Anthropic’s servers. Only libraries pre-installed by Anthropic. No internet access from Python (sandboxed).\nCowork: Python runs on your computer. Any libraries you want. No internet access from Python (sandboxed).\nCode: Python runs on your computer. Any libraries you want. Internet available.\n\n\nCode mode is the most powerful but also the most permissive — Claude can read/write files, run shell commands, and access the internet. Use it when you need full control; use Chat or Cowork for safer exploration."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#vs-code-visual-studio-code",
+    "href": "slides/m17-miscellaneous.html#vs-code-visual-studio-code",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "VS Code (Visual Studio Code)",
+    "text": "VS Code (Visual Studio Code)\nDownload VS Code from code.visualstudio.com. Install and open it.\n\n\n\n\n\n\nClick the Extensions icon in the left sidebar (four squares), search for “claude code”, and install the one published by Anthropic (look for the verified checkmark). The extension ID is anthropic.claude-code."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#using-claude-code-in-vs-code",
+    "href": "slides/m17-miscellaneous.html#using-claude-code-in-vs-code",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Using Claude Code in VS Code",
+    "text": "Using Claude Code in VS Code\n\nClick the Claude icon in the left activity bar to open the Claude Code panel\nClick + New Session to start a conversation\nYou can open multiple sessions to work on different tasks in parallel\n\n\nYou can also open Claude Code from the command palette: press Ctrl+Shift+P (or Cmd+Shift+P on Mac) and type “Claude”."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#try-it-a-single-prompt-three-files",
+    "href": "slides/m17-miscellaneous.html#try-it-a-single-prompt-three-files",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Try It: A Single Prompt, Three Files",
+    "text": "Try It: A Single Prompt, Three Files\nAsk Claude Code:\n\nCalculate and plot the P/E ratios of the Magnificent 7 stocks over the past 3 years. Save the chart as a PNG. Write a Word document ranking the stocks by current P/E with a brief investment commentary.\n\nClaude will create:\n\nA Python script (.py) that fetches data, computes ratios, and generates the outputs\nA chart (.png) visualizing P/E ratios over time\nA Word document (.docx) with analysis and commentary\n\n\nThis is a good test of Claude Code’s capabilities. If something doesn’t work, just tell Claude what went wrong — it will read the error and fix it."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#slash-commands",
+    "href": "slides/m17-miscellaneous.html#slash-commands",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Slash Commands",
+    "text": "Slash Commands\n\nType / in Claude Code to see all available commands. The most useful:\n\n/resume — resume a previous conversation by name or ID, picking up where you left off\n/rewind — undo Claude’s code changes and revert the conversation to an earlier point\n/btw — ask a quick side question without adding it to the conversation history\n/diff — open an interactive diff viewer to review all uncommitted changes\n/plan — enter read-only planning mode so Claude designs a strategy before making changes\n/model — switch models on the fly (e.g., from Sonnet to Opus for harder tasks)\n/cost — check real-time token usage and spending\n\n\n\nIf you install (or ask Claude to install) the critique skill, you can prompt /critique filename to get a multi-perspective review of your work."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#jupyter-notebooks-and-colab",
+    "href": "slides/m17-miscellaneous.html#jupyter-notebooks-and-colab",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Jupyter Notebooks and Colab",
+    "text": "Jupyter Notebooks and Colab"
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#jupyter-notebooks",
+    "href": "slides/m17-miscellaneous.html#jupyter-notebooks",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Jupyter Notebooks",
+    "text": "Jupyter Notebooks\nA Jupyter notebook (.ipynb) is a document with two types of cells:\n\nCode cells — write and run Python (or R, Julia, etc.). Output appears directly below the cell.\nText cells — written in Markdown, a simple formatting language. Use # Heading, **bold**, *italic*, bullet lists, LaTeX math ($E[r]$), etc."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#google-colab",
+    "href": "slides/m17-miscellaneous.html#google-colab",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Google Colab",
+    "text": "Google Colab\nGoogle Colab is a free, cloud-hosted Jupyter notebook environment — no installation required.\n\nAccess via your browser, notebooks are saved to Google Drive\nFree access to GPUs and TPUs for machine learning\nCan install whatever libraries you want\nShare notebooks like Google Docs\n\nGemini in Colab: Google’s AI assistant is built into Colab. It can generate code, explain errors, and autocomplete — similar to Claude Code but inside the notebook.\n\nColab is ideal for quick experiments and for running code that needs a GPU (e.g., fine-tuning). For longer projects with many files, VS Code + Claude Code is more powerful."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#vs-code",
+    "href": "slides/m17-miscellaneous.html#vs-code",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "VS Code",
+    "text": "VS Code\n\nTo work with Jupyter notebooks locally in VS Code:\n\nOpen Extensions (four squares icon) and install:\n\nPython (by Microsoft) — Python language support\nJupyter (by Microsoft) — notebook support in VS Code\n\nCreate a new file with the .ipynb extension, or open an existing notebook\n\nThen ask Claude Code:\n\nGenerate a Jupyter notebook with text and code cells explaining how to calculate the tangency portfolio when there are no short sales constraints.\n\nClaude will create the .ipynb file with explanatory markdown cells and working Python code."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#python-workshop",
+    "href": "slides/m17-miscellaneous.html#python-workshop",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Python Workshop",
+    "text": "Python Workshop\nFor a hands-on introduction to Python for finance, visit:\n\nworkshop.kerryback.com"
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#cosine-similarity",
+    "href": "slides/m17-miscellaneous.html#cosine-similarity",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Cosine Similarity",
+    "text": "Cosine Similarity"
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#cosine-similarity-vs.-distance",
+    "href": "slides/m17-miscellaneous.html#cosine-similarity-vs.-distance",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Cosine Similarity vs. Distance",
+    "text": "Cosine Similarity vs. Distance\n\nThe cosine similarity between two vectors is the cosine of the angle between them. It measures direction, not magnitude.\n\n\n\n\n\nIf we normalize vectors to unit length (project them onto the unit circle), the squared Euclidean distance between them is:\n\\[d^2 = 2 - 2\\cos\\theta\\]\nSo high cosine similarity \\(\\Leftrightarrow\\) small angle \\(\\Leftrightarrow\\) normalized vectors are close together."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#biases-and-weights",
+    "href": "slides/m17-miscellaneous.html#biases-and-weights",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "Biases and Weights",
+    "text": "Biases and Weights"
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#a-simple-neural-network",
+    "href": "slides/m17-miscellaneous.html#a-simple-neural-network",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "A Simple Neural Network",
+    "text": "A Simple Neural Network\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '36px', 'primaryColor': '#f59e0b', 'primaryTextColor': '#0f172a', 'lineColor': '#f59e0b', 'clusterBkg': 'transparent', 'clusterBorder': '#f59e0b', 'clusterTextColor': '#fff'}, 'flowchart': {'nodeSpacing': 80, 'rankSpacing': 140, 'padding': 20, 'useMaxWidth': true}}}%%\ngraph LR\n  subgraph Inputs[\" \"]\n    direction TB\n    X1((\"x₁\"))\n    X2((\"x₂\"))\n    X3((\"x₃\"))\n  end\n  subgraph Hidden[\"Hidden Layer\"]\n    direction TB\n    H1((\"y₁\"))\n    H2((\"y₂\"))\n  end\n  subgraph Output[\" \"]\n    direction TB\n    Y((\"z\"))\n  end\n  X1 --&gt; H1 & H2\n  X2 --&gt; H1 & H2\n  X3 --&gt; H1 & H2\n  H1 --&gt; Y\n  H2 --&gt; Y\n\n  style X1 fill:#3b82f6,stroke:#3b82f6,color:#fff\n  style X2 fill:#3b82f6,stroke:#3b82f6,color:#fff\n  style X3 fill:#3b82f6,stroke:#3b82f6,color:#fff\n  style H1 fill:#f59e0b,stroke:#f59e0b,color:#fff\n  style H2 fill:#f59e0b,stroke:#f59e0b,color:#fff\n  style Y fill:#0f172a,stroke:#0f172a,color:#fff\n  linkStyle default stroke:#334155,stroke-width:2px\n\n\n\n\n\n\nA fully connected network: every input connects to every neuron in the next layer."
+  },
+  {
+    "objectID": "slides/m17-miscellaneous.html#how-a-neuron-decides",
+    "href": "slides/m17-miscellaneous.html#how-a-neuron-decides",
+    "title": "Miscellaneous 4/16/2026",
+    "section": "How a Neuron Decides",
+    "text": "How a Neuron Decides\nEach neuron in the hidden layer computes a weighted sum of its inputs plus a bias:\n\\[\\hat{y} = b + w_1 x_1 + w_2 x_2 + w_3 x_3\\]\nThe neuron “fires” (produces a nonzero output) only if this sum is positive:\n\nThe weights \\(w_1, w_2, w_3\\) determine which inputs matter and how much\nThe bias \\(b\\) sets the threshold — how large the weighted inputs must be before the neuron activates\n\n\nIf the weights are positive, the neuron fires when the inputs are large enough. The bias \\(b\\) controls how large — a more negative bias means the inputs must be stronger to activate the neuron. Training a neural network means finding the right weights and biases."
   },
   {
     "objectID": "slides/m12-rag.html#what-weve-done",
@@ -1138,7 +1292,7 @@
     "href": "slides.html",
     "title": "Slide Decks",
     "section": "",
-    "text": "#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nFine-Tuning\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nAgents and Tools\n\n\n\n16\nThe Agent Landscape\n\n\n\n17\nHow AI Works\n\n\n\n18\nMiscellaneous 4/16/2026"
+    "text": "#\nModule\n\n\n\n\n\n1\nOverview\n\n\n\n2\nExploring Claude\n\n\n\n3\nMean-Variance Analysis\n\n\n\n4\nClaude Desktop and Claude Code\n\n\n\n5\nSub-Agents and Skills\n\n\n\n6\nMakers and Checkers\n\n\n\n7\nSome Claude Tips\n\n\n\n8\nWeb Scraping with AI\n\n\n\n9\nChatbots and Agents\n\n\n\n10\nCorporate AI Deployment\n\n\n\n11\nMagnolia DCF\n\n\n\n12\nRetrieval Augmented Generation\n\n\n\n13\nFine-Tuning\n\n\n\n14\nSentiment Analysis\n\n\n\n15\nAgents and Tools\n\n\n\n16\nThe Agent Landscape\n\n\n\n17\nMiscellaneous 4/16/2026"
   },
   {
     "objectID": "index.html",
@@ -2196,5 +2350,138 @@
     "title": "Module 13: Fine-Tuning",
     "section": "Hands-On: Fine-Tuning with LoRA",
     "text": "Hands-On: Fine-Tuning with LoRA\nFine-tune Google Gemma 3 1B to classify financial news sentiment using QLoRA — in a Colab notebook.\n\n\nWhat You’ll Do\n\nLoad Gemma 1B with 4-bit quantization\nAttach LoRA adapters (&lt; 0.1% of parameters)\nTrain on 4,845 expert-labeled financial sentences\nTest on new examples\n\n\n\nWhat You’ll Need\n\nGoogle Colab with T4 GPU (free tier)\nA Hugging Face account and access token\nAccept Google’s Gemma license\n~15 minutes to train\n\n\n\nOpen in Google Colab →"
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#trading-on-sentiment",
+    "href": "slides/m14-sentiment.html#trading-on-sentiment",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Trading on Sentiment",
+    "text": "Trading on Sentiment"
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#sentiment-of-what",
+    "href": "slides/m14-sentiment.html#sentiment-of-what",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Sentiment of What?",
+    "text": "Sentiment of What?\nTraders extract sentiment from many text sources. Each differs in volume, speed, and signal quality:\n\n\n\n\n\n\n\n\n\nSource\nVolume\nSpeed\nSignal\n\n\n\n\nNews headlines\nHigh\nSeconds–minutes\nStrong, well-studied\n\n\nFull news articles\nHigh\nMinutes–hours\nRicher context\n\n\nSocial media (Twitter, StockTwits)\nVery high\nReal-time\nNoisy but fast\n\n\nEarnings call transcripts\nLow (quarterly)\nHours–days\nHigh quality\n\n\nFinancial statements (10-K, 10-Q)\nLow (quarterly)\nDays–weeks\nDeep fundamentals\n\n\n\nThe academic evidence now covers all of these."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#news-headlines",
+    "href": "slides/m14-sentiment.html#news-headlines",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "News Headlines",
+    "text": "News Headlines\nLopez-Lira & Tang (2023), accepted at the Journal of Finance.\n\nGPT-3.5 / GPT-4 classify 67,586 headlines for 4,123 stocks (Oct 2021–Dec 2023)\nSpeed: overnight news → trade at next-day market open, exit at close (single-day hold)\nPerformance: GPT-4 long-short Sharpe ratio 3.28\n\n\nForecasting ability increases with model size: GPT-4 &gt;&gt; GPT-3.5 &gt;&gt; GPT-3 — financial reasoning is an “emerging capability” of larger LLMs. But the Sharpe ratio declined from 6.5 to 1.2 as the sample extended from 2021 to 2024, consistent with more traders adopting the same approach."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#news-articles",
+    "href": "slides/m14-sentiment.html#news-articles",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "News Articles",
+    "text": "News Articles\nKirtac & Germano (2024), Finance Research Letters. 965,375 U.S. financial news articles (2010–2023).\n\nSpeed: news before 6 AM → trade at same-day open; news 6 AM–4 PM → trade at same-day close; news after 4 PM → trade at next-day open\nLong top 20% sentiment, short bottom 20%, daily rebalanced\n\n\n\n\nMethod\nAccuracy\nLong-Short Sharpe\n\n\n\n\nLoughran-McDonald dictionary\n50.1%\n1.23\n\n\nFinBERT\n72.2%\n2.07\n\n\nOPT (GPT-3 family)\n74.4%\n3.05"
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#news-articles-fine-tuned-small-models",
+    "href": "slides/m14-sentiment.html#news-articles-fine-tuned-small-models",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "News Articles: Fine-Tuned Small Models",
+    "text": "News Articles: Fine-Tuned Small Models\nFinLlama (2024), ICAIF Conference. 204,017 articles for S&P 500 stocks (2015–2021).\n\nModel: Llama 2 7B fine-tuned with LoRA (4.2M trainable parameters)\nSpeed: daily rebalancing based on sentiment scores\nLong top 35%, short bottom 35%\nPerformance: Sharpe ratio 2.4, annualized return 45%\n\n\nA fine-tuned 7B model outperforms FinBERT by 44.7% in cumulative returns — and runs on a single GPU at a fraction of GPT-4’s cost."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#social-media",
+    "href": "slides/m14-sentiment.html#social-media",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Social Media",
+    "text": "Social Media\nCookson, Lu, Mullins & Niessner (2024), “The Social Signal,” Journal of Financial Economics.\n\nSources: Twitter, StockTwits, and Seeking Alpha\nSpeed: social media sentiment predicts next-day returns (one-to-two-day window)\nSocial media sentiment predicts positive returns; social media attention predicts negative returns — the two signals go in opposite directions\n\n\nInformativeness deteriorated significantly after the Jan 2021 GameStop short squeeze, concentrated among messages by new users. Platform quality matters."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#earnings-calls-and-financial-statements",
+    "href": "slides/m14-sentiment.html#earnings-calls-and-financial-statements",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Earnings Calls and Financial Statements",
+    "text": "Earnings Calls and Financial Statements\n\n\nEarnings Call Summaries\nKim, Muhn & Nikolaev (2024), U. Chicago Booth\n\nGPT summarizes 10-K filings and earnings call transcripts to &lt; 1/5 original length\nSummary sentiment is more predictive of stock returns than original-document sentiment\nTwo-day event window around filing date\n\n\n\nFinancial Statement Analysis\nKim, Muhn & Nikolaev (2024), U. Chicago Booth\n\nGPT-4 given only anonymized financial statements\nPredicts earnings direction with 60% accuracy vs. 53% for human analysts\nLong-short alpha &gt; 12% per year\n\n\n\n\nThese are the slowest strategies — days to weeks after filings. But the alpha is large because the analysis is deep, not fast."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#multi-source-agents",
+    "href": "slides/m14-sentiment.html#multi-source-agents",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Multi-Source Agents",
+    "text": "Multi-Source Agents\nMarketSenseAI 2.0 (2025): a GPT-4o multi-agent system that combines news, SEC filings, earnings calls, price data, and macro reports.\n\nSpeed: monthly rebalancing — the slowest strategy we’ve seen, but the most comprehensive\nPerformance (S&P 100, 2023–2024): cumulative return 125.9% vs. 73.5% benchmark; Sharpe 2.76\nPerformance (S&P 500, 2024): cumulative return 48.7% vs. 25.6% benchmark; alpha 17.6%\n\n\nMonthly rebalancing is the most realistic for practical implementation — and the returns are still extraordinary."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#summary-source-speed-and-performance",
+    "href": "slides/m14-sentiment.html#summary-source-speed-and-performance",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Summary: Source, Speed, and Performance",
+    "text": "Summary: Source, Speed, and Performance\n\n\n\n\n\n\n\n\n\nPaper\nSource\nTrade Delay\nSharpe\n\n\n\n\nLopez-Lira & Tang (2023)\nNews headlines\nNext-day open\n3.28\n\n\nKirtac & Germano (2024)\nNews articles\nSame-day or next-day\n3.05\n\n\nFinLlama (2024)\nNews articles\nDaily\n2.40\n\n\nCookson et al. (2024)\nSocial media\nNext day\n—\n\n\nKim et al. (2024)\nEarnings calls / 10-Ks\n2-day event window\n—\n\n\nMarketSenseAI (2025)\nMulti-source\nMonthly\n2.76\n\n\n\nThe highest Sharpe ratios require the fastest execution and highest turnover. As you move from headlines to deeper analysis, speed decreases but the alpha persists longer."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#alpha-decay",
+    "href": "slides/m14-sentiment.html#alpha-decay",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Alpha Decay",
+    "text": "Alpha Decay\nAs more firms adopt LLM-based analysis, alpha from news sentiment decays faster:\n\nLopez-Lira & Tang document the decline: Sharpe 6.5 → 1.2 as their sample extends from 2021 to 2024\nMore sophisticated signals (tone analysis, cross-sector propagation, multi-source) retain more alpha\nThe arms race: better NLP → alpha captured → faster decay → need even better NLP\n\nThe moat is shifting from speed of access to depth of understanding."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#sentiment-classification-methods",
+    "href": "slides/m14-sentiment.html#sentiment-classification-methods",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Sentiment Classification Methods",
+    "text": "Sentiment Classification Methods"
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#bag-of-words",
+    "href": "slides/m14-sentiment.html#bag-of-words",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Bag of Words",
+    "text": "Bag of Words\nThe earliest approach: count words from predefined positive/negative lists.\n“Apple revenue beats estimates, shares surge 5%” → beats (+1), surge (+1) → positive ✓\nBut bag-of-words fails on:\n\nNegation: “did not report a loss” → counts loss as negative ✗\nHedging: “despite strong revenue, warned about disruptions” → counts strong as positive ✗\nDomain language: liability, outstanding, capital have different meanings in finance\n\nLoughran & McDonald (2011) improved this with finance-specific word lists — but the fundamental limitation remains: words are not sentences."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
+    "href": "slides/m14-sentiment.html#the-loughran-mcdonald-dictionary",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "The Loughran-McDonald Dictionary",
+    "text": "The Loughran-McDonald Dictionary\nLoughran & McDonald (2011) built word lists specifically for financial text by reading thousands of 10-K filings.\n\n\nNegative words (2,355)\n\nimpairment, litigation, restated, breach, delinquent, uncollectible, insolvent, misrepresent, overdue, penalized, underperform, whistleblower\n\n\n\nPositive words (354)\n\nachieve, attain, efficient, favorable, innovative, profitable, stabilize, surpass, upturn, versatile\n\n\n\nNew categories: uncertainty (297 words), litigious (903 words), constraining (184 words), superfluous (56 words)\n\nNotice the asymmetry: 7\\(\\times\\) more negative words than positive. Financial disclosures are legally required to discuss risks, so negative language is far more varied."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#how-bert-learns-language",
+    "href": "slides/m14-sentiment.html#how-bert-learns-language",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "How BERT Learns Language",
+    "text": "How BERT Learns Language\nBERT (Bidirectional Encoder Representations from Transformers) is trained in two stages:\n\n\nStage 1: Pre-Training\n\nMasked language model: hide 15% of words, predict them from context\n“The company reported strong [MASK]” → earnings (not losses)\nLearns grammar, meaning, and relationships from millions of sentences\nNo human labels needed\n\n\n\nStage 2: Fine-Tuning\n\nAdd a classification layer on top of the pre-trained model\nTrain on labeled examples: sentence → positive / negative / neutral\nOnly a few thousand examples needed (Financial PhraseBank: 4,840 sentences)\nThe pre-trained knowledge transfers to the new task\n\n\n\n\nThe key insight: BERT reads both directions simultaneously. “Bank” means something different in “river bank” vs. “bank earnings” — BERT uses the full context to decide."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#finbert-bert-for-finance",
+    "href": "slides/m14-sentiment.html#finbert-bert-for-finance",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "FinBERT: BERT for Finance",
+    "text": "FinBERT: BERT for Finance\nFinBERT (Araci, 2019) = BERT pre-trained on financial text, then fine-tuned for 3-class sentiment.\n\n110M parameters\nFine-tuned on Financial PhraseBank (4,840 labeled sentences)\n~87% accuracy on financial sentiment (14 pp above vanilla BERT)\nInference: ~5 ms per sentence on GPU\n\n\nFinBERT became the standard baseline for financial NLP. It’s fast enough for real-time trading and accurate enough for most headline classification. Open source: ProsusAI/finbert on HuggingFace."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#how-llms-classify-sentiment",
+    "href": "slides/m14-sentiment.html#how-llms-classify-sentiment",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "How LLMs Classify Sentiment",
+    "text": "How LLMs Classify Sentiment\nLarge language models (GPT-4, Claude, Gemini) classify sentiment with no task-specific training — just a well-crafted prompt:\n\n“Classify the sentiment of this financial headline as positive, negative, or neutral. Explain your reasoning.”\n\nWhy this works:\n\nPre-trained on trillions of tokens including financial text\nUnderstands nuance: “despite strong revenue, guidance was weak” → negative\nHandles sarcasm, hedging, implicit sentiment\nCan classify sentiment, extract events, and summarize in a single prompt\n\nThe tradeoff: 500 ms – 5 s per API call vs. 5 ms for FinBERT. For real-time trading, use FinBERT for high-confidence cases and route low-confidence cases to an LLM."
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#try-it-finbert",
+    "href": "slides/m14-sentiment.html#try-it-finbert",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Try It: FinBERT",
+    "text": "Try It: FinBERT\n\nimport warnings\nwarnings.filterwarnings(\"ignore\")\nimport logging\nlogging.disable(logging.WARNING)\n\nfrom transformers import pipeline\n\npipe = pipeline(\"text-classification\", model=\"ProsusAI/finbert\", top_k=None)\n\nheadlines = [\n    \"Apple revenue beats estimates, shares surge 5%\",\n    \"Despite strong revenue, the company warned about supply chain disruptions\",\n    \"The company did not report a loss\",\n    \"Shares fell less than feared after earnings miss\",\n]\n\nresults = pipe(headlines)\nfor headline, scores in zip(headlines, results):\n    best = max(scores, key=lambda x: x[\"score\"])\n    print(f\"{best['label']:&gt;8s} ({best['score']:.0%})  {headline}\")\n\n\n\n\n\n\npositive (92%)  Apple revenue beats estimates, shares surge 5%\nnegative (97%)  Despite strong revenue, the company warned about supply chain disruptions\n neutral (89%)  The company did not report a loss\nnegative (97%)  Shares fell less than feared after earnings miss"
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#try-it-yourself",
+    "href": "slides/m14-sentiment.html#try-it-yourself",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Try It Yourself",
+    "text": "Try It Yourself\n\nTry it locally: Ask Claude to use FinBERT to determine the sentiment of “Despite record revenue, management issued cautious guidance citing tariff uncertainty.”\nTry it on Colab: Compare bag of words, Loughran-McDonald, FinBERT, and Gemma (via OpenRouter) on a variety of sentences — including negation, hedging, and finance-specific language.\n\nOpen in Google Colab →"
+  },
+  {
+    "objectID": "slides/m14-sentiment.html#key-references",
+    "href": "slides/m14-sentiment.html#key-references",
+    "title": "Module 14: Sentiment Analysis",
+    "section": "Key References",
+    "text": "Key References\n\n\nLopez-Lira & Tang (2023). Can ChatGPT Forecast Stock Price Movements? Journal of Finance.\nKirtac & Germano (2024). Sentiment Trading with Large Language Models. Finance Research Letters.\nCookson, Lu, Mullins & Niessner (2024). The Social Signal. Journal of Financial Economics.\nKim, Muhn & Nikolaev (2024). Bloated Disclosures: Can ChatGPT Help Investors Process Information?\nKim, Muhn & Nikolaev (2024). Financial Statement Analysis with Large Language Models.\nFatouros, Metaxas, Soldatos & Kyriazis (2025). MarketSenseAI 2.0.\nGupta, Raghunath, Buddaraju, Krishnasamy & Mitra (2024). FinLlama. ICAIF ’24.\nAraci (2019). FinBERT: Financial Sentiment Analysis with Pre-Trained Language Models.\nLoughran & McDonald (2011). When Is a Liability Not a Liability? Journal of Finance.\nChen, Kelly & Xiu (2023). Expected Returns and Large Language Models. NBER Working Paper 31502."
   }
 ]
