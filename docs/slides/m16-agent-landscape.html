@@ -278,63 +278,6 @@ Kerry Back, Rice University
 <p>Anthropic bundles everything into a session-hour fee. OpenAI gives away the harness and charges only for model usage. Google and Microsoft meter individual components. These are fundamentally different bets.</p>
 </div>
 </section>
-<section id="the-rise-and-fall-of-orchestration-frameworks" class="slide level2 center">
-<h2>The Rise and Fall of Orchestration Frameworks</h2>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>2023: LangChain solved a real problem</strong></span></p>
-<ul>
-<li>Models couldn’t use tools natively</li>
-<li>No built-in conversation memory</li>
-<li>No structured output</li>
-<li>Chaining prompts required glue code</li>
-<li>LangChain provided the duct tape</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>2026: The problem was solved upstream</strong></span></p>
-<ul>
-<li>Models handle tool use natively</li>
-<li>Structured output is built into APIs</li>
-<li>Labs ship their own agent SDKs</li>
-<li>The SDK is optimized for its own model</li>
-<li>The generic wrapper adds overhead, not value</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="wait-isnt-claude-code-already-a-universal-agent" class="slide level2 section-divider center">
-<h2>Wait — Isn’t Claude Code Already a Universal Agent?</h2>
-</section>
-<section id="youve-been-using-one-all-semester" class="slide level2 center">
-<h2>You’ve Been Using One All Semester</h2>
-<p>Claude Code already does the Dobby pattern: you describe what you want in natural language, and it <span class="amber">picks tools, runs code, queries data, writes files</span>.</p>
-<p>So why do we need agent software development kits (SDKs) and managed runtimes?</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Claude Code / Desktop</strong></span></p>
-<ul>
-<li>You’re in the loop, approving and steering</li>
-<li>Runs on your machine, in your session</li>
-<li>Single user, interactive</li>
-<li>Perfect for knowledge work: data analysis, document analysis, building things</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Agent SDKs / Managed Agents</strong></span></p>
-<ul>
-<li>Runs autonomously — no one at the keyboard</li>
-<li>Runs in the cloud, 24/7</li>
-<li>Serves many users with different permissions</li>
-<li>Embedded in products (CRM, trading platform, compliance system)</li>
-<li>Triggered by events, schedules, or other agents</li>
-</ul>
-</div>
-</div>
-<div class="explainer">
-<p>Claude Code is the universal agent for <span class="amber">interactive work</span>. The SDK layer is for agents that act on their own — overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep.</p>
-</div>
-</section>
 <section id="karpathys-dobby-a-case-study" class="slide level2 center">
 <h2>Karpathy’s Dobby: A Case Study</h2>
 <p>Andrej Karpathy built an agent called <span class="amber">Dobby</span> that replaced six separate smart home apps with a single WhatsApp conversation.</p>
@@ -404,6 +347,35 @@ Kerry Back, Rice University
 <li>Junior analyst = senior analyst in tool access</li>
 </ul>
 </div>
+</div>
+</section>
+<section id="isnt-claude-code-already-a-universal-agent" class="slide level2 center">
+<h2>Isn’t Claude Code Already a Universal Agent?</h2>
+<p>Claude Code already does the Dobby pattern: you describe what you want in natural language, and it <span class="amber">picks tools, runs code, queries data, writes files</span>.</p>
+<p>So why do we need agent software development kits (SDKs) and managed runtimes?</p>
+<div class="two-cards">
+<div class="card card-light">
+<p><span class="card-title"><strong>Claude Code / Desktop</strong></span></p>
+<ul>
+<li>You’re in the loop, approving and steering</li>
+<li>Runs on your machine, in your session</li>
+<li>Single user, interactive</li>
+<li>Perfect for knowledge work: data analysis, document analysis, building things</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Agent SDKs / Managed Agents</strong></span></p>
+<ul>
+<li>Runs autonomously — no one at the keyboard</li>
+<li>Runs in the cloud, 24/7</li>
+<li>Serves many users with different permissions</li>
+<li>Embedded in products (CRM, trading platform, compliance system)</li>
+<li>Triggered by events, schedules, or other agents</li>
+</ul>
+</div>
+</div>
+<div class="explainer">
+<p>Claude Code is the universal agent for <span class="amber">interactive work</span>. The SDK layer is for agents that act on their own — overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep.</p>
 </div>
 
 

@@ -53,6 +53,30 @@ Sample queries: *"What are the five largest completed deals?" · "Which banks ad
 The more open-ended and unpredictable the user's needs, the stronger the case for an agent.
 :::
 
+## Agents Are Replacing Dashboards
+
+Dashboards are the traditional way to make data accessible to decision-makers:
+
+:::{.baritemize}
+- Someone builds a set of **pre-defined views** --- charts, tables, KPIs
+- Users can filter and drill down, but only along **dimensions the designer anticipated**
+- Adding a new question means asking a developer to build a new panel
+:::
+
+. . .
+
+An agent does the same job --- [surfaces data for decisions]{.amber} --- but without the constraints:
+
+:::{.baritemize}
+- Users ask questions in plain language, including questions **no one anticipated**
+- The agent writes and runs its own queries, so it adapts to whatever the user needs
+- No developer needed to add a new view --- the agent builds it on the fly
+:::
+
+:::{.explainer}
+Dashboards answer the questions you planned for. Agents answer the questions you didn't.
+:::
+
 ## Where Are Agents Headed? {.section-divider}
 
 ## Agent Harnesses
@@ -116,63 +140,8 @@ Anthropic bundles everything into a session-hour fee. OpenAI gives away the harn
 :::
 
 
-## The Rise and Fall of Orchestration Frameworks
-
-:::{.two-cards}
-:::{.card .card-light}
-[**2023: LangChain solved a real problem**]{.card-title}
-
-- Models couldn't use tools natively
-- No built-in conversation memory
-- No structured output
-- Chaining prompts required glue code
-- LangChain provided the duct tape
-:::
-
-:::{.card .card-dark}
-[**2026: The problem was solved upstream**]{.card-title}
-
-- Models handle tool use natively
-- Structured output is built into APIs
-- Labs ship their own agent SDKs
-- The SDK is optimized for its own model
-- The generic wrapper adds overhead, not value
-:::
-:::
 
 
-## Wait --- Isn't Claude Code Already a Universal Agent? {.section-divider}
-
-## You've Been Using One All Semester
-
-Claude Code already does the Dobby pattern: you describe what you want in natural language, and it [picks tools, runs code, queries data, writes files]{.amber}.
-
-So why do we need agent software development kits (SDKs) and managed runtimes?
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Claude Code / Desktop**]{.card-title}
-
-- You're in the loop, approving and steering
-- Runs on your machine, in your session
-- Single user, interactive
-- Perfect for knowledge work: data analysis, document analysis, building things
-:::
-
-:::{.card .card-dark}
-[**Agent SDKs / Managed Agents**]{.card-title}
-
-- Runs autonomously --- no one at the keyboard
-- Runs in the cloud, 24/7
-- Serves many users with different permissions
-- Embedded in products (CRM, trading platform, compliance system)
-- Triggered by events, schedules, or other agents
-:::
-:::
-
-:::{.explainer}
-Claude Code is the universal agent for [interactive work]{.amber}. The SDK layer is for agents that act on their own --- overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep.
-:::
 
 ## Karpathy's Dobby: A Case Study
 
@@ -247,3 +216,33 @@ The apps don't disappear --- but the user never touches them. The agent becomes 
 :::
 :::
 
+## Isn't Claude Code Already a Universal Agent?
+
+Claude Code already does the Dobby pattern: you describe what you want in natural language, and it [picks tools, runs code, queries data, writes files]{.amber}.
+
+So why do we need agent software development kits (SDKs) and managed runtimes?
+
+:::{.two-cards}
+:::{.card .card-light}
+[**Claude Code / Desktop**]{.card-title}
+
+- You're in the loop, approving and steering
+- Runs on your machine, in your session
+- Single user, interactive
+- Perfect for knowledge work: data analysis, document analysis, building things
+:::
+
+:::{.card .card-dark}
+[**Agent SDKs / Managed Agents**]{.card-title}
+
+- Runs autonomously --- no one at the keyboard
+- Runs in the cloud, 24/7
+- Serves many users with different permissions
+- Embedded in products (CRM, trading platform, compliance system)
+- Triggered by events, schedules, or other agents
+:::
+:::
+
+:::{.explainer}
+Claude Code is the universal agent for [interactive work]{.amber}. The SDK layer is for agents that act on their own --- overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep.
+:::

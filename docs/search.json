@@ -49,27 +49,6 @@
     "text": "Five Vendors, Three Pricing Models\nAs of April 2026, every major AI vendor has shipped its own harness — but they disagree on pricing:\n\n\n\n\n\n\n\n\n\n\nProvider\nProduct\nLaunched\nPricing Model\n\n\n\n\nAnthropic\nManaged Agents\nApr 2026\n$0.08/session-hour + tokens\n\n\nOpenAI\nAgents SDK (open source)\nMar 2025\nTokens only, no runtime fee\n\n\nGoogle\nVertex AI Agent Engine\nApr 2025\nPer-component consumption\n\n\nMicrosoft\nFoundry Agent Service\nMay 2025\nPer-model + per-tool consumption\n\n\nAWS\nBedrock AgentCore\nOct 2025\nRuntime primitives (coming)\n\n\n\n\n\nAnthropic bundles everything into a session-hour fee. OpenAI gives away the harness and charges only for model usage. Google and Microsoft meter individual components. These are fundamentally different bets."
   },
   {
-    "objectID": "slides/m16-agent-landscape.html#the-rise-and-fall-of-orchestration-frameworks",
-    "href": "slides/m16-agent-landscape.html#the-rise-and-fall-of-orchestration-frameworks",
-    "title": "Module 16: The Agent Landscape",
-    "section": "The Rise and Fall of Orchestration Frameworks",
-    "text": "The Rise and Fall of Orchestration Frameworks\n\n\n2023: LangChain solved a real problem\n\nModels couldn’t use tools natively\nNo built-in conversation memory\nNo structured output\nChaining prompts required glue code\nLangChain provided the duct tape\n\n\n\n2026: The problem was solved upstream\n\nModels handle tool use natively\nStructured output is built into APIs\nLabs ship their own agent SDKs\nThe SDK is optimized for its own model\nThe generic wrapper adds overhead, not value"
-  },
-  {
-    "objectID": "slides/m16-agent-landscape.html#wait-isnt-claude-code-already-a-universal-agent",
-    "href": "slides/m16-agent-landscape.html#wait-isnt-claude-code-already-a-universal-agent",
-    "title": "Module 16: The Agent Landscape",
-    "section": "Wait — Isn’t Claude Code Already a Universal Agent?",
-    "text": "Wait — Isn’t Claude Code Already a Universal Agent?"
-  },
-  {
-    "objectID": "slides/m16-agent-landscape.html#youve-been-using-one-all-semester",
-    "href": "slides/m16-agent-landscape.html#youve-been-using-one-all-semester",
-    "title": "Module 16: The Agent Landscape",
-    "section": "You’ve Been Using One All Semester",
-    "text": "You’ve Been Using One All Semester\nClaude Code already does the Dobby pattern: you describe what you want in natural language, and it picks tools, runs code, queries data, writes files.\nSo why do we need agent software development kits (SDKs) and managed runtimes?\n\n\nClaude Code / Desktop\n\nYou’re in the loop, approving and steering\nRuns on your machine, in your session\nSingle user, interactive\nPerfect for knowledge work: data analysis, document analysis, building things\n\n\n\nAgent SDKs / Managed Agents\n\nRuns autonomously — no one at the keyboard\nRuns in the cloud, 24/7\nServes many users with different permissions\nEmbedded in products (CRM, trading platform, compliance system)\nTriggered by events, schedules, or other agents\n\n\n\n\nClaude Code is the universal agent for interactive work. The SDK layer is for agents that act on their own — overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep."
-  },
-  {
     "objectID": "slides/m16-agent-landscape.html#karpathys-dobby-a-case-study",
     "href": "slides/m16-agent-landscape.html#karpathys-dobby-a-case-study",
     "title": "Module 16: The Agent Landscape",
@@ -82,6 +61,13 @@
     "title": "Module 16: The Agent Landscape",
     "section": "From GUI to LUI",
     "text": "From GUI to LUI\nDobby illustrates a deeper shift: from Graphical User Interface to Language User Interface.\nThe apps don’t disappear — but the user never touches them. The agent becomes the universal interface layer between people and software.\n\n\nInterface Collapse\n\nOne conversation replaces many apps\nThe agent picks the right tool\nUsers describe intent, not actions\n\n\n\nNuance Over Sliders\n\n“Too loud for conversation”\n“Rebalance conservatively for retirement”\nNatural language captures context GUIs can’t\n\n\n\nAPIs Over UIs\n\nCompetitive advantage shifts to API quality\nAgents consume APIs, not interfaces\nRobust API &gt; beautiful dashboard\n\n\n\nAccess Democratized\n\nDescribe what you want in plain language\nNo need to know which menu or function\nJunior analyst = senior analyst in tool access"
+  },
+  {
+    "objectID": "slides/m16-agent-landscape.html#isnt-claude-code-already-a-universal-agent",
+    "href": "slides/m16-agent-landscape.html#isnt-claude-code-already-a-universal-agent",
+    "title": "Module 16: The Agent Landscape",
+    "section": "Isn’t Claude Code Already a Universal Agent?",
+    "text": "Isn’t Claude Code Already a Universal Agent?\nClaude Code already does the Dobby pattern: you describe what you want in natural language, and it picks tools, runs code, queries data, writes files.\nSo why do we need agent software development kits (SDKs) and managed runtimes?\n\n\nClaude Code / Desktop\n\nYou’re in the loop, approving and steering\nRuns on your machine, in your session\nSingle user, interactive\nPerfect for knowledge work: data analysis, document analysis, building things\n\n\n\nAgent SDKs / Managed Agents\n\nRuns autonomously — no one at the keyboard\nRuns in the cloud, 24/7\nServes many users with different permissions\nEmbedded in products (CRM, trading platform, compliance system)\nTriggered by events, schedules, or other agents\n\n\n\n\nClaude Code is the universal agent for interactive work. The SDK layer is for agents that act on their own — overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep."
   },
   {
     "objectID": "slides/m15-agent-sdk.html#how-tool-use-works",

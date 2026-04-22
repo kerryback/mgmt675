@@ -10,3 +10,12 @@ format:
 ---
 
 Design and build an AI agent for a wealth manager who chooses stocks to buy and sell based on analyst recommendations and who seeks to maintain targeted sector exposures and to minimize capital gains taxes.  The agent should relieve the manager of the repetitive work needed to develop a trading plan.  Deploy the app on Railway.  Submit a pdf of a sample report from the agent along with a link to the Railway app.
+
+\bigskip
+\noindent\textbf{Resources.}
+
+\begin{itemize}
+  \item \href{../files/client_info.md}{Client profile} --- client information, target allocation, tax lot preferences, and constraints.
+  \item \href{../files/stock_data.md}{Stock database access} --- connection setup, query function, and table documentation for the MotherDuck stock database (stocks, prices, and recommendations tables).
+  \item \href{../files/exercise6_portfolio_lots.xlsx}{Example portfolio} --- a sample portfolio with 49 stocks across 11 sectors, including purchase dates, share counts, and cost basis for each lot.
+\end{itemize}
