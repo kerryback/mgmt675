@@ -21,6 +21,13 @@
     "text": "Test Case: Exercise 4B\nExercise 4B asked you to build a chatbot that lets users query an M&A database in plain English — 200 transactions across three tables (transactions, advisors, financing).\nSample queries: “What are the five largest completed deals?” · “Which banks advised the most deals?” · “What is the average EV/EBITDA multiple for tech acquisitions?”\n\nCould a conventional app replace this?\n\n\nYes, mostly. Dropdown filters (year, sector, deal type, advisor) plus a results table would handle most of those queries — no AI needed.\nBut not entirely. The chatbot shines for ad-hoc, unanticipated questions that don’t map to pre-built filters.\n\n\n\nThe more open-ended and unpredictable the user’s needs, the stronger the case for an agent."
   },
   {
+    "objectID": "slides/m16-agent-landscape.html#agents-are-replacing-dashboards",
+    "href": "slides/m16-agent-landscape.html#agents-are-replacing-dashboards",
+    "title": "Module 16: The Agent Landscape",
+    "section": "Agents Are Replacing Dashboards",
+    "text": "Agents Are Replacing Dashboards\nDashboards are the traditional way to make data accessible to decision-makers:\n\n\nSomeone builds a set of pre-defined views — charts, tables, KPIs\nUsers can filter and drill down, but only along dimensions the designer anticipated\nAdding a new question means asking a developer to build a new panel\n\n\n\nAn agent does the same job — surfaces data for decisions — but without the constraints:\n\n\nUsers ask questions in plain language, including questions no one anticipated\nThe agent writes and runs its own queries, so it adapts to whatever the user needs\nNo developer needed to add a new view — the agent builds it on the fly\n\n\n\nDashboards answer the questions you planned for. Agents answer the questions you didn’t."
+  },
+  {
     "objectID": "slides/m16-agent-landscape.html#where-are-agents-headed",
     "href": "slides/m16-agent-landscape.html#where-are-agents-headed",
     "title": "Module 16: The Agent Landscape",

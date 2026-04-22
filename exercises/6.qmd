@@ -15,7 +15,7 @@ Design and build an AI agent for a wealth manager who chooses stocks to buy and 
 \noindent\textbf{Resources.}
 
 \begin{itemize}
-  \item \href{../files/client_info.md}{Client profile} --- client information, target allocation, tax lot preferences, and constraints.
-  \item \href{../files/stock_data.md}{Stock database access} --- connection setup, query function, and table documentation for the MotherDuck stock database (stocks, prices, and recommendations tables).
-  \item \href{../files/exercise6_portfolio_lots.xlsx}{Example portfolio} --- a sample portfolio with 49 stocks across 11 sectors, including purchase dates, share counts, and cost basis for each lot.
+  \item \href{https://mgmt675.kerryback.com/files/client_info.md}{Client profile} --- client information, target allocation, tax lot preferences, and constraints.
+  \item \href{https://mgmt675.kerryback.com/files/stock_data.md}{Stock database access} --- connection setup, query function, and table documentation for the MotherDuck stock database (stocks, prices, and recommendations tables).
+  \item \href{https://mgmt675.kerryback.com/files/exercise6_portfolio_lots.xlsx}{Example portfolio} --- a sample portfolio with 49 stocks across 11 sectors, including purchase dates, share counts, and cost basis for each lot.
 \end{itemize}
