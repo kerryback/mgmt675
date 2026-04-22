@@ -90,14 +90,14 @@ The harness has three main parts:
 :::
 
 :::{.explainer}
-For 18 months, teams built this themselves using open-source frameworks or custom code. Now the AI labs are shipping it as a product.
+For 18 months, teams built this themselves using open-source frameworks or custom code. Now the AI vendors are shipping it as a product.
 :::
 
 ## The Harness Pricing War {.section-divider}
 
-## Five Labs, Four Business Models
+## Five Vendors, Three Pricing Models
 
-As of April 2026, every major AI lab has shipped its own harness --- but they [disagree on pricing]{.amber}:
+As of April 2026, every major AI vendor has shipped its own harness --- but they [disagree on pricing]{.amber}:
 
 :::{.comparison-table}
 
