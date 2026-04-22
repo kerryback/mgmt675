@@ -32,7 +32,7 @@
     "href": "slides/m16-agent-landscape.html#agent-harnesses",
     "title": "Module 16: The Agent Landscape",
     "section": "Agent Harnesses",
-    "text": "Agent Harnesses\nEverything surrounding the model — except the model itself — is called the harness. The harness has two main parts:\n\n\nOrchestration\n\nModel invocation\nTool selection and routing\nMulti-step reasoning loops\nMulti-agent delegation\n\n\n\nInfrastructure\n\nCode execution\nSession state and memory\nError recovery\nPersistent storage\n\n\n\n\nFor 18 months, teams built this themselves using open-source frameworks or custom code. Now the AI labs are shipping it as a product."
+    "text": "Agent Harnesses\nEverything surrounding the model — except the model itself — is called the harness. The harness has three main parts:\n\n\nOrchestration\n\nModel invocation\nTool selection and routing\nMulti-step reasoning loops\nMulti-agent delegation\n\n\n\nInfrastructure\n\nCode execution\nSession state and memory\nError recovery\nPersistent storage\n\n\n\nGovernance\n\nWho can use the agent and what can it do\nLogging what happened and why\nRules for handling sensitive data\nHuman approval for high-stakes actions\n\n\n\n\nFor 18 months, teams built this themselves using open-source frameworks or custom code. Now the AI labs are shipping it as a product."
   },
   {
     "objectID": "slides/m16-agent-landscape.html#the-harness-pricing-war",
@@ -47,20 +47,6 @@
     "title": "Module 16: The Agent Landscape",
     "section": "Five Labs, Four Business Models",
     "text": "Five Labs, Four Business Models\nAs of April 2026, every major AI lab has shipped its own harness — but they disagree on pricing:\n\n\n\n\n\n\n\n\n\n\nProvider\nProduct\nLaunched\nPricing Model\n\n\n\n\nAnthropic\nManaged Agents\nApr 2026\n$0.08/session-hour + tokens\n\n\nOpenAI\nAgents SDK (open source)\nMar 2025\nTokens only, no runtime fee\n\n\nGoogle\nVertex AI Agent Engine\nApr 2025\nPer-component consumption\n\n\nMicrosoft\nFoundry Agent Service\nMay 2025\nPer-model + per-tool consumption\n\n\nAWS\nBedrock AgentCore\nOct 2025\nRuntime primitives (coming)\n\n\n\n\n\nAnthropic bundles everything into a session-hour fee. OpenAI gives away the harness and charges only for model usage. Google and Microsoft meter individual components. These are fundamentally different bets."
-  },
-  {
-    "objectID": "slides/m16-agent-landscape.html#why-this-matters-for-your-career",
-    "href": "slides/m16-agent-landscape.html#why-this-matters-for-your-career",
-    "title": "Module 16: The Agent Landscape",
-    "section": "Why This Matters for Your Career",
-    "text": "Why This Matters for Your Career\nYou don’t need to build a harness. But you need to understand the strategic choices:\n\n\nManaged (Anthropic, Google, Microsoft)\n\nTurnkey: deploy agents without operating infrastructure\nVendor controls the runtime\nPredictable pricing per session\nData stays on the vendor’s infrastructure\n\n\n\nOpen Source (OpenAI)\n\nYou choose where agents run\nBring your own compute and storage\nNo runtime fee from the lab\nFull control over sensitive data\n\n\n\n\nThe choice between managed and self-hosted is a business decision, not a technical one. It depends on data sensitivity, cost structure, vendor tolerance, and team capabilities."
-  },
-  {
-    "objectID": "slides/m16-agent-landscape.html#what-happened-to-langchain",
-    "href": "slides/m16-agent-landscape.html#what-happened-to-langchain",
-    "title": "Module 16: The Agent Landscape",
-    "section": "What Happened to LangChain?",
-    "text": "What Happened to LangChain?"
   },
   {
     "objectID": "slides/m16-agent-landscape.html#the-rise-and-fall-of-orchestration-frameworks",

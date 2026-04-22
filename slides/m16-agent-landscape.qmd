@@ -58,7 +58,7 @@ The more open-ended and unpredictable the user's needs, the stronger the case fo
 ## Agent Harnesses
 
 Everything surrounding the model --- except the model itself --- is called the [harness]{.amber}. 
-The harness has two main parts:
+The harness has three main parts:
 
 :::{.three-cards}
 :::{.card .card-light}
@@ -77,6 +77,15 @@ The harness has two main parts:
 - Session state and memory
 - Error recovery
 - Persistent storage
+:::
+
+:::{.card .card-dark}
+[**Governance**]{.card-title}
+
+- Who can use the agent and what can it do
+- Logging what happened and why
+- Rules for handling sensitive data
+- Human approval for high-stakes actions
 :::
 :::
 
@@ -106,36 +115,6 @@ As of April 2026, every major AI lab has shipped its own harness --- but they [d
 Anthropic bundles everything into a session-hour fee. OpenAI gives away the harness and charges only for model usage. Google and Microsoft meter individual components. These are fundamentally different bets.
 :::
 
-## Why This Matters for Your Career
-
-You don't need to [build]{.amber} a harness. But you need to understand the strategic choices:
-
-:::{.two-cards}
-:::{.card .card-light}
-[**Managed (Anthropic, Google, Microsoft)**]{.card-title}
-
-- Turnkey: deploy agents without operating infrastructure
-- Vendor controls the runtime
-- Predictable pricing per session
-- Data stays on the vendor's infrastructure
-:::
-
-:::{.card .card-dark}
-[**Open Source (OpenAI)**]{.card-title}
-
-- You choose where agents run
-- Bring your own compute and storage
-- No runtime fee from the lab
-- Full control over sensitive data
-:::
-:::
-
-:::{.explainer}
-The choice between managed and self-hosted is a business decision, not a technical one. It depends on data sensitivity, cost structure, vendor tolerance, and team capabilities.
-:::
-
-
-## What Happened to LangChain? {.section-divider}
 
 ## The Rise and Fall of Orchestration Frameworks
 

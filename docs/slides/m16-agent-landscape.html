@@ -184,7 +184,7 @@ Kerry Back, Rice University
 </section>
 <section id="agent-harnesses" class="slide level2 center">
 <h2>Agent Harnesses</h2>
-<p>Everything surrounding the model — except the model itself — is called the <span class="amber">harness</span>. The harness has two main parts:</p>
+<p>Everything surrounding the model — except the model itself — is called the <span class="amber">harness</span>. The harness has three main parts:</p>
 <div class="three-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Orchestration</strong></span></p>
@@ -202,6 +202,15 @@ Kerry Back, Rice University
 <li>Session state and memory</li>
 <li>Error recovery</li>
 <li>Persistent storage</li>
+</ul>
+</div>
+<div class="card card-dark">
+<p><span class="card-title"><strong>Governance</strong></span></p>
+<ul>
+<li>Who can use the agent and what can it do</li>
+<li>Logging what happened and why</li>
+<li>Rules for handling sensitive data</li>
+<li>Human approval for high-stakes actions</li>
 </ul>
 </div>
 </div>
@@ -268,36 +277,6 @@ Kerry Back, Rice University
 <div class="explainer">
 <p>Anthropic bundles everything into a session-hour fee. OpenAI gives away the harness and charges only for model usage. Google and Microsoft meter individual components. These are fundamentally different bets.</p>
 </div>
-</section>
-<section id="why-this-matters-for-your-career" class="slide level2 center">
-<h2>Why This Matters for Your Career</h2>
-<p>You don’t need to <span class="amber">build</span> a harness. But you need to understand the strategic choices:</p>
-<div class="two-cards">
-<div class="card card-light">
-<p><span class="card-title"><strong>Managed (Anthropic, Google, Microsoft)</strong></span></p>
-<ul>
-<li>Turnkey: deploy agents without operating infrastructure</li>
-<li>Vendor controls the runtime</li>
-<li>Predictable pricing per session</li>
-<li>Data stays on the vendor’s infrastructure</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Open Source (OpenAI)</strong></span></p>
-<ul>
-<li>You choose where agents run</li>
-<li>Bring your own compute and storage</li>
-<li>No runtime fee from the lab</li>
-<li>Full control over sensitive data</li>
-</ul>
-</div>
-</div>
-<div class="explainer">
-<p>The choice between managed and self-hosted is a business decision, not a technical one. It depends on data sensitivity, cost structure, vendor tolerance, and team capabilities.</p>
-</div>
-</section>
-<section id="what-happened-to-langchain" class="slide level2 section-divider center">
-<h2>What Happened to LangChain?</h2>
 </section>
 <section id="the-rise-and-fall-of-orchestration-frameworks" class="slide level2 center">
 <h2>The Rise and Fall of Orchestration Frameworks</h2>
