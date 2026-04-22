@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="m16-agent-landscape_files/libs/clipboard/clipboard.min.js"></script>
-<script src="m16-agent-landscape_files/libs/quarto-html/tabby.min.js"></script>
-<script src="m16-agent-landscape_files/libs/quarto-html/popper.min.js"></script>
-<script src="m16-agent-landscape_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="m16-agent-landscape_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="m16-agent-landscape_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="m16-agent-landscape_files/libs/quarto-html/quarto-syntax-highlighting-17c909d5fd25ae21b861c0c7a49b2096.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17c909d5fd25ae21b861c0c7a49b2096.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Kerry Back, Rice University">
@@ -14,8 +14,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="m16-agent-landscape_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="m16-agent-landscape_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -29,11 +29,17 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="m16-agent-landscape_files/libs/revealjs/dist/theme/quarto-7962e9a1e656f6ad8e3bc59a1f2b5254.css">
-  <link href="m16-agent-landscape_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="m16-agent-landscape_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="m16-agent-landscape_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="m16-agent-landscape_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7962e9a1e656f6ad8e3bc59a1f2b5254.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <script async="" src="https://hypothes.is/embed.js"></script>
+  <script>
+    window.document.addEventListener("DOMContentLoaded", function (_event) {
+      document.body.classList.add('hypothesis-enabled');
+    });
+  </script>
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -139,26 +145,46 @@ Kerry Back, Rice University
 </div>
 
 </section>
+<section id="why-agents" class="slide level2 section-divider center">
+<h2>Why Agents?</h2>
+</section>
+<section id="questions-to-ask" class="slide level2 center">
+<h2>Questions to Ask</h2>
+<p>Before building an AI agent, consider the alternative — a conventional app with menus, dropdowns, and input fields.</p>
+<div class="baritemize">
+<ul>
+<li><strong>Can users get what they need by choosing from menus?</strong> Could you enumerate all the options upfront?</li>
+<li><strong>How many screens or clicks would it take?</strong> If the menu tree is deep or the combinations are many, complexity explodes.</li>
+<li><strong>Would users need training to navigate it?</strong> If the interface needs a manual, something is wrong.</li>
+</ul>
+</div>
+<div class="explainer">
+<p>If a conventional UI can cover 90% of use cases simply, you may not need an agent. Agents earn their keep when the task is open-ended or hard to anticipate in advance.</p>
+</div>
+</section>
+<section id="test-case-exercise-4b" class="slide level2 center">
+<h2>Test Case: Exercise 4B</h2>
+<p><strong>Exercise 4B</strong> asked you to build a chatbot that lets users query an M&amp;A database in plain English — 200 transactions across three tables (transactions, advisors, financing).</p>
+<p>Sample queries: <em>“What are the five largest completed deals?” · “Which banks advised the most deals?” · “What is the average EV/EBITDA multiple for tech acquisitions?”</em></p>
+<div class="fragment">
+<p><span class="amber">Could a conventional app replace this?</span></p>
+<div class="baritemize">
+<ul>
+<li><strong>Yes, mostly.</strong> Dropdown filters (year, sector, deal type, advisor) plus a results table would handle most of those queries — no AI needed.</li>
+<li><strong>But not entirely.</strong> The chatbot shines for ad-hoc, unanticipated questions that don’t map to pre-built filters.</li>
+</ul>
+</div>
+<div class="explainer">
+<p>The more open-ended and unpredictable the user’s needs, the stronger the case for an agent.</p>
+</div>
+</div>
+</section>
 <section id="where-are-agents-headed" class="slide level2 section-divider center">
 <h2>Where Are Agents Headed?</h2>
 </section>
-<section id="recap-what-weve-built-in-this-course" class="slide level2 center">
-<h2>Recap: What We’ve Built in This Course</h2>
-<p>We’ve used AI as a <span class="amber">tool</span> — chatbots, skills, agents with tool use, RAG, sentiment analysis.</p>
-<p>All of that sits on top of a foundation:</p>
-<ul>
-<li>A <strong>model</strong> (Claude, GPT, Gemini) that reads and writes text</li>
-<li><strong>Tools</strong> that let the model take actions (APIs, databases, code execution)</li>
-<li>A <strong>loop</strong> that keeps the model running until it’s done</li>
-</ul>
-<p>That foundation is called the <span class="amber">harness</span>. And as of April 2026, the harness has become the main battleground in AI.</p>
-<div class="explainer">
-<p>Understanding this landscape will help you evaluate AI products, vendors, and strategies — whether you’re building, buying, or advising.</p>
-</div>
-</section>
-<section id="what-is-a-harness" class="slide level2 center">
-<h2>What Is a Harness?</h2>
-<p>Martin Fowler defines <span class="amber">harness engineering</span> as everything surrounding an AI model, except the model itself:</p>
+<section id="agent-harnesses" class="slide level2 center">
+<h2>Agent Harnesses</h2>
+<p>Everything surrounding the model — except the model itself — is called the <span class="amber">harness</span>. The harness has two main parts:</p>
 <div class="three-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Orchestration</strong></span></p>
@@ -172,19 +198,10 @@ Kerry Back, Rice University
 <div class="card card-light">
 <p><span class="card-title"><strong>Infrastructure</strong></span></p>
 <ul>
-<li>Sandboxed code execution</li>
+<li>Code execution</li>
 <li>Session state and memory</li>
 <li>Error recovery</li>
 <li>Persistent storage</li>
-</ul>
-</div>
-<div class="card card-dark">
-<p><span class="card-title"><strong>Governance</strong></span></p>
-<ul>
-<li>Scoped permissions</li>
-<li>Audit trails and tracing</li>
-<li>Compliance controls</li>
-<li>Data residency</li>
 </ul>
 </div>
 </div>
@@ -201,14 +218,16 @@ Kerry Back, Rice University
 <div class="comparison-table">
 <table class="caption-top">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 27%">
-<col style="width: 42%">
+<col style="width: 23%">
+<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 32%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Provider</th>
 <th>Product</th>
+<th>Launched</th>
 <th>Pricing Model</th>
 </tr>
 </thead>
@@ -216,26 +235,31 @@ Kerry Back, Rice University
 <tr class="odd">
 <td><strong>Anthropic</strong></td>
 <td>Managed Agents</td>
+<td>Apr 2026</td>
 <td>$0.08/session-hour + tokens</td>
 </tr>
 <tr class="even">
 <td><strong>OpenAI</strong></td>
 <td>Agents SDK (open source)</td>
+<td>Mar 2025</td>
 <td>Tokens only, no runtime fee</td>
 </tr>
 <tr class="odd">
 <td><strong>Google</strong></td>
 <td>Vertex AI Agent Engine</td>
+<td>Apr 2025</td>
 <td>Per-component consumption</td>
 </tr>
 <tr class="even">
 <td><strong>Microsoft</strong></td>
 <td>Foundry Agent Service</td>
+<td>May 2025</td>
 <td>Per-model + per-tool consumption</td>
 </tr>
 <tr class="odd">
 <td><strong>AWS</strong></td>
 <td>Bedrock AgentCore</td>
+<td>Oct 2025</td>
 <td>Runtime primitives (coming)</td>
 </tr>
 </tbody>
@@ -272,19 +296,6 @@ Kerry Back, Rice University
 <p>The choice between managed and self-hosted is a business decision, not a technical one. It depends on data sensitivity, cost structure, vendor tolerance, and team capabilities.</p>
 </div>
 </section>
-<section id="the-historical-pattern" class="slide level2 center">
-<h2>The Historical Pattern</h2>
-<p>We’ve seen this split before in cloud infrastructure:</p>
-<ul>
-<li><strong>Terraform</strong> (open source) coexisted with <strong>AWS CloudFormation</strong> (managed)</li>
-<li><strong>Kubernetes</strong> (open source) coexisted with <strong>EKS, GKE, AKS</strong> (managed)</li>
-</ul>
-<p>In both cases, open source didn’t kill managed, and managed didn’t kill open source. They serve <span class="amber">different buyer profiles</span>.</p>
-<p>The same pattern is forming in AI agents: teams that want convenience go managed; teams that want control go open source.</p>
-<div class="explainer">
-<p>The lesson for evaluating vendors: ask whether they’re selling the runtime, the model, or both — and what lock-in comes with each.</p>
-</div>
-</section>
 <section id="what-happened-to-langchain" class="slide level2 section-divider center">
 <h2>What Happened to LangChain?</h2>
 </section>
@@ -312,22 +323,6 @@ Kerry Back, Rice University
 </ul>
 </div>
 </div>
-<div class="explainer">
-<p>LangChain’s value proposition was “write once, swap models freely.” In practice, different models have different strengths and failure modes. Most production systems settle on one model — the switching cost is in prompt engineering, not API syntax.</p>
-</div>
-</section>
-<section id="the-squeeze-on-generic-frameworks" class="slide level2 center">
-<h2>The Squeeze on Generic Frameworks</h2>
-<p>The independent orchestration framework is the <span class="amber">most exposed archetype</span> in this market shift:</p>
-<ol type="1">
-<li><strong>From above:</strong> labs ship free, model-native SDKs that work better with their own models</li>
-<li><strong>From below:</strong> the models themselves now handle what the framework used to do</li>
-<li><strong>The pitch erodes:</strong> “model-agnostic” flexibility matters less when you’re committed to one or two models anyway</li>
-</ol>
-<p>What survives? Startups that differentiate on <span class="amber">governance, compliance, vertical depth</span>, or genuine multi-model control — not generic prompt chaining.</p>
-<div class="explainer">
-<p>If you encounter LangChain in a job or a vendor pitch, this is the context. It’s not that it was bad — it solved a real problem at the right time. The problem just moved.</p>
-</div>
 </section>
 <section id="wait-isnt-claude-code-already-a-universal-agent" class="slide level2 section-divider center">
 <h2>Wait — Isn’t Claude Code Already a Universal Agent?</h2>
@@ -335,7 +330,7 @@ Kerry Back, Rice University
 <section id="youve-been-using-one-all-semester" class="slide level2 center">
 <h2>You’ve Been Using One All Semester</h2>
 <p>Claude Code already does the Dobby pattern: you describe what you want in natural language, and it <span class="amber">picks tools, runs code, queries data, writes files</span>.</p>
-<p>So why do we need agent SDKs and managed runtimes?</p>
+<p>So why do we need agent software development kits (SDKs) and managed runtimes?</p>
 <div class="two-cards">
 <div class="card card-light">
 <p><span class="card-title"><strong>Claude Code / Desktop</strong></span></p>
@@ -343,8 +338,7 @@ Kerry Back, Rice University
 <li>You’re in the loop, approving and steering</li>
 <li>Runs on your machine, in your session</li>
 <li>Single user, interactive</li>
-<li>Perfect for knowledge work: research, analysis, coding, documents</li>
-<li>This is what most of us use day-to-day</li>
+<li>Perfect for knowledge work: data analysis, document analysis, building things</li>
 </ul>
 </div>
 <div class="card card-dark">
@@ -361,22 +355,6 @@ Kerry Back, Rice University
 <div class="explainer">
 <p>Claude Code is the universal agent for <span class="amber">interactive work</span>. The SDK layer is for agents that act on their own — overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep.</p>
 </div>
-</section>
-<section id="the-frontier-beyond-interactive" class="slide level2 center">
-<h2>The Frontier: Beyond Interactive</h2>
-<p>The real frontier isn’t “can an agent use tools?” — you already know it can. It’s four things:</p>
-<ol type="1">
-<li><p><strong>Autonomy</strong> — agents that act on triggers, schedules, or events without a human at the keyboard. A compliance agent monitors trades overnight and flags violations by morning.</p></li>
-<li><p><strong>Scale</strong> — one agent design serving thousands of users, each with different permissions and data. Notion runs dozens of parallel delegation tasks across its user base.</p></li>
-<li><p><strong>Embedding</strong> — agents wired into products rather than running in a terminal. Sentry’s agent takes a flagged bug and opens a pull request with no human in between.</p></li>
-<li><p><strong>Agent-to-agent delegation</strong> — a planning agent spawns specialist agents, each with scoped tools and permissions, then synthesizes their results.</p></li>
-</ol>
-<div class="explainer">
-<p>The line is blurring — Claude Code already has scheduled triggers and background tasks. But for now, the distinction between “interactive assistant” and “autonomous production agent” is where the SDK and harness layer come in.</p>
-</div>
-</section>
-<section id="the-agent-as-universal-interface" class="slide level2 section-divider center">
-<h2>The Agent as Universal Interface</h2>
 </section>
 <section id="karpathys-dobby-a-case-study" class="slide level2 center">
 <h2>Karpathy’s Dobby: A Case Study</h2>
@@ -397,7 +375,7 @@ Kerry Back, Rice University
 <div class="card card-dark">
 <p><span class="card-title"><strong>After: One Conversation</strong></span></p>
 <ul>
-<li>“Dobby it’s sleepy time”</li>
+<li>“Dobby it’s sleep time”</li>
 <li>Lights off, shades down, thermostat adjusted, music stopped</li>
 <li>All through WhatsApp</li>
 <li>Agent discovered devices autonomously</li>
@@ -448,53 +426,7 @@ Kerry Back, Rice University
 </ul>
 </div>
 </div>
-</section>
-<section id="what-this-means-for-finance" class="slide level2 center">
-<h2>What This Means for Finance</h2>
-<p>Imagine a wealth manager’s daily workflow:</p>
-<div class="highlight-box">
-<p>“Show me clients whose equity allocation exceeds their risk tolerance, pull the last three months of performance for those portfolios, and draft an email to each suggesting a review meeting.”</p>
-</div>
-<p>That sentence touches <span class="amber">four separate systems</span>: portfolio analytics, risk management, CRM, and email. Today, that’s four apps. Tomorrow, it’s one agent with four tools.</p>
-<div class="info-box">
-<p><span class="box-title">What changes:</span></p>
-<ul>
-<li><strong>Vendor selection</strong> shifts from “best UI” to “best API”</li>
-<li><strong>Competitive moats</strong> shift from proprietary interfaces to proprietary data</li>
-<li><strong>Job skills</strong> shift from “knows how to use Bloomberg” to “knows what to ask for”</li>
-<li><strong>Build vs.&nbsp;buy</strong> gets real benchmarks: $0.08/session-hour managed, or free SDK + your own compute</li>
-</ul>
-</div>
-</section>
-<section id="what-to-watch-going-forward" class="slide level2 section-divider center">
-<h2>What to Watch Going Forward</h2>
-</section>
-<section id="five-questions-to-track" class="slide level2 center">
-<h2>Five Questions to Track</h2>
-<ol type="1">
-<li><p><strong>Which pricing model wins?</strong> Does bundled (Anthropic) beat open source (OpenAI) beat per-component (Google)? Or do all three coexist for different buyers?</p></li>
-<li><p><strong>Who controls the harness layer?</strong> The lab that owns how agents are built and run owns the new interface layer. This is the real platform war.</p></li>
-<li><p><strong>How fast do agents replace apps?</strong> Karpathy’s Dobby is a proof of concept. The question is how quickly enterprises adopt the pattern.</p></li>
-<li><p><strong>What happens to the middle layer?</strong> Independent frameworks (LangChain) and startups — do they differentiate into governance and compliance, or get squeezed out?</p></li>
-<li><p><strong>Where does the value accrue?</strong> If agents become the universal interface, the value shifts from UI design to data quality, API robustness, and domain expertise.</p></li>
-</ol>
-<div class="explainer">
-<p>These questions will shape AI strategy in finance for the next several years. The technology is moving fast; the business models are still forming.</p>
-</div>
-</section>
-<section id="key-takeaways" class="slide level2 center">
-<h2>Key Takeaways</h2>
-<ol type="1">
-<li><p>The <span class="amber">harness</span> — the control layer around the model — is now a product being sold by every major AI lab</p></li>
-<li><p>The labs disagree on pricing: managed runtime vs.&nbsp;open-source SDK vs.&nbsp;metered components</p></li>
-<li><p>Generic orchestration frameworks like LangChain are being <span class="amber">squeezed from above and below</span></p></li>
-<li><p>Agents are becoming the <span class="amber">universal interface</span> between people and software (GUI to LUI)</p></li>
-<li><p>For finance: the competitive advantage shifts from best interface to <span class="amber">best data and best APIs</span></p></li>
-<li><p>The strategic question isn’t “should we use AI?” — it’s “who controls the agent layer we’ll depend on?”</p></li>
-</ol>
-<div class="explainer">
-<p>You don’t need to build this infrastructure. But you need to understand the landscape well enough to make good vendor, platform, and career decisions as it evolves.</p>
-</div>
+
 
 </section>
     </div>
@@ -505,19 +437,19 @@ Kerry Back, Rice University
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="m16-agent-landscape_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="m16-agent-landscape_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

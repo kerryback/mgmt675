@@ -23,6 +23,7 @@ project:
     - slides/m14-sentiment.qmd
     - slides/m15-agent-sdk.qmd
     - slides/m15-agents-tools.qmd
+    - slides/m16-agent-landscape.qmd
     - slides/m16-how-it-works.qmd
   resources:
     - CNAME

@@ -18,27 +18,47 @@ format:
           <script src="https://hypothes.is/embed.js" async></script>
 ---
 
-## Where Are Agents Headed? {.section-divider}
+## Why Agents? {.section-divider}
 
-## Recap: What We've Built in This Course
+## Questions to Ask
 
-We've used AI as a [tool]{.amber} --- chatbots, skills, agents with tool use, RAG, sentiment analysis.
+Before building an AI agent, consider the alternative --- a conventional app with menus, dropdowns, and input fields.
 
-All of that sits on top of a foundation:
-
-- A **model** (Claude, GPT, Gemini) that reads and writes text
-- **Tools** that let the model take actions (APIs, databases, code execution)
-- A **loop** that keeps the model running until it's done
-
-That foundation is called the [harness]{.amber}. And as of April 2026, the harness has become the main battleground in AI.
-
-:::{.explainer}
-Understanding this landscape will help you evaluate AI products, vendors, and strategies --- whether you're building, buying, or advising.
+:::{.baritemize}
+- **Can users get what they need by choosing from menus?** Could you enumerate all the options upfront?
+- **How many screens or clicks would it take?** If the menu tree is deep or the combinations are many, complexity explodes.
+- **Would users need training to navigate it?** If the interface needs a manual, something is wrong.
 :::
 
-## What Is a Harness?
+:::{.explainer}
+If a conventional UI can cover 90% of use cases simply, you may not need an agent. Agents earn their keep when the task is open-ended or hard to anticipate in advance.
+:::
 
-Martin Fowler defines [harness engineering]{.amber} as everything surrounding an AI model, except the model itself:
+## Test Case: Exercise 4B
+
+**Exercise 4B** asked you to build a chatbot that lets users query an M&A database in plain English --- 200 transactions across three tables (transactions, advisors, financing).
+
+Sample queries: *"What are the five largest completed deals?" · "Which banks advised the most deals?" · "What is the average EV/EBITDA multiple for tech acquisitions?"*
+
+. . .
+
+[Could a conventional app replace this?]{.amber}
+
+:::{.baritemize}
+- **Yes, mostly.** Dropdown filters (year, sector, deal type, advisor) plus a results table would handle most of those queries --- no AI needed.
+- **But not entirely.** The chatbot shines for ad-hoc, unanticipated questions that don't map to pre-built filters.
+:::
+
+:::{.explainer}
+The more open-ended and unpredictable the user's needs, the stronger the case for an agent.
+:::
+
+## Where Are Agents Headed? {.section-divider}
+
+## Agent Harnesses
+
+Everything surrounding the model --- except the model itself --- is called the [harness]{.amber}. 
+The harness has two main parts:
 
 :::{.three-cards}
 :::{.card .card-light}
@@ -53,19 +73,10 @@ Martin Fowler defines [harness engineering]{.amber} as everything surrounding an
 :::{.card .card-light}
 [**Infrastructure**]{.card-title}
 
-- Sandboxed code execution
+- Code execution
 - Session state and memory
 - Error recovery
 - Persistent storage
-:::
-
-:::{.card .card-dark}
-[**Governance**]{.card-title}
-
-- Scoped permissions
-- Audit trails and tracing
-- Compliance controls
-- Data residency
 :::
 :::
 
@@ -81,13 +92,13 @@ As of April 2026, every major AI lab has shipped its own harness --- but they [d
 
 :::{.comparison-table}
 
-| Provider | Product | Pricing Model |
-|----------|---------|--------------|
-| **Anthropic** | Managed Agents | $0.08/session-hour + tokens |
-| **OpenAI** | Agents SDK (open source) | Tokens only, no runtime fee |
-| **Google** | Vertex AI Agent Engine | Per-component consumption |
-| **Microsoft** | Foundry Agent Service | Per-model + per-tool consumption |
-| **AWS** | Bedrock AgentCore | Runtime primitives (coming) |
+| Provider | Product | Launched | Pricing Model |
+|----------|---------|----------|--------------|
+| **Anthropic** | Managed Agents | Apr 2026 | $0.08/session-hour + tokens |
+| **OpenAI** | Agents SDK (open source) | Mar 2025 | Tokens only, no runtime fee |
+| **Google** | Vertex AI Agent Engine | Apr 2025 | Per-component consumption |
+| **Microsoft** | Foundry Agent Service | May 2025 | Per-model + per-tool consumption |
+| **AWS** | Bedrock AgentCore | Oct 2025 | Runtime primitives (coming) |
 
 :::
 
@@ -123,20 +134,6 @@ You don't need to [build]{.amber} a harness. But you need to understand the stra
 The choice between managed and self-hosted is a business decision, not a technical one. It depends on data sensitivity, cost structure, vendor tolerance, and team capabilities.
 :::
 
-## The Historical Pattern
-
-We've seen this split before in cloud infrastructure:
-
-- **Terraform** (open source) coexisted with **AWS CloudFormation** (managed)
-- **Kubernetes** (open source) coexisted with **EKS, GKE, AKS** (managed)
-
-In both cases, open source didn't kill managed, and managed didn't kill open source. They serve [different buyer profiles]{.amber}.
-
-The same pattern is forming in AI agents: teams that want convenience go managed; teams that want control go open source.
-
-:::{.explainer}
-The lesson for evaluating vendors: ask whether they're selling the runtime, the model, or both --- and what lock-in comes with each.
-:::
 
 ## What Happened to LangChain? {.section-divider}
 
@@ -164,23 +161,6 @@ The lesson for evaluating vendors: ask whether they're selling the runtime, the 
 :::
 :::
 
-:::{.explainer}
-LangChain's value proposition was "write once, swap models freely." In practice, different models have different strengths and failure modes. Most production systems settle on one model --- the switching cost is in prompt engineering, not API syntax.
-:::
-
-## The Squeeze on Generic Frameworks
-
-The independent orchestration framework is the [most exposed archetype]{.amber} in this market shift:
-
-1. **From above:** labs ship free, model-native SDKs that work better with their own models
-2. **From below:** the models themselves now handle what the framework used to do
-3. **The pitch erodes:** "model-agnostic" flexibility matters less when you're committed to one or two models anyway
-
-What survives? Startups that differentiate on [governance, compliance, vertical depth]{.amber}, or genuine multi-model control --- not generic prompt chaining.
-
-:::{.explainer}
-If you encounter LangChain in a job or a vendor pitch, this is the context. It's not that it was bad --- it solved a real problem at the right time. The problem just moved.
-:::
 
 ## Wait --- Isn't Claude Code Already a Universal Agent? {.section-divider}
 
@@ -188,7 +168,7 @@ If you encounter LangChain in a job or a vendor pitch, this is the context. It's
 
 Claude Code already does the Dobby pattern: you describe what you want in natural language, and it [picks tools, runs code, queries data, writes files]{.amber}.
 
-So why do we need agent SDKs and managed runtimes?
+So why do we need agent software development kits (SDKs) and managed runtimes?
 
 :::{.two-cards}
 :::{.card .card-light}
@@ -197,8 +177,7 @@ So why do we need agent SDKs and managed runtimes?
 - You're in the loop, approving and steering
 - Runs on your machine, in your session
 - Single user, interactive
-- Perfect for knowledge work: research, analysis, coding, documents
-- This is what most of us use day-to-day
+- Perfect for knowledge work: data analysis, document analysis, building things
 :::
 
 :::{.card .card-dark}
@@ -215,24 +194,6 @@ So why do we need agent SDKs and managed runtimes?
 :::{.explainer}
 Claude Code is the universal agent for [interactive work]{.amber}. The SDK layer is for agents that act on their own --- overnight compliance monitoring, auto-triaging customer tickets, or a research agent that runs while you sleep.
 :::
-
-## The Frontier: Beyond Interactive
-
-The real frontier isn't "can an agent use tools?" --- you already know it can. It's four things:
-
-1. **Autonomy** --- agents that act on triggers, schedules, or events without a human at the keyboard. A compliance agent monitors trades overnight and flags violations by morning.
-
-2. **Scale** --- one agent design serving thousands of users, each with different permissions and data. Notion runs dozens of parallel delegation tasks across its user base.
-
-3. **Embedding** --- agents wired into products rather than running in a terminal. Sentry's agent takes a flagged bug and opens a pull request with no human in between.
-
-4. **Agent-to-agent delegation** --- a planning agent spawns specialist agents, each with scoped tools and permissions, then synthesizes their results.
-
-:::{.explainer}
-The line is blurring --- Claude Code already has scheduled triggers and background tasks. But for now, the distinction between "interactive assistant" and "autonomous production agent" is where the SDK and harness layer come in.
-:::
-
-## The Agent as Universal Interface {.section-divider}
 
 ## Karpathy's Dobby: A Case Study
 
@@ -254,7 +215,7 @@ Andrej Karpathy built an agent called [Dobby]{.amber} that replaced six separate
 :::{.card .card-dark}
 [**After: One Conversation**]{.card-title}
 
-- "Dobby it's sleepy time"
+- "Dobby it's sleep time"
 - Lights off, shades down, thermostat adjusted, music stopped
 - All through WhatsApp
 - Agent discovered devices autonomously
@@ -307,57 +268,3 @@ The apps don't disappear --- but the user never touches them. The agent becomes 
 :::
 :::
 
-## What This Means for Finance
-
-Imagine a wealth manager's daily workflow:
-
-:::{.highlight-box}
-"Show me clients whose equity allocation exceeds their risk tolerance, pull the last three months of performance for those portfolios, and draft an email to each suggesting a review meeting."
-:::
-
-That sentence touches [four separate systems]{.amber}: portfolio analytics, risk management, CRM, and email. Today, that's four apps. Tomorrow, it's one agent with four tools.
-
-:::{.info-box}
-[What changes:]{.box-title}
-
-- **Vendor selection** shifts from "best UI" to "best API"
-- **Competitive moats** shift from proprietary interfaces to proprietary data
-- **Job skills** shift from "knows how to use Bloomberg" to "knows what to ask for"
-- **Build vs. buy** gets real benchmarks: $0.08/session-hour managed, or free SDK + your own compute
-:::
-
-## What to Watch Going Forward {.section-divider}
-
-## Five Questions to Track
-
-1. **Which pricing model wins?** Does bundled (Anthropic) beat open source (OpenAI) beat per-component (Google)? Or do all three coexist for different buyers?
-
-2. **Who controls the harness layer?** The lab that owns how agents are built and run owns the new interface layer. This is the real platform war.
-
-3. **How fast do agents replace apps?** Karpathy's Dobby is a proof of concept. The question is how quickly enterprises adopt the pattern.
-
-4. **What happens to the middle layer?** Independent frameworks (LangChain) and startups --- do they differentiate into governance and compliance, or get squeezed out?
-
-5. **Where does the value accrue?** If agents become the universal interface, the value shifts from UI design to data quality, API robustness, and domain expertise.
-
-:::{.explainer}
-These questions will shape AI strategy in finance for the next several years. The technology is moving fast; the business models are still forming.
-:::
-
-## Key Takeaways
-
-1. The [harness]{.amber} --- the control layer around the model --- is now a product being sold by every major AI lab
-
-2. The labs disagree on pricing: managed runtime vs. open-source SDK vs. metered components
-
-3. Generic orchestration frameworks like LangChain are being [squeezed from above and below]{.amber}
-
-4. Agents are becoming the [universal interface]{.amber} between people and software (GUI to LUI)
-
-5. For finance: the competitive advantage shifts from best interface to [best data and best APIs]{.amber}
-
-6. The strategic question isn't "should we use AI?" --- it's "who controls the agent layer we'll depend on?"
-
-:::{.explainer}
-You don't need to build this infrastructure. But you need to understand the landscape well enough to make good vendor, platform, and career decisions as it evolves.
-:::
