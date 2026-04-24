@@ -1,6 +1,6 @@
 # Stock Database Access
 
-Use this to query the stock database on MotherDuck. The database name is `ndl` and it contains three tables: `stocks`, `prices`, and `recommendations`. The database is read-only.
+Use this to query the stock database on MotherDuck. The database name is `student_stocks` and it contains three tables: `stocks`, `prices`, and `recommendations`.
 
 ## Setup
 
@@ -20,11 +20,11 @@ except ImportError:
 ```python
 import duckdb
 
-MOTHERDUCK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtlcnJ5YmFja0BnbWFpbC5jb20iLCJtZFJlZ2lvbiI6ImF3cy11cy1lYXN0LTEiLCJzZXNzaW9uIjoia2VycnliYWNrLmdtYWlsLmNvbSIsInBhdCI6IlJEekJDSlVDWEpkODdEZVFJaHNRZkFKaTlFTmVabHR2ZFowZ29tVkJId2MiLCJ1c2VySWQiOiI2ZmY3ZWJhYi0xYTc0LTRlNGEtOWE2Ny02YmFkNzIyYmM4ZGMiLCJpc3MiOiJtZF9wYXQiLCJyZWFkT25seSI6dHJ1ZSwidG9rZW5UeXBlIjoicmVhZF9zY2FsaW5nIiwiaWF0IjoxNzc2ODgxNDA0LCJleHAiOjE3Nzk0NzM0MDR9.dUkhjhlbUfr2bhHUn1OX95hqRwcrx9Aq_KcWkE6iHns"
+MOTHERDUCK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhLWMxMThlYzUzLTZkNDItNGYwNC1hNjg2LTI3Y2IzMTYyZDFjYkBzYS5tb3RoZXJkdWNrLmNvbSIsInNlc3Npb24iOiJzYS1jMTE4ZWM1My02ZDQyLTRmMDQtYTY4Ni0yN2NiMzE2MmQxY2Iuc2EubW90aGVyZHVjay5jb20iLCJwYXQiOiJtWUZTX0FYMk5MV2pnWC1DT0p2a2VIQnJ5ek5RaGVSQllvWVlZUndOdU9zIiwidXNlcklkIjoiMjk0NDE0NmYtOWYwMy00NjUyLThlMzUtZTgzZjgwOTY5N2VlIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzUzMDIzNzgzfQ.iYjIvy_FSJirhaFIxYka-J-6JHa9IEWxP8eVV05FaGI"
 
 def run_sql(query):
-    """Run a SQL query against the MotherDuck ndl database and return a pandas DataFrame."""
-    conn = duckdb.connect(f"md:ndl?motherduck_token={MOTHERDUCK_TOKEN}")
+    """Run a SQL query against the MotherDuck student_stocks database and return a pandas DataFrame."""
+    conn = duckdb.connect(f"md:student_stocks?motherduck_token={MOTHERDUCK_TOKEN}")
     result = conn.execute(query).fetchdf()
     conn.close()
     return result
