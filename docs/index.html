@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MGMT 675</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129302;</text></svg>">
+<style>
+/* A static resource rather than a rendered .qmd, so it carries its own styling.
+   The design is the elegant-pdf course-outline flyer (files/outline/doc.html)
+   reflowed for the browser: same navy/gold palette, same Georgia display, the
+   same gold-tipped rule and week chips, but fluid width and a dark variant. */
+:root {
+  --navy:  #00205B;   /* primary -- display, chips */
+  --gold:  #b8912f;   /* accent -- eyebrow, rule tip */
+  --ink:   #1a1a1a;
+  --gray:  #444444;
+  --mut:   #6b6b6b;
+  --line:  #e4e4e4;
+  --bg:    #ffffff;
+  --chip-ink: #ffffff;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans:  "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --navy: #8fb3ff; --gold: #d8b25a; --ink: #e8eaed; --gray: #c2c8d0;
+    --mut: #9aa3ae; --line: #2b3038; --bg: #12161c; --chip-ink: #0d1117;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--sans); color: var(--ink); background: var(--bg);
+       -webkit-font-smoothing: antialiased; }
+
+.sheet { max-width: 920px; margin: 0 auto; padding: 56px 32px 40px; }
+
+.eyebrow { text-align: center; font-size: 17px; letter-spacing: 4.5px;
+  text-transform: uppercase; color: var(--navy); font-weight: 700; margin-bottom: 14px; }
+.display { font-family: var(--serif); text-align: center; color: var(--navy);
+  font-weight: 700; line-height: 1.1; font-size: 49px; margin-bottom: 22px; }
+.subline { text-align: center; font-size: 19px; color: var(--mut); }
+.subline b { color: var(--ink); }
+
+.lead { color: var(--gray); line-height: 1.55; font-size: 17px;
+  max-width: 780px; margin: 26px auto 0; }
+
+/* gold-tipped rule: navy bar with a gold end cap */
+.rule { height: 3px; border-radius: 2px; margin: 26px 0 30px;
+  background: linear-gradient(90deg, var(--navy) 0 62%, var(--gold) 62% 100%); }
+
+.item { display: flex; gap: 18px; align-items: flex-start; padding: 9px 0; }
+.chip { flex: 0 0 112px; background: var(--navy); color: var(--chip-ink);
+  font-size: 15px; font-weight: 700; letter-spacing: 1px; text-align: center;
+  padding: 7px 0; border-radius: 6px; }
+.item-desc { font-size: 17px; color: var(--gray); line-height: 1.4; margin-top: 3px; }
+
+.sheet-foot { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px; }
+.sheet-foot .note { font-size: 16px; color: var(--mut); }
+.sheet-foot a { color: var(--navy); font-weight: 700; text-decoration: none; }
+.sheet-foot a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .sheet { padding: 40px 20px 32px; }
+  .display { font-size: 34px; }
+  .eyebrow { font-size: 14px; letter-spacing: 3px; }
+  .item { gap: 14px; }
+  .chip { flex-basis: 92px; font-size: 13px; }
+  .item-desc { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="eyebrow">Rice Business &nbsp;&middot;&nbsp; Spring 2027</div>
+    <h1 class="display">Agentic AI:<br>Personal and Enterprise</h1>
+    <div class="subline">led by <b>Kerry Back</b></div>
+
+    <p class="lead">
+      This course is about working with agentic AI on your own tasks and putting it to work inside an
+      organization. It opens with what a large language model actually does, how the current models differ,
+      and how to get dependable results from them on data and documents. It then turns to the machinery
+      underneath &mdash; the tools and harnesses an agent runs on, what a sandbox does and does not contain,
+      and the instructions that persist from one session to the next &mdash; and to customizing that machinery
+      with skills and plugins you write and distribute. The later weeks build and evaluate AI-enabled software,
+      ground it in your own documents through retrieval and fine-tuning, and end with the work that has to stay
+      in-house: running models on your own hardware and de-identifying data before it goes anywhere else.
+    </p>
+
+    <div class="rule"></div>
+
+    <div class="item"><div class="chip">WEEK 1</div><div><div class="item-desc">How LLMs work &nbsp;&middot;&nbsp; the universe of models &nbsp;&middot;&nbsp; data analysis and docs &nbsp;&middot;&nbsp; effective use of AI</div></div></div>
+    <div class="item"><div class="chip">WEEK 2</div><div><div class="item-desc">Agent tools and harnesses &nbsp;&middot;&nbsp; sandboxed agents &nbsp;&middot;&nbsp; system prompts &nbsp;&middot;&nbsp; persistent instructions</div></div></div>
+    <div class="item"><div class="chip">WEEK 3</div><div><div class="item-desc">Creating custom skills &nbsp;&middot;&nbsp; distributing custom skills and scripts as plugins</div></div></div>
+    <div class="item"><div class="chip">WEEK 4</div><div><div class="item-desc">Creating AI-enabled software &nbsp;&middot;&nbsp; evaluating models</div></div></div>
+    <div class="item"><div class="chip">WEEK 5</div><div><div class="item-desc">Retrieval-augmented generation &nbsp;&middot;&nbsp; fine-tuning small models</div></div></div>
+    <div class="item"><div class="chip">WEEK 6</div><div><div class="item-desc">Running models locally &nbsp;&middot;&nbsp; de-identifying tables and text</div></div></div>
+
+    <div class="sheet-foot">
+      <span class="note">MGMT 675 &nbsp;&middot;&nbsp; Jones Graduate School of Business, Rice University</span>
+      <a href="mailto:kerry.e.back@rice.edu">kerry.e.back@rice.edu</a>
+    </div>
+  </div>
+</body>
+</html>

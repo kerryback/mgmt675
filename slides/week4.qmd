@@ -1,0 +1,16 @@
+---
+title: "Generative AI for Finance"
+subtitle: "Week 4: AI-Enabled Software"
+author: "Kerry Back"
+date: today
+format:
+  revealjs:
+    theme: shoji.scss
+    footer: "MGMT 675: Generative AI for Finance"
+---
+
+## Agenda
+
+::: {.note}
+Creating custom agents. Evaluating models. Outline to come.
+:::

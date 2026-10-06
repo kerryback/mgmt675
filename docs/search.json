@@ -1,0 +1,856 @@
+[
+  {
+    "objectID": "slides/week6.html#todays-session",
+    "href": "slides/week6.html#todays-session",
+    "title": "Generative AI for Finance",
+    "section": "Today’s session",
+    "text": "Today’s session\n\n\n\nRunning models locally\n\n\n\n\nSecurity\n\n\n\n\nDe-identifying tables\n\n\n\n\nDe-identifying text\n\n\n\n\nExercises"
+  },
+  {
+    "objectID": "slides/week6.html#running-models-locally",
+    "href": "slides/week6.html#running-models-locally",
+    "title": "Generative AI for Finance",
+    "section": "Running models locally",
+    "text": "Running models locally"
+  },
+  {
+    "objectID": "slides/week6.html#where-the-models-come-from",
+    "href": "slides/week6.html#where-the-models-come-from",
+    "title": "Generative AI for Finance",
+    "section": "Where the models come from",
+    "text": "Where the models come from\n\nHugging Face is the repository. Three million public models as of August 2026, and the open-weight releases from Alibaba, Google, Meta, DeepSeek, Mistral and OpenAI all land there first.\n\n\n\nWhat a listing holds\nA model card, a license, and the weight files. Downloads and likes are on the page, so you can see what other people use.\n\n\nOpen weights, not open source\nThe weights are published; the license is the publisher’s own. Qwen is Apache 2.0, Llama and Gemma have custom terms. Read it before commercial use.\n\n\nOne model, several files\nThe same model is posted at full size and in smaller quantized copies. Which one you download is set by what your machine can hold."
+  },
+  {
+    "objectID": "slides/week6.html#what-pulls-and-runs-them",
+    "href": "slides/week6.html#what-pulls-and-runs-them",
+    "title": "Generative AI for Finance",
+    "section": "What pulls and runs them",
+    "text": "What pulls and runs them\n\n\n\n\n\n\n\n\n\n\nWhat it is\nWhat you use it for\n\n\n\n\nOllama\nA CLI and a local API, with its own registry that mirrors Hugging Face\nollama pull, then one model in a terminal or behind localhost\n\n\nLM Studio\nA desktop app over the same engines\nBrowsing, downloading and trying models without a terminal\n\n\nllama.cpp\nThe C++ engine that runs these models on ordinary hardware\nWhat most of the above is running underneath\n\n\nMLX\nApple’s array framework, with mlx-lm for text\nThe fastest path on Apple silicon\n\n\nvLLM\nA batched inference server\nA queue of documents rather than a conversation\n\n\n\n\n\nOllama will also pull straight from a Hugging Face repository: ollama run hf.co/user/repo."
+  },
+  {
+    "objectID": "slides/week6.html#two-numbers",
+    "href": "slides/week6.html#two-numbers",
+    "title": "Generative AI for Finance",
+    "section": "Two numbers",
+    "text": "Two numbers\n\nA model is a few billion numbers. At full size each takes two bytes. Quantizing rounds them to one of sixteen levels, with a scale factor kept for each small block — a quarter of the space, and a little accuracy. A billion parameters comes to a bit over half a gigabyte.\n\n\n\nMemory decides whether it loads\nAll of it has to be in memory at once, with room left over for the conversation. 30 billion parameters is 17 GB; 671 billion is about 400 GB.\n\n\nBandwidth decides how fast it generates\nBandwidth is how many gigabytes a second the chip reads from its own memory. Each token — roughly a word — costs one full read of the weights in use.\ntokens/sec ≤ bandwidth ÷ active bytes"
+  },
+  {
+    "objectID": "slides/week6.html#two-machines",
+    "href": "slides/week6.html#two-machines",
+    "title": "Generative AI for Finance",
+    "section": "Two machines",
+    "text": "Two machines\n\n\n\n\n\nMac mini, M5 Pro\nMac Studio, M5 Ultra\n\n\n\n\nMemory\n64 GB unified\n512 GB unified\n\n\nBandwidth\n307 GB/s\n1.2 TB/s\n\n\nPrice\nabout $2,100\nfive figures\n\n\nModel it holds\nQwen3-30B-A3B\nDeepSeek 671B\n\n\nWeights at 4-bit\n17 GB\nabout 400 GB\n\n\nActive per token\n3.3B parameters\n37B parameters\n\n\nCeiling\nabout 160 tokens/sec\nabout 57 tokens/sec\n\n\n\n\n\nUnified memory is why these hold models a discrete card cannot: the GPU reads system RAM, so the capacity is the machine’s memory. An RTX 5090 has six times the Mac mini’s bandwidth but only 32 GB of memory."
+  },
+  {
+    "objectID": "slides/week6.html#why-a-30b-model-generates-like-a-3b-one",
+    "href": "slides/week6.html#why-a-30b-model-generates-like-a-3b-one",
+    "title": "Generative AI for Finance",
+    "section": "Why a 30B model generates like a 3B one",
+    "text": "Why a 30B model generates like a 3B one\n\nBoth of these are mixture-of-experts models: all the weights sit in memory, and each token reads a fraction of them.\n\n\n\nMemory holds the whole model — 17 GB for Qwen3-30B-A3B, about 400 GB for DeepSeek 671B.\nA router picks 8 experts out of 128 for each token.\nThe read is 3.3B parameters, not 30B, so the ceiling is set by the active share.\n\n\n\nA ceiling, not a measurement. Real throughput runs 60 to 80 percent of it, and falls as the context fills."
+  },
+  {
+    "objectID": "slides/week6.html#both-models-without-the-hardware",
+    "href": "slides/week6.html#both-models-without-the-hardware",
+    "title": "Generative AI for Finance",
+    "section": "Both models, without the hardware",
+    "text": "Both models, without the hardware\n\n\n\n\nModel\nWhat it is\nWhere it would run\n\n\n\n\nQwen3-30B-A3B\n30B open weights, 3.3B active\nthe Mac mini\n\n\nDeepSeek flagship\n671B open weights, 37B active\nthe Mac Studio\n\n\nClaude Opus\nclosed frontier weights\nthe provider’s datacenter\n\n\n\n\n\nOpenRouter is a broker: your prompt goes to it, and from it to whichever provider serves the model, so both hold a copy."
+  },
+  {
+    "objectID": "slides/week6.html#two-tasks-three-models",
+    "href": "slides/week6.html#two-tasks-three-models",
+    "title": "Generative AI for Finance",
+    "section": "Two tasks, three models",
+    "text": "Two tasks, three models\n\n\nTell Claude\n\nGet a key at openrouter.ai. Send each of these to all three models. Print every answer with its cost and tokens per second.\n\n\n\nThe code\nWrite a Python function that redacts US phone numbers, Social Security numbers and email addresses from a string, one regex per type, and returns the redacted text with a count of each.\n\n\nThe memo\nWrite 150 words to the audit committee: why client records are not going to a hosted model, and what the business gives up by that decision. The reader is a director with no technical background.\n\n\n\nCompare the functions on whether they run and what they miss, and the memos on what you would send."
+  },
+  {
+    "objectID": "slides/week6.html#run-one-on-your-laptop",
+    "href": "slides/week6.html#run-one-on-your-laptop",
+    "title": "Generative AI for Finance",
+    "section": "Run one on your laptop",
+    "text": "Run one on your laptop\n\n\nTell Claude\n\nInstall ollama. Run gemma4:e2b-it-qat.\n\n\n4.3 GB comes down once. After that the model loads from your disk, and neither the prompt nor the answer touches a network.\n\n\nThe exercise at the end of the session puts the same question to this model, to a frontier model, and to gemma3:1b from the previous generation."
+  },
+  {
+    "objectID": "slides/week6.html#security",
+    "href": "slides/week6.html#security",
+    "title": "Generative AI for Finance",
+    "section": "Security",
+    "text": "Security"
+  },
+  {
+    "objectID": "slides/week6.html#three-risks",
+    "href": "slides/week6.html#three-risks",
+    "title": "Generative AI for Finance",
+    "section": "Three risks",
+    "text": "Three risks\n\nSending data to an LLM → risks of training on your data and data breach\nLetting an agent read unverified sources → risk of prompt injection\nIf the agent can also reach data → risk of data exfiltration"
+  },
+  {
+    "objectID": "slides/week6.html#where-a-prompt-goes",
+    "href": "slides/week6.html#where-a-prompt-goes",
+    "title": "Generative AI for Finance",
+    "section": "Where a prompt goes",
+    "text": "Where a prompt goes\nEvery call leaves copies. Your agreement with the provider sets how long each one is kept.\n\n\nYour app\nThe conversation history your own code keeps so the next turn has context.\n\n\nYour gateway log\nWho asked, which model, how many tokens — and, if you log bodies, the prompt itself.\n\n\nThe provider\nHeld for a period set by your agreement, and separately for abuse monitoring.\n\n\nSubprocessors\nThe hosting and infrastructure vendors listed in the provider’s data processing agreement."
+  },
+  {
+    "objectID": "slides/week6.html#the-answer-to-the-first-risk",
+    "href": "slides/week6.html#the-answer-to-the-first-risk",
+    "title": "Generative AI for Finance",
+    "section": "The answer to the first risk",
+    "text": "The answer to the first risk\nFor almost every business use, the answer is to sign a contract and send the data. A no-train, zero-retention Data Processing Agreement — plus a BAA for PHI — comes with the standard commercial API account.\n\n\n\n\n\n\n\n\n\nStep\nWhat it adds\nEnough for\n\n\n\n\nOpt out of training (a setting; API default)\nThe provider will not train on it. A setting in the terms of service, revocable, and the data is still retained briefly\nPersonal, non-sensitive work\n\n\n+ Signed DPA (+ BAA for PHI)\nA contract: liability, breach notice, audit, subprocessor list\nClient data, regulated data, PHI\n\n\n+ Enterprise agreement\nSLAs, support, indemnification, capacity, SSO\nScale and operations, not stronger privacy\n\n\n\n\n\nAnthropic’s Data Processing Addendum."
+  },
+  {
+    "objectID": "slides/week6.html#run-the-model-in-your-own-cloud",
+    "href": "slides/week6.html#run-the-model-in-your-own-cloud",
+    "title": "Generative AI for Finance",
+    "section": "Run the model in your own cloud",
+    "text": "Run the model in your own cloud\nIf your data is already in AWS, Azure, or Google Cloud, run the model on that same cloud.\n\n\n\n\n\nAWS\nGoogle Cloud\nAzure\n\n\n\n\nClaude\nBedrock\nVertex AI\nAzure AI Foundry\n\n\nGPT\nBedrock\n\nAzure AI Foundry\n\n\nGemini\n\nNative\n\n\n\n\n\n\nThe model runs inside your cloud, so the data stays in that perimeter and the model provider is not a separate party to it. It is covered by the cloud DPA and BAA you already signed, and by the cloud’s attestations — FedRAMP, SOC 2, ISO 27001."
+  },
+  {
+    "objectID": "slides/week6.html#hipaa-and-sec",
+    "href": "slides/week6.html#hipaa-and-sec",
+    "title": "Generative AI for Finance",
+    "section": "HIPAA and SEC",
+    "text": "HIPAA and SEC\n\n\nHIPAA — a BAA is required\nSatisfactory assurances “must be documented through a written contract … that meets the applicable requirements of § 164.504(e).”\n45 CFR 164.502(e)\n\n\nSEC Reg S-P — oversee the vendor\nWritten policies “reasonably designed to require oversight, including through due diligence and monitoring, of service providers.”\n17 CFR 248.30"
+  },
+  {
+    "objectID": "slides/week6.html#beyond-the-contract",
+    "href": "slides/week6.html#beyond-the-contract",
+    "title": "Generative AI for Finance",
+    "section": "Beyond the contract",
+    "text": "Beyond the contract\nThe DPA is a contractual guarantee, backed by liability. It is not a physical one: the data still travels to the provider. For more sensitive data, add a physical layer.\n\n\nSend less — the schema, and a few synthetic rows.\nDe-identify — take the names out before the data reaches the context.\nRun a local model — the data never leaves your environment.\n\n\n\nSteps 2 and 3 are the rest of this session."
+  },
+  {
+    "objectID": "slides/week6.html#what-are-prompt-injections",
+    "href": "slides/week6.html#what-are-prompt-injections",
+    "title": "Generative AI for Finance",
+    "section": "What are prompt injections?",
+    "text": "What are prompt injections?\n\n\nThe mechanism\n\nHidden instructions embedded in data — emails, documents, web pages\nThe LLM reads the hidden text and follows the attacker’s instructions instead of the user’s\nIt cannot distinguish instructions from content; it is all text\n\n\nThe exposure\n\nAny agent that reads untrusted content and has access to private data or tools\nThe attacker needs no credentials — only a way to get text in front of the LLM\nOWASP ranks prompt injection as the #1 risk for LLM applications (2025)"
+  },
+  {
+    "objectID": "slides/week6.html#why-agents-are-more-exposed",
+    "href": "slides/week6.html#why-agents-are-more-exposed",
+    "title": "Generative AI for Finance",
+    "section": "Why agents are more exposed",
+    "text": "Why agents are more exposed\n\nA tool result re-enters the context as text, in the same stream as your question.\n\n\n\nWhat you typed\n“Summarize the overdue invoices.”\n\n\nWhat a tool returned\nA row, a web page, an email body — whatever was in the source, verbatim.\n\n\nWhat the model sees\nOne sequence of tokens. There is no field marking which part you wrote."
+  },
+  {
+    "objectID": "slides/week6.html#echoleak-zero-click-data-theft-from-microsoft-365-copilot",
+    "href": "slides/week6.html#echoleak-zero-click-data-theft-from-microsoft-365-copilot",
+    "title": "Generative AI for Finance",
+    "section": "EchoLeak: Zero-click data theft from Microsoft 365 Copilot",
+    "text": "EchoLeak: Zero-click data theft from Microsoft 365 Copilot\n\n\nCVE-2025-32711 — June 2025\n\n\n\nThe attacker sends the victim an email containing hidden instructions, invisible to a human reader.\nThe victim asks Copilot to summarize their email. Copilot reads the hidden instructions.\nFollowing them, Copilot embeds confidential data in a URL in its response.\nThe victim’s browser requests that URL, sending the data to the attacker’s server.\nThe attacker reads the data out of the URL. Zero clicks, and nothing visible to the victim.\n\n\n\n\nCopilot reads untrusted content, has access to private data, and can render URLs. All three in one LLM."
+  },
+  {
+    "objectID": "slides/week6.html#three-legs-for-data-exfiltration",
+    "href": "slides/week6.html#three-legs-for-data-exfiltration",
+    "title": "Generative AI for Finance",
+    "section": "Three legs for data exfiltration",
+    "text": "Three legs for data exfiltration\n\nAll three of these must be present for prompt injections to cause data exfiltration.\n\n\n\n1. Private data\nSecrets worth stealing — client records, financials, your inbox\n\n\n2. Untrusted content\nAttacker-controllable text — web pages, emails, uploaded files\n\n\n3. An outbound channel\nA way to send data out — web fetch, send email, write to a shared place"
+  },
+  {
+    "objectID": "slides/week6.html#what-follows-from-this",
+    "href": "slides/week6.html#what-follows-from-this",
+    "title": "Generative AI for Finance",
+    "section": "What follows from this",
+    "text": "What follows from this\n\n\nThe leg you control\nYou cannot stop a model from reading instructions in its input, and you cannot always choose what a tool returns.\nYou decide how much of your data is in the context.\n\n\nThe other two\nUntrusted content and the outbound channel are closed with containers and egress rules, when we build agents.\nA local model does not close them: the machine still has a network."
+  },
+  {
+    "objectID": "slides/week6.html#de-identifying-tables",
+    "href": "slides/week6.html#de-identifying-tables",
+    "title": "Generative AI for Finance",
+    "section": "De-identifying tables",
+    "text": "De-identifying tables"
+  },
+  {
+    "objectID": "slides/week6.html#four-kinds-of-field",
+    "href": "slides/week6.html#four-kinds-of-field",
+    "title": "Generative AI for Finance",
+    "section": "Four kinds of field",
+    "text": "Four kinds of field\n\n\n\n\n\n\n\n\n\nKind\nExamples\nWhat you do with it\n\n\n\n\nDirect identifiers\nName, SSN, account number, email, phone\nSuppress. Each one names a person on its own\n\n\nQuasi-identifiers\nZIP, birth date, sex, job title, dates of service\nGeneralize. Identifying in combination, not alone\n\n\nSensitive attributes\nDiagnosis, salary, balance, the text of a complaint\nKeep. What you are protecting, and usually what the model needs\n\n\nEverything else\nProduct code, region, quantity\nKeep. Carries nobody’s identity"
+  },
+  {
+    "objectID": "slides/week6.html#the-hipaa-safe-harbor",
+    "href": "slides/week6.html#the-hipaa-safe-harbor",
+    "title": "Generative AI for Finance",
+    "section": "The HIPAA safe harbor",
+    "text": "The HIPAA safe harbor\nEighteen identifiers come out, in nine groups. Remove all of them, and have no actual knowledge that what remains could identify someone, and the data is no longer PHI — no business associate agreement required.\n\n\n\n\n\n\n\n\nGroup\nWhat comes out\n\n\n\n\nNames\nThe individual’s, and those of relatives, employers, and household members\n\n\nGeography\nEverything below the state, except the first three ZIP digits where that area holds more than 20,000 people\n\n\nDates\nEvery element but the year. Ages above 89 become “90 or older”\n\n\nContact\nTelephone, fax, email\n\n\nNumbers\nSSN, medical record, health plan, account, certificate, license\n\n\nDevice and vehicle\nSerial numbers, VINs, license plates\n\n\nOnline\nURLs, IP addresses\n\n\nBiometric and images\nFinger and voice prints, full-face photographs\n\n\nCatch-all\nAny other unique identifying number, characteristic, or code"
+  },
+  {
+    "objectID": "slides/week6.html#two-hipaa-routes-and-two-gdpr-terms",
+    "href": "slides/week6.html#two-hipaa-routes-and-two-gdpr-terms",
+    "title": "Generative AI for Finance",
+    "section": "Two HIPAA routes, and two GDPR terms",
+    "text": "Two HIPAA routes, and two GDPR terms\n\n\nHIPAA\n\nSafe harbor — remove the eighteen. Mechanical and auditable, and it discards data you may need\nExpert determination — a qualified statistician certifies that the risk of re-identification is very small, and documents the method. Keeps more of the data\n\n\nGDPR\n\nAnonymized data falls outside the Regulation\nPseudonymized data is still personal data and still in scope. Replacing a name with a token does not make the data anonymous, because you hold the mapping\n\n\n\n45 CFR 164.514(b)(1) and (b)(2); GDPR Article 4(5) and Recital 26."
+  },
+  {
+    "objectID": "slides/week6.html#the-techniques",
+    "href": "slides/week6.html#the-techniques",
+    "title": "Generative AI for Finance",
+    "section": "The techniques",
+    "text": "The techniques\n\n\n\n\n\n\n\n\n\n\nWhat it does\nWhat survives\n\n\n\n\nSuppress\nDrop the field\nNothing of it\n\n\nMask\nKeep the shape, drop the content: XXX-XX-4312\nThe format\n\n\nPseudonymize\nOne stable surrogate key per person\nJoins, and counts per person\n\n\nGeneralize\n34 → 30–39; 77005 → 770; a date → its month\nThe distribution, at lower resolution\n\n\nPerturb\nAdd noise to amounts and dates\nTotals and trends, not single rows\n\n\nAggregate\nGroup totals, with a minimum cell size\nComparisons between groups\n\n\nSynthesize\nRows with the same schema and distributions\nThe distributions, no real person’s data\n\n\nSchema only\nColumn names and types, no rows\nEnough to write a query"
+  },
+  {
+    "objectID": "slides/week6.html#no-model-is-involved",
+    "href": "slides/week6.html#no-model-is-involved",
+    "title": "Generative AI for Finance",
+    "section": "No model is involved",
+    "text": "No model is involved\nEvery row in that table is arithmetic or a lookup. It runs on your machine, in code you can read.\ndf[\"customer_id\"] = df[\"customer\"].map(surrogate)   # from your own table\ndf[\"zip3\"]        = df[\"zip\"].str[:3]\ndf[\"month\"]       = df[\"order_date\"].dt.to_period(\"M\")\ndf = df.drop(columns=[\"customer\", \"email\", \"phone\", \"zip\", \"order_date\"])\n\ndf.groupby([\"zip3\", \"month\"]).size().min()          # the smallest group\n\npandas for the transforms, Faker for synthetic values, and ARX or sdcMicro when you need a certified k-anonymity report."
+  },
+  {
+    "objectID": "slides/week6.html#three-properties-of-doing-it-in-code",
+    "href": "slides/week6.html#three-properties-of-doing-it-in-code",
+    "title": "Generative AI for Finance",
+    "section": "Three properties of doing it in code",
+    "text": "Three properties of doing it in code\n\n\nDeterministic — the same row always produces the same output, so you can write a test for it.\nAuditable — the rule for each column is a line of code you can show a regulator.\nLocal — nothing is sent anywhere to decide what to remove, and the removal happens before anything leaves."
+  },
+  {
+    "objectID": "slides/week6.html#re-identification",
+    "href": "slides/week6.html#re-identification",
+    "title": "Generative AI for Finance",
+    "section": "Re-identification",
+    "text": "Re-identification\n\n\nMassachusetts, 1997\nThe state released hospital discharge records for state employees with names and addresses removed. Latanya Sweeney bought the Cambridge voter roll for $20, matched on ZIP, birth date and sex, and found the governor’s records.\n\n\nNetflix, 2008\nNetflix released 100 million ratings from 480,000 subscribers, user IDs replaced by numbers. Narayanan and Shmatikov matched them against public IMDb reviews and named individual subscribers.\n\n\n\nZIP, birth date and sex identify 87 percent of the US population uniquely (Sweeney, 2000). The direct identifiers were gone in both of these cases."
+  },
+  {
+    "objectID": "slides/week6.html#a-test-you-can-run",
+    "href": "slides/week6.html#a-test-you-can-run",
+    "title": "Generative AI for Finance",
+    "section": "A test you can run",
+    "text": "A test you can run\n\nGroup the rows by the quasi-identifiers you are about to send. Count each group.\n\n\n\nk-anonymity — no group smaller than k, so every record looks like at least k−1 others. Where a group is too small, generalize further or drop it\nl-diversity — within a group, the sensitive attribute has to vary. If five records match on ZIP and month and all carry the same diagnosis, the diagnosis is known for all five"
+  },
+  {
+    "objectID": "slides/week6.html#pseudonymize-out-re-identify-in",
+    "href": "slides/week6.html#pseudonymize-out-re-identify-in",
+    "title": "Generative AI for Finance",
+    "section": "Pseudonymize out, re-identify in",
+    "text": "Pseudonymize out, re-identify in\n\n\n\nYour code\n\n\nReplaces each person with a surrogate key. The mapping table stays in your database.\n\n\n\n\nThe model\n\n\nSees CUSTOMER_0417 and the figures. Reasons over them, writes, returns.\n\n\n\n\nYour code again\n\n\nReads the mapping back and puts the names in before anyone sees the output.\n\n\n\n\nThe model never holds the mapping, so nothing it emits — including anything an injected instruction makes it emit — carries a name."
+  },
+  {
+    "objectID": "slides/week6.html#where-it-has-to-happen",
+    "href": "slides/week6.html#where-it-has-to-happen",
+    "title": "Generative AI for Finance",
+    "section": "Where it has to happen",
+    "text": "Where it has to happen\n\n\nIn code, before the call\nA system prompt telling the model to ignore the names does nothing about the names you sent.\n\n\nBefore your own log\nThe gateway logs prompts and completions. That log is a second copy of whatever you sent.\n\n\nNot by the model doing the work\nA model asked to redact a document has already read it."
+  },
+  {
+    "objectID": "slides/week6.html#de-identifying-text",
+    "href": "slides/week6.html#de-identifying-text",
+    "title": "Generative AI for Finance",
+    "section": "De-identifying text",
+    "text": "De-identifying text"
+  },
+  {
+    "objectID": "slides/week6.html#a-table-and-a-notes-field",
+    "href": "slides/week6.html#a-table-and-a-notes-field",
+    "title": "Generative AI for Finance",
+    "section": "A table and a notes field",
+    "text": "A table and a notes field\n\n\nA table\nThe identifiers are in named columns. You decide once per column, and the decision holds for every row.\n\nFree text\nA notes field, an email body, a scanned PDF. The name is in the middle of a sentence, and so are the place, the quantity and the date."
+  },
+  {
+    "objectID": "slides/week6.html#why-this-job-needs-the-local-model",
+    "href": "slides/week6.html#why-this-job-needs-the-local-model",
+    "title": "Generative AI for Finance",
+    "section": "Why this job needs the local model",
+    "text": "Why this job needs the local model\n\n\nThe reason\nA scrubber has to read the raw text. Sending it to a hosted model to decide what to remove sends the unscrubbed text.\nThe weights sit on your disk, so the unscrubbed document stays on your machine.\n\n\nThe size\nSpan tagging: find the name, return a label. The open models used for this run 4B to 12B parameters, under 7 GB on disk at 4-bit.\nChoose by the recall you measure on your own sample."
+  },
+  {
+    "objectID": "slides/week6.html#three-tools-in-order",
+    "href": "slides/week6.html#three-tools-in-order",
+    "title": "Generative AI for Finance",
+    "section": "Three tools, in order",
+    "text": "Three tools, in order\n\n\n\nRegex\n\n\nSSNs, account numbers, phone numbers, emails — anything with a format you can write down. Exact and free, and it finds every string matching the pattern you wrote.\n\n\n\n\nA named-entity scrubber\n\n\nMicrosoft Presidio, spaCy. A purpose-built NER model, not a general LLM: it tags people, places, organizations and dates, and hands back spans to replace.\n\n\n\n\nA local LLM\n\n\nThe last pass, over what the first two left. It reads the sentence, so it catches the identifier that is identifying only in context.\n\n\n\n\nThe first two passes are deterministic and testable, so they run before the LLM."
+  },
+  {
+    "objectID": "slides/week6.html#why-the-llm-goes-last",
+    "href": "slides/week6.html#why-the-llm-goes-last",
+    "title": "Generative AI for Finance",
+    "section": "Why the LLM goes last",
+    "text": "Why the LLM goes last\n\n\nIt is not deterministic\nThe same paragraph twice can come back scrubbed two different ways. You cannot write a test that keeps passing.\n\n\nIt has no recall guarantee\nRegex finds every string matching the pattern. An LLM finds most of them, and you do not know which it missed.\n\n\nIt can invent\nAsked to replace a name, it may also rewrite the clause around it. Check that the rest of the text is unchanged."
+  },
+  {
+    "objectID": "slides/week6.html#measuring-the-scrubber",
+    "href": "slides/week6.html#measuring-the-scrubber",
+    "title": "Generative AI for Finance",
+    "section": "Measuring the scrubber",
+    "text": "Measuring the scrubber\nNo scrubber catches everything, so measure how much it misses.\n\n\nTake a sample of documents and mark the identifiers by hand.\nRun the pipeline over the same sample.\nCount what it missed and what it removed that it should have kept.\nWrite both numbers down, with the date and the model, next to the decision to accept them.\n\n\n\nRecall is the number an auditor asks for."
+  },
+  {
+    "objectID": "slides/week6.html#what-de-identification-does-not-do",
+    "href": "slides/week6.html#what-de-identification-does-not-do",
+    "title": "Generative AI for Finance",
+    "section": "What de-identification does not do",
+    "text": "What de-identification does not do\n\n\nIt does not replace the contract\nYour DPA and your vendor-oversight obligations apply to any vendor you use, whatever you send them.\n\n\nIt does not cover the agent’s tools\nIf a tool reaches the raw table, what you scrubbed out of the prompt is back in the context.\n\n\nIt is not free\nA generalized ZIP cannot be geocoded; a perturbed amount cannot be reconciled. Decide what the answer needs first."
+  },
+  {
+    "objectID": "slides/week6.html#exercises",
+    "href": "slides/week6.html#exercises",
+    "title": "Generative AI for Finance",
+    "section": "Exercises",
+    "text": "Exercises"
+  },
+  {
+    "objectID": "slides/week6.html#de-identify-a-table",
+    "href": "slides/week6.html#de-identify-a-table",
+    "title": "Generative AI for Finance",
+    "section": "De-identify a table",
+    "text": "De-identify a table\nTake a table with customers in it — a brokerage account table with names, addresses and balances will do. Ask Claude to generate one if you do not have one.\n\n\nTell Claude\n\nWrite a function deidentify(df) for this table. Suppress the direct identifiers. Replace the customer with a stable surrogate key, and keep the mapping table in a separate file. Generalize the postal code to three characters and the order date to its month. Then report the size of the smallest group under postal code + month.\n\nRun it, read what is left, and ask whether you could still pick someone out of it."
+  },
+  {
+    "objectID": "slides/week6.html#a-local-chatbot",
+    "href": "slides/week6.html#a-local-chatbot",
+    "title": "Generative AI for Finance",
+    "section": "A local chatbot",
+    "text": "A local chatbot\n\n\nInstall Ollama: ollama.com/download.\nIn a terminal, type ollama run gemma4:e2b-it-qat. The download is 4.3 GB.\nAsk it something you asked a frontier model. Compare the two answers.\nType /bye to leave. Then run ollama run gemma3:1b, an 815 MB download from the previous generation, and ask the same question again.\n\n\n\nNothing you type leaves your machine. In a second terminal window, ollama ps shows what is loaded and how much memory it holds."
+  },
+  {
+    "objectID": "slides/week6.html#scrub-text-with-the-local-model",
+    "href": "slides/week6.html#scrub-text-with-the-local-model",
+    "title": "Generative AI for Finance",
+    "section": "Scrub text with the local model",
+    "text": "Scrub text with the local model\nWrite four or five customer complaints with names, places and dates in them.\n\n\nRun a regex pass for the formats you can specify, and see what is left.\nSend the remainder to the local model from the last exercise, asking it to replace each person with a label and each place with its region.\nRun the same text through twice. Compare the two outputs.\nCount what it missed.\n\n\n\nStep 3 shows whether the model is deterministic; step 4 is its recall."
+  },
+  {
+    "objectID": "slides/week4.html#agenda",
+    "href": "slides/week4.html#agenda",
+    "title": "Generative AI for Finance",
+    "section": "Agenda",
+    "text": "Agenda\n\nCreating custom agents. Evaluating models. Outline to come."
+  },
+  {
+    "objectID": "slides/week2.html#todays-session",
+    "href": "slides/week2.html#todays-session",
+    "title": "Generative AI for Finance",
+    "section": "Today’s session",
+    "text": "Today’s session\n\nInstructions that are always read (CLAUDE.md, AGENTS.md)\nInstructions that are read when needed (SKILL.md)\nCustomizing"
+  },
+  {
+    "objectID": "slides/week2.html#claude.md",
+    "href": "slides/week2.html#claude.md",
+    "title": "Generative AI for Finance",
+    "section": "CLAUDE.md",
+    "text": "CLAUDE.md\n\n\n\nAt the start of each conversation, Claude looks in specific places for CLAUDE.md files\nIt looks in your home directory (C:\\users\\yourname on Windows) and it looks in the project folder\n\n\n\n\nA CLAUDE.md is a text file that contains instructions for Claude\nClaude reads the entire file, so use it sparingly\n\n\n\n\nYou could get the same behavior by pasting the instructions in the prompt window. OpenAI calls the file AGENTS.md; Google reads either AGENTS.md or GEMINI.md."
+  },
+  {
+    "objectID": "slides/week2.html#the-equivalent-in-each-tool",
+    "href": "slides/week2.html#the-equivalent-in-each-tool",
+    "title": "Generative AI for Finance",
+    "section": "The equivalent in each tool",
+    "text": "The equivalent in each tool\n\n\n\n\n\n\n\n\nTool\nWhere standing instructions live\n\n\n\n\nChat and Cowork\nSettings → General → Instructions for Claude, plus instructions on each project\n\n\nCode — Local\nCLAUDE.md files on your hard drive\n\n\nCode CLI\nthe same CLAUDE.md files\n\n\n\n\n\nCowork keeps its instructions in the app, not in files — global in Settings, per-project in the project panel, per-folder in a text box on the folder you select. Chat reads only what you upload or add to a project, so its standing instructions live in the settings rather than in a file."
+  },
+  {
+    "objectID": "slides/week2.html#example-keep-things-organized",
+    "href": "slides/week2.html#example-keep-things-organized",
+    "title": "Generative AI for Finance",
+    "section": "Example: Keep things organized",
+    "text": "Example: Keep things organized\n\nHandoff (summary) docs, AI outputs, and scripts proliferate over time\nTo reduce the amount of reading (and tokens) AI must do to locate things, have Claude keep a map of what each file is and what it draws on\n\n\n\nIn CLAUDE.md — one line\n\nRead MAP.md at the start of every session to get oriented in this folder.\n\n\nBuilding and rebuilding the map is a skill, not a CLAUDE.md rule. We will get to that."
+  },
+  {
+    "objectID": "slides/week2.html#chat-and-cowork",
+    "href": "slides/week2.html#chat-and-cowork",
+    "title": "Generative AI for Finance",
+    "section": "Chat and Cowork",
+    "text": "Chat and Cowork\n\n\nAccount-wide\nSettings → Instructions for Claude. Read at the start of every conversation and every scheduled task.\n\n\nOne project\nA project carries its own instructions alongside its folders and links. Cowork projects live on your computer; Chat projects live in your Claude account.\n\n\nProject memory\nA Cowork project also keeps a memory store. Claude writes to it during a session and reads it back the next time."
+  },
+  {
+    "objectID": "slides/week2.html#where-code-looks-for-claude.md",
+    "href": "slides/week2.html#where-code-looks-for-claude.md",
+    "title": "Generative AI for Finance",
+    "section": "Where Code looks for CLAUDE.md",
+    "text": "Where Code looks for CLAUDE.md\nLoaded in this order — broadest first, most specific last:\n\n\nA managed file installed by IT, applying to everyone on the machine\n~/.claude/CLAUDE.md — applies to you in every project\nCLAUDE.md or .claude/CLAUDE.md in the project folder — checked into git and shared with the team\nCLAUDE.local.md in the project folder — yours alone, kept out of git\n\n\n\n/init drafts one from your folder, # at the start of a prompt appends a line, and /memory opens the files for editing. A folder with an AGENTS.md and no CLAUDE.md is read the same way."
+  },
+  {
+    "objectID": "slides/week2.html#skills",
+    "href": "slides/week2.html#skills",
+    "title": "Generative AI for Finance",
+    "section": "Skills",
+    "text": "Skills\n\n\nAt the start of each conversation, Claude also looks in specific places for SKILL.md files\n\n\nIt looks in your home directory (C:\\users\\yourname on Windows) and it looks in the project folder\n\n\n\n\nSkills are text files saved on your hard drive. Claude reads the top of each SKILL.md file (the skill description) on startup, and it reads the bulk of the file only when needed"
+  },
+  {
+    "objectID": "slides/week2.html#anthropic-skills",
+    "href": "slides/week2.html#anthropic-skills",
+    "title": "Generative AI for Finance",
+    "section": "Anthropic skills",
+    "text": "Anthropic skills\nAnthropic publishes its own skills at https://github.com/anthropics/skills\nPre-installed on claude.ai and Claude Desktop\n\n\nxlsx\nExcel workbooks\n\n\ndocx\nWord documents\n\n\npptx\nPowerPoint decks\n\n\npdf\nPDF files\n\n\n\nThese four activate on their own when a task calls for one. Code execution and file creation must be turned on under Settings → Capabilities."
+  },
+  {
+    "objectID": "slides/week2.html#invoking-skills",
+    "href": "slides/week2.html#invoking-skills",
+    "title": "Generative AI for Finance",
+    "section": "Invoking skills",
+    "text": "Invoking skills\n\n\nSlash Command\n\nType /skillname at the prompt\nExample: /plan\nInvokes the skill directly\n\n\n\nNatural Language\n\nDescribe what you need in plain English\nExample: “Use your planning mode and evaluate …”\n\n\n\nAutomatic\n\nClaude may invoke a skill on its own\nExample: “Create an Excel file” triggers the xlsx skill automatically\nDriven by the skill’s description"
+  },
+  {
+    "objectID": "slides/week2.html#adding-a-skill-in-claude-desktop",
+    "href": "slides/week2.html#adding-a-skill-in-claude-desktop",
+    "title": "Generative AI for Finance",
+    "section": "Adding a skill in Claude Desktop",
+    "text": "Adding a skill in Claude Desktop\nSkills are saved prompts for specific tasks — reusable workflows you can share with your team.\n\n\n\nClick Customize in the left sidebar\nSelect Skills\nClick + → Create skill → Upload a skill\nDrag and drop or browse to a SKILL.md file\n\nWorks the same in Chat, Cowork, and Code modes. In Cowork and Code, you can tell Claude to create and save the skill."
+  },
+  {
+    "objectID": "slides/week2.html#creating-skills",
+    "href": "slides/week2.html#creating-skills",
+    "title": "Generative AI for Finance",
+    "section": "Creating skills",
+    "text": "Creating skills\n\n\n\nUsual process is you work on something, iterating until you get what you want.\n\n\n\n\nYou realize you may want the same thing again, and you don’t want to go through the iteration again.\n\n\n\n\nSolution: tell Claude to package the final version as a skill."
+  },
+  {
+    "objectID": "slides/week2.html#example-1",
+    "href": "slides/week2.html#example-1",
+    "title": "Generative AI for Finance",
+    "section": "Example 1",
+    "text": "Example 1\n\n\nTell Claude to create a skill for your folder named “pirate” with this content: “Always answer like a pirate” (On Claude Desktop: Customize/Skills/Add/Create a skill).\n\n\nStart a new conversation. Enter /pirate What is the meaning of life?"
+  },
+  {
+    "objectID": "slides/week2.html#example-2",
+    "href": "slides/week2.html#example-2",
+    "title": "Generative AI for Finance",
+    "section": "Example 2",
+    "text": "Example 2\n\n\nAsk Claude to add one line to your project CLAUDE.md: read MAP.md at the start of every session\nTell Claude to create an update-map skill that scans the folder and writes MAP.md as a table — file, what it is, what it draws on — creating the file if there isn’t one\nStart a new conversation and enter /update-map. Open MAP.md and read it\nAdd a file to the folder, run /update-map again, and find the new entry\n\n\n\nThe skill writes the map on its first run, so there is nothing to set up before you invoke it. The CLAUDE.md line takes effect in the next conversation, not the one you are in."
+  },
+  {
+    "objectID": "slides/week2.html#example-3",
+    "href": "slides/week2.html#example-3",
+    "title": "Generative AI for Finance",
+    "section": "Example 3",
+    "text": "Example 3\ncritique: skill I wrote to review work Claude has produced — a draft, a deck, or code.\n\n\nLaunches reviewer agents in parallel: correctness traced back to the source files, clarity, and a devil’s advocate that reads the code\nArgues against every finding and keeps only the ones that survive\nPublishes an HTML page with the findings and the options for what to do next\n\n\n\nInvoked with /critique. It runs several subagents, so it takes longer and uses more tokens than most skills."
+  },
+  {
+    "objectID": "slides/week2.html#plugins",
+    "href": "slides/week2.html#plugins",
+    "title": "Generative AI for Finance",
+    "section": "Plugins",
+    "text": "Plugins\nA shipping protocol for skills plus scripts, MCP connectors, and other files\n\nVisit the Anthropic plugin directory: Enter /plugin as a Claude prompt or visit https://github.com/anthropics/claude-plugins-official\n\n\n\nThousands of people (including your prof) have created their own plugin marketplaces. Everything is free.\n\n\nThe most useful things will be the ones you create (with Claude’s assistance)"
+  },
+  {
+    "objectID": "slides/week2.html#example-anthropics-data-plugin",
+    "href": "slides/week2.html#example-anthropics-data-plugin",
+    "title": "Generative AI for Finance",
+    "section": "Example: Anthropic’s Data plugin",
+    "text": "Example: Anthropic’s Data plugin\n\nWhat it adds\nSix commands — /analyze, /explore-data, /write-query, /create-viz, /build-dashboard, /validate-data — against any SQL database with an MCP server, or an uploaded CSV\n\n/plugin marketplace add anthropics/knowledge-work-plugins then /plugin install data@knowledge-work-plugins"
+  },
+  {
+    "objectID": "slides/week2.html#what-the-plugin-adds",
+    "href": "slides/week2.html#what-the-plugin-adds",
+    "title": "Generative AI for Finance",
+    "section": "What the plugin adds",
+    "text": "What the plugin adds\nA checklist with named failure modes, each with how to detect it and how to prevent it:\n\n\n\n\n\n\n\n\nPitfall\nWhat goes wrong\n\n\n\n\nJoin explosion\nA many-to-many join multiplies rows and inflates every count and sum\n\n\nSurvivorship bias\nOnly the entities that still exist are in the data; the churned ones are missing\n\n\nIncomplete period\nA partial month compared against a full one\n\n\nDenominator shifting\n“Eligible” or “active” was redefined between the periods being compared\n\n\nAverage of averages\nGroup averages averaged together when the groups are different sizes\n\n\nTimezone mismatch\nOne source on UTC, another on local time, rolled up at different cutoffs\n\n\nSelection bias\nThe segment is defined by the outcome being measured\n\n\n\n\n\nPlus Simpson’s paradox, a QA checklist covering data quality, calculation, reasonableness and presentation, and a verdict of ready to share, share with caveats, or needs revision."
+  },
+  {
+    "objectID": "slides/week2.html#a-class-marketplace",
+    "href": "slides/week2.html#a-class-marketplace",
+    "title": "Generative AI for Finance",
+    "section": "A class marketplace",
+    "text": "A class marketplace\nPlugins built by a previous class of mine, plus my own.\n/plugin marketplace add kerryback/mgmt803-plugins\n\n\ncritique\nKerry Back\nThe reviewer from Example 3\n\n\njob-scout\nbazingasc, MGMT 803\nScores current job postings against your resume and says what to fix\n\n\n/plugin install critique@mgmt803 and /plugin install job-scout@mgmt803\n\nStart a new session after installing — a plugin’s skills don’t load until the session restarts. Job Scout can write its digest to a file, so no Gmail connector is needed. Type /plugin alone to browse the rest."
+  },
+  {
+    "objectID": "slides/week2.html#breakout",
+    "href": "slides/week2.html#breakout",
+    "title": "Generative AI for Finance",
+    "section": "Breakout",
+    "text": "Breakout\nBrainstorm as a group: What workflows can I use a Claude skill for?"
+  },
+  {
+    "objectID": "slides/week2.html#example-3-2-1-crack-spread",
+    "href": "slides/week2.html#example-3-2-1-crack-spread",
+    "title": "Generative AI for Finance",
+    "section": "Example: 3-2-1 crack spread",
+    "text": "Example: 3-2-1 crack spread\n\n\n\n\nPrompt\n\n\n\nAsk Claude to get the NY gasoline, NY heating oil, and Cushing WTI prices and compute the 3-2-1 crack spread on a per-barrel basis. Ask Claude to produce a plot.\n\n\n\n\n\nSkill\n\n\n\nAsk Claude to produce a “crack” skill. On the prompt /crack, Claude should display a plot of the crack spread over the past 12 months"
+  },
+  {
+    "objectID": "slides/week2.html#takeaways",
+    "href": "slides/week2.html#takeaways",
+    "title": "Generative AI for Finance",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nThe same job can be a prompt or a skill. Prompt it once to see it work. Save it as a skill when you will run it again."
+  },
+  {
+    "objectID": "slides/week2.html#extra-work",
+    "href": "slides/week2.html#extra-work",
+    "title": "Generative AI for Finance",
+    "section": "Extra work",
+    "text": "Extra work"
+  },
+  {
+    "objectID": "slides/week2.html#your-workflows",
+    "href": "slides/week2.html#your-workflows",
+    "title": "Generative AI for Finance",
+    "section": "Your workflows",
+    "text": "Your workflows\n\nThink of a task that you need to perform regularly. Ask Claude to create hypothetical data (reports, Excel files, whatever your task involves) for you to experiment with. Perform the task using a prompt. Create a skill so that it is performed the same way each time."
+  },
+  {
+    "objectID": "slides/week2.html#toward-the-valuation-skill",
+    "href": "slides/week2.html#toward-the-valuation-skill",
+    "title": "Generative AI for Finance",
+    "section": "Toward the Valuation Skill",
+    "text": "Toward the Valuation Skill\nThe third group project is a Valuation Skill for Claude. This week is where it starts.\n\n\nDo a valuation with Claude once, by prompting, and iterate until the output is what you want.\nWrite down what you had to say every time, and what you had to correct every time.\nThat is the content of the skill."
+  },
+  {
+    "objectID": "slides/week2.html#upcoming",
+    "href": "slides/week2.html#upcoming",
+    "title": "Generative AI for Finance",
+    "section": "Upcoming",
+    "text": "Upcoming\n\n\nWeek 3: Customizing AI\n\nCreating custom skills\nSharing as plugins\n\n\n\nThe course ahead\n\nWeek 4: AI-enabled software\nWeek 5: Retrieval and fine-tuning\nWeek 6: Local models and privacy"
+  },
+  {
+    "objectID": "slides/week1.html#what-you-will-learn",
+    "href": "slides/week1.html#what-you-will-learn",
+    "title": "Generative AI for Finance",
+    "section": "What you will learn",
+    "text": "What you will learn\n\n\nOne\nHow to work with AI to do financial analysis\n\n\nTwo\nHow custom chatbots and AI agents work\n\n\nThree\nHow to work with AI to build custom chatbots and AI agents for financial analysis\n\n\n\nItem #1 is essential today. Item #2 is valuable today."
+  },
+  {
+    "objectID": "slides/week1.html#the-purpose-of-3",
+    "href": "slides/week1.html#the-purpose-of-3",
+    "title": "Generative AI for Finance",
+    "section": "The purpose of #3",
+    "text": "The purpose of #3\n\nMore practice on #1\nA deeper understanding of #2\nYou could end up at a small firm and be the AI expert"
+  },
+  {
+    "objectID": "slides/week1.html#course-schedule",
+    "href": "slides/week1.html#course-schedule",
+    "title": "Generative AI for Finance",
+    "section": "Course schedule",
+    "text": "Course schedule\n\n\n  \n    WEEK 1Introduction\n    WEEK 2Agents and standing instructions\n    WEEK 3Customizing AI\n    WEEK 4AI-enabled software\n    WEEK 5Retrieval and fine-tuning\n    WEEK 6Local models and privacy"
+  },
+  {
+    "objectID": "slides/week1.html#evaluation",
+    "href": "slides/week1.html#evaluation",
+    "title": "Generative AI for Finance",
+    "section": "Evaluation",
+    "text": "Evaluation\nFour elements, 25% each. The first three are group projects.\n\n\nOne\nAI cost of capital exercise: calculation, visualization, report generation\n\n\nTwo\nCost of capital app\n\n\nThree\nValuation Skill for Claude\n\n\nFour\nSeated exam with AI allowed\n\n\n\nFor each group project the deliverables are a chat, app, or agent, and a two-page Word doc explaining development and use."
+  },
+  {
+    "objectID": "slides/week1.html#hpes-experience-with-ai-agents",
+    "href": "slides/week1.html#hpes-experience-with-ai-agents",
+    "title": "Generative AI for Finance",
+    "section": "HPE’s experience with AI agents",
+    "text": "HPE’s experience with AI agents\n\n\n“[Alfred] removed about 90% of the manual effort that once went into preparing our weekly financial review. We used to spend hundreds of hours preparing 100+ slides for a Monday meeting.”\n\n Marie Myers, CFO, Hewlett Packard Enterprise (Fortune, Feb 2026)"
+  },
+  {
+    "objectID": "slides/week1.html#todays-session",
+    "href": "slides/week1.html#todays-session",
+    "title": "Generative AI for Finance",
+    "section": "Today’s session",
+    "text": "Today’s session\n\n\n\nHow large language models work\nThe universe of models\nUsing Claude\nEffective use of AI\n\n\n\n\nChatbots and agents\nClaude and Excel for valuation\nCorporate implementations of AI"
+  },
+  {
+    "objectID": "slides/week1.html#how-large-language-models-work",
+    "href": "slides/week1.html#how-large-language-models-work",
+    "title": "Generative AI for Finance",
+    "section": "How large language models work",
+    "text": "How large language models work"
+  },
+  {
+    "objectID": "slides/week1.html#tokenization",
+    "href": "slides/week1.html#tokenization",
+    "title": "Generative AI for Finance",
+    "section": "Tokenization",
+    "text": "Tokenization\nText is cut into pieces from a fixed vocabulary before the model sees any of it.\n\"The cat sat on the mat\"  -&gt;  [\"The\", \" cat\", \" sat\", \" on\", \" the\", \" mat\"]\n\n\"Unbelievable\"            -&gt;  [\"Un\", \"believ\", \"able\"]\nCommon words stay whole; rare and long words break into pieces. A typical vocabulary runs to about 100,000 tokens.\n\nNumbers break on the same rules, which have nothing to do with arithmetic. 13,963,378.65 reaches the model as a handful of unrelated pieces."
+  },
+  {
+    "objectID": "slides/week1.html#vectors",
+    "href": "slides/week1.html#vectors",
+    "title": "Generative AI for Finance",
+    "section": "Vectors",
+    "text": "Vectors\nEach token is associated with a vector, meaning a list of numbers. So, a sequence of text becomes a sequence of lists of numbers.\n\n\nEach token is a list\n“king” becomes a list of 4,096 numbers. “queen” becomes a different but somewhat similar list of 4,096 numbers.\nTokens used in similar contexts end up near each other.\n\n\nThe space is mostly empty\nThere are far more possible vectors than there are tokens, so most points in the space name nothing.\nThe prediction can land between tokens. The “closest” token is usually selected but not always (so LLM output is somewhat random)."
+  },
+  {
+    "objectID": "slides/week1.html#the-whole-task",
+    "href": "slides/week1.html#the-whole-task",
+    "title": "Generative AI for Finance",
+    "section": "The whole task",
+    "text": "The whole task\n\nGiven the tokens (lists of numbers) so far, predict the token (list of numbers) that comes next. That is the entire operation.\n\nEverything a model appears to do — answering, summarizing, writing code, refusing — is that one prediction, repeated."
+  },
+  {
+    "objectID": "slides/week1.html#the-prediction-pipeline",
+    "href": "slides/week1.html#the-prediction-pipeline",
+    "title": "Generative AI for Finance",
+    "section": "The prediction pipeline",
+    "text": "The prediction pipeline\n\n\n\n📝\n\n\nWords\n\n\nInput text\n\n\n\n\n🔤\n\n\nTokens\n\n\nText split into units\n\n\n\n\n📐\n\n\nVectors\n\n\n4,096 numbers per token\n\n\n\n\n🧠\n\n\nNeural Network\n\n\nBillions+ of parameters\n\n\n\n\n📊\n\n\nVector\n\n\nOutput vector\n\n\n\n\n🎯\n\n\nToken\n\n\nPredicted next token"
+  },
+  {
+    "objectID": "slides/week1.html#a-neural-network-is-a-function",
+    "href": "slides/week1.html#a-neural-network-is-a-function",
+    "title": "Generative AI for Finance",
+    "section": "A neural network is a function",
+    "text": "A neural network is a function\n\n\nThe idea\n\\(y = 4x\\) is a function. The 4 is a parameter.\nChange it to 3 and you have the same structure with different behavior.\n\nThe scale\nSame idea with perhaps trillions of parameters, arranged as a transformer — the architecture published by Google researchers in 2017."
+  },
+  {
+    "objectID": "slides/week1.html#from-prediction-to-conversation",
+    "href": "slides/week1.html#from-prediction-to-conversation",
+    "title": "Generative AI for Finance",
+    "section": "From prediction to conversation",
+    "text": "From prediction to conversation\nA model trained only to predict the next token continues your text. It does not answer a question.\n\n\nRole tokens. The text is wrapped in markers: &lt;|user|&gt; your question &lt;|assistant|&gt;.\nInstruction tuning. The model is further trained on examples where what follows &lt;|assistant|&gt; is a useful reply.\nReinforcement learning from human feedback. Raters score replies, and the model is trained toward what raters preferred.\n\n\nThe mechanism did not change. What changed is which continuation is the likely one. GPT became Chat-GPT in 2022."
+  },
+  {
+    "objectID": "slides/week1.html#the-universe-of-models",
+    "href": "slides/week1.html#the-universe-of-models",
+    "title": "Generative AI for Finance",
+    "section": "The universe of models",
+    "text": "The universe of models"
+  },
+  {
+    "objectID": "slides/week1.html#a-brief-history",
+    "href": "slides/week1.html#a-brief-history",
+    "title": "Generative AI for Finance",
+    "section": "A brief history",
+    "text": "A brief history\n\n\n\n\n\n\n\n\nWhen\nWhat\n\n\n\n\n2017\nGoogle researchers publish the transformer (“Attention Is All You Need”)\n\n\n2020\nGPT-3 (OpenAI) shows abilities that appear with scale\n\n\n2022–2023\nOnline chatbots. You typed, it typed back\n\n\n2023–2024\nCode execution and web search arrive\n\n\n2025\nThe serious versions move to the command line, reading and writing files on your own machine. DeepSeek R1 appears\n\n\n2025–2026\nThat command-line capability is wrapped back into an app\n\n\n2026\nAgents that carry out extended work on your files without you living in a terminal"
+  },
+  {
+    "objectID": "slides/week1.html#the-frontier-closed-weights",
+    "href": "slides/week1.html#the-frontier-closed-weights",
+    "title": "Generative AI for Finance",
+    "section": "The frontier: closed weights",
+    "text": "The frontier: closed weights\n\n\n\n\n\n\n\n\n\n\nProvider\nModel\nReleased\nInput / output, $ per M tokens\n\n\n\n\nAnthropic\nClaude Fable 5.1\nSep 2026\n10 / 50\n\n\nAnthropic\nClaude Opus 5\nJul 2026\n5 / 25\n\n\nAnthropic\nClaude Sonnet 5\nJun 2026\n2 / 10\n\n\nOpenAI\nGPT-6 Astra\nSep 2026\n10 / 50\n\n\nOpenAI\nGPT-5.6 Sol\nJul 2026\n5 / 30 (4 / 20 until Nov 21)\n\n\nGoogle\nGemini 3.8 Flash\nSep 2026\n1.50 / 7.50 (0.75 / 3.75 until Dec 31)\n\n\nxAI\nGrok 4.6\nAug 2026\n2 / 6\n\n\nMeta\nMuse Spark 1.3\nSep 2026\n1.25 / 4.25\n\n\n\n\n\nPrices are as of September 18, 2026."
+  },
+  {
+    "objectID": "slides/week1.html#the-frontier-open-weights",
+    "href": "slides/week1.html#the-frontier-open-weights",
+    "title": "Generative AI for Finance",
+    "section": "The frontier: open weights",
+    "text": "The frontier: open weights\n\n\n\n\nProvider\nModel\nReleased\nInput / output, $ per M tokens\n\n\n\n\nAlibaba\nQwen3.8-Max\nAug 2026\n2 / 6\n\n\nZhipu (Z.ai)\nGLM-5.3\nAug 2026\n1.40 / 4.40\n\n\nMoonshot\nKimi K3\nJul 2026\n3 / 15\n\n\nDeepSeek\nDeepSeek V4 Pro\n2026\n1.32 / 3.96\n\n\nNVIDIA\nNemotron 3 Ultra\nJun 2026\nfree\n\n\nMistral\nMistral Medium 3.5\nApr 2026\n1.50 / 7.50\n\n\n\n\n\nOpen weights means anyone can download the model and run it on their own hardware. The prices are for the developer’s hosting; DeepSeek charges half off-peak."
+  },
+  {
+    "objectID": "slides/week1.html#an-aggregation-across-multiple-benchmarks",
+    "href": "slides/week1.html#an-aggregation-across-multiple-benchmarks",
+    "title": "Generative AI for Finance",
+    "section": "An aggregation across multiple benchmarks",
+    "text": "An aggregation across multiple benchmarks\nArtificial Analysis Intelligence Index, v4.3, best setting for each model.\n\n\n\n\nModel\nScore\n\nModel\nScore\n\n\n\n\nClaude Fable 5.1\n53\n\nGLM-5.3 (open)\n45\n\n\nGPT-6 Astra\n53\n\nQwen3.8-Max\n45\n\n\nClaude Opus 5\n51\n\nKimi K3 (open)\n44\n\n\nMuse Spark 1.3\n48\n\nGrok 4.6\n44\n\n\nGPT-5.6 Sol\n47\n\nGemini 3.8 Flash\n41\n\n\n\n\n\nThe best open model trails the best closed ones by 8 points."
+  },
+  {
+    "objectID": "slides/week1.html#cost-per-task",
+    "href": "slides/week1.html#cost-per-task",
+    "title": "Generative AI for Finance",
+    "section": "Cost per task",
+    "text": "Cost per task\nCost per task is the price per token times the number of tokens the model uses.\n\n\n\n\nModel, effort setting\nIndex score\nCost per task\n\n\n\n\nGPT-6 Astra, max\n53\n$3.26\n\n\nClaude Fable 5.1, max\n53\n$7.63\n\n\nClaude Opus 5, max\n51\n$5.86\n\n\nGPT-5.6 Sol, max\n47\n$1.99\n\n\nGPT-6 Astra, low\n46\n$0.82\n\n\n\n\n\nAstra and Fable 5.1 have the same list price, $10 / $50. At max effort Astra writes about 27,000 output tokens per task and Fable 5.1 about 78,000. Artificial Analysis, September 2026."
+  },
+  {
+    "objectID": "slides/week1.html#enterprise-adoption",
+    "href": "slides/week1.html#enterprise-adoption",
+    "title": "Generative AI for Finance",
+    "section": "Enterprise adoption",
+    "text": "Enterprise adoption\n\n\n\n\n\n\n\n\n\n\n\n\nAnthropic\nOpenAI\nGoogle\nOpen Source\n\n\n\n\nEnterprise LLM spend (Menlo, Dec 2025)\n40%\n27%\n21%\n12%\n\n\nCompany usage (Datadog, Apr 2026)\n~46% (+23 pts YoY)\n63% of companies\n~37% (+20 pts YoY)\n13% of workloads\n\n\nBusinesses paying (Ramp, Aug 2026)\n43.8%\n39.8%\n?\n3.6%\n\n\nCode generation (Menlo, Dec 2025)\n54%\n21%\n?\n?\n\n\n\n\n\nAnthropic is #1 by enterprise spend; OpenAI is #1 by breadth of adoption. The default enterprise strategy is multi-model — 69% of companies use 3+ models, routing different tasks to different providers. Closed-source models power 85–90% of enterprise workloads. The Ramp row is the share of 70,000+ US businesses paying each provider, and many pay more than one."
+  },
+  {
+    "objectID": "slides/week1.html#why-claude-for-this-course",
+    "href": "slides/week1.html#why-claude-for-this-course",
+    "title": "Generative AI for Finance",
+    "section": "Why Claude for this course",
+    "text": "Why Claude for this course\n\n\nCoding\nClaude Opus and Sonnet are the best coding LLMs, and most of what we do in weeks 2 through 6 is code.\n\n\nExcel\nAnthropic released Excel integration, so Claude can generate fully functioning, nicely formatted workbooks.\n\n\nAgents\nAnthropic created the Model Context Protocol and Claude Skills, which simplify building agents.\n\n\n\nOpenAI also uses MCP and has a coding agent along the same lines as Claude Code."
+  },
+  {
+    "objectID": "slides/week1.html#using-claude",
+    "href": "slides/week1.html#using-claude",
+    "title": "Generative AI for Finance",
+    "section": "Using Claude",
+    "text": "Using Claude"
+  },
+  {
+    "objectID": "slides/week1.html#project-folder",
+    "href": "slides/week1.html#project-folder",
+    "title": "Generative AI for Finance",
+    "section": "Project folder",
+    "text": "Project folder\nIn Cowork and Code modes, open a folder to give Claude access to your local files.\n\n\nCowork — click Work in a project at the bottom of the chat window, then Choose a folder\n\n\n\nCode — click the folder icon in the toolbar or use the folder dropdown to select Open folder…\n\n\n\n\nFor Code, selecting a folder tells Claude where to look first — it can still work outside the folder. For Cowork, the folder determines where the virtual machine is mounted — nothing outside it is visible or can be touched."
+  },
+  {
+    "objectID": "slides/week1.html#what-claude-can-reach",
+    "href": "slides/week1.html#what-claude-can-reach",
+    "title": "Generative AI for Finance",
+    "section": "What Claude can reach",
+    "text": "What Claude can reach\n\n\nClaude Code\nThe command line, and Claude Desktop → Code → Local\nCan reach anywhere on your hard drive, but looks first in the project folder\n\n\nClaude Cowork\nCan reach only the project folder\n\n\nClaude Chat\nclaude.ai\nYou must upload files\n\n\n\nWe install Claude Code in week 2. This week is Claude Desktop and the Excel add-in."
+  },
+  {
+    "objectID": "slides/week1.html#permissions",
+    "href": "slides/week1.html#permissions",
+    "title": "Generative AI for Finance",
+    "section": "Permissions",
+    "text": "Permissions\n\n\nCowork\nSelector in the chat box:\n\nManually approve — Allow or Deny each action\nAutomatically approve — Claude safety-checks each action and blocks unsafe ones\nSkip all approvals — nothing is checked\n\nComputer use always requires approval\n\n\nCode — Local\nSelector by send button\n\nManual — asks before every edit and command\nAccept edits — edits go through, commands still ask\nPlan — reads and proposes, changes nothing\nAuto — a classifier approves, blocking risky actions\nBypass permissions — no prompts, no checks\n\n\n\nCode — Cloud\nSelector by send button\n\nAccept edits — edits go through, commands still ask\nPlan — reads and proposes, changes nothing\nAuto — a classifier approves, blocking risky actions"
+  },
+  {
+    "objectID": "slides/week1.html#effective-use-of-ai",
+    "href": "slides/week1.html#effective-use-of-ai",
+    "title": "Generative AI for Finance",
+    "section": "Effective use of AI",
+    "text": "Effective use of AI"
+  },
+  {
+    "objectID": "slides/week1.html#managing-conversations",
+    "href": "slides/week1.html#managing-conversations",
+    "title": "Generative AI for Finance",
+    "section": "Managing conversations",
+    "text": "Managing conversations\n\n\nStart a new conversation for a new task\nAI reads the entire conversation (the context window) each time you prompt. Irrelevant stuff consumes tokens and may be confusing.\n\n\nWhen a conversation gets long\nTell AI to write a handoff document so you can start a fresh conversation. How long? There is a tradeoff; it depends on how much is irrelevant."
+  },
+  {
+    "objectID": "slides/week1.html#good-enough-prompting",
+    "href": "slides/week1.html#good-enough-prompting",
+    "title": "Generative AI for Finance",
+    "section": "Good enough prompting",
+    "text": "Good enough prompting\n\nMost ‘prompt engineering’ techniques from a few years ago are now either useless or actually counterproductive. Don’t tell it “you are an expert data scientist” or “think step by step.”\n\n\n\nTell it what you want, not what to do\nI want … How can we do it?\n\n\nAsk AI for help in prompting\nIf you are unsure how to ask something, ask AI how to ask it.\n\n\nIf something doesn’t work\nTry again.\n\n\n\nTreat AI as an infinitely patient colleague with a poor memory."
+  },
+  {
+    "objectID": "slides/week1.html#plan-evaluate-critique",
+    "href": "slides/week1.html#plan-evaluate-critique",
+    "title": "Generative AI for Finance",
+    "section": "Plan, evaluate, critique",
+    "text": "Plan, evaluate, critique\n\n\nYour go-to prompt\nThink about the best way to do this, and let’s develop a plan together.\n\n\nEx-post diagnosis\nPrompt: Explain what you did step by step. Did you make any decisions that we have not discussed? Write this as an HTML doc.\n\n\nUse AI to evaluate\nStart a new conversation or ask for a subagent. Ask it to evaluate the first agent’s work, summarized in the HTML doc, relative to your goals."
+  },
+  {
+    "objectID": "slides/week1.html#what-this-buys",
+    "href": "slides/week1.html#what-this-buys",
+    "title": "Generative AI for Finance",
+    "section": "What this buys",
+    "text": "What this buys\n\nAI is a prediction machine. Ask it to do something, and it will probably do what it has seen most often in its training data.\nAsk it the best way to do something, and it will regurgitate evaluations of methods it has seen.\nAsk it to proceed after explaining the best way, it will read the “the best way is …” in the conversation history and follow that."
+  },
+  {
+    "objectID": "slides/week1.html#section",
+    "href": "slides/week1.html#section",
+    "title": "Generative AI for Finance",
+    "section": "",
+    "text": "Misunderstandings and unstated assumptions are the most common sources of errors. Discuss before and after to surface those.\nAI is not good at critiquing itself in the same conversation, because it reads its reasoning in the conversation history and predicts the same thing. You need a fresh context window to get a reliable critique."
+  },
+  {
+    "objectID": "slides/week1.html#numbers-need-code",
+    "href": "slides/week1.html#numbers-need-code",
+    "title": "Generative AI for Finance",
+    "section": "Numbers need code",
+    "text": "Numbers need code\nIf a number appears and no code produced it, it was predicted. Do this instead.\n\n\nPrompt\n\nCompute this in Python. Do not report a number you did not compute with code.\n\nAsked to sum three numbers 83, 16, 104, AI is much better at predicting the code sum([83, 16, 104]) than it is at predicting what should follow 83 + 16 + 104 ="
+  },
+  {
+    "objectID": "slides/week1.html#hallucinations",
+    "href": "slides/week1.html#hallucinations",
+    "title": "Generative AI for Finance",
+    "section": "Hallucinations",
+    "text": "Hallucinations\n\nAI predicts text. It does not check what it produces against a source.\n\nHallucinations are most likely when it is asked to recall something specific that is not in front of it:\n\nCitations, quotes, and URLs\nNumbers about a particular company, year, or dataset\nOptions and arguments of niche or recent software\n\n\nVerify the facts\nAsk for a source and look it up."
+  },
+  {
+    "objectID": "slides/week1.html#hallucinations-in-code",
+    "href": "slides/week1.html#hallucinations-in-code",
+    "title": "Generative AI for Finance",
+    "section": "Hallucinations in code",
+    "text": "Hallucinations in code\n\n\nCaught by running it\nA made-up function or argument raises an error as soon as the code runs. The agent reads the traceback and fixes it.\n\n\nNot caught by running it\nThe wrong column, a join that drops rows, a filter on the wrong year. The code runs and returns a number.\n\n\n\nThe second kind is a misunderstanding or an unstated assumption, not a hallucination. Discussing the plan beforehand and the decisions afterwards is what surfaces it."
+  },
+  {
+    "objectID": "slides/week1.html#chatbots-and-agents",
+    "href": "slides/week1.html#chatbots-and-agents",
+    "title": "Generative AI for Finance",
+    "section": "Chatbots and agents",
+    "text": "Chatbots and agents"
+  },
+  {
+    "objectID": "slides/week1.html#chatbots-and-agents-1",
+    "href": "slides/week1.html#chatbots-and-agents-1",
+    "title": "Generative AI for Finance",
+    "section": "Chatbots and agents",
+    "text": "Chatbots and agents\n\n\nChatbots\n\nSystem prompt with base instructions\nMaintain conversation history\nLLMs are stateless — no memory of prior prompts & responses\n\n\n\nAI Agents\n\nChatbots with tools\nThe LLM writes instructions to use tools\nExamples: retrieve data, execute code, generate charts, Excel workbooks, Word docs, PowerPoint decks, images, videos"
+  },
+  {
+    "objectID": "slides/week1.html#anatomy-of-a-chatbot",
+    "href": "slides/week1.html#anatomy-of-a-chatbot",
+    "title": "Generative AI for Finance",
+    "section": "Anatomy of a chatbot",
+    "text": "Anatomy of a chatbot\n\n  \n    \n      \n    \n    \n      \n    \n  \n\n  \n  \n  \n\n  \n  \n  User\n  \n  LLM\n\n  \n  \n  \n  messages[]\n  system + user₁ + assistant₁ + user₂ + …\n  grows each turn\n\n  \n    User types prompt\n    Append to messages[]\n    Send system prompt\n    LLM returns response\n    Append response\n    Display to user\n  \n  + full history to LLM\n\n  \n    1\n    2\n    3\n    4\n    5\n    6"
+  },
+  {
+    "objectID": "slides/week1.html#anthropics-system-prompts",
+    "href": "slides/week1.html#anthropics-system-prompts",
+    "title": "Generative AI for Finance",
+    "section": "Anthropic’s system prompts",
+    "text": "Anthropic’s system prompts\nAnthropic publishes the system prompts for its models: https://docs.claude.com/en/release-notes/system-prompts"
+  },
+  {
+    "objectID": "slides/week1.html#anatomy-of-an-agent",
+    "href": "slides/week1.html#anatomy-of-an-agent",
+    "title": "Generative AI for Finance",
+    "section": "Anatomy of an agent",
+    "text": "Anatomy of an agent\n\n  \n    \n      \n    \n    \n      \n    \n    \n      \n    \n  \n\n  \n  \n\n  \n  User\n  \n  LLM\n\n  \n  \n  messages[]\n  system + tools + user + assistant + tool_result + …\n  grows each turn; includes tool calls and results\n\n  \n    User types prompt\n    Send system prompt\n    LLM returns\n    If tool call → execute tool\n    If final answer → display to user\n  \n  \n    + tool definitions + history\n    text OR tool call\n    send result back, loop to step 2\n  \n\n  \n    1\n    2\n    3\n    4\n    5\n  \n\n  \n  \n  tool call\n\n  \n  Tools (defined as JSON, executed by the harness)\n  \n    run_sql\n    list_tables\n    describe_table\n    run_python"
+  },
+  {
+    "objectID": "slides/week1.html#the-tools-of-claude-code",
+    "href": "slides/week1.html#the-tools-of-claude-code",
+    "title": "Generative AI for Finance",
+    "section": "The tools of Claude Code",
+    "text": "The tools of Claude Code\n\n\n\n\n\n\n\n\nTool\nWhat it does\n\n\n\n\nRead, Write, Edit\nOpen and change files — documents, spreadsheets, code\n\n\nBash\nRun commands and programs on the machine\n\n\nGlob, Grep\nFind files, and search inside them\n\n\nWebSearch, WebFetch\nRun a search, then download and read a page\n\n\nTask\nStart a subagent with its own instructions\n\n\nMCP connectors\nCall an outside service: a database, an API"
+  },
+  {
+    "objectID": "slides/week1.html#claude-and-excel",
+    "href": "slides/week1.html#claude-and-excel",
+    "title": "Generative AI for Finance",
+    "section": "Claude and Excel",
+    "text": "Claude and Excel"
+  },
+  {
+    "objectID": "slides/week1.html#how-claude-builds-a-workbook",
+    "href": "slides/week1.html#how-claude-builds-a-workbook",
+    "title": "Generative AI for Finance",
+    "section": "How Claude builds a workbook",
+    "text": "How Claude builds a workbook\n\n\nCreating a workbook\nClaude writes Python — the openpyxl library — that loops over every cell and inserts data, formulas, and formatting.\n\n\nEditing a workbook\nTo edit a workbook, Claude reads the XML and edits it. An .xlsx unzips into one XML file per worksheet, with the text in sharedStrings.xml and the formatting in styles.xml; each cell is an element holding a value or a formula. Claude rewrites those elements and repacks the file, so charts, pivot tables, and formatting it did not touch are unchanged.\n\n\n\nThe formulas are live. A workbook Claude builds opens in Excel as a model you can change."
+  },
+  {
+    "objectID": "slides/week1.html#the-claude-plugin-for-excel",
+    "href": "slides/week1.html#the-claude-plugin-for-excel",
+    "title": "Generative AI for Finance",
+    "section": "The Claude plugin for Excel",
+    "text": "The Claude plugin for Excel\nA chat panel inside Excel itself — no folder, no Python, no terminal. It works on the sheet that is already open.\n\nInstalling\n\nIn Excel, add it from Home → Add-ins\nIf your organization blocks the Office Store, IT deploys it instead through the Microsoft 365 Admin Center\nSign in to your Claude account when prompted"
+  },
+  {
+    "objectID": "slides/week1.html#example",
+    "href": "slides/week1.html#example",
+    "title": "Generative AI for Finance",
+    "section": "Example",
+    "text": "Example"
+  },
+  {
+    "objectID": "slides/week1.html#demo-a-valuation-workbook",
+    "href": "slides/week1.html#demo-a-valuation-workbook",
+    "title": "Generative AI for Finance",
+    "section": "Demo: a valuation workbook",
+    "text": "Demo: a valuation workbook\n\n\nPrompt\n\nBuild an Excel workbook that values a company by discounted cash flow. Put the assumptions on their own sheet, drive every cash flow off them with live formulas, and add a sensitivity table over the discount rate and the terminal growth rate.\n\n\nChange an assumption afterwards. If the valuation does not move, the number was typed in rather than computed."
+  },
+  {
+    "objectID": "slides/week1.html#case-valuing-walmart-2010",
+    "href": "slides/week1.html#case-valuing-walmart-2010",
+    "title": "Generative AI for Finance",
+    "section": "Case: Valuing Walmart 2010",
+    "text": "Case: Valuing Walmart 2010\nHarvard Business Publishing, W11058\n\n\nWork the valuation with Claude and Excel rather than by hand.\nAsk it to explain every assumption it made that you did not give it.\nStart a fresh conversation and ask a second Claude to critique the first one’s valuation.\n\n\n\nStep 3 is the plan-evaluate-critique pattern from earlier in the session."
+  },
+  {
+    "objectID": "slides/week1.html#corporate-implementations-of-ai",
+    "href": "slides/week1.html#corporate-implementations-of-ai",
+    "title": "Generative AI for Finance",
+    "section": "Corporate implementations of AI",
+    "text": "Corporate implementations of AI"
+  },
+  {
+    "objectID": "slides/week1.html#case-implementing-ai-at-deloitte",
+    "href": "slides/week1.html#case-implementing-ai-at-deloitte",
+    "title": "Generative AI for Finance",
+    "section": "Case: Implementing AI at Deloitte",
+    "text": "Case: Implementing AI at Deloitte\nHarvard Business Publishing, HEC382\nOther reading\n\nCNBC on JPMorgan Chase’s LLM Suite\nState of AI in Business 2025\nGenerative AI Reshaping Teamwork and Expertise"
+  },
+  {
+    "objectID": "slides/week1.html#discussion",
+    "href": "slides/week1.html#discussion",
+    "title": "Generative AI for Finance",
+    "section": "Discussion",
+    "text": "Discussion\n\n\nWhat is your experience with AI?\nWhat do you hope to do with AI?\nWhere is your company at in implementing AI?\n\n\nWhen we come back: what was common among your group members on each topic, and how did you differ?"
+  },
+  {
+    "objectID": "slides/week1.html#upcoming",
+    "href": "slides/week1.html#upcoming",
+    "title": "Generative AI for Finance",
+    "section": "Upcoming",
+    "text": "Upcoming\n\n\nWeek 2: Agents and standing instructions\n\nAgent tools and harnesses\nSandboxed agents\nSystem prompts\nCLAUDE.md, SKILL.md\nPlugins and marketplaces\n\n\n\nThe course ahead\n\nWeek 3: Customizing AI\nWeek 4: AI-enabled software\nWeek 5: Retrieval and fine-tuning\nWeek 6: Local models and privacy"
+  },
+  {
+    "objectID": "slides/week3.html#agenda",
+    "href": "slides/week3.html#agenda",
+    "title": "Generative AI for Finance",
+    "section": "Agenda",
+    "text": "Agenda\n\nCreating custom skills. Sharing as plugins. Outline to come."
+  },
+  {
+    "objectID": "slides/week5.html#agenda",
+    "href": "slides/week5.html#agenda",
+    "title": "Generative AI for Finance",
+    "section": "Agenda",
+    "text": "Agenda\n\nRetrieval-augmented generation. Fine-tuning small models. Outline to come."
+  }
+]

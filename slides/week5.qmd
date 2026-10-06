@@ -1,0 +1,16 @@
+---
+title: "Generative AI for Finance"
+subtitle: "Week 5: Retrieval and Fine-Tuning"
+author: "Kerry Back"
+date: today
+format:
+  revealjs:
+    theme: shoji.scss
+    footer: "MGMT 675: Generative AI for Finance"
+---
+
+## Agenda
+
+::: {.note}
+Retrieval-augmented generation. Fine-tuning small models. Outline to come.
+:::

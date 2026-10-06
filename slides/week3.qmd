@@ -1,0 +1,16 @@
+---
+title: "Generative AI for Finance"
+subtitle: "Week 3: Customizing AI"
+author: "Kerry Back<br>Jones Graduate School of Business<br>Rice University"
+date: today
+format:
+  revealjs:
+    theme: shoji.scss
+    footer: "MGMT 675: Generative AI for Finance"
+---
+
+## Agenda
+
+::: {.note}
+Creating custom skills. Sharing as plugins. Outline to come.
+:::

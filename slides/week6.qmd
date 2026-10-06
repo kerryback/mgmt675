@@ -1,0 +1,775 @@
+---
+title: "Generative AI for Finance"
+subtitle: "Week 6: Local Models and Privacy"
+author: "Kerry Back<br>Jones Graduate School of Business<br>Rice University"
+date: today
+format:
+  revealjs:
+    theme: shoji.scss
+    footer: "MGMT 675: Generative AI for Finance"
+---
+
+## Today's session
+
+::: {.step-flow-5}
+::: {.step-card}
+::: {.step-title}
+Running models locally
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+Security
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+De-identifying tables
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+De-identifying text
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+Exercises
+:::
+:::
+:::
+
+## Running models locally {.divider}
+
+## Where the models come from
+
+::: {.lead}
+Hugging Face is the repository. Three million public models as of August 2026, and the open-weight releases from Alibaba, Google, Meta, DeepSeek, Mistral and OpenAI all land there first.
+:::
+
+::: {.cards .cards-3}
+::: {.card .card-blue}
+[What a listing holds]{.card-title}
+
+A model card, a license, and the weight files. Downloads and likes are on the page, so you can see what other people use.
+:::
+::: {.card .card-sand}
+[Open weights, not open source]{.card-title}
+
+The weights are published; the license is the publisher's own. Qwen is Apache 2.0, Llama and Gemma have custom terms. Read it before commercial use.
+:::
+::: {.card .card-sage}
+[One model, several files]{.card-title}
+
+The same model is posted at full size and in smaller quantized copies. Which one you download is set by what your machine can hold.
+:::
+:::
+
+## What pulls and runs them {.plain-title}
+
+::: {.comparison-table}
+
+| | What it is | What you use it for |
+|---|---|---|
+| Ollama | A CLI and a local API, with its own registry that mirrors Hugging Face | `ollama pull`, then one model in a terminal or behind `localhost` |
+| LM Studio | A desktop app over the same engines | Browsing, downloading and trying models without a terminal |
+| llama.cpp | The C++ engine that runs these models on ordinary hardware | What most of the above is running underneath |
+| MLX | Apple's array framework, with `mlx-lm` for text | The fastest path on Apple silicon |
+| vLLM | A batched inference server | A queue of documents rather than a conversation |
+
+:::
+
+::: {.footnote}
+Ollama will also pull straight from a Hugging Face repository: `ollama run hf.co/user/repo`.
+:::
+
+## Two numbers {.band-bottom}
+
+::: {.lead}
+A model is a few billion numbers. At full size each takes two bytes. Quantizing rounds them to one of sixteen levels, with a scale factor kept for each small block --- a quarter of the space, and a little accuracy. A billion parameters comes to a bit over half a gigabyte.
+:::
+
+::: {.cards .cards-2}
+::: {.card .card-blue}
+[Memory decides whether it loads]{.card-title}
+
+All of it has to be in memory at once, with room left over for the conversation. 30 billion parameters is 17 GB; 671 billion is about 400 GB.
+:::
+::: {.card .card-sand}
+[Bandwidth decides how fast it generates]{.card-title}
+
+Bandwidth is how many gigabytes a second the chip reads from its own memory. Each token --- roughly a word --- costs one full read of the weights in use.
+
+tokens/sec ≤ bandwidth ÷ active bytes
+:::
+:::
+
+## Two machines {.plain-title}
+
+::: {.comparison-table}
+
+| | Mac mini, M5 Pro | Mac Studio, M5 Ultra |
+|---|---|---|
+| Memory | 64 GB unified | 512 GB unified |
+| Bandwidth | 307 GB/s | 1.2 TB/s |
+| Price | about \$2,100 | five figures |
+| Model it holds | Qwen3-30B-A3B | DeepSeek 671B |
+| Weights at 4-bit | 17 GB | about 400 GB |
+| Active per token | 3.3B parameters | 37B parameters |
+| Ceiling | about 160 tokens/sec | about 57 tokens/sec |
+
+:::
+
+::: {.footnote}
+Unified memory is why these hold models a discrete card cannot: the GPU reads system RAM, so the capacity is the machine's memory. An RTX 5090 has six times the Mac mini's bandwidth but only 32 GB of memory.
+:::
+
+## Why a 30B model generates like a 3B one
+
+::: {.lead}
+Both of these are mixture-of-experts models: all the weights sit in memory, and each token reads a fraction of them.
+:::
+
+::: {.steps}
+1. Memory holds the whole model --- 17 GB for Qwen3-30B-A3B, about 400 GB for DeepSeek 671B.
+2. A router picks 8 experts out of 128 for each token.
+3. The read is 3.3B parameters, not 30B, so the ceiling is set by the active share.
+:::
+
+::: {.footnote}
+A ceiling, not a measurement. Real throughput runs 60 to 80 percent of it, and falls as the context fills.
+:::
+
+## Both models, without the hardware {.band-bottom}
+
+::: {.comparison-table}
+
+| Model | What it is | Where it would run |
+|---|---|---|
+| Qwen3-30B-A3B | 30B open weights, 3.3B active | the Mac mini |
+| DeepSeek flagship | 671B open weights, 37B active | the Mac Studio |
+| Claude Opus | closed frontier weights | the provider's datacenter |
+
+:::
+
+::: {.note .note-plum}
+OpenRouter is a broker: your prompt goes to it, and from it to whichever provider serves the model, so both hold a copy.
+:::
+
+## Two tasks, three models
+
+::: {.prompt-box}
+::: {.box-title}
+Tell Claude
+:::
+Get a key at openrouter.ai. Send each of these to all three models. Print every answer with its cost and tokens per second.
+:::
+
+::: {.cards .cards-2}
+::: {.card .card-blue}
+[The code]{.card-title}
+
+Write a Python function that redacts US phone numbers, Social Security numbers and email addresses from a string, one regex per type, and returns the redacted text with a count of each.
+:::
+::: {.card .card-sand}
+[The memo]{.card-title}
+
+Write 150 words to the audit committee: why client records are not going to a hosted model, and what the business gives up by that decision. The reader is a director with no technical background.
+:::
+:::
+
+::: {.footnote}
+Compare the functions on whether they run and what they miss, and the memos on what you would send.
+:::
+
+## Run one on your laptop {.plain-title}
+
+::: {.prompt-box}
+::: {.box-title}
+Tell Claude
+:::
+Install ollama. Run gemma4:e2b-it-qat.
+:::
+
+::: {.note}
+4.3 GB comes down once. After that the model loads from your disk, and neither the prompt nor the answer touches a network.
+:::
+
+::: {.footnote}
+The exercise at the end of the session puts the same question to this model, to a frontier model, and to `gemma3:1b` from the previous generation.
+:::
+
+## Security {.divider}
+
+## Three risks {.band-bottom}
+
+1. Sending data to an LLM → risks of [training on your data]{.accent} and [data breach]{.accent}
+2. Letting an agent read unverified sources → risk of [prompt injection]{.accent}
+3. If the agent can also reach data → risk of [data exfiltration]{.accent}
+
+## Where a prompt goes
+
+Every call leaves copies. Your agreement with the provider sets how long each one is kept.
+
+::: {.cards .cards-4}
+::: {.card .card-blue}
+[Your app]{.card-title}
+
+The conversation history your own code keeps so the next turn has context.
+:::
+::: {.card .card-sand}
+[Your gateway log]{.card-title}
+
+Who asked, which model, how many tokens --- and, if you log bodies, the prompt itself.
+:::
+::: {.card .card-plum}
+[The provider]{.card-title}
+
+Held for a period set by your agreement, and separately for abuse monitoring.
+:::
+::: {.card .card-light}
+[Subprocessors]{.card-title}
+
+The hosting and infrastructure vendors listed in the provider's data processing agreement.
+:::
+:::
+
+## The answer to the first risk {.shrink .plain-title}
+
+For almost every business use, the answer is to sign a contract and send the data. A no-train, zero-retention Data Processing Agreement --- plus a BAA for PHI --- comes with the standard commercial API account.
+
+::: {.comparison-table}
+
+| Step | What it adds | Enough for |
+|---|---|---|
+| Opt out of training *(a setting; API default)* | The provider will not train on it. A setting in the terms of service, revocable, and the data is still retained briefly | Personal, non-sensitive work |
+| + Signed DPA (+ BAA for PHI) | A contract: liability, breach notice, audit, subprocessor list | Client data, regulated data, PHI |
+| + Enterprise agreement | SLAs, support, indemnification, capacity, SSO | Scale and operations, not stronger privacy |
+
+:::
+
+::: {.footnote}
+[Anthropic's Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum).
+:::
+
+## Run the model in your own cloud {.shrink}
+
+If your data is already in AWS, Azure, or Google Cloud, run the model on that same cloud.
+
+::: {.comparison-table}
+
+| | AWS | Google Cloud | Azure |
+|---|---|---|---|
+| Claude | Bedrock | Vertex AI | Azure AI Foundry |
+| GPT | Bedrock | | Azure AI Foundry |
+| Gemini | | Native | |
+
+:::
+
+::: {.footnote}
+The model runs inside your cloud, so the data stays in that perimeter and the model provider is not a separate party to it. It is covered by the cloud DPA and BAA you already signed, and by the cloud's attestations --- FedRAMP, SOC 2, ISO 27001.
+:::
+
+## HIPAA and SEC {.band-bottom}
+
+::: {.cards .cards-2}
+::: {.card .card-blue}
+[HIPAA --- a BAA is required]{.card-title}
+
+Satisfactory assurances "must be documented through a written contract … that meets the applicable requirements of § 164.504(e)."
+
+[45 CFR 164.502(e)](https://www.law.cornell.edu/cfr/text/45/164.502)
+:::
+::: {.card .card-sand}
+[SEC Reg S-P --- oversee the vendor]{.card-title}
+
+Written policies "reasonably designed to require oversight, including through due diligence and monitoring, of service providers."
+
+[17 CFR 248.30](https://www.law.cornell.edu/cfr/text/17/248.30)
+:::
+:::
+
+## Beyond the contract
+
+The DPA is a contractual guarantee, backed by liability. It is not a physical one: the data still travels to the provider. For more sensitive data, add a physical layer.
+
+::: {.steps}
+1. Send less --- the schema, and a few synthetic rows.
+2. De-identify --- take the names out before the data reaches the context.
+3. Run a local model --- the data never leaves your environment.
+:::
+
+::: {.footnote}
+Steps 2 and 3 are the rest of this session.
+:::
+
+## What are prompt injections? {.compare .plain-title}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[The mechanism]{.eyebrow}
+
+- Hidden instructions embedded in data --- emails, documents, web pages
+- The LLM reads the hidden text and follows the attacker's instructions instead of the user's
+- It cannot distinguish instructions from content; it is all text
+:::
+
+::: {.column width="50%"}
+[The exposure]{.eyebrow}
+
+- Any agent that reads untrusted content and has access to private data or tools
+- The attacker needs no credentials --- only a way to get text in front of the LLM
+- OWASP ranks prompt injection as the #1 risk for LLM applications (2025)
+:::
+
+::::
+
+## Why agents are more exposed {.band-bottom}
+
+::: {.lead}
+A tool result re-enters the context as text, in the same stream as your question.
+:::
+
+::: {.cards .cards-3}
+::: {.card .card-blue}
+[What you typed]{.card-title}
+
+"Summarize the overdue invoices."
+:::
+::: {.card .card-sand}
+[What a tool returned]{.card-title}
+
+A row, a web page, an email body --- whatever was in the source, verbatim.
+:::
+::: {.card .card-plum}
+[What the model sees]{.card-title}
+
+One sequence of tokens. There is no field marking which part you wrote.
+:::
+:::
+
+## EchoLeak: Zero-click data theft from Microsoft 365 Copilot {.shrink .plain-title}
+
+::: {.info-box}
+::: {.box-title}
+CVE-2025-32711 --- June 2025
+:::
+
+::: {.steps}
+1. The attacker sends the victim an email containing hidden instructions, invisible to a human reader.
+2. The victim asks Copilot to summarize their email. Copilot reads the hidden instructions.
+3. Following them, Copilot embeds confidential data in a URL in its response.
+4. The victim's browser requests that URL, sending the data to the attacker's server.
+5. The attacker reads the data out of the URL. Zero clicks, and nothing visible to the victim.
+:::
+:::
+
+::: {.footnote}
+Copilot reads untrusted content, has access to private data, and can render URLs. All three in one LLM.
+:::
+
+## Three legs for data exfiltration
+
+::: {.highlight-box}
+All three of these must be present for prompt injections to cause data exfiltration.
+:::
+
+::: {.cards .cards-3}
+::: {.card .card-blue}
+[1. Private data]{.card-title}
+
+Secrets worth stealing --- client records, financials, your inbox
+:::
+::: {.card .card-sand}
+[2. Untrusted content]{.card-title}
+
+Attacker-controllable text --- web pages, emails, uploaded files
+:::
+::: {.card .card-plum}
+[3. An outbound channel]{.card-title}
+
+A way to send data out --- web fetch, send email, write to a shared place
+:::
+:::
+
+## What follows from this {.band-bottom}
+
+::: {.cards .cards-2}
+::: {.card .card-blue}
+[The leg you control]{.card-title}
+
+You cannot stop a model from reading instructions in its input, and you cannot always choose what a tool returns.
+
+You decide how much of your data is in the context.
+:::
+::: {.card .card-sand}
+[The other two]{.card-title}
+
+Untrusted content and the outbound channel are closed with containers and egress rules, when we build agents.
+
+A local model does not close them: the machine still has a network.
+:::
+:::
+
+## De-identifying tables {.divider}
+
+## Four kinds of field {.shrink .plain-title}
+
+::: {.comparison-table}
+
+| Kind | Examples | What you do with it |
+|---|---|---|
+| Direct identifiers | Name, SSN, account number, email, phone | Suppress. Each one names a person on its own |
+| Quasi-identifiers | ZIP, birth date, sex, job title, dates of service | Generalize. Identifying in combination, not alone |
+| Sensitive attributes | Diagnosis, salary, balance, the text of a complaint | Keep. What you are protecting, and usually what the model needs |
+| Everything else | Product code, region, quantity | Keep. Carries nobody's identity |
+
+:::
+
+## The HIPAA safe harbor {.shrink .plain-title}
+
+Eighteen identifiers come out, in nine groups. Remove all of them, and have no actual knowledge that what remains could identify someone, and the data is no longer PHI --- no business associate agreement required.
+
+::: {.comparison-table}
+
+| Group | What comes out |
+|---|---|
+| Names | The individual's, and those of relatives, employers, and household members |
+| Geography | Everything below the state, except the first three ZIP digits where that area holds more than 20,000 people |
+| Dates | Every element but the year. Ages above 89 become "90 or older" |
+| Contact | Telephone, fax, email |
+| Numbers | SSN, medical record, health plan, account, certificate, license |
+| Device and vehicle | Serial numbers, VINs, license plates |
+| Online | URLs, IP addresses |
+| Biometric and images | Finger and voice prints, full-face photographs |
+| Catch-all | Any other unique identifying number, characteristic, or code |
+
+:::
+
+## Two HIPAA routes, and two GDPR terms {.compare}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[HIPAA]{.eyebrow}
+
+- Safe harbor --- remove the eighteen. Mechanical and auditable, and it discards data you may need
+- Expert determination --- a qualified statistician certifies that the risk of re-identification is very small, and documents the method. Keeps more of the data
+:::
+
+::: {.column width="50%"}
+[GDPR]{.eyebrow}
+
+- Anonymized data falls outside the Regulation
+- Pseudonymized data is still personal data and still in scope. Replacing a name with a token does not make the data anonymous, because you hold the mapping
+:::
+
+::::
+
+::: {.footnote}
+45 CFR 164.514(b)(1) and (b)(2); GDPR Article 4(5) and Recital 26.
+:::
+
+## The techniques {.shrink .plain-title}
+
+::: {.comparison-table}
+
+| | What it does | What survives |
+|---|---|---|
+| Suppress | Drop the field | Nothing of it |
+| Mask | Keep the shape, drop the content: XXX-XX-4312 | The format |
+| Pseudonymize | One stable surrogate key per person | Joins, and counts per person |
+| Generalize | 34 → 30–39; 77005 → 770; a date → its month | The distribution, at lower resolution |
+| Perturb | Add noise to amounts and dates | Totals and trends, not single rows |
+| Aggregate | Group totals, with a minimum cell size | Comparisons between groups |
+| Synthesize | Rows with the same schema and distributions | The distributions, no real person's data |
+| Schema only | Column names and types, no rows | Enough to write a query |
+
+:::
+
+## No model is involved {.plain-title}
+
+Every row in that table is arithmetic or a lookup. It runs on your machine, in code you can read.
+
+```
+df["customer_id"] = df["customer"].map(surrogate)   # from your own table
+df["zip3"]        = df["zip"].str[:3]
+df["month"]       = df["order_date"].dt.to_period("M")
+df = df.drop(columns=["customer", "email", "phone", "zip", "order_date"])
+
+df.groupby(["zip3", "month"]).size().min()          # the smallest group
+```
+
+::: {.footnote}
+`pandas` for the transforms, Faker for synthetic values, and ARX or sdcMicro when you need a certified k-anonymity report.
+:::
+
+## Three properties of doing it in code {.band-bottom}
+
+::: {.steps}
+1. Deterministic --- the same row always produces the same output, so you can write a test for it.
+2. Auditable --- the rule for each column is a line of code you can show a regulator.
+3. Local --- nothing is sent anywhere to decide what to remove, and the removal happens before anything leaves.
+:::
+
+## Re-identification
+
+::: {.cards .cards-2}
+::: {.card .card-blue}
+[Massachusetts, 1997]{.card-title}
+
+The state released hospital discharge records for state employees with names and addresses removed. Latanya Sweeney bought the Cambridge voter roll for $20, matched on ZIP, birth date and sex, and found the governor's records.
+:::
+::: {.card .card-sand}
+[Netflix, 2008]{.card-title}
+
+Netflix released 100 million ratings from 480,000 subscribers, user IDs replaced by numbers. Narayanan and Shmatikov matched them against public IMDb reviews and named individual subscribers.
+:::
+:::
+
+::: {.footnote}
+ZIP, birth date and sex identify 87 percent of the US population uniquely (Sweeney, 2000). The direct identifiers were gone in both of these cases.
+:::
+
+## A test you can run {.band-bottom}
+
+::: {.lead}
+Group the rows by the quasi-identifiers you are about to send. Count each group.
+:::
+
+::: {.highlight-box}
+- k-anonymity --- no group smaller than k, so every record looks like at least k−1 others. Where a group is too small, generalize further or drop it
+- l-diversity --- within a group, the sensitive attribute has to vary. If five records match on ZIP and month and all carry the same diagnosis, the diagnosis is known for all five
+:::
+
+## Pseudonymize out, re-identify in
+
+::: {.step-flow-3}
+::: {.step-card}
+::: {.step-title}
+Your code
+:::
+::: {.step-desc}
+Replaces each person with a surrogate key. The mapping table stays in your database.
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+The model
+:::
+::: {.step-desc}
+Sees CUSTOMER_0417 and the figures. Reasons over them, writes, returns.
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+Your code again
+:::
+::: {.step-desc}
+Reads the mapping back and puts the names in before anyone sees the output.
+:::
+:::
+:::
+
+::: {.footnote}
+The model never holds the mapping, so nothing it emits --- including anything an injected instruction makes it emit --- carries a name.
+:::
+
+## Where it has to happen {.band-bottom}
+
+::: {.cards .cards-3}
+::: {.card .card-blue}
+[In code, before the call]{.card-title}
+
+A system prompt telling the model to ignore the names does nothing about the names you sent.
+:::
+::: {.card .card-sand}
+[Before your own log]{.card-title}
+
+The gateway logs prompts and completions. That log is a second copy of whatever you sent.
+:::
+::: {.card .card-plum}
+[Not by the model doing the work]{.card-title}
+
+A model asked to redact a document has already read it.
+:::
+:::
+
+## De-identifying text {.divider}
+
+## A table and a notes field {.compare .band-bottom}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[A table]{.eyebrow}
+
+The identifiers are in named columns. You decide once per column, and the decision holds for every row.
+:::
+
+::: {.column width="50%"}
+[Free text]{.eyebrow}
+
+A notes field, an email body, a scanned PDF. The name is in the middle of a sentence, and so are the place, the quantity and the date.
+:::
+
+::::
+
+## Why this job needs the local model
+
+::: {.cards .cards-2}
+::: {.card .card-blue}
+[The reason]{.card-title}
+
+A scrubber has to read the raw text. Sending it to a hosted model to decide what to remove sends the unscrubbed text.
+
+The weights sit on your disk, so the unscrubbed document stays on your machine.
+:::
+::: {.card .card-sand}
+[The size]{.card-title}
+
+Span tagging: find the name, return a label. The open models used for this run 4B to 12B parameters, under 7 GB on disk at 4-bit.
+
+Choose by the recall you measure on your own sample.
+:::
+:::
+
+## Three tools, in order {.shrink .band-bottom}
+
+::: {.step-flow-3}
+::: {.step-card}
+::: {.step-title}
+Regex
+:::
+::: {.step-desc}
+SSNs, account numbers, phone numbers, emails --- anything with a format you can write down. Exact and free, and it finds every string matching the pattern you wrote.
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+A named-entity scrubber
+:::
+::: {.step-desc}
+Microsoft Presidio, spaCy. A purpose-built NER model, not a general LLM: it tags people, places, organizations and dates, and hands back spans to replace.
+:::
+:::
+
+::: {.step-card}
+::: {.step-title}
+A local LLM
+:::
+::: {.step-desc}
+The last pass, over what the first two left. It reads the sentence, so it catches the identifier that is identifying only in context.
+:::
+:::
+:::
+
+::: {.footnote}
+The first two passes are deterministic and testable, so they run before the LLM.
+:::
+
+## Why the LLM goes last
+
+::: {.cards .cards-3}
+::: {.card .card-plum}
+[It is not deterministic]{.card-title}
+
+The same paragraph twice can come back scrubbed two different ways. You cannot write a test that keeps passing.
+:::
+::: {.card .card-sand}
+[It has no recall guarantee]{.card-title}
+
+Regex finds every string matching the pattern. An LLM finds most of them, and you do not know which it missed.
+:::
+::: {.card .card-blue}
+[It can invent]{.card-title}
+
+Asked to replace a name, it may also rewrite the clause around it. Check that the rest of the text is unchanged.
+:::
+:::
+
+## Measuring the scrubber {.plain-title}
+
+No scrubber catches everything, so measure how much it misses.
+
+::: {.steps}
+1. Take a sample of documents and mark the identifiers by hand.
+2. Run the pipeline over the same sample.
+3. Count what it missed and what it removed that it should have kept.
+4. Write both numbers down, with the date and the model, next to the decision to accept them.
+:::
+
+::: {.footnote}
+Recall is the number an auditor asks for.
+:::
+
+## What de-identification does not do {.band-bottom}
+
+::: {.cards .cards-3}
+::: {.card .card-plum}
+[It does not replace the contract]{.card-title}
+
+Your DPA and your vendor-oversight obligations apply to any vendor you use, whatever you send them.
+:::
+::: {.card .card-sand}
+[It does not cover the agent's tools]{.card-title}
+
+If a tool reaches the raw table, what you scrubbed out of the prompt is back in the context.
+:::
+::: {.card .card-blue}
+[It is not free]{.card-title}
+
+A generalized ZIP cannot be geocoded; a perturbed amount cannot be reconciled. Decide what the answer needs first.
+:::
+:::
+
+## Exercises {.divider}
+
+## De-identify a table {.plain-title}
+
+Take a table with customers in it --- a brokerage account table with names, addresses and balances will do. Ask Claude to generate one if you do not have one.
+
+::: {.prompt-box}
+::: {.box-title}
+Tell Claude
+:::
+Write a function `deidentify(df)` for this table. Suppress the direct identifiers. Replace the customer with a stable surrogate key, and keep the mapping table in a separate file. Generalize the postal code to three characters and the order date to its month. Then report the size of the smallest group under postal code + month.
+:::
+
+Run it, read what is left, and ask whether you could still pick someone out of it.
+
+## A local chatbot {.band-bottom}
+
+::: {.steps}
+1. Install Ollama: [ollama.com/download](https://ollama.com/download).
+2. In a terminal, type `ollama run gemma4:e2b-it-qat`. The download is 4.3 GB.
+3. Ask it something you asked a frontier model. Compare the two answers.
+4. Type `/bye` to leave. Then run `ollama run gemma3:1b`, an 815 MB download from the previous generation, and ask the same question again.
+:::
+
+::: {.footnote}
+Nothing you type leaves your machine. In a second terminal window, `ollama ps` shows what is loaded and how much memory it holds.
+:::
+
+## Scrub text with the local model
+
+Write four or five customer complaints with names, places and dates in them.
+
+::: {.steps}
+1. Run a regex pass for the formats you can specify, and see what is left.
+2. Send the remainder to the local model from the last exercise, asking it to replace each person with a label and each place with its region.
+3. Run the same text through twice. Compare the two outputs.
+4. Count what it missed.
+:::
+
+::: {.footnote}
+Step 3 shows whether the model is deterministic; step 4 is its recall.
+:::

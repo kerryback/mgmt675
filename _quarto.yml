@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - slides/week1.qmd
+    - slides/week2.qmd
+    - slides/week3.qmd
+    - slides/week4.qmd
+    - slides/week5.qmd
+    - slides/week6.qmd
+  resources:
+    - CNAME
+    - index.html
+    - .nojekyll
+    - pdfs/*.pdf
+    - files/*.xlsx
+    - files/*.csv
+    - files/*.zip
+    - files/*.ipynb
+    - files/*.py
+    - files/*.md
+
+website:
+  title: ""
+  search: false
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: superhero
+    link-external-newwindow: true

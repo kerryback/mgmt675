@@ -1,0 +1,30 @@
+# Applies to every deck in slides/, so they render as reveal.js as part of the
+# website build (the root _quarto.yml renders slides/week*.qmd into docs/slides/).
+#
+# width/height/margin/max-scale are the canvas shoji is designed against:
+# 1280x720 with no reveal margin. All four are load bearing -- the theme's frame
+# is specified in canvas pixels, reveal's default 10% margin puts every seam on a
+# fractional device pixel, and reveal's default 2x scale cap stops the deck
+# growing on a large display.
+#
+# `theme` is deliberately NOT set here. Quarto appends a document's theme list to
+# the one it inherits rather than replacing it, so a deck on a different theme
+# would get both stylesheets. Each deck names shoji.scss in its own front matter.
+date-format: "ddd MMM D, YYYY"
+
+format:
+  revealjs:
+    width: 1280
+    height: 720
+    margin: 0
+    max-scale: 5
+    slide-number: c/t
+    transition: fade
+    navigation-mode: linear
+    highlight-style: github
+    html-math-method: mathjax
+    # Reveal's auto-stretch wraps a lone image in a sizing container and shrinks
+    # it to the height left over after the heading and any note, which overrides
+    # the width set on the image. The theme's own `max-height: 470px` on img is
+    # the guard we want instead.
+    auto-stretch: false
