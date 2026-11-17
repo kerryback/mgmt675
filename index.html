@@ -52,6 +52,7 @@ body { font-family: var(--sans); color: var(--ink); background: var(--bg);
 .chip { flex: 0 0 112px; background: var(--navy); color: var(--chip-ink);
   font-size: 15px; font-weight: 700; letter-spacing: 1px; text-align: center;
   padding: 7px 0; border-radius: 6px; }
+.item-title { font-size: 18px; font-weight: 600; color: var(--navy); line-height: 1.3; margin-top: 2px; }
 .item-desc { font-size: 17px; color: var(--gray); line-height: 1.4; margin-top: 3px; }
 
 .sheet-foot { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line);
@@ -79,22 +80,24 @@ body { font-family: var(--sans); color: var(--ink); background: var(--bg);
 
     <p class="lead">
       This course is about working with agentic AI on your own tasks and putting it to work inside an
-      organization. It opens with the working parts of an agent &mdash; MCP connectors, system prompts, skills,
-      plugins, and prompting. It then looks at what a large language model actually does: why it is good at
-      writing code, why it fails at judgment, how prompt injections work, what a sandbox does and does not
-      contain, and how to run a model on your own hardware. The later weeks build: skills and vibe-coded
-      software that automate workflows, personal assistants, and custom agents. The course ends with group
-      presentations.
+      organization. It opens with the working parts of an agent &mdash; sandboxing, MCP connectors, system prompts,
+      skills, and plugins. It then looks at how a large language model works: why it is good at
+      writing code and fails at judgment, how to prompt it well, and how to verify what it produces. Week 3 turns to
+      what AI produces: Office documents, HTML and Markdown, and vibe-coded software that automates workflows.
+      Week 4 customizes AI: skills that tailor generic agents, custom agents, and the security issues they
+      raise. Week 5 applies all of this: personal assistants, data retrieval and analysis, deploying software,
+      and sharing plugins in a marketplace. Week 6 covers additional topics: open-weight models, running models
+      locally, retrieval-augmented generation, and adding voice to your agent.
     </p>
 
     <div class="rule"></div>
 
-    <div class="item"><div class="chip">WEEK 1</div><div><div class="item-desc">Agents &nbsp;&middot;&nbsp; MCP connectors &nbsp;&middot;&nbsp; system prompts &nbsp;&middot;&nbsp; skills &nbsp;&middot;&nbsp; plugins &nbsp;&middot;&nbsp; prompting</div></div></div>
-    <div class="item"><div class="chip">WEEK 2</div><div><div class="item-desc">How LLMs work &nbsp;&middot;&nbsp; why they are good at coding &nbsp;&middot;&nbsp; why they fail at judgment &nbsp;&middot;&nbsp; prompt injections &nbsp;&middot;&nbsp; sandboxing &nbsp;&middot;&nbsp; running models locally</div></div></div>
-    <div class="item"><div class="chip">WEEK 3</div><div><div class="item-desc">Creating skills &nbsp;&middot;&nbsp; vibe coding software to automate workflows</div></div></div>
-    <div class="item"><div class="chip">WEEK 4</div><div><div class="item-desc">Creating personal assistants</div></div></div>
-    <div class="item"><div class="chip">WEEK 5</div><div><div class="item-desc">Creating custom agents</div></div></div>
-    <div class="item"><div class="chip">WEEK 6</div><div><div class="item-desc">Group presentations</div></div></div>
+    <div class="item"><div class="chip">WEEK 1</div><div><div class="item-title">AI fundamentals</div><div class="item-desc">Agents &nbsp;&middot;&nbsp; sandboxing &nbsp;&middot;&nbsp; MCP connectors &nbsp;&middot;&nbsp; system prompts &nbsp;&middot;&nbsp; skills &nbsp;&middot;&nbsp; plugins</div></div></div>
+    <div class="item"><div class="chip">WEEK 2</div><div><div class="item-title">AI reliability</div><div class="item-desc">How LLMs work &nbsp;&middot;&nbsp; why they are good at coding and fail at judgment &nbsp;&middot;&nbsp; effective prompting &nbsp;&middot;&nbsp; verifying AI output</div></div></div>
+    <div class="item"><div class="chip">WEEK 3</div><div><div class="item-title">AI outputs</div><div class="item-desc">Office docs &nbsp;&middot;&nbsp; HTML and Markdown &nbsp;&middot;&nbsp; vibe coding software to automate workflows</div></div></div>
+    <div class="item"><div class="chip">WEEK 4</div><div><div class="item-title">Customizing AI</div><div class="item-desc">AI skills to customize generic agents &nbsp;&middot;&nbsp; creating custom agents &nbsp;&middot;&nbsp; AI security issues</div></div></div>
+    <div class="item"><div class="chip">WEEK 5</div><div><div class="item-title">Applications and sharing</div><div class="item-desc">Personal assistants &nbsp;&middot;&nbsp; data retrieval and analysis &nbsp;&middot;&nbsp; deploying software &nbsp;&middot;&nbsp; sharing plugins in a marketplace</div></div></div>
+    <div class="item"><div class="chip">WEEK 6</div><div><div class="item-title">Additional topics</div><div class="item-desc">Open-weight models &nbsp;&middot;&nbsp; running models locally &nbsp;&middot;&nbsp; retrieval-augmented generation &nbsp;&middot;&nbsp; adding voice to your agent</div></div></div>
 
     <div class="sheet-foot">
       <span class="note">MGMT 675 &nbsp;&middot;&nbsp; Jones Graduate School of Business, Rice University</span>
